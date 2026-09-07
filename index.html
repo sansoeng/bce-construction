@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battambang Construction & Engineering (BCE) - Ready-Mix Concrete & Civil Construction</title>
+  <meta name="description" content="Battambang Construction and Engineering Co., Ltd. (BCE) - Over 30 years of excellence in ready-mix concrete supply, reinforced piling, civil construction, and heavy machinery logistics across Cambodia.">
+  <link rel="icon" type="image/png" href="assets/images/bce_emblem.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bce: {
+              blue: '#0C3260',
+              navy: '#071D3A',
+              navyDark: '#041022',
+              gold: '#E5A823',
+              goldHover: '#D49718',
+              goldLight: '#FDF6E2',
+              slate: '#1E293B',
+              gray: '#64748B'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Kantumruy Pro', 'sans-serif'],
+            khmer: ['Kantumruy Pro', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-400 selection:text-slate-900">
+
+  <!-- ================= TOP STATUS BAR ================= -->
+  <div class="bg-bce-navyDark text-slate-300 text-xs py-2 px-4 border-b border-white/10 hidden md:block">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-2">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Ang Village, Sangkat O'Char, Battambang City, Cambodia</span>
+        </span>
+        <span class="flex items-center gap-2">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Mon - Sun: 6:30 AM - 5:30 PM (24/7 Site Pouring)</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="tel:+85512932700" class="hover:text-amber-400 flex items-center gap-1.5 transition">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Hotline: 012 932 700 / 017 222 205</span>
+        </a>
+        <span class="text-slate-600">|</span>
+        <a href="https://t.me/thendLP" target="_blank" class="hover:text-amber-400 flex items-center gap-1 text-amber-300 font-semibold transition">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span>Telegram: @thendLP</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STICKY HEADER & NAVBAR ================= -->
+  <header class="sticky top-0 z-50 glass-nav transition-all duration-300 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Brand -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <img src="assets/images/bce_emblem.png" alt="BCE Logo" class="h-12 w-auto object-contain rounded-lg border border-amber-400/40 p-0.5 bg-white/10 group-hover:scale-105 transition">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl font-black text-white tracking-wider">BCE</span>
+              <span class="px-2 py-0.5 text-[10px] font-extrabold uppercase rounded bg-amber-500 text-slate-950 tracking-wider">SINCE 1995</span>
+            </div>
+            <p class="text-[11px] font-medium text-slate-300 tracking-wide uppercase hidden sm:block">
+              Battambang Construction & Engineering
+            </p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-6 text-xs font-semibold text-slate-200">
+          <a href="#hero" class="hover:text-amber-400 transition" data-i18n="nav_home">Home</a>
+          <a href="#about" class="hover:text-amber-400 transition" data-i18n="nav_about">About Us</a>
+          <a href="#services" class="hover:text-amber-400 transition" data-i18n="nav_services">Core Services</a>
+          <a href="#fleet" class="hover:text-amber-400 transition" data-i18n="nav_fleet">Fleet & Equipment</a>
+          <a href="#coverage" class="hover:text-amber-400 transition" data-i18n="nav_coverage">Coverage</a>
+          <a href="#projects" class="hover:text-amber-400 transition" data-i18n="nav_projects">Projects</a>
+          <a href="#calculator" class="hover:text-amber-400 text-amber-300 font-bold transition flex items-center gap-1">
+            <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+            <span data-i18n="calc_heading">Calculator</span>
+          </a>
+          <a href="#quality-hse" class="hover:text-amber-400 transition" data-i18n="nav_qa">Quality & HSE</a>
+          <a href="#contact" class="hover:text-amber-400 transition" data-i18n="nav_contact">Contact</a>
+        </nav>
+
+        <!-- Right Controls: Language Switcher & Quote CTA -->
+        <div class="flex items-center gap-3">
+          
+          <!-- Bilingual Switcher -->
+          <div class="flex items-center bg-bce-navyDark/80 p-1 rounded-lg border border-white/10">
+            <button id="lang-btn-en" onclick="setLanguage('en')" class="px-3 py-1 text-xs font-bold rounded-md bg-amber-500 text-slate-900 shadow-sm transition">
+              EN
+            </button>
+            <button id="lang-btn-kh" onclick="setLanguage('kh')" class="px-3 py-1 text-xs font-bold rounded-md text-white/80 hover:text-white transition">
+              ខ្មែរ
+            </button>
+          </div>
+
+          <!-- Get Quote Button -->
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 hover:from-amber-400 hover:to-amber-300 shadow-md shadow-amber-500/20 hover:shadow-lg transition transform hover:-translate-y-0.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            <span data-i18n="btn_request_quote">Get a Quote</span>
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-bce-navy border-t border-white/10 px-4 pt-3 pb-6 space-y-2">
+      <a href="#hero" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_home">Home</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_about">About Us</a>
+      <a href="#services" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_services">Core Services</a>
+      <a href="#fleet" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_fleet">Fleet & Equipment</a>
+      <a href="#coverage" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_coverage">Coverage</a>
+      <a href="#projects" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_projects">Projects</a>
+      <a href="#calculator" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-amber-400" data-i18n="calc_heading">Concrete Calculator</a>
+      <a href="#quality-hse" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_qa">Quality & HSE</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-slate-200 hover:text-amber-400" data-i18n="nav_contact">Contact</a>
+      <div class="pt-3 border-t border-white/10 flex gap-2">
+        <a href="https://t.me/thendLP" target="_blank" class="flex-1 py-2 text-center text-xs font-bold rounded-lg bg-blue-600 text-white">
+          Telegram @thendLP
+        </a>
+        <a href="tel:+85512932700" class="flex-1 py-2 text-center text-xs font-bold rounded-lg bg-amber-500 text-slate-900">
+          Call Hotline
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section id="hero" class="relative bg-bce-navy text-white overflow-hidden py-20 lg:py-28">
+    <!-- Background Image with Dark Blue Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img src="assets/images/hero_batching_plant.jpg" alt="BCE Batching Plant" class="w-full h-full object-cover object-center filter brightness-40">
+      <div class="absolute inset-0 bg-gradient-to-r from-bce-navyDark via-bce-navy/90 to-transparent"></div>
+      <div class="absolute inset-0 blueprint-grid opacity-30"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Content -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Experience Badge -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold tracking-wide backdrop-blur-sm">
+            <span class="w-2 h-2 rounded-full bg-amber-400 pulse-badge"></span>
+            <span data-i18n="hero_badge">30+ Years of Engineering Excellence (Since 1995)</span>
+          </div>
+
+          <!-- Hero Headline -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+            <span class="block text-white" data-i18n="hero_title_1">Quality Concrete.</span>
+            <span class="block bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent" data-i18n="hero_title_2">
+              Trusted Construction.
+            </span>
+          </h1>
+
+          <!-- Tagline & Description -->
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl" data-i18n="hero_subtitle">
+            Battambang Construction and Engineering Co., Ltd. (BCE) is Cambodia's premier provider of automated ready-mix concrete, precision reinforced piling, civil construction, and heavy equipment logistics.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-4 pt-4">
+            <a href="#projects" class="px-6 py-3.5 rounded-xl font-extrabold text-xs sm:text-sm bg-amber-500 text-slate-950 hover:bg-amber-400 shadow-xl shadow-amber-500/25 flex items-center gap-2 transition transform hover:-translate-y-0.5">
+              <i data-lucide="building-2" class="w-4 h-4"></i>
+              <span data-i18n="btn_explore_projects">View Our Projects</span>
+            </a>
+            
+            <a href="#calculator" class="px-6 py-3.5 rounded-xl font-extrabold text-xs sm:text-sm bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-md flex items-center gap-2 transition transform hover:-translate-y-0.5">
+              <i data-lucide="calculator" class="w-4 h-4 text-amber-400"></i>
+              <span data-i18n="btn_calculate_concrete">Concrete Calculator</span>
+            </a>
+
+            <a href="https://t.me/thendLP" target="_blank" class="px-5 py-3.5 rounded-xl font-bold text-xs sm:text-sm bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-2 shadow-lg transition">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Telegram @thendLP</span>
+            </a>
+          </div>
+
+          <!-- Quick Bullet Trust Points -->
+          <div class="pt-6 border-t border-white/10 grid grid-cols-3 gap-4 text-xs text-slate-300">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-amber-400 shrink-0"></i>
+              <span>ACI 211.1 Standard</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="truck" class="w-4 h-4 text-amber-400 shrink-0"></i>
+              <span>GPS Fleet Tracking</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="award" class="w-4 h-4 text-amber-400 shrink-0"></i>
+              <span>Ministry Certified</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Quick Stats Grid -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+          
+          <div class="glass-card-dark p-6 rounded-2xl border border-white/15 relative overflow-hidden group hover:border-amber-400/50 transition">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 mb-3">
+              <i data-lucide="calendar" class="w-5 h-5"></i>
+            </div>
+            <div class="text-3xl lg:text-4xl font-black text-amber-400 mb-1" data-i18n="stat_experience_val">30+</div>
+            <div class="text-xs text-slate-300 font-medium leading-snug" data-i18n="stat_experience_lbl">Years of Proven Track Record</div>
+          </div>
+
+          <div class="glass-card-dark p-6 rounded-2xl border border-white/15 relative overflow-hidden group hover:border-amber-400/50 transition">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
+              <i data-lucide="factory" class="w-5 h-5"></i>
+            </div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-1" data-i18n="stat_plants_val">4</div>
+            <div class="text-xs text-slate-300 font-medium leading-snug" data-i18n="stat_plants_lbl">Batching Plants (70 m³/hr)</div>
+          </div>
+
+          <div class="glass-card-dark p-6 rounded-2xl border border-white/15 relative overflow-hidden group hover:border-amber-400/50 transition">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 mb-3">
+              <i data-lucide="truck" class="w-5 h-5"></i>
+            </div>
+            <div class="text-3xl lg:text-4xl font-black text-amber-400 mb-1" data-i18n="stat_trucks_val">41</div>
+            <div class="text-xs text-slate-300 font-medium leading-snug" data-i18n="stat_trucks_lbl">Mixer Trucks (GPS Tracked)</div>
+          </div>
+
+          <div class="glass-card-dark p-6 rounded-2xl border border-white/15 relative overflow-hidden group hover:border-amber-400/50 transition">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            </div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-1" data-i18n="stat_projects_val">128+</div>
+            <div class="text-xs text-slate-300 font-medium leading-snug" data-i18n="stat_projects_lbl">Major Projects Delivered</div>
+          </div>
+
+          <div class="col-span-2 glass-card-dark p-5 rounded-2xl border border-amber-400/30 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400">
+                <i data-lucide="map" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 uppercase font-semibold">Nationwide Reach</div>
+                <div class="text-sm font-bold text-white">13 Provinces + Phnom Penh Capital</div>
+              </div>
+            </div>
+            <span class="text-2xl font-black text-amber-400">14</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SIGNATURE PROJECTS SHOWCASE SLIDER ================= -->
+  <section class="py-12 bg-slate-900 text-white border-y border-slate-800 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-amber-400 text-xs font-bold uppercase tracking-widest flex items-center gap-2 mb-1">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span> Signature Landmarks
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white">Landmark Projects Across Cambodia</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="prevSlide()" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <button onclick="nextSlide()" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition">
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Carousel Frame -->
+      <div class="relative overflow-hidden rounded-3xl">
+        <div id="carousel-track" class="flex carousel-track">
+          <!-- Dynamically populated from JavaScript -->
+        </div>
+      </div>
+
+      <!-- Carousel Pagination Dots -->
+      <div id="carousel-dots" class="flex justify-center items-center gap-2 mt-6">
+        <!-- Dynamically populated from JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= ABOUT BCE & LEADERSHIP ================= -->
+  <section id="about" class="py-20 lg:py-28 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Image Composition -->
+        <div class="lg:col-span-6 relative">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+            <img src="assets/images/chairwoman.jpg" alt="BCE Operations and Leadership" class="w-full h-auto object-cover">
+          </div>
+          <!-- Experience Seal -->
+          <div class="absolute -bottom-6 -right-6 bg-bce-blue text-white p-6 rounded-3xl shadow-2xl border-4 border-white hidden sm:block">
+            <div class="text-4xl font-black text-amber-400">30+</div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-200">Years of Building<br>Trust in Cambodia</div>
+          </div>
+        </div>
+
+        <!-- Right Content & Chairwoman Message -->
+        <div class="lg:col-span-6 space-y-6">
+          <div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-bce-blue border border-blue-100" data-i18n="about_tag">
+              Company Overview
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3 leading-tight" data-i18n="about_heading">
+              Building Excellence. Delivering Confidence Across Cambodia.
+            </h2>
+          </div>
+
+          <p class="text-slate-600 leading-relaxed text-sm sm:text-base" data-i18n="about_p1">
+            Established in 1995 under Hong Huot Ly Co., Ltd. and restructured in 2020 as Battambang Construction and Engineering Co., Ltd., BCE has continuously pioneered modern construction and ready-mix concrete solutions in Cambodia.
+          </p>
+
+          <p class="text-slate-600 leading-relaxed text-sm sm:text-base" data-i18n="about_p2">
+            With modern computerized batching plants, a fleet of over 41 mixer trucks and 8 pump trucks, an in-house certified testing laboratory, and an experienced engineering workforce, we ensure that every structure built with BCE stands strong for generations.
+          </p>
+
+          <!-- Chairwoman Statement Card -->
+          <div class="bg-gradient-to-br from-slate-50 to-blue-50/50 p-6 rounded-2xl border-l-4 border-amber-500 shadow-sm relative">
+            <i data-lucide="quote" class="w-8 h-8 text-amber-500/20 absolute top-4 right-4"></i>
+            <h4 class="text-xs font-bold uppercase tracking-widest text-amber-600 mb-2" data-i18n="chairwoman_title">
+              Chairwoman's Message
+            </h4>
+            <p class="italic text-slate-700 text-sm leading-relaxed mb-4" data-i18n="chairwoman_quote">
+              "At BCE, quality is not simply a requirement—it is the principle that guides every aspect of our operations. From material selection to construction execution, we build trust, safety, and lasting value for Cambodia's future."
+            </p>
+            <div>
+              <div class="font-black text-slate-900 text-sm" data-i18n="chairwoman_name">Ms. Loeung Chan</div>
+              <div class="text-xs text-slate-500" data-i18n="chairwoman_role">Chairwoman, Battambang Construction and Engineering Co., Ltd.</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Core Values 6-Grid -->
+      <div class="mt-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Company Principles</span>
+          <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1" data-i18n="values_title">Our Core Values</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xl transition group">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2" data-i18n="val_quality_title">Quality Assured</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="val_quality_desc">
+              We adhere strictly to international ACI standards and rigorous laboratory verification for every cubic meter of concrete.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xl transition group">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
+              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2" data-i18n="val_safety_title">Safety First</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="val_safety_desc">
+              Zero-compromise occupational safety protocols protecting our workforce, partners, and job sites.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xl transition group">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+              <i data-lucide="scale" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2" data-i18n="val_integrity_title">Integrity & Trust</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="val_integrity_desc">
+              Transparent business conduct, precise mix formulations, and honest client relationships.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xl transition group">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2" data-i18n="val_innovation_title">Modern Technology</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="val_innovation_desc">
+              Computerized batching systems, real-time GPS fleet telemetry, and advanced hydraulic machinery.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xl transition group">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2" data-i18n="val_teamwork_title">Engineering Team</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="val_teamwork_desc">
+              15 licensed engineers and 71 dedicated professionals driving flawless execution.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xl transition group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
+              <i data-lucide="leaf" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900 mb-2" data-i18n="val_sustain_title">Sustainable Growth</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="val_sustain_desc">
+              Environmentally responsible water recycling, dust control, and low-waste production systems.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CORE SERVICES (5 PILLARS) ================= -->
+  <section id="services" class="py-20 lg:py-28 bg-slate-100 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200" data-i18n="services_tag">
+          Core Capabilities
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3" data-i18n="services_heading">
+          Comprehensive Construction & Ready-Mix Solutions
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Service 1: Ready-Mix -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-2xl transition group flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-bce-blue text-amber-400 flex items-center justify-center mb-6 shadow-md">
+              <i data-lucide="blend" class="w-7 h-7"></i>
+            </div>
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">01. Production & Supply</span>
+            <h3 class="text-xl font-bold text-slate-900 mt-1 mb-3" data-i18n="srv_1_title">Ready-Mix Concrete Supply</h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6" data-i18n="srv_1_desc">
+              Computerized batching with 70 m³/hr capacity per plant. High slump retention, tailored mix designs from 15 MPa to 45 MPa, and reliable on-time site dispatch.
+            </p>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-700 font-medium pt-4 border-t border-slate-100">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Standard ACI 211.1 Mixes (15-45 MPa)</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Modern Chemical Admixtures (Sika / Kaitsu)</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> On-site Slump & Cylinder Quality Testing</li>
+          </ul>
+        </div>
+
+        <!-- Service 2: Piling -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-2xl transition group flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center mb-6 shadow-md">
+              <i data-lucide="anchor" class="w-7 h-7"></i>
+            </div>
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">02. Deep Foundations</span>
+            <h3 class="text-xl font-bold text-slate-900 mt-1 mb-3" data-i18n="srv_2_title">Reinforced Concrete Piling</h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6" data-i18n="srv_2_desc">
+              Specialized hydraulic piling drivers and deep foundation solutions. Complete precast pile manufacturing, transport, laser alignment, and driving.
+            </p>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-700 font-medium pt-4 border-t border-slate-100">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Hydraulic Piling Rigs (7 Heavy Units)</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Precast Concrete Pile Supply & Driving</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> 100MW Clean Energy Solar Piling Experience</li>
+          </ul>
+        </div>
+
+        <!-- Service 3: Civil Construction -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-2xl transition group flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-bce-blue text-amber-400 flex items-center justify-center mb-6 shadow-md">
+              <i data-lucide="building" class="w-7 h-7"></i>
+            </div>
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">03. Structures & Public Works</span>
+            <h3 class="text-xl font-bold text-slate-900 mt-1 mb-3" data-i18n="srv_3_title">Civil & Structural Construction</h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6" data-i18n="srv_3_desc">
+              End-to-end building construction, industrial facilities, bridges, irrigation canals, and high-strength concrete structures.
+            </p>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-700 font-medium pt-4 border-t border-slate-100">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> High-Rise Towers (Up to 18 Floors)</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Irrigation Dams & Precast Concrete Canals</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Bridges, Abutments & Heavy Pier Construction</li>
+          </ul>
+        </div>
+
+        <!-- Service 4: Slab Works -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-2xl transition group flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center mb-6 shadow-md">
+              <i data-lucide="layers" class="w-7 h-7"></i>
+            </div>
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">04. Industrial Floors</span>
+            <h3 class="text-xl font-bold text-slate-900 mt-1 mb-3" data-i18n="srv_4_title">Concrete Slab & Pavement Works</h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6" data-i18n="srv_4_desc">
+              High-tolerance industrial warehouse floors, heavy transport highways, commercial slabs, laser screeding, and power trowel mirror finishes.
+            </p>
+          </div>
+          <ul class="space-y-2 text-xs text-slate-700 font-medium pt-4 border-t border-slate-100">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Industrial Warehouse & Factory Floors</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Heavy-Load Highway Pavements</li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Laser Leveling & Concrete Joint Cutting</li>
+          </ul>
+        </div>
+
+        <!-- Service 5: Machinery Rental -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-2xl transition group flex flex-col justify-between md:col-span-2 lg:col-span-2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-bce-blue text-amber-400 flex items-center justify-center mb-6 shadow-md">
+                <i data-lucide="truck" class="w-7 h-7"></i>
+              </div>
+              <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">05. Logistics & Machinery</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-1 mb-3" data-i18n="srv_5_title">Heavy Equipment & Truck Rental</h3>
+              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4" data-i18n="srv_5_desc">
+                Long-arm concrete pump trucks, 7-10 m³ mixer trucks, wheel loaders, telescopic crane trucks, tower cranes, and construction hoists.
+              </p>
+              <a href="https://t.me/thendLP?text=Hello%20BCE!%20I%20am%20interested%20in%20machinery%20rental%20rates." target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-950 hover:bg-amber-400 transition">
+                <span>Inquire Rental Rates</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-inner border border-slate-200">
+              <img src="assets/images/machinery_fleet.jpg" alt="BCE Machinery" class="w-full h-48 object-cover">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= MACHINERY & FLEET STRENGTH ================= -->
+  <section id="fleet" class="py-20 lg:py-28 bg-bce-navy text-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-400/30" data-i18n="fleet_tag">
+          Machinery & Equipment
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white mt-3" data-i18n="fleet_heading">
+          Owned Heavy Machinery Fleet & Advanced Production Assets
+        </h2>
+        <p class="text-slate-300 text-sm mt-3" data-i18n="fleet_desc">
+          BCE owns and operates one of Northwestern Cambodia's most modern and well-maintained construction fleets.
+        </p>
+      </div>
+
+      <!-- Fleet Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="glass-card-dark p-6 rounded-2xl border border-white/10 hover:border-amber-400/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <i data-lucide="factory" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-black text-amber-400">4 Plants</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1" data-i18n="fleet_plant">Batching Plants</h4>
+          <p class="text-xs text-slate-300" data-i18n="fleet_plant_spec">4 Computerized Units • 70 m³/hr per plant capacity • Automated moisture compensation</p>
+        </div>
+
+        <div class="glass-card-dark p-6 rounded-2xl border border-white/10 hover:border-amber-400/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+              <i data-lucide="truck" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-black text-white">41 Trucks</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1" data-i18n="fleet_mixers">Concrete Mixer Trucks</h4>
+          <p class="text-xs text-slate-300" data-i18n="fleet_mixers_spec">41 Units • 7 to 10 m³ capacity • Equipped with real-time GPS tracking</p>
+        </div>
+
+        <div class="glass-card-dark p-6 rounded-2xl border border-white/10 hover:border-amber-400/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <i data-lucide="git-branch" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-black text-amber-400">8 Units</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1" data-i18n="fleet_pumps">Concrete Pump Trucks</h4>
+          <p class="text-xs text-slate-300" data-i18n="fleet_pumps_spec">8 Heavy-Duty Units • Extended boom reaches for high-rise & bridge projects</p>
+        </div>
+
+        <div class="glass-card-dark p-6 rounded-2xl border border-white/10 hover:border-amber-400/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+              <i data-lucide="hammer" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-black text-white">7 Units</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1" data-i18n="fleet_piling">Hydraulic Piling Rigs</h4>
+          <p class="text-xs text-slate-300" data-i18n="fleet_piling_spec">7 Heavy Piling Drivers • High stability for tough soil formations & solar plants</p>
+        </div>
+
+        <div class="glass-card-dark p-6 rounded-2xl border border-white/10 hover:border-amber-400/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <i data-lucide="move-up" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-black text-amber-400">14 Units</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1" data-i18n="fleet_cranes">Crane & Transport Trucks</h4>
+          <p class="text-xs text-slate-300" data-i18n="fleet_cranes_spec">6 Telescopic Crane Trucks + 8 High-Capacity Tower Cranes</p>
+        </div>
+
+        <div class="glass-card-dark p-6 rounded-2xl border border-white/10 hover:border-amber-400/40 transition">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+              <i data-lucide="flask-conical" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-black text-white">In-House</span>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-1" data-i18n="fleet_lab">Calibrated QC Laboratory</h4>
+          <p class="text-xs text-slate-300" data-i18n="fleet_lab_spec">DYE-2000 Compressive Testing Machine, slump test apparatus, sieve analysis</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= OPERATIONAL REACH & INTERACTIVE COVERAGE MAP ================= -->
+  <section id="coverage" class="py-20 lg:py-28 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-bce-blue border border-blue-100" data-i18n="coverage_tag">
+          Operational Footprint
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3" data-i18n="coverage_heading">
+          We Go Where You Build — 14 Provinces Covered
+        </h2>
+        <p class="text-slate-600 text-sm mt-3" data-i18n="coverage_desc">
+          Headquartered in Battambang City with rapid mobile batching and delivery deployment across Northwestern Cambodia, Phnom Penh, and coastal regions.
+        </p>
+      </div>
+
+      <!-- Interactive Regional Selector Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left: Coverage Image from Profile -->
+        <div class="lg:col-span-5">
+          <div class="rounded-3xl overflow-hidden shadow-xl border border-slate-200">
+            <img src="assets/images/cambodia_coverage.jpg" alt="Cambodia Coverage Map" class="w-full h-auto object-cover">
+          </div>
+        </div>
+
+        <!-- Right: Interactive Regional Station Explorer -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <div class="flex flex-wrap gap-2">
+            <button onclick="selectProvince('battambang')" data-prov="battambang" class="province-pill px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-900 shadow-md transition-all">
+              Battambang (HQ)
+            </button>
+            <button onclick="selectProvince('phnom_penh')" data-prov="phnom_penh" class="province-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              Phnom Penh
+            </button>
+            <button onclick="selectProvince('banteay_meanchey')" data-prov="banteay_meanchey" class="province-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              Banteay Meanchey (Poipet)
+            </button>
+            <button onclick="selectProvince('pursat')" data-prov="pursat" class="province-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              Pursat
+            </button>
+            <button onclick="selectProvince('koh_kong')" data-prov="koh_kong" class="province-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              Koh Kong
+            </button>
+            <button onclick="selectProvince('preah_vihear')" data-prov="preah_vihear" class="province-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">
+              Preah Vihear
+            </button>
+          </div>
+
+          <!-- Active Region Detail Card -->
+          <div class="bg-slate-900 text-white p-8 rounded-3xl shadow-xl border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+              <h4 id="province-title" class="text-xl font-bold text-amber-400">
+                Battambang (Headquarters & Central Batching Plants)
+              </h4>
+              <span class="px-3 py-1 text-xs font-bold rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                Active Depot
+              </span>
+            </div>
+            
+            <p id="province-desc" class="text-slate-300 text-sm leading-relaxed">
+              Core BCE operations with 4 automated batching plants (70 m³/hr each), primary 41 mixer truck depot, hydraulic piling equipment, and central certified testing laboratory.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                <span class="text-[11px] text-slate-400 uppercase font-semibold block mb-1">Delivered Projects</span>
+                <span id="province-projects" class="text-sm font-bold text-white">60+ Major Projects (Hotels, Schools, Hospitals, Roads & Bridges)</span>
+              </div>
+              <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                <span class="text-[11px] text-slate-400 uppercase font-semibold block mb-1">Key Landmarks</span>
+                <span id="province-flagship" class="text-sm font-bold text-amber-400">Sala Ta On Dam, Prek Trap Bridge, Polyclinic Building, Conch Cement Factory</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- All Provinces List Badge -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <span class="text-xs font-bold text-slate-700 block mb-2" data-i18n="map_active_label">Operational Service Network</span>
+            <p class="text-xs text-slate-500 leading-relaxed" data-i18n="map_active_provinces">
+              Battambang, Phnom Penh, Banteay Meanchey, Pailin, Pursat, Kampong Chhnang, Koh Kong, Preah Sihanouk, Kandal, Kampong Thom, Siem Reap, Oddar Meanchey, Preah Vihear, Stung Treng.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= COMPREHENSIVE PROJECT PORTFOLIO (30 PROJECTS) ================= -->
+  <section id="projects" class="py-20 lg:py-28 bg-slate-100 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200" data-i18n="projects_tag">
+          Proven Track Record
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3" data-i18n="projects_heading">
+          Featured Project Portfolio (30+ Completed & Ongoing)
+        </h2>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
+        <button onclick="renderProjects('all')" data-filter="all" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-blue-900 text-white shadow-md shadow-blue-900/20 transition-all" data-i18n="filter_all">
+          All Projects (30)
+        </button>
+        <button onclick="renderProjects('buildings')" data-filter="buildings" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all" data-i18n="filter_buildings">
+          High-Rise & Buildings
+        </button>
+        <button onclick="renderProjects('infrastructure')" data-filter="infrastructure" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all" data-i18n="filter_infrastructure">
+          Infrastructure & Roads
+        </button>
+        <button onclick="renderProjects('industrial')" data-filter="industrial" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all" data-i18n="filter_industrial">
+          Industrial & Solar
+        </button>
+        <button onclick="renderProjects('piling')" data-filter="piling" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all" data-i18n="filter_piling">
+          Piling & Foundations
+        </button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamically rendered from JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE READY-MIX CONCRETE CALCULATOR ================= -->
+  <section id="calculator" class="py-20 lg:py-28 bg-bce-navy text-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-400/30" data-i18n="calc_tag">
+          Smart Utility
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white mt-3" data-i18n="calc_heading">
+          Interactive Ready-Mix Concrete Volume Calculator
+        </h2>
+        <p class="text-slate-300 text-sm mt-3" data-i18n="calc_desc">
+          Plan your project requirement accurately. Enter your structural dimensions below to estimate required concrete volume in cubic meters (m³) and request a prefilled quote on Telegram.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto glass-card-dark p-8 sm:p-12 rounded-3xl border border-white/15 shadow-2xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Inputs -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Structure Type</label>
+              <select id="calc-shape" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 transition">
+                <option value="slab" data-i18n="calc_shape_slab">Concrete Slab / Floor / Road</option>
+                <option value="footing" data-i18n="calc_shape_footing">Isolated Footing / Foundation</option>
+                <option value="column" data-i18n="calc_shape_column">Rectangular Column / Beam</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="calc_dim_l">Length (m)</label>
+                <input type="number" id="calc-length" value="10" step="0.1" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 transition">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="calc_dim_w">Width (m)</label>
+                <input type="number" id="calc-width" value="5" step="0.1" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 transition">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="calc_dim_t">Thick/H (m)</label>
+                <input type="number" id="calc-thickness" value="0.15" step="0.01" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 transition">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1" data-i18n="calc_grade">Target Strength Grade (ACI 211.1)</label>
+              <select id="calc-grade" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 transition">
+                <option value="20 MPa (Residential / Small Slab)">20 MPa - Residential / Light Slab</option>
+                <option value="25 MPa (Standard Commercial Flooring)" selected>25 MPa - Standard Commercial Slab</option>
+                <option value="30 MPa (High-Rise Beams & Columns)">30 MPa - Structural Beams & Columns</option>
+                <option value="35 MPa (Heavy Industrial Floor)">35 MPa - Heavy Industrial Floor</option>
+                <option value="40 MPa (Bridge & Piling Foundations)">40 MPa - Bridge Pier & Deep Piles</option>
+                <option value="45 MPa (High-Strength Special Works)">45 MPa - High-Strength Special Works</option>
+              </select>
+            </div>
+
+            <button onclick="calculateConcrete()" class="w-full py-3.5 px-6 rounded-xl font-bold text-xs sm:text-sm bg-amber-500 text-slate-950 hover:bg-amber-400 shadow-lg shadow-amber-500/20 transition flex items-center justify-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4"></i>
+              <span data-i18n="calc_btn">Calculate Volume</span>
+            </button>
+          </div>
+
+          <!-- Output Display -->
+          <div class="bg-slate-900/90 p-6 sm:p-8 rounded-2xl border border-slate-800 flex flex-col justify-between">
+            <div class="space-y-6">
+              <div>
+                <span class="text-xs text-slate-400 uppercase font-semibold block mb-1" data-i18n="calc_res_volume">Estimated Net Volume:</span>
+                <span id="calc-net-vol" class="text-3xl sm:text-4xl font-black text-white">7.50 m³</span>
+              </div>
+              
+              <div class="pt-4 border-t border-slate-800">
+                <span class="text-xs text-amber-400 uppercase font-semibold block mb-1" data-i18n="calc_res_order">Recommended Order (+5% buffer):</span>
+                <span id="calc-order-vol" class="text-3xl sm:text-4xl font-black text-amber-400">7.88 m³</span>
+                <p class="text-[11px] text-slate-400 mt-1">Includes 5% safety margin for ground absorption and pumping line residue.</p>
+              </div>
+            </div>
+
+            <div class="pt-6">
+              <a id="calc-telegram-quote" href="https://t.me/thendLP?text=Hello%20BCE!%20I%20calculated%207.88m3%20concrete%20order." target="_blank" class="w-full py-3 px-4 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center gap-2 shadow-md transition">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span data-i18n="calc_btn_quote">Order this Volume via Telegram @thendLP</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= QUALITY ASSURANCE & HSE COMMITMENT ================= -->
+  <section id="quality-hse" class="py-20 lg:py-28 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-bce-blue border border-blue-100" data-i18n="qa_tag">
+          Quality & Safety Standards
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3" data-i18n="qa_heading">
+          Laboratory Quality Assurance & HSE Commitment
+        </h2>
+        <p class="text-slate-600 text-sm mt-3" data-i18n="qa_desc">
+          At BCE, every batch undergoes a 5-step quality verification cycle certified by the Ministry of Public Works and Transport.
+        </p>
+      </div>
+
+      <!-- 5-Step Process Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-16">
+        
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold text-amber-600 block mb-2">STEP 01</span>
+            <h4 class="text-sm font-bold text-slate-900 mb-2" data-i18n="qa_step_1">1. Raw Material Check</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="qa_step_1_desc">Rigorous sieve testing on coarse/fine aggregates, water pH testing, and supplier mill test certificates.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold text-amber-600 block mb-2">STEP 02</span>
+            <h4 class="text-sm font-bold text-slate-900 mb-2" data-i18n="qa_step_2">2. Production Control</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="qa_step_2_desc">Automated digital weighing scales with valid government calibration stamps.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold text-amber-600 block mb-2">STEP 03</span>
+            <h4 class="text-sm font-bold text-slate-900 mb-2" data-i18n="qa_step_3">3. Fresh Concrete Test</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="qa_step_3_desc">Workability slump tests and sample cube/cylinder casting at batching plant and job site.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold text-amber-600 block mb-2">STEP 04</span>
+            <h4 class="text-sm font-bold text-slate-900 mb-2" data-i18n="qa_step_4">4. Strength Testing</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="qa_step_4_desc">7-day and 28-day compressive crushing tests utilizing our calibrated DYE-2000 machine.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold text-amber-600 block mb-2">STEP 05</span>
+            <h4 class="text-sm font-bold text-slate-900 mb-2" data-i18n="qa_step_5">5. Quality Certification</h4>
+            <p class="text-xs text-slate-600 leading-relaxed" data-i18n="qa_step_5_desc">Formal quality documentation and test result certificates issued to client engineers.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Laboratory & HSE Visual Highlights -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center">
+                <i data-lucide="flask-conical" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-slate-900">In-House Certified Laboratory</h4>
+                <p class="text-xs text-slate-500">Equipped with DYE-2000 Compression Tester</p>
+              </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden mb-4 border border-slate-200">
+              <img src="assets/images/laboratory_qa.jpg" alt="BCE Quality Testing Lab" class="w-full h-56 object-cover">
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Our laboratory equipment is certified and regularly calibrated by the Building and Public Works Laboratory under the Ministry of Public Works and Transport to ensure uncompromising precision.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold text-slate-900">Health, Safety & Environment (HSE)</h4>
+                <p class="text-xs text-slate-500">Protecting People, Workplace & Planet</p>
+              </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden mb-4 border border-slate-200">
+              <img src="assets/images/hse_safety.jpg" alt="BCE HSE Safety Standards" class="w-full h-56 object-cover">
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Mandatory PPE compliance, comprehensive hazard identification, routine equipment safety inspections, zero-accident culture, and environmental waste controls.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PRESTIGIOUS CLIENTS & STRATEGIC SUPPLIERS ================= -->
+  <section id="clients" class="py-20 lg:py-28 bg-slate-100 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200" data-i18n="partners_tag">
+          Strategic Network
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3" data-i18n="partners_heading">
+          Trusted by Government Ministries, Contractors & Key Suppliers
+        </h2>
+      </div>
+
+      <!-- Categories Tabs -->
+      <div class="space-y-12">
+        
+        <!-- Government & Ministries -->
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+            <i data-lucide="landmark" class="w-4 h-4 text-bce-blue"></i>
+            <span>Government Institutions & Ministries</span>
+          </h4>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Ministry of Interior (MoI)</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Ministry of Water Resources & Meteorology</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Ministry of Public Works & Transport</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Ministry of National Defence</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Ministry of Rural Development</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">MLMUPC Land Management</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Building & Public Works Laboratory</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Provincial Administrations</div>
+          </div>
+        </div>
+
+        <!-- Corporate Contractors -->
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+            <i data-lucide="hard-hat" class="w-4 h-4 text-amber-600"></i>
+            <span>Corporate Contractors & Developers</span>
+          </h4>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">EM Construction Import Export</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Hanshin Engineering & Construction</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">SUMEC International Technology</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Schneitec Co., Ltd</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Thang Long Joint Stock Corp</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Ilsung & Cienco</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Build Bright University (BBU)</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Borey Ratanak</div>
+          </div>
+        </div>
+
+        <!-- Strategic Material Suppliers -->
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
+            <i data-lucide="truck" class="w-4 h-4 text-emerald-600"></i>
+            <span>Certified Material Suppliers</span>
+          </h4>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Chip Mong Insee</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">SCG Distribution</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Sika Cambodia</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Battambang Conch Cement</div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-center text-center shadow-sm">Hoa Phat Steel MTC</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CONTACT & TENDER INQUIRY ================= -->
+  <section id="contact" class="py-20 lg:py-28 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-bce-blue border border-blue-100" data-i18n="contact_tag">
+          Let's Build Together
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3" data-i18n="contact_heading">
+          Get in Touch with BCE Today
+        </h2>
+        <p class="text-slate-600 text-sm mt-3" data-i18n="contact_desc">
+          Ready to discuss your next construction project or ready-mix supply schedule? Contact our engineering team for immediate assistance and competitive rates.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Contact Information Details -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <div class="bg-slate-900 text-white p-8 rounded-3xl shadow-xl space-y-6">
+            
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1" data-i18n="contact_address_title">Headquarters Address</h4>
+                <p class="text-xs text-slate-300 leading-relaxed" data-i18n="contact_address_val">
+                  Ang Village, Sangkat O’Char, Battambang City, Battambang Province, Cambodia
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                <i data-lucide="phone-call" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1" data-i18n="contact_phone_title">Hotline Lines</h4>
+                <div class="space-y-1 text-xs text-slate-200">
+                  <p><a href="tel:+85512932700" class="hover:text-amber-400">012 932 700</a> / <a href="tel:+85517222205" class="hover:text-amber-400">017 222 205</a></p>
+                  <p><a href="tel:+85512867475" class="hover:text-amber-400">012 867 475</a> / <a href="tel:+85570867475" class="hover:text-amber-400">070 867 475</a></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1" data-i18n="contact_email_title">Official Email</h4>
+                <a href="mailto:bcebtb999@gmail.com" class="text-xs text-slate-300 hover:text-amber-400">bcebtb999@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1" data-i18n="contact_hours_title">Operating Hours</h4>
+                <p class="text-xs text-slate-300" data-i18n="contact_hours_val">
+                  Monday - Sunday: 6:30 AM - 5:30 PM (24/7 Pouring on schedule)
+                </p>
+              </div>
+            </div>
+
+            <!-- Direct Telegram Box -->
+            <div class="pt-4 border-t border-slate-800">
+              <a href="https://t.me/thendLP" target="_blank" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>Chat Instantly via Telegram @thendLP</span>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RFQ Form -->
+        <div class="lg:col-span-7 bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-md">
+          <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <i data-lucide="file-check-2" class="w-5 h-5 text-bce-blue"></i>
+            <span>Request for Quotation / Project Tender</span>
+          </h3>
+
+          <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_name">Full Name / Company Name</label>
+                <input type="text" id="form-name" required placeholder="e.g. Sok Sovann" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-bce-blue focus:ring-1 focus:ring-bce-blue">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_phone">Phone Number</label>
+                <input type="tel" id="form-phone" required placeholder="012 345 678" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-bce-blue focus:ring-1 focus:ring-bce-blue">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_service">Service Required</label>
+                <select id="form-service" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-bce-blue">
+                  <option data-i18n="form_opt_concrete">Ready-Mix Concrete Supply</option>
+                  <option data-i18n="form_opt_piling">Piling & Foundation Works</option>
+                  <option data-i18n="form_opt_civil">General Civil Construction</option>
+                  <option data-i18n="form_opt_slab">Concrete Slab / Industrial Flooring</option>
+                  <option data-i18n="form_opt_rental">Machinery / Fleet Rental</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_location">Project Location / Province</label>
+                <input type="text" id="form-location" required placeholder="e.g. Battambang / Poipet" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-bce-blue focus:ring-1 focus:ring-bce-blue">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1" data-i18n="form_notes">Project Scope & Details</label>
+              <textarea id="form-notes" rows="4" placeholder="Mention volume required (m³), concrete grade (e.g. 25MPa), timeline, or machinery needs..." class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-bce-blue focus:ring-1 focus:ring-bce-blue"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-4 px-6 rounded-xl font-bold text-xs sm:text-sm bg-bce-blue hover:bg-bce-navy text-white shadow-xl shadow-bce-blue/20 transition flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4 text-amber-400"></i>
+              <span data-i18n="form_submit">Submit Tender / Quote Inquiry</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-bce-navyDark text-slate-400 py-16 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        
+        <!-- Col 1: Brand -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="assets/images/bce_emblem.png" alt="BCE Emblem" class="h-10 w-auto object-contain">
+            <span class="text-xl font-black text-white">BCE CO., LTD</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Battambang Construction and Engineering Co., Ltd. Leading Cambodian contractor specializing in ready-mix concrete, piling, and civil works.
+          </p>
+          <div class="text-xs text-amber-400 font-semibold">
+            Quality Concrete. Trusted Construction.
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Quick Navigation</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#about" class="hover:text-amber-400 transition">About Company</a></li>
+            <li><a href="#services" class="hover:text-amber-400 transition">Ready-Mix Concrete</a></li>
+            <li><a href="#fleet" class="hover:text-amber-400 transition">Equipment & Fleet</a></li>
+            <li><a href="#projects" class="hover:text-amber-400 transition">Project Experience</a></li>
+            <li><a href="#calculator" class="hover:text-amber-400 transition">Concrete Calculator</a></li>
+            <li><a href="#quality-hse" class="hover:text-amber-400 transition">Quality Assurance & HSE</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Operational Offices -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Headquarters</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Ang Village, Sangkat O’Char, Battambang City, Battambang Province, Cambodia
+          </p>
+          <p class="text-xs text-slate-400">
+            Hotlines: 012 932 700 / 017 222 205<br>
+            Email: bcebtb999@gmail.com
+          </p>
+        </div>
+
+        <!-- Col 4: Telegram Quick Connect -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Direct Telegram</h4>
+          <p class="text-xs text-slate-400">
+            Directly message our project dispatch desk on Telegram for immediate quotes and dispatch times.
+          </p>
+          <a href="https://t.me/thendLP" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-md">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>@thendLP</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          © 2026 Battambang Construction and Engineering Co., Ltd. (BCE). All rights reserved.
+        </div>
+        <div class="flex items-center gap-4 text-slate-400">
+          <span>Registered in Cambodia</span>
+          <span>•</span>
+          <span>Since 1995</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= PROJECT DETAIL MODAL ================= -->
+  <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm modal-backdrop">
+    <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl modal-window max-h-[90vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="relative h-64 sm:h-80 bg-slate-900 overflow-hidden shrink-0">
+        <img id="modal-img" src="" alt="Project Photo" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent"></div>
+        <button onclick="closeProjectModal()" class="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/75 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <div class="absolute bottom-4 left-6 right-6 text-white">
+          <span id="modal-category" class="px-3 py-1 text-xs font-bold rounded-lg bg-amber-500 text-slate-950 mb-2 inline-block"></span>
+          <h3 id="modal-title" class="text-xl sm:text-2xl font-black leading-snug"></h3>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 sm:p-8 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-700">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+          <div>
+            <span class="text-xs text-slate-400 font-semibold block" data-i18n="modal_client">Client / Owner:</span>
+            <span id="modal-client" class="font-bold text-slate-900"></span>
+          </div>
+          <div>
+            <span class="text-xs text-slate-400 font-semibold block" data-i18n="modal_location">Location:</span>
+            <span id="modal-location" class="font-bold text-slate-900"></span>
+          </div>
+          <div>
+            <span class="text-xs text-slate-400 font-semibold block" data-i18n="modal_timeline">Timeline:</span>
+            <span id="modal-timeline" class="font-bold text-amber-600"></span>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-xs text-slate-400 font-semibold block mb-1" data-i18n="modal_scope">Scope of Work:</span>
+          <p id="modal-scope" class="text-slate-700 leading-relaxed bg-white p-4 rounded-xl border border-slate-200 font-medium"></p>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row gap-3">
+          <a id="modal-telegram-btn" href="https://t.me/thendLP" target="_blank" class="flex-1 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Inquire About Similar Project on Telegram</span>
+          </a>
+          <button onclick="closeProjectModal()" class="py-3 px-6 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition" data-i18n="modal_close">
+            Close
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= FLOATING ACTION BUTTONS ================= -->
+  <!-- Direct Telegram Button -->
+  <a href="https://t.me/thendLP" target="_blank" class="fixed bottom-6 right-6 z-40 fab-btn flex items-center gap-3 p-3.5 sm:px-5 sm:py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-500 hover:to-sky-400 text-white shadow-2xl border-2 border-white/30 group">
+    <i data-lucide="send" class="w-6 h-6 shrink-0 group-hover:rotate-12 transition-transform"></i>
+    <span class="hidden sm:inline-block text-xs font-black tracking-wide uppercase">Telegram @thendLP</span>
+  </a>
+
+  <!-- Hotline Floating Button -->
+  <a href="tel:+85512932700" class="fixed bottom-24 right-6 z-40 fab-btn flex items-center gap-3 p-3.5 sm:px-5 sm:py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 shadow-2xl border-2 border-white/40 group">
+    <i data-lucide="phone-call" class="w-6 h-6 shrink-0 group-hover:scale-110 transition-transform"></i>
+    <span class="hidden sm:inline-block text-xs font-black tracking-wide uppercase">Call 012 932 700</span>
+  </a>
+
+  <!-- JavaScript Scripts -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Mobile Drawer Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
