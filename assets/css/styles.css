@@ -1,153 +1,258 @@
-/* Custom styling for BCE Construction and Engineering */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+/* ==========================================================================
+   BCE Construction & Engineering — Architectural Design System
+   Inspired by Storey Architecture (storeyarchitecture.co.uk/studio)
+   Editorial Minimalist, Monospaced Indexing, Hairline Grids & High Precision
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bce-blue-primary: #0C3260;
-  --bce-blue-dark: #071D3A;
-  --bce-blue-light: #1A4D8C;
-  --bce-gold: #E5A823;
-  --bce-gold-hover: #D49718;
-  --bce-gold-light: #FCEFD2;
+  /* Architectural Warm Stone Palette (Light Sections) */
+  --arch-stone: #F8F7F4;
+  --arch-stone-surface: #FFFFFF;
+  --arch-stone-border: rgba(0, 0, 0, 0.08);
+  --arch-stone-hairline: rgba(0, 0, 0, 0.12);
+  --arch-stone-text: #181A1D;
+  --arch-stone-muted: #6B7280;
+
+  /* Architectural Basalt & Charcoal Palette (Dark Sections) */
+  --arch-dark: #121417;
+  --arch-dark-surface: #191D22;
+  --arch-dark-elevated: #21262D;
+  --arch-dark-border: rgba(255, 255, 255, 0.08);
+  --arch-dark-hairline: rgba(255, 255, 255, 0.12);
+  --arch-dark-text: #F8F7F4;
+  --arch-dark-muted: #9CA3AF;
+
+  /* Accent & Engineering Signaling */
+  --arch-amber: #D97706;
+  --arch-amber-bright: #F59E0B;
+  --arch-amber-subtle: rgba(245, 158, 11, 0.12);
+  --arch-blue: #0C3260;
+  --arch-blue-deep: #071D3A;
 }
 
-body {
-  font-family: 'Inter', 'Kantumruy Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1E293B;
-  background-color: #F8FAFC;
-  overflow-x: hidden;
-}
-
-/* Khmer Typography optimization */
-[data-lang="kh"] {
-  font-family: 'Kantumruy Pro', 'Inter', sans-serif;
-  line-height: 1.65;
-}
-
-/* Smooth Scrolling */
+/* Base Canvas */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #F1F5F9;
-}
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #0C3260;
+body {
+  font-family: 'Inter', 'Kantumruy Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--arch-stone-text);
+  background-color: var(--arch-stone);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glassmorphism & Header */
-.glass-nav {
-  background: rgba(12, 50, 96, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* Typography Hierarchy */
+.font-display {
+  font-family: 'Space Grotesk', 'Kantumruy Pro', sans-serif;
+  letter-spacing: -0.025em;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+.font-mono-spec {
+  font-family: 'JetBrains Mono', monospace;
 }
 
-.glass-card-dark {
-  background: rgba(7, 29, 58, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Khmer Typography Adaptation */
+[data-lang="kh"] {
+  font-family: 'Kantumruy Pro', 'Inter', sans-serif;
+  line-height: 1.7;
 }
 
-/* Concrete pattern overlay */
-.concrete-pattern {
-  background-image: radial-gradient(#0C3260 0.75px, transparent 0.75px), radial-gradient(#0C3260 0.75px, #F8FAFC 0.75px);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
-  opacity: 0.04;
+[data-lang="kh"] .font-display {
+  font-family: 'Kantumruy Pro', 'Space Grotesk', sans-serif;
+  letter-spacing: normal;
+  font-weight: 600;
 }
 
-.blueprint-grid {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 30px 30px;
+/* Hairline Grid & Architectural Dividers */
+.hairline-b {
+  border-bottom: 1px solid var(--arch-stone-border);
 }
 
-/* Shimmer animation for badges */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+.hairline-t {
+  border-top: 1px solid var(--arch-stone-border);
 }
 
-.shimmer-effect {
+.hairline-dark-b {
+  border-bottom: 1px solid var(--arch-dark-border);
+}
+
+.hairline-dark-t {
+  border-top: 1px solid var(--arch-dark-border);
+}
+
+/* Storey Architectural Subdued Blueprint Grid */
+.arch-blueprint-light {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.arch-blueprint-dark {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Architectural Crosshair Registration Marks (+) */
+.crosshair-corner {
   position: relative;
-  overflow: hidden;
 }
-.shimmer-effect::after {
+.crosshair-corner::before {
+  content: "+";
+  position: absolute;
+  top: -7px;
+  left: -6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--arch-amber);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.crosshair-corner::after {
+  content: "+";
+  position: absolute;
+  bottom: -7px;
+  right: -6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--arch-amber);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Live Telemetry Beacon */
+@keyframes live-ping {
+  0% { transform: scale(0.9); opacity: 1; }
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+.telemetry-beacon {
+  position: relative;
+  display: inline-flex;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+}
+
+.telemetry-beacon::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  transform: skewX(-20deg);
-  animation: shimmer 3s infinite;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #10B981;
+  animation: live-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* Pulsing beacon */
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 168, 35, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 14px rgba(229, 168, 35, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 168, 35, 0); }
+/* Storey Architectural Minimal Underline Form Inputs */
+.arch-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #F8F7F4;
+  padding: 0.85rem 0;
+  font-size: 1rem;
+  border-radius: 0;
+  outline: none;
+  transition: all 0.2s ease;
 }
 
-.pulse-badge {
-  animation: pulse-ring 2s infinite cubic-bezier(0.45, 0, 0.2, 1);
+.arch-input:focus {
+  border-bottom-color: var(--arch-amber-bright);
 }
 
-/* Map Province Interactive Markers */
-.province-node {
-  transition: all 0.25s ease;
-  cursor: pointer;
-}
-.province-node:hover {
-  transform: translateY(-3px) scale(1.03);
+.arch-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 300;
 }
 
-/* Floating Action Buttons */
-.fab-btn {
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* Clean Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-.fab-btn:hover {
-  transform: translateY(-4px) scale(1.06);
+::-webkit-scrollbar-track {
+  background: #121417;
+}
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D97706;
 }
 
-/* Carousel transitions */
-.carousel-track {
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* Modal styling */
-.modal-backdrop {
-  opacity: 0;
+/* Storey Number Index Watermarks */
+.watermark-index {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  user-select: none;
   pointer-events: none;
-  transition: opacity 0.25s ease-out;
 }
-.modal-backdrop.active {
-  opacity: 1;
-  pointer-events: auto;
+
+/* Interactive Calculator Terminal Elements */
+.calc-range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #2D3748;
+  border-radius: 2px;
+  outline: none;
 }
-.modal-window {
-  transform: scale(0.95) translateY(10px);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+.calc-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #F59E0B;
+  cursor: pointer;
+  border: 2px solid #121417;
+  transition: transform 0.15s ease;
 }
-.modal-backdrop.active .modal-window {
-  transform: scale(1) translateY(0);
+
+.calc-range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Subtle architectural image reveal */
+.arch-img-frame {
+  overflow: hidden;
+  position: relative;
+  background-color: #1F242B;
+}
+
+.arch-img-frame img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+.arch-img-frame:hover img {
+  transform: scale(1.04);
+}
+
+/* Modal Backdrop & Animations */
+.modal-fade-in {
+  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

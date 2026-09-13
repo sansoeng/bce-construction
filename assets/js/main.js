@@ -517,299 +517,331 @@ const projectsData = [
   }
 ];
 
-// 2. Bilingual Dictionary
+// 2. Comprehensive Bilingual Architectural Dictionary
 const translations = {
   en: {
-    nav_home: "Home",
-    nav_about: "About Us",
-    nav_services: "Core Services",
-    nav_fleet: "Machinery & Fleet",
-    nav_coverage: "Operational Reach",
-    nav_projects: "Projects",
-    nav_qa: "Quality & HSE",
-    nav_clients: "Clients & Partners",
+    // Top Bar & Meta
+    meta_status: "BATCH PLANTS: OPERATIONAL",
+    meta_coords: "13.0957° N, 103.2022° E (BATTAMBANG HQ)",
+    meta_hotline: "HOTLINE: 012 932 700 / 017 222 205",
+    meta_hours: "24/7 SITE POURING DISPATCH",
+
+    // Navigation
+    nav_studio: "The Studio",
+    nav_principles: "Principles",
+    nav_protocol: "QA Protocol",
+    nav_fleet: "Fleet & Assets",
+    nav_estimator: "Estimator",
+    nav_works: "Selected Works",
+    nav_brief: "Tender Brief",
     nav_contact: "Contact",
-    btn_request_quote: "Get a Quote",
-    btn_call_us: "Direct Hotline",
-    hero_badge: "30+ Years of Engineering Excellence (Since 1995)",
-    hero_title_1: "Quality Concrete.",
-    hero_title_2: "Trusted Construction.",
-    hero_subtitle: "Battambang Construction and Engineering Co., Ltd. (BCE) is Cambodia's premier provider of automated ready-mix concrete, precision reinforced piling, civil construction, and heavy equipment logistics.",
-    btn_explore_projects: "View Our Projects",
-    btn_calculate_concrete: "Concrete Calculator",
-    stat_experience_val: "30+",
-    stat_experience_lbl: "Years of Proven Track Record",
-    stat_plants_val: "4",
-    stat_plants_lbl: "Batching Plants (70 m³/hr)",
-    stat_trucks_val: "41",
-    stat_trucks_lbl: "Mixer Trucks (GPS Tracked)",
-    stat_projects_val: "128+",
-    stat_projects_lbl: "Major Projects Delivered",
-    stat_provinces_val: "14",
-    stat_provinces_lbl: "Provinces & Phnom Penh Served",
-    about_tag: "Company Overview",
-    about_heading: "Building Excellence. Delivering Confidence Across Cambodia.",
-    about_p1: "Established in 1995 under Hong Huot Ly Co., Ltd. and restructured in 2020 as Battambang Construction and Engineering Co., Ltd., BCE has continuously pioneered modern construction and ready-mix concrete solutions in Cambodia.",
-    about_p2: "With modern computerized batching plants, a fleet of over 41 mixer trucks and 8 pump trucks, an in-house certified testing laboratory, and an experienced engineering workforce, we ensure that every structure built with BCE stands strong for generations.",
-    chairwoman_title: "Chairwoman's Message",
-    chairwoman_quote: "\"At BCE, quality is not simply a requirement—it is the principle that guides every aspect of our operations. From material selection to construction execution, we build trust, safety, and lasting value for Cambodia's future.\"",
+    btn_dispatch_telegram: "Dispatch Telegram",
+
+    // Hero Section
+    hero_meta_tag: "EST. 1995 • ACI 211.1 CERTIFIED • BATTAMBANG & 14 PROVINCES",
+    hero_headline_1: "Engineering Permanence.",
+    hero_headline_2: "Precision Ready-Mix & Piling Infrastructure.",
+    hero_description: "Battambang Construction and Engineering (BCE) operates 4 computerized batching plants, an active GPS fleet of 41 transit mixers, hydraulic piling rigs, and an in-house certified testing laboratory, delivering enduring structural confidence across Cambodia.",
+    hero_cta_estimator: "Launch Volumetric Estimator",
+    hero_cta_works: "Explore Selected Works",
+    stat_experience: "Years Proven Track Record",
+    stat_plants: "Automated Batching Plants (70 m³/hr)",
+    stat_fleet: "GPS Transit Mixers (7–10 m³)",
+    stat_projects: "Landmark Structures Delivered",
+
+    // Section 01: The Studio & Leadership
+    s01_tag: "01 / THE STUDIO & HERITAGE",
+    s01_title: "Thirty Years of Material Discipline in Northwestern Cambodia.",
+    s01_p1: "Founded in 1995 under Hong Huot Ly Co., Ltd. and restructured in 2020 as Battambang Construction and Engineering Co., Ltd. (BCE), our studio has anchored the physical modernization of Cambodia for over three decades.",
+    s01_p2: "Under the executive leadership of Chairwoman Ms. Loeung Chan, BCE pairs heavy industrial machinery with rigorous material sciences. With 15 licensed civil engineers and 71 specialized technical operators, we bridge the gap between architectural vision and generational structural permanence.",
+    chairwoman_quote: "“At BCE, concrete is not merely a commodity—it is the foundation of national progress. Every cubic meter dispatched carries our unyielding commitment to structural integrity, mathematical accuracy, and enduring safety.”",
     chairwoman_name: "Ms. Loeung Chan",
-    chairwoman_role: "Chairwoman, Battambang Construction and Engineering Co., Ltd.",
-    values_title: "Our Core Values",
-    val_quality_title: "Quality Assured",
-    val_quality_desc: "We adhere strictly to international ACI standards and rigorous laboratory verification for every cubic meter of concrete.",
-    val_safety_title: "Safety First",
-    val_safety_desc: "Zero-compromise occupational safety protocols protecting our workforce, partners, and job sites.",
-    val_integrity_title: "Integrity & Trust",
-    val_integrity_desc: "Transparent business conduct, precise mix formulations, and honest client relationships.",
-    val_innovation_title: "Modern Technology",
-    val_innovation_desc: "Computerized batching systems, real-time GPS fleet telemetry, and advanced hydraulic machinery.",
-    val_teamwork_title: "Engineering Team",
-    val_teamwork_desc: "15 licensed engineers and 71 dedicated professionals driving flawless execution.",
-    val_sustain_title: "Sustainable Growth",
-    val_sustain_desc: "Environmentally responsible water recycling, dust control, and low-waste production systems.",
-    services_tag: "Core Capabilities",
-    services_heading: "Comprehensive Construction & Ready-Mix Solutions",
-    srv_1_title: "Ready-Mix Concrete Supply",
-    srv_1_desc: "Computerized batching with 70 m³/hr capacity per plant. High slump retention, tailored mix designs from 15 MPa to 45 MPa, and reliable on-time site dispatch.",
-    srv_2_title: "Reinforced Concrete Piling",
-    srv_2_desc: "Specialized hydraulic piling drivers and deep foundation solutions. Complete precast pile manufacturing, transport, laser alignment, and driving.",
-    srv_3_title: "Civil & Structural Construction",
-    srv_3_desc: "End-to-end building construction, industrial facilities, bridges, irrigation canals, and high-strength concrete structures.",
-    srv_4_title: "Concrete Slab & Pavement Works",
-    srv_4_desc: "High-tolerance industrial warehouse floors, heavy transport highways, commercial slabs, laser screeding, and power trowel mirror finishes.",
-    srv_5_title: "Heavy Equipment & Truck Rental",
-    srv_5_desc: "Long-arm concrete pump trucks, 7-10 m³ mixer trucks, wheel loaders, telescopic crane trucks, tower cranes, and construction hoists.",
-    fleet_tag: "Machinery & Equipment",
-    fleet_heading: "Owned Heavy Machinery Fleet & Advanced Production Assets",
-    fleet_desc: "BCE owns and operates one of Northwestern Cambodia's most modern and well-maintained construction fleets.",
-    fleet_plant: "Batching Plants",
-    fleet_plant_spec: "4 Computerized Units • 70 m³/hr per plant capacity • Automated moisture compensation",
-    fleet_mixers: "Concrete Mixer Trucks",
-    fleet_mixers_spec: "41 Units • 7 to 10 m³ capacity • Equipped with real-time GPS tracking",
-    fleet_pumps: "Concrete Pump Trucks",
-    fleet_pumps_spec: "8 Heavy-Duty Units • Extended boom reaches for high-rise & bridge projects",
-    fleet_piling: "Hydraulic Piling Rigs",
-    fleet_piling_spec: "7 Heavy Piling Drivers • High stability for tough soil formations & solar plants",
-    fleet_cranes: "Crane & Transport Trucks",
-    fleet_cranes_spec: "6 Telescopic Crane Trucks + 8 High-Capacity Tower Cranes",
-    fleet_lab: "Calibrated QC Laboratory",
-    fleet_lab_spec: "DYE-2000 Compressive Testing Machine, slump test apparatus, sieve analysis",
-    coverage_tag: "Operational Footprint",
-    coverage_heading: "We Go Where You Build — 14 Provinces Covered",
-    coverage_desc: "Headquartered in Battambang City with rapid mobile batching and delivery deployment across Northwestern Cambodia, Phnom Penh, and coastal regions.",
-    map_hq_label: "Headquarters & Central Plant",
-    map_hq_val: "Battambang City (O'Char)",
-    map_active_label: "Operational Service Network",
-    map_active_provinces: "Battambang, Phnom Penh, Banteay Meanchey, Pailin, Pursat, Kampong Chhnang, Koh Kong, Preah Sihanouk, Kandal, Kampong Thom, Siem Reap, Oddar Meanchey, Preah Vihear, Stung Treng.",
-    projects_tag: "Proven Track Record",
-    projects_heading: "Featured Project Portfolio (30+ Completed & Ongoing)",
+    chairwoman_title: "Chairwoman & Founder, BCE Co., Ltd.",
+
+    // Section 02: Principles
+    s02_tag: "02 / ARCHITECTURAL PRINCIPLES",
+    s02_title: "Engineering Integrity by First Principles.",
+    p1_title: "Material Honesty",
+    p1_desc: "Strictly washed quartz aggregates, calibrated river sand, and high-performance Portland cement verified by in-house laboratory sieve analysis.",
+    p2_title: "Batching Precision",
+    p2_desc: "Automated digital weighing systems with continuous moisture sensor compensation, guaranteeing mix tolerances within ±1% across all grades.",
+    p3_title: "Logistical Certainty",
+    p3_desc: "Real-time GPS telemetry tracking across 41 transit mixers ensures synchronized site arrival, preventing cold joints during continuous deep pours.",
+    p4_title: "Generational Strength",
+    p4_desc: "Complete laboratory testing from initial slump verification to 7-day and 28-day compressive crushing using our calibrated DYE-2000 machine.",
+
+    // Section 03: 5-Stage Protocol
+    s03_tag: "03 / PRODUCTION & QA PROTOCOL",
+    s03_title: "Five-Stage Quality Assurance Protocol.",
+    s03_desc: "Every cubic meter follows an unbroken chain of custody certified in compliance with ACI 211.1, ASTM standards, and the Ministry of Public Works and Transport.",
+    stage_1_num: "STAGE 01",
+    stage_1_title: "Aggregate & Material Verification",
+    stage_1_desc: "Comprehensive sieve analysis, specific gravity testing, water chemical neutrality (pH) checks, and supplier mill test validation.",
+    stage_2_num: "STAGE 02",
+    stage_2_title: "Computerized Batch Formulation",
+    stage_2_desc: "Automated moisture-compensated batching with precise chemical admixture introduction for slump retention up to 120 minutes.",
+    stage_3_num: "STAGE 03",
+    stage_3_title: "Transit & Slump Control",
+    stage_3_desc: "GPS route optimization and on-site slump cone testing (80mm to 180mm tolerance) conducted prior to placement discharge.",
+    stage_4_num: "STAGE 04",
+    stage_4_title: "Hydraulic Pumping & Pouring",
+    stage_4_desc: "High-volume placement through our fleet of 8 extended boom pumps (up to 48m reach) with continuous mechanical compaction.",
+    stage_5_num: "STAGE 05",
+    stage_5_title: "Compressive Crushing Certification",
+    stage_5_desc: "Standard cylinder casting, water bath curing, and calibrated hydraulic crushing on our DYE-2000 machine with formal client reports.",
+
+    // Section 04: Machinery & Fleet
+    s04_tag: "04 / PRODUCTION ASSETS & FLEET",
+    s04_title: "Owned Heavy Machinery Fleet & Batching Logistics.",
+    asset_1_title: "Computerized Batching Plants",
+    asset_1_spec: "4 automated plants • 70 m³/hr individual capacity • 2,800 m³/day combined output",
+    asset_2_title: "GPS Concrete Transit Mixers",
+    asset_2_spec: "41 heavy transit mixers • 7 to 10 m³ payload • Real-time dispatch telemetry",
+    asset_3_title: "Concrete Boom Pump Trucks",
+    asset_3_spec: "8 extended boom units • 38m to 48m vertical reach • High-pressure line pumping",
+    asset_4_title: "Hydraulic Piling Rigs",
+    asset_4_spec: "7 heavy hydraulic piling rigs • Deep foundation driving for solar & high-rise civil works",
+    asset_5_title: "Telescopic & Tower Cranes",
+    asset_5_spec: "6 telescopic mobile crane trucks + 8 tower cranes for vertical structural erection",
+    asset_6_title: "Certified Materials Laboratory",
+    asset_6_spec: "DYE-2000 digital compressive testing machine, slump apparatus, aggregate sieve bank",
+
+    // Section 05: Field Estimator
+    s05_tag: "05 / FIELD VOLUMETRIC ESTIMATOR",
+    s05_title: "Architectural Concrete Estimator Console.",
+    s05_desc: "Calculate required structural volume, safety allowances, mixer truck fleet allocation, and generate a prefilled technical quotation via Telegram.",
+    calc_preset_slab: "Slab / Pavement",
+    calc_preset_footing: "Pad Footing",
+    calc_preset_column: "Column / Beam",
+    calc_preset_wall: "Retaining Wall",
+    calc_lbl_length: "Length (Meters)",
+    calc_lbl_width: "Width (Meters)",
+    calc_lbl_thickness: "Thickness / Depth (Meters)",
+    calc_lbl_grade: "Mix Strength Grade (ACI 211.1 / ASTM)",
+    calc_res_net: "Net Volume",
+    calc_res_order: "Recommended (+5% buffer)",
+    calc_res_trucks: "Required Mixer Trips",
+    calc_res_time: "Est. Batch Duration",
+    calc_btn_quote: "Order This Volume via Telegram @thendLP",
+
+    // Section 06: Selected Works
+    s06_tag: "06 / SELECTED WORKS ARCHIVE",
+    s06_title: "Portfolio of Structural & Civil Landmarks.",
     filter_all: "All Projects (30)",
-    filter_buildings: "High-Rise & Buildings",
-    filter_infrastructure: "Infrastructure & Roads",
+    filter_buildings: "High-Rise & Commercial",
+    filter_infrastructure: "Infrastructure & Civil",
     filter_industrial: "Industrial & Solar",
     filter_piling: "Piling & Foundations",
-    calc_tag: "Smart Utility",
-    calc_heading: "Interactive Ready-Mix Concrete Volume Calculator",
-    calc_desc: "Plan your project requirement accurately. Enter your structural dimensions below to estimate required concrete volume in cubic meters (m³) and request a prefilled quote on Telegram.",
-    calc_shape_slab: "Concrete Slab / Floor",
-    calc_shape_footing: "Isolated Footing / Foundation",
-    calc_shape_column: "Rectangular Column / Beam",
-    calc_dim_l: "Length (meters)",
-    calc_dim_w: "Width (meters)",
-    calc_dim_t: "Thickness / Height (meters)",
-    calc_grade: "Target Strength Grade (ACI 211.1)",
-    calc_btn: "Calculate Volume",
-    calc_res_volume: "Estimated Net Volume:",
-    calc_res_order: "Recommended Order (+5% buffer):",
-    calc_btn_quote: "Order this Volume via Telegram @thendLP",
-    qa_tag: "Quality & Safety Standards",
-    qa_heading: "Laboratory Quality Assurance & HSE Commitment",
-    qa_desc: "At BCE, every batch undergoes a 5-step quality verification cycle certified by the Ministry of Public Works and Transport.",
-    qa_step_1: "1. Raw Material Check",
-    qa_step_1_desc: "Rigorous sieve testing on coarse/fine aggregates, water pH testing, and supplier mill test certificates.",
-    qa_step_2: "2. Production Control",
-    qa_step_2_desc: "Automated digital weighing scales with valid government calibration stamps.",
-    qa_step_3: "3. Fresh Concrete Test",
-    qa_step_3_desc: "Workability slump tests and sample cube/cylinder casting at batching plant and job site.",
-    qa_step_4: "4. Strength Testing",
-    qa_step_4_desc: "7-day and 28-day compressive crushing tests utilizing our calibrated DYE-2000 machine.",
-    qa_step_5: "5. Quality Certification",
-    qa_step_5_desc: "Formal quality documentation and test result certificates issued to client engineers.",
-    partners_tag: "Strategic Network",
-    partners_heading: "Trusted by Government Ministries, Contractors & Key Suppliers",
-    contact_tag: "Let's Build Together",
-    contact_heading: "Get in Touch with BCE Today",
-    contact_desc: "Ready to discuss your next construction project or ready-mix supply schedule? Contact our engineering team for immediate assistance and competitive rates.",
-    form_name: "Full Name / Company Name",
-    form_phone: "Phone Number",
-    form_service: "Service Required",
-    form_opt_concrete: "Ready-Mix Concrete Supply",
-    form_opt_piling: "Piling & Foundation Works",
-    form_opt_civil: "General Civil Construction",
-    form_opt_slab: "Concrete Slab / Industrial Flooring",
-    form_opt_rental: "Machinery / Fleet Rental",
-    form_location: "Project Location / Province",
-    form_notes: "Project Scope & Details",
-    form_submit: "Submit Tender / Quote Inquiry",
-    contact_address_title: "Headquarters Address",
-    contact_address_val: "Ang Village, Sangkat O’Char, Battambang City, Battambang Province, Cambodia",
-    contact_phone_title: "Hotline Lines",
-    contact_hours_title: "Operating Hours",
-    contact_hours_val: "Monday - Sunday: 6:30 AM - 5:30 PM (24/7 Pouring on schedule)",
-    contact_email_title: "Official Email",
-    modal_details_title: "Project Specifications",
-    modal_client: "Client / Owner:",
-    modal_location: "Location:",
-    modal_timeline: "Timeline:",
-    modal_scope: "Scope of Work:",
-    modal_close: "Close"
+    inspect_specs: "Inspect Specifications",
+
+    // Section 07: Spatial Brief / Inquiries
+    s07_tag: "07 / SPATIAL BRIEF & TENDER INTAKE",
+    s07_title: "Submit a Project Brief or Tender Inquiry.",
+    s07_desc: "Modeled for consulting architects, developers, and lead structural contractors. Complete the preliminary brief below to initiate a direct dispatch quotation.",
+    brief_f1_num: "01",
+    brief_f1_label: "Client or Enterprise Name",
+    brief_f1_ph: "e.g. Oknha Vong Duong / Sino-Cambodia Development Corp",
+    brief_f2_num: "02",
+    brief_f2_label: "Direct Telephone or Telegram Contact",
+    brief_f2_ph: "e.g. +855 12 932 700 or @username",
+    brief_f3_num: "03",
+    brief_f3_label: "Project Typology & Core Service",
+    brief_f3_opt1: "Ready-Mix Concrete Supply (Continuous Pour)",
+    brief_f3_opt2: "Reinforced Concrete Piling & Foundation Driving",
+    brief_f3_opt3: "Civil, Bridge & Marine Structural Construction",
+    brief_f3_opt4: "Laser-Screeded Industrial Concrete Slab / Flooring",
+    brief_f3_opt5: "Heavy Fleet & Pump Truck Rental",
+    brief_f4_num: "04",
+    brief_f4_label: "Site Location & Province in Cambodia",
+    brief_f4_ph: "e.g. Poipet City, Banteay Meanchey or Battambang City",
+    brief_f5_num: "05",
+    brief_f5_label: "Estimated Volume & Target Strength",
+    brief_f5_ph: "e.g. 1,200 m³ • Grade 35 MPa (5,000 PSI)",
+    brief_f6_num: "06",
+    brief_f6_label: "Project Scope & Execution Timeline",
+    brief_f6_ph: "Outline key architectural schedules, site access conditions, and pour requirements...",
+    brief_btn_submit: "Dispatch Spatial Brief to Telegram @thendLP",
+
+    // Modal
+    modal_spec_title: "TECHNICAL SPECIFICATION SHEET",
+    modal_client_lbl: "Client / Developer:",
+    modal_location_lbl: "Site Location:",
+    modal_timeline_lbl: "Construction Period:",
+    modal_scope_lbl: "Scope of Engineering Works:",
+    modal_btn_inquire: "Inquire About Similar Specifications via Telegram @thendLP",
+    modal_btn_close: "Close Blueprint",
+
+    // Footer
+    footer_tag: "BATTAMBANG CONSTRUCTION & ENGINEERING CO., LTD. (BCE)",
+    footer_desc: "Operating 4 computerized batching plants, 41 transit mixers, 8 boom pumps, and 7 hydraulic piling drivers across 14 provinces in Cambodia. Licensed and certified by the Ministry of Public Works and Transport.",
+    footer_address_title: "Headquarters & Central Plant",
+    footer_address_val: "Ang Village, Sangkat O’Char, Battambang City, Battambang Province, Kingdom of Cambodia.",
+    footer_hours_title: "Dispatch Desk & Operating Hours",
+    footer_hours_val: "Monday – Sunday: 06:30 – 17:30 (24/7 Site Pouring Available upon Schedule)",
+    footer_hotlines_title: "Direct Hotlines",
+    footer_copyright: "© 2026 Battambang Construction & Engineering Co., Ltd. All rights reserved. Engineering Precision Built for Generational Permanence."
   },
   kh: {
-    nav_home: "ទំព័រដើម",
-    nav_about: "អំពីយើង",
-    nav_services: "សេវាកម្មចម្បង",
-    nav_fleet: "គ្រឿងចក្រ និងរថយន្ត",
-    nav_coverage: "វិសាលភាពប្រតិបត្តិការ",
-    nav_projects: "គម្រោងការងារ",
-    nav_qa: "គុណភាព និងសុវត្ថិភាព",
-    nav_clients: "ដៃគូសហការ",
+    // Top Bar & Meta
+    meta_status: "ស្ថានីយបេតុង៖ កំពុងដំណើរការ",
+    meta_coords: "13.0957° N, 103.2022° E (ទីស្នាក់ការកណ្តាលបាត់ដំបង)",
+    meta_hotline: "ខ្សែទូរស័ព្ទបន្ទាន់៖ 012 932 700 / 017 222 205",
+    meta_hours: "សេវាចាក់បេតុង ២៤/៧ តាមកាលវិភាគ",
+
+    // Navigation
+    nav_studio: "ទិដ្ឋភាពទូទៅ",
+    nav_principles: "គោលការណ៍",
+    nav_protocol: "ស្តង់ដារគុណភាព",
+    nav_fleet: "គ្រឿងចក្រ និងកងរថយន្ត",
+    nav_estimator: "គណនាមាឌបេតុង",
+    nav_works: "គម្រោងលេចធ្លោ",
+    nav_brief: "ស្នើសុំតម្លៃ / កិច្ចសន្យា",
     nav_contact: "ទំនាក់ទំនង",
-    btn_request_quote: "ស្នើសុំតម្លៃ",
-    btn_call_us: "ទូរស័ព្ទផ្ទាល់",
-    hero_badge: "បទពិសោធន៍ជាង ៣០ ឆ្នាំក្នុងវិស័យវិស្វកម្ម និងសំណង់ (តាំងពីឆ្នាំ ១៩៩៥)",
-    hero_title_1: "បេតុងគុណភាពខ្ពស់។",
-    hero_title_2: "សំណង់គួរជាទីទុកចិត្ត។",
-    hero_subtitle: "ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE) គឺជាក្រុមហ៊ុនឈានមុខគេក្នុងប្រទេសកម្ពុជា ផ្នែកផ្គត់ផ្គង់បេតុងលាយស្រេចដោយប្រព័ន្ធកុំព្យូទ័រ សេវាកម្មដាំគ្រឹះសសរស្ដម្ភ សំណង់ស៊ីវិល និងការជួលគ្រឿងចក្រធុនធ្ងន់។",
-    btn_explore_projects: "មើលគម្រោងសម្រេចបាន",
-    btn_calculate_concrete: "គណនាមាឌបេតុង",
-    stat_experience_val: "៣០+",
-    stat_experience_lbl: "ឆ្នាំនៃបទពិសោធន៍រឹងមាំ",
-    stat_plants_val: "៤",
-    stat_plants_lbl: "ស្ថានីយបេតុង (៧០ ម៉ែត្រគូប/ម៉ោង)",
-    stat_trucks_val: "៤១",
-    stat_trucks_lbl: "រថយន្តលាយបេតុង (បំពាក់ GPS)",
-    stat_projects_val: "១២៨+",
-    stat_projects_lbl: "គម្រោងធំៗសម្រេចបាន",
-    stat_provinces_val: "១៤",
-    stat_provinces_lbl: "ខេត្ត-ក្រុង និងរាជធានីភ្នំពេញ",
-    about_tag: "ទិដ្ឋភាពទូទៅនៃក្រុមហ៊ុន",
-    about_heading: "កសាងឧត្តមភាព។ ផ្តល់ទំនុកចិត្តយ៉ាងរឹងមាំទូទាំងប្រទេសកម្ពុជា។",
-    about_p1: "ត្រូវបានបង្កើតឡើងដំបូងក្នុងឆ្នាំ ១៩៩៥ ក្រោមឈ្មោះក្រុមហ៊ុន ហុង ហួតលី ខូអិលធីឌី និងបានពង្រីកខ្លួនចុះបញ្ជីជាផ្លូវការនៅឆ្នាំ ២០២០ ជាក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE)។",
-    about_p2: "ជាមួយនឹងស្ថានីយផលិតបេតុងស្វ័យប្រវត្តិកុំព្យូទ័រ រថយន្តលាយបេតុង ៤១ គ្រឿង រថយន្តបាញ់បេតុង ៨ គ្រឿង មន្ទីរពិសោធន៍ត្រួតពិនិត្យគុណភាពផ្ទាល់ខ្លួន និងក្រុមវិស្វករជំនាញ ១៥ រូប យើងធានាថារាល់សំណង់ជាមួយ BCE គឺរឹងមាំយូរអង្វែងតកូនចៅ។",
-    chairwoman_title: "សាររបស់លោកស្រីប្រធានក្រុមប្រឹក្សាភិបាល",
-    chairwoman_quote: "\"នៅ BCE គុណភាពមិនមែនត្រឹមតែជាតម្រូវការនោះទេ គឺជាគោលការណ៍ណែនាំប្រតិបត្តិការរបស់យើងទាំងអស់។ ចាប់ពីការជ្រើសរើសវត្ថុធាតុដើម រហូតដល់ការសាងសង់ យើងកសាងទំនុកចិត្ត សុវត្ថិភាព និងតម្លៃយូរអង្វែងសម្រាប់អនាគតកម្ពុជា។\"",
+    btn_dispatch_telegram: "ទាក់ទងតាម Telegram",
+
+    // Hero Section
+    hero_meta_tag: "បទពិសោធន៍តាំងពីឆ្នាំ ១៩៩៥ • ស្តង់ដារ ACI 211.1 • បម្រើសេវាទូទាំង ១៤ ខេត្ត-រាជធានី",
+    hero_headline_1: "វិស្វកម្មរឹងមាំយូរអង្វែង។",
+    hero_headline_2: "បេតុងលាយស្រេច និងគ្រឹះសសរស្ដម្ភកម្រិតខ្ពស់។",
+    hero_description: "ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE) គ្រប់គ្រងស្ថានីយផលិតបេតុងស្វ័យប្រវត្តិកុំព្យូទ័រចំនួន ៤ កន្លែង រថយន្តលាយបេតុង ៤១ គ្រឿង គ្រឿងចក្របុកគ្រឹះធារាសាស្ត្រ និងមន្ទីរពិសោធន៍គុណភាព ផ្តល់នូវទំនុកចិត្ត និងភាពរឹងមាំយូរអង្វែងតកូនចៅ។",
+    hero_cta_estimator: "បើកផ្ទាំងគណនាមាឌបេតុង",
+    hero_cta_works: "ពិនិត្យគម្រោងសម្រេចបាន",
+    stat_experience: "ឆ្នាំនៃបទពិសោធន៍រឹងមាំក្នុងវិស័យសំណង់",
+    stat_plants: "ស្ថានីយបេតុងស្វ័យប្រវត្តិ (៧០ m³/ម៉ោង)",
+    stat_fleet: "រថយន្តដឹក និងលាយបេតុង GPS (៧-១០ m³)",
+    stat_projects: "គម្រោងសំណង់ធំៗសម្រេចបាន",
+
+    // Section 01: The Studio & Leadership
+    s01_tag: "០១ / ទិដ្ឋភាពទូទៅ និងកេរ្តិ៍ដំណែល",
+    s01_title: "បទពិសោធន៍ ៣០ ឆ្នាំនៃវិន័យផលិតកម្មនៅភូមិភាគពាយ័ព្យ។",
+    s01_p1: "ត្រូវបានបង្កើតឡើងក្នុងឆ្នាំ ១៩៩៥ ក្រោមឈ្មោះក្រុមហ៊ុន ហុង ហួតលី ខូអិលធីឌី និងបានពង្រីកខ្លួនចុះបញ្ជីផ្លូវការជាក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE) ក្នុងឆ្នាំ ២០២០ ដោយបានចូលរួមចំណែកយ៉ាងសកម្មក្នុងការអភិវឌ្ឍហេដ្ឋារចនាសម្ព័ន្ធកម្ពុជាជាងបីទសវត្សរ៍។",
+    s01_p2: "ក្រោមការដឹកនាំរបស់លោកស្រីប្រធានក្រុមប្រឹក្សាភិបាល ឡឿង ចាន់ ក្រុមហ៊ុន BCE រួមបញ្ចូលគ្នានូវគ្រឿងចក្រធុនធ្ងន់ទំនើប និងវិទ្យាសាស្ត្រសម្ភារៈសំណង់យ៉ាងហ្មត់ចត់។ ជាមួយវិស្វករជំនាញ ១៥ រូប និងបុគ្គលិកបច្ចេកទេស ៧១ រូប យើងធានាថារាល់សំណង់ដែលសាងសង់ជាមួយ BCE មានភាពរឹងមាំយូរអង្វែងជាអចិន្ត្រៃយ៍។",
+    chairwoman_quote: "“នៅ BCE បេតុងមិនមែនគ្រាន់តែជាផលិតផលនោះទេ គឺជាគ្រឹះនៃការរីកចម្រើនរបស់ជាតិ។ រាល់ម៉ែត្រគូបដែលយើងបញ្ជូនចេញ សុទ្ធតែបង្កប់នូវការប្តេជ្ញាចិត្តខ្ពស់បំផុតចំពោះគុណភាព រូបមន្តគណនាត្រឹមត្រូវ និងសុវត្ថិភាពយូរអង្វែង។”",
     chairwoman_name: "លោកស្រី ឡឿង ចាន់",
-    chairwoman_role: "ប្រធានក្រុមប្រឹក្សាភិបាល ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង",
-    values_title: "គុណតម្លៃស្នូលរបស់យើង",
-    val_quality_title: "គុណភាពជាចម្បង",
-    val_quality_desc: "អនុវត្តតាមស្តង់ដារអន្តរជាតិ ACI និងការពិសោធន៍យ៉ាងហ្មត់ចត់លើរាល់ម៉ែត្រគូបបេតុង។",
-    val_safety_title: "សុវត្ថិភាពខ្ពស់បំផុត",
-    val_safety_desc: "គោលការណ៍សុវត្ថិភាពការងារ និងបរិស្ថានយ៉ាងតឹងរ៉ឹងការពារបុគ្គលិក និងការដ្ឋាន។",
-    val_integrity_title: "សុចរិតភាព និងទំនុកចិត្ត",
-    val_integrity_desc: "តម្លាភាពក្នុងការធ្វើអាជីវកម្ម រូបមន្តលាយបេតុងត្រឹមត្រូវ និងការគោរពពាក្យសន្យា។",
-    val_innovation_title: "បច្ចេកវិទ្យាទំនើប",
-    val_innovation_desc: "ប្រព័ន្ធថ្លឹងស្វ័យប្រវត្តិកុំព្យូទ័រ ប្រព័ន្ធផ្កាយរណប GPS និងគ្រឿងចក្រធារាសាស្ត្រទំនើប។",
-    val_teamwork_title: "ក្រុមការងារវិស្វកម្ម",
-    val_teamwork_desc: "វិស្វករជំនាញ ១៥ រូប និងបុគ្គលិកបច្ចេកទេស ៧១ នាក់ ធានាការអនុវត្តការងារដោយរលូន។",
-    val_sustain_title: "ការអភិវឌ្ឍប្រកបដោយចីរភាព",
-    val_sustain_desc: "ការគ្រប់គ្រងកាកសំណល់ ការកែច្នៃទឹកប្រើប្រាស់ និងការកាត់បន្ថយការបំពុលបរិស្ថាន។",
-    services_tag: "សេវាកម្មចម្បង",
-    services_heading: "ដំណោះស្រាយសំណង់ស៊ីវិល និងបេតុងលាយស្រេចគ្រប់ជ្រុងជ្រោយ",
-    srv_1_title: "ផ្គត់ផ្គង់បេតុងលាយស្រេច (Ready-Mix)",
-    srv_1_desc: "ផលិតដោយប្រព័ន្ធកុំព្យូទ័រសមត្ថភាព ៧០ ម៉ែត្រគូប/ម៉ោង ក្នុងមួយស្ថានីយ។ កម្លាំងបេតុងចាប់ពី 15 MPa ដល់ 45 MPa និងការដឹកជញ្ជូនរហ័សទាន់ពេលវេលា។",
-    srv_2_title: "សេវាកម្មបុក និងដាំសសរគ្រឹះបេតុង (Piling)",
-    srv_2_desc: "គ្រឿងចក្របុកគ្រឹះធារាសាស្ត្រ និងការខួងគ្រឹះសសរស្ដម្ភទំនើប។ ផលិតសសរគ្រឹះបេតុងអាមេ ដឹកជញ្ជូន និងបុកដាំដោយវិស្វករជំនាញ។",
-    srv_3_title: "សំណង់ស៊ីវិល និងរចនាសម្ព័ន្ធ (Civil Construction)",
-    srv_3_desc: "សាងសង់អគារពាណិជ្ជកម្ម រោងចក្រឧស្សាហកម្ម ស្ពាន ទំនប់ទឹក ប្រឡាយមេ និងសំណង់បេតុងអាមេគ្រប់ប្រភេទ។",
-    srv_4_title: "ការងារកម្រាលបេតុង (Concrete Slab Works)",
-    srv_4_desc: "កម្រាលបេតុងឃ្លាំងទំនិញ ផ្លូវបេតុងទ្រទម្ងន់ធ្ងន់ កម្រាលអគារពាណិជ្ជកម្ម និងការខាត់រលោងដោយម៉ាស៊ីនទំនើប។",
-    srv_5_title: "សេវាកម្មជួលគ្រឿងចក្រ និងរថយន្ត (Rental)",
-    srv_5_desc: "ជួលរថយន្តបាញ់បេតុងដៃវែង រថយន្តលាយបេតុង ៧-១០ ម៉ែត្រគូប គ្រឿងចក្រស្ទូច និងគ្រឿងចក្របុកគ្រឹះ។",
-    fleet_tag: "កងគ្រឿងចក្រ និងឧបករណ៍បច្ចេកវិទ្យា",
-    fleet_heading: "កងគ្រឿងចក្រទំនើប និងស្ថានីយផលិតកម្មផ្ទាល់ខ្លួន",
-    fleet_desc: "BCE ជាម្ចាស់កងគ្រឿងចក្រធុនធ្ងន់ដ៏ធំបំផុតមួយនៅភូមិភាគពាយ័ព្យនៃប្រទេសកម្ពុជា។",
-    fleet_plant: "ស្ថានីយបេតុងស្វ័យប្រវត្តិ",
-    fleet_plant_spec: "៤ ស្ថានីយ • សមត្ថភាព ៧០ ម៉ែត្រគូប/ម៉ោងក្នុងមួយស្ថានីយ • ប្រព័ន្ធថ្លឹងស្វ័យប្រវត្តិកុំព្យូទ័រ",
-    fleet_mixers: "រថយន្តដឹក និងលាយបេតុង",
-    fleet_mixers_spec: "៤១ គ្រឿង • ចំណុះ ៧ ទៅ ១០ ម៉ែត្រគូប • បំពាក់ប្រព័ន្ធតាមដាន GPS ២៤ម៉ោង",
-    fleet_pumps: "រថយន្តបាញ់បេតុង (Pump Trucks)",
-    fleet_pumps_spec: "៨ គ្រឿង • ប្រវែងដៃបាញ់ខ្ពស់ និងឆ្ងាយសម្រាប់អគារខ្ពស់ និងស្ពាន",
-    fleet_piling: "គ្រឿងចក្របុក និងដាំសសរគ្រឹះ",
-    fleet_piling_spec: "៧ គ្រឿង • ម៉ាស៊ីនបុកគ្រឹះធារាសាស្ត្រកម្លាំងខ្លាំងសម្រាប់ដីរឹង និងគម្រោងសូឡា",
-    fleet_cranes: "រថយន្តស្ទូច និងរថយន្តសណ្តោង",
-    fleet_cranes_spec: "៦ គ្រឿងស្ទូចចល័ត + ៨ អគារស្ទូច (Tower Cranes) សម្រាប់អគារខ្ពស់",
-    fleet_lab: "មន្ទីរពិសោធន៍គុណភាពស្តង់ដារ",
-    fleet_lab_spec: "ម៉ាស៊ីនសង្កត់បេតុង DYE-2000, ឧបករណ៍វាស់កម្រិតស្រុត Slump Test និងតេស្តដែក",
-    coverage_tag: "វិសាលភាពប្រតិបត្តិការ",
-    coverage_heading: "យើងទៅដល់គ្រប់ទីកន្លែងដែលលោកអ្នកសាងសង់ — ១៤ ខេត្ត-រាជធានី",
-    coverage_desc: "ទីស្នាក់ការកណ្តាលស្ថិតនៅក្រុងបាត់ដំបង ជាមួយនឹងសមត្ថភាពចល័តស្ថានីយបេតុង និងដឹកជញ្ជូនរហ័សទូទាំងកម្ពុជា។",
-    map_hq_label: "ទីស្នាក់ការកណ្តាល និងស្ថានីយមេ",
-    map_hq_val: "ក្រុងបាត់ដំបង (សង្កាត់អូរចារ)",
-    map_active_label: "បណ្តាញខេត្តប្រតិបត្តិការ BCE",
-    map_active_provinces: "បាត់ដំបង, ភ្នំពេញ, បន្ទាយមានជ័យ, ប៉ៃលិន, ពោធិ៍សាត់, កំពង់ឆ្នាំង, កោះកុង, ព្រះសីហនុ, កណ្តាល, កំពង់ធំ, សៀមរាប, ឧត្តរមានជ័យ, ព្រះវិហារ, ស្ទឹងត្រែង។",
-    projects_tag: "ស្នាដៃ និងបទពិសោធន៍ជាក់ស្តែង",
-    projects_heading: "កាតាឡុកគម្រោងការងារលេចធ្លោ (ជាង ៣០ គម្រោង)",
+    chairwoman_title: "ប្រធានក្រុមប្រឹក្សាភិបាល និងជាស្ថាបនិក BCE",
+
+    // Section 02: Principles
+    s02_tag: "០២ / គោលការណ៍វិស្វកម្ម",
+    s02_title: "គុណភាព និងសុចរិតភាពផ្អែកលើវិទ្យាសាស្ត្រសំណង់។",
+    p1_title: "ភាពស្មោះត្រង់នៃវត្ថុធាតុដើម",
+    p1_desc: "ថ្មលាងស្អាត ខ្សាច់ទន្លេគ្មានជាតិភក់ និងស៊ីម៉ងត៍គុណភាពខ្ពស់ ដែលត្រូវបានត្រួតពិនិត្យតាមរយៈការរែងតេស្តយ៉ាងហ្មត់ចត់នៅក្នុងមន្ទីរពិសោធន៍។",
+    p2_title: "ភាពជាក់លាក់នៃការលាយបេតុង",
+    p2_desc: "ប្រព័ន្ធថ្លឹងស្វ័យប្រវត្តិកុំព្យូទ័រដែលមានប្រព័ន្ធវាស់សំណើមស្វ័យប្រវត្តិ ធានាកម្រិតលម្អៀងក្រោម ±១% លើគ្រប់កម្លាំងបេតុង។",
+    p3_title: "ភាពច្បាស់លាស់ក្នុងការដឹកជញ្ជូន",
+    p3_desc: "ប្រព័ន្ធផ្កាយរណប GPS លើរថយន្តលាយបេតុង ៤១ គ្រឿង ធានាការមកដល់ការដ្ឋានទាន់ពេល ចៀសវាងការស្ទះបេតុង និងស្នាមប្រេះកម្រាល។",
+    p4_title: "ភាពរឹងមាំតកូនចៅ",
+    p4_desc: "ការត្រួតពិនិត្យកម្រិតស្រុត Slump Test និងការសង្កត់បំបែកគំរូបេតុងអាយុ ៧ ថ្ងៃ និង ២៨ ថ្ងៃ ដោយម៉ាស៊ីន DYE-2000 ដែលមានវិញ្ញាបនបត្រត្រឹមត្រូវ។",
+
+    // Section 03: 5-Stage Protocol
+    s03_tag: "០៣ / ដំណាក់កាលផលិតកម្ម និងស្តង់ដារគុណភាព",
+    s03_title: "ដំណាក់កាលត្រួតពិនិត្យគុណភាពទាំង ៥ ជំហាន។",
+    s03_desc: "រាល់ម៉ែត្រគូបបេតុងឆ្លងកាត់ការត្រួតពិនិត្យយ៉ាងតឹងរ៉ឹង ស្របតាមស្តង់ដារអន្តរជាតិ ACI 211.1, ASTM និងក្រសួងសាធារណការ និងដឹកជញ្ជូន។",
+    stage_1_num: "ជំហាន ០១",
+    stage_1_title: "ត្រួតពិនិត្យ និងតេស្តវត្ថុធាតុដើម",
+    stage_1_desc: "តេស្តរែងទំហំគ្រាប់ថ្ម និងខ្សាច់ ពិនិត្យកម្រិត pH នៃទឹក និងផ្ទៀងផ្ទាត់លិខិតបញ្ជាក់គុណភាពស៊ីម៉ងត៍ពីរោងចក្រ។",
+    stage_2_num: "ជំហាន ០២",
+    stage_2_title: "រូបមន្តផលិតដោយប្រព័ន្ធកុំព្យូទ័រ",
+    stage_2_desc: "ប្រព័ន្ធថ្លឹងអេឡិចត្រូនិចស្វ័យប្រវត្តិ និងការលាយសារធាតុបន្ថែមគីមីដើម្បីរក្សាភាពស្រស់របស់បេតុងបានរហូតដល់ ១២០ នាទី។",
+    stage_3_num: "ជំហាន ០៣",
+    stage_3_title: "ការគ្រប់គ្រងដឹកជញ្ជូន និងកម្រិតស្រុត",
+    stage_3_desc: "ការគ្រប់គ្រងផ្លូវដឹកជញ្ជូនតាម GPS និងការតេស្តកម្រិតស្រុត Slump Cone (៨០ ដល់ ១៨០ មម) ផ្ទាល់នៅការដ្ឋានមុនពេលចាក់។",
+    stage_4_num: "ជំហាន ០៤",
+    stage_4_title: "ការបាញ់ និងចាក់បេតុងធារាសាស្ត្រ",
+    stage_4_desc: "រថយន្តបាញ់បេតុងដៃវែង ៨ គ្រឿង (ប្រវែងដល់ ៤៨ ម៉ែត្រ) និងការរំញ័រពង្រាបបេតុងដោយម៉ាស៊ីនយ៉ាងស្មើដៃ។",
+    stage_5_num: "ជំហាន ០៥",
+    stage_5_title: "វិញ្ញាបនបត្រតេស្តកម្លាំងសង្កត់",
+    stage_5_desc: "ច្រកគំរូបេតុង ត្រាំទឹក និងសង្កត់តេស្តកម្លាំងដោយម៉ាស៊ីន DYE-2000 រួចចេញរបាយការណ៍បច្ចេកទេសផ្លូវការជូនម្ចាស់គម្រោង។",
+
+    // Section 04: Machinery & Fleet
+    s04_tag: "០៤ / កងគ្រឿងចក្រ និងស្ថានីយផលិតកម្ម",
+    s04_title: "កងគ្រឿងចក្រធុនធ្ងន់ និងស្ថានីយបេតុងទំនើបកម្មសិទ្ធិផ្ទាល់ខ្លួន។",
+    asset_1_title: "ស្ថានីយបេតុងស្វ័យប្រវត្តិកុំព្យូទ័រ",
+    asset_1_spec: "៤ ស្ថានីយ • សមត្ថភាព ៧០ m³/ម៉ោងក្នុងមួយស្ថានីយ • ផលិតបាន ២,៨០០ m³/ថ្ងៃ",
+    asset_2_title: "រថយន្តដឹក និងលាយបេតុង GPS",
+    asset_2_spec: "៤១ គ្រឿង • ចំណុះ ៧ ទៅ ១០ m³ • ប្រព័ន្ធតាមដានផ្កាយរណប GPS ២៤ ម៉ោង",
+    asset_3_title: "រថយន្តបាញ់បេតុងដៃវែង",
+    asset_3_spec: "៨ គ្រឿង • ប្រវែងដៃបាញ់ ៣៨ ទៅ ៤៨ ម៉ែត្រ • សមត្ថភាពបាញ់សម្ពាធខ្ពស់",
+    asset_4_title: "គ្រឿងចក្របុក និងដាំសសរគ្រឹះ",
+    asset_4_spec: "៧ គ្រឿង • ម៉ាស៊ីនបុកគ្រឹះធារាសាស្ត្រសម្រាប់គម្រោងសូឡា និងអគារខ្ពស់",
+    asset_5_title: "រថយន្តស្ទូច និងអគារស្ទូច",
+    asset_5_spec: "៦ គ្រឿងស្ទូចចល័ត + ៨ អគារស្ទូច (Tower Cranes) សម្រាប់លើកសម្ភារៈអគារខ្ពស់",
+    asset_6_title: "មន្ទីរពិសោធន៍គុណភាពស្តង់ដារ",
+    asset_6_spec: "ម៉ាស៊ីនសង្កត់បេតុង DYE-2000, ឧបករណ៍វាស់កម្រិតស្រុត Slump Test និងតេស្តរែងថ្ម",
+
+    // Section 05: Field Estimator
+    s05_tag: "០៥ / ឧបករណ៍គណនាមាឌបេតុង",
+    s05_title: "ផ្ទាំងគណនាមាឌបេតុង និងរៀបចំកងរថយន្ត។",
+    s05_desc: "គណនាមាឌបេតុងសម្រាប់សំណង់ បរិមាណបម្រុងទុក ចំនួនជើងរថយន្តលាយបេតុង និងបង្កើតសំណើសុំតម្លៃតាម Telegram ដោយស្វ័យប្រវត្តិ។",
+    calc_preset_slab: "កម្រាលប្លង់សេ / ផ្លូវ",
+    calc_preset_footing: "គ្រឹះជើងតាង",
+    calc_preset_column: "សសរ / ធ្នឹម",
+    calc_preset_wall: "ជញ្ជាំងបេតុងទប់ដី",
+    calc_lbl_length: "បណ្តោយ (ម៉ែត្រ)",
+    calc_lbl_width: "ទទឹង (ម៉ែត្រ)",
+    calc_lbl_thickness: "កម្រាស់ ឬកម្ពស់ (ម៉ែត្រ)",
+    calc_lbl_grade: "កម្លាំងបេតុងដែលត្រូវការ (ACI 211.1 / ASTM)",
+    calc_res_net: "មាឌបេតុងជាក់ស្តែង",
+    calc_res_order: "មាឌគួរកុម្ម៉ង់ (+៥% សុវត្ថិភាព)",
+    calc_res_trucks: "ចំនួនជើងរថយន្តលាយ",
+    calc_res_time: "រយៈពេលផលិតប៉ាន់ស្មាន",
+    calc_btn_quote: "កុម្ម៉ង់បេតុងបរិមាណនេះតាម Telegram @thendLP",
+
+    // Section 06: Selected Works
+    s06_tag: "០៦ / បណ្ណាល័យគម្រោងការងារ",
+    s06_title: "កាតាឡុកគម្រោងសំណង់ និងហេដ្ឋារចនាសម្ព័ន្ធលេចធ្លោ។",
     filter_all: "គម្រោងទាំងអស់ (៣០)",
     filter_buildings: "អគារខ្ពស់ និងពាណិជ្ជកម្ម",
-    filter_infrastructure: "ផ្លូវ ស្ពាន ទំនប់ទឹក",
+    filter_infrastructure: "ហេដ្ឋារចនាសម្ព័ន្ធ និងផ្លូវស្ពាន",
     filter_industrial: "រោងចក្រ និងសូឡា",
     filter_piling: "គ្រឹះសសរស្ដម្ភ",
-    calc_tag: "ឧបករណ៍ជំនួយឆ្លាតវៃ",
-    calc_heading: "ឧបករណ៍គណនាមាឌបេតុងលាយស្រេច",
-    calc_desc: "រៀបចំផែនការតម្រូវការបេតុងយ៉ាងច្បាស់លាស់។ សូមបញ្ចូលវិមាត្រនៃសំណង់ដើម្បីប៉ាន់ប្រមាណមាឌបេតុង (ម៉ែត្រគូប m³) និងស្នើសុំតម្លៃតាម Telegram ភ្លាមៗ។",
-    calc_shape_slab: "កម្រាលប្លង់សេ / ផ្លូវបេតុង",
-    calc_shape_footing: "គ្រឹះទោល / ជើងតាង",
-    calc_shape_column: "សសររាងបួនជ្រុង / ធ្នឹម",
-    calc_dim_l: "បណ្តោយ (ម៉ែត្រ)",
-    calc_dim_w: "ទទឹង (ម៉ែត្រ)",
-    calc_dim_t: "កម្រាស់ ឬកម្ពស់ (ម៉ែត្រ)",
-    calc_grade: "កម្លាំងបេតុងដែលត្រូវការ (ACI 211.1)",
-    calc_btn: "គណនាមាឌបេតុង",
-    calc_res_volume: "មាឌបេតុងជាក់ស្តែង៖",
-    calc_res_order: "មាឌបេតុងដែលគួរកុម្ម៉ង់ (+៥% សុវត្ថិភាព)៖",
-    calc_btn_quote: "កុម្ម៉ង់បេតុងចំនួននេះតាម Telegram @thendLP",
-    qa_tag: "ស្តង់ដារគុណភាព និងសុវត្ថិភាព",
-    qa_heading: "ការធានាគុណភាពមន្ទីរពិសោធន៍ និងការប្តេជ្ញាចិត្ត HSE",
-    qa_desc: "នៅ BCE រាល់ការផលិតឆ្លងកាត់ដំណាក់កាលត្រួតពិនិត្យ ៥ ជំហានស្របតាមក្រសួងសាធារណការ និងដឹកជញ្ជូន។",
-    qa_step_1: "១. ត្រួតពិនិត្យវត្ថុធាតុដើម",
-    qa_step_1_desc: "តេស្តខ្សាច់ ថ្ម គុណភាពទឹក និងពិនិត្យលិខិតបញ្ជាក់គុណភាពស៊ីម៉ងត៍ពីរោងចក្រ។",
-    qa_step_2: "២. ការគ្រប់គ្រងផលិតកម្ម",
-    qa_step_2_desc: "ប្រព័ន្ធថ្លឹងអេឡិចត្រូនិចស្វ័យប្រវត្តិដែលមានវិញ្ញាបនបត្រក្រិតខ្នាតត្រឹមត្រូវ។",
-    qa_step_3: "៣. តេស្តបេតុងស្រស់នៅការដ្ឋាន",
-    qa_step_3_desc: "តេស្តកម្រិតស្រុត Slump Test និងការច្រកគំរូនាំយកមកមន្ទីរពិសោធន៍។",
-    qa_step_4: "៤. តេស្តកម្លាំងសង្កត់",
-    qa_step_4_desc: "តេស្តកម្លាំងសង្កត់អាយុ ៧ ថ្ងៃ និង ២៨ ថ្ងៃ ដោយម៉ាស៊ីន DYE-2000 ដែលមានលិខិតបញ្ជាក់។",
-    qa_step_5: "៥. វិញ្ញាបនបត្របញ្ជាក់គុណភាព",
-    qa_step_5_desc: "ចេញរបាយការណ៍លទ្ធផលតេស្តជាផ្លូវការជូនដល់វិស្វករត្រួតពិនិត្យរបស់ម្ចាស់គម្រោង។",
-    partners_tag: "បណ្តាញដៃគូយុទ្ធសាស្ត្រ",
-    partners_heading: "ទំនុកចិត្តពីក្រសួង ស្ថាប័នរដ្ឋ ក្រុមហ៊ុនសំណង់អន្តរជាតិ និងអ្នកផ្គត់ផ្គង់ធំៗ",
-    contact_tag: "រួមគ្នាកសាងអនាគត",
-    contact_heading: "ទំនាក់ទំនងមកកាន់ក្រុមហ៊ុន BCE ឥឡូវនេះ",
-    contact_desc: "ត្រៀមចាប់ផ្តើមគម្រោងសំណង់ថ្មី ឬត្រូវការផ្គត់ផ្គង់បេតុងលាយស្រេច? ក្រុមវិស្វកររបស់យើងរង់ចាំផ្តល់ប្រឹក្សា និងតម្លៃពិសេស។",
-    form_name: "ឈ្មោះពេញ / ឈ្មោះក្រុមហ៊ុន",
-    form_phone: "លេខទូរស័ព្ទ",
-    form_service: "សេវាកម្មដែលត្រូវការ",
-    form_opt_concrete: "ផ្គត់ផ្គង់បេតុងលាយស្រេច (Ready-Mix)",
-    form_opt_piling: "សេវាកម្មបុក និងដាំសសរគ្រឹះ (Piling)",
-    form_opt_civil: "សំណង់ស៊ីវិលទូទៅ (Civil Construction)",
-    form_opt_slab: "កម្រាលបេតុង និងផ្លូវបេតុង (Slab Works)",
-    form_opt_rental: "ជួលគ្រឿងចក្រ និងរថយន្តបាញ់បេតុង",
-    form_location: "ទីតាំងគម្រោង / ខេត្ត",
-    form_notes: "ព័ត៌មានលម្អិតនៃគម្រោង",
-    form_submit: "ផ្ញើសំណើសុំតម្លៃ / ព័ត៌មានគម្រោង",
-    contact_address_title: "អាសយដ្ឋានទីស្នាក់ការកណ្តាល",
-    contact_address_val: "ភូមិអង់ សង្កាត់អូរចារ ក្រុងបាត់ដំបង ខេត្តបាត់ដំបង ព្រះរាជាណាចក្រកម្ពុជា",
-    contact_phone_title: "លេខទូរស័ព្ទទំនាក់ទំនង",
-    contact_hours_title: "ម៉ោងធ្វើការ",
-    contact_hours_val: "ច័ន្ទ - អាទិត្យ៖ ៦:៣០ ព្រឹក ដល់ ៥:៣០ ល្ងាច (ចាក់បេតុង ២៤ម៉ោងតាមកាលវិភាគ)",
-    contact_email_title: "អ៊ីមែលផ្លូវការ",
-    modal_details_title: "ព័ត៌មានលម្អិតនៃគម្រោង",
-    modal_client: "ម្ចាស់គម្រោង៖",
-    modal_location: "ទីតាំង៖",
-    modal_timeline: "កាលបរិច្ឆេទ៖",
-    modal_scope: "ទំហំការងារ៖",
-    modal_close: "បិទផ្ទាំង"
+    inspect_specs: "ពិនិត្យទិន្នន័យបច្ចេកទេស",
+
+    // Section 07: Spatial Brief / Inquiries
+    s07_tag: "០៧ / សំណើសុំតម្លៃ និងព័ត៌មានគម្រោង",
+    s07_title: "ដាក់ស្នើព័ត៌មានគម្រោង ឬដេញថ្លៃផ្គត់ផ្គង់។",
+    s07_desc: "បង្កើតឡើងសម្រាប់ស្ថាបត្យករ ក្រុមហ៊ុនអភិវឌ្ឍន៍ និងក្រុមហ៊ុនម៉ៅការសំណង់ទូទាំងប្រទេសកម្ពុជា។ សូមបំពេញព័ត៌មានបឋមខាងក្រោមដើម្បីបញ្ជូនទៅកាន់ផ្នែកចាត់ចែង។",
+    brief_f1_num: "០១",
+    brief_f1_label: "ឈ្មោះអតិថិជន ឬឈ្មោះក្រុមហ៊ុន",
+    brief_f1_ph: "ឧ. ឯកឧត្តម/លោកឧកញ៉ា ឬក្រុមហ៊ុនអភិវឌ្ឍន៍...",
+    brief_f2_num: "០២",
+    brief_f2_label: "លេខទូរស័ព្ទ ឬគណនី Telegram",
+    brief_f2_ph: "ឧ. 012 932 700 ឬ @username",
+    brief_f3_num: "០៣",
+    brief_f3_label: "ប្រភេទគម្រោង និងសេវាកម្មចម្បង",
+    brief_f3_opt1: "ផ្គត់ផ្គង់បេតុងលាយស្រេច (Ready-Mix Pour)",
+    brief_f3_opt2: "សេវាកម្មផលិត និងបុកដាំសសរគ្រឹះបេតុង (Piling)",
+    brief_f3_opt3: "សំណង់ស៊ីវិល ស្ពាន និងទំនប់ទឹកធារាសាស្ត្រ",
+    brief_f3_opt4: "ការងារកម្រាលបេតុងរោងចក្រ និងផ្លូវបេតុងខាត់រលោង",
+    brief_f3_opt5: "សេវាកម្មជួលគ្រឿងចក្រ និងរថយន្តបាញ់បេតុង",
+    brief_f4_num: "០៤",
+    brief_f4_label: "ទីតាំងគម្រោង និងខេត្ត-ក្រុង",
+    brief_f4_ph: "ឧ. ក្រុងប៉ោយប៉ែត ខេត្តបន្ទាយមានជ័យ ឬក្រុងបាត់ដំបង",
+    brief_f5_num: "០៥",
+    brief_f5_label: "បរិមាណបេតុងប៉ាន់ស្មាន និងកម្លាំងបេតុង",
+    brief_f5_ph: "ឧ. ១,២០០ m³ • កម្លាំង 35 MPa (5,000 PSI)",
+    brief_f6_num: "០៦",
+    brief_f6_label: "ទំហំការងារ និងកាលវិភាគអនុវត្ត",
+    brief_f6_ph: "បញ្ជាក់ព័ត៌មានលម្អិតអំពីផ្លូវចូលការដ្ឋាន កាលវិភាគចាក់បេតុង...",
+    brief_btn_submit: "បញ្ជូនព័ត៌មានគម្រោងទៅកាន់ Telegram @thendLP",
+
+    // Modal
+    modal_spec_title: "សន្លឹកទិន្នន័យបច្ចេកទេសគម្រោង",
+    modal_client_lbl: "ម្ចាស់គម្រោង៖",
+    modal_location_lbl: "ទីតាំងសំណង់៖",
+    modal_timeline_lbl: "កាលបរិច្ឆេទសាងសង់៖",
+    modal_scope_lbl: "ទំហំការងារវិស្វកម្ម៖",
+    modal_btn_inquire: "សាកសួរគម្រោងស្រដៀងគ្នាតាម Telegram @thendLP",
+    modal_btn_close: "បិទផ្ទាំងទិន្នន័យ",
+
+    // Footer
+    footer_tag: "ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE)",
+    footer_desc: "គ្រប់គ្រងស្ថានីយបេតុង ៤ កន្លែង រថយន្តលាយបេតុង ៤១ គ្រឿង រថយន្តបាញ់បេតុង ៨ គ្រឿង និងគ្រឿងចក្របុកគ្រឹះ ៧ គ្រឿង គ្របដណ្តប់ ១៤ ខេត្ត-រាជធានី។ មានអាជ្ញាបណ្ណ និងវិញ្ញាបនបត្រស្របច្បាប់ពីក្រសួងសាធារណការ និងដឹកជញ្ជូន។",
+    footer_address_title: "ទីស្នាក់ការកណ្តាល និងស្ថានីយផលិតកម្មមេ",
+    footer_address_val: "ភូមិអង់ សង្កាត់អូរចារ ក្រុងបាត់ដំបង ខេត្តបាត់ដំបង ព្រះរាជាណាចក្រកម្ពុជា។",
+    footer_hours_title: "ម៉ោងធ្វើការ និងការចាត់ចែង",
+    footer_hours_val: "ច័ន្ទ – អាទិត្យ៖ ០៦:៣០ – ១៧:៣០ (មានសេវាចាក់បេតុង ២៤ ម៉ោងតាមកាលវិភាគ)",
+    footer_hotlines_title: "ខ្សែទូរស័ព្ទទំនាក់ទំនងផ្ទាល់",
+    footer_copyright: "© ២០២៦ ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី។ រក្សាសិទ្ធិគ្រប់យ៉ាង។ វិស្វកម្មប្រកបដោយភាពរឹងមាំយូរអង្វែង។"
   }
 };
 
@@ -829,24 +861,33 @@ function setLanguage(lang) {
     }
   });
 
-  // Update button states
+  // Update input placeholders
+  const phElements = document.querySelectorAll('[data-i18n-ph]');
+  phElements.forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if (translations[lang] && translations[lang][key]) {
+      el.placeholder = translations[lang][key];
+    }
+  });
+
+  // Update button states in top navigation
   const btnEn = document.getElementById('lang-btn-en');
   const btnKh = document.getElementById('lang-btn-kh');
   if (btnEn && btnKh) {
     if (lang === 'en') {
-      btnEn.className = "px-3 py-1 text-xs font-bold rounded-md bg-amber-500 text-slate-900 shadow-sm transition";
-      btnKh.className = "px-3 py-1 text-xs font-bold rounded-md text-white/80 hover:text-white transition";
+      btnEn.className = "px-2.5 py-1 text-[11px] font-mono-spec font-bold rounded bg-amber-500 text-slate-950 transition";
+      btnKh.className = "px-2.5 py-1 text-[11px] font-mono-spec font-medium text-slate-400 hover:text-white transition";
     } else {
-      btnKh.className = "px-3 py-1 text-xs font-bold rounded-md bg-amber-500 text-slate-900 shadow-sm transition";
-      btnEn.className = "px-3 py-1 text-xs font-bold rounded-md text-white/80 hover:text-white transition";
+      btnKh.className = "px-2.5 py-1 text-[11px] font-mono-spec font-bold rounded bg-amber-500 text-slate-950 transition";
+      btnEn.className = "px-2.5 py-1 text-[11px] font-mono-spec font-medium text-slate-400 hover:text-white transition";
     }
   }
 
-  // Re-render project cards to reflect language
+  // Re-render project cards to update titles and tags
   renderProjects(currentFilter);
 }
 
-// 3. Render Projects Grid
+// 3. Render Projects Grid (Storey Editorial Layout)
 let currentFilter = 'all';
 
 function renderProjects(filter = 'all') {
@@ -864,41 +905,64 @@ function renderProjects(filter = 'all') {
     const client = currentLang === 'kh' ? p.clientKh : p.clientEn;
     const loc = currentLang === 'kh' ? p.locationKh : p.locationEn;
     const scope = currentLang === 'kh' ? p.scopeKh : p.scopeEn;
+    const projId = `BCE-${String(p.id).padStart(3, '0')}`;
 
     return `
-      <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200/80 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
-        <div class="relative h-56 bg-slate-100 overflow-hidden cursor-pointer" onclick="openProjectModal(${p.id})">
-          <img src="${p.image}" alt="${title}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-          <span class="absolute top-3 right-3 px-3 py-1 text-xs font-bold rounded-full bg-slate-900/80 text-amber-400 backdrop-blur-md border border-amber-400/30">
-            ${p.period}
-          </span>
-          <span class="absolute bottom-3 left-3 px-3 py-1 text-xs font-semibold rounded-lg bg-blue-900/90 text-white backdrop-blur-md">
-            ${cat}
-          </span>
+      <article class="group bg-white rounded-none border border-black/10 hover:border-black/30 transition-all duration-300 flex flex-col justify-between">
+        <!-- Photo Container with Hairline Frame -->
+        <div class="relative aspect-[16/10] bg-neutral-900 overflow-hidden cursor-pointer arch-img-frame" onclick="openProjectModal(${p.id})">
+          <img src="${p.image}" alt="${title}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          
+          <!-- Top Tags -->
+          <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+            <span class="px-2 py-0.5 text-[10px] font-mono-spec tracking-widest bg-amber-500 text-slate-950 font-bold uppercase">
+              ${projId}
+            </span>
+            <span class="px-2 py-0.5 text-[10px] font-mono-spec tracking-widest bg-black/60 backdrop-blur-md text-white/90 border border-white/10 uppercase">
+              ${p.period}
+            </span>
+          </div>
+
+          <!-- Bottom Category Tag -->
+          <div class="absolute bottom-3 left-3">
+            <span class="text-[11px] font-mono-spec uppercase tracking-wider text-white/90 bg-black/50 px-2 py-1 backdrop-blur-sm border border-white/10">
+              ${cat}
+            </span>
+          </div>
         </div>
         
-        <div class="p-5 flex-1 flex flex-col justify-between">
+        <!-- Spec Card Body -->
+        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
           <div>
-            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-900 transition-colors line-clamp-1 mb-2">
+            <h3 class="font-display text-lg font-medium text-neutral-900 group-hover:text-amber-700 transition-colors line-clamp-2 leading-snug mb-2">
               ${title}
             </h3>
-            <p class="text-xs text-slate-500 flex items-center gap-1.5 mb-3 font-medium">
+            
+            <p class="text-xs text-neutral-500 flex items-center gap-1.5 mb-3 font-mono-spec">
               <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
-              ${loc}
+              <span>${loc}</span>
             </p>
-            <div class="space-y-1 text-xs text-slate-600 mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
-              <p><span class="font-semibold text-slate-800">${currentLang === 'kh' ? 'ម្ចាស់គម្រោង៖' : 'Owner:'}</span> ${client}</p>
-              <p class="line-clamp-2"><span class="font-semibold text-slate-800">${currentLang === 'kh' ? 'ការងារ៖' : 'Scope:'}</span> ${scope}</p>
+
+            <div class="space-y-1.5 text-xs text-neutral-600 bg-neutral-50 p-3 border border-neutral-200/70 font-mono-spec text-[11px]">
+              <div class="truncate">
+                <span class="text-neutral-400 uppercase tracking-wider">${currentLang === 'kh' ? 'ម្ចាស់គម្រោង៖' : 'Client:'}</span> 
+                <strong class="text-neutral-800">${client}</strong>
+              </div>
+              <div class="line-clamp-2 leading-relaxed">
+                <span class="text-neutral-400 uppercase tracking-wider">${currentLang === 'kh' ? 'ការងារ៖' : 'Scope:'}</span> 
+                <span class="text-neutral-700">${scope}</span>
+              </div>
             </div>
           </div>
           
-          <button onclick="openProjectModal(${p.id})" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-slate-100 hover:bg-blue-900 hover:text-white text-slate-800 flex items-center justify-center gap-2 transition-all">
-            <span>${currentLang === 'kh' ? 'មើលព័ត៌មានលម្អិត' : 'View Specifications'}</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <!-- Action Button -->
+          <button onclick="openProjectModal(${p.id})" class="w-full py-2.5 px-4 rounded-none text-xs font-mono-spec font-semibold uppercase tracking-widest bg-neutral-900 hover:bg-amber-600 text-white flex items-center justify-between transition-colors">
+            <span>${currentLang === 'kh' ? 'ពិនិត្យទិន្នន័យបច្ចេកទេស' : 'Inspect Specifications'}</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-amber-400 group-hover:text-white transition-colors"></i>
           </button>
         </div>
-      </div>
+      </article>
     `;
   }).join('');
 
@@ -910,210 +974,236 @@ function renderProjects(filter = 'all') {
   document.querySelectorAll('.filter-btn').forEach(btn => {
     const f = btn.getAttribute('data-filter');
     if (f === filter) {
-      btn.className = "filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-blue-900 text-white shadow-md shadow-blue-900/20 transition-all";
+      btn.className = "filter-btn px-4 py-2 text-xs font-mono-spec uppercase tracking-wider bg-neutral-900 text-white border border-neutral-900 shadow-sm transition-all";
     } else {
-      btn.className = "filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all";
+      btn.className = "filter-btn px-4 py-2 text-xs font-mono-spec uppercase tracking-wider bg-white text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 border border-neutral-200 transition-all";
     }
   });
 }
 
-// 4. Project Modal
+// 4. Project Modal (Clean Technical Blueprint Inspector)
 function openProjectModal(id) {
   const p = projectsData.find(item => item.id === id);
   if (!p) return;
 
   const modal = document.getElementById('project-modal');
+  if (!modal) return;
+
   const title = currentLang === 'kh' ? p.titleKh : p.titleEn;
   const cat = currentLang === 'kh' ? p.categoryKh : p.categoryEn;
   const client = currentLang === 'kh' ? p.clientKh : p.clientEn;
   const loc = currentLang === 'kh' ? p.locationKh : p.locationEn;
   const scope = currentLang === 'kh' ? p.scopeKh : p.scopeEn;
+  const projId = `BCE-PROJ-${String(p.id).padStart(3, '0')}`;
 
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-category').textContent = cat;
-  document.getElementById('modal-img').src = p.image;
-  document.getElementById('modal-client').textContent = client;
-  document.getElementById('modal-location').textContent = loc;
-  document.getElementById('modal-timeline').textContent = p.period;
-  document.getElementById('modal-scope').textContent = scope;
+  const titleEl = document.getElementById('modal-title');
+  const catEl = document.getElementById('modal-category');
+  const imgEl = document.getElementById('modal-img');
+  const clientEl = document.getElementById('modal-client');
+  const locEl = document.getElementById('modal-location');
+  const timeEl = document.getElementById('modal-timeline');
+  const scopeEl = document.getElementById('modal-scope');
 
-  // Direct Inquiry Button in Modal
-  const orderMsg = encodeURIComponent(`Hello BCE! I am interested in technical details or requesting a quote for project profile similar to: ${p.titleEn} (${p.locationEn}).`);
+  if (titleEl) titleEl.textContent = title;
+  if (catEl) catEl.textContent = `${projId} // ${cat}`;
+  if (imgEl) imgEl.src = p.image;
+  if (clientEl) clientEl.textContent = client;
+  if (locEl) locEl.textContent = loc;
+  if (timeEl) timeEl.textContent = p.period;
+  if (scopeEl) scopeEl.textContent = scope;
+
+  // Telegram Direct Inquiry URL
+  const orderMsg = encodeURIComponent(`Hello BCE Dispatch! I am inquiring regarding project profile ${projId}: ${p.titleEn} (${p.locationEn}). Please provide mix design specifications and delivery feasibility.`);
   const telegramBtn = document.getElementById('modal-telegram-btn');
   if (telegramBtn) {
     telegramBtn.href = `https://t.me/thendLP?text=${orderMsg}`;
   }
 
-  modal.classList.add('active');
+  modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  if (window.lucide) window.lucide.createIcons();
 }
 
 function closeProjectModal() {
   const modal = document.getElementById('project-modal');
   if (modal) {
-    modal.classList.remove('active');
+    modal.classList.add('hidden');
     document.body.style.overflow = '';
   }
 }
 
-// 5. Signature Projects Carousel
-let carouselIndex = 0;
-const signatureProjects = projectsData.filter(p => p.signature);
+// 5. Interactive Field Engineer Concrete Calculator
+function setCalcPreset(preset) {
+  const shapeEl = document.getElementById('calc-shape');
+  const lInput = document.getElementById('calc-length');
+  const wInput = document.getElementById('calc-width');
+  const tInput = document.getElementById('calc-thickness');
+  const lRange = document.getElementById('calc-length-range');
+  const wRange = document.getElementById('calc-width-range');
+  const tRange = document.getElementById('calc-thickness-range');
 
-function renderCarousel() {
-  const container = document.getElementById('carousel-track');
-  if (!container) return;
+  if (!shapeEl || !lInput) return;
 
-  container.innerHTML = signatureProjects.map((p, idx) => {
-    const title = currentLang === 'kh' ? p.titleKh : p.titleEn;
-    const cat = currentLang === 'kh' ? p.categoryKh : p.categoryEn;
-    const loc = currentLang === 'kh' ? p.locationKh : p.locationEn;
-
-    return `
-      <div class="min-w-full relative h-[420px] rounded-3xl overflow-hidden group cursor-pointer shadow-xl" onclick="openProjectModal(${p.id})">
-        <img src="${p.image}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-8 text-white flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div class="max-w-xl">
-            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-slate-900 mb-3">
-              ${cat} • ${p.period}
-            </span>
-            <h4 class="text-2xl md:text-3xl font-extrabold text-white mb-2 leading-tight drop-shadow-md">
-              ${title}
-            </h4>
-            <p class="text-sm text-slate-200 flex items-center gap-2">
-              <i data-lucide="map-pin" class="w-4 h-4 text-amber-400"></i>
-              ${loc}
-            </p>
-          </div>
-          <div class="shrink-0">
-            <button class="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 text-slate-900 hover:bg-amber-400 flex items-center gap-2 shadow-lg transition">
-              <span>${currentLang === 'kh' ? 'មើលព័ត៌មានលម្អិត' : 'View Full Details'}</span>
-              <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  updateCarouselDots();
-  if (window.lucide) window.lucide.createIcons();
-}
-
-function updateCarouselDots() {
-  const dotsContainer = document.getElementById('carousel-dots');
-  if (!dotsContainer) return;
-  dotsContainer.innerHTML = signatureProjects.map((_, i) => `
-    <button onclick="goToSlide(${i})" class="w-3 h-3 rounded-full transition-all ${i === carouselIndex ? 'bg-amber-400 w-8' : 'bg-white/40 hover:bg-white/70'}"></button>
-  `).join('');
-}
-
-function nextSlide() {
-  carouselIndex = (carouselIndex + 1) % signatureProjects.length;
-  applySlide();
-}
-
-function prevSlide() {
-  carouselIndex = (carouselIndex - 1 + signatureProjects.length) % signatureProjects.length;
-  applySlide();
-}
-
-function goToSlide(i) {
-  carouselIndex = i;
-  applySlide();
-}
-
-function applySlide() {
-  const track = document.getElementById('carousel-track');
-  if (track) {
-    track.style.transform = `translateX(-${carouselIndex * 100}%)`;
+  if (preset === 'slab') {
+    shapeEl.value = 'slab';
+    lInput.value = 12; wInput.value = 8; tInput.value = 0.15;
+  } else if (preset === 'footing') {
+    shapeEl.value = 'footing';
+    lInput.value = 2.5; wInput.value = 2.5; tInput.value = 0.8;
+  } else if (preset === 'column') {
+    shapeEl.value = 'column';
+    lInput.value = 0.6; wInput.value = 0.6; tInput.value = 4.0;
+  } else if (preset === 'wall') {
+    shapeEl.value = 'wall';
+    lInput.value = 15; wInput.value = 0.3; tInput.value = 2.5;
   }
-  updateCarouselDots();
+
+  if (lRange) lRange.value = lInput.value;
+  if (wRange) wRange.value = wInput.value;
+  if (tRange) tRange.value = tInput.value;
+
+  document.querySelectorAll('.calc-preset-btn').forEach(btn => {
+    if (btn.getAttribute('data-preset') === preset) {
+      btn.className = "calc-preset-btn px-3 py-1.5 text-xs font-mono-spec font-bold bg-amber-500 text-slate-950 transition";
+    } else {
+      btn.className = "calc-preset-btn px-3 py-1.5 text-xs font-mono-spec font-bold bg-neutral-800 text-neutral-300 hover:bg-neutral-700 transition";
+    }
+  });
+
+  calculateConcrete();
 }
 
-// 6. Interactive Ready-Mix Concrete Volume Calculator
+function syncCalcSlider(source, targetId) {
+  const target = document.getElementById(targetId);
+  if (target) {
+    target.value = source.value;
+    calculateConcrete();
+  }
+}
+
 function calculateConcrete() {
-  const shape = document.getElementById('calc-shape').value;
-  const l = parseFloat(document.getElementById('calc-length').value) || 0;
-  const w = parseFloat(document.getElementById('calc-width').value) || 0;
-  const t = parseFloat(document.getElementById('calc-thickness').value) || 0;
-  const grade = document.getElementById('calc-grade').value;
+  const shapeEl = document.getElementById('calc-shape');
+  const lEl = document.getElementById('calc-length');
+  const wEl = document.getElementById('calc-width');
+  const tEl = document.getElementById('calc-thickness');
+  const gradeEl = document.getElementById('calc-grade');
 
-  let netVol = 0;
-  if (shape === 'slab' || shape === 'footing' || shape === 'column') {
-    netVol = l * w * t;
-  }
+  if (!lEl || !wEl || !tEl) return;
 
-  // Round to 2 decimal places
-  const netRounded = Math.max(0, netVol).toFixed(2);
-  const orderRounded = (netVol * 1.05).toFixed(2); // 5% standard safety / waste margin
+  const shape = shapeEl ? shapeEl.value : 'slab';
+  const l = parseFloat(lEl.value) || 0;
+  const w = parseFloat(wEl.value) || 0;
+  const t = parseFloat(tEl.value) || 0;
+  const grade = gradeEl ? gradeEl.value : '25 MPa';
 
-  document.getElementById('calc-net-vol').textContent = `${netRounded} m³`;
-  document.getElementById('calc-order-vol').textContent = `${orderRounded} m³`;
+  const netVol = Math.max(0, l * w * t);
+  const orderVol = netVol * 1.05; // 5% buffer for subgrade absorption & pump residue
+  const truckLoads7 = Math.ceil(orderVol / 7);
+  const batchMinutes = Math.max(5, Math.ceil((orderVol / 70) * 60));
 
-  // Update Telegram RFQ button
+  const netRounded = netVol.toFixed(2);
+  const orderRounded = orderVol.toFixed(2);
+
+  const netEl = document.getElementById('calc-net-vol');
+  const orderEl = document.getElementById('calc-order-vol');
+  const trucksEl = document.getElementById('calc-trucks-count');
+  const timeEl = document.getElementById('calc-batch-time');
+
+  if (netEl) netEl.textContent = `${netRounded} m³`;
+  if (orderEl) orderEl.textContent = `${orderRounded} m³`;
+  if (trucksEl) trucksEl.textContent = `${truckLoads7} Truck${truckLoads7 > 1 ? 's' : ''} (7m³ standard)`;
+  if (timeEl) timeEl.textContent = `~${batchMinutes} mins batch duration`;
+
+  // Pre-filled Telegram RFQ URL
   const shapeName = shape.toUpperCase();
   const telegramMsg = encodeURIComponent(
-    `Hello BCE Construction! I calculated concrete on your website:\n- Structure: ${shapeName}\n- Dimensions: ${l}m x ${w}m x ${t}m\n- Required Volume: ${orderRounded} m³ (with 5% buffer)\n- Target Grade: ${grade}\nPlease send me the official quotation and batching delivery schedule.`
+    `Hello BCE Operations! Online Volumetric Order Inquiry:
+• Structure: ${shapeName}
+• Geometry: ${l}m (L) × ${w}m (W) × ${t}m (Thickness/Height)
+• Net Volume: ${netRounded} m³
+• Recommended Order (+5% Buffer): ${orderRounded} m³
+• Required Fleet: ~${truckLoads7} Transit Mixers (7m³)
+• Target Mix Strength: ${grade}
+Please send official quotation and batching delivery schedule.`
   );
   
   const quoteBtn = document.getElementById('calc-telegram-quote');
   if (quoteBtn) {
     quoteBtn.href = `https://t.me/thendLP?text=${telegramMsg}`;
-    quoteBtn.classList.remove('hidden');
   }
 }
 
-// 7. Interactive Cambodia Province Selection
+// 6. Storey-Style Spatial Brief Tender Submission
+function handleSpatialBriefSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('brief-name') ? document.getElementById('brief-name').value : '';
+  const phone = document.getElementById('brief-phone') ? document.getElementById('brief-phone').value : '';
+  const service = document.getElementById('brief-service') ? document.getElementById('brief-service').value : '';
+  const location = document.getElementById('brief-location') ? document.getElementById('brief-location').value : '';
+  const volume = document.getElementById('brief-volume') ? document.getElementById('brief-volume').value : '';
+  const scope = document.getElementById('brief-scope') ? document.getElementById('brief-scope').value : '';
+
+  const msg = encodeURIComponent(
+    `BCE Spatial Tender Brief:
+• 01 Client: ${name}
+• 02 Contact: ${phone}
+• 03 Typology: ${service}
+• 04 Site Location: ${location}
+• 05 Volume & Grade: ${volume}
+• 06 Scope & Schedule: ${scope}`
+  );
+
+  window.open(`https://t.me/thendLP?text=${msg}`, '_blank');
+
+  alert(currentLang === 'kh'
+    ? "សូមអរគុណ! ព័ត៌មានគម្រោងត្រូវបានបញ្ជូនទៅផ្នែកចាត់ចែង BCE។ វិស្វករយើងនឹងទាក់ទងមកលោកអ្នកភ្លាមៗ។"
+    : "Thank you! Your project spatial brief has been dispatched to BCE Engineering. Our desk will contact you promptly."
+  );
+}
+
+// 7. Interactive Cambodia Province Selector
 const provinceData = {
   "battambang": {
-    nameEn: "Battambang (Headquarters & Central Batching Plants)",
+    nameEn: "Battambang (Headquarters & Central Plant)",
     nameKh: "បាត់ដំបង (ទីស្នាក់ការកណ្តាល និងស្ថានីយបេតុងមេ)",
-    descEn: "Core BCE operations with 4 automated batching plants (70 m³/hr each), primary 41 mixer truck depot, hydraulic piling equipment, and central certified testing laboratory.",
-    descKh: "ទីស្នាក់ការកណ្តាល BCE បំពាក់ស្ថានីយបេតុង ៤ កន្លែង រថយន្តលាយបេតុង ៤១ គ្រឿង គ្រឿងចក្របុកគ្រឹះ និងមន្ទីរពិសោធន៍គុណភាព។",
-    projects: "60+ Major Projects (Hotels, Schools, Hospitals, Roads & Bridges)",
-    flagship: "Sala Ta On Dam, Prek Trap Bridge, Polyclinic Building, Conch Cement Factory"
+    descEn: "BCE central logistics hub: 4 computerized batching plants (70 m³/hr each), 41 GPS mixer fleet depot, heavy piling rigs, and certified testing lab.",
+    descKh: "មជ្ឈមណ្ឌលប្រតិបត្តិការមេ BCE៖ ស្ថានីយបេតុងស្វ័យប្រវត្តិ ៤ កន្លែង រថយន្តលាយ ៤១ គ្រឿង គ្រឿងចក្របុកគ្រឹះ និងមន្ទីរពិសោធន៍គុណភាព។",
+    flagship: "Sala Ta On Dam, Prek Trap Bridge, Polyclinic Hospital, Battambang Conch Cement"
   },
   "phnom_penh": {
     nameEn: "Phnom Penh Capital",
     nameKh: "រាជធានីភ្នំពេញ",
-    descEn: "Strategic delivery coverage for government institutional developments, academic complexes, and multi-apartment projects.",
+    descEn: "Government ministries, institutional academies, multi-story residences, and heavy structural foundations.",
     descKh: "ការផ្គត់ផ្គង់ និងសាងសង់សម្រាប់ស្ថាប័នរដ្ឋាភិបាល អគារសិក្សា និងលំនៅឋានពហុជាន់។",
-    projects: "15+ High-Rise & Institutional Works",
     flagship: "Ministry of Interior (MoI) NASLA Academic Complex & Dormitory"
   },
   "banteay_meanchey": {
     nameEn: "Banteay Meanchey & Poipet City",
     nameKh: "បន្ទាយមានជ័យ និងក្រុងប៉ោយប៉ែត",
-    descEn: "High-volume ready-mix supply and structural concrete construction for high-rise commercial buildings, border infrastructure, and universities.",
+    descEn: "High-volume ready-mix supply and structural engineering for multi-story towers, universities, and commercial zones.",
     descKh: "ការផ្គត់ផ្គង់បេតុងលាយស្រេច និងសាងសង់អគារខ្ពស់ៗ ហេដ្ឋារចនាសម្ព័ន្ធព្រំដែន និងសាកលវិទ្យាល័យ។",
-    projects: "25+ Major High-Rise & Institutional Projects",
-    flagship: "18-Floor Poipet Residential Tower, 11-Floor Building, Build Bright University (BBU)"
+    flagship: "18-Floor Poipet Tower, 11-Floor Building, Build Bright University (BBU)"
   },
   "pursat": {
     nameEn: "Pursat Province",
     nameKh: "ខេត្តពោធិ៍សាត់",
-    descEn: "Heavy hydraulic piling and large-scale concrete foundations for renewable solar energy power plants and infrastructure.",
+    descEn: "Heavy hydraulic piling and mass concrete foundations for renewable utility-scale solar generation plants.",
     descKh: "ការបុក និងដាំសសរគ្រឹះបេតុងធារាសាស្ត្រសម្រាប់រោងចក្រថាមពលពន្លឺព្រះអាទិត្យខ្នាតធំ។",
-    projects: "Key Clean Energy Infrastructure",
     flagship: "Schneitec 100 MW Solar Power Plant Piling Works"
   },
   "koh_kong": {
-    nameEn: "Koh Kong Province",
-    nameKh: "ខេត្តកោះកុង",
-    descEn: "Specialized maritime concrete works, coastal access roads, and deep-water port infrastructure.",
+    nameEn: "Koh Kong & Maritime Coast",
+    nameKh: "ខេត្តកោះកុង និងតំបន់ឆ្នេរ",
+    descEn: "Sulfate-resistant marine concrete for coastal access corridors and deep-water commercial seaport structures.",
     descKh: "ការងារបេតុងធន់ទឹកប្រៃ ផ្លូវឆ្នេរសមុទ្រ និងហេដ្ឋារចនាសម្ព័ន្ធកំពង់ផែ។",
-    projects: "Deep Port & Marine Facilities",
-    flagship: "Chroy Pros Sea Port Infrastructure (Samdech Pichey Sena Tea Banh)"
+    flagship: "Chroy Pros Deep Sea Port Infrastructure"
   },
   "preah_vihear": {
     nameEn: "Preah Vihear Province",
     nameKh: "ខេត្តព្រះវិហារ",
-    descEn: "Long-range concrete deployment for national security highways, concrete canal rehabilitation, and rural hydraulic subprojects.",
+    descEn: "National security highways, reinforced concrete canal lining, and ministry irrigation subprojects.",
     descKh: "ការសាងសង់ផ្លូវជាតិយុទ្ធសាស្ត្រ និងប្រព័ន្ធធារាសាស្ត្រប្រឡាយមេ។",
-    projects: "National Infrastructure & Canal Works",
-    flagship: "Teuk Krahom Canal Subprojects (MOWRAM), Mum 3 Concrete Road (MND)"
+    flagship: "Teuk Krahom Main Canal Rehabilitation (MOWRAM)"
   }
 };
 
@@ -1123,55 +1213,53 @@ function selectProvince(key) {
 
   const titleEl = document.getElementById('province-title');
   const descEl = document.getElementById('province-desc');
-  const projEl = document.getElementById('province-projects');
   const flagEl = document.getElementById('province-flagship');
 
   if (titleEl) titleEl.textContent = currentLang === 'kh' ? p.nameKh : p.nameEn;
   if (descEl) descEl.textContent = currentLang === 'kh' ? p.descKh : p.descEn;
-  if (projEl) projEl.textContent = p.projects;
   if (flagEl) flagEl.textContent = p.flagship;
 
-  // Update active pill
-  document.querySelectorAll('.province-pill').forEach(pill => {
-    if (pill.getAttribute('data-prov') === key) {
-      pill.className = "province-pill px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-slate-900 shadow-md transition-all";
+  document.querySelectorAll('.province-tab').forEach(tab => {
+    if (tab.getAttribute('data-prov') === key) {
+      tab.className = "province-tab px-4 py-2.5 text-xs font-mono-spec font-bold uppercase tracking-wider bg-amber-500 text-slate-950 transition";
     } else {
-      pill.className = "province-pill px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all";
+      tab.className = "province-tab px-4 py-2.5 text-xs font-mono-spec font-medium uppercase tracking-wider bg-neutral-800 text-neutral-300 hover:bg-neutral-700 transition";
     }
   });
 }
 
-// 8. Contact Form Submission
-function handleContactSubmit(e) {
-  e.preventDefault();
-  const name = document.getElementById('form-name').value;
-  const phone = document.getElementById('form-phone').value;
-  const service = document.getElementById('form-service').value;
-  const location = document.getElementById('form-location').value;
-  const notes = document.getElementById('form-notes').value;
-
-  const msg = encodeURIComponent(`BCE Tender Inquiry:\n- Client: ${name}\n- Phone: ${phone}\n- Service: ${service}\n- Location: ${location}\n- Notes: ${notes}`);
-  
-  // Provide user immediate direct telegram option or show toast
-  window.open(`https://t.me/thendLP?text=${msg}`, '_blank');
-
-  alert(currentLang === 'kh' 
-    ? "សូមអរគុណ! សំណើសុំតម្លៃរបស់អ្នកត្រូវបានទទួលជោគជ័យ។ ក្រុមការងារយើងនឹងទាក់ទងមកលោកអ្នកក្នុងពេលឆាប់ៗ។" 
-    : "Thank you! Your inquiry has been forwarded to BCE. Our engineering team will contact you shortly.");
-}
-
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
-  renderProjects('all');
-  renderCarousel();
+  const urlParams = new URLSearchParams(window.location.search);
+  const langParam = urlParams.get('lang');
+  if (langParam === 'kh' || langParam === 'en') {
+    setLanguage(langParam);
+  } else {
+    renderProjects('all');
+  }
+
   selectProvince('battambang');
+  calculateConcrete();
 
-  // Automatic carousel slide interval
-  setInterval(nextSlide, 6500);
+  // Open modal if proj param specified
+  const projParam = urlParams.get('proj');
+  if (projParam) {
+    const id = parseInt(projParam, 10);
+    if (!isNaN(id)) openProjectModal(id);
+  }
 
-  // Keyboard escape for modal
+  // Modal keyboard listeners
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeProjectModal();
+  });
+
+  // Attach live calculation listeners
+  ['calc-length', 'calc-width', 'calc-thickness', 'calc-shape', 'calc-grade'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', calculateConcrete);
+      el.addEventListener('change', calculateConcrete);
+    }
   });
 
   if (window.lucide) {
