@@ -91,7 +91,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
             <p className="ft-text">Tell us your site, scope and schedule. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet.</p>
             <div className="ft-ctas">
               <ArrowButton href="/?quote" label="Request a quote" theme="white" />
-              <ArrowButton href={tel(phones[0])} label="Call for a Quotation" theme="white" />
+              <ArrowButton href={tel(phones[0])} label="Call for a Quotation" theme="outline-white" />
             </div>
           </div>
 
