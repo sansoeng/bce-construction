@@ -280,14 +280,8 @@ export default function Glance() {
         <div className="glance-title-col">
           <div className="glance-title-sticky">
             <h2 id="glance-title" data-split className="text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
-              BCE at a glance
+              BCE at a glance 2025–2026
             </h2>
-            <div className="mt-5 inline-flex items-center gap-2.5 px-4 py-2 rounded bg-black/5 border border-black/15 shadow-sm">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#293e8a] shrink-0" aria-hidden="true" />
-              <span className="font-mono text-[13px] md:text-sm font-semibold uppercase tracking-[0.08em] text-[#111]">
-                Reporting period: 2025–2026
-              </span>
-            </div>
           </div>
         </div>
         {/* Likova-style figure grid: 3 rows x 2 highlights per row */}

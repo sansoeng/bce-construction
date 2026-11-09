@@ -57,17 +57,15 @@ const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
-// Hero copy. Rendered twice: the real copy, and an inert light twin clipped with the cover while the loader holds it
-// in a centred frame, so both layers must lay out identically.
-function HeroCopy({ light = false }: { light?: boolean }) {
-  const Title = light ? "p" : "h1";
+// Hero copy: Slogan and View Projects CTA
+function HeroCopy() {
   return (
     <div>
-      <Title data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.04] tracking-[-.025em]">
+      <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.04] tracking-[-.025em] text-white">
         <span className="md:block">Building on Strength.</span> <span className="md:block">Delivering with Trust.</span>
-      </Title>
+      </h1>
       <div className="mt-6 md:mt-8">
-        <ArrowButton href="/?projects" label="View projects" theme="white" tabIndex={light ? -1 : undefined} />
+        <ArrowButton href="/?projects" label="View projects" theme="white" />
       </div>
     </div>
   );
@@ -385,10 +383,6 @@ function App() {
           <img data-fly-about className="absolute inset-0 h-full w-full object-cover opacity-0" src={`${A}/6ae3a.png`} alt="" />
         </div>
         <div data-hero-copy className="hero-scrim absolute inset-0" />
-        {/* Light twin of the hero title, clipped with the cover while it sits framed during the loader (Telha's titleLight). */}
-        <div aria-hidden className="hero-copy-light absolute bottom-14 left-5 right-5 text-white md:bottom-5 md:left-auto md:w-[46rem] md:max-w-[calc(100vw-2.5rem)]">
-          <HeroCopy light />
-        </div>
       </div>
       <div data-hero-copy className="fixed bottom-5 left-5 z-30 text-white"><a href="#about" data-split="content" data-split-manual="0.2" className="hero-scroll text-white/60">[Scroll down]</a></div>
       <div data-hero-copy className="hero-copy-wrap fixed bottom-14 left-5 right-5 z-30 text-white md:bottom-5 md:left-auto md:w-[46rem] md:max-w-[calc(100vw-2.5rem)]">
