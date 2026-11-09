@@ -55,16 +55,21 @@ function Loader() {
 
 const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
-
+const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
 // Hero copy. Rendered twice: the real copy, and an inert light twin clipped with the cover while the loader holds it
 // in a centred frame, so both layers must lay out identically.
 function HeroCopy({ light = false }: { light?: boolean }) {
   const Title = light ? "p" : "h1";
   return (
-    <Title data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.04] tracking-[-.025em]">
-      <span className="md:block">Building on Strength.</span> <span className="md:block">Delivering with Trust.</span>
-    </Title>
+    <div>
+      <Title data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.04] tracking-[-.025em]">
+        <span className="md:block">Building on Strength.</span> <span className="md:block">Delivering with Trust.</span>
+      </Title>
+      <div className={`mt-6 md:mt-8 ${light ? "invisible pointer-events-none" : ""}`}>
+        <ArrowButton href="/?projects" label="View projects" theme="white" />
+      </div>
+    </div>
   );
 }
 
@@ -403,6 +408,9 @@ function App() {
           <div className="aspect-[5/6] w-full max-w-[15.5rem]" aria-hidden />
           <div className="flex flex-col justify-between gap-12 md:min-h-[18.5rem]">
             <p data-split="content" data-split-hold data-about-intro className="max-w-[400px] text-[1.1rem] font-medium leading-[22px]">We supply ready-mix concrete, reinforced concrete piling and civil construction for infrastructure, industrial, commercial and residential projects nationwide.</p>
+            <div>
+              <ArrowButton href="/?about" label="See more about us" theme="black" />
+            </div>
           </div>
         </div>
         <h2 data-split data-about-title className="about-title mt-40 font-medium text-[74px] leading-[1.08] tracking-[-.025em]">
@@ -503,7 +511,7 @@ function App() {
               </div>
               <div className="kp-info">
                 <span>{p.name}<span className="kp-detail">, {p.location}</span></span>
-                <span className="kp-detail">{p.category}</span>
+                <span className="kp-detail">{p.category} · {year(p.period)}</span>
               </div>
             </a>
           ))}

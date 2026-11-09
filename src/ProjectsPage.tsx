@@ -98,7 +98,7 @@ export default function ProjectsPage() {
               </div>
               <div className="kp-info">
                 <span>{p.name}<span className="kp-detail">, {p.location}</span></span>
-                <span className="kp-detail">{p.category}</span>
+                <span className="kp-detail">{p.category} · {year(p.period)}</span>
               </div>
             </a>
           ))}

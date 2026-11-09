@@ -471,6 +471,7 @@ html.has-loader .hero-media { animation: none; }
 .hero-copy-light { display: none; }
 html.is-framed .hero-copy-light { display: block; }
 html.is-framed .hero-copy-wrap { z-index: 10; color: #111; }
+html.is-framed .hero-copy-wrap .fg-btn.is-white { color: #111; background: rgb(0 0 0 / .08); }
 .hero-scroll { transition: color .6s ease; }
 html.is-framed:not(.is-hero-light) .hero-scroll { color: rgb(17 17 17 / .5); }
 @media (max-width: 767.98px) { html.is-loading main { clip-path: inset(110vh 10vw 0 10vw); } }

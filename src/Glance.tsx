@@ -7,23 +7,31 @@ const stats: { value: number; label: string; note: string; icon: IconKind; suffi
   { value: 30, suffix: "+", label: "Years of experience", note: "Established 1995", icon: "years" },
   { value: 4, label: "Batching plants", note: "70 m³/hr each", icon: "plants" },
   // Row 2
-  { value: 128, label: "Projects completed", note: "In 2025", icon: "projects" },
+  { value: 128, label: "Projects Completed in 2025", note: "Verified company records", icon: "projects" },
   { value: 1564, label: "Clients served", note: "In 2025", icon: "clients" },
   // Row 3
   { value: 41, label: "Mixer trucks", note: "Plus 8 pump trucks", icon: "mixer" },
   { value: 14, label: "Provinces served", note: "13 provinces + Phnom Penh", icon: "provinces" },
 ];
 
-// Clients & partners, from the Corporate Profile 2026 client and supplier lists (pp. 33-35). Each `logo` is a generic
-// placeholder mark until BCE supplies the real files: replace the path with "/assets/partners/<file>.svg".
-const partners: { name: string; logo?: string }[] = [
+// Clients & partners, grouped from the Corporate Profile 2026 client and supplier lists (pp. 33-35).
+// 1. Clients: Obayashi, Hanshin E&C, Thang Long JSC, SUMEC, SchneiTec, Build Bright University
+// 2. Suppliers: Chip Mong Group
+// 3. Technical Partners: Sika Cambodia
+const clientPartners: { name: string; logo?: string }[] = [
   { name: "Obayashi", logo: "/assets/partners/placeholder-1.svg" },
   { name: "Hanshin E&C", logo: "/assets/partners/placeholder-2.svg" },
   { name: "Thang Long JSC", logo: "/assets/partners/placeholder-3.svg" },
   { name: "SUMEC", logo: "/assets/partners/placeholder-4.svg" },
   { name: "SchneiTec", logo: "/assets/partners/placeholder-5.svg" },
   { name: "Build Bright University", logo: "/assets/partners/placeholder-6.svg" },
+];
+
+const supplierPartners: { name: string; logo?: string }[] = [
   { name: "Chip Mong Group", logo: "/assets/partners/placeholder-7.svg" },
+];
+
+const technicalPartners: { name: string; logo?: string }[] = [
   { name: "Sika Cambodia", logo: "/assets/partners/placeholder-8.svg" },
 ];
 
@@ -124,8 +132,8 @@ function useInView<T extends Element>(threshold = 0.2) {
   return [ref, inView] as const;
 }
 
-// Trusted partners & clients: a second title + ruled grid pair in the "BCE at a glance" layout, two logos per row
-// (four rows), with the same hairlines drawing in and wordmarks rising in turn.
+// Trusted partners & clients: a second title + ruled grid pair in the "BCE at a glance" layout,
+// grouped into 3 distinct categories: Clients, Suppliers, and Technical Partners.
 function Partners() {
   const [ref, inView] = useInView<HTMLDivElement>(0.15);
   return (
@@ -138,17 +146,68 @@ function Partners() {
         </div>
       </div>
       <div ref={ref} className={`glance ${inView ? "is-in" : ""}`}>
-        <ul className="glance-grid glance-logos">
-          {partners.map((p, i) => (
-            <li key={p.name} className="glance-cell glance-logo" style={{ "--i": i, "--r": Math.floor(i / 2), "--c": i % 2 } as CSSProperties}>
-              <span className="glance-logo-mask">
-                <span className="glance-logo-inner">
-                  {p.logo ? <img src={p.logo} alt={`${p.name} logo`} decoding="async" /> : <span className="glance-wordmark">{p.name}</span>}
+        {/* Category 1: Clients */}
+        <div>
+          <div className="mb-4 flex items-center justify-between border-b border-black/10 pb-2">
+            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
+              Clients
+            </span>
+            <span className="font-mono text-[11px] text-black/35">(06)</span>
+          </div>
+          <ul className="glance-grid glance-logos">
+            {clientPartners.map((p, i) => (
+              <li key={p.name} className="glance-cell glance-logo" style={{ "--i": i, "--r": Math.floor(i / 2), "--c": i % 2 } as CSSProperties}>
+                <span className="glance-logo-mask">
+                  <span className="glance-logo-inner">
+                    {p.logo ? <img src={p.logo} alt={`${p.name} logo`} decoding="async" /> : <span className="glance-wordmark">{p.name}</span>}
+                  </span>
                 </span>
-              </span>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Categories 2 & 3: Suppliers and Technical Partners side by side */}
+        <div className="mt-12 md:mt-16">
+          <div className="grid grid-cols-2">
+            <div className="border-b border-black/10 pb-2 pr-4">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
+                  Suppliers
+                </span>
+                <span className="font-mono text-[11px] text-black/35">(01)</span>
+              </div>
+            </div>
+            <div className="border-b border-black/10 pb-2 pl-4">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
+                  Technical Partners
+                </span>
+                <span className="font-mono text-[11px] text-black/35">(01)</span>
+              </div>
+            </div>
+          </div>
+          <ul className="glance-grid glance-logos">
+            {supplierPartners.map((p, i) => (
+              <li key={p.name} className="glance-cell glance-logo" style={{ "--i": 6 + i, "--r": 3, "--c": 0 } as CSSProperties}>
+                <span className="glance-logo-mask">
+                  <span className="glance-logo-inner">
+                    {p.logo ? <img src={p.logo} alt={`${p.name} logo`} decoding="async" /> : <span className="glance-wordmark">{p.name}</span>}
+                  </span>
+                </span>
+              </li>
+            ))}
+            {technicalPartners.map((p, i) => (
+              <li key={p.name} className="glance-cell glance-logo" style={{ "--i": 7 + i, "--r": 3, "--c": 1 } as CSSProperties}>
+                <span className="glance-logo-mask">
+                  <span className="glance-logo-inner">
+                    {p.logo ? <img src={p.logo} alt={`${p.name} logo`} decoding="async" /> : <span className="glance-wordmark">{p.name}</span>}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

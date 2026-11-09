@@ -3,8 +3,10 @@ import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
+import ArrowButton from "./ArrowButton";
 import { useMediaReveal, usePageSetup } from "./usePageSetup";
 import { offerings, quoteHref, unsplash, type Business } from "./company";
+import { projectHref } from "./projects";
 import { CardSlider, DarkMedia, LabelCopy, OlButton, ParallaxHero, ReadMoreDialog, TextMedia, useScrollParallax, type DialogContent, type SlideItem } from "./ServiceBlocks";
 
 // Our Businesses, after olympic.no/what-we-do-services: the parallax cover, "What we do", one full-screen text and
@@ -75,9 +77,44 @@ const capabilities: SlideItem[] = [
   { title: "Engineering capability", text: "15 engineers in a team of 71, planning and supervising every project.", image: unsplash("/Image/bce/stats_fleet.jpg", 1400), alt: "An engineer inspecting reinforcement on site" },
 ];
 
+const SERVICE_PROJECTS: Record<string, { slug: string; name: string }> = {
+  "ready-mix-concrete": {
+    slug: "siem-reap-commercial-ready-mix",
+    name: "Commercial Complex Ready-Mix Supply",
+  },
+  piling: {
+    slug: "kampong-thom-bridge-foundations",
+    name: "Bridge Foundation Piling",
+  },
+  construction: {
+    slug: "battambang-provincial-road",
+    name: "Provincial Road Rehabilitation",
+  },
+  "concrete-slab-works": {
+    slug: "poipet-logistics-warehouse",
+    name: "Logistics Warehouse Floor Slab",
+  },
+  "equipment-rental": {
+    slug: "sihanoukville-fleet-hire",
+    name: "Pump & Mixer Fleet Hire",
+  },
+};
+
 const toDialog = (b: Business): DialogContent => {
   const d = detail[b.slug];
-  return { kicker: d.kicker, title: b.name, image: b.image.replace("w=1200", "w=1400"), lead: d.lead, body: d.body, listLabel: "Typical work includes:", list: d.typical };
+  const rel = SERVICE_PROJECTS[b.slug];
+  return {
+    kicker: d.kicker,
+    title: b.name,
+    image: b.image.replace("w=1200", "w=1400"),
+    lead: d.lead,
+    body: d.body,
+    listLabel: "Typical work includes:",
+    list: d.typical,
+    quoteHref: quoteHref(b.slug),
+    projectHref: rel ? projectHref(rel.slug) : undefined,
+    projectLabel: rel?.name,
+  };
 };
 
 export default function BusinessesPage() {
@@ -114,7 +151,10 @@ export default function BusinessesPage() {
         <div className="ol-panels">
           {offerings.map((b, i) => (
             <TextMedia key={b.slug} id={b.slug} kicker={detail[b.slug].kicker} title={b.name} image={b.image.replace("w=1200", "w=1600")} alt={b.name} reverse={i % 2 === 1} copy={[b.intro]}>
-              <OlButton label="Read more" onClick={() => openDialog(b)} className="ol-tm-button" />
+              <div className="flex flex-wrap items-center gap-4">
+                <OlButton label="Read more" onClick={() => openDialog(b)} className="ol-tm-button" />
+                <ArrowButton href={quoteHref(b.slug)} label="Request a quote" theme="alpha" />
+              </div>
             </TextMedia>
           ))}
         </div>

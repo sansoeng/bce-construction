@@ -176,12 +176,18 @@ const KM: Record<string, string> = {
   "Batching plants": "រោងចក្រលាយបេតុង",
   "70 m³/hr each": "៧០ m³/ម៉ោង ក្នុងមួយរោងចក្រ",
   "Projects completed": "គម្រោងបានបញ្ចប់",
+  "Projects completed in 2025": "គម្រោងបានបញ្ចប់ក្នុងឆ្នាំ ២០២៥",
+  "Projects Completed in 2025": "គម្រោងបានបញ្ចប់ក្នុងឆ្នាំ ២០២៥",
+  "Verified company records": "កំណត់ត្រាក្រុមហ៊ុនផ្លូវការ",
   "In 2025": "ក្នុងឆ្នាំ ២០២៥",
   "Clients served": "អតិថិជនដែលបានបម្រើ",
   "Plus 8 pump trucks": "បូកឡានបូមបេតុង ៨ គ្រឿង",
   "Provinces served": "ខេត្តដែលបានបម្រើ",
   "13 provinces + Phnom Penh": "១៣ ខេត្ត និងរាជធានីភ្នំពេញ",
   "Trusted partners & clients": "ដៃគូ និងអតិថិជនដែលទុកចិត្ត",
+  "Clients": "អតិថិជន",
+  "Suppliers": "អ្នកផ្គត់ផ្គង់",
+  "Technical Partners": "ដៃគូបច្ចេកទេស",
 
   // HSE Commitments
   "HSE & Operational Commitments": "ការប្តេជ្ញាចិត្តលើសុខភាព សុវត្ថិភាព បរិស្ថាន និងប្រតិបត្តិការ",
@@ -215,6 +221,10 @@ const KM: Record<string, string> = {
   // Selected projects, coverage
   "Selected": "គម្រោង",
   "See all projects": "មើលគម្រោងទាំងអស់",
+  "View projects": "មើលគម្រោង",
+  "View Projects": "មើលគម្រោង",
+  "See more about us": "ស្វែងយល់បន្ថែមអំពីយើង",
+  "View related project": "មើលគម្រោងពាក់ព័ន្ធ",
   "Where we work in Cambodia.": "តំបន់ដែលយើងធ្វើការនៅកម្ពុជា",
   "Where we work": "តំបន់ដែលយើងធ្វើការ",
   "in Cambodia.": "នៅកម្ពុជា",
@@ -909,6 +919,7 @@ const KM: Record<string, string> = {
 // Templated strings
 const PATTERNS: [RegExp, (...m: string[]) => string | null][] = [
   [/^View photo: (.+)$/, (s) => `មើលរូបភាព៖ ${tr(s)}`],
+  [/^View (.+)$/, (s) => `មើល${tr(s)}`],
   [/^Select province (.+)$/, (s) => `ជ្រើសរើសខេត្ត ${tr(s)}`],
   [/^Next project: (.+)$/, (s) => `គម្រោងបន្ទាប់៖ ${tr(s)}`],
   [/^(.+): see our projects$/, (s) => `${tr(s)}៖ មើលគម្រោងរបស់យើង`],

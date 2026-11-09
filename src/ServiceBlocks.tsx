@@ -273,7 +273,18 @@ export function CardSlider({ items, label }: { items: SlideItem[]; label: string
   );
 }
 
-export type DialogContent = { kicker: string; title: string; image: string; lead: string; body: string[]; listLabel: string; list: string[] };
+export type DialogContent = {
+  kicker: string;
+  title: string;
+  image: string;
+  lead: string;
+  body: string[];
+  listLabel: string;
+  list: string[];
+  quoteHref?: string;
+  projectHref?: string;
+  projectLabel?: string;
+};
 
 // Their read-more dialog: a 684px sheet sliding in from the right over a blurred, dimmed page, photo on top, then
 // label and title, then a short headline beside the description. Escape, the backdrop or the close square dismiss it.
@@ -322,6 +333,16 @@ export function ReadMoreDialog({ content, open, onClose }: { content: DialogCont
                   <ul>{content.list.map((t) => <li key={t}>{t}</li>)}</ul>
                 </div>
               </div>
+              {(content.quoteHref || content.projectHref) && (
+                <div className="ol-dialog-actions flex flex-wrap items-center gap-4 border-t border-[rgb(17_17_17_/_0.1)] px-[25px] py-8 max-md:px-4 max-md:py-6">
+                  {content.quoteHref && (
+                    <ArrowButton href={content.quoteHref} label="Request a quote" theme="black" onClick={onClose} />
+                  )}
+                  {content.projectHref && (
+                    <ArrowButton href={content.projectHref} label={content.projectLabel ? `View ${content.projectLabel}` : "View related project"} theme="alpha" onClick={onClose} />
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
