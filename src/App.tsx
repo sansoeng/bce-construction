@@ -8,7 +8,7 @@ import Coverage from "./Coverage";
 import WhyBCE from "./WhyBCE";
 import Footer from "./Footer";
 import QuoteCta from "./QuoteCta";
-import Glance from "./Glance";
+import Glance, { GlanceIcon, type IconKind } from "./Glance";
 import { HeroVideo } from "./HeroSlides";
 import SiteHeader from "./SiteHeader";
 import ArrowButton from "./ArrowButton";
@@ -17,6 +17,14 @@ import { projectHref, projects } from "./projects";
 import { commitments, offerings, businessHref } from "./company";
 
 const A = "/assets";
+
+const OFFER_ICONS: Record<string, IconKind> = {
+  "ready-mix-concrete": "plants",
+  piling: "piling",
+  construction: "projects",
+  "concrete-slab-works": "pump",
+  "equipment-rental": "mixer",
+};
 
 // The scroll choreography in App is imperative DOM setup. A new value on every live update of this module makes it
 // tear down and set up again, so edits never leave it driving elements React has since replaced.
@@ -407,7 +415,7 @@ function App() {
           </div>
         </div>
         <h2 data-split data-about-title className="about-title mt-40 font-medium text-[74px] leading-[1.08] tracking-[-.025em]">
-          <span className="inline-block md:pl-[max(25%,17.5rem)]">We supply ready-mix concrete,</span> reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.
+          <span className="inline-block md:pl-[max(25%,17.5rem)]">We supply ready-mix concrete,</span> foundation piling, civil construction, slab works, and equipment rental across Cambodia.
         </h2>
         </div>
       </section>
@@ -441,8 +449,16 @@ function App() {
                     </ul>
                     <a href={businessHref(slug)} aria-label={`${name}: learn more`} className="offer-plus grid size-11 flex-none place-items-center rounded-[4px]"><span aria-hidden>+</span></a>
                   </div>
-                  <div className="mt-auto pt-6">
+                  <div className="mt-auto pt-6 flex items-end justify-between gap-6">
                     <h3 className="offer-title font-medium text-[clamp(2.1rem,3.4vw,3.75rem)] leading-[1.04] tracking-[-.025em]">{name}</h3>
+                    <div className="offer-icon flex-none pb-1" aria-hidden>
+                      <GlanceIcon
+                        kind={OFFER_ICONS[slug]}
+                        clipIdPrefix={`offer-${slug}`}
+                        className="size-11 md:size-14"
+                        accentColor={fg === "#111" ? "#293e8a" : "#93c5fd"}
+                      />
+                    </div>
                   </div>
                 </div>
               </article>
