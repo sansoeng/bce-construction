@@ -3,14 +3,16 @@ import ArrowButton from "./ArrowButton";
 import { getLang, setLang } from "./i18n";
 
 /**
- * Sharplink-inspired top navigation bar (https://www.sharplink.com/):
- * - Left: Floating brand logo with isometric 3-layer icon + "BCE., Ltd."
- *   Automatically contrasts white over dark sections and black over light sections.
- * - Right: Segmented dark translucent pill bar containing:
- *   - Navigation links (About, Businesses ⌵, Projects ⌵, Quality & Lab, Coverage, Contact)
- *   - Bilingual language switch (EN | ខ្មែរ)
- *   - Signature primary ArrowButton ("Get a quote")
- * - Mobile: Compact floating pill with language switch, Quote button, and hamburger drawer.
+ * Authentic Sharplink-style navigation (https://www.sharplink.com/):
+ * - Fixed full-width header (pointer-events-none)
+ * - Left: Floating brand logo (height: 34px, 3-layer isometric mark + "BCE., Ltd.")
+ *   Dynamically adapts contrast (white on dark sections, black on light sections)
+ * - Right: Desktop menu with individual floating buttons separated by exact 2px gaps:
+ *   - Each button has height: 34px, rounded-[2px], rolling text twins on hover
+ *   - Links: ABOUT, BUSINESSES ⌵, PROJECTS ⌵, QUALITY & LAB, COVERAGE, CONTACT
+ *   - Language switch button (EN | ខ្មែរ)
+ *   - Quotation primary button (BCE signature ArrowButton with rotating diamond arrow)
+ * - Mobile: Compact 34px buttons (Language, Quote, Hamburger drawer toggle)
  */
 
 const GlobeIcon = () => (
@@ -24,20 +26,20 @@ const GlobeIcon = () => (
 function LangSwitch({ className = "" }: { className?: string }) {
   const lang = getLang();
   return (
-    <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-white/5 border border-white/10 text-[11px] font-mono text-white/80 select-none ${className}`} data-no-translate>
+    <div className={`inline-flex items-center gap-1.5 text-[11px] font-mono select-none ${className}`} data-no-translate>
       <GlobeIcon />
       <button
         type="button"
-        className={`transition-colors cursor-pointer ${lang === "en" ? "text-white font-bold" : "text-white/40 hover:text-white"}`}
+        className={`transition-colors cursor-pointer ${lang === "en" ? "font-bold text-current" : "opacity-40 hover:opacity-100"}`}
         aria-pressed={lang === "en"}
         onClick={() => setLang("en")}
       >
         EN
       </button>
-      <span className="text-white/20">|</span>
+      <span className="opacity-30">|</span>
       <button
         type="button"
-        className={`transition-colors cursor-pointer font-khmer ${lang === "km" ? "text-white font-bold" : "text-white/40 hover:text-white"}`}
+        className={`transition-colors cursor-pointer font-khmer ${lang === "km" ? "font-bold text-current" : "opacity-40 hover:opacity-100"}`}
         aria-pressed={lang === "km"}
         onClick={() => setLang("km")}
       >
@@ -70,6 +72,65 @@ const PROJECTS_SUB = [
   ["Foundation Piling", "/?projects#piling"],
 ];
 
+function NavButton({
+  href,
+  label,
+  hasDropdown,
+  isOpen,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  href: string;
+  label: string;
+  hasDropdown?: boolean;
+  isOpen?: boolean;
+  onClick?: (e: React.MouseEvent) => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}) {
+  return (
+    <a
+      href={href}
+      className="sl-btn"
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <span className="sl-btn-roll">
+        <span className="flex items-center gap-1.5">
+          <span>{label}</span>
+          {hasDropdown && (
+            <svg
+              viewBox="0 0 10 6"
+              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-200 ${
+                isOpen ? "rotate-180" : ""
+              }`}
+              aria-hidden
+            >
+              <path d="M1 1l4 4 4-4" />
+            </svg>
+          )}
+        </span>
+        <span className="flex items-center gap-1.5" aria-hidden>
+          <span>{label}</span>
+          {hasDropdown && (
+            <svg
+              viewBox="0 0 10 6"
+              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-200 ${
+                isOpen ? "rotate-180" : ""
+              }`}
+              aria-hidden
+            >
+              <path d="M1 1l4 4 4-4" />
+            </svg>
+          )}
+        </span>
+      </span>
+    </a>
+  );
+}
+
 export default function SiteHeader({
   phones,
   tel,
@@ -99,7 +160,7 @@ export default function SiteHeader({
     let ticking = false;
     const checkDark = () => {
       ticking = false;
-      const mid = (headerRef.current?.getBoundingClientRect().top ?? 20) + 20;
+      const mid = (headerRef.current?.getBoundingClientRect().top ?? 16) + 18;
       const isDark = [...document.querySelectorAll<HTMLElement>("[data-nav-dark]")].some((el) => {
         const r = el.getBoundingClientRect();
         return r.top <= mid && r.bottom >= mid;
@@ -169,179 +230,164 @@ export default function SiteHeader({
     <header
       ref={headerRef}
       data-nav
-      className={`fixed top-3 sm:top-4 md:top-5 inset-x-3 sm:inset-x-5 md:inset-x-8 max-w-7xl mx-auto z-50 pointer-events-none transition-all duration-700 ease-out ${
+      className={`sl-header ${dark ? "theme-dark" : "theme-light"} ${
         isIn ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"
       }`}
     >
-      <div className="flex items-center justify-between">
-        {/* Left: Brand Logo with 3-layer isometric mark (inspired by Sharplink) */}
+      <div className="sl-navbar">
+        {/* Left: Floating Brand Logo (Sharplink 3-layer mark + BCE., Ltd.) */}
         <a
           href={base || "/"}
-          className={`pointer-events-auto flex items-center gap-2.5 transition-colors duration-300 group select-none py-1.5 ${
-            dark ? "text-white" : "text-[#111]"
-          }`}
+          className="sl-logo group select-none"
           aria-label="BCE., Ltd. home"
           onClick={closeAll}
         >
           <svg
             viewBox="0 0 24 24"
-            className="size-5 shrink-0 stroke-current fill-none stroke-[1.8] transition-transform duration-300 group-hover:scale-110 drop-shadow-sm"
+            className="size-5 shrink-0 stroke-current fill-none stroke-[1.8] transition-transform duration-300 group-hover:scale-105"
             aria-hidden
           >
             <path d="M12 2L2 7l10 5 10-5-10-5z" />
             <path d="M2 17l10 5 10-5" />
             <path d="M2 12l10 5 10-5" />
           </svg>
-          <span className="text-[1.2rem] md:text-[1.3rem] font-bold tracking-tight font-sans drop-shadow-sm">
+          <span className="text-[1.15rem] md:text-[1.25rem] font-bold tracking-tight font-sans">
             BCE., Ltd.
           </span>
         </a>
 
-        {/* Right: Desktop Segmented Dark Nav Bar (Sharplink Style) */}
-        <div className="hidden lg:flex pointer-events-auto items-center divide-x divide-white/10 rounded-[6px] bg-[#141416]/90 backdrop-blur-2xl border border-white/12 shadow-[0_12px_36px_rgba(0,0,0,0.5)] p-1">
-          <nav className="flex items-center">
-            <a
-              href={linkHref("/?about")}
-              className="px-3.5 py-1.5 text-[11px] xl:text-[11.5px] font-mono tracking-[0.08em] uppercase font-medium text-white/75 hover:text-white transition-colors"
-            >
-              About
-            </a>
+        {/* Right: Desktop Sharplink Navigation Menu (2px gap between buttons) */}
+        <nav className="hidden lg:flex sl-menu" aria-label="Main navigation">
+          <NavButton
+            href={linkHref("/?about")}
+            label="About"
+          />
 
-            {/* Businesses Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMouseEnter("businesses")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <a
-                href={linkHref("/?businesses")}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-[11px] xl:text-[11.5px] font-mono tracking-[0.08em] uppercase font-medium text-white/75 hover:text-white transition-colors"
-              >
-                <span>Businesses</span>
-                <svg
-                  viewBox="0 0 10 6"
-                  className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-200 ${
-                    openDropdown === "businesses" ? "rotate-180" : ""
-                  }`}
-                  aria-hidden
-                >
-                  <path d="M1 1l4 4 4-4" />
-                </svg>
-              </a>
-
-              {openDropdown === "businesses" && (
-                <div className="absolute top-full left-0 pt-2 w-60">
-                  <div className="rounded-[6px] bg-[#141416]/98 backdrop-blur-2xl border border-white/12 shadow-2xl p-1.5 flex flex-col gap-0.5">
-                    {EXPERTISES_SUB.map(([title, href]) => (
-                      <a
-                        key={title}
-                        href={linkHref(href)}
-                        onClick={closeAll}
-                        className="px-3 py-2 text-[11px] font-mono tracking-normal text-white/75 hover:text-white hover:bg-white/10 rounded-[4px] transition-colors flex items-center justify-between"
-                      >
-                        <span>{title}</span>
-                        <span className="text-white/30 text-[10px]">→</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Projects Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMouseEnter("projects")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <a
-                href={linkHref("/?projects")}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-[11px] xl:text-[11.5px] font-mono tracking-[0.08em] uppercase font-medium text-white/75 hover:text-white transition-colors"
-              >
-                <span>Projects</span>
-                <svg
-                  viewBox="0 0 10 6"
-                  className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-200 ${
-                    openDropdown === "projects" ? "rotate-180" : ""
-                  }`}
-                  aria-hidden
-                >
-                  <path d="M1 1l4 4 4-4" />
-                </svg>
-              </a>
-
-              {openDropdown === "projects" && (
-                <div className="absolute top-full left-0 pt-2 w-60">
-                  <div className="rounded-[6px] bg-[#141416]/98 backdrop-blur-2xl border border-white/12 shadow-2xl p-1.5 flex flex-col gap-0.5">
-                    {PROJECTS_SUB.map(([title, href]) => (
-                      <a
-                        key={title}
-                        href={linkHref(href)}
-                        onClick={closeAll}
-                        className="px-3 py-2 text-[11px] font-mono tracking-normal text-white/75 hover:text-white hover:bg-white/10 rounded-[4px] transition-colors flex items-center justify-between"
-                      >
-                        <span>{title}</span>
-                        <span className="text-white/30 text-[10px]">→</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <a
-              href={linkHref("/?quality")}
-              className="px-3.5 py-1.5 text-[11px] xl:text-[11.5px] font-mono tracking-[0.08em] uppercase font-medium text-white/75 hover:text-white transition-colors"
-            >
-              Quality & Lab
-            </a>
-
-            <a
-              href={linkHref("#coverage")}
-              className="px-3.5 py-1.5 text-[11px] xl:text-[11.5px] font-mono tracking-[0.08em] uppercase font-medium text-white/75 hover:text-white transition-colors"
-            >
-              Coverage
-            </a>
-
-            <a
-              href={linkHref("#contact")}
-              className="px-3.5 py-1.5 text-[11px] xl:text-[11.5px] font-mono tracking-[0.08em] uppercase font-medium text-white/75 hover:text-white transition-colors"
-            >
-              Contact
-            </a>
-          </nav>
-
-          {/* Language Switch */}
-          <div className="px-2.5 py-1 flex items-center">
-            <LangSwitch className="!bg-transparent !border-0 !p-0 !text-[11px]" />
-          </div>
-
-          {/* Quotation Primary Button */}
-          <div className="pl-1.5 flex items-center">
-            <ArrowButton
-              href={linkHref("/?quote")}
-              label="Get a quote"
-              theme="white"
-              className="!h-[34px] !px-3.5 !py-0 !text-[11px] !border-none !rounded-[4px] shadow-sm"
-              onClick={closeAll}
+          {/* Businesses Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => handleMouseEnter("businesses")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <NavButton
+              href={linkHref("/?businesses")}
+              label="Businesses"
+              hasDropdown
+              isOpen={openDropdown === "businesses"}
             />
-          </div>
-        </div>
 
-        {/* Right: Mobile Compact Pill (< 1024px) */}
-        <div className="lg:hidden pointer-events-auto flex items-center gap-2 rounded-[6px] bg-[#141416]/90 backdrop-blur-2xl border border-white/12 shadow-[0_12px_36px_rgba(0,0,0,0.5)] px-2.5 py-1.5">
-          <LangSwitch className="!bg-transparent !border-0 !p-0 !text-[11px]" />
-          <span className="h-4 w-px bg-white/15" aria-hidden />
+            {openDropdown === "businesses" && (
+              <div className="absolute top-[calc(100%+3px)] left-0 min-w-[220px] z-50">
+                <div className={`p-1.5 rounded-[3px] shadow-2xl flex flex-col gap-0.5 ${
+                  dark
+                    ? "bg-[#181b20]/95 backdrop-blur-2xl border border-white/12 text-white"
+                    : "bg-white/95 backdrop-blur-2xl border border-black/10 text-black shadow-lg"
+                }`}>
+                  {EXPERTISES_SUB.map(([title, href]) => (
+                    <a
+                      key={title}
+                      href={linkHref(href)}
+                      onClick={closeAll}
+                      className={`px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] transition-colors flex items-center justify-between ${
+                        dark
+                          ? "text-white/80 hover:text-white hover:bg-white/10"
+                          : "text-black/80 hover:text-black hover:bg-black/5"
+                      }`}
+                    >
+                      <span>{title}</span>
+                      <span className="opacity-40 text-[10px]">→</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Projects Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => handleMouseEnter("projects")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <NavButton
+              href={linkHref("/?projects")}
+              label="Projects"
+              hasDropdown
+              isOpen={openDropdown === "projects"}
+            />
+
+            {openDropdown === "projects" && (
+              <div className="absolute top-[calc(100%+3px)] left-0 min-w-[220px] z-50">
+                <div className={`p-1.5 rounded-[3px] shadow-2xl flex flex-col gap-0.5 ${
+                  dark
+                    ? "bg-[#181b20]/95 backdrop-blur-2xl border border-white/12 text-white"
+                    : "bg-white/95 backdrop-blur-2xl border border-black/10 text-black shadow-lg"
+                }`}>
+                  {PROJECTS_SUB.map(([title, href]) => (
+                    <a
+                      key={title}
+                      href={linkHref(href)}
+                      onClick={closeAll}
+                      className={`px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] transition-colors flex items-center justify-between ${
+                        dark
+                          ? "text-white/80 hover:text-white hover:bg-white/10"
+                          : "text-black/80 hover:text-black hover:bg-black/5"
+                      }`}
+                    >
+                      <span>{title}</span>
+                      <span className="opacity-40 text-[10px]">→</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <NavButton
+            href={linkHref("/?quality")}
+            label="Quality & Lab"
+          />
+
+          <NavButton
+            href={linkHref("#coverage")}
+            label="Coverage"
+          />
+
+          <NavButton
+            href={linkHref("#contact")}
+            label="Contact"
+          />
+
+          {/* Language Switch Button */}
+          <div className="sl-btn !px-2.5">
+            <LangSwitch />
+          </div>
+
+          {/* Signature Primary ArrowButton ("Get a quote") */}
+          <ArrowButton
+            href={linkHref("/?quote")}
+            label="Get a quote"
+            theme={dark ? "white" : "black"}
+            className="!h-[34px] !px-4 !py-0 !text-[12px] !rounded-[2px] !border-none shadow-sm"
+            onClick={closeAll}
+          />
+        </nav>
+
+        {/* Right: Mobile Navigation (< 1024px, 2px gap) */}
+        <div className="lg:hidden flex items-center gap-[2px] pointer-events-auto">
+          <div className="sl-btn !px-2.5">
+            <LangSwitch />
+          </div>
           <ArrowButton
             href={linkHref("/?quote")}
             label="Quote"
-            theme="white"
-            className="!h-[30px] !px-2.5 !py-0 !text-[10px] !border-none !rounded-[4px]"
+            theme={dark ? "white" : "black"}
+            className="!h-[34px] !px-3 !py-0 !text-[11px] !rounded-[2px] !border-none"
             onClick={closeAll}
           />
           <button
             type="button"
-            className="grid size-8 place-items-center rounded-[4px] bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
+            className="sl-btn !w-[34px] !px-0 justify-center"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen(!open)}
@@ -361,10 +407,10 @@ export default function SiteHeader({
 
       {/* Mobile Accordion Drawer */}
       {open && (
-        <div className="pointer-events-auto lg:hidden mt-2 p-5 rounded-[6px] bg-[#141416]/98 backdrop-blur-2xl border border-white/12 shadow-[0_16px_50px_rgba(0,0,0,0.7)] flex flex-col gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="pointer-events-auto lg:hidden mt-2 p-5 rounded-[4px] bg-[#14171c]/98 backdrop-blur-2xl border border-white/12 shadow-[0_16px_50px_rgba(0,0,0,0.7)] flex flex-col gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
             <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-white/50">Menu Navigation</span>
-            <LangSwitch />
+            <LangSwitch className="text-white" />
           </div>
 
           <nav className="flex flex-col gap-2 font-mono text-[13px] uppercase tracking-[0.06em]">
