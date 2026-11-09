@@ -1,1 +1,14 @@
-{}
+{
+  "title": "BCE — Battambang Construction & Engineering | Architectural Concrete & Civil Infrastructure",
+  "description": "Battambang Construction & Engineering Co., Ltd. (BCE) is Cambodia's premier provider of computerized ready-mix concrete, reinforced piling, civil construction, and heavy fleet logistics. 30+ years of operational excellence across 14 Cambodian provinces.",
+  "language": "en",
+  "icons": {
+    "icon": "/favicon.svg"
+  },
+  "openGraph": {
+    "image": "/Image/slider-3@xxxl.webp"
+  },
+  "robots": {
+    "index": true
+  }
+}
