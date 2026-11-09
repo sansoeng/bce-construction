@@ -21,5 +21,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          apiKey: ${{ secrets.CLOUDFLARE_API_KEY }}
+          email: ${{ secrets.CLOUDFLARE_EMAIL }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy . --project-name=bce-construction --commit-dirty=true
