@@ -304,29 +304,6 @@
 /* Header: a 276 x 50 blurred black bar, centred at the top. */
 .fg-header { position: fixed; z-index: 60; top: 30px; left: 50%; display: flex; align-items: center; justify-content: center; width: 276px; height: 50px; overflow: hidden; border-radius: 4px; color: #fff; user-select: none; transform: translate(-50%, 0); }
 @media (min-width: 601px) { .fg-header { top: 40px; } }
-@media (min-width: 1024px) {
-  .fg-header {
-    width: auto !important;
-    padding: 0 8px !important;
-    gap: 4px;
-  }
-  .fg-header:not(.is-menu) .fg-logo {
-    position: static !important;
-    flex-shrink: 0;
-  }
-  .fg-header:not(.is-menu) .fg-right-group {
-    position: static !important;
-    flex-shrink: 0;
-  }
-  .fg-header:not(.is-menu) .fg-burger {
-    position: static !important;
-    flex-shrink: 0;
-  }
-  .fg-header.is-menu {
-    width: 50px !important;
-    padding: 0 !important;
-  }
-}
 /* Absolutely positioned but statically centred by the flex box, so width changes fold it in from both sides. */
 .fg-bg { position: absolute; z-index: -1; width: 100%; height: 100%; background: rgb(0 0 0 / .8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 .fg-logo { position: absolute; left: 0; display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; font-size: 11px; letter-spacing: .04em; }

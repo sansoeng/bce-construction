@@ -29,15 +29,6 @@ const LINKS = [
   ["Contact", "#contact"],
 ];
 
-const DESKTOP_LINKS = [
-  ["About", "/?about"],
-  ["Businesses", "/?businesses"],
-  ["Projects", "/?projects"],
-  ["Quality & HSE", "/?quality"],
-  ["Coverage", "#coverage"],
-  ["Contact", "#contact"],
-];
-
 const GlobeIcon = () => (
   <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="fx-lang-icon">
     <circle cx="12" cy="12" r="10" />
@@ -215,29 +206,7 @@ export default function SiteHeader({ phones, tel, base = "" }: { phones: string[
         className={`fg-header${isIn ? " is-in" : ""}${isReady ? " is-ready" : ""}${open ? " is-menu" : ""}`}
       >
         <a href={base || "#"} className="fg-logo" aria-label={base ? "BCE., Ltd., home" : "BCE., Ltd., back to top"} onClick={close}>BCE</a>
-        
-        {/* Visible desktop navigation links (>= 1024px) */}
-        <nav className="fg-nav-desktop hidden lg:flex items-center gap-0.5 px-2" aria-label="Main navigation">
-          {DESKTOP_LINKS.map(([label, href]) => {
-            const linkHref = href.startsWith("/") ? href : base + href;
-            const isCurr = active === href || (href.startsWith("/?") && typeof location !== "undefined" && location.search.includes(href.slice(2)));
-            return (
-              <a
-                key={label}
-                href={linkHref}
-                className={`fg-nav-link px-2.5 py-1 text-[11px] font-medium tracking-[0.06em] uppercase rounded transition-colors ${
-                  isCurr ? "text-white bg-white/20 font-semibold" : "text-white/75 hover:text-white hover:bg-white/10"
-                }`}
-                onClick={close}
-              >
-                {label}
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Mobile current section title (< 1024px) */}
-        <div className="fg-title lg:hidden" aria-hidden onClick={() => setOpen(true)}>
+        <div className="fg-title" aria-hidden onClick={() => setOpen(true)}>
           <span className="fg-title-move"><span ref={rollRef} className="fg-title-roll">Home</span></span>
         </div>
         <div className="fg-right-group">
