@@ -60,13 +60,13 @@ const grades: [string, string, string][] = [
 
 const mixDocs = ["Mix design submittal", "Trial mix results", "Material proportions per m³", "7- and 28-day strength records"];
 
-// HSE commitments (company.ts) with a stand-in photo each, for the sticky sequence.
+// HSE commitments (company.ts) with authentic BCE site photography
 const hsePhotos: [string, string][] = [
-  ["photo-1781157080615-ffde66c035a5", "Hard hats lined up, ready for site"],
-  ["photo-1622612063021-116cc3407145", "A site worker in an orange hard hat"],
-  ["photo-1655319446872-470be2574c93", "A river running through a forest"],
-  ["photo-1674471361523-195aa08e69b5", "A calibrated pressure gauge"],
-  ["photo-1742112125635-6f8201c6ee3f", "Construction workers shaking hands on site"],
+  ["/Image/bce/hse_safety.jpg", "BCE safety standards and protective equipment on site"],
+  ["/Image/bce/core_services.jpg", "A site worker in an orange hard hat supervising pour"],
+  ["/Image/bce/project_page_16.jpg", "Environmental protection and clean site practices"],
+  ["/Image/bce/cert_mix_design.jpg", "A calibrated pressure gauge and quality testing"],
+  ["/Image/bce/project_page_17.jpg", "Construction engineering team collaborating on site"],
 ];
 const hseItems: StickyItem[] = commitments.map(([lines, text], i) => ({
   title: lines.join(" "),
@@ -103,7 +103,7 @@ export default function QualityPage() {
       <SiteHeader phones={phones} tel={tel} base="/" />
 
       {/* Header after olympic.no/sustainability-quality-safety-management-systems: title, banner, introduction. */}
-      <PageHeader label="Quality & HSE" title="Tested at every stage, built safely" image={unsplash("photo-1581093577421-f561a654a353", 2400)} alt="An engineer at work in the laboratory" />
+      <PageHeader label="Quality & HSE" title="Tested at every stage, built safely" image={unsplash("/Image/bce/laboratory_qa.jpg", 2400)} alt="BCE quality control laboratory" />
       {/* Introduction as Our businesses' "What we do": a grey label on the left, the statement on the right. */}
       <LabelCopy label="Our approach" className="ol-head qx-intro">
         Our operations are supported by strict quality control and a clear HSE commitment, from certified materials and calibrated equipment to documented mix designs and laboratory-verified results on every project.
@@ -134,7 +134,7 @@ export default function QualityPage() {
           </ol>
         </div>
         <div data-px="media" className="pp-media qx-photo qx-lab-photo">
-          <div className="ol-px-media"><img src={unsplash("photo-1731317734838-12da6c9a6139", 1400)} alt="Concrete test specimens side by side" loading="lazy" /></div>
+          <div className="ol-px-media"><img src={unsplash("/Image/bce/cert_mix_design.jpg", 1400)} alt="Concrete test specimens side by side" loading="lazy" /></div>
         </div>
       </section>
 
@@ -159,7 +159,7 @@ export default function QualityPage() {
           </ul>
         </div>
         <div data-px="media" className="pp-media qx-photo">
-          <div className="ol-px-media"><img src={unsplash("photo-1565626424178-c699f6601afd", 1200)} alt="Concrete specimens and raw materials" loading="lazy" /></div>
+          <div className="ol-px-media"><img src={unsplash("/Image/bce/project_page_14.jpg", 1200)} alt="Concrete specimens and raw materials" loading="lazy" /></div>
         </div>
       </section>
 

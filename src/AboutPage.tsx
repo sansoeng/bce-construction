@@ -25,9 +25,9 @@ import { LeadText, PageHeader, useScrollParallax } from "./ServiceBlocks"
 
 const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"]
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`
-// Stand-in Unsplash photo until BCE supplies its own (Joseph Prospere).
+// Stand-in Unsplash photo fallback
 const unsplash = (id: string, w = 1600) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`
+  id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`
 
 // Milestones the profile states. Add BCE's own dated milestones here as they are confirmed.
 const milestones: [string, string][] = [
@@ -52,8 +52,8 @@ function SampleTag({ dark }: { dark?: boolean }) {
 
 // Explore more, as olympic.no's media link tiles: two photos side by side, each with a label, title and Explore button.
 const more: { label: string; title: string; href: string; image: string; alt: string }[] = [
-  { label: "What we do", title: "Our businesses", href: "/?businesses", image: "photo-1504307651254-35680f356dfd", alt: "A construction site with cranes" },
-  { label: "Tested at every stage", title: "Quality & HSE", href: "/?quality", image: "photo-1581093577421-f561a654a353", alt: "An engineer at work in the laboratory" },
+  { label: "What we do", title: "Our businesses", href: "/?businesses", image: "/Image/bce/core_services.jpg", alt: "BCE fleet and construction services" },
+  { label: "Tested at every stage", title: "Quality & HSE", href: "/?quality", image: "/Image/bce/laboratory_qa.jpg", alt: "BCE in-house certified QA laboratory" },
 ]
 
 // The quote brightens word by word as it crosses the screen, after olympic.no's content-blocks quote: each word starts
@@ -161,12 +161,12 @@ function ChairwomanMessage() {
           wide photo under the story column reaching the right edge. Each wipes in and drifts in its frame. */}
       <div data-px="media" className="pp-media ab-msg-photo ab-msg-photo--tall">
         <div className="ol-px-media">
-          <img src={unsplash("photo-1555039611-97a709b1876d", 1200)} alt="A woman looking out of an office window" loading="lazy" />
+          <img src={unsplash("/Image/bce/chairwoman.jpg", 1200)} alt="Ms. Loeung Chan, Chairwoman of BCE Construction" loading="lazy" />
         </div>
       </div>
       <div data-px="media" className="pp-media ab-msg-photo ab-msg-photo--wide">
         <div className="ol-px-media">
-          <img src={unsplash("photo-1774931363306-5a896cd4dd02", 1800)} alt="Construction workers pouring concrete on site" loading="lazy" />
+          <img src={unsplash("/Image/bce/project_page_17.jpg", 1800)} alt="Construction workers pouring concrete on site" loading="lazy" />
         </div>
       </div>
     </section>
@@ -190,8 +190,8 @@ export default function AboutPage() {
       <PageHeader
         label="About BCE"
         title="Building Cambodia since 1995"
-        image={unsplash("photo-1785282160507-d4014b7fdfa7", 2400)}
-        alt="A concrete plant with trucks, framed by trees"
+        image={unsplash("/Image/bce/hero_batching_plant.jpg", 2400)}
+        alt="BCE computerized batching plant and operations"
       />
       <LeadText>
         BCE is a Battambang-based construction, concrete, piling and
@@ -219,7 +219,7 @@ export default function AboutPage() {
         {more.map((t) => (
           <div key={t.title} data-px="media" className="ab-tile">
             <div className="ab-tile-media ol-px-media">
-              <img src={unsplash(t.image, 1800)} alt={t.alt} loading="lazy" />
+              <img src={t.image.startsWith("/") ? t.image : unsplash(t.image, 1800)} alt={t.alt} loading="lazy" />
             </div>
             <div className="ab-tile-content">
               <p data-split="content" className="ab-tile-label">

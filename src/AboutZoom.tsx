@@ -7,23 +7,23 @@ import { getLang, translate } from "./i18n";
 // inset(10px round 10px) (expo.out), and in the last stretch the grid and copy drift up 25vh (expo.in) into the exit.
 // Over the same scroll two statements fade in character by character, then out again (their 0-2 in, 2-4 out, 4-6
 // in, 6-8 out timeline). Khmer fades by word, since splitting Khmer clusters into separate spans breaks their shaping.
-// Photos are stand-ins from the project gallery (Unsplash) until BCE supplies its own.
-const photo = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=70`;
+// Real BCE project and plant photography
+const photo = (id: string) => id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=70`;
 
 type Tile = { pos: string; id: string; alt: string };
 const ROWS: { row: string; tiles: Tile[] }[] = [
   { row: "top", tiles: [
-    { pos: "midleft", id: "photo-1784644579477-3fa2b0af8ac2", alt: "Mixer truck discharging beside the excavation" },
-    { pos: "midright", id: "photo-1531834685032-c34bf0d84c77", alt: "Reinforcement cages assembled for the core walls" },
+    { pos: "midleft", id: "/Image/bce/project_page_14.jpg", alt: "Mixer truck discharging beside the excavation" },
+    { pos: "midright", id: "/Image/bce/project_page_15.jpg", alt: "Reinforcement cages assembled for the core walls" },
   ] },
   { row: "center", tiles: [
-    { pos: "left", id: "photo-1706922685061-e346647bde61", alt: "Paver laying asphalt on the widened section" },
-    { pos: "center", id: "photo-1652900150494-90cb5cfa44d8", alt: "Rotary rig drilling at the pier" },
-    { pos: "right", id: "photo-1527410651988-c2f385ccd3f7", alt: "Mixer trucks lined up" },
+    { pos: "left", id: "/Image/bce/project_page_16.jpg", alt: "Paver laying asphalt on the widened section" },
+    { pos: "center", id: "/Image/bce/hero_batching_plant.jpg", alt: "BCE batching plant operations" },
+    { pos: "right", id: "/Image/bce/machinery_fleet.jpg", alt: "Mixer trucks lined up" },
   ] },
   { row: "bottom", tiles: [
-    { pos: "midleft", id: "photo-1685464196387-854858ce0f4f", alt: "Hand finishing along the slab edge" },
-    { pos: "midright", id: "photo-1649587345666-0f4ad68aa723", alt: "Warehouse frame rising over the prepared sub-base" },
+    { pos: "midleft", id: "/Image/bce/project_page_17.jpg", alt: "Hand finishing along the slab edge" },
+    { pos: "midright", id: "/Image/bce/project_page_18.jpg", alt: "Warehouse frame rising over the prepared sub-base" },
   ] },
 ];
 

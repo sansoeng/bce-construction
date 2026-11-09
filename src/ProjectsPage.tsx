@@ -68,7 +68,7 @@ export default function ProjectsPage() {
       <SiteHeader phones={phones} tel={tel} base="/" />
 
       {/* Header after olympic.no's inner pages: title, full-bleed banner, then the introduction. */}
-      <PageHeader label="Projects" title="All projects" image={unsplash("photo-1531834685032-c34bf0d84c77", 2400)} alt="A construction site with concrete frames" />
+      <PageHeader label="Projects" title="All projects" image={unsplash("/Image/bce/core_services.jpg", 2400)} alt="BCE project sites and construction works" />
       <LeadText className="ol-lead--tight">
         Selected projects across Cambodia, from bridge foundations and factory floors to mixed-use towers, each delivered with our own concrete, piling rigs, fleet and engineers.
       </LeadText>

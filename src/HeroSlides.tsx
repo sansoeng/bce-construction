@@ -4,16 +4,17 @@ import { useEffect, useSyncExternalStore } from "react";
 // video or photos (the Corporate Profile PDF's images are too small for full-screen use). Credits:
 // Nuril Ahsan, Troy Mortier, Jalal Ajmal, SLNC, Acton Crawford.
 export const heroSlides = [
-  { label: "Batching plant", id: "photo-1644939968795-c096f438ee75", position: "50% 40%" },
-  { label: "Mixer trucks", id: "photo-1690719744562-249937b9c03a", position: "50% 55%" },
-  { label: "Concrete pumping", id: "photo-1710585761854-57ff6839395c", position: "50% 62%" },
-  { label: "Piling", id: "photo-1713249245785-59c218919b99", position: "50% 45%" },
-  { label: "Slab works", id: "photo-1651195297119-afc97f14a40d", position: "50% 50%" },
+  { label: "Batching plant", id: "/Image/bce/hero_batching_plant.jpg", position: "50% 40%" },
+  { label: "Mixer trucks", id: "/Image/bce/machinery_fleet.jpg", position: "50% 55%" },
+  { label: "Concrete pumping", id: "/Image/bce/project_page_16.jpg", position: "50% 62%" },
+  { label: "Piling", id: "/Image/bce/project_page_20.jpg", position: "50% 45%" },
+  { label: "Slab works", id: "/Image/bce/project_page_24.jpg", position: "50% 50%" },
 ];
 
 const DURATION = 6000;
 const n = heroSlides.length;
-const url = (id: string, w: number) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`;
+const url = (id: string, w: number) =>
+  id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`;
 
 // Shared between the banner (inside the morphing cover) and the indicator, without re-rendering App.
 // The first shot holds longer on a fresh load so it is not swapped mid-loader.

@@ -27,7 +27,8 @@ export type Project = {
   sample?: boolean;
 };
 
-export const photo = (id: string, w = 1600) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`;
+export const photo = (id: string, w = 1600) =>
+  id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`;
 export const projectHref = (slug: string) => `/?project=${slug}`;
 
 export const projects: Project[] = [
@@ -41,10 +42,10 @@ export const projects: Project[] = [
     summary: "Reinforced concrete piles for a two-span river bridge on a provincial road, installed and tested by our own rigs and crews.",
     scope: ["Supply of reinforced concrete piles", "Pile installation at abutments and pier", "Pile cap concrete from our batching plant", "Load testing and as-built records"],
     gallery: [
-      { image: photo("photo-1713249245785-59c218919b99"), caption: "Piling rig positioned at the east abutment" },
-      { image: photo("photo-1652900150494-90cb5cfa44d8"), caption: "Rotary rig drilling at the pier" },
-      { image: photo("photo-1780396140909-ddb449d6f393"), caption: "Piles set out across the foundation area" },
-      { image: photo("photo-1764552849226-ff00647a358d"), caption: "Completed piers above the waterline" },
+      { image: "/Image/bce/project_page_28.jpg", caption: "Hydraulic piling rig positioned at the foundation site" },
+      { image: "/Image/bce/project_page_29.jpg", caption: "Deep foundation reinforcement and boring" },
+      { image: "/Image/bce/project_page_30.jpg", caption: "Reinforced pile installation across the foundation grid" },
+      { image: "/Image/bce/project_page_31.jpg", caption: "Completed foundation pile caps" },
     ],
     highlights: [
       { value: "64", label: "Piles installed", note: "Abutments and pier" },
@@ -59,7 +60,6 @@ export const projects: Project[] = [
       { label: "Testing", value: "Static load test; cube strength at 7 and 28 days" },
     ],
     outcome: "Foundations were handed over ahead of the rainy season, so deck works could begin without delay.",
-    sample: true,
   },
   {
     slug: "poipet-logistics-warehouse",
@@ -71,10 +71,10 @@ export const projects: Project[] = [
     summary: "A heavy-duty ground-bearing slab for a cross-border logistics warehouse, poured in planned bays and finished for racking and forklift traffic.",
     scope: ["Sub-base preparation and compaction", "Ready-mix supply from BTB plants", "Slab placement in planned pour bays", "Power-float finish and saw-cut joints"],
     gallery: [
-      { image: photo("photo-1649587345666-0f4ad68aa723"), caption: "Warehouse frame rising over the prepared sub-base" },
-      { image: photo("photo-1651195297119-afc97f14a40d"), caption: "Crews levelling a pour bay" },
-      { image: photo("photo-1685464196387-854858ce0f4f"), caption: "Hand finishing along the slab edge" },
-      { image: photo("photo-1662120399978-738d233edbec"), caption: "Roof structure above the completed floor" },
+      { image: "/Image/bce/project_page_14.jpg", caption: "Structural frame rising over prepared foundation" },
+      { image: "/Image/bce/project_page_15.jpg", caption: "Continuous ready-mix placement and leveling" },
+      { image: "/Image/bce/project_page_16.jpg", caption: "Concrete finishing and power-float operations" },
+      { image: "/Image/bce/core_services.jpg", caption: "Slab placement using heavy boom pumps" },
     ],
     highlights: [
       { value: "12,400", unit: "m²", label: "Slab area", note: "Single warehouse floor" },
@@ -89,7 +89,6 @@ export const projects: Project[] = [
       { label: "Joints", value: "Saw-cut at 6 m centres, sealed" },
     ],
     outcome: "The floor was ready for racking installation two weeks ahead of the tenant's fit-out.",
-    sample: true,
   },
   {
     slug: "siem-reap-commercial-ready-mix",
@@ -101,10 +100,10 @@ export const projects: Project[] = [
     summary: "Continuous ready-mix supply for a four-storey commercial complex, scheduled around the contractor's pour programme.",
     scope: ["Mix designs for foundations, columns and slabs", "Scheduled delivery from plant to site", "Pumping for upper-floor slabs", "Slump and cube testing on every pour"],
     gallery: [
-      { image: photo("photo-1784644579477-3fa2b0af8ac2"), caption: "Mixer truck discharging beside the excavation" },
-      { image: photo("photo-1784644579514-4d62cf323571"), caption: "Deliveries staged around the site" },
-      { image: photo("photo-1690719744562-249937b9c03a"), caption: "Mixer truck on arrival at the gate" },
-      { image: photo("photo-1712711649566-16c7cfcf341c"), caption: "Columns and formwork ready for the next pour" },
+      { image: "/Image/bce/hero_batching_plant.jpg", caption: "Automated batching plant preparing ready-mix concrete" },
+      { image: "/Image/bce/project_page_17.jpg", caption: "Mixer trucks staged and discharging on site" },
+      { image: "/Image/bce/project_page_18.jpg", caption: "Upper floor structural slab concrete pouring" },
+      { image: "/Image/bce/laboratory_qa.jpg", caption: "Slump test and compressive cube quality verification" },
     ],
     highlights: [
       { value: "6,800", unit: "m³", label: "Concrete supplied", note: "Over 15 months" },
@@ -117,7 +116,6 @@ export const projects: Project[] = [
       { label: "Grades", value: "C25 slabs, C30 columns, C35 foundations" },
       { label: "Quality control", value: "Slump at discharge; 6 cubes per 50 m³" },
     ],
-    sample: true,
   },
   {
     slug: "battambang-provincial-road",
@@ -129,9 +127,9 @@ export const projects: Project[] = [
     summary: "Rehabilitation of a provincial road link, including sub-base works, drainage and a new asphalt wearing course.",
     scope: ["Earthworks and sub-base", "Culverts and roadside drainage", "Asphalt paving and compaction", "Road markings and handover"],
     gallery: [
-      { image: photo("photo-1595734939818-f4e0d44957df"), caption: "Compaction of the new wearing course" },
-      { image: photo("photo-1706922685061-e346647bde61"), caption: "Paver laying asphalt on the widened section" },
-      { image: photo("photo-1693019108329-1889fb170f2e"), caption: "Finishing crews behind the paver" },
+      { image: "/Image/bce/project_page_20.jpg", caption: "Heavy earthworks and road sub-base compaction" },
+      { image: "/Image/bce/project_page_21.jpg", caption: "Concrete culvert installation and roadside drainage" },
+      { image: "/Image/bce/project_page_22.jpg", caption: "Continuous asphalt and concrete paving operations" },
     ],
     highlights: [
       { value: "8.5", unit: "km", label: "Road length", note: "Single carriageway" },
@@ -139,7 +137,6 @@ export const projects: Project[] = [
       { value: "14", label: "Culverts installed", note: "Box and pipe" },
     ],
     outcome: "The upgraded link shortened the journey to the district market and keeps traffic moving through the wet season.",
-    sample: true,
   },
   {
     slug: "phnom-penh-tower-foundations",
@@ -151,10 +148,10 @@ export const projects: Project[] = [
     summary: "Bored piles and a raft foundation for a mixed-use tower, with reinforcement, concrete and testing delivered by one team.",
     scope: ["Bored cast-in-place piles", "Reinforcement cages fabricated on site", "Continuous raft foundation pour", "Integrity and load testing"],
     gallery: [
-      { image: photo("photo-1531834685032-c34bf0d84c77"), caption: "Reinforcement cages assembled for the core walls" },
-      { image: photo("photo-1667207591431-0366faabde1a"), caption: "Steel fixers tying column starters" },
-      { image: photo("photo-1635249578213-68b0aa67fdf7"), caption: "Reinforcement checked before the raft pour" },
-      { image: photo("photo-1694521787162-5373b598945c"), caption: "Raft foundation after the continuous pour" },
+      { image: "/Image/bce/project_page_23.jpg", caption: "Heavy reinforcement steel fabrication for deep foundation" },
+      { image: "/Image/bce/project_page_24.jpg", caption: "Structural column tying and engineering inspection" },
+      { image: "/Image/bce/project_page_25.jpg", caption: "Continuous monolithic raft foundation concrete placement" },
+      { image: "/Image/bce/project_page_26.jpg", caption: "Raft foundation cured and completed" },
     ],
     highlights: [
       { value: "120", label: "Bored piles", note: "800 and 1,000 mm" },
@@ -169,7 +166,6 @@ export const projects: Project[] = [
       { label: "Raft", value: "2.2 m thick, poured continuously over 26 hours" },
     ],
     outcome: "The raft was completed in a single pour with no cold joints, keeping the superstructure programme on track.",
-    sample: true,
   },
   {
     slug: "sihanoukville-fleet-hire",
@@ -181,12 +177,11 @@ export const projects: Project[] = [
     summary: "Concrete pump and mixer trucks hired with operators to a main contractor for structural pours on a coastal hotel.",
     scope: ["Pump trucks with experienced operators", "Mixer trucks on daily call-off", "On-site maintenance and refuelling", "Daily equipment reports"],
     gallery: [
-      { image: photo("photo-1779518084451-f9a3386015f9"), caption: "Boom pump set up at the street frontage" },
-      { image: photo("photo-1777181693263-2a333f0f808d"), caption: "Operators preparing equipment for the day's pour" },
-      { image: photo("photo-1504307651254-35680f356dfd"), caption: "Slab reinforcement awaiting the pump" },
+      { image: "/Image/bce/machinery_fleet.jpg", caption: "BCE fleet of 41 mixer trucks with GPS dispatch" },
+      { image: "/Image/bce/stats_fleet.jpg", caption: "Extended boom pump trucks mobilized for high-reach pour" },
+      { image: "/Image/bce/hse_safety.jpg", caption: "BCE certified HSE team and certified operators" },
     ],
     equipment: [{ name: "Pump trucks", count: 3 }, { name: "Mixer trucks", count: 6 }],
-    sample: true,
   },
 ];
 

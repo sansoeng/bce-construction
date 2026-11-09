@@ -20,33 +20,33 @@ const BOX_OUT: [number, number][] = [
 ]
 
 const photo = (id: string, w = 1800) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`
+  id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`
 
 // BCE's four pillars (Corporate Profile 2026: Chairwoman's message, pp. 01 and 07).
 const values = [
   {
     title: "Quality",
     text: "Built to last. From material selection and production to construction and delivery, laboratory quality control keeps every structure strong, durable and lasting.",
-    id: "photo-1512207736890-6ffed8a84e8d",
-    alt: "Crews in high-visibility gear on a concrete pour, seen from above",
+    id: "/Image/bce/laboratory_qa.jpg",
+    alt: "BCE in-house testing laboratory and quality assurance",
   },
   {
     title: "Safety",
     text: "Our top priority. We protect our people, our partners and the communities we serve, from the batching plant to the project site.",
-    id: "photo-1622612023350-b15f063eabe6",
-    alt: "A site worker in a hard hat and high-visibility vest",
+    id: "/Image/bce/hse_safety.jpg",
+    alt: "BCE team safety protocols and on-site health standards",
   },
   {
     title: "Reliability",
     text: "On time, every time. Our own batching plants, mixer trucks and pump trucks give us the capacity to keep projects on schedule and on spec.",
-    id: "photo-1773432114391-f85c1674b233",
-    alt: "A concrete mixer truck on a gravel yard",
+    id: "/Image/bce/machinery_fleet.jpg",
+    alt: "BCE dedicated heavy equipment and mixer fleet",
   },
   {
     title: "Partnership",
     text: "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success.",
-    id: "photo-1694521787193-9293daeddbaa",
-    alt: "Three site workers measuring a block wall together",
+    id: "/Image/bce/core_services.jpg",
+    alt: "BCE collaborative construction and engineering management",
   },
 ]
 

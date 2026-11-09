@@ -67,12 +67,12 @@ const detail: Record<string, { kicker: string; lead: string; body: string[]; typ
 
 // Technical capabilities, one card per topic of the Technical Capabilities page.
 const capabilities: SlideItem[] = [
-  { title: "Quality assurance", text: "Five checks on every project, from raw material to verified strength.", image: unsplash("photo-1694521787193-9293daeddbaa", 1400), alt: "Engineers measuring a concrete wall" },
-  { title: "Laboratory", text: "Slump, compressive strength and material testing in our own laboratory.", image: unsplash("photo-1565626424178-c699f6601afd", 1400), alt: "Concrete test specimens" },
-  { title: "Mix designs", text: "Grades C15 to C40, trial-mixed and documented for consultant approval.", image: unsplash("photo-1581092160562-40aa08e78837", 1400), alt: "An engineer measuring technical drawings" },
-  { title: "Materials & certificates", text: "Cement, aggregates and admixtures certified at source and checked again.", image: unsplash("photo-1769629918261-92d1fac176cd", 1400), alt: "A loader filling a truck with aggregate" },
-  { title: "Equipment & fleet", text: "4 batching plants, 41 mixer trucks, 8 pump trucks and our own piling rigs.", image: unsplash("photo-1527410651988-c2f385ccd3f7", 1400), alt: "Concrete mixer trucks" },
-  { title: "Engineering capability", text: "15 engineers in a team of 71, planning and supervising every project.", image: unsplash("photo-1768677903496-becc4be07258", 1400), alt: "An engineer inspecting reinforcement on site" },
+  { title: "Quality assurance", text: "Five checks on every project, from raw material to verified strength.", image: unsplash("/Image/bce/core_services.jpg", 1400), alt: "Engineers measuring a concrete wall" },
+  { title: "Laboratory", text: "Slump, compressive strength and material testing in our own laboratory.", image: unsplash("/Image/bce/laboratory_qa.jpg", 1400), alt: "Concrete test specimens" },
+  { title: "Mix designs", text: "Grades C15 to C40, trial-mixed and documented for consultant approval.", image: unsplash("/Image/bce/cert_mix_design.jpg", 1400), alt: "An engineer measuring technical drawings" },
+  { title: "Materials & certificates", text: "Cement, aggregates and admixtures certified at source and checked again.", image: unsplash("/Image/bce/project_page_14.jpg", 1400), alt: "A loader filling a truck with aggregate" },
+  { title: "Equipment & fleet", text: "4 batching plants, 41 mixer trucks, 8 pump trucks and our own piling rigs.", image: unsplash("/Image/bce/machinery_fleet.jpg", 1400), alt: "Concrete mixer trucks" },
+  { title: "Engineering capability", text: "15 engineers in a team of 71, planning and supervising every project.", image: unsplash("/Image/bce/stats_fleet.jpg", 1400), alt: "An engineer inspecting reinforcement on site" },
 ];
 
 const toDialog = (b: Business): DialogContent => {
@@ -104,7 +104,7 @@ export default function BusinessesPage() {
     <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
-      <ParallaxHero label="Our businesses" title="Building with expertise" image={unsplash("photo-1504307651254-35680f356dfd", 2400)} />
+      <ParallaxHero label="Our businesses" title="Building with expertise" image={unsplash("/Image/bce/hero_batching_plant.jpg", 2400)} />
 
       <div className="ol-page-body">
         <LabelCopy label="What we do">
@@ -119,7 +119,7 @@ export default function BusinessesPage() {
           ))}
         </div>
 
-        <DarkMedia id="laboratory" kicker="Tested at every stage" title="Laboratory & quality assurance" image={unsplash("photo-1581093577421-f561a654a353", 1800)} alt="An engineer at work in the laboratory"
+        <DarkMedia id="laboratory" kicker="Tested at every stage" title="Laboratory & quality assurance" image={unsplash("/Image/bce/laboratory_qa.jpg", 1800)} alt="An engineer at work in the laboratory"
           copy={[
             "Concrete is only as reliable as the testing behind it. Our own laboratory checks every material before production and every pour after it.",
             "With slump testing on delivery, compressive strength testing and documented mix designs, every structure we supply is built on verified results.",

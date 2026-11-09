@@ -4,9 +4,8 @@ import { useLayoutEffect, useRef } from "react";
 // parallax, white hairlines (one down the centre, one rising across the right half) that draw in on entry, and a
 // headline, short paragraph and underlined "Request a quotation" link set in the right half. Type follows the site
 // (Aeonik). Cement silos photographed by Grant Ritchie (Unsplash), graded in CSS with a navy multiply that deepens
-// toward the top right so the sky matches the HSE section's blue; the silos rise from the bottom left and the open
-// sky carries the copy. A stand-in until BCE supplies photography of its own batching plants.
-const PHOTO = "https://images.unsplash.com/photo-1627052428109-576e839d100a?auto=format&fit=crop&w=2400&q=75";
+// BCE batching plant silos
+const PHOTO = "/Image/bce/hero_batching_plant.jpg";
 
 export default function QuoteCta({ href }: { href: string }) {
   const sectionRef = useRef<HTMLElement>(null);
