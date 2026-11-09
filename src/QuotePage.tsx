@@ -15,9 +15,9 @@ const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 
-/** BCE's quotation inbox and Telegram username; leave empty until confirmed (their buttons stay hidden). */
-const QUOTE_EMAIL = "";
-const QUOTE_TELEGRAM = "";
+/** BCE's quotation inbox and Telegram username. */
+const QUOTE_EMAIL = "bcebtb999@gmail.com";
+const QUOTE_TELEGRAM = "thendLP";
 
 type Shape = "slab" | "beam" | "column" | "footing" | "pile" | "custom";
 const SHAPES: { id: Shape; label: string; fields: [key: string, label: string][] }[] = [
