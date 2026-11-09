@@ -3,3 +3,4 @@ screenshot_*.png
 screenshot_*.jpg
 .DS_Store
 .wrangler/
+.env*
