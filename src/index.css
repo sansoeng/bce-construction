@@ -478,8 +478,16 @@ html.has-loader .hero-media { animation: none; }
    light twin clipped with it. Nav and [Scroll down] read dark until the cover starts expanding. */
 .hero-copy-light { display: none; }
 html.is-framed .hero-copy-light { display: block; }
-html.is-framed .hero-copy-wrap { z-index: 10; color: #111; }
-html.is-framed .hero-copy-wrap .fg-btn.is-white { color: #111; background: rgb(0 0 0 / .08); }
+html.is-framed .hero-copy-wrap { z-index: 10; }
+.hero-copy-wrap .fg-btn.is-white,
+.hero-copy-light .fg-btn.is-white {
+  color: #111 !important;
+  background: #fff !important;
+  border-color: #fff !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
 .hero-scroll { transition: color .6s ease; }
 html.is-framed:not(.is-hero-light) .hero-scroll { color: rgb(17 17 17 / .5); }
 @media (max-width: 767.98px) { html.is-loading main { clip-path: inset(110vh 10vw 0 10vw); } }

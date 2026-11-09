@@ -66,8 +66,8 @@ function HeroCopy({ light = false }: { light?: boolean }) {
       <Title data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.04] tracking-[-.025em]">
         <span className="md:block">Building on Strength.</span> <span className="md:block">Delivering with Trust.</span>
       </Title>
-      <div className={`mt-6 md:mt-8 ${light ? "invisible pointer-events-none" : ""}`}>
-        <ArrowButton href="/?projects" label="View projects" theme="white" />
+      <div className="mt-6 md:mt-8">
+        <ArrowButton href="/?projects" label="View projects" theme="white" tabIndex={light ? -1 : undefined} />
       </div>
     </div>
   );
