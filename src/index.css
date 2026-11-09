@@ -279,9 +279,10 @@
    Dash lengths are the path (18.5) and diamond (22.24) lengths; the gap of .1 lets the diamond's dash wrap round. */
 .fg-btn { display: inline-flex; align-items: center; justify-content: center; line-height: 10px; padding: 15px 24px; border-radius: 4px; }
 .fg-btn.is-black { color: #fff; background: #000; }
-.fg-btn.is-white { color: #fff; background: rgb(255 255 255 / .2); }
+.fg-btn.is-white { color: #111; background: #fff; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35); }
+.fg-btn.is-white:hover { background: #f0f0f0; color: #000; }
 .fg-btn.is-alpha { background: none; padding: 15px 0; }
-@media (max-width: 600px) { .fg-btn.is-black { padding: 15px 18px; } }
+@media (max-width: 600px) { .fg-btn { padding: 15px 18px; } }
 .fg-btn-arrow { flex: none; width: 14px; height: 11px; margin-right: 12px; overflow: visible; transform: translateY(-1px); }
 .fg-btn-arrow path { stroke-dasharray: 18.5 .1; transition: stroke-dasharray 1s var(--p3-out); }
 .fg-btn-arrow rect { stroke-dasharray: 11.1213 11.2213; stroke-dashoffset: 0; transition: stroke-dasharray 1s var(--p3-out), stroke-dashoffset 1s var(--p3-out); }
@@ -296,6 +297,29 @@
 /* Header: a 276 x 50 blurred black bar, centred at the top. */
 .fg-header { position: fixed; z-index: 60; top: 30px; left: 50%; display: flex; align-items: center; justify-content: center; width: 276px; height: 50px; overflow: hidden; border-radius: 4px; color: #fff; user-select: none; transform: translate(-50%, 0); }
 @media (min-width: 601px) { .fg-header { top: 40px; } }
+@media (min-width: 1024px) {
+  .fg-header {
+    width: auto !important;
+    padding: 0 8px !important;
+    gap: 4px;
+  }
+  .fg-header:not(.is-menu) .fg-logo {
+    position: static !important;
+    flex-shrink: 0;
+  }
+  .fg-header:not(.is-menu) .fg-right-group {
+    position: static !important;
+    flex-shrink: 0;
+  }
+  .fg-header:not(.is-menu) .fg-burger {
+    position: static !important;
+    flex-shrink: 0;
+  }
+  .fg-header.is-menu {
+    width: 50px !important;
+    padding: 0 !important;
+  }
+}
 /* Absolutely positioned but statically centred by the flex box, so width changes fold it in from both sides. */
 .fg-bg { position: absolute; z-index: -1; width: 100%; height: 100%; background: rgb(0 0 0 / .8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 .fg-logo { position: absolute; left: 0; display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; font-size: 11px; letter-spacing: .04em; }
@@ -542,7 +566,7 @@ html.is-framed:not(.is-hero-light) .hero-scroll { color: rgb(17 17 17 / .5); }
 .hero-slide.is-active img, .hero-slide.is-prev img { transform: scale(1.07); }
 
 /* Keeps the nav and the bottom copy legible over any shot, darkest behind the headline and buttons. */
-.hero-scrim { background: radial-gradient(60% 55% at 78% 100%, rgb(0 0 0 / .42), transparent 75%), linear-gradient(to bottom, rgb(0 0 0 / .3), rgb(0 0 0 / 0) 30%, rgb(0 0 0 / 0) 50%, rgb(0 0 0 / .55)); }
+.hero-scrim { background: radial-gradient(60% 55% at 78% 100%, rgb(0 0 0 / .55), transparent 75%), linear-gradient(to bottom, rgb(0 0 0 / .75) 0%, rgb(0 0 0 / .45) 16%, rgb(0 0 0 / 0) 35%, rgb(0 0 0 / 0) 50%, rgb(0 0 0 / .68) 100%); }
 .hero-seg:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 /* Outside the framed cover the indicator sits on the white page, so it reads dark until the cover opens. */
 html.is-framed:not(.is-hero-light) .hero-ind { color: #111; }
@@ -1354,18 +1378,21 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 .fx-side.is-in { opacity: 1; transform: none; }
 .fx-side.is-dark { color: #fff; }
 .fx-logo { left: 1.25rem; font-size: clamp(1.1rem, 1.4vw, 1.35rem); font-weight: 500; line-height: 1; letter-spacing: -.035em; white-space: nowrap; }
+.fx-side.is-dark .fx-logo { color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.95); }
 .fx-quote { right: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
 .fx-quote-btn {
   display: inline-flex !important;
   align-items: center !important;
-  padding: 10px 22px !important;
-  border-radius: 9999px !important;
+  justify-content: center !important;
+  padding: 15px 24px !important;
+  border-radius: 4px !important;
+  line-height: 10px !important;
   font-family: var(--font-ui-mono) !important;
   font-size: 12px !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   letter-spacing: .08em !important;
   text-transform: uppercase !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
   transition: all 0.3s cubic-bezier(.16, 1, .3, 1) !important;
 }
 .fx-side:not(.is-dark) .fx-quote-btn {
@@ -1374,12 +1401,11 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 }
 .fx-side.is-dark .fx-quote-btn {
   background: #fff !important;
-  color: #000 !important;
-  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  color: #111 !important;
 }
 .fx-quote-btn:hover {
-  transform: translateY(-2px) scale(1.02) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28) !important;
 }
 
 /* Language Switch Pill Toggle */
@@ -1399,9 +1425,10 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   transition: all 0.3s ease;
 }
 .fx-side.is-dark .fx-lang-pill {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
+  background: rgba(0, 0, 0, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
 }
 .fx-lang-icon {
   opacity: 0.7;

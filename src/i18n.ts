@@ -35,6 +35,7 @@ const KM: Record<string, string> = {
   "Home": "ទំព័រដើម",
   "About": "អំពីយើង",
   "About BCE": "អំពី BCE",
+  "Businesses": "អាជីវកម្ម",
   "Expertise": "ជំនាញ",
   "Projects": "គម្រោង",
   "All projects": "គម្រោងទាំងអស់",
