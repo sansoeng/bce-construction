@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import ArrowButton from "./ArrowButton";
 import { getLang, setLang } from "./i18n";
 
 /**
  * Authentic Sharplink-style navigation (https://www.sharplink.com/):
  * - Fixed full-width header (pointer-events-none)
  * - Left: Floating brand logo (height: 34px, 3-layer isometric mark + "BCE., Ltd.")
- *   Dynamically adapts contrast (white on dark sections, black on light sections)
+ *   Always pure white as specified.
  * - Right: Desktop menu with individual floating buttons separated by exact 2px gaps:
  *   - Each button has height: 34px, rounded-[2px], rolling text twins on hover
+ *   - Slower, organic, luxurious ease-in and ease-out transitions
  *   - Links: ABOUT, BUSINESSES ⌵, PROJECTS ⌵, QUALITY & LAB, COVERAGE, CONTACT
  *   - Language switch button (EN | ខ្មែរ)
- *   - Quotation primary button (BCE signature ArrowButton with rotating diamond arrow)
+ *   - Quotation primary button (Sharplink action button with text pill + attached arrow box)
  * - Mobile: Compact 34px buttons (Language, Quote, Hamburger drawer toggle)
  */
 
@@ -30,16 +30,16 @@ function LangSwitch({ className = "" }: { className?: string }) {
       <GlobeIcon />
       <button
         type="button"
-        className={`transition-colors cursor-pointer ${lang === "en" ? "font-bold text-current" : "opacity-40 hover:opacity-100"}`}
+        className={`transition-colors cursor-pointer ${lang === "en" ? "font-bold text-white" : "text-white/40 hover:text-white"}`}
         aria-pressed={lang === "en"}
         onClick={() => setLang("en")}
       >
         EN
       </button>
-      <span className="opacity-30">|</span>
+      <span className="text-white/30">|</span>
       <button
         type="button"
-        className={`transition-colors cursor-pointer font-khmer ${lang === "km" ? "font-bold text-current" : "opacity-40 hover:opacity-100"}`}
+        className={`transition-colors cursor-pointer font-khmer ${lang === "km" ? "font-bold text-white" : "text-white/40 hover:text-white"}`}
         aria-pressed={lang === "km"}
         onClick={() => setLang("km")}
       >
@@ -103,7 +103,7 @@ function NavButton({
           {hasDropdown && (
             <svg
               viewBox="0 0 10 6"
-              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-200 ${
+              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-300 ${
                 isOpen ? "rotate-180" : ""
               }`}
               aria-hidden
@@ -117,7 +117,7 @@ function NavButton({
           {hasDropdown && (
             <svg
               viewBox="0 0 10 6"
-              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-200 ${
+              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-300 ${
                 isOpen ? "rotate-180" : ""
               }`}
               aria-hidden
@@ -125,6 +125,50 @@ function NavButton({
               <path d="M1 1l4 4 4-4" />
             </svg>
           )}
+        </span>
+      </span>
+    </a>
+  );
+}
+
+/**
+ * Sharplink-style compound action button:
+ * - Text pill with rolling twin label
+ * - Attached square arrow box with matching rolling twin arrow
+ * - Same borderless dark translucent glass background
+ * - Slower, organic, smooth easing in and out
+ */
+export function SharplinkButton({
+  href,
+  label,
+  className = "",
+  onClick,
+}: {
+  href: string;
+  label: string;
+  className?: string;
+  onClick?: () => void;
+}) {
+  return (
+    <a
+      href={href}
+      onClick={onClick}
+      className={`sl-btn-compound group ${className}`}
+    >
+      <span className="sl-btn sl-btn-text">
+        <span className="sl-btn-roll">
+          <span>{label}</span>
+          <span aria-hidden>{label}</span>
+        </span>
+      </span>
+      <span className="sl-btn sl-btn-icon" aria-hidden>
+        <span className="sl-btn-roll">
+          <svg viewBox="0 0 16 16" className="size-3.5 stroke-current fill-none stroke-[1.8]" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+          <svg viewBox="0 0 16 16" className="size-3.5 stroke-current fill-none stroke-[1.8]" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
         </span>
       </span>
     </a>
@@ -142,7 +186,6 @@ export default function SiteHeader({
 }) {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [dark, setDark] = useState(true);
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
   const headerRef = useRef<HTMLElement>(null);
   const dropdownTimeout = useRef<number | null>(null);
@@ -152,33 +195,6 @@ export default function SiteHeader({
     revealListeners.add(handleReveal);
     return () => {
       revealListeners.delete(handleReveal);
-    };
-  }, []);
-
-  // Contrast detection: whether the section currently under the header is dark or light
-  useEffect(() => {
-    let ticking = false;
-    const checkDark = () => {
-      ticking = false;
-      const mid = (headerRef.current?.getBoundingClientRect().top ?? 16) + 18;
-      const isDark = [...document.querySelectorAll<HTMLElement>("[data-nav-dark]")].some((el) => {
-        const r = el.getBoundingClientRect();
-        return r.top <= mid && r.bottom >= mid;
-      });
-      setDark(isDark);
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(checkDark);
-      }
-    };
-    checkDark();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", checkDark);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", checkDark);
     };
   }, []);
 
@@ -213,7 +229,7 @@ export default function SiteHeader({
   const handleMouseLeave = () => {
     dropdownTimeout.current = window.setTimeout(() => {
       setOpenDropdown(null);
-    }, 150);
+    }, 180);
   };
 
   const closeAll = () => {
@@ -230,15 +246,15 @@ export default function SiteHeader({
     <header
       ref={headerRef}
       data-nav
-      className={`sl-header ${dark ? "theme-dark" : "theme-light"} ${
+      className={`sl-header ${
         isIn ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"
       }`}
     >
       <div className="sl-navbar">
-        {/* Left: Floating Brand Logo (Sharplink 3-layer mark + BCE., Ltd.) */}
+        {/* Left: Floating Brand Logo - Always pure white with subtle shadow */}
         <a
           href={base || "/"}
-          className="sl-logo group select-none"
+          className="sl-logo group select-none text-white"
           aria-label="BCE., Ltd. home"
           onClick={closeAll}
         >
@@ -251,12 +267,12 @@ export default function SiteHeader({
             <path d="M2 17l10 5 10-5" />
             <path d="M2 12l10 5 10-5" />
           </svg>
-          <span className="text-[1.15rem] md:text-[1.25rem] font-bold tracking-tight font-sans">
+          <span className="text-[1.15rem] md:text-[1.25rem] font-bold tracking-tight font-sans text-white">
             BCE., Ltd.
           </span>
         </a>
 
-        {/* Right: Desktop Sharplink Navigation Menu (2px gap between buttons) */}
+        {/* Right: Desktop Sharplink Navigation Menu (Exact 2px gap between buttons) */}
         <nav className="hidden lg:flex sl-menu" aria-label="Main navigation">
           <NavButton
             href={linkHref("/?about")}
@@ -277,22 +293,14 @@ export default function SiteHeader({
             />
 
             {openDropdown === "businesses" && (
-              <div className="absolute top-[calc(100%+3px)] left-0 min-w-[220px] z-50">
-                <div className={`p-1.5 rounded-[3px] shadow-2xl flex flex-col gap-0.5 ${
-                  dark
-                    ? "bg-[#181b20]/95 backdrop-blur-2xl border border-white/12 text-white"
-                    : "bg-white/95 backdrop-blur-2xl border border-black/10 text-black shadow-lg"
-                }`}>
+              <div className="absolute top-[calc(100%+4px)] left-0 min-w-[220px] z-50">
+                <div className="p-1.5 rounded-[3px] shadow-[0_16px_40px_rgba(0,0,0,0.6)] flex flex-col gap-0.5 bg-[#161a20]/98 backdrop-blur-2xl border border-white/10 text-white">
                   {EXPERTISES_SUB.map(([title, href]) => (
                     <a
                       key={title}
                       href={linkHref(href)}
                       onClick={closeAll}
-                      className={`px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] transition-colors flex items-center justify-between ${
-                        dark
-                          ? "text-white/80 hover:text-white hover:bg-white/10"
-                          : "text-black/80 hover:text-black hover:bg-black/5"
-                      }`}
+                      className="px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 flex items-center justify-between"
                     >
                       <span>{title}</span>
                       <span className="opacity-40 text-[10px]">→</span>
@@ -317,22 +325,14 @@ export default function SiteHeader({
             />
 
             {openDropdown === "projects" && (
-              <div className="absolute top-[calc(100%+3px)] left-0 min-w-[220px] z-50">
-                <div className={`p-1.5 rounded-[3px] shadow-2xl flex flex-col gap-0.5 ${
-                  dark
-                    ? "bg-[#181b20]/95 backdrop-blur-2xl border border-white/12 text-white"
-                    : "bg-white/95 backdrop-blur-2xl border border-black/10 text-black shadow-lg"
-                }`}>
+              <div className="absolute top-[calc(100%+4px)] left-0 min-w-[220px] z-50">
+                <div className="p-1.5 rounded-[3px] shadow-[0_16px_40px_rgba(0,0,0,0.6)] flex flex-col gap-0.5 bg-[#161a20]/98 backdrop-blur-2xl border border-white/10 text-white">
                   {PROJECTS_SUB.map(([title, href]) => (
                     <a
                       key={title}
                       href={linkHref(href)}
                       onClick={closeAll}
-                      className={`px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] transition-colors flex items-center justify-between ${
-                        dark
-                          ? "text-white/80 hover:text-white hover:bg-white/10"
-                          : "text-black/80 hover:text-black hover:bg-black/5"
-                      }`}
+                      className="px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 flex items-center justify-between"
                     >
                       <span>{title}</span>
                       <span className="opacity-40 text-[10px]">→</span>
@@ -358,17 +358,15 @@ export default function SiteHeader({
             label="Contact"
           />
 
-          {/* Language Switch Button */}
+          {/* Language Switch Button (Exact same background) */}
           <div className="sl-btn !px-2.5">
             <LangSwitch />
           </div>
 
-          {/* Signature Primary ArrowButton ("Get a quote") */}
-          <ArrowButton
+          {/* Authentic Sharplink Action Button ("Get a quote" with attached arrow box) */}
+          <SharplinkButton
             href={linkHref("/?quote")}
             label="Get a quote"
-            theme={dark ? "white" : "black"}
-            className="!h-[34px] !px-4 !py-0 !text-[12px] !rounded-[2px] !border-none shadow-sm"
             onClick={closeAll}
           />
         </nav>
@@ -378,11 +376,9 @@ export default function SiteHeader({
           <div className="sl-btn !px-2.5">
             <LangSwitch />
           </div>
-          <ArrowButton
+          <SharplinkButton
             href={linkHref("/?quote")}
             label="Quote"
-            theme={dark ? "white" : "black"}
-            className="!h-[34px] !px-3 !py-0 !text-[11px] !rounded-[2px] !border-none"
             onClick={closeAll}
           />
           <button

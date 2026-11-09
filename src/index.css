@@ -894,7 +894,18 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   height: 34px;
   pointer-events: auto;
   text-decoration: none;
-  transition: color 0.3s ease, opacity 0.2s ease;
+  color: #ffffff !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 2px 12px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sl-logo svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+}
+.sl-logo span {
+  color: #ffffff !important;
 }
 .sl-logo:hover {
   opacity: 0.85;
@@ -905,9 +916,11 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   gap: 2px;
   pointer-events: auto;
 }
+/* Authentic Sharplink nav button: borderless dark translucent glass */
 .sl-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   height: 34px;
   padding: 0 16px;
   border-radius: 2px;
@@ -920,44 +933,37 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   white-space: nowrap;
   user-select: none;
   cursor: pointer;
-  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  background-color: rgba(26, 31, 38, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #ffffff;
+  border: none;
   overflow: hidden;
   position: relative;
+  transition: background-color 0.75s cubic-bezier(0.22, 1, 0.36, 1), color 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* Theme dark (over hero video & dark sections) */
-.sl-header.theme-dark .sl-logo {
-  color: #fff;
-}
-.sl-header.theme-dark .sl-btn {
-  background-color: rgba(28, 33, 40, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-.sl-header.theme-dark .sl-btn:hover {
-  background-color: rgba(45, 52, 64, 0.95);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
-}
-/* Theme light (over light sections) */
-.sl-header.theme-light .sl-logo {
-  color: #111;
-}
-.sl-header.theme-light .sl-btn {
-  background-color: rgba(240, 242, 245, 0.88);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: #111;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-.sl-header.theme-light .sl-btn:hover {
-  background-color: rgba(225, 228, 233, 0.95);
-  color: #000;
-  border-color: rgba(0, 0, 0, 0.15);
+.sl-btn:hover,
+.group:hover .sl-btn {
+  background-color: rgba(45, 54, 66, 0.95);
+  color: #ffffff;
 }
 
-/* Rolling text reveal inside .sl-btn */
+/* Compound action button (Text pill + attached square arrow box) */
+.sl-btn-compound {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+}
+.sl-btn-icon {
+  width: 34px;
+  padding: 0 !important;
+}
+
+/* Rolling text and icon reveal: slow, fluid, organic ease-in and ease-out */
 .sl-btn-roll {
   display: flex;
   flex-direction: column;
@@ -965,14 +971,20 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   overflow: hidden;
   line-height: 14px;
 }
-.sl-btn-roll > span {
+.sl-btn-roll > span,
+.sl-btn-roll > svg {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 14px;
   line-height: 14px;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.sl-btn:hover .sl-btn-roll > span {
+.sl-btn:hover .sl-btn-roll > span,
+.sl-btn:hover .sl-btn-roll > svg,
+.group:hover .sl-btn-roll > span,
+.group:hover .sl-btn-roll > svg {
   transform: translateY(-100%);
 }
 
@@ -985,7 +997,8 @@ html[lang="km"] .sl-btn-roll {
   height: 20px;
   line-height: 20px;
 }
-html[lang="km"] .sl-btn-roll > span {
+html[lang="km"] .sl-btn-roll > span,
+html[lang="km"] .sl-btn-roll > svg {
   height: 20px;
   line-height: 20px;
 }
