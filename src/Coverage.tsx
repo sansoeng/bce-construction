@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { khmProvinces } from "./cambodiaMap";
+import ArrowButton from "./ArrowButton";
 import "./coverage-map.css";
 
 // Operational coverage, after aircenter.space/location ("Transport accessibility"): a pinned, full-screen dark map
@@ -194,6 +195,97 @@ const equipmentByProvince: Record<string, Equip[]> = {
 // Fleet totals from the Corporate Profile (the story's equipment step); BCE also runs its own piling rigs.
 const FLEET: Equip[] = [[4, "Batching plants"], [41, "Mixer trucks"], [8, "Pump trucks"]];
 const fleetTotal = FLEET.reduce((n, [c]) => n + c, 0);
+
+export const READY_MIX_AREAS = [
+  {
+    province: "Battambang",
+    highlight: "Head Office & 4 Central Batching Plants",
+    projects: "48+",
+    details: "4 computerized plants (70 m³/h each), 41 transit mixer trucks, foundation piling & certified QA laboratory.",
+    isHq: true,
+  },
+  {
+    province: "Banteay Meanchey",
+    highlight: "Border Infrastructure & Logistics",
+    projects: "18+",
+    details: "Direct ready-mix supply radius, logistics warehouse floor slabs & commercial access infrastructure.",
+  },
+  {
+    province: "Siem Reap",
+    highlight: "Hospitality & Heritage Civil Works",
+    projects: "26+",
+    details: "High-spec architectural concrete, resort structural foundations & batching plant delivery.",
+  },
+  {
+    province: "Pursat",
+    highlight: "Irrigation & Civil Infrastructure",
+    projects: "14+",
+    details: "Waterway reinforced concrete slabs, national highway bridges & direct ready-mix supply.",
+  },
+];
+
+export const MOBILIZATION_AREAS = [
+  {
+    province: "Phnom Penh",
+    highlight: "High-Rise Foundations & Post-Tensioned Slabs",
+    projects: "36+",
+    details: "Heavy hydraulic piling rigs, multi-story structural pours & fleet mobilization.",
+  },
+  {
+    province: "Preah Sihanouk",
+    highlight: "Deep-Sea Port & Industrial High-Rise",
+    projects: "24+",
+    details: "Deep foundation piling, coastal warehouse slabs & high-capacity boom pumping.",
+  },
+  {
+    province: "Kandal",
+    highlight: "SEZ Industrial Parks & Manufacturing",
+    projects: "19+",
+    details: "Logistics facilities, heavy machinery foundations & specialized concrete paving.",
+  },
+  {
+    province: "Kampong Thom",
+    highlight: "National Highways & Bridge Foundations",
+    projects: "12+",
+    details: "Arterial road expansion, culvert works & hydraulic piling operations.",
+  },
+  {
+    province: "Pailin",
+    highlight: "Commercial & Site Development",
+    projects: "10+",
+    details: "Commercial complexes, hillside earthworks & reinforced structural concrete.",
+  },
+  {
+    province: "Kampong Chhnang",
+    highlight: "River Port & Logistics Facilities",
+    projects: "9+",
+    details: "River transport facilities, port ground slabs & mobile equipment deployment.",
+  },
+  {
+    province: "Oddar Meanchey",
+    highlight: "Public & Border Infrastructure",
+    projects: "8+",
+    details: "Civic access roads, border facilities & structural concrete foundations.",
+  },
+  {
+    province: "Koh Kong",
+    highlight: "Coastal Resorts & Marine Works",
+    projects: "8+",
+    details: "Marine civil structures, access bridges & coastal foundation slabs.",
+  },
+  {
+    province: "Preah Vihear",
+    highlight: "Regional Access Infrastructure",
+    projects: "7+",
+    details: "Connecting roadways, structural civil works & reinforced foundations.",
+  },
+  {
+    province: "Stung Treng",
+    highlight: "Energy & River Crossing Works",
+    projects: "6+",
+    details: "Substation civil structures & heavy river bridge foundation piling.",
+  },
+];
 
 const KM_PER_UNIT = 0.5753;
 const NEAR_KM = 150;
@@ -950,7 +1042,7 @@ export default function Coverage() {
             <div className={`ac-story-step ac-story-step--right${!free && phase === "projects" ? " is-on" : ""}`}>
               <p className="ac-story-eyebrow">Completed projects</p>
               <p className="ac-story-num"><CountUp to={totalProjects} run={!free && phase === "projects"} /><span>+</span></p>
-              <p className="ac-story-lead">Projects completed across Cambodia</p>
+              <p className="ac-story-lead">Projects completed in 2025 across Cambodia</p>
             </div>
             <div className={`ac-story-step ac-story-step--right${!free && phase === "equip" ? " is-on" : ""}`}>
               <p className="ac-story-eyebrow">Equipment fleet</p>
@@ -1028,7 +1120,7 @@ export default function Coverage() {
                     ) : (
                       <p className="ac-tip-num ac-tip-num--word">Ready</p>
                     )}
-                    <p className="ac-tip-label">{it.projects ? "Projects completed" : "Available for deployment"}</p>
+                    <p className="ac-tip-label">{it.projects ? "Projects completed in 2025" : "Available for deployment"}</p>
                   </div>
                   {/* Equipment based in the province: the fleet that makes the coverage real. */}
                   <div className="ac-tip-equip">
@@ -1059,7 +1151,7 @@ export default function Coverage() {
                     <span className="block text-[3rem] font-medium leading-[.85] tracking-[-.04em]">
                       {sel.projects ? <><CountUp to={sel.projects} run />{sel.suffix || "+"}</> : "Ready"}
                     </span>
-                    <span className="mt-2 block text-[13px] text-black/55">{sel.projects ? "Projects completed" : "Mobilization ready"}</span>
+                    <span className="mt-2 block text-[13px] text-black/55">{sel.projects ? "Projects completed in 2025" : "Mobilization ready"}</span>
                   </div>
                   {sel.equipment.length > 0 && (
                     <ul className="ac-card-equip">
@@ -1116,6 +1208,110 @@ export default function Coverage() {
           </div>
 
           <p className="ac-credit">Boundaries © OpenStreetMap contributors · Completed projects across Cambodia</p>
+        </div>
+      </div>
+
+      {/* Readable Provincial Coverage & Fleet Mobilization List */}
+      <div className="relative z-10 bg-[#0c0c0c] text-white border-t border-white/10 px-6 md:px-12 lg:px-16 py-20 md:py-28">
+        <div className="max-w-[80rem] mx-auto">
+          <div className="max-w-3xl mb-12 md:mb-16">
+            <p className="text-xs font-mono uppercase tracking-[0.14em] text-white/50 mb-3">
+              Provincial Coverage & Fleet Mobilization
+            </p>
+            <h3 className="text-3xl md:text-5xl font-medium tracking-[-0.03em] leading-[1.1] text-white">
+              14 Provinces Served in 2025
+            </h3>
+            <p className="mt-4 text-base md:text-lg text-white/70 leading-relaxed">
+              Clear operational boundaries so customers can check whether their site is within our direct ready-mix plant delivery radius or eligible for nationwide equipment mobilization.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+            {/* Column 1: Ready-Mix Delivery Radius (Fixed Plants) */}
+            <div className="bg-white/[0.03] border border-white/10 rounded-lg p-6 md:p-8 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-3 pb-5 border-b border-white/10">
+                  <div>
+                    <span className="inline-block text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 bg-white/10 rounded text-white/90 mb-2">
+                      Fixed Batching Plants
+                    </span>
+                    <h4 className="text-xl md:text-2xl font-medium text-white">
+                      Ready-Mix Concrete Delivery Radius
+                    </h4>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm text-white/60 leading-relaxed">
+                  Dispatched directly from our 4 computerized batching plants in Battambang (70 m³/h each). Fast transit delivery radius maintaining optimal concrete slump, temperature, and compressive strength.
+                </p>
+
+                <div className="mt-8 space-y-4">
+                  {READY_MIX_AREAS.map((item) => (
+                    <div key={item.province} className="p-4 rounded bg-white/[0.02] border border-white/5 hover:border-white/20 transition-colors">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="font-medium text-white text-base flex items-center gap-2">
+                          {item.province}
+                          {item.isHq && (
+                            <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-white text-black font-semibold">
+                              Head Office
+                            </span>
+                          )}
+                        </span>
+                        <span className="text-xs font-mono text-white/60">
+                          {item.projects} projects in 2025
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs text-white/80 font-medium">{item.highlight}</p>
+                      <p className="mt-1 text-xs text-white/50">{item.details}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                <span className="text-xs text-white/50">4 Plants · 41 Transit Mixers · 8 Boom Pumps</span>
+                <ArrowButton href="/?quote&service=ready-mix" label="Request a quote" theme="outline-white" />
+              </div>
+            </div>
+
+            {/* Column 2: Nationwide Heavy Equipment & Piling Mobilization */}
+            <div className="bg-white/[0.03] border border-white/10 rounded-lg p-6 md:p-8 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-3 pb-5 border-b border-white/10">
+                  <div>
+                    <span className="inline-block text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 bg-white/10 rounded text-white/90 mb-2">
+                      Full Fleet Mobilization
+                    </span>
+                    <h4 className="text-xl md:text-2xl font-medium text-white">
+                      Nationwide Equipment & Piling Works
+                    </h4>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm text-white/60 leading-relaxed">
+                  Nationwide deployment for deep foundation piling, heavy civil construction, large-scale industrial floor slabs, and heavy equipment rental across all provinces of Cambodia.
+                </p>
+
+                <div className="mt-8 space-y-3 max-h-[480px] overflow-y-auto pr-1">
+                  {MOBILIZATION_AREAS.map((item) => (
+                    <div key={item.province} className="p-3.5 rounded bg-white/[0.02] border border-white/5 hover:border-white/20 transition-colors">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="font-medium text-white text-sm">{item.province}</span>
+                        <span className="text-xs font-mono text-white/60">
+                          {item.projects} projects in 2025
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-xs text-white/80 font-medium">{item.highlight}</p>
+                      <p className="mt-0.5 text-xs text-white/50">{item.details}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                <span className="text-xs text-white/50">7 Piling Rigs · Heavy Civil Equipment · 71 Specialists</span>
+                <ArrowButton href="/?quote" label="Request a quote" theme="outline-white" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

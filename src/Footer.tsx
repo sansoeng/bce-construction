@@ -15,9 +15,6 @@ const columns: [string, Link[]][] = [
   ["Work with us", [["Request a quote", "/?quote"], ["Hire our equipment", quoteHref("equipment-rental")], ["Get directions", "MAPS"]]],
 ];
 const ADDRESS = ["Ang Village, Sangkat O’Char", "Battambang City", "Battambang Province, Cambodia"];
-// Phnom Penh office: phone supplied by BCE; the address is still a placeholder until confirmed.
-const PP_ADDRESS: string[] = [];
-const PP_PHONES: string[] = ["070 733 994"];
 const MAPS = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("O'Char, Battambang, Cambodia");
 
 const toTop = (e: React.MouseEvent) => {
@@ -94,7 +91,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
             <p className="ft-text">Tell us your site, scope and schedule. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet.</p>
             <div className="ft-ctas">
               <ArrowButton href="/?quote" label="Request a quote" theme="white" />
-              <ArrowButton href={tel(phones[0])} label={`Call ${phones[0]}`} theme="white" />
+              <ArrowButton href={tel(phones[0])} label="Call for a Quotation" theme="white" />
             </div>
           </div>
 
@@ -102,18 +99,15 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
             <h3 className="ft-label">Battambang · Head office</h3>
             <address className="ft-text not-italic">{ADDRESS.map((l) => <span key={l} className="block">{l}</span>)}</address>
             <div className="ft-text">
+              <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1">Sales & Quotations Hotlines</span>
               {phones.map((n) => <a key={n} href={tel(n)} className="ft-ul">{n}</a>)}
+              <a href="mailto:bcebtb999@gmail.com" className="ft-ul text-white/80 hover:text-white mt-2">bcebtb999@gmail.com</a>
+              <a href="https://t.me/thendLP" target="_blank" rel="noopener" className="ft-ul text-white/80 hover:text-white mt-1">Telegram: @thendLP</a>
               <a href={MAPS} target="_blank" rel="noopener" className="ft-ul ft-dir">Get directions</a>
-            </div>
-          </div>
-
-          <div className="ft-office ft-office--pp">
-            <h3 className="ft-label">Phnom Penh</h3>
-            {PP_ADDRESS.length
-              ? <address className="ft-text not-italic">{PP_ADDRESS.map((l) => <span key={l} className="block">{l}</span>)}</address>
-              : <span className="ft-text ft-dim">Address to be confirmed</span>}
-            <div className="ft-text">
-              {PP_PHONES.map((n) => <a key={n} href={tel(n)} className="ft-ul">{n}</a>)}
+              <div className="mt-4 pt-3 border-t border-white/10 w-full">
+                <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1">Careers & Recruitment</span>
+                <a href="mailto:bce.hr.1990@gmail.com?subject=Job%20Application%20-%20BCE" className="ft-ul text-white/80 hover:text-white">bce.hr.1990@gmail.com</a>
+              </div>
             </div>
           </div>
 
@@ -129,7 +123,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
           <a href={MAPS} target="_blank" rel="noopener" className="ft-b2">Get directions</a>
           <a href="#" onClick={toTop} className="ft-b3">Back to top</a>
           <span className="ft-b4">All rights reserved</span>
-          <small className="ft-copy">© 2026 Batttambang Construction and Engineering Co., Ltd.</small>
+          <small className="ft-copy">© 2026 Battambang Construction and Engineering, Co., Ltd.</small>
         </div>
       </div>
     </footer>

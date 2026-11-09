@@ -885,7 +885,7 @@ button, .btn {
   .ft-links:has(a:hover) a:not(:hover) { color: rgb(255 255 255 / .45); }
 }
 
-.ft-container { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "enquiry . office" "enquiry . pp"; column-gap: var(--g); padding-block: 82px; border-top: 1px solid rgb(255 255 255 / .1); }
+.ft-container { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "enquiry . office"; column-gap: var(--g); padding-block: 82px; border-top: 1px solid rgb(255 255 255 / .1); }
 .ft-enquiry { grid-area: enquiry; display: flex; flex-direction: column; }
 .ft-enquiry .ft-text { max-width: 22rem; }
 .ft-ctas { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 40px; }
@@ -893,10 +893,6 @@ button, .btn {
 .ft-office .ft-label { width: 100%; }
 .ft-office > :not(.ft-label) { flex-basis: calc(50% - var(--g) / 2); }
 .ft-office > div.ft-text { display: flex; flex-direction: column; align-items: flex-start; }
-.ft-office--pp { grid-area: pp; margin-top: 73px; }
-/* The Phnom Penh phone sits under its address, leaving the right of the column to the back-to-top square. */
-.ft-office--pp > :not(.ft-label) { flex-basis: 50%; }
-.ft-office--pp > div.ft-text { margin-top: 12px; }
 .ft-dir { margin-top: 12px; color: #fff; }
 /* Their contact links: an underline draws in from the left on hover and retracts to the right. */
 .ft-ul { position: relative; z-index: 2; display: inline-block; white-space: nowrap; }
@@ -951,9 +947,8 @@ button, .btn {
   .ft-col.is-open .ft-plus { transform: rotate(45deg); }
   .ft-links { max-height: 0; overflow: hidden; visibility: hidden; opacity: 0; transition: max-height .8s ease, opacity .8s ease, visibility 0s .8s; }
   .ft-col.is-open .ft-links { max-height: 20rem; padding-bottom: 36px; visibility: visible; opacity: 1; transition-delay: 0s; }
-  .ft-container { grid-template-columns: 1fr; grid-template-areas: "office" "enquiry" "pp"; padding-block: 36px; border-top: 0; }
+  .ft-container { grid-template-columns: 1fr; grid-template-areas: "office" "enquiry"; padding-block: 36px; border-top: 0; }
   .ft-enquiry { margin-top: 54px; }
-  .ft-office--pp { margin-top: 54px; }
   .ft-top { position: static; grid-row: 4; margin-top: 36px; }
   .ft-bottom { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding-block: 36px 66px; }
   .ft-logo { margin-bottom: 16px; }

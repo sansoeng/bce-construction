@@ -195,11 +195,18 @@ export default function AboutPage() {
         image={unsplash("/Image/bce/hero_batching_plant.jpg", 2400)}
         alt="BCE computerized batching plant and operations"
       />
-      <LeadText>
-        BCE is a Battambang-based construction, concrete, piling and
-        engineering company, supplying ready-mix concrete, reinforced concrete
-        piling and civil construction to projects across Cambodia with its own
-        plants, fleet and a team of 71.
+      <LeadText
+        after={
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <ArrowButton
+              href="/assets/BCE_Corporate_Profile_2026.pdf"
+              label="Download Company Profile (PDF)"
+              theme="black"
+            />
+          </div>
+        }
+      >
+        Battambang Construction and Engineering, Co., Ltd. (BCE) is a Battambang-based construction, concrete, piling and engineering company, supplying ready-mix concrete, reinforced concrete piling and civil construction to projects across Cambodia with its own plants, fleet and a team of 71.
       </LeadText>
 
       {/* 1. Who we are, as a scroll-driven zoom-out. */}
