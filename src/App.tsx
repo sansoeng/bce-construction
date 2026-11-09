@@ -400,14 +400,14 @@ function App() {
         <div className="grid gap-10 md:grid-cols-2">
           <div className="aspect-[5/6] w-full max-w-[15.5rem]" aria-hidden />
           <div className="flex flex-col justify-between gap-12 md:min-h-[18.5rem]">
-            <p data-split="content" data-split-hold data-about-intro className="max-w-[440px] text-[1.1rem] font-medium leading-[22px]">We supply ready-mix concrete, reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.</p>
+            <p data-split="content" data-split-hold data-about-intro className="max-w-[440px] text-[1.1rem] font-medium leading-[22px]">BCE is a Battambang-based engineering and construction company, building across Cambodia since 1995 with modern equipment and a skilled team.</p>
             <div>
               <ArrowButton href="/?about" label="See more about us" theme="black" />
             </div>
           </div>
         </div>
         <h2 data-split data-about-title className="about-title mt-40 font-medium text-[74px] leading-[1.08] tracking-[-.025em]">
-          <span className="inline-block md:pl-[max(25%,17.5rem)]">BCE is a Battambang-based</span> engineering and construction company, building across Cambodia since 1995 with modern equipment and a skilled team.
+          <span className="inline-block md:pl-[max(25%,17.5rem)]">We supply ready-mix concrete,</span> reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.
         </h2>
         </div>
       </section>

@@ -135,6 +135,10 @@ const KM: Record<string, string> = {
     "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភបេតុងអារម៉េ និងសំណង់ស៊ីវិល សម្រាប់គម្រោងហេដ្ឋារចនាសម្ព័ន្ធ ឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន ទូទាំងប្រទេស។",
   "We supply ready-mix concrete, reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.":
     "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភគ្រឹះបេតុងអារម៉េ សំណង់ស៊ីវិល ការងារចាក់កម្រាលបេតុង និងការជួលគ្រឿងចក្រធុនធ្ងន់ សម្រាប់គម្រោងហេដ្ឋារចនាសម្ព័ន្ធ ឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន ទូទាំងប្រទេសកម្ពុជា។",
+  "We supply ready-mix concrete,": "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច,",
+  "We supply ready-mix concrete": "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច",
+  "reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.":
+    "ការបោះសសរស្ដម្ភគ្រឹះបេតុងអារម៉េ សំណង់ស៊ីវិល ការងារចាក់កម្រាលបេតុង និងការជួលគ្រឿងចក្រធុនធ្ងន់ សម្រាប់គម្រោងហេដ្ឋារចនាសម្ព័ន្ធ ឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន ទូទាំងប្រទេសកម្ពុជា។",
   "BCE is a Battambang-based": "BCE ជាក្រុមហ៊ុនវិស្វកម្ម និងសំណង់",
   "engineering and construction company, building across Cambodia since 1995 with modern equipment and a skilled team.":
     "មានមូលដ្ឋាននៅខេត្តបាត់ដំបង ដែលបានសាងសង់ទូទាំងកម្ពុជាចាប់តាំងពីឆ្នាំ ១៩៩៥ ជាមួយគ្រឿងចក្រទំនើប និងក្រុមការងារជំនាញ។",
