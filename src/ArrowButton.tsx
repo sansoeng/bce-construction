@@ -1,7 +1,7 @@
 // Fluid Glass's BaseButton (fluid.glass): mono uppercase label with an L-shaped arrow ending in a diamond head.
 // On hover the label rolls up to its twin, the arrow's line retracts and its chevron sweeps round into a full
 // diamond (DrawSVG "0% 50%" -> "50% 150%"), all over 1s power3.out. The motion lives in index.css (.fg-btn).
-type Theme = "black" | "white" | "alpha" | "outline" | "outline-white";
+type Theme = "black" | "white" | "alpha" | "outline" | "outline-white" | "glass";
 
 // Without `href` it renders a <button> (`type` defaults to "button"), e.g. a form's submit.
 export default function ArrowButton({ href, label, theme = "black", className = "", onClick, tabIndex, type = "button", disabled }: {

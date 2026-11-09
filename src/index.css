@@ -289,6 +289,82 @@
 @media (hover: hover) {
   .fg-btn.is-outline-white:hover { background: #fff; color: #111; border-color: #fff; }
 }
+/* Glass theme: matches Sharplink dark translucent glass nav buttons while preserving BCE primary button icon & animation */
+.fg-btn.is-glass {
+  height: 34px;
+  line-height: 14px;
+  padding: 0 16px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background-color: rgba(26, 31, 38, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #ffffff;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: background-color 0.75s cubic-bezier(0.22, 1, 0.36, 1), color 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) {
+  .fg-btn.is-glass:hover {
+    background-color: rgba(45, 54, 66, 0.95);
+    color: #ffffff;
+  }
+}
+@media (max-width: 600px) {
+  .fg-btn.is-glass {
+    height: 34px;
+    padding: 0 12px;
+  }
+}
+.fg-btn.is-glass .fg-btn-arrow {
+  margin-right: 9px;
+  width: 14px;
+  height: 11px;
+  color: #ffffff;
+  transform: translateY(0);
+}
+.fg-btn.is-glass .fg-btn-arrow path {
+  stroke: #ffffff;
+  transition: stroke-dasharray 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fg-btn.is-glass .fg-btn-arrow rect {
+  stroke: #ffffff;
+  transition: stroke-dasharray 0.85s cubic-bezier(0.22, 1, 0.36, 1), stroke-dashoffset 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fg-btn.is-glass .fg-btn-label {
+  display: block;
+  height: 14px;
+  overflow: hidden;
+  line-height: 14px;
+}
+.fg-btn.is-glass .fg-btn-line {
+  display: block;
+  height: 14px;
+  line-height: 14px;
+  white-space: nowrap;
+  will-change: transform;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) {
+  .fg-btn.is-glass:hover .fg-btn-line {
+    transform: translateY(-100%);
+  }
+  .fg-btn.is-glass:hover .fg-btn-arrow path {
+    stroke-dasharray: 0 18.6;
+  }
+  .fg-btn.is-glass:hover .fg-btn-arrow rect {
+    stroke-dasharray: 22.2426 .1;
+    stroke-dashoffset: -11.1213;
+  }
+}
 @media (max-width: 600px) { .fg-btn { padding: 15px 18px; } }
 .fg-btn-arrow { flex: none; width: 14px; height: 11px; margin-right: 12px; overflow: visible; transform: translateY(-1px); }
 .fg-btn-arrow path { stroke-dasharray: 18.5 .1; transition: stroke-dasharray 1s var(--p3-out); }
@@ -1707,6 +1783,19 @@ html[lang="km"] .split[data-split-toggle].is-active .sw-i {
   transform: none;
 }
 html[lang="km"] .fg-btn {
+  line-height: 20px;
+}
+html[lang="km"] .fg-btn.is-glass {
+  font-family: "Kantumruy Pro", "Noto Sans Khmer", var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+html[lang="km"] .fg-btn.is-glass .fg-btn-label {
+  height: 20px;
+}
+html[lang="km"] .fg-btn.is-glass .fg-btn-line {
+  height: 20px;
   line-height: 20px;
 }
 html[lang="km"] .fg-btn-label {

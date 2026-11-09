@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ArrowButton from "./ArrowButton";
 import { getLang, setLang } from "./i18n";
 
 /**
@@ -349,11 +350,6 @@ export default function SiteHeader({
           />
 
           <NavButton
-            href={linkHref("#coverage")}
-            label="Coverage"
-          />
-
-          <NavButton
             href={linkHref("#contact")}
             label="Contact"
           />
@@ -363,10 +359,11 @@ export default function SiteHeader({
             <LangSwitch />
           </div>
 
-          {/* Authentic Sharplink Action Button ("Get a quote" with attached arrow box) */}
-          <SharplinkButton
+          {/* Action button: BCE signature ArrowButton with matching dark glass background */}
+          <ArrowButton
             href={linkHref("/?quote")}
             label="Get a quote"
+            theme="glass"
             onClick={closeAll}
           />
         </nav>
@@ -376,9 +373,10 @@ export default function SiteHeader({
           <div className="sl-btn !px-2.5">
             <LangSwitch />
           </div>
-          <SharplinkButton
+          <ArrowButton
             href={linkHref("/?quote")}
             label="Quote"
+            theme="glass"
             onClick={closeAll}
           />
           <button
@@ -443,13 +441,6 @@ export default function SiteHeader({
               className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/5 rounded transition-colors"
             >
               Quality & Lab
-            </a>
-            <a
-              href={linkHref("#coverage")}
-              onClick={closeAll}
-              className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/5 rounded transition-colors"
-            >
-              Coverage
             </a>
             <a
               href={linkHref("#contact")}

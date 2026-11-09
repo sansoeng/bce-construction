@@ -10,7 +10,7 @@ import Footer from "./Footer";
 import QuoteCta from "./QuoteCta";
 import Glance, { GlanceIcon, type IconKind } from "./Glance";
 import { HeroVideo } from "./HeroSlides";
-import SiteHeader, { SharplinkButton } from "./SiteHeader";
+import SiteHeader from "./SiteHeader";
 import ArrowButton from "./ArrowButton";
 import FluidCursor from "./FluidCursor";
 import { projectHref, projects } from "./projects";
@@ -65,7 +65,7 @@ function HeroCopy() {
         <span className="md:block">Building on Strength.</span> <span className="md:block">Delivering with Trust.</span>
       </h1>
       <div className="mt-6 md:mt-8">
-        <SharplinkButton href="/?projects" label="View projects" />
+        <ArrowButton href="/?projects" label="View projects" theme="glass" />
       </div>
     </div>
   );
