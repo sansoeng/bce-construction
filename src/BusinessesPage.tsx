@@ -151,9 +151,9 @@ export default function BusinessesPage() {
         <div className="ol-panels">
           {offerings.map((b, i) => (
             <TextMedia key={b.slug} id={b.slug} kicker={detail[b.slug].kicker} title={b.name} image={b.image.replace("w=1200", "w=1600")} alt={b.name} reverse={i % 2 === 1} copy={[b.intro]}>
-              <div className="flex flex-wrap items-center gap-4">
-                <OlButton label="Read more" onClick={() => openDialog(b)} className="ol-tm-button" />
-                <ArrowButton href={quoteHref(b.slug)} label="Request a quote" theme="alpha" />
+              <div className="mt-10 md:mt-12 flex flex-wrap items-center gap-4">
+                <OlButton label="Read more" onClick={() => openDialog(b)} />
+                <ArrowButton href={quoteHref(b.slug)} label="Request a quote" theme="outline" />
               </div>
             </TextMedia>
           ))}

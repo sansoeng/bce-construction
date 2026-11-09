@@ -277,11 +277,18 @@
 
 /* BaseButton: the label rolls to its twin; the arrow's line retracts while its chevron sweeps into a full diamond.
    Dash lengths are the path (18.5) and diamond (22.24) lengths; the gap of .1 lets the diamond's dash wrap round. */
-.fg-btn { display: inline-flex; align-items: center; justify-content: center; line-height: 10px; padding: 15px 24px; border-radius: 4px; }
-.fg-btn.is-black { color: #fff; background: #000; }
-.fg-btn.is-white { color: #111; background: #fff; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35); }
+.fg-btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 42px; line-height: 10px; padding: 15px 24px; border-radius: 4px; border: 1px solid transparent; vertical-align: middle; }
+.fg-btn.is-black { color: #fff; background: #000; border-color: #000; }
+.fg-btn.is-white { color: #111; background: #fff; border-color: #fff; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35); }
 .fg-btn.is-white:hover { background: #f0f0f0; color: #000; }
-.fg-btn.is-alpha { background: none; padding: 15px 0; }
+.fg-btn.is-outline, .fg-btn.is-alpha { color: #111; background: transparent; border: 1px solid #111; }
+@media (hover: hover) {
+  .fg-btn.is-outline:hover, .fg-btn.is-alpha:hover { background: #111; color: #fff; }
+}
+.fg-btn.is-outline-white { color: #fff; background: transparent; border: 1px solid rgba(255, 255, 255, 0.65); }
+@media (hover: hover) {
+  .fg-btn.is-outline-white:hover { background: #fff; color: #111; border-color: #fff; }
+}
 @media (max-width: 600px) { .fg-btn { padding: 15px 18px; } }
 .fg-btn-arrow { flex: none; width: 14px; height: 11px; margin-right: 12px; overflow: visible; transform: translateY(-1px); }
 .fg-btn-arrow path { stroke-dasharray: 18.5 .1; transition: stroke-dasharray 1s var(--p3-out); }

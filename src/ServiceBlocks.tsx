@@ -339,7 +339,7 @@ export function ReadMoreDialog({ content, open, onClose }: { content: DialogCont
                     <ArrowButton href={content.quoteHref} label="Request a quote" theme="black" onClick={onClose} />
                   )}
                   {content.projectHref && (
-                    <ArrowButton href={content.projectHref} label={content.projectLabel ? `View ${content.projectLabel}` : "View related project"} theme="alpha" onClick={onClose} />
+                    <ArrowButton href={content.projectHref} label={content.projectLabel ? `View ${content.projectLabel}` : "View related project"} theme="outline" onClick={onClose} />
                   )}
                 </div>
               )}
