@@ -18,14 +18,6 @@ import { commitments, offerings, businessHref } from "./company";
 
 const A = "/assets";
 
-const OFFER_ICONS: Record<string, IconKind> = {
-  "ready-mix-concrete": "plants",
-  piling: "piling",
-  construction: "projects",
-  "concrete-slab-works": "pump",
-  "equipment-rental": "mixer",
-};
-
 // The scroll choreography in App is imperative DOM setup. A new value on every live update of this module makes it
 // tear down and set up again, so edits never leave it driving elements React has since replaced.
 const SETUP_ID = import.meta.hot ? Date.now() : 0;
@@ -415,7 +407,19 @@ function App() {
           </div>
         </div>
         <h2 data-split data-about-title className="about-title mt-40 font-medium text-[74px] leading-[1.08] tracking-[-.025em]">
-          <span className="inline-block md:pl-[max(25%,17.5rem)]">We supply ready-mix concrete,</span> foundation piling, civil construction, slab works, and equipment rental across Cambodia.
+          <span className="inline-block md:pl-[max(25%,17.5rem)]">
+            We supply ready-mix concrete
+            <span className="sw"><span className="sw-i"><a href="/?businesses#ready-mix-concrete" className="about-core-badge" aria-label="Ready-Mix Concrete" title="Ready-Mix Concrete"><GlanceIcon kind="plants" clipIdPrefix="ab-plant" /></a></span></span>,
+          </span>{" "}
+          foundation piling
+          <span className="sw"><span className="sw-i"><a href="/?businesses#piling" className="about-core-badge" aria-label="Foundation Piling" title="Foundation Piling"><GlanceIcon kind="piling" clipIdPrefix="ab-piling" /></a></span></span>,{" "}
+          civil construction
+          <span className="sw"><span className="sw-i"><a href="/?businesses#construction" className="about-core-badge" aria-label="Civil Construction" title="Civil Construction"><GlanceIcon kind="projects" clipIdPrefix="ab-crane" /></a></span></span>,{" "}
+          slab works
+          <span className="sw"><span className="sw-i"><a href="/?businesses#concrete-slab-works" className="about-core-badge" aria-label="Concrete Slab Works" title="Concrete Slab Works"><GlanceIcon kind="pump" clipIdPrefix="ab-pump" /></a></span></span>,{" "}
+          and equipment rental
+          <span className="sw"><span className="sw-i"><a href="/?businesses#equipment-rental" className="about-core-badge" aria-label="Equipment Rental" title="Equipment Rental"><GlanceIcon kind="mixer" clipIdPrefix="ab-mixer" /></a></span></span>{" "}
+          across Cambodia.
         </h2>
         </div>
       </section>
@@ -449,16 +453,8 @@ function App() {
                     </ul>
                     <a href={businessHref(slug)} aria-label={`${name}: learn more`} className="offer-plus grid size-11 flex-none place-items-center rounded-[4px]"><span aria-hidden>+</span></a>
                   </div>
-                  <div className="mt-auto pt-6 flex items-end justify-between gap-6">
+                  <div className="mt-auto pt-6">
                     <h3 className="offer-title font-medium text-[clamp(2.1rem,3.4vw,3.75rem)] leading-[1.04] tracking-[-.025em]">{name}</h3>
-                    <div className="offer-icon flex-none pb-1" aria-hidden>
-                      <GlanceIcon
-                        kind={OFFER_ICONS[slug]}
-                        clipIdPrefix={`offer-${slug}`}
-                        className="size-11 md:size-14"
-                        accentColor={fg === "#111" ? "#293e8a" : "#93c5fd"}
-                      />
-                    </div>
                   </div>
                 </div>
               </article>

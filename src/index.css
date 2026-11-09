@@ -801,16 +801,69 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 @keyframes gi-bob { 0%, 100% { transform: none; } 45% { transform: translateY(-3px); } }
 @keyframes gi-ripple { 0%, 40% { transform: scale(.4); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.25); opacity: 0; } }
 
-/* Core business offering animated icons from BCE at a glance */
-.offer-panel .gi .gd { stroke-dashoffset: 0; }
-.offer-panel .gi-acc { opacity: 1; }
-.offer-panel .gi-cable, .offer-panel .gi-hook, .offer-panel .gi-nod, .offer-panel .gi-drop, .offer-panel .gi-ripple, .offer-panel .gi-bob { transform-box: fill-box; }
-.offer-panel.is-in .gi-cable, .offer-panel:hover .gi-cable { animation: gi-cable 3.2s ease-in-out infinite; }
-.offer-panel.is-in .gi-hook, .offer-panel:hover .gi-hook { animation: gi-hook 3.2s ease-in-out infinite; }
-.offer-panel.is-in .gi-drop, .offer-panel:hover .gi-drop { animation: gi-drop 1.8s cubic-bezier(.5, 0, .9, .5) infinite; }
-.offer-panel.is-in .gi-spin, .offer-panel:hover .gi-spin { animation: gi-spin 1.4s linear infinite; }
-.offer-panel .offer-icon { opacity: .88; transition: opacity .35s ease, transform .35s cubic-bezier(.16, 1, .3, 1); }
-.offer-panel:hover .offer-icon { opacity: 1; transform: scale(1.1); }
+/* Animated icon badges for core businesses in About Us headline */
+.about-core-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 0.72em;
+  height: 0.72em;
+  margin: 0 0.14em;
+  border-radius: 8px;
+  background: rgba(41, 62, 138, 0.08);
+  border: 1px solid rgba(41, 62, 138, 0.22);
+  color: #293e8a;
+  position: relative;
+  top: -0.06em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(41, 62, 138, 0.08);
+}
+.about-core-badge:hover {
+  background: #293e8a;
+  border-color: #293e8a;
+  color: #fff;
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 8px 24px rgba(41, 62, 138, 0.28);
+}
+.about-core-badge svg {
+  width: 78%;
+  height: 78%;
+}
+.about-core-badge .gd {
+  stroke-dashoffset: 0;
+}
+.about-core-badge .gi-acc {
+  opacity: 1;
+}
+.about-core-badge:hover .gi-acc {
+  fill: #fff !important;
+  stroke: #fff !important;
+}
+.about-core-badge .gi-cable,
+.about-core-badge .gi-hook,
+.about-core-badge .gi-nod,
+.about-core-badge .gi-drop,
+.about-core-badge .gi-spin,
+.about-core-badge .gi-pile,
+.about-core-badge .gi-pump {
+  transform-box: fill-box;
+}
+.about-core-badge .gi-cable { animation: gi-cable 3.2s ease-in-out infinite; }
+.about-core-badge .gi-hook { animation: gi-hook 3.2s ease-in-out infinite; }
+.about-core-badge .gi-drop { animation: gi-drop 1.8s cubic-bezier(.5, 0, .9, .5) infinite; }
+.about-core-badge .gi-spin { animation: gi-spin 1.4s linear infinite; }
+.about-core-badge .gi-pile { animation: gi-pile 2.2s cubic-bezier(.4, 0, .2, 1) infinite; }
+.about-core-badge .gi-pump { animation: gi-pump 2.6s ease-in-out infinite; }
+
+@keyframes gi-pile {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+@keyframes gi-pump {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-4deg); }
+}
 
 /* Unified 4px corner radius for buttons and content images */
 button, .btn {

@@ -146,6 +146,16 @@ const KM: Record<string, string> = {
     "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភគ្រឹះ សំណង់ស៊ីវិល ការងារចាក់កម្រាល និងការជួលគ្រឿងចក្រ ទូទាំងប្រទេសកម្ពុជា។",
   "We supply ready-mix concrete,": "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច,",
   "We supply ready-mix concrete": "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច",
+  "foundation piling": "ការបោះសសរស្ដម្ភគ្រឹះ",
+  "civil construction": "សំណង់ស៊ីវិល",
+  "slab works": "ការងារចាក់កម្រាល",
+  "and equipment rental": "និងការជួលគ្រឿងចក្រ",
+  "across Cambodia.": "ទូទាំងប្រទេសកម្ពុជា។",
+  "across Cambodia": "ទូទាំងប្រទេសកម្ពុជា",
+  "Ready-mix concrete": "បេតុងលាយស្រេច",
+  "Foundation Piling": "ការបោះសសរស្ដម្ភគ្រឹះ",
+  "Civil Construction": "សំណង់ស៊ីវិល",
+  "Equipment Rental": "ការជួលគ្រឿងចក្រ",
   "foundation piling, civil construction, slab works, and equipment rental across Cambodia.":
     "ការបោះសសរស្ដម្ភគ្រឹះ សំណង់ស៊ីវិល ការងារចាក់កម្រាល និងការជួលគ្រឿងចក្រ ទូទាំងប្រទេសកម្ពុជា។",
   "reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.":

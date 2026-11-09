@@ -123,7 +123,7 @@ export function GlanceIcon({
         <circle {...draw} cx="13" cy="38" r="3.5" />
         <circle {...draw} cx="22" cy="38" r="3.5" />
         <circle {...draw} cx="36" cy="38" r="3.5" />
-        <g stroke={accent}>
+        <g stroke={accent} className="gi-acc gi-pump">
           <path {...draw} d="M14 25l7-14 8 5 7-10" />
           <circle cx="36" cy="6" r="1.5" fill={accent} />
         </g>
@@ -133,7 +133,7 @@ export function GlanceIcon({
       <>
         <path {...draw} d="M12 42h24M16 42V10l8-4 8 4v32" />
         <path {...draw} d="M18 19h12M18 29h12M18 39h12" />
-        <g stroke={accent} fill={accent}>
+        <g stroke={accent} fill={accent} className="gi-acc gi-pile">
           <rect x="22" y="14" width="4" height="8" rx="0.5" />
           <path d="M24 22v20" stroke={accent} strokeWidth="1.5" />
         </g>
