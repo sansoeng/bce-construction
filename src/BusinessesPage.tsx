@@ -81,7 +81,7 @@ const toDialog = (b: Business): DialogContent => {
 };
 
 export default function BusinessesPage() {
-  usePageSetup("Our Businesses | BCE Construction");
+  usePageSetup("Our Businesses | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);

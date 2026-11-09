@@ -25,7 +25,7 @@ const SETUP_ID = import.meta.hot ? Date.now() : 0;
 // The loader outlives React StrictMode's effect re-runs, so it always talks to the current Lenis instance.
 let activeLenis: Lenis | null = null;
 
-const LOADER_LETTERS = [..."BCE Construction".toUpperCase()];
+const LOADER_LETTERS = [..."BCE., LTD."];
 
 function Loader() {
   const letters = LOADER_LETTERS.map((c, i) => <span key={i} className="inline-block">{c === " " ? "\u00a0" : c}</span>);

@@ -125,11 +125,11 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
         </div>
 
         <div className="ft-bottom">
-          <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-logo">BCE Construction</a>
+          <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-logo">BCE., Ltd.</a>
           <a href={MAPS} target="_blank" rel="noopener" className="ft-b2">Get directions</a>
           <a href="#" onClick={toTop} className="ft-b3">Back to top</a>
           <span className="ft-b4">All rights reserved</span>
-          <small className="ft-copy">© 2026 Battambang Construction and Engineering Co., Ltd.</small>
+          <small className="ft-copy">© 2026 Batttambang Construction and Engineering Co., Ltd.</small>
         </div>
       </div>
     </footer>

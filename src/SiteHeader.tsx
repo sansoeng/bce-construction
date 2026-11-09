@@ -29,14 +29,41 @@ const LINKS = [
   ["Contact", "#contact"],
 ];
 
+const GlobeIcon = () => (
+  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="fx-lang-icon">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+    <path d="M2 12h20" />
+  </svg>
+);
+
 // EN / ខ្មែរ switch; its labels stay as they are in either language.
 function LangSwitch({ className, tabIndex }: { className: string; tabIndex?: number }) {
   const lang = getLang();
   return (
-    <div className={className} role="group" aria-label="Language" data-no-translate>
-      <button type="button" className={lang === "en" ? "is-active" : ""} aria-pressed={lang === "en"} tabIndex={tabIndex} onClick={() => setLang("en")} lang="en">EN</button>
-      <span aria-hidden>/</span>
-      <button type="button" className={`fx-lang-km${lang === "km" ? " is-active" : ""}`} aria-pressed={lang === "km"} tabIndex={tabIndex} onClick={() => setLang("km")} lang="km">ខ្មែរ</button>
+    <div className={`fx-lang-pill ${className}`} role="group" aria-label="Language selection" data-no-translate>
+      <GlobeIcon />
+      <button
+        type="button"
+        className={`fx-lang-opt ${lang === "en" ? "is-active" : ""}`}
+        aria-pressed={lang === "en"}
+        tabIndex={tabIndex}
+        onClick={() => setLang("en")}
+        lang="en"
+      >
+        EN
+      </button>
+      <span className="fx-lang-div" aria-hidden>|</span>
+      <button
+        type="button"
+        className={`fx-lang-opt fx-lang-km ${lang === "km" ? "is-active" : ""}`}
+        aria-pressed={lang === "km"}
+        tabIndex={tabIndex}
+        onClick={() => setLang("km")}
+        lang="km"
+      >
+        ខ្មែរ
+      </button>
     </div>
   );
 }
@@ -168,25 +195,28 @@ export default function SiteHeader({ phones, tel, base = "" }: { phones: string[
   const side = `fx-side${isIn ? " is-in" : ""}${dark ? " is-dark" : ""}`;
   return (
     <>
-      <a href={base || "#"} className={`${side} fx-logo`} aria-label="BCE Construction, home">BCE Construction</a>
+      <a href={base || "#"} className={`${side} fx-logo`} aria-label="BCE., Ltd., home">BCE., Ltd.</a>
       <div className={`${side} fx-quote`}>
         <LangSwitch className="fx-lang" />
-        <ArrowButton href="/?quote" label="Get a quote" theme="alpha" />
+        <ArrowButton href="/?quote" label="Get a quote" theme={dark ? "white" : "black"} className="fx-quote-btn" />
       </div>
       <header
         ref={headerRef}
         data-nav
         className={`fg-header${isIn ? " is-in" : ""}${isReady ? " is-ready" : ""}${open ? " is-menu" : ""}`}
       >
-        <a href={base || "#"} className="fg-logo" aria-label={base ? "BCE Construction, home" : "BCE Construction, back to top"} onClick={close}>BCE</a>
+        <a href={base || "#"} className="fg-logo" aria-label={base ? "BCE., Ltd., home" : "BCE., Ltd., back to top"} onClick={close}>BCE</a>
         <div className="fg-title" aria-hidden onClick={() => setOpen(true)}>
           <span className="fg-title-move"><span ref={rollRef} className="fg-title-roll">Home</span></span>
         </div>
-        <button type="button" className="fg-burger" aria-label="Menu" aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(true)}>
-          <svg viewBox="0 0 20 11" fill="none" aria-hidden>
-            {[0.5, 5.5, 10.5].map((y, k) => <path key={y} d={`M0 ${y}H20`} stroke="currentColor" style={{ "--k": k } as React.CSSProperties} />)}
-          </svg>
-        </button>
+        <div className="fg-right-group">
+          <LangSwitch className="fg-header-lang" tabIndex={tab} />
+          <button type="button" className="fg-burger" aria-label="Menu" aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen(true)}>
+            <svg viewBox="0 0 20 11" fill="none" aria-hidden>
+              {[0.5, 5.5, 10.5].map((y, k) => <path key={y} d={`M0 ${y}H20`} stroke="currentColor" style={{ "--k": k } as React.CSSProperties} />)}
+            </svg>
+          </button>
+        </div>
         <button type="button" className="fg-close" aria-label="Close menu" tabIndex={tab} onClick={close}>
           <svg viewBox="0 0 13 13" fill="none" aria-hidden>
             <path d="M0.353516 11.6673L11.6672 0.353589" stroke="currentColor" />
@@ -198,8 +228,10 @@ export default function SiteHeader({ phones, tel, base = "" }: { phones: string[
 
       <div ref={menuRef} id="site-menu" className={`fg-menu${open ? " is-open" : ""}`} aria-hidden={!open}>
         <nav aria-label="Main">
-          <div className="fg-menu-title">Menu</div>
-          <LangSwitch className="fg-lang" tabIndex={tab} />
+          <div className="fg-menu-header">
+            <div className="fg-menu-title">Menu</div>
+            <LangSwitch className="fg-lang" tabIndex={tab} />
+          </div>
           <ul className="fg-main">
             {LINKS.map(([label, href], i) => (
               <li className={`fg-item${active === href ? " is-active" : ""}`} key={href}>
@@ -226,7 +258,10 @@ export default function SiteHeader({ phones, tel, base = "" }: { phones: string[
               );
             })}
           </ul>
-          <ArrowButton href={tel(phones[0])} label={`Call ${phones[0]}`} className="fg-menu-btn" tabIndex={tab} />
+          <div className="fg-menu-actions">
+            <ArrowButton href="/?quote" label="Request a quote" theme="white" className="fg-menu-quote-btn" tabIndex={tab} onClick={close} />
+            <ArrowButton href={tel(phones[0])} label={`Call ${phones[0]}`} className="fg-menu-btn" tabIndex={tab} />
+          </div>
         </nav>
         <div className="fg-menu-bg" />
       </div>

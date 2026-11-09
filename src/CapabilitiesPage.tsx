@@ -39,7 +39,7 @@ function Rows({ rows, dark = false }: { rows: [string, string][]; dark?: boolean
 }
 
 export default function CapabilitiesPage() {
-  usePageSetup("Technical Capabilities | BCE Construction");
+  usePageSetup("Technical Capabilities | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
   useScrollParallax(rootRef);
 

@@ -133,7 +133,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
   const [viewing, setViewing] = useState<number | null>(null);
 
   useEffect(() => {
-    document.title = translate(project ? `${project.name} | BCE Construction` : "Project not found | BCE Construction");
+    document.title = translate(project ? `${project.name} | BCE., Ltd.` : "Project not found | BCE., Ltd.");
     const cleanupSplit = initSplitReveal();
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("is-visible")),

@@ -1353,8 +1353,113 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 .fx-side.is-in { opacity: 1; transform: none; }
 .fx-side.is-dark { color: #fff; }
 .fx-logo { left: 1.25rem; font-size: clamp(1.1rem, 1.4vw, 1.35rem); font-weight: 500; line-height: 1; letter-spacing: -.035em; white-space: nowrap; }
-.fx-quote { right: 1.25rem; }
-.fx-quote .fg-btn { color: inherit; }
+.fx-quote { right: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+.fx-quote-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 10px 22px !important;
+  border-radius: 9999px !important;
+  font-family: var(--font-ui-mono) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s cubic-bezier(.16, 1, .3, 1) !important;
+}
+.fx-side:not(.is-dark) .fx-quote-btn {
+  background: #000 !important;
+  color: #fff !important;
+}
+.fx-side.is-dark .fx-quote-btn {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+.fx-quote-btn:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Language Switch Pill Toggle */
+.fx-lang-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: var(--font-ui-mono);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.fx-side.is-dark .fx-lang-pill {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+.fx-lang-icon {
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+.fx-lang-opt {
+  opacity: 0.45;
+  transition: opacity 0.25s ease, font-weight 0.25s ease, color 0.25s ease;
+  cursor: pointer;
+}
+.fx-lang-opt.is-active {
+  opacity: 1;
+  font-weight: 700;
+}
+.fx-lang-div {
+  opacity: 0.3;
+  font-size: 10px;
+}
+.fx-lang-km { font-family: "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", sans-serif; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+
+/* Header and menu language elements */
+.fg-right-group {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+.fg-header-lang {
+  display: none;
+}
+@media (max-width: 767.98px) {
+  .fg-header-lang {
+    display: inline-flex;
+    margin: 0 10px 0 0;
+    padding: 4px 10px;
+    font-size: 11px;
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    border-radius: 9999px;
+  }
+}
+.fg-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.fg-menu-header .fg-menu-title {
+  margin-bottom: 0;
+}
+.fg-menu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+.fg-menu-quote-btn {
+  width: 100%;
+}
 /* Phones: the floating bar fills the width, so the sides step aside (its own mark and menu cover both). */
 @media (max-width: 767.98px) { .fx-side { display: none; } }
 @media (prefers-reduced-motion: reduce) { .fx-side { transition: color .4s ease; transform: none; } }

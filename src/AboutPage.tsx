@@ -13,6 +13,7 @@ import AboutValues from "./AboutValues"
 import ArrowButton from "./ArrowButton"
 import { useMediaReveal, usePageSetup } from "./usePageSetup"
 import { LeadText, PageHeader, useScrollParallax } from "./ServiceBlocks"
+import { translate } from "./i18n"
 
 // About BCE, after the website brief ("10. About BCE"), kept short so it reads at a glance: the olympic.no-style
 // header (title, banner, introduction), who we are (a TopTier-style zoom-out), the Chairwoman's message as a pull quote, vision, mission
@@ -95,7 +96,8 @@ const QUOTE =
 function ChairwomanMessage() {
   const quoteRef = useRef<HTMLQuoteElement>(null)
   useWordReveal(quoteRef)
-  const words = QUOTE.split(" ")
+  const quoteText = translate(QUOTE)
+  const words = quoteText.split(" ")
   return (
     <section
       data-header-title="Chairwoman’s message"
@@ -109,7 +111,7 @@ function ChairwomanMessage() {
         <span className="ab-msg-mark" aria-hidden>
           “
         </span>
-        <blockquote ref={quoteRef} className="ab-msg-text" aria-label={QUOTE}>
+        <blockquote ref={quoteRef} className="ab-msg-text" aria-label={quoteText}>
           <p aria-hidden>
             {words.map((w, i) => (
               <span key={i} className="ab-msg-word" style={{ "--wi": i } as CSSProperties}>
@@ -119,7 +121,7 @@ function ChairwomanMessage() {
           </p>
         </blockquote>
         <p className="ab-msg-by">
-          <span data-split="content">Chairwoman, BCE Construction</span>
+          <span data-split="content">Chairwoman, BCE., Ltd.</span>
         </p>
       </div>
       <div className="ab-msg-body">
@@ -161,7 +163,7 @@ function ChairwomanMessage() {
           wide photo under the story column reaching the right edge. Each wipes in and drifts in its frame. */}
       <div data-px="media" className="pp-media ab-msg-photo ab-msg-photo--tall">
         <div className="ol-px-media">
-          <img src={unsplash("/Image/bce/chairwoman.jpg", 1200)} alt="Ms. Loeung Chan, Chairwoman of BCE Construction" loading="lazy" />
+          <img src={unsplash("/Image/bce/chairwoman.jpg", 1200)} alt="Ms. Loeung Chan, Chairwoman of BCE., Ltd." loading="lazy" />
         </div>
       </div>
       <div data-px="media" className="pp-media ab-msg-photo ab-msg-photo--wide">
@@ -174,7 +176,7 @@ function ChairwomanMessage() {
 }
 
 export default function AboutPage() {
-  usePageSetup("About BCE | BCE Construction")
+  usePageSetup("About BCE | BCE., Ltd.")
   const rootRef = useRef<HTMLElement>(null)
   useMediaReveal(rootRef)
   useScrollParallax(rootRef)

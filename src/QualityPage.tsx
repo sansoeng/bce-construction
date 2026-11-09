@@ -93,7 +93,7 @@ function DocHead({ id, title, text }: { id: string; title: string; text: string 
 }
 
 export default function QualityPage() {
-  usePageSetup("Quality & HSE | BCE Construction");
+  usePageSetup("Quality & HSE | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);

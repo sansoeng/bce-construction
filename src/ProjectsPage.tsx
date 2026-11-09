@@ -19,7 +19,7 @@ const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 const CATEGORIES: Category[] = ["Ready-Mix Concrete", "Piling", "Construction", "Concrete Slab Works", "Truck & Equipment Rental"];
 type Filter = Category | "all";
 export default function ProjectsPage() {
-  usePageSetup("Projects | BCE Construction");
+  usePageSetup("Projects | BCE., Ltd.");
   const [filter, setFilter] = useState<Filter>("all");
   const listRef = useRef<HTMLElement>(null);
   const rootRef = useRef<HTMLElement>(null);
