@@ -1,5 +1,5 @@
-/* Khmer: Noto Serif Khmer from Google Fonts. Its stylesheet only covers the Khmer range, so Latin text stays in Aeonik. */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Khmer:wght@400;500;600&display=swap');
+/* Khmer: Kantumruy Pro & Noto Sans Khmer (contemporary sans-serif) + Noto Serif Khmer from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600&display=swap');
 @import 'tailwindcss';
 
 @font-face {
@@ -43,13 +43,13 @@
 }
 
 @theme {
-  --font-sans: "Aeonik Pro", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Aeonik Mono", "Noto Serif Khmer", ui-monospace, monospace;
+  --font-sans: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", ui-monospace, monospace;
 }
 
 @layer base {
   html { scroll-behavior: auto; }
-  body { font-family: "Aeonik Pro", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { font-family: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   h1, h2, h3 { text-wrap: balance; }
   h1, h2 { font-weight: 500; }
   p { text-wrap: pretty; }
@@ -267,7 +267,7 @@
 /* Fluid Glass (fluid.glass) buttons, floating header and menu. Sizes are Fluid's (its rem is 10px), so in px here.
    Easings are GSAP's power3 in / out / inOut. */
 :root {
-  --font-ui-mono: "Aeonik Mono", "Noto Serif Khmer", ui-monospace, monospace;
+  --font-ui-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", ui-monospace, monospace;
   --p3-in: cubic-bezier(.32, 0, .67, 0);
   --p3-out: cubic-bezier(.33, 1, .68, 1);
   --p3-io: cubic-bezier(.65, 0, .35, 1);
@@ -1361,29 +1361,107 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 
 /* Khmer mode (src/i18n.ts). Khmer clusters stack vowels and subscripts above and below the line, so: no negative
    tracking, taller line boxes for the tight display type, room in the reveal masks and in the rolling button labels. */
-html[lang="km"] body, html[lang="km"] body * { letter-spacing: 0 !important; }
-html[lang="km"] :is(h1, h2, h3, .hero-title, .about-title, .pd-title, .pp-heading, .pp-lead, .pp-heading2, .pp-name, .pp-foot-name,
-  .offer-title, .vt-line, .qc-title, .kp-title, .wb-heading, .pl-terms, .pd-statement, .pd-outcome, .pp-column) { line-height: 1.45 !important; }
-html[lang="km"] .split .sw { clip-path: inset(-50% -12% -35% -12%); }
-html[lang="km"] .split .sw-i { transform: translate3d(0, 140%, 0); }
-html[lang="km"] .split.is-split-in .sw-i, html[lang="km"] .split[data-split-toggle].is-active .sw-i { transform: none; }
-html[lang="km"] .fg-btn-label { height: 22px; }
-html[lang="km"] .fg-btn-line { height: 22px; line-height: 22px; }
-html[lang="km"] .qc-btn-label { height: 22px; line-height: 22px; }
-html[lang="km"] .fg-title { font-size: 13px; }
-html[lang="km"] .vt-mask { padding-bottom: .15em; }
+html[lang="km"] {
+  --font-sans: "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", "Aeonik Pro", sans-serif;
+  --font-mono: "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
+  --font-ui-mono: "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+html[lang="km"] body {
+  font-family: var(--font-sans);
+}
+html[lang="km"], html[lang="km"] * {
+  letter-spacing: 0 !important;
+}
+html[lang="km"] :is(
+  h1, h2, h3, h4,
+  .hero-title, .about-title, .pd-title, .pd-h2, .pp-heading, .pp-lead, .pp-heading2, .pp-name, .pp-foot-name,
+  .offer-title, .vt-line, .qc-title, .kp-title, .wb-heading, .pl-terms, .pd-statement, .pd-outcome, .pp-column,
+  .ol-hero-title, .ol-lead-copy, .ol-tm-title, .ol-onboard-heading, .ol-h2, .ol-lwc-copy, .ol-dialog-title, .ol-dialog-headline,
+  .ac-title, .ab-msg-text, .qf-tile-name, .qf-shapes, .qx-step-title, .qp-title
+) {
+  line-height: 1.45 !important;
+}
+html[lang="km"] .split .sw {
+  clip-path: inset(-50% -12% -35% -12%);
+}
+html[lang="km"] .split .sw-i {
+  transform: translate3d(0, 140%, 0);
+}
+html[lang="km"] .split.is-split-in .sw-i,
+html[lang="km"] .split[data-split-toggle].is-active .sw-i {
+  transform: none;
+}
+html[lang="km"] .fg-btn {
+  line-height: 20px;
+}
+html[lang="km"] .fg-btn-label {
+  height: 22px;
+}
+html[lang="km"] .fg-btn-line {
+  height: 22px;
+  line-height: 22px;
+}
+html[lang="km"] .qc-btn-label {
+  height: 22px;
+  line-height: 22px;
+}
+html[lang="km"] .fg-title {
+  height: 20px;
+  line-height: 20px;
+  font-size: 13px;
+}
+html[lang="km"] .fg-title-roll {
+  height: 20px;
+  line-height: 20px;
+}
+html[lang="km"] .fg-link {
+  height: 40px;
+  line-height: 40px;
+  font-size: clamp(22px, 5.5vw, 28px);
+}
+html[lang="km"] .fg-line {
+  line-height: 40px;
+}
+html[lang="km"] .pd-tag {
+  height: 24px;
+  line-height: 24px;
+  font-size: 11px;
+}
+html[lang="km"] .pp-label,
+html[lang="km"] .ol-label,
+html[lang="km"] .abv-label,
+html[lang="km"] .qx-label {
+  line-height: 1.5;
+  letter-spacing: 0 !important;
+}
+html[lang="km"] .vt-mask {
+  padding-bottom: .15em;
+}
 
 /* Language switch (src/SiteHeader.tsx). */
 .fx-lang { display: flex; align-items: center; gap: .4rem; margin-right: 1.5rem; font-family: var(--font-ui-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; }
 .fx-lang button { opacity: .45; transition: opacity .3s ease; }
 .fx-lang button.is-active { opacity: 1; }
 @media (hover: hover) { .fx-lang button:hover { opacity: 1; } }
-.fx-lang-km { font-family: "Noto Serif Khmer", serif; letter-spacing: 0; font-size: 13px; }
+.fx-lang-km { font-family: "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", sans-serif; letter-spacing: 0; font-size: 13px; font-weight: 500; }
 .fx-quote { display: flex; align-items: center; }
 .fg-lang { display: flex; gap: 1rem; margin: 6px 0 22px; color: #fff; font-family: var(--font-ui-mono); font-size: 12px; }
 .fg-lang button { opacity: .45; } .fg-lang button.is-active { opacity: 1; }
-/* Body copy: several blocks use fixed pixel line heights tuned for Latin; Khmer needs about 1.6. */
-html[lang="km"] :is(p, li, dd, dt, figcaption) { line-height: 1.6 !important; }
+/* Body copy: several blocks use fixed pixel line heights tuned for Latin; Khmer needs about 1.65. */
+html[lang="km"] :is(p, li, dd, dt, figcaption) { line-height: 1.65 !important; }
+
+/* Responsive mobile adjustments for Khmer */
+@media (max-width: 639px) {
+  html[lang="km"] .hero-title { font-size: clamp(2.2rem, 8.5vw, 3.8rem); line-height: 1.35 !important; }
+  html[lang="km"] .ol-hero-title { font-size: clamp(2.2rem, 8.5vw, 4rem); line-height: 1.35 !important; }
+  html[lang="km"] .ac-title { font-size: clamp(2rem, 7vw, 48px); line-height: 1.35 !important; }
+  html[lang="km"] .kp-title { font-size: clamp(2.2rem, 7vw, 3.8rem); line-height: 1.35 !important; }
+  html[lang="km"] .ol-dialog-title { font-size: clamp(1.8rem, 6vw, 2.4rem); line-height: 1.35 !important; }
+  html[lang="km"] .qf-calc { padding: 1.25rem 1rem; }
+  html[lang="km"] .qf-result-num { font-size: clamp(2.6rem, 10vw, 4.5rem); }
+}
 
 /* About BCE (src/AboutPage.tsx): the project page's type, rules and photo wipes, plus a few layouts of its own. */
 .ab-hero { aspect-ratio: 21 / 9; }
