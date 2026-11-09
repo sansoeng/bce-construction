@@ -1,6 +1,23 @@
+node_modules/
+dist/
+build/
+.cache/
+.env*
+.vite/
+vite.config.*.timestamp-*
+*.tsbuildinfo
+*-debug.log*
+logs/
+*.log
+.claude-replay.*
+.tmp-*
+/.figma/design-context/
+.DS_Store
+.wrangler/
 Company_Profile_2026.pdf
 screenshot_*.png
 screenshot_*.jpg
-.DS_Store
-.wrangler/
-.env*
+
+# Platform-managed agentplat state
+/.plugins/
+/.opencode-skills/

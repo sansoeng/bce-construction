@@ -1,0 +1,327 @@
+/* Operational Coverage (src/Coverage.tsx), after aircenter.space/location's transport map. Timings are Aircenter's:
+   .6s cubic-bezier(.25,.74,.22,.99) for markers, cards and list colours. */
+.ac { --ac-ease: cubic-bezier(.25, .74, .22, .99); }
+.ac-title { font-size: clamp(2.5rem, 6vw, 70px); line-height: .95; letter-spacing: -.035em; font-weight: 500; }
+@media (min-width: 768px) {
+  .ac-title { font-size: 70px; }
+}
+
+/* Map stage grab hand cursor & interactive panning */
+.ac-stage {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+.ac-stage.is-dragging {
+  cursor: grabbing !important;
+}
+.ac-stage.is-dragging * {
+  cursor: grabbing !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+.ac-stage svg {
+  cursor: inherit;
+}
+.ac-prov {
+  cursor: pointer;
+  pointer-events: auto;
+}
+/* Edge blur and gradient fade: top, bottom, left, right */
+.ac-fade,
+.ac-edge-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: clamp(90px, 16vh, 180px);
+  background: linear-gradient(180deg, #000 0%, rgb(0 0 0 / .65) 45%, transparent 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(180deg, black 20%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, black 20%, transparent 100%);
+  pointer-events: none;
+}
+.ac-edge-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: clamp(90px, 16vh, 180px);
+  background: linear-gradient(0deg, #000 0%, rgb(0 0 0 / .65) 45%, transparent 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(0deg, black 20%, transparent 100%);
+  -webkit-mask-image: linear-gradient(0deg, black 20%, transparent 100%);
+  pointer-events: none;
+}
+.ac-edge-left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: clamp(70px, 12vw, 180px);
+  background: linear-gradient(90deg, #000 0%, rgb(0 0 0 / .65) 45%, transparent 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(90deg, black 20%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, black 20%, transparent 100%);
+  pointer-events: none;
+}
+.ac-edge-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  width: clamp(70px, 14vw, 220px);
+  background: linear-gradient(270deg, #000 0%, rgb(0 0 0 / .65) 45%, transparent 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(270deg, black 20%, transparent 100%);
+  -webkit-mask-image: linear-gradient(270deg, black 20%, transparent 100%);
+  pointer-events: none;
+}
+.ac-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  box-shadow: inset 0 0 120px 40px #000;
+  pointer-events: none;
+}
+.ac-grat line { stroke: rgb(255 255 255 / .07); stroke-width: 1; }
+.ac-prov {
+  fill: transparent;
+  stroke: rgb(255 255 255 / .26);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: fill .25s var(--ac-ease), stroke .25s var(--ac-ease);
+}
+.ac-prov:hover {
+  fill: rgb(255 255 255 / .18);
+  stroke: rgb(255 255 255 / .65);
+}
+.ac-prov.is-covered {
+  fill: rgb(255 255 255 / .1);
+}
+.ac-prov.is-covered:hover {
+  fill: rgb(255 255 255 / .26);
+  stroke: rgb(255 255 255 / .85);
+}
+.ac-prov.is-active {
+  fill: rgb(255 255 255 / .32) !important;
+  stroke: #fff !important;
+  stroke-width: 1.5 !important;
+}
+.ac-stage.is-dragging .ac-prov {
+  cursor: grabbing !important;
+}
+/* Dotted route revealed by a solid mask stroke drawn along it. */
+.ac-route { fill: none; stroke: #fff; stroke-width: 1.5; stroke-dasharray: 2 2; }
+.ac-route-mask { fill: none; stroke: #fff; stroke-width: 4; }
+
+/* Place markers (Aircenter's metro markers): grey ring and label, white once their place is chosen. */
+.ac-marker { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; }
+.ac-marker-pin { position: absolute; width: 30px; height: 35px; transform: translate(-50%, -100%); overflow: visible; filter: drop-shadow(0 4px 8px rgb(0 0 0 / .45)); transition: opacity .4s var(--ac-ease), transform .5s var(--ac-ease); }
+.ac-marker-pin path { fill: #111; stroke: #5c5c5c; }
+.ac-marker-pin text { fill: #fff; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; }
+.ac-marker:hover .ac-marker-pin { transform: translate(-50%, -100%) translateY(-2px); }
+.ac-marker:hover .ac-marker-pin path { stroke: #9a9a9a; }
+.ac-marker-label { position: absolute; left: 0; top: 6px; transform: translateX(-50%); white-space: nowrap; color: #8d8d8d; font-size: 12px; line-height: 16px; letter-spacing: .01em; transition: opacity .4s var(--ac-ease); }
+.ac-marker.is-top .ac-marker-label { top: auto; bottom: 42px; }
+.ac-marker-pill { position: absolute; left: 0; bottom: 8px; display: flex; align-items: center; gap: 7px; padding: 9px 16px 9px 12px; border-radius: 999px; background: #f1f1ef; color: #111; font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; box-shadow: 0 8px 20px -6px rgb(0 0 0 / .5); opacity: 0; transform: translate(-50%, 6px) scale(.92); transform-origin: 50% 100%; transition: opacity .4s var(--ac-ease), transform .5s var(--ac-ease); }
+.ac-marker-pill::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; background: inherit; border-radius: 0 0 2px 0; transform: rotate(45deg); }
+.ac-marker.is-active { z-index: 3; }
+.ac-marker.is-active .ac-marker-pin, .ac-marker.is-active .ac-marker-label { opacity: 0; }
+.ac-marker.is-active .ac-marker-pill { opacity: 1; transform: translate(-50%, 0) scale(1); }
+.ac-hq { position: absolute; left: 0; top: 0; z-index: 3; pointer-events: none; }
+.ac-hq svg { display: block; transform: translate(-101px, -71px); }
+.ac-hq-text { fill: #fff; font-size: 27px; letter-spacing: -.01em; }
+
+/* Card (Aircenter's "location-large" tooltip): 260 x 160, 20px off its anchor with a half-triangle tip
+   on the anchor corner; it fades and slides 10px toward its place. */
+.ac-tip { position: absolute; left: 0; top: 0; z-index: 4; width: 0; height: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .6s var(--ac-ease), visibility 0s .6s; }
+.ac-tip.is-visible { opacity: 1; visibility: visible; transition: opacity .6s var(--ac-ease), visibility 0s; }
+.ac-tip-anim { position: absolute; width: 340px; transition: transform .6s var(--ac-ease); }
+.ac-tip[data-side="bottom"] .ac-tip-anim { top: 18px; transform: translateY(10px); }
+.ac-tip[data-side="top"] .ac-tip-anim { bottom: 62px; transform: translateY(-10px); }
+.ac-tip[data-align="start"] .ac-tip-anim { left: -24px; }
+.ac-tip[data-align="end"] .ac-tip-anim { right: -24px; }
+.ac-tip.is-visible .ac-tip-anim { transform: none; }
+.ac-tip-card { display: flex; flex-direction: column; gap: 28px; padding: 28px 28px 0; border-radius: 10px; overflow: hidden; background: #fff; color: #111; box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.55); }
+.ac-tip-tri { display: none; }
+.ac-tip-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 17px; font-weight: 500; line-height: 1.2; letter-spacing: -.01em; }
+.ac-tip-tag { padding: 4px 10px; border-radius: 999px; background: #f1f1ef; font-size: 12px; font-weight: 400; color: rgb(0 0 0 / .55); }
+.ac-tip-num { display: flex; align-items: baseline; font-size: 76px; line-height: .85; letter-spacing: -.045em; font-weight: 500; font-variant-numeric: tabular-nums; }
+.ac-tip-num--word { font-size: 48px; }
+.ac-tip-suffix { margin-left: 3px; font-size: 34px; font-weight: 400; color: rgb(0 0 0 / .28); }
+.ac-tip-label { margin-top: 12px; font-size: 14px; line-height: 1.2; color: rgb(0 0 0 / .5); }
+
+/* Locations panel: blurred, rounded, list centred between the label and the bottom. */
+.ac-credit { position: absolute; z-index: 5; left: 20px; bottom: 20px; display: none; max-width: 40%; color: #606060; font-size: 11px; }
+/* Phones: the panel becomes a strip of snapping cards and the map cards stay hidden (as on Aircenter). */
+.ac-tip { display: none; }
+@media (min-width: 768px) {
+  .ac-credit { display: block; }
+  .ac-mcard { display: none; }
+  .ac-tip { display: block; }
+}
+
+/* Drag hint pill */
+.ac-drag-hint {
+  position: absolute;
+  z-index: 5;
+  left: 20px;
+  bottom: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  letter-spacing: 0.015em;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ac-ease), transform 0.3s var(--ac-ease);
+}
+.ac-stage.is-dragging .ac-drag-hint {
+  opacity: 0.35;
+  transform: scale(0.96);
+}
+
+/* Zoom controls */
+.ac-zoom-controls {
+  position: absolute;
+  z-index: 5;
+  left: 20px;
+  bottom: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ac-zoom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.ac-zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.ac-zoom-btn:active {
+  transform: scale(0.93);
+}
+
+@media (max-width: 767px) {
+  .ac-drag-hint {
+    left: 16px;
+    bottom: 76px;
+    padding: 6px 11px;
+    font-size: 11px;
+  }
+  .ac-zoom-controls {
+    left: 16px;
+    bottom: 118px;
+  }
+}
+
+.ac-tip-equip { margin: 0 -28px; padding: 20px 28px 26px; background: #f4f4f2; }
+.ac-tip-equip-title { margin-bottom: 16px; font-size: 13px; color: rgb(17 17 17 / .55); }
+.ac-tip-equip:only-child, .ac-tip-equip-title:last-child { margin-bottom: 0; }
+.ac-tip-equip-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
+.ac-tip-equip-list li { display: flex; align-items: baseline; gap: 10px; }
+.ac-tip-equip-num { font-size: 30px; font-weight: 500; line-height: 1; letter-spacing: -.035em; color: #111; font-variant-numeric: tabular-nums; }
+.ac-tip-equip-label { font-size: 13px; line-height: 1.25; color: rgb(17 17 17 / .7); }
+.ac-card-equip { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: rgb(0 0 0 / .6); text-align: right; }
+.ac-card-equip b { color: #111; font-weight: 500; }
+
+/* Map scroll story: one big number told over the map, then the head office, then the map is handed over. */
+.ac-marker { transition: opacity .5s var(--ac-ease); }
+.ac-marker.is-off { opacity: 0; pointer-events: none !important; }
+.ac-prov.is-covered { transition: fill .6s var(--ac-ease), stroke .25s var(--ac-ease); }
+.ac-story { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.ac-story-step { position: absolute; left: clamp(20px, 5vw, 80px); top: 50%; width: min(36vw, 520px); opacity: 0; transform: translateY(calc(-50% + 28px)); transition: opacity .6s var(--ac-ease), transform .9s var(--ac-ease); }
+.ac-story-step.is-on { opacity: 1; transform: translateY(-50%); }
+.ac-story-step--top { top: 120px; transform: translateY(28px); }
+.ac-story-step--top.is-on { transform: none; }
+.ac-story-eyebrow { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgb(255 255 255 / .55); }
+.ac-story-eyebrow::before { content: ""; width: 7px; height: 7px; background: currentColor; transform: rotate(45deg); }
+.ac-story-num { margin: 22px 0 26px -.05em; font-size: clamp(8rem, 16vw, 16rem); line-height: .78; letter-spacing: -.06em; font-weight: 500; font-variant-numeric: tabular-nums; color: #fff; }
+.ac-story-num span { margin-left: .04em; font-size: .42em; font-weight: 400; letter-spacing: 0; color: rgb(255 255 255 / .3); }
+.ac-story-lead { max-width: 16ch; font-size: clamp(1.4rem, 2vw, 2rem); line-height: 1.12; letter-spacing: -.02em; color: #fff; }
+.ac-story-note { max-width: 34ch; margin-top: 16px; font-size: 15px; line-height: 1.45; color: rgb(255 255 255 / .55); }
+.ac-story-title { max-width: 18ch; margin-top: 18px; font-size: clamp(1.6rem, 2.4vw, 2.3rem); line-height: 1.1; letter-spacing: -.025em; color: #fff; }
+.ac-stage:not([data-phase="explore"]):not([data-phase="free"]) :is(.ac-zoom-controls, .ac-drag-hint) { opacity: 0; visibility: hidden; }
+.ac-zoom-controls { transition: opacity .5s var(--ac-ease), visibility .5s; }
+@media (max-width: 767px) {
+  .ac-story-step, .ac-story-step--top { top: 96px; left: 20px; right: 20px; width: auto; transform: translateY(28px); }
+  .ac-story-step.is-on { transform: none; }
+  .ac-story-num { margin: 14px 0 16px; font-size: clamp(6rem, 30vw, 9rem); }
+  .ac-story-lead { font-size: 1.35rem; }
+  .ac-story-note { font-size: 14px; }
+  /* Keeps the headline readable over the map's labels. */
+  .ac-story::before { content: ""; position: absolute; inset: 0 0 auto; height: 50%; background: linear-gradient(#000 70%, transparent); opacity: 0; transition: opacity .6s var(--ac-ease); }
+  .ac-stage:not([data-phase="free"]) .ac-story::before { opacity: 1; }
+}
+
+
+/* Phones: the chosen place in a card. */
+.ac-mcard { position: absolute; z-index: 6; left: 12px; right: 12px; bottom: 16px; padding: 20px; border-radius: 12px; background: #fff; color: #111; box-shadow: 0 20px 40px -10px rgb(0 0 0 / .6); opacity: 0; visibility: hidden; transform: translateY(16px); transition: opacity .4s var(--ac-ease), transform .6s var(--ac-ease), visibility 0s .6s; }
+.ac-mcard.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .4s var(--ac-ease), transform .6s var(--ac-ease), visibility 0s; }
+.ac-tip.is-visible .ac-tip-card { pointer-events: auto; }
+
+/* Intro: the centred section title the visitor zooms through. */
+.ac-intro { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(28px, 4svh, 48px); padding: 0 20px; text-align: center; pointer-events: none; transform-origin: 50% 46%; will-change: transform, opacity; }
+.ac-intro-title, .ac-intro-title.ac-title { font-size: clamp(2.4rem, 7vw, 7.5rem); line-height: .92; letter-spacing: -.045em; }
+@media (min-width: 768px) {
+  .ac-story-step--right { left: auto; right: clamp(20px, 5vw, 80px); }
+}
+
+/* Completed projects on the map: a number beside each pin (beside the head office's BCE bubble). */
+.ac-marker-num { position: absolute; left: 17px; top: -33px; padding: 4px 8px; border-radius: 999px; background: #fff; color: #111; font-size: 13px; font-weight: 600; line-height: 1; letter-spacing: -.01em; white-space: nowrap; font-variant-numeric: tabular-nums; box-shadow: 0 6px 16px -4px rgb(0 0 0 / .6); opacity: 0; transform: translateY(6px) scale(.8); transform-origin: 0 100%; transition: opacity .4s var(--ac-ease), transform .6s var(--ac-ease); }
+.ac-marker.show-num .ac-marker-num { opacity: 1; transform: none; }
+.ac-marker.is-active .ac-marker-num { opacity: 0; }
+.ac-marker--hq { z-index: 4; }
+.ac-marker--hq .ac-marker-num { left: 6px; top: -28px; padding: 6px 10px; font-size: 15px; }
+.ac-marker.num-left .ac-marker-num { left: auto; right: 17px; transform-origin: 100% 100%; }
+
+/* White-to-black blend: the map's black edge fades come in with the page's darkening (--ac-dark, 0 to 1). */
+:is(.ac-edge-top, .ac-edge-bottom, .ac-edge-left, .ac-edge-right, .ac-vignette) { opacity: var(--ac-dark, 1); }
+.ac-intro-title [data-ac-row] { white-space: nowrap; will-change: transform; }
+
+/* Steps never overlap: the outgoing one fades quickly, the next one waits for it. */
+.ac-story-step { transition: opacity .5s var(--ac-ease), transform .8s var(--ac-ease); }
+.ac-story-step.is-on { transition: opacity 1s var(--ac-ease) .45s, transform 1.4s var(--ac-ease) .45s; }
+.ac-story-fleet { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+.ac-story-fleet li { display: flex; align-items: baseline; gap: 14px; font-size: 16px; color: rgb(255 255 255 / .7); }
+.ac-story-fleet span { min-width: 2.2ch; font-size: 30px; font-weight: 500; letter-spacing: -.03em; line-height: 1; color: #fff; font-variant-numeric: tabular-nums; }
+/* Explore prompt. */
+.ac-hint { position: absolute; z-index: 6; left: 50%; bottom: 28px; display: flex; align-items: center; gap: 8px; padding: 11px 18px 11px 14px; border-radius: 999px; background: #f1f1ef; color: #111; font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; box-shadow: 0 14px 32px -8px rgb(0 0 0 / .65); pointer-events: none; opacity: 0; transform: translate(-50%, 16px); transition: opacity .4s var(--ac-ease), transform .6s var(--ac-ease); }
+.ac-hint.is-on { opacity: 1; transform: translate(-50%, 0); transition-delay: .3s; }
+@media (max-width: 767px) {
+  .ac-hint { bottom: 20px; font-size: 13px; }
+}
+@media (max-width: 767px) {
+  .ac-intro-title, .ac-intro-title.ac-title { font-size: 8.4vw; }
+}

@@ -1,9 +1,30 @@
 {
   "name": "bce-construction-website",
+  "private": true,
   "version": "1.0.0",
-  "description": "BCE Construction and Engineering Corporate Profile Website",
+  "type": "module",
   "scripts": {
-    "start": "python3 -m http.server 8000",
-    "deploy": "mv Company_Profile_2026.pdf ../Company_Profile_2026.pdf 2>/dev/null || true; npx wrangler pages deploy . --project-name bce-construction --commit-dirty=true; mv ../Company_Profile_2026.pdf ./Company_Profile_2026.pdf 2>/dev/null || true"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 8000 --host",
+    "deploy": "vite build && npx wrangler pages deploy dist --project-name bce-construction --commit-dirty=true",
+    "format": "oxfmt"
+  },
+  "dependencies": {
+    "lenis": "^1.3.27",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "oxfmt": "^0.2.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^8.0.5"
   }
 }

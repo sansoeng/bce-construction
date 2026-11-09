@@ -17,6 +17,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
@@ -24,4 +35,4 @@ jobs:
           apiKey: ${{ secrets.CLOUDFLARE_API_KEY }}
           email: ${{ secrets.CLOUDFLARE_EMAIL }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy . --project-name=bce-construction --commit-dirty=true
+          command: pages deploy dist --project-name=bce-construction --commit-dirty=true
