@@ -133,6 +133,8 @@ const KM: Record<string, string> = {
   "BCE architectural detail": "ព័ត៌មានលម្អិតស្ថាបត្យកម្ម BCE",
   "We supply ready-mix concrete, reinforced concrete piling and civil construction for infrastructure, industrial, commercial and residential projects nationwide.":
     "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភបេតុងអារម៉េ និងសំណង់ស៊ីវិល សម្រាប់គម្រោងហេដ្ឋារចនាសម្ព័ន្ធ ឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន ទូទាំងប្រទេស។",
+  "We supply ready-mix concrete, reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.":
+    "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភគ្រឹះបេតុងអារម៉េ សំណង់ស៊ីវិល ការងារចាក់កម្រាលបេតុង និងការជួលគ្រឿងចក្រធុនធ្ងន់ សម្រាប់គម្រោងហេដ្ឋារចនាសម្ព័ន្ធ ឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន ទូទាំងប្រទេសកម្ពុជា។",
   "BCE is a Battambang-based": "BCE ជាក្រុមហ៊ុនវិស្វកម្ម និងសំណង់",
   "engineering and construction company, building across Cambodia since 1995 with modern equipment and a skilled team.":
     "មានមូលដ្ឋាននៅខេត្តបាត់ដំបង ដែលបានសាងសង់ទូទាំងកម្ពុជាចាប់តាំងពីឆ្នាំ ១៩៩៥ ជាមួយគ្រឿងចក្រទំនើប និងក្រុមការងារជំនាញ។",
@@ -190,17 +192,24 @@ const KM: Record<string, string> = {
   // At a glance, partners
   "BCE at a glance": "ទិដ្ឋភាពទូទៅរបស់ BCE",
   "At a glance": "ទិដ្ឋភាពទូទៅ",
+  "Reporting period: 2025–2026": "របាយការណ៍ស្ថិតិ៖ ២០២៥–២០២៦",
   "Years of experience": "ឆ្នាំនៃបទពិសោធន៍",
   "Established 1995": "បង្កើតឡើងឆ្នាំ ១៩៩៥",
   "Batching plants": "រោងចក្រលាយបេតុង",
   "70 m³/hr each": "៧០ m³/ម៉ោង ក្នុងមួយរោងចក្រ",
+  "70 m³/hr each · Battambang": "៧០ m³/ម៉ោង ក្នុងមួយរោងចក្រ · បាត់ដំបង",
   "Projects completed": "គម្រោងបានបញ្ចប់",
   "Projects completed in 2025": "គម្រោងបានបញ្ចប់ក្នុងឆ្នាំ ២០២៥",
   "Projects Completed in 2025": "គម្រោងបានបញ្ចប់ក្នុងឆ្នាំ ២០២៥",
   "Verified company records": "កំណត់ត្រាក្រុមហ៊ុនផ្លូវការ",
   "In 2025": "ក្នុងឆ្នាំ ២០២៥",
   "Clients served": "អតិថិជនដែលបានបម្រើ",
+  "Transit mixer trucks": "រថយន្តលាយបេតុង",
+  "Fleet as of 2026": "កងគ្រឿងចក្រគិតត្រឹមឆ្នាំ ២០២៦",
   "Plus 8 pump trucks": "បូកឡានបូមបេតុង ៨ គ្រឿង",
+  "Boom reach up to 48m": "ដៃបូមប្រវែងរហូតដល់ ៤៨ ម៉ែត្រ",
+  "Hydraulic piling rigs": "ម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រ",
+  "Bore & hammer rigs": "ម៉ាស៊ីនខួង និងម៉ាស៊ីនបោក",
   "Provinces served": "ខេត្តដែលបានបម្រើ",
   "13 provinces + Phnom Penh": "១៣ ខេត្ត និងរាជធានីភ្នំពេញ",
   "Trusted partners & clients": "ដៃគូ និងអតិថិជនដែលទុកចិត្ត",
@@ -211,6 +220,7 @@ const KM: Record<string, string> = {
   // HSE Commitments
   "HSE & Operational Commitments": "ការប្តេជ្ញាចិត្តលើសុខភាព សុវត្ថិភាព បរិស្ថាន និងប្រតិបត្តិការ",
   "BCE HSE and operational commitments": "ការប្តេជ្ញាចិត្តរបស់ BCE លើសុខភាព សុវត្ថិភាព បរិស្ថាន និងប្រតិបត្តិការ",
+  "Explore Quality & HSE": "ស្វែងយល់ពីគុណភាព និងសុវត្ថិភាព (HSE)",
   "Protecting": "ការពារ",
   "people": "មនុស្ស",
   "Working": "ធ្វើការ",

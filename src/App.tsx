@@ -407,7 +407,7 @@ function App() {
         <div className="grid gap-10 md:grid-cols-2">
           <div className="aspect-[5/6] w-full max-w-[15.5rem]" aria-hidden />
           <div className="flex flex-col justify-between gap-12 md:min-h-[18.5rem]">
-            <p data-split="content" data-split-hold data-about-intro className="max-w-[400px] text-[1.1rem] font-medium leading-[22px]">We supply ready-mix concrete, reinforced concrete piling and civil construction for infrastructure, industrial, commercial and residential projects nationwide.</p>
+            <p data-split="content" data-split-hold data-about-intro className="max-w-[440px] text-[1.1rem] font-medium leading-[22px]">We supply ready-mix concrete, reinforced foundation piling, civil construction, concrete slab works, and heavy equipment rental for infrastructure, industrial, commercial and residential projects across Cambodia.</p>
             <div>
               <ArrowButton href="/?about" label="See more about us" theme="black" />
             </div>
@@ -491,9 +491,14 @@ function App() {
           </div>
 
           <div className="absolute left-5 right-5 top-[53%] md:left-[58.6%] md:right-auto md:w-[min(24vw,22rem)]">
-            {commitments.map(([lines, text], i) => (
-              <p data-vision-text data-split="content" data-split-toggle className={`vision-text text-[.95rem] leading-[1.35] ${i === 0 ? "relative" : "absolute inset-x-0 top-0"}`} key={lines.join(" ")}>{text}</p>
-            ))}
+            <div className="relative min-h-[5.5rem]">
+              {commitments.map(([lines, text], i) => (
+                <p data-vision-text data-split="content" data-split-toggle className={`vision-text text-[.95rem] leading-[1.35] ${i === 0 ? "relative" : "absolute inset-x-0 top-0"}`} key={lines.join(" ")}>{text}</p>
+              ))}
+            </div>
+            <div className="mt-8 pt-2">
+              <ArrowButton href="/?quality" label="Explore Quality & HSE" theme="outline-white" />
+            </div>
           </div>
           </div>
           </div>

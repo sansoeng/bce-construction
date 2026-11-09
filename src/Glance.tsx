@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-// Six figures from the BCE Corporate Profile 2026, "Corporate Statistics" (p. 06): 3 rows of 2 highlights.
-type IconKind = "years" | "projects" | "clients" | "plants" | "mixer" | "provinces";
+// Eight figures from the BCE Corporate Profile 2026 (4 overview figures + 4 fleet categories listed separately): 4 rows of 2 highlights.
+type IconKind = "years" | "projects" | "clients" | "plants" | "mixer" | "provinces" | "pump" | "piling";
 const stats: { value: number; label: string; note: string; icon: IconKind; suffix?: string }[] = [
   // Row 1
   { value: 30, suffix: "+", label: "Years of experience", note: "Established 1995", icon: "years" },
-  { value: 4, label: "Batching plants", note: "70 m³/hr each", icon: "plants" },
-  // Row 2
   { value: 128, label: "Projects Completed in 2025", note: "Verified company records", icon: "projects" },
+  // Row 2
   { value: 1564, label: "Clients served", note: "In 2025", icon: "clients" },
-  // Row 3
-  { value: 41, label: "Mixer trucks", note: "Plus 8 pump trucks", icon: "mixer" },
   { value: 14, label: "Provinces served", note: "13 provinces + Phnom Penh", icon: "provinces" },
+  // Row 3: Plant & Fleet (As of 2026)
+  { value: 4, label: "Batching plants", note: "70 m³/hr each · Battambang", icon: "plants" },
+  { value: 41, label: "Mixer trucks", note: "Fleet as of 2026", icon: "mixer" },
+  // Row 4: Specialized Fleet (As of 2026)
+  { value: 8, label: "Concrete pump trucks", note: "Boom reach up to 48m", icon: "pump" },
+  { value: 7, label: "Hydraulic piling rigs", note: "Bore & hammer rigs", icon: "piling" },
 ];
 
 // Clients & partners, grouped from the Corporate Profile 2026 client and supplier lists (pp. 33-35).
@@ -99,6 +102,28 @@ function GlanceIcon({ kind }: { kind: IconKind }) {
         <g className="gi-bob">
           <path {...draw} d="M24 40s-11-11.5-11-20a11 11 0 0 1 22 0c0 8.5-11 20-11 20z" fill="#fff" />
           <circle {...draw} cx="24" cy="20" r="4" stroke={ACCENT} />
+        </g>
+      </>
+    ),
+    pump: (
+      <>
+        <path {...draw} d="M6 34h36M10 34v-5h16v5M26 34v-9h8l6 4v5" />
+        <circle {...draw} cx="13" cy="38" r="3.5" />
+        <circle {...draw} cx="22" cy="38" r="3.5" />
+        <circle {...draw} cx="36" cy="38" r="3.5" />
+        <g stroke={ACCENT}>
+          <path {...draw} d="M14 25l7-14 8 5 7-10" />
+          <circle cx="36" cy="6" r="1.5" fill={ACCENT} />
+        </g>
+      </>
+    ),
+    piling: (
+      <>
+        <path {...draw} d="M12 42h24M16 42V10l8-4 8 4v32" />
+        <path {...draw} d="M18 19h12M18 29h12M18 39h12" />
+        <g stroke={ACCENT} fill={ACCENT}>
+          <rect x="22" y="14" width="4" height="8" rx="0.5" />
+          <path d="M24 22v20" stroke={ACCENT} strokeWidth="1.5" />
         </g>
       </>
     ),
@@ -257,6 +282,9 @@ export default function Glance() {
             <h2 id="glance-title" data-split className="text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
               BCE at a glance
             </h2>
+            <p className="mt-3 text-xs font-mono uppercase tracking-[0.12em] text-black/50">
+              Reporting period: 2025–2026
+            </p>
           </div>
         </div>
         {/* Likova-style figure grid: 3 rows x 2 highlights per row */}
