@@ -9,7 +9,7 @@ import WhyBCE from "./WhyBCE";
 import Footer from "./Footer";
 import QuoteCta from "./QuoteCta";
 import Glance from "./Glance";
-import { HeroIndicator, HeroMedia } from "./HeroSlides";
+import { HeroVideo } from "./HeroSlides";
 import SiteHeader from "./SiteHeader";
 import ArrowButton from "./ArrowButton";
 import FluidCursor from "./FluidCursor";
@@ -379,16 +379,15 @@ function App() {
       {/* Fixed banner frame; JS morphs its rect from the viewport into the About image slot. */}
       <div data-fly className="pointer-events-none fixed left-0 top-0 z-20 h-[100svh] w-full overflow-hidden bg-black will-change-[top,left,width,height]">
         <div className="hero-media absolute inset-0">
-          <HeroMedia />
+          <HeroVideo />
           <img data-fly-about className="absolute inset-0 h-full w-full object-cover opacity-0" src={`${A}/6ae3a.png`} alt="" />
         </div>
         <div data-hero-copy className="hero-scrim absolute inset-0" />
       </div>
-      <div data-hero-copy className="fixed bottom-5 left-5 z-30 text-white"><a href="#about" data-split="content" data-split-manual="0.2" className="hero-scroll text-white/60">[Scroll down]</a></div>
-      <div data-hero-copy className="hero-copy-wrap fixed bottom-14 left-5 right-5 z-30 text-white md:bottom-5 md:left-auto md:w-[46rem] md:max-w-[calc(100vw-2.5rem)]">
+      <div data-hero-copy className="fixed bottom-5 left-5 z-30 text-white md:bottom-8 md:left-8"><a href="#about" data-split="content" data-split-manual="0.2" className="hero-scroll text-white/60">[Scroll down]</a></div>
+      <div data-hero-copy className="hero-copy-wrap fixed bottom-12 left-5 right-5 z-30 text-white md:bottom-8 md:right-8 md:left-auto md:w-[46rem] md:max-w-[calc(100vw-2.5rem)]">
         <HeroCopy />
       </div>
-      <HeroIndicator className="fixed bottom-5 right-5 z-30 text-white md:bottom-14 md:left-5 md:right-auto" />
 
       <div className="relative">
       <div data-hero-spacer data-nav-dark data-header-title="Home" className="hero h-[100svh] min-h-[600px]" aria-hidden />
