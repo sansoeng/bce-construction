@@ -1052,6 +1052,19 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   transition: background-color 0.35s var(--apple-ease), transform 0.6s var(--apple-ease), opacity 0.6s ease;
 }
 
+.apple-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -8px 0;
+  background-color: var(--apple-nav-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  z-index: -1;
+  pointer-events: none;
+}
+
 .apple-header.is-scrolled-out {
   transform: translateY(-100%);
   opacity: 0;
@@ -1493,6 +1506,20 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   box-sizing: border-box;
 }
 
+.apple-floating-inner::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background-color: var(--apple-nav-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  border-radius: 6px;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .apple-floating-list {
   display: flex;
   align-items: center;
@@ -1601,6 +1628,20 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   overflow: hidden;
 }
 
+.apple-floating-dropdown::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background-color: var(--apple-nav-bg-expanded);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  border-radius: 6px;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .apple-floating-dropdown .apple-mega-col h3 {
   color: var(--apple-nav-muted);
 }
@@ -1623,17 +1664,32 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 
 /* ==========================================================================
    Wolverine Worldwide Exact Hero Card (<a class="c-hero-card">)
-   Saturate(180%) blur(20px), No Stroke, No Shadow
+   Saturate(180%) blur(20px), Layer Blur, No Stroke, No Shadow
    ========================================================================== */
 .c-hero-card {
   display: flex;
   position: relative;
   text-decoration: none;
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border: none !important;
   box-shadow: none !important;
+}
+
+.c-hero-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .c-hero-card:hover {
