@@ -952,34 +952,35 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 @keyframes gi-bob { 0%, 100% { transform: none; } 45% { transform: translateY(-3px); } }
 @keyframes gi-ripple { 0%, 40% { transform: scale(.4); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.25); opacity: 0; } }
 
-/* Animated icon badges for core businesses in About Us headline */
+/* Animated icons for core businesses in About Us headline (Icons only, no border/box) */
 .about-core-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
-  width: 0.72em;
-  height: 0.72em;
+  width: 0.82em;
+  height: 0.82em;
   margin: 0 0.14em;
-  border-radius: 8px;
-  background: rgba(41, 62, 138, 0.08);
-  border: 1px solid rgba(41, 62, 138, 0.22);
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   color: #293e8a;
   position: relative;
   top: -0.06em;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 8px rgba(41, 62, 138, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
 }
 .about-core-badge:hover {
-  background: #293e8a;
-  border-color: #293e8a;
-  color: #fff;
-  transform: translateY(-2px) scale(1.1);
-  box-shadow: 0 8px 24px rgba(41, 62, 138, 0.28);
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #1a2a6c;
+  transform: translateY(-2px) scale(1.18);
 }
 .about-core-badge svg {
-  width: 78%;
-  height: 78%;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 .about-core-badge .gd {
   stroke-dashoffset: 0;
@@ -988,8 +989,8 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   opacity: 1;
 }
 .about-core-badge:hover .gi-acc {
-  fill: #fff !important;
-  stroke: #fff !important;
+  fill: #1a2a6c !important;
+  stroke: #1a2a6c !important;
 }
 .about-core-badge .gi-cable,
 .about-core-badge .gi-hook,
