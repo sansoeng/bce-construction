@@ -330,56 +330,27 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   </a>
                 </div>
 
-                {/* Column 2: Fleet & Capabilities */}
+                {/* Column 2: Fleet & Capabilities (sub-text removed) */}
                 <div className="apple-mega-col">
                   <h3>Fleet & Capabilities</h3>
                   <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">4 Batching Plants</span>
-                    <span className="apple-mega-sublink-desc">480 m³/h combined production capacity</span>
                   </a>
                   <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
-                    <span className="apple-mega-sublink-desc">Modern GPS-dispatched heavy transit fleet</span>
                   </a>
                   <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
-                    <span className="apple-mega-sublink-desc">Up to 47m vertical reach for high pours</span>
                   </a>
                   <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
-                    <span className="apple-mega-sublink-desc">Engineered for spun & square pile foundations</span>
                   </a>
-                </div>
-
-                {/* Column 3: Standards & Tools */}
-                <div className="apple-mega-col">
-                  <h3>Standards & Tools</h3>
-                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
-                    <div className="apple-mega-card-title">
-                      <span>Concrete Volume Estimator</span>
-                      <span className="text-[#2997ff]">›</span>
-                    </div>
-                    <div className="apple-mega-card-desc">
-                      Calculate m³ volume, slab depth, and instant truckload dispatch for your site.
-                    </div>
-                  </a>
-
-                  <div className="mt-4 flex flex-col gap-2">
-                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">DYE-2000 Quality Lab</span>
-                      <span className="apple-mega-sublink-desc">Automated compression strength verification</span>
-                    </a>
-                    <a href="https://t.me/thendLP" target="_blank" rel="noopener noreferrer" className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">24/7 Site Dispatch Telegram</span>
-                      <span className="apple-mega-sublink-desc">Direct line with our batching command (@thendLP)</span>
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Projects Mega Menu Panel */}
+          {/* Projects Mega Menu Panel (Featured project & Project services removed) */}
           {activeMega === "projects" && (
             <div className="apple-mega-inner animate-in fade-in duration-200">
               <div className="apple-mega-grid">
@@ -398,52 +369,6 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
                     Foundation Piling Works
                   </a>
-                </div>
-
-                {/* Column 2: Featured Contracts */}
-                <div className="apple-mega-col">
-                  <h3>Featured Contracts</h3>
-                  <a href={linkHref("/?projects#borey-peng-huoth")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Borey Peng Huoth</span>
-                    <span className="apple-mega-sublink-desc">Deep foundation piling & structural concrete</span>
-                  </a>
-                  <a href={linkHref("/?projects#aeon-mall")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Aeon Mall Sihanoukville</span>
-                    <span className="apple-mega-sublink-desc">Heavy duty post-tensioned slab casting</span>
-                  </a>
-                  <a href={linkHref("/?projects#nr5")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">National Road 5</span>
-                    <span className="apple-mega-sublink-desc">Certified paving mix & high-volume pouring</span>
-                  </a>
-                  <a href={linkHref("/?projects#logistics-center")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Sihanoukville Logistics Hub</span>
-                    <span className="apple-mega-sublink-desc">High-load industrial warehouse foundation</span>
-                  </a>
-                </div>
-
-                {/* Column 3: Project Services */}
-                <div className="apple-mega-col">
-                  <h3>Project Services</h3>
-                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
-                    <div className="apple-mega-card-title">
-                      <span>Request Site Inspection</span>
-                      <span className="text-[#2997ff]">›</span>
-                    </div>
-                    <div className="apple-mega-card-desc">
-                      Connect with our licensed structural engineers for on-site consultation and concrete testing.
-                    </div>
-                  </a>
-
-                  <div className="mt-4 flex flex-col gap-2">
-                    <a href={linkHref("#coverage")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">14 Provinces Coverage</span>
-                      <span className="apple-mega-sublink-desc">Nationwide equipment mobilization</span>
-                    </a>
-                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Quality Assurance Standards</span>
-                      <span className="apple-mega-sublink-desc">ACI 211.1 and ASTM compliance</span>
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
@@ -563,50 +488,21 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   </a>
                 </div>
 
-                {/* Column 2: Fleet & Capabilities */}
+                {/* Column 2: Fleet & Capabilities (sub-text removed) */}
                 <div className="apple-mega-col">
                   <h3>Fleet & Capabilities</h3>
                   <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">4 Batching Plants</span>
-                    <span className="apple-mega-sublink-desc">480 m³/h combined production capacity</span>
                   </a>
                   <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
-                    <span className="apple-mega-sublink-desc">Modern GPS-dispatched heavy transit fleet</span>
                   </a>
                   <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
-                    <span className="apple-mega-sublink-desc">Up to 47m vertical reach for high pours</span>
                   </a>
                   <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
                     <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
-                    <span className="apple-mega-sublink-desc">Engineered for spun & square pile foundations</span>
                   </a>
-                </div>
-
-                {/* Column 3: Standards & Tools */}
-                <div className="apple-mega-col">
-                  <h3>Standards & Tools</h3>
-                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
-                    <div className="apple-mega-card-title">
-                      <span>Concrete Volume Estimator</span>
-                      <span className="text-[#0071e3]">›</span>
-                    </div>
-                    <div className="apple-mega-card-desc">
-                      Calculate m³ volume, slab depth, and instant truckload dispatch for your site.
-                    </div>
-                  </a>
-
-                  <div className="mt-4 flex flex-col gap-2">
-                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">DYE-2000 Quality Lab</span>
-                      <span className="apple-mega-sublink-desc">Automated compression strength verification</span>
-                    </a>
-                    <a href="https://t.me/thendLP" target="_blank" rel="noopener noreferrer" className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">24/7 Site Dispatch Telegram</span>
-                      <span className="apple-mega-sublink-desc">Direct line with our batching command (@thendLP)</span>
-                    </a>
-                  </div>
                 </div>
               </div>
             )}
@@ -628,52 +524,6 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
                     Foundation Piling Works
                   </a>
-                </div>
-
-                {/* Column 2: Featured Contracts */}
-                <div className="apple-mega-col">
-                  <h3>Featured Contracts</h3>
-                  <a href={linkHref("/?projects#borey-peng-huoth")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Borey Peng Huoth</span>
-                    <span className="apple-mega-sublink-desc">Deep foundation piling & structural concrete</span>
-                  </a>
-                  <a href={linkHref("/?projects#aeon-mall")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Aeon Mall Sihanoukville</span>
-                    <span className="apple-mega-sublink-desc">Heavy duty post-tensioned slab casting</span>
-                  </a>
-                  <a href={linkHref("/?projects#nr5")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">National Road 5</span>
-                    <span className="apple-mega-sublink-desc">Certified paving mix & high-volume pouring</span>
-                  </a>
-                  <a href={linkHref("/?projects#logistics-center")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Sihanoukville Logistics Hub</span>
-                    <span className="apple-mega-sublink-desc">High-load industrial warehouse foundation</span>
-                  </a>
-                </div>
-
-                {/* Column 3: Project Services */}
-                <div className="apple-mega-col">
-                  <h3>Project Services</h3>
-                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
-                    <div className="apple-mega-card-title">
-                      <span>Request Site Inspection</span>
-                      <span className="text-[#0071e3]">›</span>
-                    </div>
-                    <div className="apple-mega-card-desc">
-                      Connect with our licensed structural engineers for on-site consultation and concrete testing.
-                    </div>
-                  </a>
-
-                  <div className="mt-4 flex flex-col gap-2">
-                    <a href={linkHref("#coverage")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">14 Provinces Coverage</span>
-                      <span className="apple-mega-sublink-desc">Nationwide equipment mobilization</span>
-                    </a>
-                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Quality Assurance Standards</span>
-                      <span className="apple-mega-sublink-desc">ACI 211.1 and ASTM compliance</span>
-                    </a>
-                  </div>
                 </div>
               </div>
             )}
