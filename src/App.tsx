@@ -59,24 +59,21 @@ const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
 const HERO_NEWS = [
   {
-    badge: "Landmark Project",
-    title: "BCE Completes High-Strength Foundation Piling for Borey Peng Huoth",
-    excerpt: "Over 1,200 spun concrete piles driven with hydraulic precision rigs.",
-    date: "2025–2026",
+    image: "/Image/bce/project_page_20.jpg",
+    label: "latest news",
+    title: "2025–2026 Milestone: Borey Peng Huoth Piling",
     href: "/?projects#piling",
   },
   {
-    badge: "Fleet Dispatch",
-    title: "41 Ready-Mix Mixers & 8 Boom Pumps Active Across 14 Provinces",
-    excerpt: "24/7 site pouring dispatch maintaining 480 m³/h production capacity.",
-    date: "Active Dispatch",
+    image: "/Image/bce/hero_batching_plant.jpg",
+    label: "fleet dispatch",
+    title: "41 Mixers & 8 Pumps Active Across 14 Provinces",
     href: "/?businesses#batching-plants",
   },
   {
-    badge: "Quality Lab",
-    title: "In-House Lab Certified with DYE-2000 Automated Compression Testing",
-    excerpt: "Real-time slump cone verification and 28-day break tests compliant with ACI 211.1.",
-    date: "Certified Standards",
+    image: "/Image/bce/laboratory_qa.jpg",
+    label: "certified quality",
+    title: "DYE-2000 Strength Compression Testing Certified",
     href: "/?quality",
   },
 ];
@@ -97,64 +94,61 @@ function HeroLatestNews() {
 
   return (
     <div
-      className="hero-news-card group select-none"
+      className="relative select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="flex items-center justify-between gap-3 pb-2.5 border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-mono tracking-wider uppercase text-white/90">
-            <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Latest Update
-          </span>
-          <span className="text-[11px] font-mono text-white/40 uppercase">{item.date}</span>
+      <a
+        href={item.href}
+        className="c-hero-card group flex w-full flex-row gap-3 rounded-lg bg-black/25 p-1 backdrop-blur-[18px] border border-white/10 hover:border-white/25 sm:w-72 sm:flex-col sm:gap-1 transition-all duration-300 shadow-2xl"
+        data-hero-home="card"
+      >
+        <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-sm shrink-0">
+          <img
+            src={item.image}
+            alt={item.title}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
         </div>
-
-        {/* Carousel Prev / Next Controls */}
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            className="size-6 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer text-sm"
-            aria-label="Previous update"
-            onClick={() => setCurrent((prev) => (prev - 1 + HERO_NEWS.length) % HERO_NEWS.length)}
-          >
-            ‹
-          </button>
-          <span className="text-[10px] font-mono text-white/40">
-            {current + 1}/{HERO_NEWS.length}
-          </span>
-          <button
-            type="button"
-            className="size-6 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer text-sm"
-            aria-label="Next update"
-            onClick={() => setCurrent((prev) => (prev + 1) % HERO_NEWS.length)}
-          >
-            ›
-          </button>
+        <div className="flex flex-1 flex-col justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-mono tracking-widest uppercase text-white/50">
+              {item.label}
+            </span>
+            <div className="flex items-center gap-1 opacity-70">
+              {HERO_NEWS.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`News story ${i + 1}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setCurrent(i);
+                  }}
+                  className={`size-1.5 rounded-full transition-all cursor-pointer ${
+                    current === i ? "bg-white scale-125" : "bg-white/30 hover:bg-white/60"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex items-end justify-between gap-3">
+            <span className="max-w-[78%] text-[13.5px] sm:text-[14px] font-bold text-white leading-tight">
+              {item.title}
+            </span>
+            <span className="pb-1 text-white/80 transition-transform duration-300 ease-out group-hover:scale-125 group-hover:text-white shrink-0">
+              <svg
+                viewBox="0 0 16 16"
+                className="size-4 stroke-current fill-none stroke-[2] stroke-linecap-round stroke-linejoin-round"
+                aria-hidden="true"
+              >
+                <path d="M4 12L12 4M12 4H6M12 4V10" />
+              </svg>
+            </span>
+          </div>
         </div>
-      </div>
-
-      <div className="pt-2.5">
-        <span className="text-[10.5px] font-mono uppercase tracking-wider text-sky-400 font-medium">
-          {item.badge}
-        </span>
-        <a
-          href={item.href}
-          className="block mt-1 text-[13.5px] md:text-[14.5px] font-medium text-white/95 leading-snug hover:text-sky-300 transition-colors line-clamp-2"
-        >
-          {item.title}
-        </a>
-        <p className="mt-1 text-[11.5px] text-white/60 line-clamp-2 leading-relaxed">
-          {item.excerpt}
-        </p>
-        <a
-          href={item.href}
-          className="inline-flex items-center gap-1.5 mt-2.5 text-[11px] font-mono tracking-wide text-white/80 hover:text-white transition-colors uppercase"
-        >
-          <span>View story</span>
-          <span className="text-sky-400">›</span>
-        </a>
-      </div>
+      </a>
     </div>
   );
 }
@@ -472,23 +466,23 @@ function App() {
         </div>
         <div data-hero-copy className="hero-scrim absolute inset-0" />
       </div>
-      {/* Hero Banner Bottom Section: Left has Wolverine Worldwide Latest News, Right has Title */}
+      {/* Hero Banner Bottom Section: Left has Title, Right has Wolverine Worldwide Latest News */}
       <div
         data-hero-copy
         className="hero-copy-wrap fixed bottom-8 left-5 right-5 z-30 pointer-events-none md:bottom-10 md:left-8 md:right-8"
       >
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12 pointer-events-auto">
-          {/* Left: Latest News widget (wolverineworldwide.com) */}
-          <div className="w-full md:max-w-[420px]">
-            <HeroLatestNews />
-          </div>
-
-          {/* Right: Slogan Title */}
-          <div className="w-full md:max-w-[560px] text-left md:text-right">
-            <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.2rem,4.5vw,4.2rem)] leading-[1.04] tracking-[-.025em] text-white">
+          {/* Left: Slogan Title */}
+          <div className="w-full md:max-w-[660px] text-left">
+            <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.3rem,4.8vw,4.4rem)] leading-[1.04] tracking-[-.025em] text-white">
               <span className="block">Building on Strength.</span>{" "}
               <span className="block">Delivering with Trust.</span>
             </h1>
+          </div>
+
+          {/* Right: Wolverine Worldwide Latest News card */}
+          <div className="w-full md:w-auto flex md:justify-end">
+            <HeroLatestNews />
           </div>
         </div>
       </div>

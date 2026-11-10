@@ -1,17 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import ArrowButton from "./ArrowButton";
 import { getLang, setLang } from "./i18n";
 
 /**
  * Official Apple Global Navigation System (https://www.apple.com/):
  * - Fixed 44px top bar with dark frosted glass (rgba(22, 22, 23, 0.8) + saturate(180%) blur(20px))
- * - Bottom border: 1px solid rgba(255, 255, 255, 0.08)
- * - Centered 1024px max-width container with distributed links
- * - Clean Apple typography (12px, font-weight 400, letter-spacing -0.01em)
- * - Signature Apple focus dimming: non-hovered items dim to opacity 0.45
- * - Full-width Mega-Menu dropdowns for "Businesses" and "Projects" with 3-column layout
- * - Full-page backdrop scrim that dims the page content when mega menu is open
- * - Mobile (< 834px): 44px bar with 2-line morphing hamburger to 'X', full-screen frosted glass overlay,
- *   cascading staggered link animations, expandable accordions, and quick action hotlines
+ * - Perfectly centered navigation items in middle of container
+ * - Unboxed BCE primary button for "Get a quote"
+ * - Auto-hides on scroll, replaced by floating secondary capsule navigation containing the full primary nav
+ * - Mega-menu dropdowns for Businesses and Projects
+ * - Full bilingual support (EN / KH)
  */
 
 const revealListeners = new Set<() => void>();
@@ -27,11 +25,11 @@ export function SharplinkButton() {
   return null;
 }
 
-function AppleLogo({ href = "/" }: { href?: string }) {
+function AppleLogo({ href = "/", dark = false }: { href?: string; dark?: boolean }) {
   return (
     <a
       href={href}
-      className="apple-logo select-none"
+      className={`apple-logo select-none ${dark ? "is-dark" : ""}`}
       aria-label="BCE., Ltd. home"
     >
       <svg
@@ -48,10 +46,10 @@ function AppleLogo({ href = "/" }: { href?: string }) {
   );
 }
 
-function LangSwitch() {
+function LangSwitch({ dark = false }: { dark?: boolean }) {
   const lang = getLang();
   return (
-    <div className="apple-lang-switch select-none" data-no-translate>
+    <div className={`apple-lang-switch select-none ${dark ? "is-dark" : ""}`} data-no-translate>
       <button
         type="button"
         className={`apple-lang-btn ${lang === "en" ? "is-current" : ""}`}
@@ -96,10 +94,10 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
     };
   }, []);
 
-  // Listen to window scroll to show/hide the secondary navigation ribbon
+  // Listen to window scroll: hide primary header and reveal floating capsule navigation
   useEffect(() => {
     const handleScroll = () => {
-      setShowSubnav(window.scrollY > 160);
+      setShowSubnav(window.scrollY > 80);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
@@ -130,7 +128,11 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
     };
 
     const handlePointerDown = (e: PointerEvent) => {
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+      const target = e.target as HTMLElement;
+      if (
+        !target.closest(".apple-header") &&
+        !target.closest(".apple-floating-nav")
+      ) {
         setActiveMega(null);
       }
     };
@@ -154,7 +156,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
   const handleMouseLeaveNav = () => {
     closeTimeout.current = window.setTimeout(() => {
       setActiveMega(null);
-    }, 200);
+    }, 220);
   };
 
   const closeAll = () => {
@@ -169,20 +171,23 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
 
   return (
     <>
+      {/* ==========================================================================
+          Primary Apple Global Header (Top of page, hides when scrolling down)
+         ========================================================================== */}
       <header
         ref={headerRef}
         data-nav
         className={`apple-header ${isIn ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"} ${
-          activeMega ? "has-mega-open" : ""
-        } ${isMobileOpen ? "is-menu-open" : ""}`}
+          showSubnav ? "is-scrolled-out" : ""
+        } ${activeMega ? "has-mega-open" : ""} ${isMobileOpen ? "is-menu-open" : ""}`}
         onMouseLeave={handleMouseLeaveNav}
       >
         <div className="apple-nav-container">
           {/* Logo on Left */}
           <AppleLogo href={base || "/"} />
 
-          {/* Desktop Navigation Links (Evenly distributed Apple style) */}
-          <nav className="apple-desktop-bar" aria-label="Global">
+          {/* Center Navigation Links (Dead-center alignment in container) */}
+          <nav className="apple-desktop-center" aria-label="Global">
             <ul className={`apple-nav-list ${activeMega ? "has-focus" : ""}`}>
               {/* About */}
               <li
@@ -259,13 +264,13 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           {/* Right Action Utilities (Desktop) */}
           <div className="apple-desktop-bar apple-nav-actions">
             <LangSwitch />
-            <a
+            <ArrowButton
               href={linkHref("/?quote")}
-              className="apple-btn-quote"
+              label="Get a quote"
+              theme="raw"
+              className="text-white hover:text-white"
               onClick={closeAll}
-            >
-              Get a quote
-            </a>
+            />
           </div>
 
           {/* Mobile Right Controls (< 834px) */}
@@ -285,10 +290,10 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
         </div>
 
         {/* ==========================================================================
-            Apple Mega-Menu Dropdowns (Desktop)
+            Apple Mega-Menu Dropdowns (Desktop - Top Header)
            ========================================================================== */}
         <div
-          className={`apple-mega-menu ${activeMega ? "is-open" : ""}`}
+          className={`apple-mega-menu ${activeMega && !showSubnav ? "is-open" : ""}`}
           onMouseEnter={() => {
             if (closeTimeout.current) clearTimeout(closeTimeout.current);
           }}
@@ -439,34 +444,233 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
         </div>
       </header>
 
-      {/* Apple Secondary Navigation Ribbon on Scroll (from reference image) */}
+      {/* ==========================================================================
+          Secondary Floating Capsule Navigation on Scroll (Apple iPhone style)
+          Contains full primary navigation content: Logo, Centered Links, LangSwitch, unboxed quote CTA
+         ========================================================================== */}
       <div
-        className={`apple-subnav-ribbon ${
-          showSubnav && !activeMega && !isMobileOpen ? "is-visible" : ""
+        className={`apple-floating-nav ${
+          showSubnav && !isMobileOpen ? "is-visible" : ""
         }`}
-        aria-label="Secondary navigation"
+        aria-label="Floating global navigation"
+        onMouseLeave={handleMouseLeaveNav}
       >
-        <div className="apple-subnav-inner">
-          <div className="apple-subnav-title">
-            <span>BCE., Ltd.</span>
-          </div>
-          <div className="apple-subnav-actions">
-            <a
-              href={linkHref("/?businesses")}
-              className="apple-subnav-btn-explore"
-              onClick={closeAll}
-            >
-              Explore
-            </a>
-            <a
+        <div className="apple-floating-inner">
+          {/* BCE Logo (dark) */}
+          <AppleLogo href={base || "/"} dark={true} />
+
+          {/* Centered Navigation Links */}
+          <nav className="apple-floating-center" aria-label="Floating Global">
+            <ul className={`apple-floating-list ${activeMega ? "has-focus" : ""}`}>
+              <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
+                <a href={linkHref("/?about")} className="apple-floating-link" onClick={closeAll}>
+                  About
+                </a>
+              </li>
+              <li
+                className={`apple-floating-item ${activeMega === "businesses" ? "is-active" : ""}`}
+                onMouseEnter={() => handleMouseEnterItem("businesses")}
+              >
+                <a href={linkHref("/?businesses")} className="apple-floating-link" onClick={closeAll}>
+                  Businesses
+                </a>
+              </li>
+              <li
+                className={`apple-floating-item ${activeMega === "projects" ? "is-active" : ""}`}
+                onMouseEnter={() => handleMouseEnterItem("projects")}
+              >
+                <a href={linkHref("/?projects")} className="apple-floating-link" onClick={closeAll}>
+                  Projects
+                </a>
+              </li>
+              <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
+                <a href={linkHref("/?quality")} className="apple-floating-link" onClick={closeAll}>
+                  Quality & Lab
+                </a>
+              </li>
+              <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
+                <a href={linkHref("#contact")} className="apple-floating-link" onClick={closeAll}>
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Right Action Utilities (Desktop) */}
+          <div className="apple-floating-actions">
+            <LangSwitch dark={true} />
+            <ArrowButton
               href={linkHref("/?quote")}
-              className="apple-subnav-btn-buy"
+              label="Get a quote"
+              theme="raw"
+              className="text-[#1d1d1f] hover:text-black font-semibold"
               onClick={closeAll}
+            />
+          </div>
+
+          {/* Mobile Right Controls (< 834px) */}
+          <div className="apple-floating-mobile-bar">
+            <LangSwitch dark={true} />
+            <button
+              type="button"
+              className={`apple-hamburger is-dark ${isMobileOpen ? "is-active" : ""}`}
+              aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={isMobileOpen}
+              onClick={() => setIsMobileOpen(!isMobileOpen)}
             >
-              Get a quote
-            </a>
+              <span className="apple-hamburger-line apple-hamburger-top" />
+              <span className="apple-hamburger-line apple-hamburger-bottom" />
+            </button>
           </div>
         </div>
+
+        {/* Floating Mega-Menu Dropdown (Light frosted glass for capsule) */}
+        {activeMega && showSubnav && (
+          <div
+            className="apple-floating-dropdown animate-in fade-in duration-200"
+            onMouseEnter={() => {
+              if (closeTimeout.current) clearTimeout(closeTimeout.current);
+            }}
+            onMouseLeave={handleMouseLeaveNav}
+          >
+            {activeMega === "businesses" && (
+              <div className="apple-mega-grid">
+                {/* Column 1: Explore Businesses */}
+                <div className="apple-mega-col">
+                  <h3>Explore Businesses</h3>
+                  <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
+                    Ready-Mix Concrete
+                  </a>
+                  <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
+                    Foundation Piling
+                  </a>
+                  <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
+                    Civil Construction
+                  </a>
+                  <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
+                    Concrete Slab Works
+                  </a>
+                  <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
+                    Heavy Equipment Rental
+                  </a>
+                </div>
+
+                {/* Column 2: Fleet & Capabilities */}
+                <div className="apple-mega-col">
+                  <h3>Fleet & Capabilities</h3>
+                  <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">4 Batching Plants</span>
+                    <span className="apple-mega-sublink-desc">480 m³/h combined production capacity</span>
+                  </a>
+                  <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
+                    <span className="apple-mega-sublink-desc">Modern GPS-dispatched heavy transit fleet</span>
+                  </a>
+                  <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
+                    <span className="apple-mega-sublink-desc">Up to 47m vertical reach for high pours</span>
+                  </a>
+                  <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
+                    <span className="apple-mega-sublink-desc">Engineered for spun & square pile foundations</span>
+                  </a>
+                </div>
+
+                {/* Column 3: Standards & Tools */}
+                <div className="apple-mega-col">
+                  <h3>Standards & Tools</h3>
+                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
+                    <div className="apple-mega-card-title">
+                      <span>Concrete Volume Estimator</span>
+                      <span className="text-[#0071e3]">›</span>
+                    </div>
+                    <div className="apple-mega-card-desc">
+                      Calculate m³ volume, slab depth, and instant truckload dispatch for your site.
+                    </div>
+                  </a>
+
+                  <div className="mt-4 flex flex-col gap-2">
+                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">DYE-2000 Quality Lab</span>
+                      <span className="apple-mega-sublink-desc">Automated compression strength verification</span>
+                    </a>
+                    <a href="https://t.me/thendLP" target="_blank" rel="noopener noreferrer" className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">24/7 Site Dispatch Telegram</span>
+                      <span className="apple-mega-sublink-desc">Direct line with our batching command (@thendLP)</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeMega === "projects" && (
+              <div className="apple-mega-grid">
+                {/* Column 1: Explore Projects */}
+                <div className="apple-mega-col">
+                  <h3>Explore Projects</h3>
+                  <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
+                    All 30+ Landmark Projects
+                  </a>
+                  <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
+                    Industrial & Commercial
+                  </a>
+                  <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
+                    Infrastructure & Roads
+                  </a>
+                  <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
+                    Foundation Piling Works
+                  </a>
+                </div>
+
+                {/* Column 2: Featured Contracts */}
+                <div className="apple-mega-col">
+                  <h3>Featured Contracts</h3>
+                  <a href={linkHref("/?projects#borey-peng-huoth")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Borey Peng Huoth</span>
+                    <span className="apple-mega-sublink-desc">Deep foundation piling & structural concrete</span>
+                  </a>
+                  <a href={linkHref("/?projects#aeon-mall")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Aeon Mall Sihanoukville</span>
+                    <span className="apple-mega-sublink-desc">Heavy duty post-tensioned slab casting</span>
+                  </a>
+                  <a href={linkHref("/?projects#nr5")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">National Road 5</span>
+                    <span className="apple-mega-sublink-desc">Certified paving mix & high-volume pouring</span>
+                  </a>
+                  <a href={linkHref("/?projects#logistics-center")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Sihanoukville Logistics Hub</span>
+                    <span className="apple-mega-sublink-desc">High-load industrial warehouse foundation</span>
+                  </a>
+                </div>
+
+                {/* Column 3: Project Services */}
+                <div className="apple-mega-col">
+                  <h3>Project Services</h3>
+                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
+                    <div className="apple-mega-card-title">
+                      <span>Request Site Inspection</span>
+                      <span className="text-[#0071e3]">›</span>
+                    </div>
+                    <div className="apple-mega-card-desc">
+                      Connect with our licensed structural engineers for on-site consultation and concrete testing.
+                    </div>
+                  </a>
+
+                  <div className="mt-4 flex flex-col gap-2">
+                    <a href={linkHref("#coverage")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">14 Provinces Coverage</span>
+                      <span className="apple-mega-sublink-desc">Nationwide equipment mobilization</span>
+                    </a>
+                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Quality Assurance Standards</span>
+                      <span className="apple-mega-sublink-desc">ACI 211.1 and ASTM compliance</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Full-Page Backdrop Scrim (Dims page when mega menu is open) */}
@@ -560,7 +764,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
             {mobileAccordion === "projects" && (
               <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
                 <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mobile-sublink">
-                  All 30+ Projects
+                  All 30+ Landmark Projects
                   <span>›</span>
                 </a>
                 <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mobile-sublink">
@@ -572,7 +776,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   <span>›</span>
                 </a>
                 <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mobile-sublink">
-                  Foundation Piling Works
+                  Foundation Piling
                   <span>›</span>
                 </a>
               </div>
@@ -594,34 +798,29 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           </li>
         </ul>
 
-        {/* Mobile Action Footer */}
+        {/* Mobile Quick Actions Footer */}
         <div className="apple-mobile-footer">
-          <a
+          <ArrowButton
             href={linkHref("/?quote")}
+            label="Get a quote"
+            theme="raw"
+            className="text-white hover:text-white"
             onClick={closeAll}
-            className="apple-mobile-quote-btn"
-          >
-            Get a quote
-          </a>
-
-          <div className="flex flex-col gap-2 text-[12px] font-mono text-[#86868b] pt-2">
-            <div className="flex justify-between items-center">
-              <span>Hotline (Battambang HQ):</span>
-              <a href={tel(phones[0])} className="text-[#f5f5f7] hover:underline">
-                {phones[0]}
-              </a>
-            </div>
-            <div className="flex justify-between items-center">
-              <span>Site Pouring Dispatch:</span>
-              <a href={tel(phones[1])} className="text-[#f5f5f7] hover:underline">
-                {phones[1]}
-              </a>
-            </div>
-            <div className="flex justify-between items-center">
-              <span>Telegram Dispatch:</span>
-              <a href="https://t.me/thendLP" target="_blank" rel="noopener noreferrer" className="text-[#2997ff] hover:underline">
-                @thendLP
-              </a>
+          />
+          <div className="apple-mobile-hotlines">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-white/40">
+              Direct Batching Hotlines
+            </span>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {phones.slice(0, 2).map((p) => (
+                <a
+                  key={p}
+                  href={tel(p)}
+                  className="text-xs font-mono text-white/80 hover:text-white transition-colors"
+                >
+                  {p}
+                </a>
+              ))}
             </div>
           </div>
         </div>

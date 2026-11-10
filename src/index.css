@@ -365,6 +365,81 @@
     stroke-dashoffset: -11.1213;
   }
 }
+
+/* Raw / Unboxed Primary Button theme:
+   Preserves BCE's signature animated L-shaped arrow, diamond head sweep, and twin rolling text,
+   completely unboxed with no background container and no border. */
+.fg-btn.is-raw {
+  display: inline-flex;
+  align-items: center;
+  height: auto;
+  min-height: 0;
+  line-height: normal;
+  padding: 0;
+  border-radius: 0;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: inherit;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  opacity: 0.9;
+  font-family: var(--font-ui-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: opacity 0.25s var(--apple-ease-out), color 0.25s var(--apple-ease-out);
+}
+
+.fg-btn.is-raw:hover {
+  opacity: 1;
+  background: transparent !important;
+}
+
+.fg-btn.is-raw .fg-btn-arrow {
+  margin-right: 7px;
+  width: 13px;
+  height: 10px;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.fg-btn.is-raw .fg-btn-arrow path,
+.fg-btn.is-raw .fg-btn-arrow rect {
+  stroke: currentColor;
+}
+
+.fg-btn.is-raw .fg-btn-label {
+  display: block;
+  height: 12px;
+  overflow: hidden;
+  line-height: 12px;
+}
+
+.fg-btn.is-raw .fg-btn-line {
+  display: block;
+  height: 12px;
+  line-height: 12px;
+  white-space: nowrap;
+  will-change: transform;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .fg-btn.is-raw:hover .fg-btn-line {
+    transform: translateY(-100%);
+  }
+  .fg-btn.is-raw:hover .fg-btn-arrow path {
+    stroke-dasharray: 0 18.6;
+  }
+  .fg-btn.is-raw:hover .fg-btn-arrow rect {
+    stroke-dasharray: 22.2426 .1;
+    stroke-dashoffset: -11.1213;
+  }
+}
 @media (max-width: 600px) { .fg-btn { padding: 15px 18px; } }
 .fg-btn-arrow { flex: none; width: 14px; height: 11px; margin-right: 12px; overflow: visible; transform: translateY(-1px); }
 .fg-btn-arrow path { stroke-dasharray: 18.5 .1; transition: stroke-dasharray 1s var(--p3-out); }
@@ -976,6 +1051,12 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   transition: background-color 0.35s var(--apple-ease), transform 0.6s var(--apple-ease), opacity 0.6s ease;
 }
 
+.apple-header.is-scrolled-out {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
 .apple-header.is-menu-open,
 .apple-header.has-mega-open {
   background-color: var(--apple-nav-bg-expanded);
@@ -1015,6 +1096,14 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   opacity: 1;
 }
 
+.apple-logo.is-dark {
+  color: #1d1d1f;
+}
+
+.apple-logo.is-dark .apple-logo-text {
+  color: #1d1d1f;
+}
+
 .apple-logo-icon {
   width: 17px;
   height: 17px;
@@ -1026,6 +1115,24 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   font-weight: 600;
   letter-spacing: -0.015em;
   color: #ffffff;
+}
+
+/* Center Navigation Links: Exactly centered in the middle of container/screen */
+.apple-desktop-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+@media (max-width: 834px) {
+  .apple-desktop-center {
+    display: none;
+  }
 }
 
 /* Desktop Navigation List - Aligned in the middle */
@@ -1129,6 +1236,20 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 }
 .apple-lang-divider {
   opacity: 0.3;
+}
+
+.apple-lang-switch.is-dark .apple-lang-btn {
+  color: #1d1d1f;
+  opacity: 0.6;
+}
+.apple-lang-switch.is-dark .apple-lang-btn.is-current {
+  color: #000000;
+  opacity: 1;
+  font-weight: 600;
+}
+.apple-lang-switch.is-dark .apple-lang-divider {
+  color: #1d1d1f;
+  opacity: 0.35;
 }
 
 /* Apple Action Pill Button ("Get a quote") */
@@ -1325,155 +1446,208 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 }
 
 /* ==========================================================================
-   Apple Secondary Navigation Ribbon (Local Nav on Scroll)
+   Apple Secondary Floating Capsule Navigation on Scroll (Apple iPhone style)
+   Contains full primary navigation content: Logo, Centered Links, LangSwitch, unboxed quote CTA
    ========================================================================== */
-.apple-subnav-ribbon {
+.apple-floating-nav {
   position: fixed;
-  top: 54px;
+  top: 14px;
   left: 50%;
-  transform: translateX(-50%) translateY(-20px);
+  transform: translateX(-50%) translateY(-24px);
   width: calc(100% - 32px);
-  max-width: 920px;
+  max-width: 980px;
   z-index: 95;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.4s;
+              visibility 0.45s;
 }
 
-.apple-subnav-ribbon.is-visible {
+.apple-floating-nav.is-visible {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
-.apple-subnav-inner {
+.apple-floating-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 48px;
-  padding: 0 18px 0 22px;
+  padding: 0 20px;
   border-radius: 980px;
   background-color: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09), 0 1px 3px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  position: relative;
 }
 
-.apple-subnav-title {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  color: #1d1d1f;
-}
-
-.apple-subnav-actions {
+.apple-floating-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  height: 100%;
 }
 
-.apple-subnav-btn-explore {
-  display: inline-flex;
+.apple-floating-list {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  height: 30px;
-  padding: 0 14px;
-  border-radius: 980px;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  .apple-floating-list {
+    gap: 20px;
+  }
+}
+
+.apple-floating-item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.apple-floating-link {
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: -0.01em;
   color: #1d1d1f;
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.22);
   text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  opacity: 0.82;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
 }
 
-.apple-subnav-btn-explore:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.4);
-  transform: scale(1.02);
+.apple-floating-link:hover,
+.apple-floating-item.is-active .apple-floating-link {
+  opacity: 1;
+  color: #000000;
 }
 
-.apple-subnav-btn-buy {
-  display: inline-flex;
+.apple-floating-list.has-focus .apple-floating-link:not(:hover):not(.is-active) {
+  opacity: 0.4;
+}
+
+.apple-floating-actions {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  height: 30px;
-  padding: 0 16px;
-  border-radius: 980px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-  background-color: var(--apple-nav-blue);
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.3);
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  gap: 16px;
+  flex-shrink: 0;
 }
 
-.apple-subnav-btn-buy:hover {
-  background-color: var(--apple-nav-blue-hover);
-  transform: scale(1.02);
+.apple-floating-mobile-bar {
+  display: none;
 }
 
-.apple-subnav-btn-buy:active,
-.apple-subnav-btn-explore:active {
-  transform: scale(0.98);
-}
-
-@media (max-width: 600px) {
-  .apple-subnav-ribbon {
-    top: 50px;
-    width: calc(100% - 20px);
+@media (max-width: 834px) {
+  .apple-floating-nav {
+    top: 10px;
+    width: calc(100% - 24px);
   }
-  .apple-subnav-inner {
+  .apple-floating-inner {
     height: 44px;
-    padding: 0 14px 0 18px;
+    padding: 0 14px;
   }
-  .apple-subnav-title {
-    font-size: 13.5px;
+  .apple-floating-center {
+    display: none;
   }
-  .apple-subnav-btn-explore {
-    height: 26px;
-    padding: 0 11px;
-    font-size: 11px;
+  .apple-floating-actions {
+    display: none;
   }
-  .apple-subnav-btn-buy {
-    height: 26px;
-    padding: 0 13px;
-    font-size: 11px;
+  .apple-floating-mobile-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
+}
+
+.apple-hamburger.is-dark .apple-hamburger-line {
+  background-color: #1d1d1f;
+}
+
+/* Floating Mega Dropdown (Light mode for capsule) */
+.apple-floating-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  padding: 32px 36px 36px;
+  color: #1d1d1f;
+  z-index: 102;
+}
+
+.apple-floating-dropdown .apple-mega-col h3 {
+  color: #86868b;
+}
+
+.apple-floating-dropdown .apple-mega-big-link {
+  color: #1d1d1f;
+}
+
+.apple-floating-dropdown .apple-mega-big-link:hover {
+  color: #000000;
+}
+
+.apple-floating-dropdown .apple-mega-sublink {
+  color: #333336;
+}
+
+.apple-floating-dropdown .apple-mega-sublink:hover {
+  color: #000000;
+}
+
+.apple-floating-dropdown .apple-mega-sublink-desc {
+  color: #6e6e73;
+}
+
+.apple-floating-dropdown .apple-mega-card {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #1d1d1f;
+}
+
+.apple-floating-dropdown .apple-mega-card:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+.apple-floating-dropdown .apple-mega-card-desc {
+  color: #6e6e73;
 }
 
 /* ==========================================================================
-   Wolverine Worldwide-inspired Hero Latest News Widget (wolverineworldwide.com)
+   Wolverine Worldwide Exact Hero Card (<a class="c-hero-card">)
    ========================================================================== */
-.hero-news-card {
+.c-hero-card {
+  display: flex;
   position: relative;
-  background: rgba(18, 22, 28, 0.76);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
-  padding: 16px 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.hero-news-card:hover {
-  border-color: rgba(255, 255, 255, 0.26);
+.c-hero-card:hover {
   transform: translateY(-2px);
 }
 
@@ -1695,11 +1869,13 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 }
 
 /* Khmer language typography enhancements for Apple Global Nav */
-html[lang="km"] .apple-header {
+html[lang="km"] .apple-header,
+html[lang="km"] .apple-floating-nav {
   font-family: "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans);
 }
 
-html[lang="km"] .apple-nav-link {
+html[lang="km"] .apple-nav-link,
+html[lang="km"] .apple-floating-link {
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0;
