@@ -471,7 +471,16 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           {/* Mobile Right Controls (< 834px) */}
           <div className="apple-floating-mobile-bar">
             <AppleLogo href={base || "/"} />
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="apple-floating-mobile-quote">
+                <ArrowButton
+                  href={linkHref("/?quote")}
+                  label="Get a quote"
+                  theme="raw"
+                  className="text-white hover:text-white"
+                  onClick={closeAll}
+                />
+              </div>
               <LangSwitch />
               <button
                 type="button"

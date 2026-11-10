@@ -380,12 +380,12 @@
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
-  color: inherit;
+  color: #f5f5f7 !important;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
   vertical-align: middle;
-  opacity: 0.9;
+  opacity: 0.92;
   font-family: var(--font-ui-mono);
   font-size: 11px;
   font-weight: 500;
@@ -396,6 +396,7 @@
 
 .fg-btn.is-raw:hover {
   opacity: 1;
+  color: #ffffff !important;
   background: transparent !important;
 }
 
@@ -414,15 +415,15 @@
 
 .fg-btn.is-raw .fg-btn-label {
   display: block;
-  height: 12px;
+  height: 14px;
   overflow: hidden;
-  line-height: 12px;
+  line-height: 14px;
 }
 
 .fg-btn.is-raw .fg-btn-line {
   display: block;
-  height: 12px;
-  line-height: 12px;
+  height: 14px;
+  line-height: 14px;
   white-space: nowrap;
   will-change: transform;
   transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
@@ -952,35 +953,39 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 @keyframes gi-bob { 0%, 100% { transform: none; } 45% { transform: translateY(-3px); } }
 @keyframes gi-ripple { 0%, 40% { transform: scale(.4); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.25); opacity: 0; } }
 
-/* Animated icons for core businesses in About Us headline (Icons only, no border/box) */
+/* Animated icons for core businesses in About Us headline (Bold icons only, no border/box) */
 .about-core-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
-  width: 0.82em;
-  height: 0.82em;
-  margin: 0 0.14em;
+  width: 0.95em;
+  height: 0.95em;
+  margin: 0 0.16em;
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  color: #293e8a;
+  color: #1f367e;
   position: relative;
-  top: -0.06em;
+  top: -0.05em;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
 }
 .about-core-badge:hover {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  color: #1a2a6c;
-  transform: translateY(-2px) scale(1.18);
+  color: #122154;
+  transform: translateY(-2px) scale(1.15);
 }
 .about-core-badge svg {
   width: 100%;
   height: 100%;
   display: block;
+  stroke-width: 3px !important;
+}
+.about-core-badge svg :is(path, circle, ellipse, rect, line):not([stroke="none"]) {
+  stroke-width: 3px !important;
 }
 .about-core-badge .gd {
   stroke-dashoffset: 0;
@@ -989,8 +994,21 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   opacity: 1;
 }
 .about-core-badge:hover .gi-acc {
-  fill: #1a2a6c !important;
-  stroke: #1a2a6c !important;
+  fill: #122154 !important;
+  stroke: #122154 !important;
+}
+.about-core-badge .gi-cable {
+  vector-effect: none !important;
+  stroke-width: 3px !important;
+}
+.about-core-badge .gi-hook {
+  stroke-width: 2.5px !important;
+}
+.about-core-badge .gi-spin {
+  stroke-width: 2.5px !important;
+}
+.about-core-badge .gi-drop {
+  stroke-width: 0 !important;
 }
 .about-core-badge .gi-cable,
 .about-core-badge .gi-hook,
@@ -1470,6 +1488,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   pointer-events: none;
   border: none !important;
   box-shadow: none !important;
+  color: var(--apple-nav-text);
   transform: translateY(-24px);
   transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
               opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1),
@@ -1495,10 +1514,10 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   -webkit-backdrop-filter: saturate(190%) blur(40px);
   border: none !important;
   box-shadow: none !important;
+  color: var(--apple-nav-text);
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
   transform: translateZ(0);
 }
 
@@ -1519,7 +1538,57 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   height: 100%;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   transition: opacity 0.25s var(--apple-ease-out);
+}
+
+.apple-floating-item-quote,
+.apple-nav-item-quote {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--apple-nav-text);
+}
+
+.apple-floating-item-quote .fg-btn.is-raw,
+.apple-nav-item-quote .fg-btn.is-raw {
+  color: #f5f5f7 !important;
+  opacity: 0.92;
+  font-size: 11px;
+}
+
+.apple-floating-item-quote .fg-btn.is-raw:hover,
+.apple-nav-item-quote .fg-btn.is-raw:hover {
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+.apple-floating-item-quote .fg-btn.is-raw .fg-btn-arrow,
+.apple-nav-item-quote .fg-btn.is-raw .fg-btn-arrow {
+  color: inherit;
+  stroke: currentColor;
+}
+
+.apple-floating-mobile-quote {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+
+.apple-floating-mobile-quote .fg-btn.is-raw {
+  color: #f5f5f7 !important;
+  font-size: 10px;
+}
+
+.apple-floating-mobile-quote .fg-btn.is-raw:hover {
+  color: #ffffff !important;
+}
+
+@media (max-width: 370px) {
+  .apple-floating-mobile-quote {
+    display: none;
+  }
 }
 
 .apple-floating-link {
@@ -2631,6 +2700,23 @@ html[lang="km"] .fg-btn.is-glass .fg-btn-label {
 html[lang="km"] .fg-btn.is-glass .fg-btn-line {
   height: 20px;
   line-height: 20px;
+}
+html[lang="km"] .fg-btn.is-raw {
+  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+html[lang="km"] .fg-btn.is-raw .fg-btn-label {
+  height: 22px !important;
+  line-height: 22px !important;
+  overflow: hidden !important;
+}
+html[lang="km"] .fg-btn.is-raw .fg-btn-line {
+  height: 22px !important;
+  line-height: 22px !important;
+  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans) !important;
+  font-weight: 700 !important;
 }
 html[lang="km"] .fg-btn-label {
   height: 22px;

@@ -48,11 +48,13 @@ export function GlanceIcon({
   className = "size-10 flex-none md:size-12",
   accentColor = ACCENT,
   clipIdPrefix = "gi",
+  strokeWidth = 1.5,
 }: {
   kind: IconKind;
   className?: string;
   accentColor?: string;
   clipIdPrefix?: string;
+  strokeWidth?: number;
 }) {
   const accent = accentColor;
   const drumId = `${clipIdPrefix}-drum-${kind}`;
@@ -73,7 +75,7 @@ export function GlanceIcon({
         <path {...draw} d="M13 42V12M18 42V12M13 17l5 5-5 5 5 5-5 5" />
         <path {...draw} d="M6 12h36M15.5 5 6 12M15.5 5 42 12M15.5 5v7M6 12v4h5v-4M8 42h16" />
         <g className="gi-acc" stroke={accent}>
-          <path className="gi-cable" d="M35 12v12" vectorEffect="non-scaling-stroke" />
+          <path className="gi-cable" d="M35 12v12" strokeWidth={strokeWidth} />
           <path className="gi-hook" d="M33 24h4v3h-4zM35 27v2.5a2 2 0 1 1-2 2" />
         </g>
       </>
@@ -135,13 +137,13 @@ export function GlanceIcon({
         <path {...draw} d="M18 19h12M18 29h12M18 39h12" />
         <g stroke={accent} fill={accent} className="gi-acc gi-pile">
           <rect x="22" y="14" width="4" height="8" rx="0.5" />
-          <path d="M24 22v20" stroke={accent} strokeWidth="1.5" />
+          <path d="M24 22v20" stroke={accent} strokeWidth={strokeWidth} />
         </g>
       </>
     ),
   };
   return (
-    <svg viewBox="0 0 48 48" aria-hidden className={`gi ${className}`} fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 48 48" aria-hidden className={`gi ${className}`} fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
       {shapes[kind]}
     </svg>
   );
