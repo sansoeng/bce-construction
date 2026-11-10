@@ -57,85 +57,31 @@ const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
-const HERO_NEWS = [
-  {
-    image: "/Image/bce/project_page_20.jpg",
-    label: "latest news",
-    title: "2025–2026 Milestone: Borey Peng Huoth Piling",
-    href: "/?projects#piling",
-  },
-  {
-    image: "/Image/bce/hero_batching_plant.jpg",
-    label: "fleet dispatch",
-    title: "41 Mixers & 8 Pumps Active Across 14 Provinces",
-    href: "/?businesses#batching-plants",
-  },
-  {
-    image: "/Image/bce/laboratory_qa.jpg",
-    label: "certified quality",
-    title: "DYE-2000 Strength Compression Testing Certified",
-    href: "/?quality",
-  },
-];
-
 function HeroLatestNews() {
-  const [current, setCurrent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % HERO_NEWS.length);
-    }, 5500);
-    return () => clearInterval(timer);
-  }, [isPaused]);
-
-  const item = HERO_NEWS[current];
-
   return (
-    <div
-      className="relative select-none"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
+    <div className="relative select-none">
       <a
-        href={item.href}
-        className="c-hero-card group flex w-full flex-row gap-3 rounded-lg bg-black/25 p-1 backdrop-blur-[18px] border border-white/10 hover:border-white/25 sm:w-72 sm:flex-col sm:gap-1 transition-all duration-300 shadow-2xl"
+        href="/assets/BCE_Corporate_Profile_2026.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        download="BCE_Corporate_Profile_2026.pdf"
+        className="c-hero-card group flex w-full flex-row gap-3 rounded-lg bg-black/25 p-1 backdrop-blur-[18px] border border-white/10 hover:border-white/25 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300 shadow-2xl"
         data-hero-home="card"
       >
         <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-sm shrink-0">
           <img
-            src={item.image}
-            alt={item.title}
+            src="/Image/bce/core_services.jpg"
+            alt="BCE Company Profile"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         </div>
         <div className="flex flex-1 flex-col justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono tracking-widest uppercase text-white/50">
-              {item.label}
-            </span>
-            <div className="flex items-center gap-1 opacity-70">
-              {HERO_NEWS.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`News story ${i + 1}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setCurrent(i);
-                  }}
-                  className={`size-1.5 rounded-full transition-all cursor-pointer ${
-                    current === i ? "bg-white scale-125" : "bg-white/30 hover:bg-white/60"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+          <span className="text-[11px] font-mono tracking-widest uppercase text-white/50">
+            latest news
+          </span>
           <div className="flex items-end justify-between gap-3">
-            <span className="max-w-[78%] text-[13.5px] sm:text-[14px] font-bold text-white leading-tight">
-              {item.title}
+            <span className="max-w-[78%] text-[14px] sm:text-[15px] font-bold text-white leading-tight">
+              Download company profile
             </span>
             <span className="pb-1 text-white/80 transition-transform duration-300 ease-out group-hover:scale-125 group-hover:text-white shrink-0">
               <svg

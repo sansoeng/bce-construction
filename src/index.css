@@ -1062,20 +1062,37 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   background-color: var(--apple-nav-bg-expanded);
 }
 
-.apple-nav-container {
-  max-width: 1024px;
+/* Apple Centered 960px Navigation Content (exact layout from https://www.apple.com/) */
+.apple-nav-content {
+  max-width: 960px;
+  width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding: 0 22px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Single unified list with ALL content in the middle */
+.apple-nav-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  cursor: default;
 }
 
 @media (max-width: 834px) {
-  .apple-nav-container {
-    padding: 0 16px;
+  .apple-nav-list {
+    display: none;
   }
 }
 
@@ -1117,66 +1134,23 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   color: #ffffff;
 }
 
-/* Center Navigation Links: Exactly centered in the middle of container/screen */
-.apple-desktop-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-@media (max-width: 834px) {
-  .apple-desktop-center {
-    display: none;
-  }
-}
-
-/* Desktop Navigation List - Aligned in the middle */
-.apple-desktop-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  height: 100%;
-}
-
-.apple-nav-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  gap: 36px;
-  height: 100%;
-}
-
-@media (max-width: 1024px) {
-  .apple-nav-list {
-    gap: 22px;
-  }
-}
-
-/* Navigation Links */
+/* Navigation Items */
 .apple-nav-item {
   height: 100%;
   display: flex;
   align-items: center;
   position: relative;
+  transition: opacity 0.25s var(--apple-ease-out);
 }
 
 .apple-nav-link {
   display: flex;
   align-items: center;
-  gap: 4px;
   height: 100%;
+  padding: 0 4px;
   color: var(--apple-nav-text);
   text-decoration: none;
-  opacity: 0.8;
+  opacity: 0.82;
   transition: opacity 0.25s var(--apple-ease-out), color 0.25s var(--apple-ease-out);
   cursor: pointer;
   white-space: nowrap;
@@ -1188,18 +1162,28 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   color: #ffffff;
 }
 
-/* Apple Focus Dimming: Dim non-hovered items when nav is active */
-.apple-nav-list.has-focus .apple-nav-link:not(:hover):not(.is-active) {
+/* Apple Focus Dimming: Hovering any item in the list softly dims all others */
+.apple-nav-list:hover .apple-nav-item {
   opacity: 0.45;
 }
+.apple-nav-list .apple-nav-item:hover,
+.apple-nav-list .apple-nav-item.is-active {
+  opacity: 1;
+}
 
-/* Right Navigation Actions */
-.apple-nav-actions {
-  display: flex;
+/* Mobile Bar (< 834px) */
+.apple-mobile-bar {
+  display: none;
+  width: 100%;
+  height: 100%;
   align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-  margin-left: 20px;
+  justify-content: space-between;
+}
+
+@media (max-width: 834px) {
+  .apple-mobile-bar {
+    display: flex;
+  }
 }
 
 /* Language Switch */
@@ -1475,9 +1459,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 .apple-floating-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 48px;
-  padding: 0 20px;
+  padding: 0 16px;
   border-radius: 980px;
   background-color: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(24px) saturate(180%);
@@ -1485,39 +1469,27 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   border: 1px solid rgba(0, 0, 0, 0.09);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
   position: relative;
-}
-
-.apple-floating-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  width: 100%;
 }
 
 .apple-floating-list {
   display: flex;
   align-items: center;
-  gap: 32px;
+  justify-content: space-between;
+  width: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
   height: 100%;
-}
-
-@media (max-width: 1024px) {
-  .apple-floating-list {
-    gap: 20px;
-  }
+  user-select: none;
+  cursor: default;
 }
 
 .apple-floating-item {
   height: 100%;
   display: flex;
   align-items: center;
+  transition: opacity 0.25s var(--apple-ease-out);
 }
 
 .apple-floating-link {
@@ -1530,6 +1502,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   opacity: 0.82;
   transition: opacity 0.2s ease, color 0.2s ease;
   white-space: nowrap;
+  padding: 0 4px;
 }
 
 .apple-floating-link:hover,
@@ -1538,19 +1511,21 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   color: #000000;
 }
 
-.apple-floating-list.has-focus .apple-floating-link:not(:hover):not(.is-active) {
-  opacity: 0.4;
+/* Floating Focus Dimming: Hovering any item softly dims others */
+.apple-floating-list:hover .apple-floating-item {
+  opacity: 0.45;
 }
-
-.apple-floating-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
+.apple-floating-list .apple-floating-item:hover,
+.apple-floating-list .apple-floating-item.is-active {
+  opacity: 1;
 }
 
 .apple-floating-mobile-bar {
   display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @media (max-width: 834px) {
@@ -1562,16 +1537,11 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
     height: 44px;
     padding: 0 14px;
   }
-  .apple-floating-center {
-    display: none;
-  }
-  .apple-floating-actions {
+  .apple-floating-list {
     display: none;
   }
   .apple-floating-mobile-bar {
     display: flex;
-    align-items: center;
-    gap: 12px;
   }
 }
 

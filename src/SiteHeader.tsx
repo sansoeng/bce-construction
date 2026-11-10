@@ -182,110 +182,117 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
         } ${activeMega ? "has-mega-open" : ""} ${isMobileOpen ? "is-menu-open" : ""}`}
         onMouseLeave={handleMouseLeaveNav}
       >
-        <div className="apple-nav-container">
-          {/* Logo on Left */}
-          <AppleLogo href={base || "/"} />
+        <div className="apple-nav-content">
+          {/* Desktop Navigation List: ALL content in ONE single list, exactly like apple.com */}
+          <ul className={`apple-nav-list ${activeMega ? "has-focus" : ""}`}>
+            {/* 1. BCE Logo */}
+            <li className="apple-nav-item apple-nav-item-logo">
+              <AppleLogo href={base || "/"} />
+            </li>
 
-          {/* Center Navigation Links (Dead-center alignment in container) */}
-          <nav className="apple-desktop-center" aria-label="Global">
-            <ul className={`apple-nav-list ${activeMega ? "has-focus" : ""}`}>
-              {/* About */}
-              <li
-                className="apple-nav-item"
-                onMouseEnter={() => handleMouseEnterItem(null)}
+            {/* 2. About */}
+            <li
+              className="apple-nav-item"
+              onMouseEnter={() => handleMouseEnterItem(null)}
+            >
+              <a
+                href={linkHref("/?about")}
+                className="apple-nav-link"
+                onClick={closeAll}
               >
-                <a
-                  href={linkHref("/?about")}
-                  className="apple-nav-link"
-                  onClick={closeAll}
-                >
-                  About
-                </a>
-              </li>
+                About
+              </a>
+            </li>
 
-              {/* Businesses (with Mega Menu) */}
-              <li
-                className={`apple-nav-item ${activeMega === "businesses" ? "is-active" : ""}`}
-                onMouseEnter={() => handleMouseEnterItem("businesses")}
+            {/* 3. Businesses (with Mega Menu) */}
+            <li
+              className={`apple-nav-item ${activeMega === "businesses" ? "is-active" : ""}`}
+              onMouseEnter={() => handleMouseEnterItem("businesses")}
+            >
+              <a
+                href={linkHref("/?businesses")}
+                className="apple-nav-link"
+                onClick={closeAll}
               >
-                <a
-                  href={linkHref("/?businesses")}
-                  className="apple-nav-link"
-                  onClick={closeAll}
-                >
-                  Businesses
-                </a>
-              </li>
+                Businesses
+              </a>
+            </li>
 
-              {/* Projects (with Mega Menu) */}
-              <li
-                className={`apple-nav-item ${activeMega === "projects" ? "is-active" : ""}`}
-                onMouseEnter={() => handleMouseEnterItem("projects")}
+            {/* 4. Projects (with Mega Menu) */}
+            <li
+              className={`apple-nav-item ${activeMega === "projects" ? "is-active" : ""}`}
+              onMouseEnter={() => handleMouseEnterItem("projects")}
+            >
+              <a
+                href={linkHref("/?projects")}
+                className="apple-nav-link"
+                onClick={closeAll}
               >
-                <a
-                  href={linkHref("/?projects")}
-                  className="apple-nav-link"
-                  onClick={closeAll}
-                >
-                  Projects
-                </a>
-              </li>
+                Projects
+              </a>
+            </li>
 
-              {/* Quality & Lab */}
-              <li
-                className="apple-nav-item"
-                onMouseEnter={() => handleMouseEnterItem(null)}
+            {/* 5. Quality & Lab */}
+            <li
+              className="apple-nav-item"
+              onMouseEnter={() => handleMouseEnterItem(null)}
+            >
+              <a
+                href={linkHref("/?quality")}
+                className="apple-nav-link"
+                onClick={closeAll}
               >
-                <a
-                  href={linkHref("/?quality")}
-                  className="apple-nav-link"
-                  onClick={closeAll}
-                >
-                  Quality & Lab
-                </a>
-              </li>
+                Quality & Lab
+              </a>
+            </li>
 
-              {/* Contact */}
-              <li
-                className="apple-nav-item"
-                onMouseEnter={() => handleMouseEnterItem(null)}
+            {/* 6. Contact */}
+            <li
+              className="apple-nav-item"
+              onMouseEnter={() => handleMouseEnterItem(null)}
+            >
+              <a
+                href={linkHref("#contact")}
+                className="apple-nav-link"
+                onClick={closeAll}
               >
-                <a
-                  href={linkHref("#contact")}
-                  className="apple-nav-link"
-                  onClick={closeAll}
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </nav>
+                Contact
+              </a>
+            </li>
 
-          {/* Right Action Utilities (Desktop) */}
-          <div className="apple-desktop-bar apple-nav-actions">
-            <LangSwitch />
-            <ArrowButton
-              href={linkHref("/?quote")}
-              label="Get a quote"
-              theme="raw"
-              className="text-white hover:text-white"
-              onClick={closeAll}
-            />
-          </div>
+            {/* 7. Language Switch */}
+            <li className="apple-nav-item apple-nav-item-lang">
+              <LangSwitch />
+            </li>
+
+            {/* 8. Get a quote (Unboxed Primary Button) */}
+            <li className="apple-nav-item apple-nav-item-quote">
+              <ArrowButton
+                href={linkHref("/?quote")}
+                label="Get a quote"
+                theme="raw"
+                className="text-white hover:text-white"
+                onClick={closeAll}
+              />
+            </li>
+          </ul>
 
           {/* Mobile Right Controls (< 834px) */}
           <div className="apple-mobile-bar">
-            <LangSwitch />
-            <button
-              type="button"
-              className={`apple-hamburger ${isMobileOpen ? "is-active" : ""}`}
-              aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
-              aria-expanded={isMobileOpen}
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-            >
-              <span className="apple-hamburger-line apple-hamburger-top" />
-              <span className="apple-hamburger-line apple-hamburger-bottom" />
-            </button>
+            <AppleLogo href={base || "/"} />
+            <div className="flex items-center gap-3">
+              <LangSwitch />
+              <button
+                type="button"
+                className={`apple-hamburger ${isMobileOpen ? "is-active" : ""}`}
+                aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
+                aria-expanded={isMobileOpen}
+                onClick={() => setIsMobileOpen(!isMobileOpen)}
+              >
+                <span className="apple-hamburger-line apple-hamburger-top" />
+                <span className="apple-hamburger-line apple-hamburger-bottom" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -456,71 +463,72 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
         onMouseLeave={handleMouseLeaveNav}
       >
         <div className="apple-floating-inner">
-          {/* BCE Logo (dark) */}
-          <AppleLogo href={base || "/"} dark={true} />
-
-          {/* Centered Navigation Links */}
-          <nav className="apple-floating-center" aria-label="Floating Global">
-            <ul className={`apple-floating-list ${activeMega ? "has-focus" : ""}`}>
-              <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
-                <a href={linkHref("/?about")} className="apple-floating-link" onClick={closeAll}>
-                  About
-                </a>
-              </li>
-              <li
-                className={`apple-floating-item ${activeMega === "businesses" ? "is-active" : ""}`}
-                onMouseEnter={() => handleMouseEnterItem("businesses")}
-              >
-                <a href={linkHref("/?businesses")} className="apple-floating-link" onClick={closeAll}>
-                  Businesses
-                </a>
-              </li>
-              <li
-                className={`apple-floating-item ${activeMega === "projects" ? "is-active" : ""}`}
-                onMouseEnter={() => handleMouseEnterItem("projects")}
-              >
-                <a href={linkHref("/?projects")} className="apple-floating-link" onClick={closeAll}>
-                  Projects
-                </a>
-              </li>
-              <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
-                <a href={linkHref("/?quality")} className="apple-floating-link" onClick={closeAll}>
-                  Quality & Lab
-                </a>
-              </li>
-              <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
-                <a href={linkHref("#contact")} className="apple-floating-link" onClick={closeAll}>
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          {/* Right Action Utilities (Desktop) */}
-          <div className="apple-floating-actions">
-            <LangSwitch dark={true} />
-            <ArrowButton
-              href={linkHref("/?quote")}
-              label="Get a quote"
-              theme="raw"
-              className="text-[#1d1d1f] hover:text-black font-semibold"
-              onClick={closeAll}
-            />
-          </div>
+          {/* Unified Navigation List centered inside floating capsule */}
+          <ul className={`apple-floating-list ${activeMega ? "has-focus" : ""}`}>
+            <li className="apple-floating-item apple-floating-item-logo">
+              <AppleLogo href={base || "/"} dark={true} />
+            </li>
+            <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
+              <a href={linkHref("/?about")} className="apple-floating-link" onClick={closeAll}>
+                About
+              </a>
+            </li>
+            <li
+              className={`apple-floating-item ${activeMega === "businesses" ? "is-active" : ""}`}
+              onMouseEnter={() => handleMouseEnterItem("businesses")}
+            >
+              <a href={linkHref("/?businesses")} className="apple-floating-link" onClick={closeAll}>
+                Businesses
+              </a>
+            </li>
+            <li
+              className={`apple-floating-item ${activeMega === "projects" ? "is-active" : ""}`}
+              onMouseEnter={() => handleMouseEnterItem("projects")}
+            >
+              <a href={linkHref("/?projects")} className="apple-floating-link" onClick={closeAll}>
+                Projects
+              </a>
+            </li>
+            <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
+              <a href={linkHref("/?quality")} className="apple-floating-link" onClick={closeAll}>
+                Quality & Lab
+              </a>
+            </li>
+            <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
+              <a href={linkHref("#contact")} className="apple-floating-link" onClick={closeAll}>
+                Contact
+              </a>
+            </li>
+            <li className="apple-floating-item apple-floating-item-lang">
+              <LangSwitch dark={true} />
+            </li>
+            <li className="apple-floating-item apple-floating-item-quote">
+              <ArrowButton
+                href={linkHref("/?quote")}
+                label="Get a quote"
+                theme="raw"
+                className="text-[#1d1d1f] hover:text-black font-semibold"
+                onClick={closeAll}
+              />
+            </li>
+          </ul>
 
           {/* Mobile Right Controls (< 834px) */}
           <div className="apple-floating-mobile-bar">
-            <LangSwitch dark={true} />
-            <button
-              type="button"
-              className={`apple-hamburger is-dark ${isMobileOpen ? "is-active" : ""}`}
-              aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
-              aria-expanded={isMobileOpen}
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-            >
-              <span className="apple-hamburger-line apple-hamburger-top" />
-              <span className="apple-hamburger-line apple-hamburger-bottom" />
-            </button>
+            <AppleLogo href={base || "/"} dark={true} />
+            <div className="flex items-center gap-3">
+              <LangSwitch dark={true} />
+              <button
+                type="button"
+                className={`apple-hamburger is-dark ${isMobileOpen ? "is-active" : ""}`}
+                aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
+                aria-expanded={isMobileOpen}
+                onClick={() => setIsMobileOpen(!isMobileOpen)}
+              >
+                <span className="apple-hamburger-line apple-hamburger-top" />
+                <span className="apple-hamburger-line apple-hamburger-bottom" />
+              </button>
+            </div>
           </div>
         </div>
 
