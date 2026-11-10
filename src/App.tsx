@@ -65,7 +65,7 @@ function HeroLatestNews() {
         target="_blank"
         rel="noopener noreferrer"
         download="BCE_Corporate_Profile_2026.pdf"
-        className="c-hero-card group flex w-full flex-row gap-3 rounded-lg bg-black/30 p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
+        className="c-hero-card group flex w-full flex-row gap-3 rounded-lg p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
         data-hero-home="card"
       >
         <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-sm shrink-0">
