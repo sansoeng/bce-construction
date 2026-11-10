@@ -1,5 +1,5 @@
-/* Khmer: Kantumruy Pro & Noto Sans Khmer (contemporary sans-serif) + Noto Serif Khmer from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600&display=swap');
+/* Khmer: Nokora (contemporary sans-serif), Kantumruy Pro & Noto Sans Khmer + Noto Serif Khmer from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Nokora:wght@100;300;400;700;900&family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600&display=swap');
 @import 'tailwindcss';
 
 @font-face {
@@ -43,13 +43,13 @@
 }
 
 @theme {
-  --font-sans: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", ui-monospace, monospace;
+  --font-sans: "Aeonik Pro", "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Aeonik Mono", "Nokora", "Kantumruy Pro", "Noto Sans Khmer", ui-monospace, monospace;
 }
 
 @layer base {
   html { scroll-behavior: auto; }
-  body { font-family: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { font-family: "Aeonik Pro", "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   h1, h2, h3 { text-wrap: balance; }
   h1, h2 { font-weight: 500; }
   p { text-wrap: pretty; }
@@ -267,7 +267,7 @@
 /* Fluid Glass (fluid.glass) buttons, floating header and menu. Sizes are Fluid's (its rem is 10px), so in px here.
    Easings are GSAP's power3 in / out / inOut. */
 :root {
-  --font-ui-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", ui-monospace, monospace;
+  --font-ui-mono: "Aeonik Mono", "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", ui-monospace, monospace;
   --p3-in: cubic-bezier(.32, 0, .67, 0);
   --p3-out: cubic-bezier(.33, 1, .68, 1);
   --p3-io: cubic-bezier(.65, 0, .35, 1);
@@ -1871,9 +1871,13 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 }
 
 /* Khmer language typography enhancements for Apple Global Nav */
+.font-khmer {
+  font-family: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", sans-serif !important;
+}
+
 html[lang="km"] .apple-header,
 html[lang="km"] .apple-floating-nav {
-  font-family: "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans);
+  font-family: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans);
 }
 
 html[lang="km"] .apple-nav-link,
@@ -2518,7 +2522,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   opacity: 0.3;
   font-size: 10px;
 }
-.fx-lang-km { font-family: "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", sans-serif; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+.fx-lang-km { font-family: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", sans-serif; letter-spacing: 0; font-size: 13px; font-weight: 500; }
 
 /* Header and menu language elements */
 .fg-right-group {
@@ -2566,9 +2570,9 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 /* Khmer mode (src/i18n.ts). Khmer clusters stack vowels and subscripts above and below the line, so: no negative
    tracking, taller line boxes for the tight display type, room in the reveal masks and in the rolling button labels. */
 html[lang="km"] {
-  --font-sans: "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", "Aeonik Pro", sans-serif;
-  --font-mono: "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
-  --font-ui-mono: "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
+  --font-sans: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", "Aeonik Pro", sans-serif;
+  --font-mono: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
+  --font-ui-mono: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -2601,7 +2605,7 @@ html[lang="km"] .fg-btn {
   line-height: 20px;
 }
 html[lang="km"] .fg-btn.is-glass {
-  font-family: "Kantumruy Pro", "Noto Sans Khmer", var(--font-mono);
+  font-family: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", var(--font-mono);
   font-size: 13px;
   letter-spacing: 0;
   line-height: 18px;
@@ -2662,7 +2666,7 @@ html[lang="km"] .vt-mask {
 .fx-lang button { opacity: .45; transition: opacity .3s ease; }
 .fx-lang button.is-active { opacity: 1; }
 @media (hover: hover) { .fx-lang button:hover { opacity: 1; } }
-.fx-lang-km { font-family: "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", sans-serif; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+.fx-lang-km { font-family: "Nokora", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", sans-serif; letter-spacing: 0; font-size: 13px; font-weight: 500; }
 .fx-quote { display: flex; align-items: center; }
 .fg-lang { display: flex; gap: 1rem; margin: 6px 0 22px; color: #fff; font-family: var(--font-ui-mono); font-size: 12px; }
 .fg-lang button { opacity: .45; } .fg-lang button.is-active { opacity: 1; }
