@@ -83,6 +83,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeMega, setActiveMega] = useState<"businesses" | "projects" | null>(null);
   const [mobileAccordion, setMobileAccordion] = useState<"businesses" | "projects" | null>(null);
+  const [showSubnav, setShowSubnav] = useState(false);
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
   const headerRef = useRef<HTMLElement>(null);
   const closeTimeout = useRef<number | null>(null);
@@ -92,6 +93,18 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
     revealListeners.add(handleReveal);
     return () => {
       revealListeners.delete(handleReveal);
+    };
+  }, []);
+
+  // Listen to window scroll to show/hide the secondary navigation ribbon
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowSubnav(window.scrollY > 160);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -425,6 +438,36 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           )}
         </div>
       </header>
+
+      {/* Apple Secondary Navigation Ribbon on Scroll (from reference image) */}
+      <div
+        className={`apple-subnav-ribbon ${
+          showSubnav && !activeMega && !isMobileOpen ? "is-visible" : ""
+        }`}
+        aria-label="Secondary navigation"
+      >
+        <div className="apple-subnav-inner">
+          <div className="apple-subnav-title">
+            <span>BCE., Ltd.</span>
+          </div>
+          <div className="apple-subnav-actions">
+            <a
+              href={linkHref("/?businesses")}
+              className="apple-subnav-btn-explore"
+              onClick={closeAll}
+            >
+              Explore
+            </a>
+            <a
+              href={linkHref("/?quote")}
+              className="apple-subnav-btn-buy"
+              onClick={closeAll}
+            >
+              Get a quote
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* Full-Page Backdrop Scrim (Dims page when mega menu is open) */}
       <div

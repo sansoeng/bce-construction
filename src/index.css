@@ -952,7 +952,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   --apple-nav-muted: #86868b;
   --apple-nav-blue: #0071e3;
   --apple-nav-blue-hover: #0077ed;
-  --apple-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --apple-ease-out: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -973,7 +973,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   font-weight: 400;
   letter-spacing: -0.01em;
   color: var(--apple-nav-text);
-  transition: background-color 0.3s var(--apple-ease), transform 0.6s var(--apple-ease), opacity 0.6s ease;
+  transition: background-color 0.35s var(--apple-ease), transform 0.6s var(--apple-ease), opacity 0.6s ease;
 }
 
 .apple-header.is-menu-open,
@@ -1008,6 +1008,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   text-decoration: none;
   opacity: 0.9;
   transition: opacity 0.25s var(--apple-ease-out);
+  flex-shrink: 0;
 }
 
 .apple-logo:hover {
@@ -1027,18 +1028,21 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   color: #ffffff;
 }
 
-/* Desktop Navigation List */
+/* Desktop Navigation List - Aligned in the middle */
 .apple-desktop-bar {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex: 1;
   height: 100%;
 }
 
 .apple-nav-list {
   display: flex;
   align-items: center;
+  justify-content: center;
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   gap: 36px;
   height: 100%;
@@ -1087,6 +1091,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
   margin-left: 20px;
 }
 
@@ -1158,7 +1163,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 }
 
 /* ==========================================================================
-   Apple Mega-Menu Dropdown (Desktop)
+   Apple Mega-Menu Dropdown (Desktop) - Shadow removed & Centered
    ========================================================================== */
 .apple-mega-menu {
   position: absolute;
@@ -1166,36 +1171,45 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   left: 0;
   width: 100%;
   background-color: var(--apple-nav-bg-expanded);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(35px) saturate(190%);
+  -webkit-backdrop-filter: blur(35px) saturate(190%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none !important;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: max-height 0.4s var(--apple-ease), opacity 0.3s var(--apple-ease), visibility 0.4s;
+  transform: translateY(-6px);
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.45s;
   z-index: 99;
 }
 
 .apple-mega-menu.is-open {
-  max-height: 480px;
+  max-height: 520px;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transform: translateY(0);
 }
 
 .apple-mega-inner {
-  max-width: 980px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 40px 24px 44px;
+  display: flex;
+  justify-content: center;
 }
 
 .apple-mega-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1.3fr 1.3fr;
-  gap: 36px;
+  grid-template-columns: 260px 280px 280px;
+  gap: 48px;
+  justify-content: center;
+  width: 100%;
 }
 
 .apple-mega-col h3 {
@@ -1290,17 +1304,17 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   line-height: 1.4;
 }
 
-/* Backdrop Scrim (dimming whole site behind mega menu) */
+/* Backdrop Scrim (dimming whole site behind mega menu with soft blur) */
 .apple-scrim {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.48);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.35s var(--apple-ease), visibility 0.35s;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
   z-index: 90;
 }
 
@@ -1308,6 +1322,159 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+/* ==========================================================================
+   Apple Secondary Navigation Ribbon (Local Nav on Scroll)
+   ========================================================================== */
+.apple-subnav-ribbon {
+  position: fixed;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  width: calc(100% - 32px);
+  max-width: 920px;
+  z-index: 95;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.4s;
+}
+
+.apple-subnav-ribbon.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.apple-subnav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 18px 0 22px;
+  border-radius: 980px;
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.apple-subnav-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #1d1d1f;
+}
+
+.apple-subnav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.apple-subnav-btn-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 980px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #1d1d1f;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.apple-subnav-btn-explore:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.4);
+  transform: scale(1.02);
+}
+
+.apple-subnav-btn-buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 16px;
+  border-radius: 980px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  background-color: var(--apple-nav-blue);
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 113, 227, 0.3);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.apple-subnav-btn-buy:hover {
+  background-color: var(--apple-nav-blue-hover);
+  transform: scale(1.02);
+}
+
+.apple-subnav-btn-buy:active,
+.apple-subnav-btn-explore:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .apple-subnav-ribbon {
+    top: 50px;
+    width: calc(100% - 20px);
+  }
+  .apple-subnav-inner {
+    height: 44px;
+    padding: 0 14px 0 18px;
+  }
+  .apple-subnav-title {
+    font-size: 13.5px;
+  }
+  .apple-subnav-btn-explore {
+    height: 26px;
+    padding: 0 11px;
+    font-size: 11px;
+  }
+  .apple-subnav-btn-buy {
+    height: 26px;
+    padding: 0 13px;
+    font-size: 11px;
+  }
+}
+
+/* ==========================================================================
+   Wolverine Worldwide-inspired Hero Latest News Widget (wolverineworldwide.com)
+   ========================================================================== */
+.hero-news-card {
+  position: relative;
+  background: rgba(18, 22, 28, 0.76);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-news-card:hover {
+  border-color: rgba(255, 255, 255, 0.26);
+  transform: translateY(-2px);
 }
 
 /* ==========================================================================

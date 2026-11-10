@@ -57,19 +57,102 @@ const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
-// Hero copy: Slogan and View Projects CTA
-function HeroCopy() {
+const HERO_NEWS = [
+  {
+    badge: "Landmark Project",
+    title: "BCE Completes High-Strength Foundation Piling for Borey Peng Huoth",
+    excerpt: "Over 1,200 spun concrete piles driven with hydraulic precision rigs.",
+    date: "2025–2026",
+    href: "/?projects#piling",
+  },
+  {
+    badge: "Fleet Dispatch",
+    title: "41 Ready-Mix Mixers & 8 Boom Pumps Active Across 14 Provinces",
+    excerpt: "24/7 site pouring dispatch maintaining 480 m³/h production capacity.",
+    date: "Active Dispatch",
+    href: "/?businesses#batching-plants",
+  },
+  {
+    badge: "Quality Lab",
+    title: "In-House Lab Certified with DYE-2000 Automated Compression Testing",
+    excerpt: "Real-time slump cone verification and 28-day break tests compliant with ACI 211.1.",
+    date: "Certified Standards",
+    href: "/?quality",
+  },
+];
+
+function HeroLatestNews() {
+  const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % HERO_NEWS.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  const item = HERO_NEWS[current];
+
   return (
-    <div>
-      <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.04] tracking-[-.025em] text-white">
-        <span className="md:block">Building on Strength.</span> <span className="md:block">Delivering with Trust.</span>
-      </h1>
-      <div className="mt-6 md:mt-8">
-        <a href="/?projects" className="apple-hero-btn">
-          <span>View projects</span>
-          <svg viewBox="0 0 10 16" className="size-2.5 stroke-current fill-none stroke-[2] translate-y-[0.5px]" aria-hidden>
-            <path d="M1 1l6 7-6 7" />
-          </svg>
+    <div
+      className="hero-news-card group select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="flex items-center justify-between gap-3 pb-2.5 border-b border-white/10">
+        <div className="flex items-center gap-2">
+          <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-mono tracking-wider uppercase text-white/90">
+            <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Latest Update
+          </span>
+          <span className="text-[11px] font-mono text-white/40 uppercase">{item.date}</span>
+        </div>
+
+        {/* Carousel Prev / Next Controls */}
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            className="size-6 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer text-sm"
+            aria-label="Previous update"
+            onClick={() => setCurrent((prev) => (prev - 1 + HERO_NEWS.length) % HERO_NEWS.length)}
+          >
+            ‹
+          </button>
+          <span className="text-[10px] font-mono text-white/40">
+            {current + 1}/{HERO_NEWS.length}
+          </span>
+          <button
+            type="button"
+            className="size-6 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer text-sm"
+            aria-label="Next update"
+            onClick={() => setCurrent((prev) => (prev + 1) % HERO_NEWS.length)}
+          >
+            ›
+          </button>
+        </div>
+      </div>
+
+      <div className="pt-2.5">
+        <span className="text-[10.5px] font-mono uppercase tracking-wider text-sky-400 font-medium">
+          {item.badge}
+        </span>
+        <a
+          href={item.href}
+          className="block mt-1 text-[13.5px] md:text-[14.5px] font-medium text-white/95 leading-snug hover:text-sky-300 transition-colors line-clamp-2"
+        >
+          {item.title}
+        </a>
+        <p className="mt-1 text-[11.5px] text-white/60 line-clamp-2 leading-relaxed">
+          {item.excerpt}
+        </p>
+        <a
+          href={item.href}
+          className="inline-flex items-center gap-1.5 mt-2.5 text-[11px] font-mono tracking-wide text-white/80 hover:text-white transition-colors uppercase"
+        >
+          <span>View story</span>
+          <span className="text-sky-400">›</span>
         </a>
       </div>
     </div>
@@ -389,9 +472,25 @@ function App() {
         </div>
         <div data-hero-copy className="hero-scrim absolute inset-0" />
       </div>
-      <div data-hero-copy className="fixed bottom-5 left-5 z-30 text-white md:bottom-8 md:left-8"><a href="#about" data-split="content" data-split-manual="0.2" className="hero-scroll text-white/60">[Scroll down]</a></div>
-      <div data-hero-copy className="hero-copy-wrap fixed bottom-12 left-5 right-5 z-30 text-white md:bottom-8 md:right-8 md:left-auto md:w-[46rem] md:max-w-[calc(100vw-2.5rem)]">
-        <HeroCopy />
+      {/* Hero Banner Bottom Section: Left has Wolverine Worldwide Latest News, Right has Title */}
+      <div
+        data-hero-copy
+        className="hero-copy-wrap fixed bottom-8 left-5 right-5 z-30 pointer-events-none md:bottom-10 md:left-8 md:right-8"
+      >
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12 pointer-events-auto">
+          {/* Left: Latest News widget (wolverineworldwide.com) */}
+          <div className="w-full md:max-w-[420px]">
+            <HeroLatestNews />
+          </div>
+
+          {/* Right: Slogan Title */}
+          <div className="w-full md:max-w-[560px] text-left md:text-right">
+            <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.2rem,4.5vw,4.2rem)] leading-[1.04] tracking-[-.025em] text-white">
+              <span className="block">Building on Strength.</span>{" "}
+              <span className="block">Delivering with Trust.</span>
+            </h1>
+          </div>
+        </div>
       </div>
 
       <div className="relative">
