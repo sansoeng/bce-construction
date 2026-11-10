@@ -1,5 +1,5 @@
 /* Khmer: Nokora (contemporary sans-serif), Kantumruy Pro & Noto Sans Khmer + Noto Serif Khmer from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Nokora:wght@100;300;400;700;900&family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nokora:wght@300;400;500;600;700;800;900&family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600&display=swap');
 @import 'tailwindcss';
 
 @font-face {
@@ -2583,13 +2583,27 @@ html[lang="km"] body {
 html[lang="km"], html[lang="km"] * {
   letter-spacing: 0 !important;
 }
+/* All titles, headlines and headings in Khmer set to SemiBold 600 */
 html[lang="km"] :is(
-  h1, h2, h3, h4,
-  .hero-title, .about-title, .pd-title, .pd-h2, .pp-heading, .pp-lead, .pp-heading2, .pp-name, .pp-foot-name,
-  .offer-title, .vt-line, .qc-title, .kp-title, .wb-heading, .pl-terms, .pd-statement, .pd-outcome, .pp-column,
-  .ol-hero-title, .ol-lead-copy, .ol-tm-title, .ol-onboard-heading, .ol-h2, .ol-lwc-copy, .ol-dialog-title, .ol-dialog-headline,
-  .ac-title, .ab-msg-text, .qf-tile-name, .qf-shapes, .qx-step-title, .qp-title
-) {
+  h1, h2, h3, h4, h5, h6,
+  [data-split],
+  [data-about-title],
+  [data-hero-title],
+  [data-vision-title],
+  .hero-title, .about-title, .vision-title, .vt-line, .offer-title, .kp-title, .qc-title,
+  .wb-heading, .wb-eyebrow, .pd-title, .pd-h2, .pp-heading, .pp-lead, .pp-heading2, .pp-name,
+  .pp-foot-name, .ol-hero-title, .ol-hl-title, .ol-tm-title, .ol-onboard-heading, .ol-h2,
+  .ol-dialog-title, .ol-dialog-headline, .ol-slide-title, .ac-title, .ab-story-title,
+  .ab-tile-title, .abz-title, .abv-card-title, .qh-grade-name, .qf-tile-name,
+  .qx-step-title, .qp-title, .apple-mega-big-link, .apple-mobile-link, .apple-mega-col h3
+),
+html[lang="km"] :is(
+  h1, h2, h3, h4, h5, h6,
+  .hero-title, .about-title, .vision-title, .offer-title, .kp-title, .qc-title,
+  .pd-title, .pd-h2, .ol-hero-title, .ol-hl-title, .ol-tm-title, .ol-onboard-heading, .ol-h2,
+  .ac-title, .ab-tile-title, .abz-title
+) :is(span, a, .sw, .sw-i) {
+  font-weight: 600 !important;
   line-height: 1.45 !important;
 }
 html[lang="km"] .split .sw {
@@ -2866,7 +2880,7 @@ html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; 
 .ol-hero-title { grid-column: 1 / span 8; font-size: clamp(2.75rem, 6.2vw, 6.5rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; color: #fff; }
 @media (max-width: 1023px) { .ol-hero-title { grid-column: 1 / span 10; } }
 @media (max-width: 519px) { .ol-hero { --ot: 59svh; } .ol-hero-title { grid-column: 1 / -1; } }
-html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .ol-onboard-heading { line-height: 1.4; }
+html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .ol-onboard-heading { line-height: 1.4; font-weight: 600 !important; }
 
 /* What we do */
 .ol-lwc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); padding: 48px var(--olm) 0; }
@@ -3188,7 +3202,7 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   font-size: clamp(2.1rem, 4.4vw, 4.6rem); font-weight: 500; line-height: 1.05; letter-spacing: -.03em; }
 .abz-word { display: inline-block; white-space: nowrap; }
 .abz-char { opacity: .0001; }
-html[lang="km"] .abz-title { line-height: 1.45; }
+html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 @media (max-width: 1100px) { .abz { height: 200vh; } }
 .abz.is-static { height: auto; }
 .abz.is-static .abz-rows { transform: scale(.51); }
