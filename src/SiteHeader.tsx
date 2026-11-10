@@ -1,54 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import ArrowButton from "./ArrowButton";
 import { getLang, setLang } from "./i18n";
 
 /**
- * Authentic Sharplink-style navigation (https://www.sharplink.com/):
- * - Fixed full-width header (pointer-events-none)
- * - Left: Floating brand logo (height: 34px, 3-layer isometric mark + "BCE., Ltd.")
- *   Always pure white as specified.
- * - Right: Desktop menu with individual floating buttons separated by exact 2px gaps:
- *   - Each button has height: 34px, rounded-[2px], rolling text twins on hover
- *   - Slower, organic, luxurious ease-in and ease-out transitions
- *   - Links: ABOUT, BUSINESSES ⌵, PROJECTS ⌵, QUALITY & LAB, COVERAGE, CONTACT
- *   - Language switch button (EN | ខ្មែរ)
- *   - Quotation primary button (Sharplink action button with text pill + attached arrow box)
- * - Mobile: Compact 34px buttons (Language, Quote, Hamburger drawer toggle)
+ * Official Apple Global Navigation System (https://www.apple.com/):
+ * - Fixed 44px top bar with dark frosted glass (rgba(22, 22, 23, 0.8) + saturate(180%) blur(20px))
+ * - Bottom border: 1px solid rgba(255, 255, 255, 0.08)
+ * - Centered 1024px max-width container with distributed links
+ * - Clean Apple typography (12px, font-weight 400, letter-spacing -0.01em)
+ * - Signature Apple focus dimming: non-hovered items dim to opacity 0.45
+ * - Full-width Mega-Menu dropdowns for "Businesses" and "Projects" with 3-column layout
+ * - Full-page backdrop scrim that dims the page content when mega menu is open
+ * - Mobile (< 834px): 44px bar with 2-line morphing hamburger to 'X', full-screen frosted glass overlay,
+ *   cascading staggered link animations, expandable accordions, and quick action hotlines
  */
-
-const GlobeIcon = () => (
-  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="fx-lang-icon shrink-0">
-    <circle cx="12" cy="12" r="10" />
-    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-    <path d="M2 12h20" />
-  </svg>
-);
-
-function LangSwitch({ className = "" }: { className?: string }) {
-  const lang = getLang();
-  return (
-    <div className={`inline-flex items-center gap-1.5 text-[11px] font-mono select-none ${className}`} data-no-translate>
-      <GlobeIcon />
-      <button
-        type="button"
-        className={`transition-colors cursor-pointer ${lang === "en" ? "font-bold text-white" : "text-white/40 hover:text-white"}`}
-        aria-pressed={lang === "en"}
-        onClick={() => setLang("en")}
-      >
-        EN
-      </button>
-      <span className="text-white/30">|</span>
-      <button
-        type="button"
-        className={`transition-colors cursor-pointer font-khmer ${lang === "km" ? "font-bold text-white" : "text-white/40 hover:text-white"}`}
-        aria-pressed={lang === "km"}
-        onClick={() => setLang("km")}
-      >
-        ខ្មែរ
-      </button>
-    </div>
-  );
-}
 
 const revealListeners = new Set<() => void>();
 let globalRevealed = false;
@@ -58,138 +22,70 @@ export function revealHeader() {
   revealListeners.forEach((fn) => fn());
 }
 
-const EXPERTISES_SUB = [
-  ["Ready-Mix Concrete", "/?businesses#ready-mix-concrete"],
-  ["Foundation Piling", "/?businesses#piling"],
-  ["Civil Construction", "/?businesses#construction"],
-  ["Concrete Slab Works", "/?businesses#concrete-slab-works"],
-  ["Equipment Rental", "/?businesses#equipment-rental"],
-];
+// Backwards compatibility export if needed
+export function SharplinkButton() {
+  return null;
+}
 
-const PROJECTS_SUB = [
-  ["All Projects", "/?projects"],
-  ["Industrial & Commercial", "/?projects#industrial"],
-  ["Infrastructure & Roads", "/?projects#infrastructure"],
-  ["Foundation Piling", "/?projects#piling"],
-];
-
-function NavButton({
-  href,
-  label,
-  hasDropdown,
-  isOpen,
-  onClick,
-  onMouseEnter,
-  onMouseLeave,
-}: {
-  href: string;
-  label: string;
-  hasDropdown?: boolean;
-  isOpen?: boolean;
-  onClick?: (e: React.MouseEvent) => void;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-}) {
+function AppleLogo({ href = "/" }: { href?: string }) {
   return (
     <a
       href={href}
-      className="sl-btn"
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      className="apple-logo select-none"
+      aria-label="BCE., Ltd. home"
     >
-      <span className="sl-btn-roll">
-        <span className="flex items-center gap-1.5">
-          <span>{label}</span>
-          {hasDropdown && (
-            <svg
-              viewBox="0 0 10 6"
-              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-300 ${
-                isOpen ? "rotate-180" : ""
-              }`}
-              aria-hidden
-            >
-              <path d="M1 1l4 4 4-4" />
-            </svg>
-          )}
-        </span>
-        <span className="flex items-center gap-1.5" aria-hidden>
-          <span>{label}</span>
-          {hasDropdown && (
-            <svg
-              viewBox="0 0 10 6"
-              className={`size-2 stroke-current fill-none stroke-[1.5] transition-transform duration-300 ${
-                isOpen ? "rotate-180" : ""
-              }`}
-              aria-hidden
-            >
-              <path d="M1 1l4 4 4-4" />
-            </svg>
-          )}
-        </span>
-      </span>
+      <svg
+        viewBox="0 0 24 24"
+        className="apple-logo-icon stroke-current fill-none stroke-[1.8] transition-transform duration-300"
+        aria-hidden
+      >
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>
+      <span className="apple-logo-text">BCE</span>
     </a>
   );
 }
 
-/**
- * Sharplink-style compound action button:
- * - Text pill with rolling twin label
- * - Attached square arrow box with matching rolling twin arrow
- * - Same borderless dark translucent glass background
- * - Slower, organic, smooth easing in and out
- */
-export function SharplinkButton({
-  href,
-  label,
-  className = "",
-  onClick,
-}: {
-  href: string;
-  label: string;
-  className?: string;
-  onClick?: () => void;
-}) {
+function LangSwitch() {
+  const lang = getLang();
   return (
-    <a
-      href={href}
-      onClick={onClick}
-      className={`sl-btn-compound group ${className}`}
-    >
-      <span className="sl-btn sl-btn-text">
-        <span className="sl-btn-roll">
-          <span>{label}</span>
-          <span aria-hidden>{label}</span>
-        </span>
-      </span>
-      <span className="sl-btn sl-btn-icon" aria-hidden>
-        <span className="sl-btn-roll">
-          <svg viewBox="0 0 16 16" className="size-3.5 stroke-current fill-none stroke-[1.8]" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 8h10M9 4l4 4-4 4" />
-          </svg>
-          <svg viewBox="0 0 16 16" className="size-3.5 stroke-current fill-none stroke-[1.8]" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 8h10M9 4l4 4-4 4" />
-          </svg>
-        </span>
-      </span>
-    </a>
+    <div className="apple-lang-switch select-none" data-no-translate>
+      <button
+        type="button"
+        className={`apple-lang-btn ${lang === "en" ? "is-current" : ""}`}
+        aria-pressed={lang === "en"}
+        onClick={() => setLang("en")}
+      >
+        EN
+      </button>
+      <span className="apple-lang-divider">/</span>
+      <button
+        type="button"
+        className={`apple-lang-btn font-khmer ${lang === "km" ? "is-current" : ""}`}
+        aria-pressed={lang === "km"}
+        onClick={() => setLang("km")}
+      >
+        ខ្មែរ
+      </button>
+    </div>
   );
 }
 
-export default function SiteHeader({
-  phones,
-  tel,
-  base = "",
-}: {
+interface SiteHeaderProps {
   phones: string[];
   tel: (n: string) => string;
   base?: string;
-}) {
-  const [open, setOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+}
+
+export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [activeMega, setActiveMega] = useState<"businesses" | "projects" | null>(null);
+  const [mobileAccordion, setMobileAccordion] = useState<"businesses" | "projects" | null>(null);
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
   const headerRef = useRef<HTMLElement>(null);
-  const dropdownTimeout = useRef<number | null>(null);
+  const closeTimeout = useRef<number | null>(null);
 
   useEffect(() => {
     const handleReveal = () => setIsIn(true);
@@ -199,43 +95,58 @@ export default function SiteHeader({
     };
   }, []);
 
-  // Close menus on Escape or outside click
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        setOpenDropdown(null);
-      }
-    };
-    const onDown = (e: PointerEvent) => {
-      const target = e.target as Node;
-      if (!headerRef.current?.contains(target)) {
-        setOpen(false);
-        setOpenDropdown(null);
-      }
-    };
-    addEventListener("keydown", onKey);
-    addEventListener("pointerdown", onDown);
+    if (isMobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
     return () => {
-      removeEventListener("keydown", onKey);
-      removeEventListener("pointerdown", onDown);
+      document.body.style.overflow = "";
+    };
+  }, [isMobileOpen]);
+
+  // Handle ESC and click outside
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveMega(null);
+        setIsMobileOpen(false);
+      }
+    };
+
+    const handlePointerDown = (e: PointerEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setActiveMega(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("pointerdown", handlePointerDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("pointerdown", handlePointerDown);
     };
   }, []);
 
-  const handleMouseEnter = (name: string) => {
-    if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
-    setOpenDropdown(name);
+  const handleMouseEnterItem = (name: "businesses" | "projects" | null) => {
+    if (closeTimeout.current) {
+      clearTimeout(closeTimeout.current);
+      closeTimeout.current = null;
+    }
+    setActiveMega(name);
   };
 
-  const handleMouseLeave = () => {
-    dropdownTimeout.current = window.setTimeout(() => {
-      setOpenDropdown(null);
-    }, 180);
+  const handleMouseLeaveNav = () => {
+    closeTimeout.current = window.setTimeout(() => {
+      setActiveMega(null);
+    }, 200);
   };
 
   const closeAll = () => {
-    setOpen(false);
-    setOpenDropdown(null);
+    setActiveMega(null);
+    setIsMobileOpen(false);
   };
 
   const linkHref = (path: string) => {
@@ -244,225 +155,434 @@ export default function SiteHeader({
   };
 
   return (
-    <header
-      ref={headerRef}
-      data-nav
-      className={`sl-header ${
-        isIn ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"
-      }`}
-    >
-      <div className="sl-navbar">
-        {/* Left: Floating Brand Logo - Always pure white with subtle shadow */}
-        <a
-          href={base || "/"}
-          className="sl-logo group select-none text-white"
-          aria-label="BCE., Ltd. home"
-          onClick={closeAll}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            className="size-5 shrink-0 stroke-current fill-none stroke-[1.8] transition-transform duration-300 group-hover:scale-105"
-            aria-hidden
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5z" />
-            <path d="M2 17l10 5 10-5" />
-            <path d="M2 12l10 5 10-5" />
-          </svg>
-          <span className="text-[1.15rem] md:text-[1.25rem] font-bold tracking-tight font-sans text-white">
-            BCE., Ltd.
-          </span>
-        </a>
+    <>
+      <header
+        ref={headerRef}
+        data-nav
+        className={`apple-header ${isIn ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"} ${
+          activeMega ? "has-mega-open" : ""
+        } ${isMobileOpen ? "is-menu-open" : ""}`}
+        onMouseLeave={handleMouseLeaveNav}
+      >
+        <div className="apple-nav-container">
+          {/* Logo on Left */}
+          <AppleLogo href={base || "/"} />
 
-        {/* Right: Desktop Sharplink Navigation Menu (Exact 2px gap between buttons) */}
-        <nav className="hidden lg:flex sl-menu" aria-label="Main navigation">
-          <NavButton
-            href={linkHref("/?about")}
-            label="About"
-          />
-
-          {/* Businesses Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter("businesses")}
-            onMouseLeave={handleMouseLeave}
-          >
-            <NavButton
-              href={linkHref("/?businesses")}
-              label="Businesses"
-              hasDropdown
-              isOpen={openDropdown === "businesses"}
-            />
-
-            {openDropdown === "businesses" && (
-              <div className="absolute top-[calc(100%+4px)] left-0 min-w-[220px] z-50">
-                <div className="p-1.5 rounded-[3px] shadow-[0_16px_40px_rgba(0,0,0,0.6)] flex flex-col gap-0.5 bg-[#161a20]/98 backdrop-blur-2xl border border-white/10 text-white">
-                  {EXPERTISES_SUB.map(([title, href]) => (
-                    <a
-                      key={title}
-                      href={linkHref(href)}
-                      onClick={closeAll}
-                      className="px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 flex items-center justify-between"
-                    >
-                      <span>{title}</span>
-                      <span className="opacity-40 text-[10px]">→</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Projects Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter("projects")}
-            onMouseLeave={handleMouseLeave}
-          >
-            <NavButton
-              href={linkHref("/?projects")}
-              label="Projects"
-              hasDropdown
-              isOpen={openDropdown === "projects"}
-            />
-
-            {openDropdown === "projects" && (
-              <div className="absolute top-[calc(100%+4px)] left-0 min-w-[220px] z-50">
-                <div className="p-1.5 rounded-[3px] shadow-[0_16px_40px_rgba(0,0,0,0.6)] flex flex-col gap-0.5 bg-[#161a20]/98 backdrop-blur-2xl border border-white/10 text-white">
-                  {PROJECTS_SUB.map(([title, href]) => (
-                    <a
-                      key={title}
-                      href={linkHref(href)}
-                      onClick={closeAll}
-                      className="px-3 py-2 text-[11.5px] font-mono tracking-normal rounded-[2px] text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200 flex items-center justify-between"
-                    >
-                      <span>{title}</span>
-                      <span className="opacity-40 text-[10px]">→</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <NavButton
-            href={linkHref("/?quality")}
-            label="Quality & Lab"
-          />
-
-          <NavButton
-            href={linkHref("#contact")}
-            label="Contact"
-          />
-
-          {/* Language Switch Button (Exact same background) */}
-          <div className="sl-btn !px-2.5">
-            <LangSwitch />
-          </div>
-
-          {/* Action button: BCE signature ArrowButton with matching dark glass background */}
-          <ArrowButton
-            href={linkHref("/?quote")}
-            label="Get a quote"
-            theme="glass"
-            onClick={closeAll}
-          />
-        </nav>
-
-        {/* Right: Mobile Navigation (< 1024px, 2px gap) */}
-        <div className="lg:hidden flex items-center gap-[2px] pointer-events-auto">
-          <div className="sl-btn !px-2.5">
-            <LangSwitch />
-          </div>
-          <ArrowButton
-            href={linkHref("/?quote")}
-            label="Quote"
-            theme="glass"
-            onClick={closeAll}
-          />
-          <button
-            type="button"
-            className="sl-btn !w-[34px] !px-0 justify-center"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-          >
-            {open ? (
-              <svg viewBox="0 0 14 14" className="size-3.5 stroke-current fill-none stroke-[1.8]" aria-hidden>
-                <path d="M1 1l12 12M13 1L1 13" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 18 12" className="size-3.5 stroke-current fill-none stroke-[1.8]" aria-hidden>
-                <path d="M0 1h18M0 6h18M0 11h18" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Accordion Drawer */}
-      {open && (
-        <div className="pointer-events-auto lg:hidden mt-2 p-5 rounded-[4px] bg-[#14171c]/98 backdrop-blur-2xl border border-white/12 shadow-[0_16px_50px_rgba(0,0,0,0.7)] flex flex-col gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10">
-            <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-white/50">Menu Navigation</span>
-            <LangSwitch className="text-white" />
-          </div>
-
-          <nav className="flex flex-col gap-2 font-mono text-[13px] uppercase tracking-[0.06em]">
-            <a
-              href={linkHref("/?about")}
-              onClick={closeAll}
-              className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/5 rounded transition-colors"
-            >
-              About BCE
-            </a>
-            <div className="flex flex-col gap-1 pl-3 border-l border-white/10 my-1">
-              <span className="px-3 py-1 text-[11px] text-white/40 font-mono uppercase">Core Expertises</span>
-              {EXPERTISES_SUB.map(([title, href]) => (
+          {/* Desktop Navigation Links (Evenly distributed Apple style) */}
+          <nav className="apple-desktop-bar" aria-label="Global">
+            <ul className={`apple-nav-list ${activeMega ? "has-focus" : ""}`}>
+              {/* About */}
+              <li
+                className="apple-nav-item"
+                onMouseEnter={() => handleMouseEnterItem(null)}
+              >
                 <a
-                  key={title}
-                  href={linkHref(href)}
+                  href={linkHref("/?about")}
+                  className="apple-nav-link"
                   onClick={closeAll}
-                  className="px-3 py-1.5 text-[12px] text-white/70 hover:text-white transition-colors"
                 >
-                  {title}
+                  About
                 </a>
-              ))}
-            </div>
-            <a
-              href={linkHref("/?projects")}
-              onClick={closeAll}
-              className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/5 rounded transition-colors"
-            >
-              Projects
-            </a>
-            <a
-              href={linkHref("/?quality")}
-              onClick={closeAll}
-              className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/5 rounded transition-colors"
-            >
-              Quality & Lab
-            </a>
-            <a
-              href={linkHref("#contact")}
-              onClick={closeAll}
-              className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/5 rounded transition-colors"
-            >
-              Contact
-            </a>
+              </li>
+
+              {/* Businesses (with Mega Menu) */}
+              <li
+                className={`apple-nav-item ${activeMega === "businesses" ? "is-active" : ""}`}
+                onMouseEnter={() => handleMouseEnterItem("businesses")}
+              >
+                <a
+                  href={linkHref("/?businesses")}
+                  className="apple-nav-link"
+                  onClick={closeAll}
+                >
+                  Businesses
+                </a>
+              </li>
+
+              {/* Projects (with Mega Menu) */}
+              <li
+                className={`apple-nav-item ${activeMega === "projects" ? "is-active" : ""}`}
+                onMouseEnter={() => handleMouseEnterItem("projects")}
+              >
+                <a
+                  href={linkHref("/?projects")}
+                  className="apple-nav-link"
+                  onClick={closeAll}
+                >
+                  Projects
+                </a>
+              </li>
+
+              {/* Quality & Lab */}
+              <li
+                className="apple-nav-item"
+                onMouseEnter={() => handleMouseEnterItem(null)}
+              >
+                <a
+                  href={linkHref("/?quality")}
+                  className="apple-nav-link"
+                  onClick={closeAll}
+                >
+                  Quality & Lab
+                </a>
+              </li>
+
+              {/* Contact */}
+              <li
+                className="apple-nav-item"
+                onMouseEnter={() => handleMouseEnterItem(null)}
+              >
+                <a
+                  href={linkHref("#contact")}
+                  className="apple-nav-link"
+                  onClick={closeAll}
+                >
+                  Contact
+                </a>
+              </li>
+            </ul>
           </nav>
 
-          <div className="pt-3 border-t border-white/10 flex flex-col gap-2 text-[12px] font-mono text-white/60">
+          {/* Right Action Utilities (Desktop) */}
+          <div className="apple-desktop-bar apple-nav-actions">
+            <LangSwitch />
+            <a
+              href={linkHref("/?quote")}
+              className="apple-btn-quote"
+              onClick={closeAll}
+            >
+              Get a quote
+            </a>
+          </div>
+
+          {/* Mobile Right Controls (< 834px) */}
+          <div className="apple-mobile-bar">
+            <LangSwitch />
+            <button
+              type="button"
+              className={`apple-hamburger ${isMobileOpen ? "is-active" : ""}`}
+              aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={isMobileOpen}
+              onClick={() => setIsMobileOpen(!isMobileOpen)}
+            >
+              <span className="apple-hamburger-line apple-hamburger-top" />
+              <span className="apple-hamburger-line apple-hamburger-bottom" />
+            </button>
+          </div>
+        </div>
+
+        {/* ==========================================================================
+            Apple Mega-Menu Dropdowns (Desktop)
+           ========================================================================== */}
+        <div
+          className={`apple-mega-menu ${activeMega ? "is-open" : ""}`}
+          onMouseEnter={() => {
+            if (closeTimeout.current) clearTimeout(closeTimeout.current);
+          }}
+          onMouseLeave={handleMouseLeaveNav}
+        >
+          {/* Businesses Mega Menu Panel */}
+          {activeMega === "businesses" && (
+            <div className="apple-mega-inner animate-in fade-in duration-200">
+              <div className="apple-mega-grid">
+                {/* Column 1: Explore Businesses */}
+                <div className="apple-mega-col">
+                  <h3>Explore Businesses</h3>
+                  <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
+                    Ready-Mix Concrete
+                  </a>
+                  <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
+                    Foundation Piling
+                  </a>
+                  <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
+                    Civil Construction
+                  </a>
+                  <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
+                    Concrete Slab Works
+                  </a>
+                  <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
+                    Heavy Equipment Rental
+                  </a>
+                </div>
+
+                {/* Column 2: Fleet & Capabilities */}
+                <div className="apple-mega-col">
+                  <h3>Fleet & Capabilities</h3>
+                  <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">4 Batching Plants</span>
+                    <span className="apple-mega-sublink-desc">480 m³/h combined production capacity</span>
+                  </a>
+                  <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
+                    <span className="apple-mega-sublink-desc">Modern GPS-dispatched heavy transit fleet</span>
+                  </a>
+                  <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
+                    <span className="apple-mega-sublink-desc">Up to 47m vertical reach for high pours</span>
+                  </a>
+                  <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
+                    <span className="apple-mega-sublink-desc">Engineered for spun & square pile foundations</span>
+                  </a>
+                </div>
+
+                {/* Column 3: Standards & Tools */}
+                <div className="apple-mega-col">
+                  <h3>Standards & Tools</h3>
+                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
+                    <div className="apple-mega-card-title">
+                      <span>Concrete Volume Estimator</span>
+                      <span className="text-[#2997ff]">›</span>
+                    </div>
+                    <div className="apple-mega-card-desc">
+                      Calculate m³ volume, slab depth, and instant truckload dispatch for your site.
+                    </div>
+                  </a>
+
+                  <div className="mt-4 flex flex-col gap-2">
+                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">DYE-2000 Quality Lab</span>
+                      <span className="apple-mega-sublink-desc">Automated compression strength verification</span>
+                    </a>
+                    <a href="https://t.me/thendLP" target="_blank" rel="noopener noreferrer" className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">24/7 Site Dispatch Telegram</span>
+                      <span className="apple-mega-sublink-desc">Direct line with our batching command (@thendLP)</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Projects Mega Menu Panel */}
+          {activeMega === "projects" && (
+            <div className="apple-mega-inner animate-in fade-in duration-200">
+              <div className="apple-mega-grid">
+                {/* Column 1: Explore Projects */}
+                <div className="apple-mega-col">
+                  <h3>Explore Projects</h3>
+                  <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
+                    All 30+ Landmark Projects
+                  </a>
+                  <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
+                    Industrial & Commercial
+                  </a>
+                  <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
+                    Infrastructure & Roads
+                  </a>
+                  <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
+                    Foundation Piling Works
+                  </a>
+                </div>
+
+                {/* Column 2: Featured Contracts */}
+                <div className="apple-mega-col">
+                  <h3>Featured Contracts</h3>
+                  <a href={linkHref("/?projects#borey-peng-huoth")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Borey Peng Huoth</span>
+                    <span className="apple-mega-sublink-desc">Deep foundation piling & structural concrete</span>
+                  </a>
+                  <a href={linkHref("/?projects#aeon-mall")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Aeon Mall Sihanoukville</span>
+                    <span className="apple-mega-sublink-desc">Heavy duty post-tensioned slab casting</span>
+                  </a>
+                  <a href={linkHref("/?projects#nr5")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">National Road 5</span>
+                    <span className="apple-mega-sublink-desc">Certified paving mix & high-volume pouring</span>
+                  </a>
+                  <a href={linkHref("/?projects#logistics-center")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Sihanoukville Logistics Hub</span>
+                    <span className="apple-mega-sublink-desc">High-load industrial warehouse foundation</span>
+                  </a>
+                </div>
+
+                {/* Column 3: Project Services */}
+                <div className="apple-mega-col">
+                  <h3>Project Services</h3>
+                  <a href={linkHref("/?quote")} onClick={closeAll} className="apple-mega-card">
+                    <div className="apple-mega-card-title">
+                      <span>Request Site Inspection</span>
+                      <span className="text-[#2997ff]">›</span>
+                    </div>
+                    <div className="apple-mega-card-desc">
+                      Connect with our licensed structural engineers for on-site consultation and concrete testing.
+                    </div>
+                  </a>
+
+                  <div className="mt-4 flex flex-col gap-2">
+                    <a href={linkHref("#coverage")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">14 Provinces Coverage</span>
+                      <span className="apple-mega-sublink-desc">Nationwide equipment mobilization</span>
+                    </a>
+                    <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Quality Assurance Standards</span>
+                      <span className="apple-mega-sublink-desc">ACI 211.1 and ASTM compliance</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Full-Page Backdrop Scrim (Dims page when mega menu is open) */}
+      <div
+        className={`apple-scrim ${activeMega ? "is-active" : ""}`}
+        onClick={() => setActiveMega(null)}
+        aria-hidden
+      />
+
+      {/* ==========================================================================
+          Apple Mobile Fullscreen Menu Overlay (< 834px)
+         ========================================================================== */}
+      <nav
+        className={`apple-mobile-overlay ${isMobileOpen ? "is-open" : ""}`}
+        aria-hidden={!isMobileOpen}
+      >
+        <ul className="apple-mobile-list">
+          {/* About */}
+          <li className="apple-mobile-item">
+            <a href={linkHref("/?about")} onClick={closeAll} className="apple-mobile-link">
+              About
+            </a>
+          </li>
+
+          {/* Businesses (Accordion) */}
+          <li className="apple-mobile-item">
+            <button
+              type="button"
+              className="apple-mobile-link w-full text-left"
+              onClick={() =>
+                setMobileAccordion(mobileAccordion === "businesses" ? null : "businesses")
+              }
+            >
+              <span>Businesses</span>
+              <svg
+                viewBox="0 0 10 6"
+                className={`size-3 stroke-current fill-none stroke-[1.8] transition-transform duration-300 ${
+                  mobileAccordion === "businesses" ? "rotate-180" : ""
+                }`}
+                aria-hidden
+              >
+                <path d="M1 1l4 4 4-4" />
+              </svg>
+            </button>
+            {mobileAccordion === "businesses" && (
+              <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
+                <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mobile-sublink">
+                  Ready-Mix Concrete
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mobile-sublink">
+                  Foundation Piling
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mobile-sublink">
+                  Civil Construction
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mobile-sublink">
+                  Concrete Slab Works
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mobile-sublink">
+                  Heavy Equipment Rental
+                  <span>›</span>
+                </a>
+              </div>
+            )}
+          </li>
+
+          {/* Projects (Accordion) */}
+          <li className="apple-mobile-item">
+            <button
+              type="button"
+              className="apple-mobile-link w-full text-left"
+              onClick={() =>
+                setMobileAccordion(mobileAccordion === "projects" ? null : "projects")
+              }
+            >
+              <span>Projects</span>
+              <svg
+                viewBox="0 0 10 6"
+                className={`size-3 stroke-current fill-none stroke-[1.8] transition-transform duration-300 ${
+                  mobileAccordion === "projects" ? "rotate-180" : ""
+                }`}
+                aria-hidden
+              >
+                <path d="M1 1l4 4 4-4" />
+              </svg>
+            </button>
+            {mobileAccordion === "projects" && (
+              <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
+                <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mobile-sublink">
+                  All 30+ Projects
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mobile-sublink">
+                  Industrial & Commercial
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mobile-sublink">
+                  Infrastructure & Roads
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mobile-sublink">
+                  Foundation Piling Works
+                  <span>›</span>
+                </a>
+              </div>
+            )}
+          </li>
+
+          {/* Quality & Lab */}
+          <li className="apple-mobile-item">
+            <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mobile-link">
+              Quality & Lab
+            </a>
+          </li>
+
+          {/* Contact */}
+          <li className="apple-mobile-item">
+            <a href={linkHref("#contact")} onClick={closeAll} className="apple-mobile-link">
+              Contact
+            </a>
+          </li>
+        </ul>
+
+        {/* Mobile Action Footer */}
+        <div className="apple-mobile-footer">
+          <a
+            href={linkHref("/?quote")}
+            onClick={closeAll}
+            className="apple-mobile-quote-btn"
+          >
+            Get a quote
+          </a>
+
+          <div className="flex flex-col gap-2 text-[12px] font-mono text-[#86868b] pt-2">
             <div className="flex justify-between items-center">
               <span>Hotline (Battambang HQ):</span>
-              <a href={tel(phones[0])} className="text-white hover:underline">{phones[0]}</a>
+              <a href={tel(phones[0])} className="text-[#f5f5f7] hover:underline">
+                {phones[0]}
+              </a>
             </div>
             <div className="flex justify-between items-center">
               <span>Site Pouring Dispatch:</span>
-              <a href={tel(phones[1])} className="text-white hover:underline">{phones[1]}</a>
+              <a href={tel(phones[1])} className="text-[#f5f5f7] hover:underline">
+                {phones[1]}
+              </a>
+            </div>
+            <div className="flex justify-between items-center">
+              <span>Telegram Dispatch:</span>
+              <a href="https://t.me/thendLP" target="_blank" rel="noopener noreferrer" className="text-[#2997ff] hover:underline">
+                @thendLP
+              </a>
             </div>
           </div>
         </div>
-      )}
-    </header>
+      </nav>
+    </>
   );
 }

@@ -65,7 +65,12 @@ function HeroCopy() {
         <span className="md:block">Building on Strength.</span> <span className="md:block">Delivering with Trust.</span>
       </h1>
       <div className="mt-6 md:mt-8">
-        <ArrowButton href="/?projects" label="View projects" theme="glass" />
+        <a href="/?projects" className="apple-hero-btn">
+          <span>View projects</span>
+          <svg viewBox="0 0 10 16" className="size-2.5 stroke-current fill-none stroke-[2] translate-y-[0.5px]" aria-hidden>
+            <path d="M1 1l6 7-6 7" />
+          </svg>
+        </a>
       </div>
     </div>
   );
