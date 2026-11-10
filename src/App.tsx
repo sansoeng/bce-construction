@@ -453,16 +453,16 @@ function App() {
         <h2 data-split data-about-title className="about-title mt-40 font-medium text-[74px] leading-[1.08] tracking-[-.025em]">
           <span className="inline-block md:pl-[max(25%,17.5rem)]">
             We supply ready-mix concrete
-            <span className="sw"><span className="sw-i"><a href="/?businesses#ready-mix-concrete" className="about-core-badge" aria-label="Ready-Mix Concrete" title="Ready-Mix Concrete"><GlanceIcon kind="plants" clipIdPrefix="ab-plant" strokeWidth={3} /></a></span></span>,
+            <span className="sw"><span className="sw-i"><a href="/?businesses#ready-mix-concrete" className="about-core-badge" aria-label="Ready-Mix Concrete" title="Ready-Mix Concrete"><GlanceIcon kind="plants" clipIdPrefix="ab-plant" strokeWidth={2.3} /></a></span></span>,
           </span>{" "}
           foundation piling
-          <span className="sw"><span className="sw-i"><a href="/?businesses#piling" className="about-core-badge" aria-label="Foundation Piling" title="Foundation Piling"><GlanceIcon kind="piling" clipIdPrefix="ab-piling" strokeWidth={3} /></a></span></span>,{" "}
+          <span className="sw"><span className="sw-i"><a href="/?businesses#piling" className="about-core-badge" aria-label="Foundation Piling" title="Foundation Piling"><GlanceIcon kind="piling" clipIdPrefix="ab-piling" strokeWidth={2.3} /></a></span></span>,{" "}
           civil construction
-          <span className="sw"><span className="sw-i"><a href="/?businesses#construction" className="about-core-badge" aria-label="Civil Construction" title="Civil Construction"><GlanceIcon kind="projects" clipIdPrefix="ab-crane" strokeWidth={3} /></a></span></span>,{" "}
+          <span className="sw"><span className="sw-i"><a href="/?businesses#construction" className="about-core-badge" aria-label="Civil Construction" title="Civil Construction"><GlanceIcon kind="projects" clipIdPrefix="ab-crane" strokeWidth={2.3} /></a></span></span>,{" "}
           slab works
-          <span className="sw"><span className="sw-i"><a href="/?businesses#concrete-slab-works" className="about-core-badge" aria-label="Concrete Slab Works" title="Concrete Slab Works"><GlanceIcon kind="pump" clipIdPrefix="ab-pump" strokeWidth={3} /></a></span></span>,{" "}
+          <span className="sw"><span className="sw-i"><a href="/?businesses#concrete-slab-works" className="about-core-badge" aria-label="Concrete Slab Works" title="Concrete Slab Works"><GlanceIcon kind="pump" clipIdPrefix="ab-pump" strokeWidth={2.3} /></a></span></span>,{" "}
           and equipment rental
-          <span className="sw"><span className="sw-i"><a href="/?businesses#equipment-rental" className="about-core-badge" aria-label="Equipment Rental" title="Equipment Rental"><GlanceIcon kind="mixer" clipIdPrefix="ab-mixer" strokeWidth={3} /></a></span></span>{" "}
+          <span className="sw"><span className="sw-i"><a href="/?businesses#equipment-rental" className="about-core-badge" aria-label="Equipment Rental" title="Equipment Rental"><GlanceIcon kind="mixer" clipIdPrefix="ab-mixer" strokeWidth={2.3} /></a></span></span>{" "}
           across Cambodia.
         </h2>
         </div>
