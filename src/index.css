@@ -1285,11 +1285,13 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(-6px);
-  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.45s;
+  transform: translateY(-8px);
+  clip-path: inset(0 0 100% 0);
+  transition: max-height 0.36s cubic-bezier(0.32, 0.72, 0, 1),
+              opacity 0.28s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.36s cubic-bezier(0.32, 0.72, 0, 1),
+              clip-path 0.36s cubic-bezier(0.32, 0.72, 0, 1),
+              visibility 0.36s;
   z-index: 99;
 }
 
@@ -1299,6 +1301,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
+  clip-path: inset(0 0 0% 0);
 }
 
 .apple-mega-inner {
@@ -1320,6 +1323,26 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 
 .apple-mega-col {
   min-width: 240px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+              transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.apple-mega-menu.is-open .apple-mega-col,
+.apple-floating-dropdown .apple-mega-col {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.apple-mega-menu.is-open .apple-mega-col:nth-child(1),
+.apple-floating-dropdown .apple-mega-col:nth-child(1) {
+  transition-delay: 0.04s;
+}
+
+.apple-mega-menu.is-open .apple-mega-col:nth-child(2),
+.apple-floating-dropdown .apple-mega-col:nth-child(2) {
+  transition-delay: 0.09s;
 }
 
 .apple-mega-col h3 {
@@ -1342,13 +1365,15 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   text-decoration: none;
   padding: 5px 0;
   opacity: 0.88;
-  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  transition: opacity 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+              color 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .apple-mega-big-link:hover {
   opacity: 1;
   color: #ffffff;
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
 /* Secondary list links in Column 2 */
@@ -1360,7 +1385,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   text-decoration: none;
   color: #e8e8ed;
   opacity: 0.85;
-  transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+              color 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .apple-mega-sublink:hover {
@@ -1436,8 +1463,8 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 }
 
 /* ==========================================================================
-   Apple Secondary Floating Capsule Navigation on Scroll (Apple iPhone style)
-   Contains full primary navigation content: Logo, Centered Links, LangSwitch, unboxed quote CTA
+   Apple Secondary Floating Navigation on Scroll
+   Same BG like primary, 6px corner radius, full primary navigation content
    ========================================================================== */
 .apple-floating-nav {
   position: fixed;
@@ -1445,14 +1472,14 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   left: 50%;
   transform: translateX(-50%) translateY(-24px);
   width: calc(100% - 32px);
-  max-width: 980px;
+  max-width: 960px;
   z-index: 95;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.45s;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+              opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              visibility 0.4s;
 }
 
 .apple-floating-nav.is-visible {
@@ -1466,16 +1493,17 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 48px;
+  height: 44px;
   padding: 0 16px;
-  border-radius: 980px;
-  background-color: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(0, 0, 0, 0.09);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
+  background-color: var(--apple-nav-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   position: relative;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .apple-floating-list {
@@ -1501,12 +1529,12 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 .apple-floating-link {
   font-family: var(--font-sans);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.01em;
-  color: #1d1d1f;
+  color: var(--apple-nav-text);
   text-decoration: none;
   opacity: 0.82;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: opacity 0.25s var(--apple-ease-out), color 0.25s var(--apple-ease-out);
   white-space: nowrap;
   padding: 0 4px;
 }
@@ -1514,12 +1542,12 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 .apple-floating-link:hover,
 .apple-floating-item.is-active .apple-floating-link {
   opacity: 1;
-  color: #000000;
+  color: #ffffff;
 }
 
 /* Floating Focus Dimming: Hovering any item softly dims others */
 .apple-floating-list:hover .apple-floating-item {
-  opacity: 0.45;
+  opacity: 0.55;
 }
 .apple-floating-list .apple-floating-item:hover,
 .apple-floating-list .apple-floating-item.is-active {
@@ -1542,6 +1570,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   .apple-floating-inner {
     height: 44px;
     padding: 0 14px;
+    border-radius: 6px;
   }
   .apple-floating-list {
     display: none;
@@ -1551,66 +1580,58 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   }
 }
 
-.apple-hamburger.is-dark .apple-hamburger-line {
-  background-color: #1d1d1f;
+/* Floating Mega Dropdown Curtain Expand Animation (6px corner radius & same dark BG) */
+@keyframes appleCurtainDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+    clip-path: inset(0 0 100% 0 round 6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0% 0 round 6px);
+  }
 }
 
-/* Floating Mega Dropdown (Light mode for capsule) */
 .apple-floating-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 6px);
   left: 0;
   right: 0;
   max-width: 960px;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.96);
+  background-color: var(--apple-nav-bg-expanded);
   backdrop-filter: blur(35px) saturate(190%);
   -webkit-backdrop-filter: blur(35px) saturate(190%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
   padding: 32px 36px 36px;
-  color: #1d1d1f;
+  color: var(--apple-nav-text);
   z-index: 102;
+  animation: appleCurtainDrop 0.32s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  overflow: hidden;
 }
 
 .apple-floating-dropdown .apple-mega-col h3 {
-  color: #86868b;
+  color: var(--apple-nav-muted);
 }
 
 .apple-floating-dropdown .apple-mega-big-link {
-  color: #1d1d1f;
+  color: #f5f5f7;
 }
 
 .apple-floating-dropdown .apple-mega-big-link:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
 .apple-floating-dropdown .apple-mega-sublink {
-  color: #333336;
+  color: #e8e8ed;
 }
 
 .apple-floating-dropdown .apple-mega-sublink:hover {
-  color: #000000;
-}
-
-.apple-floating-dropdown .apple-mega-sublink-desc {
-  color: #6e6e73;
-}
-
-.apple-floating-dropdown .apple-mega-card {
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: #1d1d1f;
-}
-
-.apple-floating-dropdown .apple-mega-card:hover {
-  background: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.14);
-}
-
-.apple-floating-dropdown .apple-mega-card-desc {
-  color: #6e6e73;
+  color: #ffffff;
 }
 
 /* ==========================================================================

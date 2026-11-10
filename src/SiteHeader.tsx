@@ -391,7 +391,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           {/* Unified Navigation List centered inside floating capsule */}
           <ul className={`apple-floating-list ${activeMega ? "has-focus" : ""}`}>
             <li className="apple-floating-item apple-floating-item-logo">
-              <AppleLogo href={base || "/"} dark={true} />
+              <AppleLogo href={base || "/"} />
             </li>
             <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
               <a href={linkHref("/?about")} className="apple-floating-link" onClick={closeAll}>
@@ -425,14 +425,14 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
               </a>
             </li>
             <li className="apple-floating-item apple-floating-item-lang">
-              <LangSwitch dark={true} />
+              <LangSwitch />
             </li>
             <li className="apple-floating-item apple-floating-item-quote">
               <ArrowButton
                 href={linkHref("/?quote")}
                 label="Get a quote"
                 theme="raw"
-                className="text-[#1d1d1f] hover:text-black font-semibold"
+                className="text-white hover:text-white"
                 onClick={closeAll}
               />
             </li>
@@ -440,12 +440,12 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
 
           {/* Mobile Right Controls (< 834px) */}
           <div className="apple-floating-mobile-bar">
-            <AppleLogo href={base || "/"} dark={true} />
+            <AppleLogo href={base || "/"} />
             <div className="flex items-center gap-3">
-              <LangSwitch dark={true} />
+              <LangSwitch />
               <button
                 type="button"
-                className={`apple-hamburger is-dark ${isMobileOpen ? "is-active" : ""}`}
+                className={`apple-hamburger ${isMobileOpen ? "is-active" : ""}`}
                 aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
                 aria-expanded={isMobileOpen}
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
