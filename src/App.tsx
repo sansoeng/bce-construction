@@ -415,9 +415,9 @@ function App() {
       {/* Hero Banner Bottom Section: Left has Title, Right has Wolverine Worldwide Latest News */}
       <div
         data-hero-copy
-        className="hero-copy-wrap fixed bottom-8 left-5 right-5 z-30 pointer-events-none md:bottom-10 md:left-8 md:right-8"
+        className="hero-copy-wrap fixed bottom-8 inset-x-0 px-[20px] z-30 pointer-events-none md:bottom-10"
       >
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12 pointer-events-auto">
+        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12 pointer-events-auto">
           {/* Left: Slogan Title */}
           <div className="w-full md:max-w-[660px] text-left">
             <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.3rem,4.8vw,4.4rem)] leading-[1.04] tracking-[-.025em] text-white">

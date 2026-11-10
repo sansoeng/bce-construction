@@ -83,8 +83,26 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
   const [mobileAccordion, setMobileAccordion] = useState<"businesses" | "projects" | null>(null);
   const [showSubnav, setShowSubnav] = useState(false);
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
+  const [panelHeights, setPanelHeights] = useState<{ businesses: number; projects: number }>({
+    businesses: 280,
+    projects: 240,
+  });
   const headerRef = useRef<HTMLElement>(null);
   const closeTimeout = useRef<number | null>(null);
+  const businessesRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const measure = () => {
+      setPanelHeights({
+        businesses: businessesRef.current?.offsetHeight || 280,
+        projects: projectsRef.current?.offsetHeight || 240,
+      });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   useEffect(() => {
     const handleReveal = () => setIsIn(true);
@@ -298,81 +316,93 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
 
         {/* ==========================================================================
             Apple Mega-Menu Dropdowns (Desktop - Top Header)
+            Exact Apple.com Curtain Expand, Dynamic Height & Crossfade Mechanics
            ========================================================================== */}
         <div
           className={`apple-mega-menu ${activeMega && !showSubnav ? "is-open" : ""}`}
+          style={{
+            height: !showSubnav && activeMega ? (activeMega === "businesses" ? panelHeights.businesses : panelHeights.projects) : 0,
+          }}
           onMouseEnter={() => {
             if (closeTimeout.current) clearTimeout(closeTimeout.current);
           }}
           onMouseLeave={handleMouseLeaveNav}
         >
-          {/* Businesses Mega Menu Panel */}
-          {activeMega === "businesses" && (
-            <div className="apple-mega-inner animate-in fade-in duration-200">
-              <div className="apple-mega-grid">
-                {/* Column 1: Explore Businesses */}
-                <div className="apple-mega-col">
-                  <h3>Explore Businesses</h3>
-                  <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
-                    Ready-Mix Concrete
-                  </a>
-                  <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
-                    Foundation Piling
-                  </a>
-                  <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
-                    Civil Construction
-                  </a>
-                  <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
-                    Concrete Slab Works
-                  </a>
-                  <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
-                    Heavy Equipment Rental
-                  </a>
-                </div>
+          <div className="apple-mega-wrapper">
+            {/* Businesses Mega Menu Panel */}
+            <div
+              ref={businessesRef}
+              className={`apple-mega-panel ${activeMega === "businesses" ? "is-active" : ""}`}
+            >
+              <div className="apple-mega-inner">
+                <div className="apple-mega-grid">
+                  {/* Column 1: Explore Businesses */}
+                  <div className="apple-mega-col">
+                    <h3>Explore Businesses</h3>
+                    <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
+                      Ready-Mix Concrete
+                    </a>
+                    <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
+                      Foundation Piling
+                    </a>
+                    <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
+                      Civil Construction
+                    </a>
+                    <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
+                      Concrete Slab Works
+                    </a>
+                    <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
+                      Heavy Equipment Rental
+                    </a>
+                  </div>
 
-                {/* Column 2: Fleet & Capabilities (sub-text removed) */}
-                <div className="apple-mega-col">
-                  <h3>Fleet & Capabilities</h3>
-                  <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">4 Batching Plants</span>
-                  </a>
-                  <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
-                  </a>
-                  <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
-                  </a>
-                  <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
-                  </a>
+                  {/* Column 2: Fleet & Capabilities */}
+                  <div className="apple-mega-col">
+                    <h3>Fleet & Capabilities</h3>
+                    <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">4 Batching Plants</span>
+                    </a>
+                    <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
+                    </a>
+                    <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
+                    </a>
+                    <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          )}
 
-          {/* Projects Mega Menu Panel (Featured project & Project services removed) */}
-          {activeMega === "projects" && (
-            <div className="apple-mega-inner animate-in fade-in duration-200">
-              <div className="apple-mega-grid">
-                {/* Column 1: Explore Projects */}
-                <div className="apple-mega-col">
-                  <h3>Explore Projects</h3>
-                  <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
-                    All 30+ Landmark Projects
-                  </a>
-                  <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
-                    Industrial & Commercial
-                  </a>
-                  <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
-                    Infrastructure & Roads
-                  </a>
-                  <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
-                    Foundation Piling Works
-                  </a>
+            {/* Projects Mega Menu Panel */}
+            <div
+              ref={projectsRef}
+              className={`apple-mega-panel ${activeMega === "projects" ? "is-active" : ""}`}
+            >
+              <div className="apple-mega-inner">
+                <div className="apple-mega-grid">
+                  {/* Column 1: Explore Projects */}
+                  <div className="apple-mega-col">
+                    <h3>Explore Projects</h3>
+                    <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
+                      All 30+ Landmark Projects
+                    </a>
+                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
+                      Industrial & Commercial
+                    </a>
+                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
+                      Infrastructure & Roads
+                    </a>
+                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
+                      Foundation Piling Works
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </header>
 
@@ -457,76 +487,80 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           </div>
         </div>
 
-        {/* Floating Mega-Menu Dropdown (Light frosted glass for capsule) */}
+        {/* Floating Mega-Menu Dropdown */}
         {activeMega && showSubnav && (
           <div
-            className="apple-floating-dropdown animate-in fade-in duration-200"
+            className="apple-floating-dropdown"
             onMouseEnter={() => {
               if (closeTimeout.current) clearTimeout(closeTimeout.current);
             }}
             onMouseLeave={handleMouseLeaveNav}
           >
-            {activeMega === "businesses" && (
-              <div className="apple-mega-grid">
-                {/* Column 1: Explore Businesses */}
-                <div className="apple-mega-col">
-                  <h3>Explore Businesses</h3>
-                  <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
-                    Ready-Mix Concrete
-                  </a>
-                  <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
-                    Foundation Piling
-                  </a>
-                  <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
-                    Civil Construction
-                  </a>
-                  <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
-                    Concrete Slab Works
-                  </a>
-                  <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
-                    Heavy Equipment Rental
-                  </a>
-                </div>
+            <div className="apple-mega-wrapper">
+              {/* Businesses Mega Menu Panel */}
+              <div className={`apple-mega-panel ${activeMega === "businesses" ? "is-active" : ""}`}>
+                <div className="apple-mega-grid">
+                  {/* Column 1: Explore Businesses */}
+                  <div className="apple-mega-col">
+                    <h3>Explore Businesses</h3>
+                    <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
+                      Ready-Mix Concrete
+                    </a>
+                    <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
+                      Foundation Piling
+                    </a>
+                    <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
+                      Civil Construction
+                    </a>
+                    <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
+                      Concrete Slab Works
+                    </a>
+                    <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
+                      Heavy Equipment Rental
+                    </a>
+                  </div>
 
-                {/* Column 2: Fleet & Capabilities (sub-text removed) */}
-                <div className="apple-mega-col">
-                  <h3>Fleet & Capabilities</h3>
-                  <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">4 Batching Plants</span>
-                  </a>
-                  <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
-                  </a>
-                  <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
-                  </a>
-                  <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
-                  </a>
+                  {/* Column 2: Fleet & Capabilities */}
+                  <div className="apple-mega-col">
+                    <h3>Fleet & Capabilities</h3>
+                    <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">4 Batching Plants</span>
+                    </a>
+                    <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
+                    </a>
+                    <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
+                    </a>
+                    <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-            )}
 
-            {activeMega === "projects" && (
-              <div className="apple-mega-grid">
-                {/* Column 1: Explore Projects */}
-                <div className="apple-mega-col">
-                  <h3>Explore Projects</h3>
-                  <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
-                    All 30+ Landmark Projects
-                  </a>
-                  <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
-                    Industrial & Commercial
-                  </a>
-                  <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
-                    Infrastructure & Roads
-                  </a>
-                  <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
-                    Foundation Piling Works
-                  </a>
+              {/* Projects Mega Menu Panel */}
+              <div className={`apple-mega-panel ${activeMega === "projects" ? "is-active" : ""}`}>
+                <div className="apple-mega-grid">
+                  {/* Column 1: Explore Projects */}
+                  <div className="apple-mega-col">
+                    <h3>Explore Projects</h3>
+                    <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
+                      All 30+ Landmark Projects
+                    </a>
+                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
+                      Industrial & Commercial
+                    </a>
+                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
+                      Infrastructure & Roads
+                    </a>
+                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
+                      Foundation Piling Works
+                    </a>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         )}
       </div>
