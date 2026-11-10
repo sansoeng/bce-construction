@@ -1,7 +1,7 @@
 // English / Khmer. The site is written in English; in Khmer mode a translator pass swaps every English text node,
 // alt, aria-label, title and placeholder that has an entry below (exact phrase, then patterns for templated strings),
 // before the text reveals split the copy, and a MutationObserver keeps dynamic text in Khmer.
-// Khmer typography is powered by Nokora, Kantumruy Pro & Noto Sans Khmer with specialized line heights and word-break rules.
+// Khmer typography is powered by Hanuman, Kantumruy Pro & Noto Sans Khmer with specialized line heights and word-break rules.
 
 export type Lang = "en" | "km";
 const KEY = "bce-lang";
