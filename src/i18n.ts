@@ -4,12 +4,24 @@
 // Khmer typography is powered by Hanuman, Kantumruy Pro & Noto Sans Khmer with specialized line heights and word-break rules.
 
 export type Lang = "en" | "km";
-const KEY = "bce-lang";
+const KEY = "bce-lang-pref";
 
 let lang: Lang = (() => {
-  try { return localStorage.getItem(KEY) === "km" ? "km" : "en"; } catch { return "en"; }
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const paramLang = params.get("lang");
+    if (paramLang === "en" || paramLang === "km") {
+      localStorage.setItem(KEY, paramLang);
+      return paramLang;
+    }
+    const saved = localStorage.getItem(KEY);
+    if (saved === "en" || saved === "km") return saved;
+    return "km";
+  } catch {
+    return "km";
+  }
 })();
-document.documentElement.lang = lang === "km" ? "km" : "en";
+document.documentElement.lang = lang;
 
 const listeners = new Set<() => void>();
 export const getLang = () => lang;
@@ -21,7 +33,7 @@ export function setLang(next: Lang) {
   if (next === lang) return;
   lang = next;
   try { localStorage.setItem(KEY, next); } catch { /* not persisted in private mode */ }
-  document.documentElement.lang = next === "km" ? "km" : "en";
+  document.documentElement.lang = next;
   listeners.forEach((fn) => fn());
 }
 
@@ -31,6 +43,9 @@ const MONTHS: Record<string, string> = {
 };
 
 const KM: Record<string, string> = {
+  // Page Title & Meta
+  "BCE — Battambang Construction & Engineering | Architectural Concrete & Civil Infrastructure": "BCE — ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង | បេតុងស្តង់ដារ & ហេដ្ឋារចនាសម្ព័ន្ធស៊ីវិល",
+
   // Navigation, header, menu, brand
   "Home": "ទំព័រដើម",
   "About": "អំពីយើង",
