@@ -502,8 +502,8 @@ export default function RecruitmentPage() {
            ========================================================================= */
         <>
           {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="w-full px-5 sm:px-6 md:px-8 lg:px-12 pt-28 md:pt-36 pb-16 md:pb-24">
-            <div className="w-full max-w-[1200px] mx-auto">
+          <section className="w-full px-5 sm:px-6 md:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
+            <div className="w-full max-w-[1000px] mx-auto">
               {/* Revolut Centered Display Hero Headline */}
               <div className="text-center max-w-[800px] mx-auto mb-10 md:mb-12">
                 <h1 className="text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-bold tracking-[-0.03em] text-[#191C1F] leading-[1.1]">
@@ -515,13 +515,14 @@ export default function RecruitmentPage() {
               </div>
 
               {/* Revolut Filter Bar: Location Dropdown + Search Input (mirrors 2-column widths) */}
-              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 lg:gap-8 mb-8 w-full">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 mb-8 w-full">
                 {/* Location Filter Dropdown Pill */}
-                <div ref={locationRef} className="relative w-full md:w-[280px] lg:w-[300px] shrink-0">
+                <div ref={locationRef} className="relative w-full md:w-[272px] shrink-0">
                   <button
                     type="button"
                     onClick={() => setIsLocationOpen(!isLocationOpen)}
-                    className="flex items-center justify-between gap-3 w-full h-[56px] px-6 rounded-full bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
+                    className="box-24 flex items-center justify-between gap-3 w-full h-[56px] px-6 rounded-[24px] bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer border-0"
+                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   >
                     <span className="truncate">
                       {activeLocation === "All Locations" ? "Location" : activeLocation}
@@ -531,7 +532,10 @@ export default function RecruitmentPage() {
 
                   {/* Dropdown Floating Popover */}
                   {isLocationOpen && (
-                    <div className="absolute top-16 left-0 z-30 w-[280px] p-2 bg-white rounded-[20px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
+                    <div
+                      className="box-24 absolute top-16 left-0 z-30 w-[280px] p-2 bg-white rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border-0 animate-in fade-in duration-150"
+                      style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                    >
                       <div className="max-h-[260px] overflow-y-auto space-y-1">
                         {LOCATIONS.map((loc) => (
                           <button
@@ -541,7 +545,7 @@ export default function RecruitmentPage() {
                               setActiveLocation(loc);
                               setIsLocationOpen(false);
                             }}
-                            className={`w-full text-left px-4 py-2.5 text-xs rounded-full transition-colors flex items-center justify-between cursor-pointer ${
+                            className={`box-24 w-full text-left px-4 py-2.5 text-xs rounded-[24px] transition-colors flex items-center justify-between cursor-pointer border-0 ${
                               activeLocation === loc
                                 ? "bg-[#191C1F] text-white font-medium"
                                 : "text-[#191C1F] hover:bg-[#F3F4F6]"
@@ -565,7 +569,8 @@ export default function RecruitmentPage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={`Search from ${VACANCIES.length} open positions`}
-                    className="w-full h-[56px] pl-6 pr-12 rounded-full bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20 text-[15px] text-[#191C1F] placeholder-[#72757E] transition-all"
+                    className="box-24 w-full h-[56px] pl-6 pr-12 rounded-[24px] bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none text-[15px] text-[#191C1F] placeholder-[#72757E] transition-all border-0"
+                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   />
                   <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#72757E]">
                     <SearchIcon />
@@ -574,9 +579,9 @@ export default function RecruitmentPage() {
               </div>
 
               {/* Revolut Two-Column Layout */}
-              <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-start w-full">
+              <div className="flex flex-col md:flex-row gap-6 items-start w-full">
                 {/* Left Sidebar: Filter by teams */}
-                <aside className="w-full md:w-[280px] lg:w-[300px] shrink-0 md:sticky md:top-24">
+                <aside className="w-full md:w-[272px] shrink-0 md:sticky md:top-24">
                   <h3 className="text-sm font-semibold text-[#191C1F] uppercase tracking-[0.04em] mb-4">
                     Filter by teams
                   </h3>
@@ -589,11 +594,12 @@ export default function RecruitmentPage() {
                           key={dept}
                           type="button"
                           onClick={() => setActiveTeam(dept)}
-                          className={`flex items-center justify-between text-left px-4 py-2.5 rounded-full text-sm transition-all cursor-pointer w-full ${
+                          className={`box-24 flex items-center justify-between text-left px-5 py-3 rounded-[24px] text-sm transition-all cursor-pointer w-full border-0 ${
                             isSelected
                               ? "bg-[#F0F1F3] text-[#191C1F] font-semibold"
                               : "text-[#5A5D66] hover:bg-[#F0F1F3]/60 hover:text-[#191C1F]"
                           }`}
+                          style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                         >
                           <span>{dept}</span>
                           <span className={`text-xs font-mono ml-3 ${isSelected ? "text-[#191C1F]" : "text-[#72757E]"}`}>
@@ -617,7 +623,7 @@ export default function RecruitmentPage() {
                   </div>
 
                   {filteredVacancies.length === 0 ? (
-                    <div className="py-20 text-center rounded-[16px] bg-[#F8F9FA] border border-[rgba(0,0,0,0.04)]">
+                    <div className="box-24 py-20 text-center rounded-[24px] bg-[#F8F9FA] border-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                       <p className="text-[17px] font-medium text-[#191C1F]">
                         There are currently no open positions.
                       </p>
@@ -634,34 +640,50 @@ export default function RecruitmentPage() {
                           setActiveLocation("All Locations");
                           setSearchQuery("");
                         }}
-                        className="mt-5 inline-flex items-center px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium cursor-pointer"
+                        className="mt-5 inline-flex items-center px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium cursor-pointer border-0"
                       >
                         Reset filters
                       </button>
                     </div>
                   ) : (
-                    <div className="space-y-3.5">
+                    <div className="space-y-4">
                       {filteredVacancies.map((v) => (
                         <article
                           key={v.id}
                           onClick={() => handleSelectJob(v.id)}
-                          className="group block p-6 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] transition-all duration-200 cursor-pointer border border-[rgba(0,0,0,0.02)]"
+                          className="box-24 group block p-6 sm:p-7 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] transition-all duration-200 cursor-pointer border-0"
                           style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                         >
                           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
-                              <h4 className="text-[20px] md:text-[22px] font-semibold text-[#191C1F] group-hover:text-black transition-colors mb-2 leading-snug">
+                              <h4 className="text-[20px] md:text-[22px] font-semibold text-[#191C1F] group-hover:text-black transition-colors mb-2.5 leading-snug">
                                 {v.title}
                               </h4>
-                              <div className="space-y-1.5 text-xs md:text-sm text-[#5A5D66]">
-                                <div className="flex items-center gap-2">
-                                  <BuildingIcon />
-                                  <span>Plant: {v.location}</span>
+                              <div className="space-y-2.5">
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs md:text-sm text-[#5A5D66]">
+                                  <div className="flex items-center gap-1.5">
+                                    <BuildingIcon />
+                                    <span>Plant: {v.location}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5">
+                                    <ToolsIcon />
+                                    <span>{v.department}</span>
+                                  </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                  <ToolsIcon />
-                                  <span>
-                                    {v.department} · {v.type} · Deadline: {v.deadline}
+
+                                {/* Standout Full-time and Deadline Tags */}
+                                <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] text-xs font-semibold bg-[#E4E7EC] text-[#191C1F]">
+                                    <span className="size-1.5 rounded-full bg-[#191C1F]"></span>
+                                    <span>{v.type}</span>
+                                  </span>
+
+                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] text-xs font-semibold bg-[#FFF1EB] text-[#D9531E]">
+                                    <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                      <circle cx="8" cy="8" r="6" />
+                                      <path d="M8 5v3.5l2.5 1.5" />
+                                    </svg>
+                                    <span>Deadline: {v.deadline}</span>
                                   </span>
                                 </div>
                               </div>

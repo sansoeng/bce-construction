@@ -154,6 +154,7 @@ export default function ResourcesPage() {
 
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeYear, setActiveYear] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
@@ -162,9 +163,11 @@ export default function ResourcesPage() {
     return DOCUMENTS.filter((doc) => {
       const matchesCategory = activeCategory === "all" || doc.category === activeCategory;
       const matchesYear = activeYear === "all" || doc.year === activeYear;
-      return matchesCategory && matchesYear;
+      const q = searchQuery.trim().toLowerCase();
+      const matchesQuery = !q || doc.title.toLowerCase().includes(q) || doc.description.toLowerCase().includes(q) || doc.categoryLabel.toLowerCase().includes(q);
+      return matchesCategory && matchesYear && matchesQuery;
     });
-  }, [activeCategory, activeYear]);
+  }, [activeCategory, activeYear, searchQuery]);
 
   return (
     <>
@@ -206,7 +209,7 @@ export default function ResourcesPage() {
         </section>
 
         {/* 2. Revolut Reports Document Listing Section */}
-        <section className="max-w-[1280px] 2xl:max-w-[1536px] mx-auto px-6 sm:px-8 md:px-12 pt-12 sm:pt-16 pb-20 sm:pb-28">
+        <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-12 sm:pt-16 pb-20 sm:pb-28">
 
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">
@@ -219,12 +222,12 @@ export default function ResourcesPage() {
           </div>
 
           {/* 2-Column Responsive Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
 
-            {/* Left Column: Filter Controls (Stacked Pill Dropdowns) */}
-            <div className="md:col-span-4 lg:col-span-3 flex flex-col gap-3 sticky top-24 z-10">
+            {/* Left Column: Filter Controls (Stacked 24px Boxes) */}
+            <div className="md:col-span-4 lg:col-span-4 flex flex-col gap-3 sticky top-24 z-10">
 
-              {/* Year Filter Pill / Dropdown */}
+              {/* Year Filter Box / Dropdown */}
               <div className="relative">
                 <button
                   type="button"
@@ -232,7 +235,8 @@ export default function ResourcesPage() {
                     setIsYearOpen(!isYearOpen);
                     setIsCategoryOpen(false);
                   }}
-                  className="w-full flex items-center justify-between px-5 py-3.5 rounded-full bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors"
+                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors border-0"
+                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   aria-expanded={isYearOpen}
                 >
                   <span>{YEARS.find((y) => y.id === activeYear)?.label || "All years"}</span>
@@ -250,7 +254,10 @@ export default function ResourcesPage() {
                 </button>
 
                 {isYearOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[20px] shadow-lg border border-[rgba(0,0,0,0.08)] z-20 flex flex-col gap-1">
+                  <div
+                    className="box-24 absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[24px] shadow-lg border-0 z-20 flex flex-col gap-1"
+                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                  >
                     {YEARS.map((year) => (
                       <button
                         key={year.id}
@@ -259,7 +266,7 @@ export default function ResourcesPage() {
                           setActiveYear(year.id);
                           setIsYearOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-2.5 rounded-full text-[13px] font-medium transition-colors flex items-center justify-between ${
+                        className={`box-24 w-full text-left px-4 py-2.5 rounded-[20px] text-[13px] font-medium transition-colors flex items-center justify-between border-0 ${
                           activeYear === year.id
                             ? "bg-[#191C1F] text-white"
                             : "text-[#191C1F]/80 hover:bg-[#F4F4F5]"
@@ -277,7 +284,7 @@ export default function ResourcesPage() {
                 )}
               </div>
 
-              {/* Category Filter Pill / Dropdown */}
+              {/* Category Filter Box / Dropdown */}
               <div className="relative">
                 <button
                   type="button"
@@ -285,7 +292,8 @@ export default function ResourcesPage() {
                     setIsCategoryOpen(!isCategoryOpen);
                     setIsYearOpen(false);
                   }}
-                  className="w-full flex items-center justify-between px-5 py-3.5 rounded-full bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors"
+                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors border-0"
+                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   aria-expanded={isCategoryOpen}
                 >
                   <span className="truncate">{CATEGORIES.find((c) => c.id === activeCategory)?.label || "All categories"}</span>
@@ -303,7 +311,10 @@ export default function ResourcesPage() {
                 </button>
 
                 {isCategoryOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[20px] shadow-lg border border-[rgba(0,0,0,0.08)] z-20 flex flex-col gap-1">
+                  <div
+                    className="box-24 absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[24px] shadow-lg border-0 z-20 flex flex-col gap-1"
+                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                  >
                     {CATEGORIES.map((cat) => (
                       <button
                         key={cat.id}
@@ -312,7 +323,7 @@ export default function ResourcesPage() {
                           setActiveCategory(cat.id);
                           setIsCategoryOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-2.5 rounded-full text-[13px] font-medium transition-colors flex items-center justify-between ${
+                        className={`box-24 w-full text-left px-4 py-2.5 rounded-[20px] text-[13px] font-medium transition-colors flex items-center justify-between border-0 ${
                           activeCategory === cat.id
                             ? "bg-[#191C1F] text-white"
                             : "text-[#191C1F]/80 hover:bg-[#F4F4F5]"
@@ -330,15 +341,34 @@ export default function ResourcesPage() {
                 )}
               </div>
 
+              {/* Search Input Box */}
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search documents..."
+                  className="box-24 w-full h-[48px] pl-10 pr-4 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] focus:bg-white focus:outline-none text-[14px] text-[#191C1F] placeholder-[#191C1F]/45 transition-all border-0"
+                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                />
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#191C1F]/40">
+                  <svg viewBox="0 0 16 16" className="size-4 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="7" cy="7" r="4.5" />
+                    <path d="M10.5 10.5L14 14" />
+                  </svg>
+                </div>
+              </div>
+
               {/* Active Filter Clear Tag */}
-              {(activeCategory !== "all" || activeYear !== "all") && (
+              {(activeCategory !== "all" || activeYear !== "all" || searchQuery) && (
                 <button
                   type="button"
                   onClick={() => {
                     setActiveCategory("all");
                     setActiveYear("all");
+                    setSearchQuery("");
                   }}
-                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 text-[13px] font-medium text-[#191C1F]/60 hover:text-[#191C1F] transition-colors"
+                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 text-[13px] font-medium text-[#191C1F]/60 hover:text-[#191C1F] transition-colors border-0"
                 >
                   <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2">
                     <path d="M12 4L4 12M4 4l8 8" strokeLinecap="round" strokeLinejoin="round" />
@@ -350,14 +380,14 @@ export default function ResourcesPage() {
             </div>
 
             {/* Right Column: Stacked Document Cards */}
-            <div className="md:col-span-8 lg:col-span-9 flex flex-col gap-3.5 md:gap-4">
+            <div className="md:col-span-8 lg:col-span-8 flex flex-col gap-3.5 md:gap-4">
               {filteredDocs.length > 0 ? (
                 filteredDocs.map((doc) => (
                   <a
                     key={doc.id}
                     href={doc.downloadUrl}
                     download
-                    className="group block p-6 sm:p-7 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] border border-[rgba(0,0,0,0.02)] hover:border-[rgba(0,0,0,0.06)] transition-all duration-200"
+                    className="box-24 group block p-6 sm:p-7 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] border-0 transition-all duration-200"
                     style={{
                       WebkitCornerSmoothing: "60%",
                       cornerSmoothing: "60%",

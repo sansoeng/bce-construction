@@ -2027,14 +2027,21 @@ html[lang="km"] .apple-mobile-link {
   font-weight: 700;
 }
 
-/* Unified Apple-style pill shape for buttons */
-button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-close),
-.btn,
+/* Unified Apple-style pill shape for buttons (excluding 24px box controls) */
+button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-close):not(.box-24):not(.rounded-\[24px\]),
+.btn:not(.box-24):not(.rounded-\[24px\]),
 .all-projects,
 .view-project,
 .ft-top-btn,
 .lb-close-x {
   border-radius: 9999px !important;
+}
+
+.box-24,
+.rounded-\[24px\] {
+  border-radius: 24px !important;
+  -webkit-corner-smoothing: 60% !important;
+  corner-smoothing: 60% !important;
 }
 
 .about-image {
