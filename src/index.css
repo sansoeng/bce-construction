@@ -2285,7 +2285,8 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 }
 
 /* Project details (src/ProjectPage.tsx): the homepage's type scale, greys, hairlines and 4px corners. */
-.pd-title { font-size: clamp(2.75rem, 6.2vw, 6.5rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; }
+.pd-title { font-size: clamp(34px, 4.5vw, 54px) !important; font-weight: 500; line-height: 1.08; letter-spacing: -.03em; }
+@media (min-width: 1024px) { .pd-title { font-size: 54px !important; } }
 .pd-h2 { font-size: clamp(2.4rem, 3.6vw, 4.2rem); font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
 .pd-h3 { font-size: clamp(1.9rem, 2.6vw, 3rem); font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
 .pd-statement { font-size: clamp(1.35rem, 1.75vw, 1.9rem); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
@@ -3064,12 +3065,26 @@ html[lang="km"] :is(p, li, dd, dt, figcaption) { line-height: 1.65 !important; }
 /* Responsive mobile adjustments for Khmer */
 @media (max-width: 639px) {
   html[lang="km"] .hero-title { font-size: clamp(2.2rem, 8.5vw, 3.8rem); line-height: 1.35 !important; }
-  html[lang="km"] .ol-hero-title { font-size: clamp(2.2rem, 8.5vw, 4rem); line-height: 1.35 !important; }
+  html[lang="km"] .ol-hero-title { font-size: clamp(28px, 6vw, 36px); line-height: 1.35 !important; }
   html[lang="km"] .ac-title { font-size: clamp(2rem, 7vw, 48px); line-height: 1.35 !important; }
   html[lang="km"] .kp-title { font-size: clamp(2.2rem, 7vw, 3.8rem); line-height: 1.35 !important; }
   html[lang="km"] .ol-dialog-title { font-size: clamp(1.8rem, 6vw, 2.4rem); line-height: 1.35 !important; }
   html[lang="km"] .qf-calc { padding: 1.25rem 1rem; }
   html[lang="km"] .qf-result-num { font-size: clamp(2.6rem, 10vw, 4.5rem); }
+}
+
+html[lang="km"] .ol-hero-title,
+html[lang="km"] .ol-hl-title,
+html[lang="km"] .pd-title {
+  font-size: clamp(34px, 4.5vw, 54px) !important;
+  line-height: 1.35 !important;
+}
+@media (min-width: 1024px) {
+  html[lang="km"] .ol-hero-title,
+  html[lang="km"] .ol-hl-title,
+  html[lang="km"] .pd-title {
+    font-size: 54px !important;
+  }
 }
 
 /* About BCE (src/AboutPage.tsx): the project page's type, rules and photo wipes, plus a few layouts of its own. */
@@ -3257,7 +3272,8 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
    below in 40px type over nine columns, 220px clear of what follows. */
 .ol-hl { display: flex; flex-direction: column; }
 .ol-hl-wrap { padding: clamp(200px, 100vh - 440px, 509px) var(--olm) 118px; padding-top: clamp(200px, 100svh - 440px, 509px); }
-.ol-hl-title { max-width: 60rem; margin-top: 24px; font-size: clamp(2.75rem, 6.2vw, 6.5rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; }
+.ol-hl-title { max-width: 60rem; margin-top: 24px; font-size: clamp(34px, 4.5vw, 54px) !important; font-weight: 500; line-height: 1.08; letter-spacing: -.03em; }
+@media (min-width: 1024px) { .ol-hl-title { font-size: 54px !important; } }
 .ol-hl-media { position: relative; width: 100%; aspect-ratio: 1728 / 1147; overflow: hidden; background: #ededed; }
 .ol-lead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); margin: 90px 0 220px; padding-inline: var(--olm); }
 .ol-lead-content { grid-column: 1 / span 9; }
@@ -3289,7 +3305,8 @@ html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; 
 /* The copy fades over the last stretch so it never runs under the fixed header. */
 .ol-hero-wrap { opacity: clamp(0, calc(1 - (var(--p, 0) - .55) * 2.4), 1); position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); align-content: start; height: 100vh; padding-top: var(--ot); }
 .ol-hero-label { position: absolute; top: calc(var(--ot) - 48px); left: 0; font-size: .95rem; line-height: 1.35; color: rgb(255 255 255 / .7); }
-.ol-hero-title { grid-column: 1 / span 8; font-size: clamp(2.75rem, 6.2vw, 6.5rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; color: #fff; }
+.ol-hero-title { grid-column: 1 / span 8; font-size: clamp(34px, 4.5vw, 54px) !important; font-weight: 500; line-height: 1.08; letter-spacing: -.03em; color: #fff; }
+@media (min-width: 1024px) { .ol-hero-title { font-size: 54px !important; } }
 @media (max-width: 1023px) { .ol-hero-title { grid-column: 1 / span 10; } }
 @media (max-width: 519px) { .ol-hero { --ot: 59svh; } .ol-hero-title { grid-column: 1 / -1; } }
 html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .ol-onboard-heading { line-height: 1.4; font-weight: 600 !important; }
