@@ -489,8 +489,8 @@ export default function RecruitmentPage() {
           </LeadText>
 
           {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="px-5 py-12 md:py-20 border-t border-[rgba(17,17,17,0.08)]">
-            <div className="mx-auto max-w-[1140px]">
+          <section className="px-5 md:px-8 py-16 md:py-20 border-t border-[rgba(17,17,17,0.08)]">
+            <div className="mx-auto max-w-[1240px]">
               {/* Revolut Display Hero Headline */}
               <div className="mb-10">
                 <h2 className="text-[36px] md:text-[48px] font-bold tracking-[-0.025em] text-[#191C1F] leading-[1.12]">
@@ -549,7 +549,7 @@ export default function RecruitmentPage() {
               {/* Revolut Two-Column Layout */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
                 {/* Left Sidebar: Filter by teams */}
-                <aside className="md:col-span-4 lg:col-span-3 sticky top-24">
+                <aside className="md:col-span-4 lg:col-span-4 sticky top-24">
                   <h3 className="text-sm font-semibold text-[#191C1F] uppercase tracking-[0.04em] mb-4">
                     Filter by teams
                   </h3>
@@ -579,7 +579,7 @@ export default function RecruitmentPage() {
                 </aside>
 
                 {/* Right Column: Roles Feed */}
-                <div className="md:col-span-8 lg:col-span-9">
+                <div className="md:col-span-8 lg:col-span-8">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-base font-semibold text-[#191C1F]">
                       Featured roles
@@ -655,7 +655,7 @@ export default function RecruitmentPage() {
           </section>
 
           {/* How to Apply Section — Designed in the About Us Heritage / Split Message Style (Image 4) */}
-          <section className="px-5 py-20 md:py-32 bg-white border-t border-[rgba(17,17,17,0.08)]">
+          <section className="px-5 md:px-8 py-16 md:py-20 bg-white border-t border-[rgba(17,17,17,0.08)]">
             <div className="mx-auto max-w-[1240px]">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
                 {/* Left Column: Quote with vertical bar & hung quotation mark (Image 4) */}
