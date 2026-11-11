@@ -51,9 +51,9 @@ export function useScrollParallax(rootRef: RefObject<HTMLElement | null>) {
   }, [rootRef]);
 }
 
-export function ParallaxHero({ label, title, image, alt = "" }: { label: string; title: string; image: string; alt?: string }) {
+export function ParallaxHero({ label, title, image, alt = "", headerTitle }: { label: string; title: string; image: string; alt?: string; headerTitle?: string }) {
   return (
-    <header data-px="hero" data-nav-dark data-header-title={label} className="ol-hero">
+    <header data-px="hero" data-nav-dark data-header-title={headerTitle ?? label} className="ol-hero">
       <div className="ol-hero-c">
         <div className="ol-hero-bg">
           <div className="ol-hero-media"><img src={image} alt={alt} fetchPriority="high" /></div>

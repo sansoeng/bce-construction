@@ -113,7 +113,7 @@ export default function ProjectsPage() {
 
       {/* Clean Centered Header: Title & Subtext (Banner removed) */}
       <header data-header-title="Projects" className="w-full max-w-[1000px] mx-auto text-center pt-28 sm:pt-32 md:pt-36 px-5 mb-8">
-        <h1 className="text-[34px] sm:text-[42px] md:text-[54px] font-bold tracking-[-0.03em] text-[#191C1F] leading-tight">
+        <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-tight">
           All projects
         </h1>
         <p className="mt-3 text-[16px] sm:text-[17px] md:text-[18px] text-[#737373] leading-relaxed max-w-[640px] mx-auto">

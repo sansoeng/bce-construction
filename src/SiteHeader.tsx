@@ -351,37 +351,23 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   {/* Column 1: Explore Businesses */}
                   <div className="apple-mega-col">
                     <h3>Explore Businesses</h3>
-                    <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?businesses")} onClick={closeAll} className="apple-mega-big-link">
+                      Explore all core businesses
+                    </a>
+                    <a href={linkHref("/?business=ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
                       Ready-Mix Concrete
                     </a>
-                    <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=piling")} onClick={closeAll} className="apple-mega-big-link">
                       Foundation Piling
                     </a>
-                    <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=construction")} onClick={closeAll} className="apple-mega-big-link">
                       Civil Construction
                     </a>
-                    <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
                       Concrete Slab Works
                     </a>
-                    <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
                       Heavy Equipment Rental
-                    </a>
-                  </div>
-
-                  {/* Column 2: Fleet & Capabilities */}
-                  <div className="apple-mega-col">
-                    <h3>Fleet & Capabilities</h3>
-                    <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">4 Batching Plants</span>
-                    </a>
-                    <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
-                    </a>
-                    <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
-                    </a>
-                    <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
                     </a>
                   </div>
                 </div>
@@ -584,37 +570,23 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   {/* Column 1: Explore Businesses */}
                   <div className="apple-mega-col">
                     <h3>Explore Businesses</h3>
-                    <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?businesses")} onClick={closeAll} className="apple-mega-big-link">
+                      Explore all core businesses
+                    </a>
+                    <a href={linkHref("/?business=ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
                       Ready-Mix Concrete
                     </a>
-                    <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=piling")} onClick={closeAll} className="apple-mega-big-link">
                       Foundation Piling
                     </a>
-                    <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=construction")} onClick={closeAll} className="apple-mega-big-link">
                       Civil Construction
                     </a>
-                    <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
                       Concrete Slab Works
                     </a>
-                    <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?business=equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
                       Heavy Equipment Rental
-                    </a>
-                  </div>
-
-                  {/* Column 2: Fleet & Capabilities */}
-                  <div className="apple-mega-col">
-                    <h3>Fleet & Capabilities</h3>
-                    <a href={linkHref("/?businesses#batching-plants")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">4 Batching Plants</span>
-                    </a>
-                    <a href={linkHref("/?businesses#mixers")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">41 Ready-Mix Mixers</span>
-                    </a>
-                    <a href={linkHref("/?businesses#pumps")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">8 Boom & Line Pumps</span>
-                    </a>
-                    <a href={linkHref("/?businesses#piling-rigs")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">7 Hydraulic Piling Rigs</span>
                     </a>
                   </div>
                 </div>
@@ -729,23 +701,27 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
             </button>
             {mobileAccordion === "businesses" && (
               <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
-                <a href={linkHref("/?businesses#ready-mix-concrete")} onClick={closeAll} className="apple-mobile-sublink">
+                <a href={linkHref("/?businesses")} onClick={closeAll} className="apple-mobile-sublink">
+                  Explore all core businesses
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?business=ready-mix-concrete")} onClick={closeAll} className="apple-mobile-sublink">
                   Ready-Mix Concrete
                   <span>›</span>
                 </a>
-                <a href={linkHref("/?businesses#piling")} onClick={closeAll} className="apple-mobile-sublink">
+                <a href={linkHref("/?business=piling")} onClick={closeAll} className="apple-mobile-sublink">
                   Foundation Piling
                   <span>›</span>
                 </a>
-                <a href={linkHref("/?businesses#construction")} onClick={closeAll} className="apple-mobile-sublink">
+                <a href={linkHref("/?business=construction")} onClick={closeAll} className="apple-mobile-sublink">
                   Civil Construction
                   <span>›</span>
                 </a>
-                <a href={linkHref("/?businesses#concrete-slab-works")} onClick={closeAll} className="apple-mobile-sublink">
+                <a href={linkHref("/?business=concrete-slab-works")} onClick={closeAll} className="apple-mobile-sublink">
                   Concrete Slab Works
                   <span>›</span>
                 </a>
-                <a href={linkHref("/?businesses#equipment-rental")} onClick={closeAll} className="apple-mobile-sublink">
+                <a href={linkHref("/?business=equipment-rental")} onClick={closeAll} className="apple-mobile-sublink">
                   Heavy Equipment Rental
                   <span>›</span>
                 </a>

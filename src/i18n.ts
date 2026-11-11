@@ -75,6 +75,7 @@ const KM: Record<string, string> = {
   "National roads, bridges, culverts & irrigation": "ផ្លូវជាតិ ស្ពាន លូ និងប្រព័ន្ធធារាសាស្ត្រ",
   "Hydraulic static pressing & driven RC piles": "ម៉ាស៊ីនសង្កត់ស្ងាត់ធារាសាស្ត្រ និងការបោះសសរគ្រឹះបេតុងអារម៉េ",
   "Explore Businesses": "ស្វែងយល់ពីអាជីវកម្ម",
+  "Explore all core businesses": "ស្វែងយល់ពីអាជីវកម្មស្នូលទាំងអស់",
   "Fleet & Capabilities": "កងគ្រឿងចក្រ & សមត្ថភាព",
   "Heavy Equipment Rental": "ជួលគ្រឿងចក្រធុនធ្ងន់",
   "4 Batching Plants": "ស្ថានីយផលិតបេតុង ៤ កន្លែង",
@@ -1162,6 +1163,193 @@ const KM: Record<string, string> = {
     "ផ្លូវដែលបានកែលម្អបានកាត់បន្ថយរយៈពេលធ្វើដំណើរទៅផ្សារស្រុក និងធានាចរាចរណ៍ពេញរដូវវស្សា។",
   "The raft was completed in a single pour with no cold joints, keeping the superstructure programme on track.":
     "គ្រឹះកម្រាលបានបញ្ចប់ក្នុងការចាក់តែម្ដង ដោយគ្មានសន្លាក់ត្រជាក់ ធានាថាកាលវិភាគសំណង់ផ្នែកខាងលើដំណើរការតាមគម្រោង។",
+
+  // Core business detail pages (src/businessDetails.ts)
+  "Why BCE": "ហេតុអ្វីជ្រើសរើស BCE",
+  "Solutions": "ដំណោះស្រាយ",
+  "Our solutions": "ដំណោះស្រាយរបស់យើង",
+  "Selected work": "ការងារជ្រើសរើស",
+  "Other businesses": "អាជីវកម្មផ្សេងទៀត",
+  "All businesses": "អាជីវកម្មទាំងអស់",
+  "Talk to our team": "និយាយជាមួយក្រុមការងារយើង",
+  "Telegram": "តេឡេក្រាម",
+  "Per hour, each plant": "ក្នុងមួយម៉ោង ក្នុងមួយរោងចក្រ",
+  "Provinces and Phnom Penh": "ខេត្ត និងរាជធានីភ្នំពេញ",
+
+  // Ready-Mix Concrete
+  "Quality-controlled concrete from our four batching plants, each producing 70 m³ an hour, delivered to site by our own fleet of 41 mixer trucks across 13 provinces and Phnom Penh.":
+    "បេតុងគុណភាពខ្ពស់ពីរោងចក្រលាយបេតុង ៤ កន្លែង ដែលនីមួយៗផលិតបាន ៧០ m³ ក្នុងមួយម៉ោង ដឹកជញ្ជូនទៅការដ្ឋានដោយកងរថយន្តលាយបេតុង ៤១ គ្រឿងផ្ទាល់ខ្លួន ទូទាំង ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។",
+  "Why BCE for ready-mix": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់បេតុងលាយស្រេច",
+  "A supply chain you can plan around": "ខ្សែសង្វាក់ផ្គត់ផ្គង់ដែលអ្នកអាចរៀបចំផែនការបាន",
+  "Own plants, own trucks": "រោងចក្រ និងរថយន្តផ្ទាល់ខ្លួន",
+  "Four batching plants and 41 mixer trucks, all ours, so production and delivery are planned around your programme rather than a supplier's.":
+    "រោងចក្រលាយបេតុង ៤ និងរថយន្តលាយបេតុង ៤១ សុទ្ធតែជារបស់យើង ដូច្នេះការផលិត និងការដឹកជញ្ជូនត្រូវបានរៀបចំតាមកាលវិភាគរបស់អ្នក មិនមែនតាមអ្នកផ្គត់ផ្គង់ទេ។",
+  "Designed and tested in-house": "រចនា និងតេស្តដោយខ្លួនឯង",
+  "Every grade is trial-mixed and approved before supply, then slump-tested on delivery and sampled for strength in our own laboratory.":
+    "រាល់កម្រិតបេតុងត្រូវបានលាយសាកល្បង និងអនុម័តមុនការផ្គត់ផ្គង់ បន្ទាប់មកតេស្តស្រុតពេលដឹកជញ្ជូន និងយកគំរូទៅតេស្តកម្លាំងនៅមន្ទីរពិសោធន៍របស់យើង។",
+  "Every batch recorded": "កំណត់ត្រាគ្រប់បាច់បេតុង",
+  "Batch weights, delivery tickets and test results are documented for each pour and handed over with the works.":
+    "ទម្ងន់វត្ថុធាតុ សំបុត្រដឹកជញ្ជូន និងលទ្ធផលតេស្តត្រូវបានកត់ត្រាសម្រាប់ការចាក់នីមួយៗ និងប្រគល់ជូនជាមួយការងារ។",
+  "Dispatch that keeps up": "ការបញ្ជូនដែលទាន់ពេល",
+  "Site pouring runs 24/7 on schedule, with deliveries sequenced to the placing crew's programme and the pour sequence.":
+    "ការចាក់បេតុងនៅការដ្ឋានដំណើរការ ២៤/៧ តាមកាលវិភាគ ដោយការដឹកជញ្ជូនត្រូវបានរៀបចំតាមលំដាប់ការងាររបស់ក្រុមចាក់បេតុង។",
+  "Concrete for every pour": "បេតុងសម្រាប់រាល់ការចាក់",
+  "From foundations and frames to floors and hardstands, concrete is batched to the approved mix design and delivered when the site is ready.":
+    "ចាប់ពីគ្រឹះ និងស៊ុមអគារ រហូតដល់កម្រាល និងទីធ្លាបេតុង បេតុងត្រូវបានលាយតាមរូបមន្តដែលបានអនុម័ត និងដឹកជញ្ជូននៅពេលការដ្ឋានរួចរាល់។",
+  "Structural concrete, C15–C40": "បេតុងសំណង់ C15–C40",
+  "Foundations, columns, beams and slabs, batched to the approved mix design and delivered to the pour sequence.":
+    "គ្រឹះ សសរ ធ្នឹម និងកម្រាល លាយតាមរូបមន្តដែលបានអនុម័ត និងដឹកជញ្ជូនតាមលំដាប់ការចាក់។",
+  "Continuous and mass pours": "ការចាក់បន្តបន្ទាប់ និងបរិមាណច្រើន",
+  "Raft foundations, warehouse floors and large slabs, planned across plants and trucks so the pour runs without interruption.":
+    "គ្រឹះកម្រាល កម្រាលឃ្លាំង និងកម្រាលធំៗ ត្រូវបានរៀបចំផែនការឆ្លងកាត់រោងចក្រ និងរថយន្ត ដើម្បីឱ្យការចាក់ដំណើរការមិនរអាក់រអួល។",
+  "Pumped delivery": "ការដឹកជញ្ជូនដោយបូម",
+  "Our eight pump trucks place concrete where mixer chutes cannot reach, including upper floors and restricted sites.":
+    "រថយន្តបូមបេតុង ៨ គ្រឿងរបស់យើងចាក់បេតុងនៅកន្លែងដែលរថយន្តលាយបេតុងមិនអាចទៅដល់ រួមទាំងជាន់ខាងលើ និងការដ្ឋានចង្អៀត។",
+  "Capacity and fleet": "សមត្ថភាព និងកងយានយន្ត",
+  "Production and delivery in one fleet": "ការផលិត និងការដឹកជញ្ជូនក្នុងកងយានយន្តតែមួយ",
+  "Concrete is produced at four batching plants and delivered by our own mixers, so capacity, quality and timing stay under one roof and one programme.":
+    "បេតុងត្រូវបានផលិតនៅរោងចក្រលាយបេតុង ៤ កន្លែង និងដឹកជញ្ជូនដោយរថយន្តផ្ទាល់ខ្លួន ដូច្នេះសមត្ថភាព គុណភាព និងពេលវេលា ស្ថិតនៅក្រោមការគ្រប់គ្រងតែមួយ។",
+
+  // Piling
+  "Reinforced concrete piles for bridges, roads and buildings, installed with our own rigs and crews and backed by concrete and laboratory quality control from the same team.":
+    "សសរស្ដម្ភបេតុងអារម៉េសម្រាប់ស្ពាន ផ្លូវ និងអគារ ដំឡើងដោយម៉ាស៊ីន និងក្រុមការងារផ្ទាល់ខ្លួន និងគាំទ្រដោយការត្រួតពិនិត្យគុណភាពបេតុង និងមន្ទីរពិសោធន៍ពីក្រុមតែមួយ។",
+  "Why BCE for piling": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការបោះសសរស្ដម្ភ",
+  "Foundations built on control": "គ្រឹះដែលកសាងលើការគ្រប់គ្រង",
+  "Our own rigs and crews": "ម៉ាស៊ីន និងក្រុមការងារផ្ទាល់ខ្លួន",
+  "We mobilise our own piling rigs and installation crews, so the programme is set by our capacity, not a subcontractor's.":
+    "យើងដាក់ពង្រាយម៉ាស៊ីនបោះសសរស្ដម្ភ និងក្រុមដំឡើងផ្ទាល់ខ្លួន ដូច្នេះកាលវិភាគកំណត់ដោយសមត្ថភាពរបស់យើង មិនមែនដោយអ្នកម៉ៅការបន្តទេ។",
+  "Engineered from the drawings": "វិស្វកម្មចេញពីគំនូរបច្ចេកទេស",
+  "Our engineers plan the piling sequence, reinforcement and concrete supply around the structural design, then supervise installation on site.":
+    "វិស្វកររបស់យើងរៀបចំលំដាប់ការបោះសសរ ការដាក់ដែកពង្រឹង និងការផ្គត់ផ្គង់បេតុង ស្របតាមការរចនារចនាសម្ព័ន្ធ បន្ទាប់មកត្រួតពិនិត្យការដំឡើងនៅការដ្ឋាន។",
+  "Concrete from our plants": "បេតុងពីរោងចក្ររបស់យើង",
+  "Piles are cast with concrete from our own batching plants, tested for slump and strength before it reaches the rig.":
+    "សសរស្ដម្ភត្រូវបានចាក់ដោយបេតុងពីរោងចក្រលាយបេតុងផ្ទាល់ខ្លួន ដោយតេស្តស្រុត និងកម្លាំង មុនពេលដឹកដល់ម៉ាស៊ីន។",
+  "Records with every pile": "កំណត់ត្រាជាមួយរាល់សសរ",
+  "Installation records, concrete results and test reports are compiled and handed over with the foundation.":
+    "កំណត់ត្រាការដំឡើង លទ្ធផលបេតុង និងរបាយការណ៍តេស្ត ត្រូវបានចងក្រង និងប្រគល់ជូនជាមួយគ្រឹះ។",
+  "Piling solutions": "ដំណោះស្រាយបោះសសរស្ដម្ភ",
+  "We install foundations for almost any structure, combining proven methods with concrete, rigs and testing from our own resources.":
+    "យើងដំឡើងគ្រឹះសម្រាប់ស្ទើរតែគ្រប់រចនាសម្ព័ន្ធ ដោយរួមបញ្ចូលវិធីសាស្ត្រដែលបានសាកល្បង ជាមួយបេតុង ម៉ាស៊ីន និងការតេស្តពីធនធានផ្ទាល់ខ្លួន។",
+  "Piles bored and cast on site with our own concrete, suited to deep foundations and high load capacity.":
+    "សសរខួង និងចាក់នៅការដ្ឋានដោយបេតុងផ្ទាល់ខ្លួន សមស្របសម្រាប់គ្រឹះជ្រៅ និងសមត្ថភាពផ្ទុកខ្ពស់។",
+  "Pressed and driven RC piles": "សសរស្ដម្ភបេតុងអារម៉េសង្កត់ និងបុក",
+  "Hydraulic static pressing and driven reinforced concrete piles for foundations where vibration and spoil must stay controlled.":
+    "ការសង្កត់ដោយធារាសាស្ត្រ និងការបុកសសរស្ដម្ភបេតុងអារម៉េ សម្រាប់គ្រឹះដែលត្រូវគ្រប់គ្រងរំញ័រ និងការបាត់បង់ដី។",
+  "Bridge and infrastructure foundations": "គ្រឹះស្ពាន និងហេដ្ឋារចនាសម្ព័ន្ធ",
+  "Pile caps, abutments and culverts for roads and bridges, from mobilisation through load testing and as-built records.":
+    "ក្បាលសសរ តួស្ពាន និងលូ សម្រាប់ផ្លូវ និងស្ពាន ចាប់ពីការដាក់ពង្រាយ រហូតដល់ការតេស្តបន្ទុក និងកំណត់ត្រាស្ថានភាពជាក់ស្តែង។",
+  "Rigs and capability": "ម៉ាស៊ីន និងសមត្ថភាព",
+  "Rigs, crews and records": "ម៉ាស៊ីន ក្រុមការងារ និងកំណត់ត្រា",
+  "Piling crews work with our own rigs, concrete and laboratory, so foundations are planned, installed and verified by one team.":
+    "ក្រុមបោះសសរស្ដម្ភធ្វើការជាមួយម៉ាស៊ីន បេតុង និងមន្ទីរពិសោធន៍ផ្ទាល់ខ្លួន ដូច្នេះគ្រឹះត្រូវបានរៀបចំផែនការ ដំឡើង និងផ្ទៀងផ្ទាត់ដោយក្រុមតែមួយ។",
+  "Engineers in our team": "វិស្វករក្នុងក្រុមរបស់យើង",
+  "Pile concrete from our plants": "បេតុងសសរស្ដម្ភពីរោងចក្ររបស់យើង",
+
+  // Construction
+  "Civil construction for infrastructure, industrial, commercial and residential projects, built with our own concrete, equipment and engineers from the first earthworks to handover.":
+    "សំណង់ស៊ីវិលសម្រាប់ហេដ្ឋារចនាសម្ព័ន្ធ គម្រោងឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន សាងសង់ដោយបេតុង ឧបករណ៍ និងវិស្វករផ្ទាល់ខ្លួន ចាប់ពីការងារដីដំបូងរហូតដល់ការប្រគល់។",
+  "Why BCE for construction": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការសាងសង់",
+  "One team from ground to handover": "ក្រុមតែមួយ ចាប់ពីដីរហូតដល់ការប្រគល់",
+  "One point of responsibility": "អ្នកទទួលខុសត្រូវតែមួយ",
+  "Concrete, foundations and construction come from one team, so interfaces between trades do not become delays.":
+    "បេតុង គ្រឹះ និងការសាងសង់មកពីក្រុមតែមួយ ដូច្នេះចំណុចប្រសព្វរវាងការងារនីមួយៗមិនក្លាយជាការពន្យារពេលទេ។",
+  "Own materials and fleet": "វត្ថុធាតុ និងកងយានយន្តផ្ទាល់ខ្លួន",
+  "Our plants, mixer and pump trucks and piling rigs are assigned from our own fleet, keeping programme and cost under control.":
+    "រោងចក្រ រថយន្តលាយបេតុង រថយន្តបូមបេតុង និងម៉ាស៊ីនបោះសសរ ត្រូវបានដាក់ពង្រាយពីកងយានយន្តផ្ទាល់ខ្លួន ដើម្បីគ្រប់គ្រងកាលវិភាគ និងថ្លៃដើម។",
+  "Engineers on site": "វិស្វករនៅការដ្ឋាន",
+  "A team of 15 engineers plans, supervises and records the work from setting out to handover.":
+    "ក្រុមវិស្វករ ១៥ នាក់ រៀបចំផែនការ ត្រួតពិនិត្យ និងកត់ត្រាការងារ ចាប់ពីការវាស់ស្ទង់ រហូតដល់ការប្រគល់។",
+  "Built for the wet season": "សាងសង់សម្រាប់រដូវវស្សា",
+  "Programmes are sequenced around Cambodia's rainy season, with drainage and earthworks planned before the first rains.":
+    "កាលវិភាគត្រូវបានរៀបចំជុំវិញរដូវវស្សានៅកម្ពុជា ដោយការងារបង្ហូរទឹក និងដីត្រូវបានរៀបចំមុនភ្លៀងដំបូង។",
+  "Construction services": "សេវាកម្មសំណង់",
+  "We deliver the works that carry a project from prepared ground to a completed structure, using resources we own and maintain.":
+    "យើងអនុវត្តការងារដែលនាំគម្រោងពីដីដែលបានរៀបចំ ទៅរចនាសម្ព័ន្ធដែលបានបញ្ចប់ ដោយប្រើធនធានដែលយើងកាន់កាប់ និងថែទាំ។",
+  "National and provincial roads, bridges, culverts and drainage, delivered with our own earthworks, concrete and paving crews.":
+    "ផ្លូវជាតិ និងផ្លូវខេត្ត ស្ពាន លូ និងប្រព័ន្ធបង្ហូរទឹក អនុវត្តដោយក្រុមការងារដី បេតុង និងការរាលផ្លូវផ្ទាល់ខ្លួន។",
+  "Industrial and logistics": "ឧស្សាហកម្ម និងភស្តុភារ",
+  "Factories, warehouses and depots, from site preparation and foundations to structural frames and floors.":
+    "រោងចក្រ ឃ្លាំង និងមជ្ឈមណ្ឌលចែកចាយ ចាប់ពីការរៀបចំដី និងគ្រឹះ រហូតដល់ស៊ុមរចនាសម្ព័ន្ធ និងកម្រាល។",
+  "Commercial and residential": "ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន",
+  "Commercial buildings and residential developments, built with our own concrete, equipment and engineers.":
+    "អគារពាណិជ្ជកម្ម និងគម្រោងលំនៅដ្ឋាន សាងសង់ដោយបេតុង ឧបករណ៍ និងវិស្វករផ្ទាល់ខ្លួន។",
+  "Team and capacity": "ក្រុមការងារ និងសមត្ថភាព",
+  "Built with our own resources": "សាងសង់ដោយធនធានផ្ទាល់ខ្លួន",
+  "From the first earthworks to the final handover, our construction teams draw on the same plants, fleet and engineers that supply our concrete and foundations.":
+    "ចាប់ពីការងារដីដំបូង រហូតដល់ការប្រគល់ចុងក្រោយ ក្រុមសំណង់របស់យើងប្រើប្រាស់រោងចក្រ កងយានយន្ត និងវិស្វករដូចគ្នាដែលផ្គត់ផ្គង់បេតុង និងគ្រឹះរបស់យើង។",
+  "Building in Cambodia since": "សាងសង់នៅកម្ពុជាតាំងពី",
+  "People in our team": "សមាជិកក្រុមរបស់យើង",
+  "Engineers on staff": "វិស្វករប្រចាំការ",
+
+  // Concrete Slab Works
+  "Placement and finishing of concrete slabs, pumped by our eight pump trucks with ready-mix from our own plants and tested for slump and strength on every pour.":
+    "ការចាក់ និងការរលោងកម្រាលបេតុង ដោយបូមពីរថយន្តបូមបេតុង ៨ គ្រឿងរបស់យើង ជាមួយបេតុងលាយស្រេចពីរោងចក្រផ្ទាល់ខ្លួន និងតេស្តស្រុត និងកម្លាំងលើរាល់ការចាក់។",
+  "Why BCE for slab works": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការងារកម្រាលបេតុង",
+  "Placed, finished and checked": "ចាក់ រលោង និងត្រួតពិនិត្យ",
+  "Pumped by our own fleet": "បូមដោយកងយានយន្តផ្ទាល់ខ្លួន",
+  "Eight pump trucks place concrete across the slab, keeping pours steady and reducing manual handling on site.":
+    "រថយន្តបូមបេតុង ៨ គ្រឿងចាក់បេតុងពាសពេញកម្រាល រក្សាលំហូរការចាក់ឱ្យនឹងនរ និងកាត់បន្ថយការលើកដោយដៃនៅការដ្ឋាន។",
+  "Finishing that lasts": "ការរលោងផ្ទៃដែលប្រើបានយូរ",
+  "Power-float finishes, dry-shake hardeners and saw-cut joints are matched to how the floor will be used.":
+    "ការរលោងដោយម៉ាស៊ីន ម្សៅពង្រឹងផ្ទៃ និងសន្លាក់កាត់ ត្រូវបានជ្រើសតាមការប្រើប្រាស់ជាក់ស្តែងរបស់កម្រាល។",
+  "Tested concrete, every delivery": "បេតុងតេស្តរាល់ការដឹកជញ្ជូន",
+  "Slump is checked on arrival and cubes are crushed at 7 and 28 days, with results recorded for each pour.":
+    "ស្រុតត្រូវបានត្រួតពិនិត្យពេលមកដល់ ហើយគំរូគូបត្រូវបានសង្កត់នៅថ្ងៃទី ៧ និង ២៨ ដោយកត់ត្រាលទ្ធផលសម្រាប់ការចាក់នីមួយៗ។",
+  "Pours planned in bays": "ការចាក់រៀបចំជាដៃ",
+  "Large floors are divided into pour bays and sequenced with our batching plants so each day's work closes cleanly.":
+    "កម្រាលធំៗត្រូវបានបែងចែកជាដៃចាក់ និងរៀបចំលំដាប់ជាមួយរោងចក្រលាយបេតុង ដើម្បីឱ្យការងារប្រចាំថ្ងៃបញ្ចប់ស្អាត។",
+  "Slab solutions": "ដំណោះស្រាយកម្រាលបេតុង",
+  "Slab crews work with ready-mix from our plants and pumps from our fleet, so placement, finishing and testing are coordinated on one programme.":
+    "ក្រុមកម្រាលបេតុងធ្វើការជាមួយបេតុងពីរោងចក្រ និងរថយន្តបូមពីកងយានយន្តរបស់យើង ដូច្នេះការចាក់ ការរលោង និងការតេស្ត ត្រូវបានសម្របសម្រួលលើកាលវិភាគតែមួយ។",
+  "Ground-bearing floors": "កម្រាលលើដី",
+  "Warehouse, factory and depot floors, placed in planned bays and power-floated for racking and forklift traffic.":
+    "កម្រាលឃ្លាំង រោងចក្រ និងមជ្ឈមណ្ឌលចែកចាយ ចាក់ជាដៃដែលបានរៀបចំ និងរលោងសម្រាប់ធ្នើរ និងរថយន្តលើកទំនិញ។",
+  "Structural slabs for upper floors, pumped by our own fleet and finished to the engineer's specification.":
+    "កម្រាលរចនាសម្ព័ន្ធសម្រាប់ជាន់ខាងលើ បូមដោយកងយានយន្តផ្ទាល់ខ្លួន និងរលោងតាមលក្ខណៈបច្ចេកទេសរបស់វិស្វករ។",
+  "External slabs, yards and hardstands, detailed for drainage, joints and the loads they will carry.":
+    "កម្រាលខាងក្រៅ ទីធ្លា និងផ្ទៃរឹង រៀបចំសម្រាប់ការបង្ហូរទឹក សន្លាក់ និងបន្ទុកដែលត្រូវទទួល។",
+  "Pumps and plants": "រថយន្តបូម និងរោងចក្រ",
+  "Pumps, plants and crews": "រថយន្តបូម រោងចក្រ និងក្រុមការងារ",
+  "Our slab crews place and finish with ready-mix from our batching plants and pumps from our own fleet, tested as it arrives.":
+    "ក្រុមកម្រាលបេតុងរបស់យើងចាក់ និងរលោងដោយបេតុងពីរោងចក្រ និងរថយន្តបូមពីកងយានយន្តផ្ទាល់ខ្លួន ដោយតេស្តនៅពេលមកដល់។",
+  "Slab concrete from our plants": "បេតុងកម្រាលពីរោងចក្ររបស់យើង",
+
+  // Truck & Equipment Rental
+  "Mixer trucks, pump trucks and piling rigs for hire, maintained by our own team and ready to mobilise across Cambodia with the operators who know them best.":
+    "រថយន្តលាយបេតុង រថយន្តបូមបេតុង និងម៉ាស៊ីនបោះសសរស្ដម្ភសម្រាប់ជួល ថែទាំដោយក្រុមផ្ទាល់ខ្លួន និងរួចរាល់ដាក់ពង្រាយទូទាំងកម្ពុជា ជាមួយអ្នកបើកបរដែលស្គាល់ឧបករណ៍បំផុត។",
+  "Why BCE for hire": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការជួល",
+  "Equipment that arrives ready": "ឧបករណ៍ដែលមកដល់រួចរាល់",
+  "Maintained in-house": "ថែទាំដោយខ្លួនឯង",
+  "Every truck and rig is serviced by our own workshop team, so machines arrive on site ready to work.":
+    "រថយន្ត និងម៉ាស៊ីននីមួយៗ ត្រូវបានថែទាំដោយក្រុមជាងផ្ទាល់ខ្លួន ដូច្នេះឧបករណ៍មកដល់ការដ្ឋានរួចរាល់សម្រាប់ការងារ។",
+  "Operators included": "រួមទាំងអ្នកបើកបរ",
+  "Experienced operators and drivers come with the equipment, familiar with the machine and the site.":
+    "អ្នកបើកបរ និងអ្នកប្រតិបត្តិការដែលមានបទពិសោធន៍មកជាមួយឧបករណ៍ ដោយស្គាល់ម៉ាស៊ីន និងការដ្ឋានយ៉ាងច្បាស់។",
+  "Mobilised across Cambodia": "ដាក់ពង្រាយទូទាំងកម្ពុជា",
+  "Equipment is dispatched from Battambang and mobilised to projects in 13 provinces and Phnom Penh.":
+    "ឧបករណ៍ត្រូវបានបញ្ជូនចេញពីបាត់ដំបង និងដាក់ពង្រាយទៅគម្រោងក្នុង ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។",
+  "Backed by our plants": "គាំទ្រដោយរោងចក្ររបស់យើង",
+  "Hire can be combined with ready-mix supply and pumping from the same team, under one schedule.":
+    "ការជួលអាចរួមបញ្ចូលជាមួយការផ្គត់ផ្គង់បេតុង និងការបូមពីក្រុមតែមួយ ក្រោមកាលវិភាគតែមួយ។",
+  "Hire solutions": "ដំណោះស្រាយជួល",
+  "Our rental fleet is the same equipment we use on our own works, maintained to the same standard and available with its operators.":
+    "កងយានយន្តជួលរបស់យើង គឺជាឧបករណ៍ដូចគ្នាដែលយើងប្រើលើការងារផ្ទាល់ខ្លួន ថែទាំតាមស្តង់ដារដូចគ្នា និងមានអ្នកបើកបរជាមួយ។",
+  "Mixer truck hire": "ជួលរថយន្តលាយបេតុង",
+  "41 mixer trucks on daily call-off or project terms, with drivers and GPS dispatch from our plants.":
+    "រថយន្តលាយបេតុង ៤១ គ្រឿង សម្រាប់ការកម្ម៉ង់ប្រចាំថ្ងៃ ឬតាមលក្ខខណ្ឌគម្រោង ជាមួយអ្នកបើកបរ និងការតាមដាន GPS ពីរោងចក្រ។",
+  "Pump truck hire": "ជួលរថយន្តបូមបេតុង",
+  "Eight concrete pump trucks with experienced operators for high-reach and restricted-access pours.":
+    "រថយន្តបូមបេតុង ៨ គ្រឿង ជាមួយអ្នកប្រតិបត្តិការមានបទពិសោធន៍ សម្រាប់ការចាក់ខ្ពស់ និងកន្លែងចង្អៀត។",
+  "Piling rig hire": "ជួលម៉ាស៊ីនបោះសសរស្ដម្ភ",
+  "Piling rigs and crews available for foundation works, backed by our own maintenance team.":
+    "ម៉ាស៊ីនបោះសសរស្ដម្ភ និងក្រុមការងារ សម្រាប់ការងារគ្រឹះ គាំទ្រដោយក្រុមថែទាំផ្ទាល់ខ្លួន។",
+  "Fleet and coverage": "កងយានយន្ត និងតំបន់សេវា",
+  "Our fleet, ready to mobilise": "កងយានយន្តរបស់យើង រួចរាល់ដាក់ពង្រាយ",
+  "Trucks, pumps and rigs are maintained by our own team and dispatched from Battambang, with operators available for every machine.":
+    "រថយន្ត រថយន្តបូម និងម៉ាស៊ីន ត្រូវបានថែទាំដោយក្រុមផ្ទាល់ខ្លួន និងបញ្ជូនចេញពីបាត់ដំបង ជាមួយអ្នកបើកបរសម្រាប់គ្រប់ម៉ាស៊ីន។",
+  "Mixer trucks for hire": "រថយន្តលាយបេតុងសម្រាប់ជួល",
+  "Pump trucks for hire": "រថយន្តបូមបេតុងសម្រាប់ជួល",
+  "Piling rigs for hire": "ម៉ាស៊ីនបោះសសរស្ដម្ភសម្រាប់ជួល",
 };
 
 // Templated strings

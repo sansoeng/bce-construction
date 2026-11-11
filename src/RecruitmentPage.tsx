@@ -368,7 +368,7 @@ export default function RecruitmentPage() {
 
             {/* Header: Title & Meta Tags */}
             <div className="text-left mb-10">
-              <h1 className="text-[34px] md:text-[44px] font-bold leading-[1.12] tracking-[-0.02em] text-[#191C1F] mb-4">
+              <h1 className="text-[34px] md:text-[64px] font-semibold leading-[1.12] tracking-[-0.02em] text-[#191C1F] mb-4">
                 {currentJob.title}
               </h1>
 
@@ -506,7 +506,7 @@ export default function RecruitmentPage() {
             <div className="w-full max-w-[1000px] mx-auto">
               {/* Revolut Centered Display Hero Headline */}
               <div className="text-center max-w-[800px] mx-auto mb-10 md:mb-12">
-                <h1 className="text-[34px] sm:text-[42px] md:text-[54px] font-bold tracking-[-0.03em] text-[#191C1F] leading-[1.1]">
+                <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-[1.1]">
                   We have {VACANCIES.length} open positions
                 </h1>
                 <p className="mt-3 md:mt-4 text-base sm:text-lg text-[#72757E] max-w-[620px] mx-auto leading-relaxed">

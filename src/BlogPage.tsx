@@ -503,7 +503,7 @@ export default function BlogPage() {
               </div>
 
               {/* Title */}
-              <h1 className="text-[32px] sm:text-[42px] md:text-[50px] font-bold tracking-[-0.03em] text-[#191C1F] leading-[1.14] mb-6">
+              <h1 className="text-[32px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-[1.14] mb-6">
                 {currentPost.title}
               </h1>
 
@@ -641,7 +641,7 @@ export default function BlogPage() {
             <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto">
               {/* Revolut Centered Header: H1 Blog */}
               <div className="text-center max-w-[700px] mx-auto mb-8">
-                <h1 className="text-[34px] sm:text-[42px] md:text-[54px] font-bold tracking-[-0.03em] text-[#191C1F] leading-tight">
+                <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-tight">
                   Blog
                 </h1>
                 <p className="mt-3 text-base sm:text-lg text-[#737373] leading-relaxed">

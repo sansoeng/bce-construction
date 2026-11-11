@@ -39,7 +39,7 @@ export const offerings: Business[] = [
     details: ["Mixer trucks", "Pump trucks", "Piling rigs", "Maintained and ready"] },
 ];
 
-export const businessHref = (slug: string) => `/?businesses#${slug}`;
+export const businessHref = (slug: string) => `/?business=${slug}`;
 export const quoteHref = (slug?: string) => (slug ? `/?quote&service=${slug}` : "/?quote");
 
 // BCE's HSE & Operational Commitments (5 pillars)

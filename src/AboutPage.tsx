@@ -12,7 +12,7 @@ import AboutZoom from "./AboutZoom"
 import AboutValues from "./AboutValues"
 import ArrowButton from "./ArrowButton"
 import { useMediaReveal, usePageSetup } from "./usePageSetup"
-import { LeadText, PageHeader, useScrollParallax } from "./ServiceBlocks"
+import { LeadText, ParallaxHero, useScrollParallax } from "./ServiceBlocks"
 import { translate } from "./i18n"
 
 // About BCE, after the website brief ("10. About BCE"), kept short so it reads at a glance: the olympic.no-style
@@ -184,74 +184,78 @@ export default function AboutPage() {
   return (
     <main
       ref={rootRef}
-      className="relative z-[1] overflow-x-clip bg-white text-[#111]"
+      className="ol-page relative z-[1] overflow-x-clip bg-white text-[#111]"
     >
       <SiteHeader phones={phones} tel={tel} base="/" />
 
-      {/* Header after olympic.no's inner pages: title, full-bleed banner, then the introduction. */}
-      <PageHeader
+      {/* Cover as Our Businesses and the business pages: the label and title set low over a full-screen banner,
+          which drifts as the page scrolls and the introduction rises over it. */}
+      <ParallaxHero
         label="About BCE"
         title="Building Cambodia since 1995"
-        image={unsplash("/Image/bce/hero_batching_plant.jpg", 2400)}
-        alt="BCE computerized batching plant and operations"
+        image={unsplash("/Image/bce/photos/slab-pour.jpg", 2400)}
+        alt="Concrete placed into reinforced formwork on a BCE project"
       />
-      <LeadText
-        after={
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <ArrowButton
-              href="/assets/BCE_Corporate_Profile_2026.pdf"
-              label="Download Company Profile (PDF)"
-              theme="black"
-            />
-            <ArrowButton
-              href="/?resources"
-              label="View all resources"
-              theme="outline"
-            />
-          </div>
-        }
-      >
-        Battambang Construction and Engineering, Co., Ltd. (BCE) is a Battambang-based construction, concrete, piling and engineering company, supplying ready-mix concrete, reinforced concrete piling and civil construction to projects across Cambodia with its own plants, fleet and a team of 71.
-      </LeadText>
 
-      {/* 1. Who we are, as a scroll-driven zoom-out. */}
-      <AboutZoom />
-
-      {/* 2. The Chairwoman's message, then the vision, mission and the four core values it names. */}
-      <ChairwomanMessage />
-      <AboutValues />
-
-      {/* 4. Explore more: two media link tiles (olympic.no), the photos drifting in their frames as they cross the screen. */}
-      <section
-        data-header-title="Explore"
-        aria-labelledby="ab-more"
-        className="ab-tiles"
-      >
-        <h2 id="ab-more" className="sr-only">
-          Explore more
-        </h2>
-        {more.map((t) => (
-          <div key={t.title} data-px="media" className="ab-tile">
-            <div className="ab-tile-media ol-px-media">
-              <img src={t.image.startsWith("/") ? t.image : unsplash(t.image, 1800)} alt={t.alt} loading="lazy" />
-            </div>
-            <div className="ab-tile-content">
-              <p data-split="content" className="ab-tile-label">
-                {t.label}
-              </p>
-              <h3 data-split className="ab-tile-title">
-                {t.title}
-              </h3>
+      <div className="ol-page-body">
+        <LeadText
+          after={
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <ArrowButton
-                href={t.href}
-                label="Explore"
-                theme="white"
-                className="ab-tile-btn"
+                href="/assets/BCE_Corporate_Profile_2026.pdf"
+                label="Download Company Profile (PDF)"
+                theme="black"
+              />
+              <ArrowButton
+                href="/?resources"
+                label="View all resources"
+                theme="outline"
               />
             </div>
-          </div>
-        ))}
-      </section>
+          }
+        >
+          Battambang Construction and Engineering, Co., Ltd. (BCE) is a Battambang-based construction, concrete, piling and engineering company, supplying ready-mix concrete, reinforced concrete piling and civil construction to projects across Cambodia with its own plants, fleet and a team of 71.
+        </LeadText>
+
+        {/* 1. Who we are, as a scroll-driven zoom-out. */}
+        <AboutZoom />
+
+        {/* 2. The Chairwoman's message, then the vision, mission and the four core values it names. */}
+        <ChairwomanMessage />
+        <AboutValues />
+
+        {/* 4. Explore more: two media link tiles (olympic.no), the photos drifting in their frames as they cross the screen. */}
+        <section
+          data-header-title="Explore"
+          aria-labelledby="ab-more"
+          className="ab-tiles"
+        >
+          <h2 id="ab-more" className="sr-only">
+            Explore more
+          </h2>
+          {more.map((t) => (
+            <div key={t.title} data-px="media" className="ab-tile">
+              <div className="ab-tile-media ol-px-media">
+                <img src={t.image.startsWith("/") ? t.image : unsplash(t.image, 1800)} alt={t.alt} loading="lazy" />
+              </div>
+              <div className="ab-tile-content">
+                <p data-split="content" className="ab-tile-label">
+                  {t.label}
+                </p>
+                <h3 data-split className="ab-tile-title">
+                  {t.title}
+                </h3>
+                <ArrowButton
+                  href={t.href}
+                  label="Explore"
+                  theme="white"
+                  className="ab-tile-btn"
+                />
+              </div>
+            </div>
+          ))}
+        </section>
+      </div>
 
       <QuoteCta href="/?quote" />
       <Footer phones={phones} tel={tel} base="/" />

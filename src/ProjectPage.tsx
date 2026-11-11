@@ -204,7 +204,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
       <article>
         {/* Opening: back link, category and index on the 12-column rule, then the name as the page title. */}
         <header data-header-title="Project" className="px-5 pt-28 md:pt-36">
-          <h1 key={project.slug} data-split data-split-type="words" className="pd-title mt-20 max-w-[72rem] md:mt-36">{project.name}</h1>
+          <h1 key={project.slug} data-split data-split-type="words" className="pd-title mt-10 max-w-[72rem] md:mt-16">{project.name}</h1>
           <p className="mt-6 flex items-center gap-3 text-[.95rem] text-black/45">
             <span data-split="content">{project.category}</span>
             {project.sample && <span className="pd-tag pd-fade">Sample content</span>}

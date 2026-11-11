@@ -5,6 +5,8 @@ import ProjectPage from './ProjectPage'
 import ProjectsPage from './ProjectsPage'
 import AboutPage from './AboutPage'
 import BusinessesPage from './BusinessesPage'
+import BusinessDetailPage from './BusinessDetailPage'
+import { findBusinessDetail } from './businessDetails'
 import QualityPage from './QualityPage'
 import CapabilitiesPage from './CapabilitiesPage'
 import QuotePage from './QuotePage'
@@ -27,6 +29,10 @@ function Page() {
   if (params.has('projects')) return <ProjectsPage />
   if (params.has('about')) return <AboutPage />
   if (params.has('businesses')) return <BusinessesPage />
+  if (params.has('business')) {
+    const slug = params.get('business')!
+    return findBusinessDetail(slug) ? <BusinessDetailPage key={slug} slug={slug} /> : <BusinessesPage />
+  }
   if (params.has('quality')) return <QualityPage />
   if (params.has('capabilities')) return <CapabilitiesPage />
   if (params.has('quote')) return <QuotePage />

@@ -1,18 +1,19 @@
-import { useCallback, useRef, useState } from "react";
+import { useRef } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import ArrowButton from "./ArrowButton";
 import { useMediaReveal, usePageSetup } from "./usePageSetup";
-import { offerings, quoteHref, unsplash, type Business } from "./company";
-import { projectHref } from "./projects";
-import { CardSlider, DarkMedia, LabelCopy, OlButton, ParallaxHero, ReadMoreDialog, TextMedia, useScrollParallax, type DialogContent, type SlideItem } from "./ServiceBlocks";
+import { offerings, quoteHref, unsplash } from "./company";
+import { businessDetailHref } from "./businessDetails";
+import { CardSlider, DarkMedia, LabelCopy, OlButton, ParallaxHero, TextMedia, useScrollParallax, type SlideItem } from "./ServiceBlocks";
 
 // Our Businesses, after olympic.no/what-we-do-services: the parallax cover, "What we do", one full-screen text and
-// media panel per business (alternating sides, "Read more" opens the detail sheet), Laboratory & Quality Assurance
-// as the dark band, then Technical Capabilities as the looping card slider with "Explore more" to /?capabilities.
-// The homepage's "+" buttons land on each business panel (/?businesses#<slug>).
+// media panel per business (alternating sides), Laboratory & Quality Assurance as the dark band, then Technical
+// Capabilities as the looping card slider with "Explore more" to /?capabilities.
+// Each panel's primary button is "See more details", which opens the business's own page (/?business=<slug>), and that
+// page links back to this overview.
 // Photos: stand-ins from Unsplash (incl. Ray Donnelly, ThisisEngineering, uve sanchez, Toni Reed, Daniel Miksha).
 
 const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
@@ -77,65 +78,11 @@ const capabilities: SlideItem[] = [
   { title: "Engineering capability", text: "15 engineers in a team of 71, planning and supervising every project.", image: unsplash("/Image/bce/stats_fleet.jpg", 1400), alt: "An engineer inspecting reinforcement on site" },
 ];
 
-const SERVICE_PROJECTS: Record<string, { slug: string; name: string }> = {
-  "ready-mix-concrete": {
-    slug: "siem-reap-commercial-ready-mix",
-    name: "Commercial Complex Ready-Mix Supply",
-  },
-  piling: {
-    slug: "kampong-thom-bridge-foundations",
-    name: "Bridge Foundation Piling",
-  },
-  construction: {
-    slug: "battambang-provincial-road",
-    name: "Provincial Road Rehabilitation",
-  },
-  "concrete-slab-works": {
-    slug: "poipet-logistics-warehouse",
-    name: "Logistics Warehouse Floor Slab",
-  },
-  "equipment-rental": {
-    slug: "sihanoukville-fleet-hire",
-    name: "Pump & Mixer Fleet Hire",
-  },
-};
-
-const toDialog = (b: Business): DialogContent => {
-  const d = detail[b.slug];
-  const rel = SERVICE_PROJECTS[b.slug];
-  return {
-    kicker: d.kicker,
-    title: b.name,
-    image: b.image.replace("w=1200", "w=1400"),
-    lead: d.lead,
-    body: d.body,
-    listLabel: "Typical work includes:",
-    list: d.typical,
-    quoteHref: quoteHref(b.slug),
-    projectHref: rel ? projectHref(rel.slug) : undefined,
-    projectLabel: rel?.name,
-  };
-};
-
 export default function BusinessesPage() {
   usePageSetup("Our Businesses | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);
-
-  // `shown` keeps the last business in the sheet while it slides out.
-  const [open, setOpen] = useState(false);
-  const [shown, setShown] = useState<DialogContent | null>(null);
-  const returnFocus = useRef<HTMLElement | null>(null);
-  const openDialog = (b: Business) => {
-    returnFocus.current = document.activeElement as HTMLElement | null;
-    setShown(toDialog(b));
-    setOpen(true);
-  };
-  const closeDialog = useCallback(() => {
-    setOpen(false);
-    returnFocus.current?.focus({ preventScroll: true });
-  }, []);
 
   return (
     <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip">
@@ -152,7 +99,7 @@ export default function BusinessesPage() {
           {offerings.map((b, i) => (
             <TextMedia key={b.slug} id={b.slug} kicker={detail[b.slug].kicker} title={b.name} image={b.image.replace("w=1200", "w=1600")} alt={b.name} reverse={i % 2 === 1} copy={[b.intro]}>
               <div className="mt-10 md:mt-12 flex flex-wrap items-center gap-4">
-                <OlButton label="Read more" onClick={() => openDialog(b)} className="!self-auto" />
+                <ArrowButton href={businessDetailHref(b.slug)} label="See more details" theme="black" className="!self-auto" />
                 <ArrowButton href={quoteHref(b.slug)} label="Request a quote" theme="outline" className="!self-auto" />
               </div>
             </TextMedia>
@@ -164,7 +111,7 @@ export default function BusinessesPage() {
             "Concrete is only as reliable as the testing behind it. Our own laboratory checks every material before production and every pour after it.",
             "With slump testing on delivery, compressive strength testing and documented mix designs, every structure we supply is built on verified results.",
           ]}>
-          <OlButton label="Read more" href="/?quality#laboratory" dark className="ol-tm-button" />
+          <OlButton label="Explore the laboratory" href="/?quality#laboratory" dark className="ol-tm-button" />
         </DarkMedia>
 
         <section id="capabilities" data-header-title="Technical capabilities" aria-labelledby="ol-caps" className="ol-onboard">
@@ -182,7 +129,6 @@ export default function BusinessesPage() {
       <QuoteCta href={quoteHref()} />
       <Footer phones={phones} tel={tel} base="/" />
       <FluidCursor />
-      <ReadMoreDialog content={shown} open={open} onClose={closeDialog} />
     </main>
   );
 }
