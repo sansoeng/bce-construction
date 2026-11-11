@@ -79,24 +79,27 @@ interface SiteHeaderProps {
 
 export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [activeMega, setActiveMega] = useState<"businesses" | "projects" | null>(null);
-  const [mobileAccordion, setMobileAccordion] = useState<"businesses" | "projects" | null>(null);
+  const [activeMega, setActiveMega] = useState<"businesses" | "projects" | "more" | null>(null);
+  const [mobileAccordion, setMobileAccordion] = useState<"businesses" | "projects" | "more" | null>(null);
   const [showSubnav, setShowSubnav] = useState(false);
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
-  const [panelHeights, setPanelHeights] = useState<{ businesses: number; projects: number }>({
+  const [panelHeights, setPanelHeights] = useState<{ businesses: number; projects: number; more: number }>({
     businesses: 280,
     projects: 240,
+    more: 240,
   });
   const headerRef = useRef<HTMLElement>(null);
   const closeTimeout = useRef<number | null>(null);
   const businessesRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const moreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const measure = () => {
       setPanelHeights({
         businesses: businessesRef.current?.offsetHeight || 280,
         projects: projectsRef.current?.offsetHeight || 240,
+        more: moreRef.current?.offsetHeight || 240,
       });
     };
     measure();
@@ -163,7 +166,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
     };
   }, []);
 
-  const handleMouseEnterItem = (name: "businesses" | "projects" | null) => {
+  const handleMouseEnterItem = (name: "businesses" | "projects" | "more" | null) => {
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
@@ -264,18 +267,27 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
               </a>
             </li>
 
-            {/* 6. Contact */}
+            {/* 6. More (with Mega Menu) */}
             <li
-              className="apple-nav-item"
-              onMouseEnter={() => handleMouseEnterItem(null)}
+              className={`apple-nav-item ${activeMega === "more" ? "is-active" : ""}`}
+              onMouseEnter={() => handleMouseEnterItem("more")}
             >
-              <a
-                href={linkHref("#contact")}
-                className="apple-nav-link"
-                onClick={closeAll}
+              <button
+                type="button"
+                className="apple-nav-link flex items-center gap-1 cursor-pointer bg-transparent border-0 font-inherit"
+                onClick={() => setActiveMega(activeMega === "more" ? null : "more")}
               >
-                Contact
-              </a>
+                <span>More</span>
+                <svg
+                  viewBox="0 0 10 6"
+                  className={`size-2 stroke-current fill-none stroke-[1.8] transition-transform duration-200 ${
+                    activeMega === "more" ? "rotate-180" : ""
+                  }`}
+                  aria-hidden
+                >
+                  <path d="M1 1l4 4 4-4" />
+                </svg>
+              </button>
             </li>
 
             {/* 7. Language Switch */}
@@ -321,7 +333,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
         <div
           className={`apple-mega-menu ${activeMega && !showSubnav ? "is-open" : ""}`}
           style={{
-            height: !showSubnav && activeMega ? (activeMega === "businesses" ? panelHeights.businesses : panelHeights.projects) : 0,
+            height: !showSubnav && activeMega ? panelHeights[activeMega] : 0,
           }}
           onMouseEnter={() => {
             if (closeTimeout.current) clearTimeout(closeTimeout.current);
@@ -400,16 +412,61 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                     </a>
                   </div>
 
-                  {/* Column 2: Documentation & Careers */}
+                  {/* Column 2: Landmark Sectors */}
                   <div className="apple-mega-col">
-                    <h3>Public Resources & Careers</h3>
+                    <h3>Landmark Sectors</h3>
+                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Industrial & Commercial</span>
+                      <span className="apple-mega-sublink-desc">Garment factories, warehouses & logistics depots</span>
+                    </a>
+                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Infrastructure & Roads</span>
+                      <span className="apple-mega-sublink-desc">National roads, bridges, culverts & irrigation</span>
+                    </a>
+                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Foundation Piling Works</span>
+                      <span className="apple-mega-sublink-desc">Hydraulic static pressing & driven RC piles</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* More Mega Menu Panel */}
+            <div
+              ref={moreRef}
+              className={`apple-mega-panel ${activeMega === "more" ? "is-active" : ""}`}
+            >
+              <div className="apple-mega-inner">
+                <div className="apple-mega-grid">
+                  {/* Column 1: Explore Pages */}
+                  <div className="apple-mega-col">
+                    <h3>Explore</h3>
+                    <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-big-link">
+                      Contact
+                    </a>
+                    <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-big-link">
+                      Resources
+                    </a>
+                    <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-big-link">
+                      Recruitment
+                    </a>
+                  </div>
+
+                  {/* Column 2: Details & Inquiries */}
+                  <div className="apple-mega-col">
+                    <h3>Details & Inquiries</h3>
+                    <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Head Office & Hotlines</span>
+                      <span className="apple-mega-sublink-desc">Head office, batching dispatch & Telegram</span>
+                    </a>
                     <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-sublink">
                       <span className="apple-mega-sublink-title">Downloads & Resources</span>
-                      <span className="apple-mega-sublink-desc">Company profile, mix designs & licenses</span>
+                      <span className="apple-mega-sublink-desc">Company profile, mix designs & technical certifications</span>
                     </a>
                     <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Careers & Recruitment</span>
-                      <span className="apple-mega-sublink-desc">Open vacancies & how to apply</span>
+                      <span className="apple-mega-sublink-title">Careers & Job Openings</span>
+                      <span className="apple-mega-sublink-desc">Job openings, engineer positions & how to apply</span>
                     </a>
                   </div>
                 </div>
@@ -462,10 +519,26 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                 Quality & Lab
               </a>
             </li>
-            <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
-              <a href={linkHref("#contact")} className="apple-floating-link" onClick={closeAll}>
-                Contact
-              </a>
+            <li
+              className={`apple-floating-item ${activeMega === "more" ? "is-active" : ""}`}
+              onMouseEnter={() => handleMouseEnterItem("more")}
+            >
+              <button
+                type="button"
+                className="apple-floating-link flex items-center gap-1 cursor-pointer bg-transparent border-0 font-inherit"
+                onClick={() => setActiveMega(activeMega === "more" ? null : "more")}
+              >
+                <span>More</span>
+                <svg
+                  viewBox="0 0 10 6"
+                  className={`size-2 stroke-current fill-none stroke-[1.8] transition-transform duration-200 ${
+                    activeMega === "more" ? "rotate-180" : ""
+                  }`}
+                  aria-hidden
+                >
+                  <path d="M1 1l4 4 4-4" />
+                </svg>
+              </button>
             </li>
             <li className="apple-floating-item apple-floating-item-lang">
               <LangSwitch />
@@ -581,18 +654,58 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                     </a>
                   </div>
 
-                  {/* Column 2: Documentation & Careers */}
+                  {/* Column 2: Landmark Sectors */}
                   <div className="apple-mega-col">
-                    <h3>Public Resources & Careers</h3>
-                    <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Downloads & Resources</span>
-                      <span className="apple-mega-sublink-desc">Company profile, mix designs & licenses</span>
+                    <h3>Landmark Sectors</h3>
+                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Industrial & Commercial</span>
+                      <span className="apple-mega-sublink-desc">Garment factories, warehouses & logistics depots</span>
                     </a>
-                    <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Careers & Recruitment</span>
-                      <span className="apple-mega-sublink-desc">Open vacancies & how to apply</span>
+                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Infrastructure & Roads</span>
+                      <span className="apple-mega-sublink-desc">National roads, bridges, culverts & irrigation</span>
+                    </a>
+                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Foundation Piling Works</span>
+                      <span className="apple-mega-sublink-desc">Hydraulic static pressing & driven RC piles</span>
                     </a>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* More Mega Menu Panel */}
+            <div className={`apple-mega-panel ${activeMega === "more" ? "is-active" : ""}`}>
+              <div className="apple-mega-grid">
+                {/* Column 1: Explore Pages */}
+                <div className="apple-mega-col">
+                  <h3>Explore</h3>
+                  <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-big-link">
+                    Contact
+                  </a>
+                  <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-big-link">
+                    Resources
+                  </a>
+                  <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-big-link">
+                    Recruitment
+                  </a>
+                </div>
+
+                {/* Column 2: Details & Inquiries */}
+                <div className="apple-mega-col">
+                  <h3>Details & Inquiries</h3>
+                  <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Head Office & Hotlines</span>
+                    <span className="apple-mega-sublink-desc">Head office, batching dispatch & Telegram</span>
+                  </a>
+                  <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Downloads & Resources</span>
+                    <span className="apple-mega-sublink-desc">Company profile, mix designs & technical certifications</span>
+                  </a>
+                  <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-sublink">
+                    <span className="apple-mega-sublink-title">Careers & Job Openings</span>
+                    <span className="apple-mega-sublink-desc">Job openings, engineer positions & how to apply</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -717,25 +830,42 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
             </a>
           </li>
 
-          {/* Resources */}
+          {/* More (Accordion: Contact, Resources, Recruitment) */}
           <li className="apple-mobile-item">
-            <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mobile-link">
-              Resources & Downloads
-            </a>
-          </li>
-
-          {/* Careers & Recruitment */}
-          <li className="apple-mobile-item">
-            <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mobile-link">
-              Careers & Recruitment
-            </a>
-          </li>
-
-          {/* Contact */}
-          <li className="apple-mobile-item">
-            <a href={linkHref("#contact")} onClick={closeAll} className="apple-mobile-link">
-              Contact
-            </a>
+            <button
+              type="button"
+              className="apple-mobile-link w-full text-left"
+              onClick={() =>
+                setMobileAccordion(mobileAccordion === "more" ? null : "more")
+              }
+            >
+              <span>More</span>
+              <svg
+                viewBox="0 0 10 6"
+                className={`size-3 stroke-current fill-none stroke-[1.8] transition-transform duration-300 ${
+                  mobileAccordion === "more" ? "rotate-180" : ""
+                }`}
+                aria-hidden
+              >
+                <path d="M1 1l4 4 4-4" />
+              </svg>
+            </button>
+            {mobileAccordion === "more" && (
+              <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
+                <a href={linkHref("#contact")} onClick={closeAll} className="apple-mobile-sublink">
+                  Contact
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mobile-sublink">
+                  Resources
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mobile-sublink">
+                  Recruitment
+                  <span>›</span>
+                </a>
+              </div>
+            )}
           </li>
         </ul>
 
