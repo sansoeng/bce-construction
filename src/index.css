@@ -1040,8 +1040,8 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
    ========================================================================== */
 :root {
   --apple-nav-height: 44px;
-  --apple-nav-bg: rgba(0, 0, 0, 0.55);
-  --apple-nav-bg-expanded: rgba(0, 0, 0, 0.55);
+  --apple-nav-bg: rgba(0, 0, 0, 0.65);
+  --apple-nav-bg-expanded: rgba(20, 22, 26, 0.78);
   --apple-nav-text: #f5f5f7;
   --apple-nav-muted: rgba(255, 255, 255, 0.65);
   --apple-nav-blue: #0071e3;
