@@ -2001,7 +2001,7 @@ html[lang="km"] .glance-label-title {
 
 /* Khmer language typography enhancements for Apple Global Nav */
 .font-khmer {
-  font-family: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Hanuman", sans-serif !important;
+  font-family: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif !important;
 }
 
 html[lang="km"] .apple-header,
@@ -2805,9 +2805,9 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 /* Khmer mode (src/i18n.ts). Khmer clusters stack vowels and subscripts above and below the line, so: no negative
    tracking, taller line boxes for the tight display type, room in the reveal masks and in the rolling button labels. */
 html[lang="km"] {
-  --font-sans: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Hanuman", "Khmer OS Battambang", "Khmer OS", sans-serif;
-  --font-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", monospace;
-  --font-ui-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", monospace;
+  --font-sans: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", sans-serif;
+  --font-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
+  --font-ui-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
   word-break: break-word;
   overflow-wrap: break-word;
 }
