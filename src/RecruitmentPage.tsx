@@ -5,7 +5,7 @@ import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
-import { LeadText, PageHeader, useScrollParallax } from "./ServiceBlocks";
+import { useScrollParallax } from "./ServiceBlocks";
 import StickyValues, { type StickyItem } from "./StickyValues";
 import { unsplash } from "./company";
 
@@ -230,6 +230,22 @@ const ChevronDownIcon = ({ open }: { open?: boolean }) => (
   </svg>
 );
 
+const SearchIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="size-4 shrink-0"
+    aria-hidden
+  >
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
+);
+
 export default function RecruitmentPage() {
   usePageSetup("Careers & Recruitment | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
@@ -244,6 +260,7 @@ export default function RecruitmentPage() {
 
   const [activeTeam, setActiveTeam] = useState<string>("All teams");
   const [activeLocation, setActiveLocation] = useState<string>("All Locations");
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const locationRef = useRef<HTMLDivElement>(null);
 
@@ -289,9 +306,16 @@ export default function RecruitmentPage() {
     return VACANCIES.filter((v) => {
       const matchTeam = activeTeam === "All teams" || v.department === activeTeam;
       const matchLoc = activeLocation === "All Locations" || v.location === activeLocation;
-      return matchTeam && matchLoc;
+      const q = searchQuery.toLowerCase().trim();
+      const matchSearch =
+        !q ||
+        v.title.toLowerCase().includes(q) ||
+        v.department.toLowerCase().includes(q) ||
+        v.location.toLowerCase().includes(q) ||
+        v.overview.toLowerCase().includes(q);
+      return matchTeam && matchLoc && matchSearch;
     });
-  }, [activeTeam, activeLocation]);
+  }, [activeTeam, activeLocation, searchQuery]);
 
   // Counts by team
   const teamCounts = useMemo(() => {
@@ -477,39 +501,27 @@ export default function RecruitmentPage() {
             VIEW B: REVOLUT-STYLE CAREERS SEARCH & LISTING PAGE
            ========================================================================= */
         <>
-          {/* Header after olympic.no's inner pages: label, title, banner, then introduction. */}
-          <PageHeader
-            label="Careers"
-            title="Build your future with BCE"
-            image={unsplash("/Image/bce/hse_safety.jpg", 2400)}
-            alt="BCE engineering team and career opportunities"
-          />
-
-          <LeadText className="ol-lead--tight">
-            Join a team of 71 dedicated engineers, heavy equipment specialists, and site professionals building Cambodia's infrastructure since 1995. We offer competitive compensation, technical training, and a safe, inclusive workplace.
-          </LeadText>
-
           {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="w-full px-5 py-16 md:py-20 border-t border-[rgba(17,17,17,0.08)] m-0">
+          <section className="w-full px-5 pt-28 md:pt-36 pb-16 md:pb-24 m-0">
             <div className="w-full m-0">
-              {/* Revolut Display Hero Headline */}
-              <div className="mb-10">
-                <h2 className="text-[36px] md:text-[48px] font-bold tracking-[-0.025em] text-[#191C1F] leading-[1.12]">
+              {/* Revolut Centered Display Hero Headline */}
+              <div className="text-center max-w-[800px] mx-auto mb-10 md:mb-12">
+                <h1 className="text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-bold tracking-[-0.03em] text-[#191C1F] leading-[1.1]">
                   We have {VACANCIES.length} open positions
-                </h2>
-                <p className="mt-2 text-base text-[#72757E]">
+                </h1>
+                <p className="mt-3 md:mt-4 text-base sm:text-lg text-[#72757E] max-w-[620px] mx-auto leading-relaxed">
                   The future of infrastructure and ready-mix concrete in Cambodia. Be the one who builds it.
                 </p>
               </div>
 
-              {/* Location Filter Bar (Search removed) */}
-              <div className="flex items-center gap-3 mb-10">
+              {/* Revolut Filter Bar: Location Dropdown + Search Input */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-10 md:mb-12 w-full">
                 {/* Location Filter Dropdown Pill */}
-                <div ref={locationRef} className="relative">
+                <div ref={locationRef} className="relative sm:w-[220px] shrink-0">
                   <button
                     type="button"
                     onClick={() => setIsLocationOpen(!isLocationOpen)}
-                    className="flex items-center justify-between gap-3 h-12 px-6 rounded-full bg-[#F3F4F6] hover:bg-[#EAEBED] transition-colors text-sm font-medium text-[#191C1F] cursor-pointer w-[220px]"
+                    className="flex items-center justify-between gap-3 w-full h-12 px-5 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-sm font-medium text-[#191C1F] cursor-pointer"
                   >
                     <span className="truncate">
                       {activeLocation === "All Locations" ? "Location" : activeLocation}
@@ -544,6 +556,20 @@ export default function RecruitmentPage() {
                       </div>
                     </div>
                   )}
+                </div>
+
+                {/* Search Input Bar */}
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={`Search from ${VACANCIES.length} open positions`}
+                    className="w-full h-12 pl-5 pr-12 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20 text-sm text-[#191C1F] placeholder-[#72757E] transition-all"
+                  />
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#72757E]">
+                    <SearchIcon />
+                  </div>
                 </div>
               </div>
 
@@ -606,6 +632,7 @@ export default function RecruitmentPage() {
                         onClick={() => {
                           setActiveTeam("All teams");
                           setActiveLocation("All Locations");
+                          setSearchQuery("");
                         }}
                         className="mt-5 inline-flex items-center px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium cursor-pointer"
                       >
@@ -655,100 +682,7 @@ export default function RecruitmentPage() {
             </div>
           </section>
 
-          {/* How to Apply Section — Designed in the About Us Heritage / Split Message Style (Image 4) */}
-          <section className="w-full px-5 py-16 md:py-20 bg-white border-t border-[rgba(17,17,17,0.08)] m-0">
-            <div className="w-full m-0">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-                {/* Left Column: Quote with vertical bar & hung quotation mark (Image 4) */}
-                <div className="lg:col-span-5 relative">
-                  <div className="relative pl-8 border-l border-[#111]">
-                    <span className="absolute -top-3 left-4 text-3xl font-serif leading-none select-none text-[#111]" aria-hidden>
-                      “
-                    </span>
-                    <blockquote className="text-[clamp(1.35rem,2vw,1.75rem)] font-normal leading-[1.38] text-[#111]">
-                      <p className="indent-5">
-                        We review applications on a rolling basis. All submissions are treated with strict confidentiality in accordance with candidate privacy guidelines.
-                      </p>
-                    </blockquote>
-                    <p className="mt-8 text-sm md:text-base font-medium text-[#111]/70">
-                      <span>Human Resources Department, BCE., Ltd.</span>
-                    </p>
-                    <div className="mt-6 pt-6 border-t border-[rgba(17,17,17,0.1)]">
-                      <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-[#111]/50 mb-1">
-                        Recruitment Inbox
-                      </span>
-                      <a
-                        href={`mailto:${HR_EMAIL}`}
-                        className="text-base font-semibold text-[#1f367e] hover:text-[#111] transition-colors break-all"
-                      >
-                        {HR_EMAIL}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Column: Application Process & Steps (matching About Us Story & Milestone List) */}
-                <div className="lg:col-span-7">
-                  <p data-split="content" className="ol-label mb-2">Application Process</p>
-                  <h2 data-split className="text-[28px] md:text-[38px] font-medium leading-[1.12] tracking-[-0.02em] text-[#111] mb-4">
-                    How to Apply
-                  </h2>
-                  <p className="text-sm md:text-base leading-[1.6] text-[#111]/60 mb-8 max-w-[620px]">
-                    Join BCE’s integrated operations delivering ready-mix concrete, piling, civil construction, and heavy machinery across Cambodia.
-                  </p>
-
-                  <ol className="divide-y divide-[rgba(17,17,17,0.1)] border-t border-b border-[rgba(17,17,17,0.1)]">
-                    {/* Step 01 */}
-                    <li className="py-7 grid grid-cols-[4rem_1fr] sm:grid-cols-[5.5rem_1fr] gap-4 sm:gap-6 items-baseline">
-                      <span className="text-2xl sm:text-3xl font-mono font-medium text-[#111]">
-                        01
-                      </span>
-                      <div>
-                        <h3 className="text-base sm:text-lg font-medium text-[#111] mb-1.5">
-                          Prepare Your CV &amp; Documents
-                        </h3>
-                        <p className="text-sm leading-[1.6] text-[#111]/70">
-                          Please attach an updated CV (Curriculum Vitae), educational certificates, and copies of any relevant licenses (e.g. heavy equipment operator license or engineering certification).
-                        </p>
-                      </div>
-                    </li>
-
-                    {/* Step 02 */}
-                    <li className="py-7 grid grid-cols-[4rem_1fr] sm:grid-cols-[5.5rem_1fr] gap-4 sm:gap-6 items-baseline">
-                      <span className="text-2xl sm:text-3xl font-mono font-medium text-[#111]">
-                        02
-                      </span>
-                      <div>
-                        <h3 className="text-base sm:text-lg font-medium text-[#111] mb-1.5">
-                          Include Required Contact Information
-                        </h3>
-                        <p className="text-sm leading-[1.6] text-[#111]/70">
-                          In your email body, please explicitly include your full legal name, active telephone contact number, and your current residential location.
-                        </p>
-                      </div>
-                    </li>
-
-                    {/* Step 03 */}
-                    <li className="py-7 grid grid-cols-[4rem_1fr] sm:grid-cols-[5.5rem_1fr] gap-4 sm:gap-6 items-baseline">
-                      <span className="text-2xl sm:text-3xl font-mono font-medium text-[#111]">
-                        03
-                      </span>
-                      <div>
-                        <h3 className="text-base sm:text-lg font-medium text-[#111] mb-1.5">
-                          Specify the Job Title in Subject Line
-                        </h3>
-                        <p className="text-sm leading-[1.6] text-[#111]/70">
-                          Send your application to <span className="font-medium text-[#111]">{HR_EMAIL}</span> with the exact position title in the email subject (e.g. <em>Job Application - Concrete Batching Plant Operator</em>).
-                        </p>
-                      </div>
-                    </li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Workplace Culture & Why Build Your Career at BCE — Styled like HSE section (Image 3) */}
+          {/* Workplace Culture & Why Build Your Career at BCE — Styled like HSE section */}
           <StickyValues
             id="culture"
             label="BCE Workplace Culture"
