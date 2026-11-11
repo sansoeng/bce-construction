@@ -1040,10 +1040,10 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
    ========================================================================== */
 :root {
   --apple-nav-height: 44px;
-  --apple-nav-bg: rgba(30, 32, 36, 0.78);
-  --apple-nav-bg-expanded: rgba(30, 32, 36, 0.78);
+  --apple-nav-bg: rgba(0, 0, 0, 0.55);
+  --apple-nav-bg-expanded: rgba(0, 0, 0, 0.55);
   --apple-nav-text: #f5f5f7;
-  --apple-nav-muted: #86868b;
+  --apple-nav-muted: rgba(255, 255, 255, 0.65);
   --apple-nav-blue: #0071e3;
   --apple-nav-blue-hover: #0077ed;
   --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -1058,8 +1058,8 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   width: 100%;
   height: var(--apple-nav-height);
   background-color: var(--apple-nav-bg);
-  backdrop-filter: saturate(190%) blur(40px);
-  -webkit-backdrop-filter: saturate(190%) blur(40px);
+  backdrop-filter: blur(85px);
+  -webkit-backdrop-filter: blur(85px);
   border: none !important;
   box-shadow: none !important;
   z-index: 100;
@@ -1302,8 +1302,8 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   left: 0;
   width: 100%;
   background-color: var(--apple-nav-bg-expanded);
-  backdrop-filter: saturate(190%) blur(50px);
-  -webkit-backdrop-filter: saturate(190%) blur(50px);
+  backdrop-filter: blur(85px);
+  -webkit-backdrop-filter: blur(85px);
   border: none;
   border-bottom: none;
   box-shadow: none !important;
@@ -1450,13 +1450,13 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   letter-spacing: -0.01em;
 }
 
-/* Backdrop Scrim (Exact Apple.com dark blur behind open mega menu) */
+/* Backdrop Scrim (Apple.com milky white blur overlay) */
 .apple-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -1508,9 +1508,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   height: 44px;
   padding: 0 16px;
   border-radius: 24px;
-  background-color: rgba(32, 36, 44, 0.82);
-  backdrop-filter: saturate(180%) blur(50px);
-  -webkit-backdrop-filter: saturate(180%) blur(50px);
+  background-color: var(--apple-nav-bg);
+  backdrop-filter: blur(85px);
+  -webkit-backdrop-filter: blur(85px);
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
   color: var(--apple-nav-text);
@@ -1662,9 +1662,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   right: 0;
   max-width: 960px;
   margin: 0 auto;
-  background-color: rgba(32, 36, 44, 0.88);
-  backdrop-filter: saturate(180%) blur(50px);
-  -webkit-backdrop-filter: saturate(180%) blur(50px);
+  background-color: var(--apple-nav-bg-expanded);
+  backdrop-filter: blur(85px);
+  -webkit-backdrop-filter: blur(85px);
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 24px;
   box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.35) !important;
