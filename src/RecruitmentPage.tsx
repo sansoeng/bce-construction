@@ -490,7 +490,7 @@ export default function RecruitmentPage() {
           </LeadText>
 
           {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="px-5 md:px-8 py-16 md:py-20 border-t border-[rgba(17,17,17,0.08)]">
+          <section className="px-5 py-16 md:py-20 border-t border-[rgba(17,17,17,0.08)]">
             <div className="mx-auto max-w-[1240px]">
               {/* Revolut Display Hero Headline */}
               <div className="mb-10">
@@ -656,7 +656,7 @@ export default function RecruitmentPage() {
           </section>
 
           {/* How to Apply Section — Designed in the About Us Heritage / Split Message Style (Image 4) */}
-          <section className="px-5 md:px-8 py-16 md:py-20 bg-white border-t border-[rgba(17,17,17,0.08)]">
+          <section className="px-5 py-16 md:py-20 bg-white border-t border-[rgba(17,17,17,0.08)]">
             <div className="mx-auto max-w-[1240px]">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
                 {/* Left Column: Quote with vertical bar & hung quotation mark (Image 4) */}
