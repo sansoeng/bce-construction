@@ -490,12 +490,18 @@ function App() {
                     <img data-offers-image className="absolute inset-y-0 left-[-8%] h-full w-[116%] max-w-none object-cover rounded-[4px]" src={image} alt="" decoding="async" />
                   </div>
                 </div>
-                <div className="flex flex-1 flex-col justify-between gap-8 p-6 md:p-8 lg:p-10">
-                  <div className="flex items-start justify-between gap-6">
-                    <ul className="offer-details grid max-w-[30rem] flex-1 grid-cols-2 gap-x-4 gap-y-1 text-[.85rem] leading-[1.3] md:gap-x-6 md:text-[.95rem]">
+                <div className="flex flex-1 flex-col justify-between gap-6 p-6 md:p-8 lg:p-10">
+                  <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
+                    <ul className="offer-details grid max-w-[28rem] flex-1 grid-cols-2 gap-x-4 gap-y-1 text-[.85rem] leading-[1.3] md:gap-x-6 md:text-[.95rem]">
                       {details.map((d, k) => <li className="offer-detail py-2.5" style={{ "--k": k } as React.CSSProperties} key={d}>{d}</li>)}
                     </ul>
-                    <a href={businessHref(slug)} aria-label={`${name}: learn more`} className="offer-plus grid size-11 flex-none place-items-center rounded-[4px]"><span aria-hidden>+</span></a>
+                    <div className="offer-action flex-none self-start">
+                      <ArrowButton
+                        href={businessHref(slug)}
+                        label="See more details"
+                        theme={fg === "#fff" ? "white" : "black"}
+                      />
+                    </div>
                   </div>
                   <div className="mt-auto pt-6">
                     <h3 className="offer-title font-medium text-[clamp(2.1rem,3.4vw,3.75rem)] leading-[1.04] tracking-[-.025em]">{name}</h3>

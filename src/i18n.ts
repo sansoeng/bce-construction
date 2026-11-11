@@ -457,6 +457,8 @@ const KM: Record<string, string> = {
   // Selected projects, coverage
   "Selected": "គម្រោង",
   "See all projects": "មើលគម្រោងទាំងអស់",
+  "See more details": "មើលព័ត៌មានលម្អិតបន្ថែម",
+  "See More Details": "មើលព័ត៌មានលម្អិតបន្ថែម",
   "View projects": "មើលគម្រោង",
   "View Projects": "មើលគម្រោង",
   "See more about us": "ស្វែងយល់បន្ថែមអំពីយើង",
