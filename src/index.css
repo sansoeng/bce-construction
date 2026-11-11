@@ -1045,9 +1045,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   --apple-nav-text: #f5f5f7;
   --apple-nav-muted: rgba(255, 255, 255, 0.65);
   
-  /* Added glass effect variables: Apple signature frosted glass styling with 54px background blur */
-  --apple-nav-blur: saturate(180%) blur(54px);
-  --apple-nav-card-blur: saturate(180%) blur(54px); /* 54px Layer blur for dropdown card */
+  /* Added glass effect variables: Apple signature frosted glass styling with 44px background blur */
+  --apple-nav-blur: saturate(180%) blur(44px);
+  --apple-nav-card-blur: saturate(180%) blur(44px); /* 44px Layer blur for dropdown card */
   --apple-nav-border: rgba(255, 255, 255, 0.12);
   --apple-nav-card-border: rgba(255, 255, 255, 0.12);
   --apple-nav-blue: #0071e3;
@@ -1468,13 +1468,13 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   letter-spacing: -0.01em;
 }
 
-/* Backdrop Scrim (Apple.com Dark Glassy Frosted Blur Overlay) */
+/* Backdrop Scrim (Apple White Frosted Glassy Blur Overlay) */
 .apple-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.48);
-  -webkit-backdrop-filter: saturate(180%) blur(54px);
-  backdrop-filter: saturate(180%) blur(54px);
+  background: rgba(255, 255, 255, 0.48);
+  -webkit-backdrop-filter: saturate(180%) blur(44px);
+  backdrop-filter: saturate(180%) blur(44px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
