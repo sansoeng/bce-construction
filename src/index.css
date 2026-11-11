@@ -2681,15 +2681,15 @@ html[lang="km"] body {
 html[lang="km"], html[lang="km"] * {
   letter-spacing: 0 !important;
 }
-/* All titles, headlines and headings in Khmer set to 700 */
+/* All titles, headlines and headings in Khmer set to 700 (Headings and titles ONLY, not body copy) */
 html[lang="km"] :is(
   h1, h2, h3, h4, h5, h6,
-  [data-split],
+  :is(h1, h2, h3, h4, h5, h6)[data-split],
   [data-about-title],
   [data-hero-title],
   [data-vision-title],
   .hero-title, .about-title, .vision-title, .vt-line, .offer-title, .kp-title, .qc-title,
-  .wb-heading, .wb-eyebrow, .pd-title, .pd-h2, .pp-heading, .pp-lead, .pp-heading2, .pp-name,
+  .wb-heading, .wb-eyebrow, .pd-title, .pd-h2, .pp-heading, .pp-name,
   .pp-foot-name, .ol-hero-title, .ol-hl-title, .ol-tm-title, .ol-onboard-heading, .ol-h2,
   .ol-dialog-title, .ol-dialog-headline, .ol-slide-title, .ac-title, .ab-story-title,
   .ab-tile-title, .abz-title, .abv-card-title, .qh-grade-name, .qf-tile-name,
@@ -2703,6 +2703,59 @@ html[lang="km"] :is(
 ) :is(span, a, .sw, .sw-i) {
   font-weight: 700 !important;
   line-height: 1.45 !important;
+}
+
+/* All non-title Khmer font MUST NOT be bold: regular normal weight 400 */
+html[lang="km"] :is(
+  p,
+  li,
+  ul,
+  ol,
+  .offer-detail,
+  .offer-details,
+  .fg-btn,
+  .fg-btn-label,
+  .fg-btn-line,
+  button,
+  .qc-btn-label,
+  .ol-lead-copy,
+  .ol-lead,
+  .ol-label,
+  .pp-label,
+  .abv-label,
+  .qx-label,
+  .vision-text,
+  figcaption,
+  time,
+  dd,
+  dt,
+  input,
+  textarea,
+  select,
+  table,
+  tbody,
+  tr,
+  td,
+  th
+) {
+  font-weight: 400 !important;
+}
+
+/* Ensure inner spans, links, and text nodes within non-title containers remain normal weight 400 */
+html[lang="km"] :is(
+  p,
+  li,
+  dd,
+  dt,
+  figcaption,
+  .offer-detail,
+  .offer-details,
+  .fg-btn,
+  .vision-text,
+  .apple-header,
+  .apple-floating-nav
+) :is(span:not(:is(h1,h2,h3,h4,h5,h6) *), a:not(:is(h1,h2,h3,h4,h5,h6) *), em, strong:not(.is-bold), .sw-i:not(:is(h1,h2,h3,h4,h5,h6) *)) {
+  font-weight: 400 !important;
 }
 html[lang="km"] .split .sw {
   clip-path: inset(-50% -12% -35% -12%);
@@ -2733,7 +2786,7 @@ html[lang="km"] .fg-btn.is-glass .fg-btn-line {
 html[lang="km"] .fg-btn.is-raw {
   font-family: var(--font-sans) !important;
   font-size: 12px !important;
-  font-weight: 700 !important;
+  font-weight: 400 !important;
   letter-spacing: 0 !important;
 }
 html[lang="km"] .fg-btn.is-raw .fg-btn-label {
@@ -2745,7 +2798,7 @@ html[lang="km"] .fg-btn.is-raw .fg-btn-line {
   height: 22px !important;
   line-height: 22px !important;
   font-family: var(--font-sans) !important;
-  font-weight: 700 !important;
+  font-weight: 400 !important;
 }
 html[lang="km"] .fg-btn-label {
   height: 22px;
