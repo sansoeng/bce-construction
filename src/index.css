@@ -1968,12 +1968,12 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 
 /* Khmer language typography enhancements for Apple Global Nav */
 .font-khmer {
-  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif !important;
+  font-family: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif !important;
 }
 
 html[lang="km"] .apple-header,
 html[lang="km"] .apple-floating-nav {
-  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans);
+  font-family: var(--font-sans);
 }
 
 html[lang="km"] .apple-nav-link,
@@ -2666,9 +2666,9 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 /* Khmer mode (src/i18n.ts). Khmer clusters stack vowels and subscripts above and below the line, so: no negative
    tracking, taller line boxes for the tight display type, room in the reveal masks and in the rolling button labels. */
 html[lang="km"] {
-  --font-sans: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", "Aeonik Pro", sans-serif;
-  --font-mono: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
-  --font-ui-mono: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Aeonik Mono", monospace;
+  --font-sans: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", sans-serif;
+  --font-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
+  --font-ui-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -2715,7 +2715,7 @@ html[lang="km"] .fg-btn {
   line-height: 20px;
 }
 html[lang="km"] .fg-btn.is-glass {
-  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", var(--font-mono);
+  font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0;
   line-height: 18px;
@@ -2728,7 +2728,7 @@ html[lang="km"] .fg-btn.is-glass .fg-btn-line {
   line-height: 20px;
 }
 html[lang="km"] .fg-btn.is-raw {
-  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans) !important;
+  font-family: var(--font-sans) !important;
   font-size: 12px !important;
   font-weight: 700 !important;
   letter-spacing: 0 !important;
@@ -2741,7 +2741,7 @@ html[lang="km"] .fg-btn.is-raw .fg-btn-label {
 html[lang="km"] .fg-btn.is-raw .fg-btn-line {
   height: 22px !important;
   line-height: 22px !important;
-  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", var(--font-sans) !important;
+  font-family: var(--font-sans) !important;
   font-weight: 700 !important;
 }
 html[lang="km"] .fg-btn-label {
