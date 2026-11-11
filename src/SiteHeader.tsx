@@ -452,23 +452,6 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                       Recruitment
                     </a>
                   </div>
-
-                  {/* Column 2: Details & Inquiries */}
-                  <div className="apple-mega-col">
-                    <h3>Details & Inquiries</h3>
-                    <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Head Office & Hotlines</span>
-                      <span className="apple-mega-sublink-desc">Head office, batching dispatch & Telegram</span>
-                    </a>
-                    <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Downloads & Resources</span>
-                      <span className="apple-mega-sublink-desc">Company profile, mix designs & technical certifications</span>
-                    </a>
-                    <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Careers & Job Openings</span>
-                      <span className="apple-mega-sublink-desc">Job openings, engineer positions & how to apply</span>
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
@@ -688,23 +671,6 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   </a>
                   <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-big-link">
                     Recruitment
-                  </a>
-                </div>
-
-                {/* Column 2: Details & Inquiries */}
-                <div className="apple-mega-col">
-                  <h3>Details & Inquiries</h3>
-                  <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Head Office & Hotlines</span>
-                    <span className="apple-mega-sublink-desc">Head office, batching dispatch & Telegram</span>
-                  </a>
-                  <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Downloads & Resources</span>
-                    <span className="apple-mega-sublink-desc">Company profile, mix designs & technical certifications</span>
-                  </a>
-                  <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-sublink">
-                    <span className="apple-mega-sublink-title">Careers & Job Openings</span>
-                    <span className="apple-mega-sublink-desc">Job openings, engineer positions & how to apply</span>
                   </a>
                 </div>
               </div>
