@@ -1040,14 +1040,14 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
    ========================================================================== */
 :root {
   --apple-nav-height: 44px;
-  --apple-nav-bg: rgba(0, 0, 0, 0.72);             /* Nav capsule background */
-  --apple-nav-bg-expanded: rgba(24, 26, 32, 0.94); /* Dropdown card background: dark, frosted, not see-through */
+  --apple-nav-bg: rgba(0, 0, 0, 0.65);             /* Nav capsule background */
+  --apple-nav-bg-expanded: rgba(20, 22, 26, 0.78); /* Dropdown card background: Apple frosted dark */
   --apple-nav-text: #f5f5f7;
   --apple-nav-muted: rgba(255, 255, 255, 0.65);
   
-  /* Added glass effect variables */
-  --apple-nav-blur: blur(20px) saturate(180%);
-  --apple-nav-card-blur: blur(24px) saturate(180%); /* Layer blur for dropdown card */
+  /* Added glass effect variables: 54px background blur */
+  --apple-nav-blur: blur(54px) saturate(180%);
+  --apple-nav-card-blur: blur(54px) saturate(180%); /* 54px Layer blur for dropdown card */
   --apple-nav-border: rgba(255, 255, 255, 0.12);
   --apple-nav-card-border: rgba(255, 255, 255, 0.12);
   --apple-nav-blue: #0071e3;
@@ -1472,9 +1472,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 .apple-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(54px) saturate(180%);
+  -webkit-backdrop-filter: blur(54px) saturate(180%);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
