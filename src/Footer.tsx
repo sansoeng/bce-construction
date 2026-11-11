@@ -9,7 +9,7 @@ import { businessHref, offerings, quoteHref } from "./company";
 
 type Link = [string, string];
 const columns: [string, Link[]][] = [
-  ["Company", [["Home", "#"], ["About BCE", "/?about"], ["Projects", "/?projects"], ["Coverage", "#coverage"], ["Resources & Downloads", "/?resources"]]],
+  ["Company", [["Home", "#"], ["About BCE", "/?about"], ["Projects", "/?projects"], ["Blog & Insights", "/?blog"], ["Coverage", "#coverage"], ["Resources & Downloads", "/?resources"]]],
   ["Our businesses", offerings.map((b) => [b.name, businessHref(b.slug)] as Link)],
   ["Capabilities", [["Technical capabilities", "/?capabilities"], ["Quality & HSE", "/?quality"], ["Laboratory", "/?quality#laboratory"], ["Equipment & fleet", "/?capabilities#equipment-fleet"]]],
   ["Work with us", [["Request a quote", "/?quote"], ["Careers & Recruitment", "/?recruitment"], ["Hire our equipment", quoteHref("equipment-rental")], ["Get directions", "MAPS"]]],

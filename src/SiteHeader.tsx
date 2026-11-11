@@ -451,6 +451,9 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                     <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-big-link">
                       Recruitment
                     </a>
+                    <a href={linkHref("/?blog")} onClick={closeAll} className="apple-mega-big-link">
+                      Blog
+                    </a>
                   </div>
                 </div>
               </div>
@@ -672,6 +675,9 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-big-link">
                     Recruitment
                   </a>
+                  <a href={linkHref("/?blog")} onClick={closeAll} className="apple-mega-big-link">
+                    Blog
+                  </a>
                 </div>
               </div>
             </div>
@@ -828,6 +834,10 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                 </a>
                 <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mobile-sublink">
                   Recruitment
+                  <span>›</span>
+                </a>
+                <a href={linkHref("/?blog")} onClick={closeAll} className="apple-mobile-sublink">
+                  Blog
                   <span>›</span>
                 </a>
               </div>
