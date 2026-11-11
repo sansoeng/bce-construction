@@ -306,7 +306,7 @@
    Dash lengths are the path (18.5) and diamond (22.24) lengths; the gap of .1 lets the diamond's dash wrap round. */
 .fg-btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 42px; line-height: 10px; padding: 15px 24px; border-radius: 9999px !important; border: 1px solid transparent; vertical-align: middle; }
 .fg-btn.is-black { color: #fff; background: #000; border-color: #000; }
-.fg-btn.is-white { color: #111; background: #fff; border-color: #fff; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35); }
+.fg-btn.is-white { color: #111; background: #fff; border-color: #fff; box-shadow: none !important; }
 .fg-btn.is-white:hover { background: #f0f0f0; color: #000; }
 .fg-btn.is-outline, .fg-btn.is-alpha { color: #111; background: transparent; border: 1px solid #111; }
 @media (hover: hover) {
@@ -1995,7 +1995,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 
 /* Khmer language typography enhancements for Apple Global Nav */
 .font-khmer {
-  font-family: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif !important;
+  font-family: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Hanuman", sans-serif !important;
 }
 
 html[lang="km"] .apple-header,
@@ -2792,9 +2792,9 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 /* Khmer mode (src/i18n.ts). Khmer clusters stack vowels and subscripts above and below the line, so: no negative
    tracking, taller line boxes for the tight display type, room in the reveal masks and in the rolling button labels. */
 html[lang="km"] {
-  --font-sans: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", sans-serif;
-  --font-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
-  --font-ui-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
+  --font-sans: "Aeonik Pro", "Kantumruy Pro", "Noto Sans Khmer", "Hanuman", "Khmer OS Battambang", "Khmer OS", sans-serif;
+  --font-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", monospace;
+  --font-ui-mono: "Aeonik Mono", "Kantumruy Pro", "Noto Sans Khmer", monospace;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -2831,9 +2831,14 @@ html[lang="km"] :is(
 /* All non-title Khmer font MUST NOT be bold: regular normal weight 400 */
 html[lang="km"] :is(
   p,
+  p *,
+  article p,
+  section p,
   li,
   ul,
   ol,
+  label,
+  aside,
   .offer-detail,
   .offer-details,
   .fg-btn,
@@ -2871,6 +2876,7 @@ html[lang="km"] :is(
   dd,
   dt,
   figcaption,
+  aside,
   .offer-detail,
   .offer-details,
   .fg-btn,

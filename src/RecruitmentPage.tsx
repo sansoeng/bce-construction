@@ -502,8 +502,8 @@ export default function RecruitmentPage() {
            ========================================================================= */
         <>
           {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="w-full px-5 sm:px-6 md:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
-            <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto">
+          <section className="w-full px-5 sm:px-6 md:px-8 lg:px-12 pt-28 md:pt-36 pb-16 md:pb-24">
+            <div className="w-full max-w-[1200px] mx-auto">
               {/* Revolut Centered Display Hero Headline */}
               <div className="text-center max-w-[800px] mx-auto mb-10 md:mb-12">
                 <h1 className="text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-bold tracking-[-0.03em] text-[#191C1F] leading-[1.1]">
@@ -515,9 +515,9 @@ export default function RecruitmentPage() {
               </div>
 
               {/* Revolut Filter Bar: Location Dropdown + Search Input (mirrors 2-column widths) */}
-              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 mb-8 w-full">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 lg:gap-8 mb-8 w-full">
                 {/* Location Filter Dropdown Pill */}
-                <div ref={locationRef} className="relative w-full md:w-[272px] 2xl:w-[298px] shrink-0">
+                <div ref={locationRef} className="relative w-full md:w-[280px] lg:w-[300px] shrink-0">
                   <button
                     type="button"
                     onClick={() => setIsLocationOpen(!isLocationOpen)}
@@ -574,9 +574,9 @@ export default function RecruitmentPage() {
               </div>
 
               {/* Revolut Two-Column Layout */}
-              <div className="flex flex-col md:flex-row gap-6 items-start w-full">
+              <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-start w-full">
                 {/* Left Sidebar: Filter by teams */}
-                <aside className="w-full md:w-[272px] 2xl:w-[298px] shrink-0 md:sticky md:top-24">
+                <aside className="w-full md:w-[280px] lg:w-[300px] shrink-0 md:sticky md:top-24">
                   <h3 className="text-sm font-semibold text-[#191C1F] uppercase tracking-[0.04em] mb-4">
                     Filter by teams
                   </h3>
