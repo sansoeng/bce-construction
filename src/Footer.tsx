@@ -24,13 +24,6 @@ const toTop = (e: React.MouseEvent) => {
   else scrollTo({ top: 0, behavior: "smooth" });
 };
 
-const MapPinIcon = ({ className = "size-3.5" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
-
 const PhoneIcon = ({ className = "size-3.5" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -135,9 +128,8 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
                 href={MAPS}
                 target="_blank"
                 rel="noopener"
-                className="ft-ul ft-dir inline-flex items-center gap-1.5 mt-3 text-white/90 hover:text-white"
+                className="ft-ul ft-dir inline-block mt-3 text-white/90 hover:text-white"
               >
-                <MapPinIcon className="size-3.5 shrink-0" />
                 <span>Get directions</span>
               </a>
             </address>
@@ -151,29 +143,12 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
                   <a
                     key={n}
                     href={tel(n)}
-                    className="ft-ul inline-flex items-center gap-1.5 text-white/90 hover:text-white"
+                    className="ft-ul inline-block text-white/90 hover:text-white"
                   >
-                    <PhoneIcon className="size-3 shrink-0 opacity-70" />
                     <span>{n}</span>
                   </a>
                 ))}
               </div>
-              <a
-                href="mailto:bcebtb999@gmail.com"
-                className="ft-ul inline-flex items-center gap-1.5 text-white/80 hover:text-white mt-2.5"
-              >
-                <MailIcon className="size-3.5 shrink-0 opacity-70" />
-                <span>bcebtb999@gmail.com</span>
-              </a>
-              <a
-                href="https://t.me/thendLP"
-                target="_blank"
-                rel="noopener"
-                className="ft-ul inline-flex items-center gap-1.5 text-white/80 hover:text-white mt-1.5"
-              >
-                <TelegramIcon className="size-3.5 shrink-0 opacity-70" />
-                <span>Telegram: @thendLP</span>
-              </a>
 
               {/* Social Media & Direct Contact */}
               <div className="mt-4 pt-3.5 border-t border-white/10 w-full">

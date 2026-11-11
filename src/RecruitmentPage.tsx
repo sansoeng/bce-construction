@@ -6,11 +6,39 @@ import QuoteCta from "./QuoteCta";
 import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
 import { LeadText, PageHeader, useScrollParallax } from "./ServiceBlocks";
+import StickyValues, { type StickyItem } from "./StickyValues";
 import { unsplash } from "./company";
 
 const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const HR_EMAIL = "bce.hr.1990@gmail.com";
+
+const cultureItems: StickyItem[] = [
+  {
+    title: "Modern equipment and in-house laboratory",
+    text: "Work alongside advanced computerized Sicoma batching plants, digital DYE-2000 compression testing machines, 41 mixer trucks and 8 pump trucks.",
+    image: unsplash("/Image/bce/hero_batching_plant.jpg", 1600),
+    alt: "BCE computerized batching plant and modern fleet",
+  },
+  {
+    title: "Safety-first culture and complete protection",
+    text: "Rigorous HSE protocols, certified PPE personal protective equipment, structured site safety briefings, and comprehensive accident insurance for all personnel.",
+    image: unsplash("/Image/bce/hse_safety.jpg", 1600),
+    alt: "BCE safety standards and protective equipment on site",
+  },
+  {
+    title: "30+ years of operational stability and growth",
+    text: "Established in 1995, BCE offers dependable long-term employment, engineering mentorship, clear career advancement pathways, and skills certification.",
+    image: unsplash("/Image/bce/project_page_17.jpg", 1600),
+    alt: "BCE construction engineering team collaborating on site",
+  },
+  {
+    title: "Inclusive teamwork and competitive compensation",
+    text: "Market-leading compensation, full overtime pay, performance pour dispatch incentives, and daily per diem allowances for provincial deployments.",
+    image: unsplash("/Image/bce/chairwoman.jpg", 1600),
+    alt: "BCE leadership and operational excellence",
+  },
+];
 
 export interface Vacancy {
   id: string;
@@ -187,13 +215,6 @@ const CalendarIcon = () => (
   </svg>
 );
 
-const SearchIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4 text-[#72757E]" aria-hidden>
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
-
 const ChevronDownIcon = ({ open }: { open?: boolean }) => (
   <svg
     viewBox="0 0 10 6"
@@ -224,7 +245,6 @@ export default function RecruitmentPage() {
   const [activeTeam, setActiveTeam] = useState<string>("All teams");
   const [activeLocation, setActiveLocation] = useState<string>("All Locations");
   const [isLocationOpen, setIsLocationOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const locationRef = useRef<HTMLDivElement>(null);
 
   // Synchronize browser history / deep link
@@ -269,16 +289,9 @@ export default function RecruitmentPage() {
     return VACANCIES.filter((v) => {
       const matchTeam = activeTeam === "All teams" || v.department === activeTeam;
       const matchLoc = activeLocation === "All Locations" || v.location === activeLocation;
-      const query = searchQuery.trim().toLowerCase();
-      const matchQuery =
-        !query ||
-        v.title.toLowerCase().includes(query) ||
-        v.department.toLowerCase().includes(query) ||
-        v.location.toLowerCase().includes(query) ||
-        v.overview.toLowerCase().includes(query);
-      return matchTeam && matchLoc && matchQuery;
+      return matchTeam && matchLoc;
     });
-  }, [activeTeam, activeLocation, searchQuery]);
+  }, [activeTeam, activeLocation]);
 
   // Counts by team
   const teamCounts = useMemo(() => {
@@ -488,14 +501,14 @@ export default function RecruitmentPage() {
                 </p>
               </div>
 
-              {/* Revolut Search & Location Filter Bar */}
-              <div className="flex flex-col sm:flex-row items-stretch gap-3 mb-12">
+              {/* Location Filter Bar (Search removed) */}
+              <div className="flex items-center gap-3 mb-10">
                 {/* Location Filter Dropdown Pill */}
                 <div ref={locationRef} className="relative">
                   <button
                     type="button"
                     onClick={() => setIsLocationOpen(!isLocationOpen)}
-                    className="flex items-center justify-between gap-3 h-12 px-6 rounded-full bg-[#F3F4F6] hover:bg-[#EAEBED] transition-colors text-sm font-medium text-[#191C1F] cursor-pointer w-full sm:w-[220px]"
+                    className="flex items-center justify-between gap-3 h-12 px-6 rounded-full bg-[#F3F4F6] hover:bg-[#EAEBED] transition-colors text-sm font-medium text-[#191C1F] cursor-pointer w-[220px]"
                   >
                     <span className="truncate">
                       {activeLocation === "All Locations" ? "Location" : activeLocation}
@@ -505,7 +518,7 @@ export default function RecruitmentPage() {
 
                   {/* Dropdown Floating Popover */}
                   {isLocationOpen && (
-                    <div className="absolute top-14 left-0 z-30 w-full sm:w-[280px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
+                    <div className="absolute top-14 left-0 z-30 w-[280px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
                       <div className="max-h-[260px] overflow-y-auto space-y-1">
                         {LOCATIONS.map((loc) => (
                           <button
@@ -530,20 +543,6 @@ export default function RecruitmentPage() {
                       </div>
                     </div>
                   )}
-                </div>
-
-                {/* Search Input Pill */}
-                <div className="relative flex-1">
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={`Search from ${filteredVacancies.length} open positions`}
-                    className="w-full h-12 pl-6 pr-12 rounded-full bg-[#F3F4F6] hover:bg-[#EAEBED] focus:bg-white focus:ring-2 focus:ring-[#191C1F]/20 text-sm text-[#191C1F] placeholder:text-[#72757E] transition-all outline-none"
-                  />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <SearchIcon />
-                  </div>
                 </div>
               </div>
 
@@ -606,7 +605,6 @@ export default function RecruitmentPage() {
                         onClick={() => {
                           setActiveTeam("All teams");
                           setActiveLocation("All Locations");
-                          setSearchQuery("");
                         }}
                         className="mt-5 inline-flex items-center px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium cursor-pointer"
                       >
@@ -656,108 +654,106 @@ export default function RecruitmentPage() {
             </div>
           </section>
 
-          {/* How to Apply Section */}
-          <section className="px-5 py-16 md:py-24 bg-[#f8f8f9] border-t border-[rgba(17,17,17,0.08)]">
+          {/* How to Apply Section — Designed in the About Us Heritage / Split Message Style (Image 4) */}
+          <section className="px-5 py-20 md:py-32 bg-white border-t border-[rgba(17,17,17,0.08)]">
             <div className="mx-auto max-w-[1240px]">
-              <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
-                <div className="md:col-span-5">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                {/* Left Column: Quote with vertical bar & hung quotation mark (Image 4) */}
+                <div className="lg:col-span-5 relative">
+                  <div className="relative pl-8 border-l border-[#111]">
+                    <span className="absolute -top-3 left-4 text-3xl font-serif leading-none select-none text-[#111]" aria-hidden>
+                      “
+                    </span>
+                    <blockquote className="text-[clamp(1.35rem,2vw,1.75rem)] font-normal leading-[1.38] text-[#111]">
+                      <p className="indent-5">
+                        We review applications on a rolling basis. All submissions are treated with strict confidentiality in accordance with candidate privacy guidelines.
+                      </p>
+                    </blockquote>
+                    <p className="mt-8 text-sm md:text-base font-medium text-[#111]/70">
+                      <span>Human Resources Department, BCE., Ltd.</span>
+                    </p>
+                    <div className="mt-6 pt-6 border-t border-[rgba(17,17,17,0.1)]">
+                      <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-[#111]/50 mb-1">
+                        Recruitment Inbox
+                      </span>
+                      <a
+                        href={`mailto:${HR_EMAIL}`}
+                        className="text-base font-semibold text-[#1f367e] hover:text-[#111] transition-colors break-all"
+                      >
+                        {HR_EMAIL}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Application Process & Steps (matching About Us Story & Milestone List) */}
+                <div className="lg:col-span-7">
                   <p data-split="content" className="ol-label mb-2">Application Process</p>
-                  <h2 data-split className="text-[28px] md:text-[38px] font-medium leading-[1.12] tracking-[-0.02em] text-[#111]">
+                  <h2 data-split className="text-[28px] md:text-[38px] font-medium leading-[1.12] tracking-[-0.02em] text-[#111] mb-4">
                     How to Apply
                   </h2>
-                  <p className="mt-4 text-sm md:text-base leading-[1.6] text-[#111]/70">
-                    We review applications on a rolling basis. All submissions are treated with strict confidentiality in accordance with candidate privacy guidelines.
+                  <p className="text-sm md:text-base leading-[1.6] text-[#111]/60 mb-8 max-w-[620px]">
+                    Join BCE’s integrated operations delivering ready-mix concrete, piling, civil construction, and heavy machinery across Cambodia.
                   </p>
 
-                  <div className="mt-8 p-5 rounded-[12px] bg-white border border-[rgba(17,17,17,0.08)]">
-                    <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-[#111]/50 mb-1">
-                      Recruitment Inbox
-                    </span>
-                    <a
-                      href={`mailto:${HR_EMAIL}`}
-                      className="text-base font-medium text-[#1f367e] hover:text-[#111] transition-colors break-all"
-                    >
-                      {HR_EMAIL}
-                    </a>
-                    <p className="text-xs text-[#111]/55 mt-2 leading-[1.5]">
-                      Our recruitment inbox automatically issues an acknowledgement receipt upon email arrival.
-                    </p>
-                  </div>
-                </div>
+                  <ol className="divide-y divide-[rgba(17,17,17,0.1)] border-t border-b border-[rgba(17,17,17,0.1)]">
+                    {/* Step 01 */}
+                    <li className="py-7 grid grid-cols-[4rem_1fr] sm:grid-cols-[5.5rem_1fr] gap-4 sm:gap-6 items-baseline">
+                      <span className="text-2xl sm:text-3xl font-mono font-medium text-[#111]">
+                        01
+                      </span>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-medium text-[#111] mb-1.5">
+                          Prepare Your CV &amp; Documents
+                        </h3>
+                        <p className="text-sm leading-[1.6] text-[#111]/70">
+                          Please attach an updated CV (Curriculum Vitae), educational certificates, and copies of any relevant licenses (e.g. heavy equipment operator license or engineering certification).
+                        </p>
+                      </div>
+                    </li>
 
-                <div className="md:col-span-7 space-y-4">
-                  {/* Step 1 */}
-                  <div className="p-6 rounded-[12px] bg-white border border-[rgba(17,17,17,0.08)]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="grid size-6 place-items-center rounded-full bg-[#111] text-white text-xs font-mono">1</span>
-                      <h3 className="font-medium text-base text-[#111]">Prepare Your CV &amp; Documents</h3>
-                    </div>
-                    <p className="text-sm leading-[1.6] text-[#111]/70 pl-9">
-                      Please attach an updated CV (Curriculum Vitae), educational certificates, and copies of any relevant licenses (e.g. heavy equipment operator license or engineering certification).
-                    </p>
-                  </div>
+                    {/* Step 02 */}
+                    <li className="py-7 grid grid-cols-[4rem_1fr] sm:grid-cols-[5.5rem_1fr] gap-4 sm:gap-6 items-baseline">
+                      <span className="text-2xl sm:text-3xl font-mono font-medium text-[#111]">
+                        02
+                      </span>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-medium text-[#111] mb-1.5">
+                          Include Required Contact Information
+                        </h3>
+                        <p className="text-sm leading-[1.6] text-[#111]/70">
+                          In your email body, please explicitly include your full legal name, active telephone contact number, and your current residential location.
+                        </p>
+                      </div>
+                    </li>
 
-                  {/* Step 2 */}
-                  <div className="p-6 rounded-[12px] bg-white border border-[rgba(17,17,17,0.08)]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="grid size-6 place-items-center rounded-full bg-[#111] text-white text-xs font-mono">2</span>
-                      <h3 className="font-medium text-base text-[#111]">Include Required Contact Information</h3>
-                    </div>
-                    <p className="text-sm leading-[1.6] text-[#111]/70 pl-9">
-                      In your email body, please explicitly include your full legal name, active telephone contact number, and your current residential location.
-                    </p>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div className="p-6 rounded-[12px] bg-white border border-[rgba(17,17,17,0.08)]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="grid size-6 place-items-center rounded-full bg-[#111] text-white text-xs font-mono">3</span>
-                      <h3 className="font-medium text-base text-[#111]">Specify the Job Title in Subject Line</h3>
-                    </div>
-                    <p className="text-sm leading-[1.6] text-[#111]/70 pl-9">
-                      Send your application to <span className="font-medium text-[#111]">{HR_EMAIL}</span> with the exact position title in the email subject (e.g. <em>Job Application - Concrete Batching Plant Operator</em>).
-                    </p>
-                  </div>
+                    {/* Step 03 */}
+                    <li className="py-7 grid grid-cols-[4rem_1fr] sm:grid-cols-[5.5rem_1fr] gap-4 sm:gap-6 items-baseline">
+                      <span className="text-2xl sm:text-3xl font-mono font-medium text-[#111]">
+                        03
+                      </span>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-medium text-[#111] mb-1.5">
+                          Specify the Job Title in Subject Line
+                        </h3>
+                        <p className="text-sm leading-[1.6] text-[#111]/70">
+                          Send your application to <span className="font-medium text-[#111]">{HR_EMAIL}</span> with the exact position title in the email subject (e.g. <em>Job Application - Concrete Batching Plant Operator</em>).
+                        </p>
+                      </div>
+                    </li>
+                  </ol>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Why Work at BCE */}
-          <section className="px-5 py-16 md:py-20 border-t border-[rgba(17,17,17,0.08)]">
-            <div className="mx-auto max-w-[1240px]">
-              <p data-split="content" className="ol-label mb-2">BCE Workplace Culture</p>
-              <h2 data-split className="text-[28px] md:text-[38px] font-medium leading-[1.12] tracking-[-0.02em] mb-12">
-                Why Build Your Career at BCE
-              </h2>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="p-6 rounded-[12px] border border-[rgba(17,17,17,0.08)] bg-[#fafafa]">
-                  <span className="text-[11px] font-mono text-[#1f367e] uppercase tracking-[0.08em] block mb-2">01 / Fleet &amp; Facilities</span>
-                  <h3 className="text-lg font-medium text-[#111] mb-2">Modern Equipment &amp; In-House Lab</h3>
-                  <p className="text-sm text-[#111]/70 leading-[1.6]">
-                    Work alongside advanced computerized Sicoma batching plants, digital DYE-2000 compression testing machines, and 41 modern mixer trucks.
-                  </p>
-                </div>
-
-                <div className="p-6 rounded-[12px] border border-[rgba(17,17,17,0.08)] bg-[#fafafa]">
-                  <span className="text-[11px] font-mono text-[#1f367e] uppercase tracking-[0.08em] block mb-2">02 / Safety &amp; Wellbeing</span>
-                  <h3 className="text-lg font-medium text-[#111] mb-2">Safety-First Culture</h3>
-                  <p className="text-sm text-[#111]/70 leading-[1.6]">
-                    Rigorous HSE protocols, full personal protective equipment (PPE), site safety briefings, and accident insurance coverage for all field personnel.
-                  </p>
-                </div>
-
-                <div className="p-6 rounded-[12px] border border-[rgba(17,17,17,0.08)] bg-[#fafafa]">
-                  <span className="text-[11px] font-mono text-[#1f367e] uppercase tracking-[0.08em] block mb-2">03 / Heritage &amp; Growth</span>
-                  <h3 className="text-lg font-medium text-[#111] mb-2">30+ Years of Stability</h3>
-                  <p className="text-sm text-[#111]/70 leading-[1.6]">
-                    Founded in 1995, BCE offers dependable long-term employment, career advancement pathways, and ongoing engineering skill development.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* Workplace Culture & Why Build Your Career at BCE — Styled like HSE section (Image 3) */}
+          <StickyValues
+            id="culture"
+            label="BCE Workplace Culture"
+            heading="Why Build Your Career at BCE: stability, modern fleet, safety and professional growth"
+            items={cultureItems}
+          />
         </>
       )}
 
