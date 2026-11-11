@@ -1040,34 +1040,43 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
    ========================================================================== */
 :root {
   --apple-nav-height: 44px;
-  --apple-nav-bg: rgba(0, 0, 0, 0.65);
-  --apple-nav-bg-expanded: rgba(20, 22, 26, 0.78);
+  --apple-nav-bg: rgba(0, 0, 0, 0.65);             /* Nav capsule background */
+  --apple-nav-bg-expanded: rgba(20, 22, 26, 0.78); /* Dropdown card background */
   --apple-nav-text: #f5f5f7;
   --apple-nav-muted: rgba(255, 255, 255, 0.65);
+  
+  /* Added glass effect variables */
+  --apple-nav-blur: saturate(180%) blur(20px);
+  --apple-nav-border: rgba(255, 255, 255, 0.12);
   --apple-nav-blue: #0071e3;
   --apple-nav-blue-hover: #0077ed;
   --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --apple-ease-out: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Global Nav Bar Container */
-.apple-header {
-  position: fixed;
+/* Main Navigation Bar / Capsule */
+.apple-header,
+.apple-nav {
+  position: fixed; /* or sticky */
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
   height: var(--apple-nav-height);
+  color: var(--apple-nav-text);
   background-color: var(--apple-nav-bg);
-  backdrop-filter: blur(85px);
-  -webkit-backdrop-filter: blur(85px);
-  border: none !important;
-  box-shadow: none !important;
-  z-index: 100;
+  
+  /* Frosted Glass Effect */
+  -webkit-backdrop-filter: var(--apple-nav-blur);
+  backdrop-filter: var(--apple-nav-blur);
+  
+  /* Subtle bottom divider */
+  border-bottom: 1px solid var(--apple-nav-border);
+  z-index: 1000;
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.01em;
-  color: var(--apple-nav-text);
   transition: background-color 0.35s var(--apple-ease), transform 0.6s var(--apple-ease), opacity 0.6s ease;
   transform: translateZ(0);
 }
@@ -1078,9 +1087,15 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   pointer-events: none;
 }
 
+/* Expanded State / Dropdown Card */
+.apple-nav.is-expanded,
+.apple-nav-dropdown,
 .apple-header.is-menu-open,
 .apple-header.has-mega-open {
   background-color: var(--apple-nav-bg-expanded);
+  -webkit-backdrop-filter: var(--apple-nav-blur);
+  backdrop-filter: var(--apple-nav-blur);
+  border-bottom: 1px solid var(--apple-nav-border);
 }
 
 .apple-header.has-mega-open {
@@ -1302,10 +1317,10 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   left: 0;
   width: 100%;
   background-color: var(--apple-nav-bg-expanded);
-  backdrop-filter: blur(85px);
-  -webkit-backdrop-filter: blur(85px);
+  -webkit-backdrop-filter: var(--apple-nav-blur);
+  backdrop-filter: var(--apple-nav-blur);
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid var(--apple-nav-border);
   box-shadow: none !important;
   overflow: hidden;
   height: 0;
@@ -1482,7 +1497,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   margin: 0 auto;
   width: calc(100% - 32px);
   max-width: 960px;
-  z-index: 95;
+  z-index: 1001;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -1509,9 +1524,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   padding: 0 16px;
   border-radius: 24px;
   background-color: var(--apple-nav-bg);
-  backdrop-filter: blur(85px);
-  -webkit-backdrop-filter: blur(85px);
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  -webkit-backdrop-filter: var(--apple-nav-blur);
+  backdrop-filter: var(--apple-nav-blur);
+  border: 1px solid var(--apple-nav-border) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
   color: var(--apple-nav-text);
   position: relative;
@@ -1663,15 +1678,31 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   max-width: 960px;
   margin: 0 auto;
   background-color: var(--apple-nav-bg-expanded);
-  backdrop-filter: blur(85px);
-  -webkit-backdrop-filter: blur(85px);
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  -webkit-backdrop-filter: var(--apple-nav-blur);
+  backdrop-filter: var(--apple-nav-blur);
+  border: 1px solid var(--apple-nav-border) !important;
   border-radius: 24px;
   box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.35) !important;
   padding: 32px 36px 36px;
   color: var(--apple-nav-text);
-  z-index: 102;
+  z-index: 1002;
   animation: appleCurtainDrop 0.25s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* Fallback for browsers that do not support backdrop-filter */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .apple-header,
+  .apple-nav,
+  .apple-floating-inner {
+    background-color: rgba(0, 0, 0, 0.92);
+  }
+  .apple-header.has-mega-open,
+  .apple-header.is-menu-open,
+  .apple-nav.is-expanded,
+  .apple-nav-dropdown,
+  .apple-floating-dropdown {
+    background-color: rgba(20, 22, 26, 0.96);
+  }
 }
 
 .apple-floating-dropdown .apple-mega-col h3 {
