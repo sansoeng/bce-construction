@@ -322,8 +322,9 @@ export default function RecruitmentPage() {
   const currentJob = VACANCIES.find((v) => v.id === selectedJobId);
 
   return (
-    <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
+    <>
       <SiteHeader phones={phones} tel={tel} base="/" />
+      <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
 
       {/* =========================================================================
           VIEW A: DEDICATED JOB DETAILS PAGE (Revolut Style)
@@ -761,5 +762,6 @@ export default function RecruitmentPage() {
       <Footer phones={phones} tel={tel} base="/" />
       <FluidCursor />
     </main>
+    </>
   );
 }

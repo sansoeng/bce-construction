@@ -1040,14 +1040,14 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
    ========================================================================== */
 :root {
   --apple-nav-height: 44px;
-  --apple-nav-bg: rgba(0, 0, 0, 0.65);             /* Nav capsule background */
-  --apple-nav-bg-expanded: rgba(20, 22, 26, 0.78); /* Dropdown card background */
+  --apple-nav-bg: rgba(0, 0, 0, 0.72);             /* Nav capsule background */
+  --apple-nav-bg-expanded: rgba(24, 26, 32, 0.94); /* Dropdown card background: dark, frosted, not see-through */
   --apple-nav-text: #f5f5f7;
   --apple-nav-muted: rgba(255, 255, 255, 0.65);
   
   /* Added glass effect variables */
-  --apple-nav-blur: saturate(180%) blur(20px);
-  --apple-nav-card-blur: saturate(180%) blur(20px); /* Layer blur for dropdown card */
+  --apple-nav-blur: blur(20px) saturate(180%);
+  --apple-nav-card-blur: blur(24px) saturate(180%); /* Layer blur for dropdown card */
   --apple-nav-border: rgba(255, 255, 255, 0.12);
   --apple-nav-card-border: rgba(255, 255, 255, 0.12);
   --apple-nav-blue: #0071e3;
@@ -1472,14 +1472,14 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 .apple-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: saturate(180%) blur(24px);
-  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.32s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.32s;
-  z-index: 90;
+  z-index: 999;
 }
 
 .apple-scrim.is-active {
@@ -1665,11 +1665,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 @keyframes appleCurtainDrop {
   0% {
     opacity: 0;
-    transform: translateY(-6px);
   }
   100% {
     opacity: 1;
-    transform: none;
   }
 }
 

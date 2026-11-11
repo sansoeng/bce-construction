@@ -135,8 +135,9 @@ export default function ResourcesPage() {
     : DOCUMENTS.filter((d) => d.category === activeCategory);
 
   return (
-    <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#111]">
+    <>
       <SiteHeader phones={phones} tel={tel} base="/" />
+      <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#111]">
 
       {/* Header after olympic.no's inner pages: label, title, banner, then introduction. */}
       <PageHeader
@@ -254,5 +255,6 @@ export default function ResourcesPage() {
       <Footer phones={phones} tel={tel} base="/" />
       <FluidCursor />
     </main>
+    </>
   );
 }
