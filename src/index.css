@@ -1476,7 +1476,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
    ========================================================================== */
 .apple-floating-nav {
   position: fixed;
-  top: 14px;
+  top: -60px;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -1489,14 +1489,13 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   border: none !important;
   box-shadow: none !important;
   color: var(--apple-nav-text);
-  transform: translateY(-24px);
-  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
-              opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-              visibility 0.4s;
+  transition: top 0.35s cubic-bezier(0.32, 0.72, 0, 1),
+              opacity 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              visibility 0.35s;
 }
 
 .apple-floating-nav.is-visible {
-  transform: translateY(0);
+  top: 14px;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -1509,16 +1508,15 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   height: 44px;
   padding: 0 16px;
   border-radius: 24px;
-  background-color: var(--apple-nav-bg);
-  backdrop-filter: blur(85px);
-  -webkit-backdrop-filter: blur(85px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(32, 36, 44, 0.82);
+  backdrop-filter: saturate(180%) blur(50px);
+  -webkit-backdrop-filter: saturate(180%) blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
   color: var(--apple-nav-text);
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  transform: translateZ(0);
 }
 
 .apple-floating-list {
@@ -1649,13 +1647,11 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 @keyframes appleCurtainDrop {
   0% {
     opacity: 0;
-    transform: translateY(-8px);
-    clip-path: inset(0 0 100% 0 round 24px);
+    transform: translateY(-6px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
-    clip-path: inset(0 0 0% 0 round 24px);
   }
 }
 
@@ -1666,18 +1662,16 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   right: 0;
   max-width: 960px;
   margin: 0 auto;
-  background-color: var(--apple-nav-bg-expanded);
-  backdrop-filter: blur(85px);
-  -webkit-backdrop-filter: blur(85px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(32, 36, 44, 0.88);
+  backdrop-filter: saturate(180%) blur(50px);
+  -webkit-backdrop-filter: saturate(180%) blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 24px;
-  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.35) !important;
   padding: 32px 36px 36px;
   color: var(--apple-nav-text);
   z-index: 102;
-  animation: appleCurtainDrop 0.32s cubic-bezier(0.32, 0.72, 0, 1) forwards;
-  overflow: hidden;
-  transform: translateZ(0);
+  animation: appleCurtainDrop 0.25s cubic-bezier(0.32, 0.72, 0, 1) forwards;
 }
 
 .apple-floating-dropdown .apple-mega-col h3 {
