@@ -1040,8 +1040,8 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
    ========================================================================== */
 :root {
   --apple-nav-height: 44px;
-  --apple-nav-bg: rgba(20, 20, 22, 0.92);
-  --apple-nav-bg-expanded: rgba(20, 20, 22, 0.98);
+  --apple-nav-bg: rgba(45, 47, 52, 0.78);
+  --apple-nav-bg-expanded: rgba(45, 47, 52, 0.78);
   --apple-nav-text: #f5f5f7;
   --apple-nav-muted: #86868b;
   --apple-nav-blue: #0071e3;
@@ -1508,12 +1508,12 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   justify-content: center;
   height: 44px;
   padding: 0 16px;
-  border-radius: 6px;
+  border-radius: 24px;
   background-color: var(--apple-nav-bg);
-  backdrop-filter: saturate(190%) blur(40px);
-  -webkit-backdrop-filter: saturate(190%) blur(40px);
-  border: none !important;
-  box-shadow: none !important;
+  backdrop-filter: saturate(180%) blur(36px);
+  -webkit-backdrop-filter: saturate(180%) blur(36px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
   color: var(--apple-nav-text);
   position: relative;
   width: 100%;
@@ -1635,7 +1635,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   .apple-floating-inner {
     height: 44px;
     padding: 0 14px;
-    border-radius: 6px;
+    border-radius: 24px;
   }
   .apple-floating-list {
     display: none;
@@ -1645,33 +1645,33 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   }
 }
 
-/* Floating Mega Dropdown Curtain Expand Animation (6px corner radius, no stroke, no shadow) */
+/* Floating Mega Dropdown Curtain Expand Animation (24px corner radius, frosted glass blur) */
 @keyframes appleCurtainDrop {
   0% {
     opacity: 0;
     transform: translateY(-8px);
-    clip-path: inset(0 0 100% 0 round 6px);
+    clip-path: inset(0 0 100% 0 round 24px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
-    clip-path: inset(0 0 0% 0 round 6px);
+    clip-path: inset(0 0 0% 0 round 24px);
   }
 }
 
 .apple-floating-dropdown {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 8px);
   left: 0;
   right: 0;
   max-width: 960px;
   margin: 0 auto;
   background-color: var(--apple-nav-bg-expanded);
-  backdrop-filter: saturate(190%) blur(50px);
-  -webkit-backdrop-filter: saturate(190%) blur(50px);
-  border: none !important;
-  border-radius: 6px;
-  box-shadow: none !important;
+  backdrop-filter: saturate(180%) blur(36px);
+  -webkit-backdrop-filter: saturate(180%) blur(36px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 24px;
+  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.3) !important;
   padding: 32px 36px 36px;
   color: var(--apple-nav-text);
   z-index: 102;
