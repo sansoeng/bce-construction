@@ -1047,7 +1047,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   
   /* Added glass effect variables */
   --apple-nav-blur: saturate(180%) blur(20px);
+  --apple-nav-card-blur: saturate(180%) blur(20px); /* Layer blur for dropdown card */
   --apple-nav-border: rgba(255, 255, 255, 0.12);
+  --apple-nav-card-border: rgba(255, 255, 255, 0.12);
   --apple-nav-blue: #0071e3;
   --apple-nav-blue-hover: #0077ed;
   --apple-ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -1093,13 +1095,14 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
 .apple-header.is-menu-open,
 .apple-header.has-mega-open {
   background-color: var(--apple-nav-bg-expanded);
-  -webkit-backdrop-filter: var(--apple-nav-blur);
-  backdrop-filter: var(--apple-nav-blur);
+  -webkit-backdrop-filter: var(--apple-nav-card-blur);
+  backdrop-filter: var(--apple-nav-card-blur);
   border-bottom: 1px solid var(--apple-nav-border);
 }
 
 .apple-header.has-mega-open {
   border-bottom-color: transparent;
+  transform: none;
 }
 
 /* Apple Centered 960px Navigation Content (exact layout from https://www.apple.com/) */
@@ -1666,7 +1669,7 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
@@ -1678,9 +1681,9 @@ html.has-loader .hero-reveal:not(.is-split-in) > * { opacity: 0; transform: tran
   max-width: 960px;
   margin: 0 auto;
   background-color: var(--apple-nav-bg-expanded);
-  -webkit-backdrop-filter: var(--apple-nav-blur);
-  backdrop-filter: var(--apple-nav-blur);
-  border: 1px solid var(--apple-nav-border) !important;
+  -webkit-backdrop-filter: var(--apple-nav-card-blur);
+  backdrop-filter: var(--apple-nav-card-blur);
+  border: 1px solid var(--apple-nav-card-border) !important;
   border-radius: 24px;
   box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.35) !important;
   padding: 32px 36px 36px;
