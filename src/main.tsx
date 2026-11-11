@@ -26,7 +26,7 @@ function Page() {
   if (slug !== null) return <ProjectPage key={slug} slug={slug} />
   if (params.has('projects')) return <ProjectsPage />
   if (params.has('about')) return <AboutPage />
-  if (params.has('businesses')) return <BusinessesPage />
+  if (params.has('businesses') || params.has('business')) return <BusinessesPage />
   if (params.has('quality')) return <QualityPage />
   if (params.has('capabilities')) return <CapabilitiesPage />
   if (params.has('quote')) return <QuotePage />
