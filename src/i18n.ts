@@ -87,6 +87,7 @@ const KM: Record<string, string> = {
   "Call": "ហៅទូរសព្ទ",
   "Call for a Quotation": "ទូរស័ព្ទស្នើសុំការដេញថ្លៃ",
   "Sales & Quotations Hotlines": "លេខទូរស័ព្ទទាន់ហេតុការណ៍ផ្នែកលក់ និងសម្រង់តម្លៃ",
+  "Social & Direct Contact": "បណ្ដាញសង្គម និងទំនាក់ទំនងផ្ទាល់",
   "Hotline (Battambang HQ):": "ទូរស័ព្ទបន្ទាន់ (ទីស្នាក់ការបាត់ដំបង)៖",
   "Site Pouring Dispatch:": "ផ្នែកបញ្ជូនការចាក់បេតុងការដ្ឋាន៖",
   "Download Company Profile (PDF)": "ទាញយកប្រវត្តិរូបក្រុមហ៊ុន (PDF)",

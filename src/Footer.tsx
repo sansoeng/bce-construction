@@ -3,7 +3,7 @@ import ArrowButton from "./ArrowButton";
 import { businessHref, offerings, quoteHref } from "./company";
 
 // Footer after olympic.no's: navigation columns with grey headings (accordions on phones), a ruled row with the
-// enquiry block, both offices and an animated back-to-top square, then a ruled legal row. As the footer scrolls into
+// enquiry block and head office with contact and social channels, then a ruled legal row. As the footer scrolls into
 // view its content settles from 25% above into place while a dark veil clears (their view-timeline "parallax-footer"
 // and "disappear"). Set in the site's Aeonik, with the homepage's ArrowButtons.
 
@@ -24,8 +24,36 @@ const toTop = (e: React.MouseEvent) => {
   else scrollTo({ top: 0, behavior: "smooth" });
 };
 
-const ArrowUp = () => (
-  <svg viewBox="0 0 10 12" width="10" height="12" fill="none" aria-hidden><path d="M5 11.5V1M1 4.8 5 .8l4 4" stroke="currentColor" strokeWidth="1.1" /></svg>
+const MapPinIcon = ({ className = "size-3.5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+const PhoneIcon = ({ className = "size-3.5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const MailIcon = ({ className = "size-3.5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+    <rect width="20" height="16" x="2" y="4" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+);
+
+const TelegramIcon = ({ className = "size-3.5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+    <path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.693c.46 0 .663-.211.921-.46l2.211-2.15 4.6 3.4c.847.468 1.458.226 1.67-.783l3.015-14.2c.31-1.24-.473-1.8-1.27-.927z" />
+  </svg>
+);
+
+const FacebookIcon = ({ className = "size-3.5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+  </svg>
 );
 
 export default function Footer({ phones, tel, base = "" }: { phones: string[]; tel: (n: string) => string; base?: string }) {
@@ -97,25 +125,101 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
 
           <div className="ft-office">
             <h3 className="ft-label">Battambang · Head office</h3>
-            <address className="ft-text not-italic">{ADDRESS.map((l) => <span key={l} className="block">{l}</span>)}</address>
+            <address className="ft-text not-italic">
+              {ADDRESS.map((l) => (
+                <span key={l} className="block">
+                  {l}
+                </span>
+              ))}
+              <a
+                href={MAPS}
+                target="_blank"
+                rel="noopener"
+                className="ft-ul ft-dir inline-flex items-center gap-1.5 mt-3 text-white/90 hover:text-white"
+              >
+                <MapPinIcon className="size-3.5 shrink-0" />
+                <span>Get directions</span>
+              </a>
+            </address>
+
             <div className="ft-text">
-              <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1">Sales & Quotations Hotlines</span>
-              {phones.map((n) => <a key={n} href={tel(n)} className="ft-ul">{n}</a>)}
-              <a href="mailto:bcebtb999@gmail.com" className="ft-ul text-white/80 hover:text-white mt-2">bcebtb999@gmail.com</a>
-              <a href="https://t.me/thendLP" target="_blank" rel="noopener" className="ft-ul text-white/80 hover:text-white mt-1">Telegram: @thendLP</a>
-              <a href={MAPS} target="_blank" rel="noopener" className="ft-ul ft-dir">Get directions</a>
-              <div className="mt-4 pt-3 border-t border-white/10 w-full">
-                <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1">Careers & Recruitment</span>
-                <a href={href("/?recruitment")} className="ft-ul text-white/80 hover:text-white block">View Open Vacancies & How to Apply →</a>
-                <a href="mailto:bce.hr.1990@gmail.com?subject=Job%20Application%20-%20BCE" className="ft-ul text-white/60 hover:text-white text-xs block mt-1">bce.hr.1990@gmail.com</a>
+              <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1.5">
+                Sales & Quotations Hotlines
+              </span>
+              <div className="flex flex-col gap-1 w-full">
+                {phones.map((n) => (
+                  <a
+                    key={n}
+                    href={tel(n)}
+                    className="ft-ul inline-flex items-center gap-1.5 text-white/90 hover:text-white"
+                  >
+                    <PhoneIcon className="size-3 shrink-0 opacity-70" />
+                    <span>{n}</span>
+                  </a>
+                ))}
+              </div>
+              <a
+                href="mailto:bcebtb999@gmail.com"
+                className="ft-ul inline-flex items-center gap-1.5 text-white/80 hover:text-white mt-2.5"
+              >
+                <MailIcon className="size-3.5 shrink-0 opacity-70" />
+                <span>bcebtb999@gmail.com</span>
+              </a>
+              <a
+                href="https://t.me/thendLP"
+                target="_blank"
+                rel="noopener"
+                className="ft-ul inline-flex items-center gap-1.5 text-white/80 hover:text-white mt-1.5"
+              >
+                <TelegramIcon className="size-3.5 shrink-0 opacity-70" />
+                <span>Telegram: @thendLP</span>
+              </a>
+
+              {/* Social Media & Direct Contact */}
+              <div className="mt-4 pt-3.5 border-t border-white/10 w-full">
+                <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-2">
+                  Social & Direct Contact
+                </span>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://t.me/thendLP"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Telegram"
+                    title="Telegram: @thendLP"
+                    className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#229ED9] hover:border-[#229ED9] hover:text-white transition-all duration-200"
+                  >
+                    <TelegramIcon className="size-4" />
+                  </a>
+                  <a
+                    href={tel(phones[0])}
+                    aria-label="Call Hotline"
+                    title={`Call Hotline: ${phones[0]}`}
+                    className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#25D366] hover:border-[#25D366] hover:text-white transition-all duration-200"
+                  >
+                    <PhoneIcon className="size-3.5" />
+                  </a>
+                  <a
+                    href="mailto:bcebtb999@gmail.com"
+                    aria-label="Email BCE"
+                    title="Email: bcebtb999@gmail.com"
+                    className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#EA4335] hover:border-[#EA4335] hover:text-white transition-all duration-200"
+                  >
+                    <MailIcon className="size-3.5" />
+                  </a>
+                  <a
+                    href="https://facebook.com"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Facebook"
+                    title="Facebook"
+                    className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white transition-all duration-200"
+                  >
+                    <FacebookIcon className="size-3.5" />
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="ft-top">
-            <button type="button" onClick={toTop} className="ft-top-btn" aria-label="Back to top">
-              <span className="ft-top-arrows"><ArrowUp /><ArrowUp /></span>
-            </button>
           </div>
         </div>
 
