@@ -491,20 +491,21 @@ function App() {
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col justify-between gap-6 p-6 md:p-8 lg:p-10">
-                  <div className="flex flex-col sm:flex-row items-start justify-between gap-6">
-                    <ul className="offer-details grid max-w-[28rem] flex-1 grid-cols-2 gap-x-4 gap-y-1 text-[.85rem] leading-[1.3] md:gap-x-6 md:text-[.95rem]">
+                  <div>
+                    <ul className="offer-details grid max-w-[32rem] grid-cols-2 gap-x-4 gap-y-1 text-[.85rem] leading-[1.3] md:gap-x-6 md:text-[.95rem]">
                       {details.map((d, k) => <li className="offer-detail py-2.5" style={{ "--k": k } as React.CSSProperties} key={d}>{d}</li>)}
                     </ul>
-                    <div className="offer-action flex-none self-start">
+                  </div>
+                  <div className="mt-auto pt-6 flex flex-col items-start gap-4 sm:gap-5">
+                    <h3 className="offer-title font-medium text-[clamp(2.1rem,3.4vw,3.75rem)] leading-[1.04] tracking-[-.025em]">{name}</h3>
+                    <div className="offer-action">
                       <ArrowButton
                         href={businessHref(slug)}
                         label="See more details"
                         theme={fg === "#fff" ? "white" : "black"}
+                        className="!shadow-none"
                       />
                     </div>
-                  </div>
-                  <div className="mt-auto pt-6">
-                    <h3 className="offer-title font-medium text-[clamp(2.1rem,3.4vw,3.75rem)] leading-[1.04] tracking-[-.025em]">{name}</h3>
                   </div>
                 </div>
               </article>
