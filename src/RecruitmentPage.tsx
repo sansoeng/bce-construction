@@ -502,8 +502,8 @@ export default function RecruitmentPage() {
            ========================================================================= */
         <>
           {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="w-full px-5 pt-28 md:pt-36 pb-16 md:pb-24 m-0">
-            <div className="w-full m-0">
+          <section className="w-full px-5 sm:px-6 md:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
+            <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto">
               {/* Revolut Centered Display Hero Headline */}
               <div className="text-center max-w-[800px] mx-auto mb-10 md:mb-12">
                 <h1 className="text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-bold tracking-[-0.03em] text-[#191C1F] leading-[1.1]">
@@ -514,14 +514,14 @@ export default function RecruitmentPage() {
                 </p>
               </div>
 
-              {/* Revolut Filter Bar: Location Dropdown + Search Input */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-10 md:mb-12 w-full">
+              {/* Revolut Filter Bar: Location Dropdown + Search Input (mirrors 2-column widths) */}
+              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 mb-8 w-full">
                 {/* Location Filter Dropdown Pill */}
-                <div ref={locationRef} className="relative sm:w-[220px] shrink-0">
+                <div ref={locationRef} className="relative w-full md:w-[272px] 2xl:w-[298px] shrink-0">
                   <button
                     type="button"
                     onClick={() => setIsLocationOpen(!isLocationOpen)}
-                    className="flex items-center justify-between gap-3 w-full h-12 px-5 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-sm font-medium text-[#191C1F] cursor-pointer"
+                    className="flex items-center justify-between gap-3 w-full h-[56px] px-6 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
                   >
                     <span className="truncate">
                       {activeLocation === "All Locations" ? "Location" : activeLocation}
@@ -531,7 +531,7 @@ export default function RecruitmentPage() {
 
                   {/* Dropdown Floating Popover */}
                   {isLocationOpen && (
-                    <div className="absolute top-14 left-0 z-30 w-[280px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
+                    <div className="absolute top-16 left-0 z-30 w-[280px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
                       <div className="max-h-[260px] overflow-y-auto space-y-1">
                         {LOCATIONS.map((loc) => (
                           <button
@@ -559,24 +559,24 @@ export default function RecruitmentPage() {
                 </div>
 
                 {/* Search Input Bar */}
-                <div className="relative flex-1">
+                <div className="relative flex-1 min-w-0">
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={`Search from ${VACANCIES.length} open positions`}
-                    className="w-full h-12 pl-5 pr-12 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20 text-sm text-[#191C1F] placeholder-[#72757E] transition-all"
+                    className="w-full h-[56px] pl-6 pr-12 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20 text-[15px] text-[#191C1F] placeholder-[#72757E] transition-all"
                   />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#72757E]">
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#72757E]">
                     <SearchIcon />
                   </div>
                 </div>
               </div>
 
               {/* Revolut Two-Column Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+              <div className="flex flex-col md:flex-row gap-6 items-start w-full">
                 {/* Left Sidebar: Filter by teams */}
-                <aside className="md:col-span-4 lg:col-span-4 sticky top-24">
+                <aside className="w-full md:w-[272px] 2xl:w-[298px] shrink-0 md:sticky md:top-24">
                   <h3 className="text-sm font-semibold text-[#191C1F] uppercase tracking-[0.04em] mb-4">
                     Filter by teams
                   </h3>
@@ -589,10 +589,10 @@ export default function RecruitmentPage() {
                           key={dept}
                           type="button"
                           onClick={() => setActiveTeam(dept)}
-                          className={`flex items-center justify-between text-left px-4 py-2.5 rounded-full text-sm transition-all cursor-pointer ${
+                          className={`flex items-center justify-between text-left px-4 py-2.5 rounded-[10px] text-sm transition-all cursor-pointer w-full ${
                             isSelected
-                              ? "bg-[#F3F4F6] text-[#191C1F] font-semibold"
-                              : "text-[#5A5D66] hover:bg-[#F3F4F6]/60 hover:text-[#191C1F]"
+                              ? "bg-[#F0F1F3] text-[#191C1F] font-semibold"
+                              : "text-[#5A5D66] hover:bg-[#F0F1F3]/60 hover:text-[#191C1F]"
                           }`}
                         >
                           <span>{dept}</span>
@@ -606,7 +606,7 @@ export default function RecruitmentPage() {
                 </aside>
 
                 {/* Right Column: Roles Feed */}
-                <div className="md:col-span-8 lg:col-span-8">
+                <div className="flex-1 w-full min-w-0">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-base font-semibold text-[#191C1F]">
                       Featured roles
