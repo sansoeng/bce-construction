@@ -171,49 +171,15 @@ export default function ResourcesPage() {
       <SiteHeader phones={phones} tel={tel} base="/" />
       <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
 
-        {/* 1. Revolut-Styled Hero Section with 3D Banner Illustration */}
-        <section className="relative pt-32 sm:pt-40 md:pt-44 lg:pt-48 pb-0 overflow-hidden bg-white">
-          <div className="max-w-[1280px] 2xl:max-w-[1536px] mx-auto px-6 sm:px-8 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end min-h-[460px] sm:min-h-[520px] lg:min-h-[580px]">
-
-              {/* Left Column: Eyebrow, H1, Subtitle */}
-              <div className="lg:col-span-6 flex flex-col justify-center pb-12 sm:pb-16 lg:pb-28">
-                <span className="text-[14px] sm:text-[15px] md:text-[16px] font-medium text-[#191C1F]/60 tracking-[-0.01em] mb-2 sm:mb-3">
-                  Shareholder relations
-                </span>
-                <h1 className="text-[44px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-bold text-[#191C1F] tracking-[-0.035em] leading-[1.04] mb-4 sm:mb-6">
-                  Reports and results
-                </h1>
-                <p className="text-[16px] sm:text-[17px] md:text-[18px] text-[#191C1F]/65 leading-[1.55] max-w-[500px]">
-                  Dive into all of BCE's official documentation, verified concrete mix design tables, technical specifications, and statutory quality certifications.
-                </p>
-              </div>
-
-              {/* Right Column: 3D Illustration resting directly on concrete block at bottom */}
-              <div className="lg:col-span-6 flex justify-end items-end self-end w-full">
-                <div className="relative w-full max-w-[540px] sm:max-w-[620px] lg:max-w-[700px] xl:max-w-[760px] translate-y-[2px]">
-                  <img
-                    src="/Image/bce/reports_results_banner.png"
-                    alt="BCE Corporate Reports and Results Documentation"
-                    className="w-full h-auto object-contain object-bottom-right select-none block pointer-events-none"
-                    loading="eager"
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* 2. Revolut Reports Document Listing Section */}
-        <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-12 sm:pt-16 pb-20 sm:pb-28">
+        {/* Revolut Reports Document Listing Section */}
+        <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-28 sm:pt-32 md:pt-36 pb-20 sm:pb-28">
 
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">
-            <h2 className="text-[32px] sm:text-[42px] md:text-[48px] font-bold text-[#191C1F] tracking-[-0.03em] leading-[1.12] mb-2 sm:mb-3">
+            <h1 className="text-[36px] sm:text-[44px] md:text-[52px] font-bold text-[#191C1F] tracking-[-0.03em] leading-[1.12] mb-2 sm:mb-3">
               Reports
-            </h2>
-            <p className="text-[15px] sm:text-[17px] text-[#191C1F]/65 max-w-[500px] mx-auto">
+            </h1>
+            <p className="text-[16px] sm:text-[17px] md:text-[18px] text-[#191C1F]/65 max-w-[500px] mx-auto">
               Read our historical reports for a closer look.
             </p>
           </div>
