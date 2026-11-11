@@ -75,16 +75,50 @@
 @keyframes about-image-in { from { transform: scale(1.25); } }
 @keyframes hero-image-in { from { opacity: 0; transform: scale(1.16); } }
 
+/* Universal Apple-style 18px corner radius with 60% curvature smoothing for all images */
+img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hamburger *):not([data-offers-image]):not(.lb-img):not(.sn-logo *):not(.glance-brand *),
+.media-frame,
+.project-image,
+.kp-media,
+.kp-media img,
+.about-image,
+.about-image img,
+.ab-photo,
+.ab-photo img,
+.pp-asset,
+.pp-asset img,
+.pp-media,
+.pp-media img,
+.pp-foot-asset,
+.pp-foot-asset img,
+.abv-card-photo,
+.abv-card-photo img,
+.abv-vision-images,
+.ol-tm-media,
+.ol-dk-media,
+.ol-slide,
+.ol-dialog-media,
+.ab-tile,
+.ab-tile-media,
+.ab-tile-media img,
+[data-offer-media],
+[data-fly],
+[data-fly-about] {
+  border-radius: 18px !important;
+  -webkit-corner-smoothing: 60% !important;
+  corner-smoothing: 60% !important;
+}
+
 .media-frame, .project-image {
   overflow: hidden;
-  border-radius: 24px;
-  -webkit-corner-smoothing: 60%;
-  corner-smoothing: 60%;
+  border-radius: 18px !important;
+  -webkit-corner-smoothing: 60% !important;
+  corner-smoothing: 60% !important;
 }
 .media-frame img, .project-image img {
-  border-radius: 24px;
-  -webkit-corner-smoothing: 60%;
-  corner-smoothing: 60%;
+  border-radius: 18px !important;
+  -webkit-corner-smoothing: 60% !important;
+  corner-smoothing: 60% !important;
   transition: transform .8s cubic-bezier(.22,1,.36,1);
 }
 .project-card:hover img { transform: scale(1.06); }
@@ -102,7 +136,7 @@
   overflow: hidden;
 }
 .offer-panel [data-offer-media] {
-  border-radius: 24px;
+  border-radius: 18px;
   -webkit-corner-smoothing: 60%;
   corner-smoothing: 60%;
   overflow: hidden;
@@ -201,7 +235,7 @@
   width: 100%;
   height: calc(540 * var(--u));
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 18px;
   -webkit-corner-smoothing: 60%;
   corner-smoothing: 60%;
   background-color: #ededed; /* placeholder tone the photo is revealed over */
@@ -212,7 +246,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px;
+  border-radius: 18px;
   -webkit-corner-smoothing: 60%;
   corner-smoothing: 60%;
   display: block;
@@ -2045,21 +2079,21 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 }
 
 .about-image {
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   overflow: hidden;
 }
 
 .about-image img {
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
 
 [data-fly],
 [data-fly-about] {
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   overflow: hidden;
@@ -2267,7 +2301,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 .pd-hero {
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -2276,7 +2310,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   animation: kp-reveal-clip 1.4s cubic-bezier(.41, .35, .2, 1) .2s backwards;
@@ -2331,7 +2365,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   width: clamp(9rem, 22vw, 22rem);
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -2340,7 +2374,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   transform: scale(1.06);
@@ -2513,7 +2547,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   aspect-ratio: 1920 / 2366;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -2526,7 +2560,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -2607,7 +2641,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   display: block;
   width: 100%;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -2617,7 +2651,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   transition: transform 1.109s cubic-bezier(.17, .84, .44, 1);
@@ -2657,7 +2691,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   aspect-ratio: 1920 / 2366;
   margin: calc(220 * var(--u)) auto 0;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   transform-origin: 50% 50%;
@@ -2669,7 +2703,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -2817,7 +2851,7 @@ html[lang="km"] body {
 html[lang="km"], html[lang="km"] * {
   letter-spacing: 0 !important;
 }
-/* All titles, headlines and headings in Khmer set to 700 (Headings and titles ONLY, not body copy) */
+/* All headings, titles, display numbers, badges, tags, buttons and sizes <16px or >20px in Khmer use semi-bold weight (600) */
 html[lang="km"] :is(
   h1, h2, h3, h4, h5, h6,
   :is(h1, h2, h3, h4, h5, h6)[data-split],
@@ -2829,76 +2863,103 @@ html[lang="km"] :is(
   .pp-foot-name, .ol-hero-title, .ol-hl-title, .ol-tm-title, .ol-onboard-heading, .ol-h2,
   .ol-dialog-title, .ol-dialog-headline, .ol-slide-title, .ac-title, .ab-story-title,
   .ab-tile-title, .abz-title, .abv-card-title, .qh-grade-name, .qf-tile-name,
-  .qx-step-title, .qp-title, .apple-mega-big-link, .apple-mobile-link, .apple-mega-col h3
-),
+  .qx-step-title, .qp-title, .apple-mega-big-link, .apple-mobile-link, .apple-mega-col h3,
+  .glance-label-title, .glance-num, .glance-wordmark,
+  .fg-btn, .fg-btn-label, .fg-btn-line, button, .qc-btn-label,
+  .pd-tag, .pp-label, .ol-label, .abv-label, .qx-label,
+  .apple-header, .apple-floating-nav, .apple-nav-link, .apple-floating-link,
+  .box-24, .box-24 span,
+  [class*="text-[10px]"], [class*="text-[11px]"], [class*="text-[12px]"],
+  [class*="text-[13px]"], [class*="text-[14px]"], [class*="text-[15px]"],
+  [class*="text-[21px]"], [class*="text-[22px]"], [class*="text-[24px]"],
+  [class*="text-[28px]"], [class*="text-[32px]"], [class*="text-[38px]"],
+  [class*="text-[42px]"], [class*="text-[44px]"], [class*="text-[48px]"],
+  [class*="text-[56px]"], [class*="text-[64px]"], [class*="text-[68px]"],
+  [class*="text-[76px]"],
+  .text-xs, .text-sm, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-7xl,
+  strong, b
+) {
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+}
+
 html[lang="km"] :is(
   h1, h2, h3, h4, h5, h6,
   .hero-title, .about-title, .vision-title, .offer-title, .kp-title, .qc-title,
   .pd-title, .pd-h2, .ol-hero-title, .ol-hl-title, .ol-tm-title, .ol-onboard-heading, .ol-h2,
   .ac-title, .ab-tile-title, .abz-title
 ) :is(span, a, .sw, .sw-i) {
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   line-height: 1.45 !important;
 }
 
-/* All non-title Khmer font MUST NOT be bold: regular normal weight 400 */
+/* STRICT RULE: ONLY font sizes 16px, 18px, and 20px (body copy, descriptions, standard text) MUST NOT be bold (weight 400) */
 html[lang="km"] :is(
   p,
   p *,
   article p,
+  article p *,
   section p,
-  li,
-  ul,
-  ol,
-  label,
-  aside,
+  section p *,
+  main p,
+  main p *,
+  .about-body p,
+  .about-body p *,
+  .vision-text,
+  .vision-text *,
+  .vision-copy p,
+  .vision-copy p *,
   .offer-detail,
   .offer-details,
-  .fg-btn,
-  .fg-btn-label,
-  .fg-btn-line,
-  button,
-  .qc-btn-label,
+  .ab-story p,
+  .ab-body p,
+  .ab-msg-text,
+  .qp-desc,
+  .qh-desc,
   .ol-lead-copy,
-  .ol-lead,
-  .ol-label,
-  .pp-label,
-  .abv-label,
-  .qx-label,
-  .vision-text,
-  figcaption,
-  time,
-  dd,
-  dt,
-  input,
-  textarea,
-  select,
-  table,
-  tbody,
-  tr,
-  td,
-  th
-) {
+  .ol-slide-text,
+  .ol-dialog-body p,
+  .pd-overview-copy p,
+  .pp-desc,
+  .wb-summary,
+  .qc-desc p,
+  .qc-desc p *,
+  .lead-text,
+  .lead-text *,
+  [class*="text-[16px]"],
+  [class*="text-[16px]"] *,
+  [class*="text-[17px]"],
+  [class*="text-[17px]"] *,
+  [class*="text-[18px]"],
+  [class*="text-[18px]"] *,
+  [class*="text-[20px]"],
+  [class*="text-[20px]"] *,
+  .text-base,
+  .text-base *,
+  .text-lg,
+  .text-lg *,
+  .text-xl,
+  .text-xl *
+):not(:is(
+  h1, h2, h3, h4, h5, h6,
+  :is(h1, h2, h3, h4, h5, h6) *,
+  .glance-label-title, .glance-num,
+  .hero-title, .offer-title, .kp-title, .qc-title, .pd-title,
+  .ol-hero-title, .ol-tm-title, .ol-onboard-heading, .ac-title, .abz-title,
+  .fg-btn, .fg-btn *, .qc-btn-label, button,
+  .pd-tag, .pp-label, .ol-label, .abv-label, .qx-label,
+  [class*="text-[10px]"], [class*="text-[11px]"], [class*="text-[12px]"],
+  [class*="text-[13px]"], [class*="text-[14px]"], [class*="text-[15px]"],
+  [class*="text-[21px]"], [class*="text-[22px]"], [class*="text-[24px]"],
+  [class*="text-[28px]"], [class*="text-[32px]"], [class*="text-[38px]"],
+  [class*="text-[42px]"], [class*="text-[44px]"], [class*="text-[48px]"],
+  [class*="text-[56px]"], [class*="text-[64px]"], [class*="text-[68px]"],
+  [class*="text-[76px]"],
+  .text-xs, .text-sm, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-7xl
+)) {
   font-weight: 400 !important;
 }
 
-/* Ensure inner spans, links, and text nodes within non-title containers remain normal weight 400 */
-html[lang="km"] :is(
-  p,
-  li,
-  dd,
-  dt,
-  figcaption,
-  aside,
-  .offer-detail,
-  .offer-details,
-  .fg-btn,
-  .vision-text,
-  .apple-header,
-  .apple-floating-nav
-) :is(span:not(:is(h1,h2,h3,h4,h5,h6) *), a:not(:is(h1,h2,h3,h4,h5,h6) *), em, strong:not(.is-bold), .sw-i:not(:is(h1,h2,h3,h4,h5,h6) *)) {
-  font-weight: 400 !important;
-}
 html[lang="km"] .split .sw {
   clip-path: inset(-50% -12% -35% -12%);
 }
@@ -2911,12 +2972,14 @@ html[lang="km"] .split[data-split-toggle].is-active .sw-i {
 }
 html[lang="km"] .fg-btn {
   line-height: 20px;
+  font-weight: 600 !important;
 }
 html[lang="km"] .fg-btn.is-glass {
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0;
   line-height: 18px;
+  font-weight: 600 !important;
 }
 html[lang="km"] .fg-btn.is-glass .fg-btn-label {
   height: 20px;
@@ -2928,7 +2991,7 @@ html[lang="km"] .fg-btn.is-glass .fg-btn-line {
 html[lang="km"] .fg-btn.is-raw {
   font-family: var(--font-sans) !important;
   font-size: 12px !important;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
   letter-spacing: 0 !important;
 }
 html[lang="km"] .fg-btn.is-raw .fg-btn-label {
@@ -2940,7 +3003,7 @@ html[lang="km"] .fg-btn.is-raw .fg-btn-line {
   height: 22px !important;
   line-height: 22px !important;
   font-family: var(--font-sans) !important;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
 }
 html[lang="km"] .fg-btn-label {
   height: 22px;
@@ -3017,7 +3080,7 @@ html[lang="km"] :is(p, li, dd, dt, figcaption) { line-height: 1.65 !important; }
 .ab-milestone-text { font-size: clamp(1rem, 1.2vw, 1.2rem); line-height: 1.35; }
 .ab-photo {
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3027,7 +3090,7 @@ html[lang="km"] :is(p, li, dd, dt, figcaption) { line-height: 1.65 !important; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3134,7 +3197,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   margin-top: 2rem;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3143,7 +3206,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3167,7 +3230,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   display: block;
   grid-column: 8 / 13;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3229,7 +3292,7 @@ html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; 
 .ol-hero-title { grid-column: 1 / span 8; font-size: clamp(2.75rem, 6.2vw, 6.5rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; color: #fff; }
 @media (max-width: 1023px) { .ol-hero-title { grid-column: 1 / span 10; } }
 @media (max-width: 519px) { .ol-hero { --ot: 59svh; } .ol-hero-title { grid-column: 1 / -1; } }
-html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .ol-onboard-heading { line-height: 1.4; font-weight: 700 !important; }
+html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .ol-onboard-heading { line-height: 1.4; font-weight: 600 !important; }
 
 /* What we do */
 .ol-lwc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); padding: 48px var(--olm) 0; }
@@ -3256,7 +3319,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   position: relative;
   overflow: hidden;
   aspect-ratio: 666 / 899;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3299,7 +3362,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
     width: 100%;
     margin: 0;
     aspect-ratio: 343 / 372;
-    border-radius: 24px !important;
+    border-radius: 18px !important;
     -webkit-corner-smoothing: 60% !important;
     corner-smoothing: 60% !important;
   }
@@ -3338,7 +3401,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   left: 0;
   overflow: clip;
   aspect-ratio: var(--slide-ar);
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   color: #fff;
@@ -3410,7 +3473,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .ol-dialog-media {
   height: 433px;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3630,7 +3693,7 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   flex-direction: column;
   overflow: hidden;
   aspect-ratio: 828 / 765;
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #1d1d1d;
@@ -3638,7 +3701,7 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 }
 .ab-tile-media,
 .ab-tile-media img {
-  border-radius: 24px !important;
+  border-radius: 18px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3677,7 +3740,7 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   font-size: clamp(2.1rem, 4.4vw, 4.6rem); font-weight: 500; line-height: 1.05; letter-spacing: -.03em; }
 .abz-word { display: inline-block; white-space: nowrap; }
 .abz-char { opacity: .0001; }
-html[lang="km"] .abz-title { line-height: 1.45; font-weight: 700 !important; }
+html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 @media (max-width: 1100px) { .abz { height: 200vh; } }
 .abz.is-static { height: auto; }
 .abz.is-static .abz-rows { transform: scale(.51); }

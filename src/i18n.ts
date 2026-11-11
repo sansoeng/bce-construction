@@ -226,7 +226,6 @@ const KM: Record<string, string> = {
   "Download": "ទាញយក",
   "Download document": "ទាញយកឯកសារ",
   "No documents found matching your criteria": "រកមិនឃើញឯកសារដែលត្រូវនឹងលក្ខខណ្ឌស្វែងរកទេ",
-  "Dive into all of BCE's official documentation, verified concrete mix design tables, technical specifications, and statutory quality certifications.": "ចូលមើលឯកសារផ្លូវការរបស់ BCE រូបមន្តលាយបេតុងដែលបានផ្ទៀងផ្ទាត់ លក្ខណៈបច្ចេកទេសគ្រឿងចក្រ និងវិញ្ញាបនបត្រគុណភាពស្តង់ដារ។",
   "Public documents and technical resources": "ឯកសារសាធារណៈ និងធនធានបច្ចេកទេស",
   "Documentation Archive": "បណ្ណសារឯកសារផ្លូវការ",
   "Download Official Documents": "ទាញយកឯកសារផ្លូវការ",

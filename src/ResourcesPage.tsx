@@ -154,7 +154,6 @@ export default function ResourcesPage() {
 
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeYear, setActiveYear] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
@@ -163,11 +162,9 @@ export default function ResourcesPage() {
     return DOCUMENTS.filter((doc) => {
       const matchesCategory = activeCategory === "all" || doc.category === activeCategory;
       const matchesYear = activeYear === "all" || doc.year === activeYear;
-      const q = searchQuery.trim().toLowerCase();
-      const matchesQuery = !q || doc.title.toLowerCase().includes(q) || doc.description.toLowerCase().includes(q) || doc.categoryLabel.toLowerCase().includes(q);
-      return matchesCategory && matchesYear && matchesQuery;
+      return matchesCategory && matchesYear;
     });
-  }, [activeCategory, activeYear, searchQuery]);
+  }, [activeCategory, activeYear]);
 
   return (
     <>
@@ -341,32 +338,13 @@ export default function ResourcesPage() {
                 )}
               </div>
 
-              {/* Search Input Box */}
-              <div className="relative">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search documents..."
-                  className="box-24 w-full h-[48px] pl-10 pr-4 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] focus:bg-white focus:outline-none text-[14px] text-[#191C1F] placeholder-[#191C1F]/45 transition-all border-0"
-                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                />
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#191C1F]/40">
-                  <svg viewBox="0 0 16 16" className="size-4 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="7" cy="7" r="4.5" />
-                    <path d="M10.5 10.5L14 14" />
-                  </svg>
-                </div>
-              </div>
-
               {/* Active Filter Clear Tag */}
-              {(activeCategory !== "all" || activeYear !== "all" || searchQuery) && (
+              {(activeCategory !== "all" || activeYear !== "all") && (
                 <button
                   type="button"
                   onClick={() => {
                     setActiveCategory("all");
                     setActiveYear("all");
-                    setSearchQuery("");
                   }}
                   className="w-full flex items-center justify-center gap-1.5 px-4 py-2 text-[13px] font-medium text-[#191C1F]/60 hover:text-[#191C1F] transition-colors border-0"
                 >
@@ -458,7 +436,6 @@ export default function ResourcesPage() {
                     onClick={() => {
                       setActiveCategory("all");
                       setActiveYear("all");
-                      setSearchQuery("");
                     }}
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium hover:bg-black transition-colors"
                   >
