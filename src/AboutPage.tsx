@@ -203,6 +203,11 @@ export default function AboutPage() {
               label="Download Company Profile (PDF)"
               theme="black"
             />
+            <ArrowButton
+              href="/?resources"
+              label="View all resources"
+              theme="outline"
+            />
           </div>
         }
       >

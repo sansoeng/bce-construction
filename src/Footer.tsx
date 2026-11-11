@@ -9,10 +9,10 @@ import { businessHref, offerings, quoteHref } from "./company";
 
 type Link = [string, string];
 const columns: [string, Link[]][] = [
-  ["Company", [["Home", "#"], ["About BCE", "/?about"], ["Projects", "/?projects"], ["Coverage", "#coverage"]]],
+  ["Company", [["Home", "#"], ["About BCE", "/?about"], ["Projects", "/?projects"], ["Coverage", "#coverage"], ["Resources & Downloads", "/?resources"]]],
   ["Our businesses", offerings.map((b) => [b.name, businessHref(b.slug)] as Link)],
   ["Capabilities", [["Technical capabilities", "/?capabilities"], ["Quality & HSE", "/?quality"], ["Laboratory", "/?quality#laboratory"], ["Equipment & fleet", "/?capabilities#equipment-fleet"]]],
-  ["Work with us", [["Request a quote", "/?quote"], ["Hire our equipment", quoteHref("equipment-rental")], ["Get directions", "MAPS"]]],
+  ["Work with us", [["Request a quote", "/?quote"], ["Careers & Recruitment", "/?recruitment"], ["Hire our equipment", quoteHref("equipment-rental")], ["Get directions", "MAPS"]]],
 ];
 const ADDRESS = ["Ang Village, Sangkat O’Char", "Battambang City", "Battambang Province, Cambodia"];
 const MAPS = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("O'Char, Battambang, Cambodia");
@@ -106,7 +106,8 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
               <a href={MAPS} target="_blank" rel="noopener" className="ft-ul ft-dir">Get directions</a>
               <div className="mt-4 pt-3 border-t border-white/10 w-full">
                 <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1">Careers & Recruitment</span>
-                <a href="mailto:bce.hr.1990@gmail.com?subject=Job%20Application%20-%20BCE" className="ft-ul text-white/80 hover:text-white">bce.hr.1990@gmail.com</a>
+                <a href={href("/?recruitment")} className="ft-ul text-white/80 hover:text-white block">View Open Vacancies & How to Apply →</a>
+                <a href="mailto:bce.hr.1990@gmail.com?subject=Job%20Application%20-%20BCE" className="ft-ul text-white/60 hover:text-white text-xs block mt-1">bce.hr.1990@gmail.com</a>
               </div>
             </div>
           </div>

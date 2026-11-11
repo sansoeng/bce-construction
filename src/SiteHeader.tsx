@@ -399,6 +399,19 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                       Foundation Piling Works
                     </a>
                   </div>
+
+                  {/* Column 2: Documentation & Careers */}
+                  <div className="apple-mega-col">
+                    <h3>Public Resources & Careers</h3>
+                    <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Downloads & Resources</span>
+                      <span className="apple-mega-sublink-desc">Company profile, mix designs & licenses</span>
+                    </a>
+                    <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Careers & Recruitment</span>
+                      <span className="apple-mega-sublink-desc">Open vacancies & how to apply</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -567,6 +580,19 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                       Foundation Piling Works
                     </a>
                   </div>
+
+                  {/* Column 2: Documentation & Careers */}
+                  <div className="apple-mega-col">
+                    <h3>Public Resources & Careers</h3>
+                    <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Downloads & Resources</span>
+                      <span className="apple-mega-sublink-desc">Company profile, mix designs & licenses</span>
+                    </a>
+                    <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-sublink">
+                      <span className="apple-mega-sublink-title">Careers & Recruitment</span>
+                      <span className="apple-mega-sublink-desc">Open vacancies & how to apply</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -688,6 +714,20 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           <li className="apple-mobile-item">
             <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mobile-link">
               Quality & Lab
+            </a>
+          </li>
+
+          {/* Resources */}
+          <li className="apple-mobile-item">
+            <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mobile-link">
+              Resources & Downloads
+            </a>
+          </li>
+
+          {/* Careers & Recruitment */}
+          <li className="apple-mobile-item">
+            <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mobile-link">
+              Careers & Recruitment
             </a>
           </li>
 

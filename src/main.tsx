@@ -8,6 +8,8 @@ import BusinessesPage from './BusinessesPage'
 import QualityPage from './QualityPage'
 import CapabilitiesPage from './CapabilitiesPage'
 import QuotePage from './QuotePage'
+import RecruitmentPage from './RecruitmentPage'
+import ResourcesPage from './ResourcesPage'
 import './index.css'
 import { initPageTransitions, onRouteChange } from './pageTransition'
 import { applyLanguage, getLang, onLangChange, translate } from './i18n'
@@ -27,6 +29,8 @@ function Page() {
   if (params.has('quality')) return <QualityPage />
   if (params.has('capabilities')) return <CapabilitiesPage />
   if (params.has('quote')) return <QuotePage />
+  if (params.has('recruitment') || params.has('careers')) return <RecruitmentPage />
+  if (params.has('resources')) return <ResourcesPage />
   document.title = translate(homeTitle)
   return <App />
 }
