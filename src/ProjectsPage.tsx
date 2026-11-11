@@ -253,11 +253,11 @@ export default function ProjectsPage() {
                   />
                 </div>
                 <div className="kp-info">
-                  <span>
-                    {p.name}
-                    <span className="kp-detail">, {p.location}</span>
-                  </span>
-                  <span className="kp-detail">
+                  <div className="kp-text">
+                    <span className="kp-name">{p.name}</span>
+                    <span className="kp-location">{p.location}</span>
+                  </div>
+                  <span className="kp-meta">
                     {p.category} · {year(p.period)}
                   </span>
                 </div>

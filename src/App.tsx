@@ -572,8 +572,11 @@ function App() {
                 <img className="rounded-[18px]" src={p.gallery[0].image} alt={`${p.name}, ${p.location}`} loading="lazy" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />
               </div>
               <div className="kp-info">
-                <span>{p.name}<span className="kp-detail">, {p.location}</span></span>
-                <span className="kp-detail">{p.category} · {year(p.period)}</span>
+                <div className="kp-text">
+                  <span className="kp-name">{p.name}</span>
+                  <span className="kp-location">{p.location}</span>
+                </div>
+                <span className="kp-meta">{p.category} · {year(p.period)}</span>
               </div>
             </a>
           ))}

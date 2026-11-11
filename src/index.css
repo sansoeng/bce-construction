@@ -272,7 +272,50 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   .kp-media.is-revealed img { animation: none; }
 }
 
-.kp-info { display: flex; justify-content: space-between; gap: 1rem; font-size: max(.875rem, calc(16 * var(--u))); line-height: 1.35; letter-spacing: 0; }
+.kp-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+.kp-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.kp-name {
+  font-size: clamp(20px, 4vw, 24px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: #111;
+  transition: color 0.2s ease;
+}
+.kp-item:hover .kp-name {
+  color: #000;
+}
+@media (min-width: 768px) {
+  .kp-name {
+    font-size: 24px !important;
+  }
+}
+.kp-location {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #737373;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.kp-meta {
+  font-size: 14px;
+  color: #929292;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 3px;
+  text-align: right;
+}
 .kp-detail { color: #929292; }
 
 @media (max-width: 767.98px) {
@@ -283,6 +326,8 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   .kp-item { gap: calc(10 * var(--u)); margin-top: 0 !important; }
   .kp-media, .kp-item:nth-child(6n+3) .kp-media, .kp-item:nth-child(6n) .kp-media { height: calc(215 * var(--u)); }
   .kp-info { font-size: calc(14 * var(--u)); }
+  .kp-name { font-size: 20px; }
+  .kp-meta { display: none; }
   .kp-detail { display: none; }
 }
 
@@ -3085,6 +3130,23 @@ html[lang="km"] .pd-title {
   html[lang="km"] .pd-title {
     font-size: 54px !important;
   }
+}
+
+html[lang="km"] .kp-name {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+}
+@media (max-width: 767.98px) {
+  html[lang="km"] .kp-name {
+    font-size: 20px !important;
+  }
+}
+html[lang="km"] .kp-location {
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: #737373 !important;
 }
 
 /* About BCE (src/AboutPage.tsx): the project page's type, rules and photo wipes, plus a few layouts of its own. */
