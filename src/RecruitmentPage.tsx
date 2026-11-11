@@ -521,7 +521,7 @@ export default function RecruitmentPage() {
                   <button
                     type="button"
                     onClick={() => setIsLocationOpen(!isLocationOpen)}
-                    className="flex items-center justify-between gap-3 w-full h-[56px] px-6 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
+                    className="flex items-center justify-between gap-3 w-full h-[56px] px-6 rounded-full bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
                   >
                     <span className="truncate">
                       {activeLocation === "All Locations" ? "Location" : activeLocation}
@@ -531,7 +531,7 @@ export default function RecruitmentPage() {
 
                   {/* Dropdown Floating Popover */}
                   {isLocationOpen && (
-                    <div className="absolute top-16 left-0 z-30 w-[280px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
+                    <div className="absolute top-16 left-0 z-30 w-[280px] p-2 bg-white rounded-[20px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
                       <div className="max-h-[260px] overflow-y-auto space-y-1">
                         {LOCATIONS.map((loc) => (
                           <button
@@ -541,7 +541,7 @@ export default function RecruitmentPage() {
                               setActiveLocation(loc);
                               setIsLocationOpen(false);
                             }}
-                            className={`w-full text-left px-3.5 py-2 text-xs rounded-[8px] transition-colors flex items-center justify-between cursor-pointer ${
+                            className={`w-full text-left px-4 py-2.5 text-xs rounded-full transition-colors flex items-center justify-between cursor-pointer ${
                               activeLocation === loc
                                 ? "bg-[#191C1F] text-white font-medium"
                                 : "text-[#191C1F] hover:bg-[#F3F4F6]"
@@ -565,7 +565,7 @@ export default function RecruitmentPage() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={`Search from ${VACANCIES.length} open positions`}
-                    className="w-full h-[56px] pl-6 pr-12 rounded-[12px] bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20 text-[15px] text-[#191C1F] placeholder-[#72757E] transition-all"
+                    className="w-full h-[56px] pl-6 pr-12 rounded-full bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20 text-[15px] text-[#191C1F] placeholder-[#72757E] transition-all"
                   />
                   <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#72757E]">
                     <SearchIcon />
@@ -589,7 +589,7 @@ export default function RecruitmentPage() {
                           key={dept}
                           type="button"
                           onClick={() => setActiveTeam(dept)}
-                          className={`flex items-center justify-between text-left px-4 py-2.5 rounded-[10px] text-sm transition-all cursor-pointer w-full ${
+                          className={`flex items-center justify-between text-left px-4 py-2.5 rounded-full text-sm transition-all cursor-pointer w-full ${
                             isSelected
                               ? "bg-[#F0F1F3] text-[#191C1F] font-semibold"
                               : "text-[#5A5D66] hover:bg-[#F0F1F3]/60 hover:text-[#191C1F]"
@@ -645,7 +645,8 @@ export default function RecruitmentPage() {
                         <article
                           key={v.id}
                           onClick={() => handleSelectJob(v.id)}
-                          className="group block p-6 rounded-[16px] bg-[#F8F9FA] hover:bg-[#F0F1F3] transition-all duration-200 cursor-pointer border border-[rgba(0,0,0,0.02)]"
+                          className="group block p-6 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] transition-all duration-200 cursor-pointer border border-[rgba(0,0,0,0.02)]"
+                          style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                         >
                           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>

@@ -68,11 +68,12 @@ function HeroLatestNews() {
         className="c-hero-card group flex w-full flex-row gap-3 rounded-lg p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
         data-hero-home="card"
       >
-        <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-sm shrink-0">
+        <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[24px] shrink-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
           <img
             src="/Image/bce/core_services.jpg"
             alt="BCE Company Profile"
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover rounded-[24px] transition-transform duration-700 ease-out group-hover:scale-105"
+            style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
           />
         </div>
         <div className="flex flex-1 flex-col justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2">
@@ -439,7 +440,7 @@ function App() {
       <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white px-5 pb-24 pt-6">
         <div className="relative">
         <div data-about-track className="pointer-events-none absolute left-0 top-0 z-[1] w-full max-w-[15.5rem]">
-          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[4px]"><img className="h-full w-full object-cover opacity-0 rounded-[4px]" src={`${A}/6ae3a.png`} alt="BCE architectural detail" /></div>
+          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[24px]" src={`${A}/6ae3a.png`} alt="BCE architectural detail" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
         </div>
         <div className="grid gap-10 md:grid-cols-2">
           <div className="aspect-[5/6] w-full max-w-[15.5rem]" aria-hidden />
@@ -484,10 +485,10 @@ function App() {
           </div>
           <div data-offers-track className="absolute inset-y-0 left-0 flex w-max pl-[100vw] will-change-transform">
             {offerings.map(({ slug, name, image, bg, fg, details }) => (
-              <article data-offer-panel className="offer-panel flex h-full w-[86vw] flex-none flex-col overflow-hidden rounded-[4px] md:w-[44vw]" style={{ background: bg, color: fg }} key={name}>
-                <div data-offer-media className="relative h-[48%] flex-none overflow-hidden rounded-[4px] md:h-[50%]">
+              <article data-offer-panel className="offer-panel flex h-full w-[86vw] flex-none flex-col overflow-hidden rounded-[24px] md:w-[44vw]" style={{ background: bg, color: fg, WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} key={name}>
+                <div data-offer-media className="relative h-[48%] flex-none overflow-hidden rounded-[24px] md:h-[50%]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                   <div className="offer-zoom absolute inset-0">
-                    <img data-offers-image className="absolute inset-y-0 left-[-8%] h-full w-[116%] max-w-none object-cover rounded-[4px]" src={image} alt="" decoding="async" />
+                    <img data-offers-image className="absolute inset-y-0 left-[-8%] h-full w-[116%] max-w-none object-cover rounded-[24px]" src={image} alt="" decoding="async" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col justify-between gap-6 p-6 md:p-8 lg:p-10">
@@ -567,8 +568,8 @@ function App() {
         <div className="kp-grid">
           {projects.map((p) => (
             <a href={projectHref(p.slug)} className="kp-item group" key={p.slug}>
-              <div className="kp-media rounded-[4px]">
-                <img className="rounded-[4px]" src={p.gallery[0].image} alt={`${p.name}, ${p.location}`} loading="lazy" />
+              <div className="kp-media rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                <img className="rounded-[24px]" src={p.gallery[0].image} alt={`${p.name}, ${p.location}`} loading="lazy" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />
               </div>
               <div className="kp-info">
                 <span>{p.name}<span className="kp-detail">, {p.location}</span></span>

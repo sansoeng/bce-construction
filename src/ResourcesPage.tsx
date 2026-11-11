@@ -154,7 +154,6 @@ export default function ResourcesPage() {
 
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeYear, setActiveYear] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
@@ -163,14 +162,9 @@ export default function ResourcesPage() {
     return DOCUMENTS.filter((doc) => {
       const matchesCategory = activeCategory === "all" || doc.category === activeCategory;
       const matchesYear = activeYear === "all" || doc.year === activeYear;
-      const matchesSearch =
-        searchQuery.trim() === "" ||
-        doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doc.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        doc.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesYear && matchesSearch;
+      return matchesCategory && matchesYear;
     });
-  }, [activeCategory, activeYear, searchQuery]);
+  }, [activeCategory, activeYear]);
 
   return (
     <>
@@ -178,30 +172,30 @@ export default function ResourcesPage() {
       <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
 
         {/* 1. Revolut-Styled Hero Section with 3D Banner Illustration */}
-        <section className="relative pt-28 sm:pt-36 md:pt-40 pb-12 sm:pb-16 md:pb-20 overflow-hidden bg-white border-b border-[rgba(0,0,0,0.06)]">
-          <div className="max-w-[1000px] 2xl:max-w-[1432px] mx-auto px-5 sm:px-6 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-end">
+        <section className="relative pt-32 sm:pt-40 md:pt-44 lg:pt-48 pb-0 overflow-hidden bg-white">
+          <div className="max-w-[1280px] 2xl:max-w-[1536px] mx-auto px-6 sm:px-8 md:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end min-h-[460px] sm:min-h-[520px] lg:min-h-[580px]">
 
               {/* Left Column: Eyebrow, H1, Subtitle */}
-              <div className="md:col-span-7 flex flex-col justify-center">
-                <span className="text-[13px] sm:text-[14px] md:text-[15px] font-medium text-[#191C1F]/60 tracking-[-0.01em] mb-2 sm:mb-3">
-                  Corporate Publications
+              <div className="lg:col-span-6 flex flex-col justify-center pb-12 sm:pb-16 lg:pb-28">
+                <span className="text-[14px] sm:text-[15px] md:text-[16px] font-medium text-[#191C1F]/60 tracking-[-0.01em] mb-2 sm:mb-3">
+                  Shareholder relations
                 </span>
-                <h1 className="text-[38px] sm:text-[50px] md:text-[62px] font-bold text-[#191C1F] tracking-[-0.03em] leading-[1.06] mb-4 sm:mb-5">
+                <h1 className="text-[44px] sm:text-[56px] md:text-[68px] lg:text-[76px] font-bold text-[#191C1F] tracking-[-0.035em] leading-[1.04] mb-4 sm:mb-6">
                   Reports and results
                 </h1>
-                <p className="text-[16px] sm:text-[17px] md:text-[18px] text-[#191C1F]/70 leading-[1.55] max-w-[540px]">
+                <p className="text-[16px] sm:text-[17px] md:text-[18px] text-[#191C1F]/65 leading-[1.55] max-w-[500px]">
                   Dive into all of BCE's official documentation, verified concrete mix design tables, technical specifications, and statutory quality certifications.
                 </p>
               </div>
 
-              {/* Right Column: 3D Illustration resting on concrete block */}
-              <div className="md:col-span-5 flex justify-center md:justify-end items-end">
-                <div className="relative w-full max-w-[420px] md:max-w-[460px]">
+              {/* Right Column: 3D Illustration resting directly on concrete block at bottom */}
+              <div className="lg:col-span-6 flex justify-end items-end self-end w-full">
+                <div className="relative w-full max-w-[540px] sm:max-w-[620px] lg:max-w-[700px] xl:max-w-[760px] translate-y-[2px]">
                   <img
                     src="/Image/bce/reports_results_banner.png"
                     alt="BCE Corporate Reports and Results Documentation"
-                    className="w-full h-auto object-contain drop-shadow-sm select-none"
+                    className="w-full h-auto object-contain object-bottom-right select-none block pointer-events-none"
                     loading="eager"
                   />
                 </div>
@@ -211,27 +205,8 @@ export default function ResourcesPage() {
           </div>
         </section>
 
-        {/* 2. Revolut-Styled Black Highlight Banner (2026 Overview) */}
-        <section className="max-w-[1000px] 2xl:max-w-[1432px] mx-auto px-5 sm:px-6 md:px-8 py-8 sm:py-10">
-          <div className="rounded-[20px] md:rounded-[24px] bg-[#000000] text-white p-8 sm:p-12 md:p-16 text-center flex flex-col items-center justify-center">
-            <h2 className="text-[28px] sm:text-[36px] md:text-[44px] font-bold tracking-[-0.02em] leading-[1.12] mb-3 sm:mb-4">
-              2026 overview
-            </h2>
-            <p className="text-[15px] sm:text-[17px] md:text-[18px] text-white/70 max-w-[620px] leading-[1.6] mb-6 sm:mb-8">
-              Three decades of certified concrete production, automated batching plants, and expanding civil infrastructure across 14 Cambodian provinces.
-            </p>
-            <a
-              href="/assets/BCE_Corporate_Profile_2026.pdf"
-              download
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-black font-medium text-[15px] hover:bg-white/90 active:scale-[0.98] transition-all"
-            >
-              Read the 2026 profile
-            </a>
-          </div>
-        </section>
-
-        {/* 3. Revolut Reports Document Listing Section */}
-        <section className="max-w-[1000px] 2xl:max-w-[1432px] mx-auto px-5 sm:px-6 md:px-8 pt-8 pb-20 sm:pb-28">
+        {/* 2. Revolut Reports Document Listing Section */}
+        <section className="max-w-[1280px] 2xl:max-w-[1536px] mx-auto px-6 sm:px-8 md:px-12 pt-12 sm:pt-16 pb-20 sm:pb-28">
 
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">
@@ -244,9 +219,9 @@ export default function ResourcesPage() {
           </div>
 
           {/* 2-Column Responsive Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
 
-            {/* Left Column: Filter Controls (Stacked Pills & Search) */}
+            {/* Left Column: Filter Controls (Stacked Pill Dropdowns) */}
             <div className="md:col-span-4 lg:col-span-3 flex flex-col gap-3 sticky top-24 z-10">
 
               {/* Year Filter Pill / Dropdown */}
@@ -257,7 +232,7 @@ export default function ResourcesPage() {
                     setIsYearOpen(!isYearOpen);
                     setIsCategoryOpen(false);
                   }}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-3.5 rounded-full bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors"
                   aria-expanded={isYearOpen}
                 >
                   <span>{YEARS.find((y) => y.id === activeYear)?.label || "All years"}</span>
@@ -275,7 +250,7 @@ export default function ResourcesPage() {
                 </button>
 
                 {isYearOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-1.5 p-1.5 bg-white rounded-[14px] shadow-lg border border-[rgba(0,0,0,0.08)] z-20 flex flex-col gap-1">
+                  <div className="absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[20px] shadow-lg border border-[rgba(0,0,0,0.08)] z-20 flex flex-col gap-1">
                     {YEARS.map((year) => (
                       <button
                         key={year.id}
@@ -284,7 +259,7 @@ export default function ResourcesPage() {
                           setActiveYear(year.id);
                           setIsYearOpen(false);
                         }}
-                        className={`w-full text-left px-3 py-2 rounded-[10px] text-[13px] font-medium transition-colors flex items-center justify-between ${
+                        className={`w-full text-left px-4 py-2.5 rounded-full text-[13px] font-medium transition-colors flex items-center justify-between ${
                           activeYear === year.id
                             ? "bg-[#191C1F] text-white"
                             : "text-[#191C1F]/80 hover:bg-[#F4F4F5]"
@@ -310,7 +285,7 @@ export default function ResourcesPage() {
                     setIsCategoryOpen(!isCategoryOpen);
                     setIsYearOpen(false);
                   }}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-3.5 rounded-full bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors"
                   aria-expanded={isCategoryOpen}
                 >
                   <span className="truncate">{CATEGORIES.find((c) => c.id === activeCategory)?.label || "All categories"}</span>
@@ -328,7 +303,7 @@ export default function ResourcesPage() {
                 </button>
 
                 {isCategoryOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-1.5 p-1.5 bg-white rounded-[14px] shadow-lg border border-[rgba(0,0,0,0.08)] z-20 flex flex-col gap-1">
+                  <div className="absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[20px] shadow-lg border border-[rgba(0,0,0,0.08)] z-20 flex flex-col gap-1">
                     {CATEGORIES.map((cat) => (
                       <button
                         key={cat.id}
@@ -337,7 +312,7 @@ export default function ResourcesPage() {
                           setActiveCategory(cat.id);
                           setIsCategoryOpen(false);
                         }}
-                        className={`w-full text-left px-3 py-2 rounded-[10px] text-[13px] font-medium transition-colors flex items-center justify-between ${
+                        className={`w-full text-left px-4 py-2.5 rounded-full text-[13px] font-medium transition-colors flex items-center justify-between ${
                           activeCategory === cat.id
                             ? "bg-[#191C1F] text-white"
                             : "text-[#191C1F]/80 hover:bg-[#F4F4F5]"
@@ -355,50 +330,20 @@ export default function ResourcesPage() {
                 )}
               </div>
 
-              {/* Search Filter Input */}
-              <div className="relative mt-1">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search documents..."
-                  className="w-full pl-10 pr-4 py-3 rounded-[14px] bg-[#F4F4F5] hover:bg-[#EBECEF] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#191C1F]/20 text-[14px] text-[#191C1F] placeholder-[#191C1F]/45 transition-colors"
-                />
-                <svg
-                  viewBox="0 0 20 20"
-                  className="size-4 text-[#191C1F]/45 absolute left-3.5 top-1/2 -translate-y-1/2"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="9" cy="9" r="6" />
-                  <path d="M13.5 13.5L18 18" />
-                </svg>
-                {searchQuery && (
-                  <button
-                    type="button"
-                    onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#191C1F]/50 hover:text-[#191C1F]"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
               {/* Active Filter Clear Tag */}
-              {(activeCategory !== "all" || activeYear !== "all" || searchQuery !== "") && (
+              {(activeCategory !== "all" || activeYear !== "all") && (
                 <button
                   type="button"
                   onClick={() => {
                     setActiveCategory("all");
                     setActiveYear("all");
-                    setSearchQuery("");
                   }}
-                  className="text-xs text-[#0075EB] hover:underline self-start pt-1 font-medium"
+                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 text-[13px] font-medium text-[#191C1F]/60 hover:text-[#191C1F] transition-colors"
                 >
-                  Reset filters
+                  <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2">
+                    <path d="M12 4L4 12M4 4l8 8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span>Reset filters</span>
                 </button>
               )}
 
@@ -412,7 +357,11 @@ export default function ResourcesPage() {
                     key={doc.id}
                     href={doc.downloadUrl}
                     download
-                    className="group block p-6 sm:p-7 rounded-[18px] md:rounded-[20px] bg-[#F8F9FA] hover:bg-[#F0F1F3] border border-[rgba(0,0,0,0.02)] hover:border-[rgba(0,0,0,0.06)] transition-all duration-200"
+                    className="group block p-6 sm:p-7 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] border border-[rgba(0,0,0,0.02)] hover:border-[rgba(0,0,0,0.06)] transition-all duration-200"
+                    style={{
+                      WebkitCornerSmoothing: "60%",
+                      cornerSmoothing: "60%",
+                    } as any}
                   >
                     <div className="flex items-start justify-between gap-4">
                       {/* Left: Document info */}
