@@ -70,7 +70,7 @@ function HeroLatestNews() {
       >
         <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[24px] shrink-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
           <img
-            src="/Image/bce/core_services.jpg"
+            src="/Image/bce/core_services.webp"
             alt="BCE Company Profile"
             className="w-full h-full object-cover rounded-[24px] transition-transform duration-700 ease-out group-hover:scale-105"
             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
@@ -409,7 +409,7 @@ function App() {
       <div data-fly className="pointer-events-none fixed left-0 top-0 z-20 h-[100svh] w-full overflow-hidden bg-black will-change-[top,left,width,height]">
         <div className="hero-media absolute inset-0">
           <HeroVideo />
-          <img data-fly-about className="absolute inset-0 h-full w-full object-cover opacity-0" src={`${A}/6ae3a.png`} alt="" />
+          <img data-fly-about className="absolute inset-0 h-full w-full object-cover opacity-0" src={`${A}/6ae3a.webp`} alt="" />
         </div>
         <div data-hero-copy className="hero-scrim absolute inset-0" />
       </div>
@@ -440,7 +440,7 @@ function App() {
       <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white px-5 pb-24 pt-6">
         <div className="relative">
         <div data-about-track className="pointer-events-none absolute left-0 top-0 z-[1] w-full max-w-[15.5rem]">
-          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[24px]" src={`${A}/6ae3a.png`} alt="BCE architectural detail" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
+          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[24px]" src={`${A}/6ae3a.webp`} alt="BCE architectural detail" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
         </div>
         <div className="grid gap-10 md:grid-cols-2">
           <div className="aspect-[5/6] w-full max-w-[15.5rem]" aria-hidden />

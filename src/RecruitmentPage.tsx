@@ -17,25 +17,25 @@ const cultureItems: StickyItem[] = [
   {
     title: "Modern equipment and in-house laboratory",
     text: "Work alongside advanced computerized Sicoma batching plants, digital DYE-2000 compression testing machines, 41 mixer trucks and 8 pump trucks.",
-    image: unsplash("/Image/bce/hero_batching_plant.jpg", 1600),
+    image: unsplash("/Image/bce/hero_batching_plant.webp", 1600),
     alt: "BCE computerized batching plant and modern fleet",
   },
   {
     title: "Safety-first culture and complete protection",
     text: "Rigorous HSE protocols, certified PPE personal protective equipment, structured site safety briefings, and comprehensive accident insurance for all personnel.",
-    image: unsplash("/Image/bce/hse_safety.jpg", 1600),
+    image: unsplash("/Image/bce/hse_safety.webp", 1600),
     alt: "BCE safety standards and protective equipment on site",
   },
   {
     title: "30+ years of operational stability and growth",
     text: "Established in 1995, BCE offers dependable long-term employment, engineering mentorship, clear career advancement pathways, and skills certification.",
-    image: unsplash("/Image/bce/project_page_17.jpg", 1600),
+    image: unsplash("/Image/bce/project_page_17.webp", 1600),
     alt: "BCE construction engineering team collaborating on site",
   },
   {
     title: "Inclusive teamwork and competitive compensation",
     text: "Market-leading compensation, full overtime pay, performance pour dispatch incentives, and daily per diem allowances for provincial deployments.",
-    image: unsplash("/Image/bce/chairwoman.jpg", 1600),
+    image: unsplash("/Image/bce/chairwoman.webp", 1600),
     alt: "BCE leadership and operational excellence",
   },
 ];

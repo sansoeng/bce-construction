@@ -62,11 +62,11 @@ const mixDocs = ["Mix design submittal", "Trial mix results", "Material proporti
 
 // HSE commitments (company.ts) with authentic BCE site photography
 const hsePhotos: [string, string][] = [
-  ["/Image/bce/hse_safety.jpg", "BCE safety standards and protective equipment on site"],
-  ["/Image/bce/core_services.jpg", "A site worker in an orange hard hat supervising pour"],
-  ["/Image/bce/project_page_16.jpg", "Environmental protection and clean site practices"],
-  ["/Image/bce/cert_mix_design.jpg", "A calibrated pressure gauge and quality testing"],
-  ["/Image/bce/project_page_17.jpg", "Construction engineering team collaborating on site"],
+  ["/Image/bce/hse_safety.webp", "BCE safety standards and protective equipment on site"],
+  ["/Image/bce/core_services.webp", "A site worker in an orange hard hat supervising pour"],
+  ["/Image/bce/project_page_16.webp", "Environmental protection and clean site practices"],
+  ["/Image/bce/cert_mix_design.webp", "A calibrated pressure gauge and quality testing"],
+  ["/Image/bce/project_page_17.webp", "Construction engineering team collaborating on site"],
 ];
 const hseItems: StickyItem[] = commitments.map(([lines, text], i) => ({
   title: lines.join(" "),
@@ -104,7 +104,7 @@ export default function QualityPage() {
 
       {/* Cover as the business pages: the label and title set low over a full-screen banner, then the introduction
           rises over it as the page scrolls. */}
-      <ParallaxHero label="Quality & HSE" title="Tested at every stage, built safely" image={unsplash("/Image/bce/photos/road-crew.jpg", 2400)} alt="BCE site crew in protective equipment placing and finishing concrete" />
+      <ParallaxHero label="Quality & HSE" title="Tested at every stage, built safely" image={unsplash("/Image/bce/photos/road-crew.webp", 2400)} alt="BCE site crew in protective equipment placing and finishing concrete" />
 
       <div className="ol-page-body">
         {/* Introduction as Our businesses' "What we do": a grey label on the left, the statement on the right. */}
@@ -137,7 +137,7 @@ export default function QualityPage() {
             </ol>
           </div>
           <div data-px="media" className="pp-media qx-photo qx-lab-photo">
-            <div className="ol-px-media"><img src={unsplash("/Image/bce/cert_mix_design.jpg", 1400)} alt="Concrete test specimens side by side" loading="lazy" /></div>
+            <div className="ol-px-media"><img src={unsplash("/Image/bce/cert_mix_design.webp", 1400)} alt="Concrete test specimens side by side" loading="lazy" /></div>
           </div>
         </section>
 
@@ -162,7 +162,7 @@ export default function QualityPage() {
             </ul>
           </div>
           <div data-px="media" className="pp-media qx-photo">
-            <div className="ol-px-media"><img src={unsplash("/Image/bce/project_page_14.jpg", 1200)} alt="Concrete specimens and raw materials" loading="lazy" /></div>
+            <div className="ol-px-media"><img src={unsplash("/Image/bce/project_page_14.webp", 1200)} alt="Concrete specimens and raw materials" loading="lazy" /></div>
           </div>
         </section>
 

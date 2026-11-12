@@ -43,7 +43,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2026",
     date: "15 April 2026",
     readTime: "5 min read",
-    image: unsplash("/Image/bce/hero_batching_plant.jpg", 1600),
+    image: unsplash("/Image/bce/hero_batching_plant.webp", 1600),
     alt: "Computerized concrete batching plant and ready-mix production",
     excerpt:
       "A deep dive into how BCE engineers formulate compressive strengths from 20 to 50 MPa, balancing water-cement ratios and mineral admixtures for high-load industrial floors.",
@@ -86,7 +86,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2026",
     date: "28 March 2026",
     readTime: "6 min read",
-    image: unsplash("/Image/bce/project_page_17.jpg", 1600),
+    image: unsplash("/Image/bce/project_page_17.webp", 1600),
     alt: "Hydraulic static pile press rig on commercial construction site",
     excerpt:
       "Why hydraulic static pile pressing eliminates vibration hazards for adjacent urban structures while achieving 120-tonne bearing capacities in Battambang river basin clays.",
@@ -128,7 +128,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2026",
     date: "12 March 2026",
     readTime: "4 min read",
-    image: unsplash("/Image/bce/laboratory_qa.jpg", 1600),
+    image: unsplash("/Image/bce/laboratory_qa.webp", 1600),
     alt: "BCE in-house testing laboratory with DYE-2000 compression machine",
     excerpt:
       "Inside BCE’s accredited testing laboratory: our systematic protocol for casting standard test cylinders, water tank curing, and digital breaking to ASTM C39 standards.",
@@ -170,7 +170,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2025",
     date: "18 November 2025",
     readTime: "4 min read",
-    image: unsplash("/Image/bce/machinery_fleet.jpg", 1600),
+    image: unsplash("/Image/bce/machinery_fleet.webp", 1600),
     alt: "Fleet of BCE concrete mixer trucks and boom pump trucks lined up",
     excerpt:
       "How strategic fleet investments allow BCE to supply over 1,500 cubic meters of ready-mix concrete in single continuous shifts for major arterial roads and bridge decks.",
@@ -210,7 +210,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2025",
     date: "24 August 2025",
     readTime: "5 min read",
-    image: unsplash("/Image/bce/project_page_14.jpg", 1600),
+    image: unsplash("/Image/bce/project_page_14.webp", 1600),
     alt: "Concrete pouring during daytime in Cambodian hot weather conditions",
     excerpt:
       "When temperatures exceed 36°C, hydration accelerates rapidly. Learn how BCE maintains fresh concrete temperatures below 32°C using flaked ice batching and extended set retarders.",
@@ -250,7 +250,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2025",
     date: "10 June 2025",
     readTime: "4 min read",
-    image: unsplash("/Image/bce/hse_safety.jpg", 1600),
+    image: unsplash("/Image/bce/hse_safety.webp", 1600),
     alt: "BCE construction team conducting safety briefing with full personal protective equipment",
     excerpt:
       "A look into BCE’s Health, Safety, and Environment (HSE) management system: daily toolbox meetings, certified rigging protocols, and zero Lost Time Injuries.",
@@ -290,7 +290,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2024",
     date: "14 December 2024",
     readTime: "6 min read",
-    image: unsplash("/Image/bce/chairwoman.jpg", 1600),
+    image: unsplash("/Image/bce/chairwoman.webp", 1600),
     alt: "Ms. Loeung Chan Chairwoman of Battambang Construction and Engineering",
     excerpt:
       "How a modest local aggregate trading business founded in 1995 transformed into Battambang's foremost integrated ready-mix concrete and civil engineering powerhouse.",
@@ -330,7 +330,7 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2024",
     date: "08 September 2024",
     readTime: "5 min read",
-    image: unsplash("/Image/bce/project_page_16.jpg", 1600),
+    image: unsplash("/Image/bce/project_page_16.webp", 1600),
     alt: "Concrete slab finishing and laser leveling on industrial warehouse project",
     excerpt:
       "Automated laser screed technology achieves precise floor flatness (FF) and floor levelness (FL) numbers required for high-bay logistics racking and automated forklifts.",

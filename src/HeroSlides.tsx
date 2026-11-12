@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 
 // Rotating banner shots kept as historical reference / fallback
 export const heroSlides = [
-  { label: "Batching plant", id: "/Image/bce/hero_batching_plant.jpg", position: "50% 40%" },
-  { label: "Mixer trucks", id: "/Image/bce/machinery_fleet.jpg", position: "50% 55%" },
-  { label: "Concrete pumping", id: "/Image/bce/project_page_16.jpg", position: "50% 62%" },
-  { label: "Piling", id: "/Image/bce/project_page_20.jpg", position: "50% 45%" },
-  { label: "Slab works", id: "/Image/bce/project_page_24.jpg", position: "50% 50%" },
+  { label: "Batching plant", id: "/Image/bce/hero_batching_plant.webp", position: "50% 40%" },
+  { label: "Mixer trucks", id: "/Image/bce/machinery_fleet.webp", position: "50% 55%" },
+  { label: "Concrete pumping", id: "/Image/bce/project_page_16.webp", position: "50% 62%" },
+  { label: "Piling", id: "/Image/bce/project_page_20.webp", position: "50% 45%" },
+  { label: "Slab works", id: "/Image/bce/project_page_24.webp", position: "50% 50%" },
 ];
 
 /**
@@ -15,7 +15,7 @@ export const heroSlides = [
  * Features:
  * - Autoplay, loop, muted, playsInline for universal mobile/desktop compatibility.
  * - Local high-resolution construction aerial highlight (/video/hero_highlight.mp4).
- * - Instant fallback poster (/Image/bce/hero_batching_plant.jpg) to avoid blank frame.
+ * - Instant fallback poster (/Image/bce/hero_batching_plant.webp) to avoid blank frame.
  * - Resource-saving pause on scroll down and tab change.
  */
 export function HeroVideo() {
@@ -71,7 +71,7 @@ export function HeroVideo() {
         loop
         playsInline
         preload="auto"
-        poster="/Image/bce/hero_batching_plant.jpg"
+        poster="/Image/bce/hero_batching_plant.webp"
         className="h-full w-full object-cover"
       >
         <source src="/video/hero_highlight.mp4" type="video/mp4" />

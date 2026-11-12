@@ -42,10 +42,10 @@ export const projects: Project[] = [
     summary: "Reinforced concrete piles for a two-span river bridge on a provincial road, installed and tested by our own rigs and crews.",
     scope: ["Supply of reinforced concrete piles", "Pile installation at abutments and pier", "Pile cap concrete from our batching plant", "Load testing and as-built records"],
     gallery: [
-      { image: "/Image/bce/project_page_28.jpg", caption: "Hydraulic piling rig positioned at the foundation site" },
-      { image: "/Image/bce/project_page_29.jpg", caption: "Deep foundation reinforcement and boring" },
-      { image: "/Image/bce/project_page_30.jpg", caption: "Reinforced pile installation across the foundation grid" },
-      { image: "/Image/bce/project_page_31.jpg", caption: "Completed foundation pile caps" },
+      { image: "/Image/bce/project_page_28.webp", caption: "Hydraulic piling rig positioned at the foundation site" },
+      { image: "/Image/bce/project_page_29.webp", caption: "Deep foundation reinforcement and boring" },
+      { image: "/Image/bce/project_page_30.webp", caption: "Reinforced pile installation across the foundation grid" },
+      { image: "/Image/bce/project_page_31.webp", caption: "Completed foundation pile caps" },
     ],
     highlights: [
       { value: "64", label: "Piles installed", note: "Abutments and pier" },
@@ -71,10 +71,10 @@ export const projects: Project[] = [
     summary: "A heavy-duty ground-bearing slab for a cross-border logistics warehouse, poured in planned bays and finished for racking and forklift traffic.",
     scope: ["Sub-base preparation and compaction", "Ready-mix supply from BTB plants", "Slab placement in planned pour bays", "Power-float finish and saw-cut joints"],
     gallery: [
-      { image: "/Image/bce/project_page_14.jpg", caption: "Structural frame rising over prepared foundation" },
-      { image: "/Image/bce/project_page_15.jpg", caption: "Continuous ready-mix placement and leveling" },
-      { image: "/Image/bce/project_page_16.jpg", caption: "Concrete finishing and power-float operations" },
-      { image: "/Image/bce/core_services.jpg", caption: "Slab placement using heavy boom pumps" },
+      { image: "/Image/bce/project_page_14.webp", caption: "Structural frame rising over prepared foundation" },
+      { image: "/Image/bce/project_page_15.webp", caption: "Continuous ready-mix placement and leveling" },
+      { image: "/Image/bce/project_page_16.webp", caption: "Concrete finishing and power-float operations" },
+      { image: "/Image/bce/core_services.webp", caption: "Slab placement using heavy boom pumps" },
     ],
     highlights: [
       { value: "12,400", unit: "m²", label: "Slab area", note: "Single warehouse floor" },
@@ -100,10 +100,10 @@ export const projects: Project[] = [
     summary: "Continuous ready-mix supply for a four-storey commercial complex, scheduled around the contractor's pour programme.",
     scope: ["Mix designs for foundations, columns and slabs", "Scheduled delivery from plant to site", "Pumping for upper-floor slabs", "Slump and cube testing on every pour"],
     gallery: [
-      { image: "/Image/bce/hero_batching_plant.jpg", caption: "Automated batching plant preparing ready-mix concrete" },
-      { image: "/Image/bce/project_page_17.jpg", caption: "Mixer trucks staged and discharging on site" },
-      { image: "/Image/bce/project_page_18.jpg", caption: "Upper floor structural slab concrete pouring" },
-      { image: "/Image/bce/laboratory_qa.jpg", caption: "Slump test and compressive cube quality verification" },
+      { image: "/Image/bce/hero_batching_plant.webp", caption: "Automated batching plant preparing ready-mix concrete" },
+      { image: "/Image/bce/project_page_17.webp", caption: "Mixer trucks staged and discharging on site" },
+      { image: "/Image/bce/project_page_18.webp", caption: "Upper floor structural slab concrete pouring" },
+      { image: "/Image/bce/laboratory_qa.webp", caption: "Slump test and compressive cube quality verification" },
     ],
     highlights: [
       { value: "6,800", unit: "m³", label: "Concrete supplied", note: "Over 15 months" },
@@ -127,9 +127,9 @@ export const projects: Project[] = [
     summary: "Rehabilitation of a provincial road link, including sub-base works, drainage and a new asphalt wearing course.",
     scope: ["Earthworks and sub-base", "Culverts and roadside drainage", "Asphalt paving and compaction", "Road markings and handover"],
     gallery: [
-      { image: "/Image/bce/project_page_20.jpg", caption: "Heavy earthworks and road sub-base compaction" },
-      { image: "/Image/bce/project_page_21.jpg", caption: "Concrete culvert installation and roadside drainage" },
-      { image: "/Image/bce/project_page_22.jpg", caption: "Continuous asphalt and concrete paving operations" },
+      { image: "/Image/bce/project_page_20.webp", caption: "Heavy earthworks and road sub-base compaction" },
+      { image: "/Image/bce/project_page_21.webp", caption: "Concrete culvert installation and roadside drainage" },
+      { image: "/Image/bce/project_page_22.webp", caption: "Continuous asphalt and concrete paving operations" },
     ],
     highlights: [
       { value: "8.5", unit: "km", label: "Road length", note: "Single carriageway" },
@@ -148,10 +148,10 @@ export const projects: Project[] = [
     summary: "Bored piles and a raft foundation for a mixed-use tower, with reinforcement, concrete and testing delivered by one team.",
     scope: ["Bored cast-in-place piles", "Reinforcement cages fabricated on site", "Continuous raft foundation pour", "Integrity and load testing"],
     gallery: [
-      { image: "/Image/bce/project_page_23.jpg", caption: "Heavy reinforcement steel fabrication for deep foundation" },
-      { image: "/Image/bce/project_page_24.jpg", caption: "Structural column tying and engineering inspection" },
-      { image: "/Image/bce/project_page_25.jpg", caption: "Continuous monolithic raft foundation concrete placement" },
-      { image: "/Image/bce/project_page_26.jpg", caption: "Raft foundation cured and completed" },
+      { image: "/Image/bce/project_page_23.webp", caption: "Heavy reinforcement steel fabrication for deep foundation" },
+      { image: "/Image/bce/project_page_24.webp", caption: "Structural column tying and engineering inspection" },
+      { image: "/Image/bce/project_page_25.webp", caption: "Continuous monolithic raft foundation concrete placement" },
+      { image: "/Image/bce/project_page_26.webp", caption: "Raft foundation cured and completed" },
     ],
     highlights: [
       { value: "120", label: "Bored piles", note: "800 and 1,000 mm" },
@@ -177,9 +177,9 @@ export const projects: Project[] = [
     summary: "Concrete pump and mixer trucks hired with operators to a main contractor for structural pours on a coastal hotel.",
     scope: ["Pump trucks with experienced operators", "Mixer trucks on daily call-off", "On-site maintenance and refuelling", "Daily equipment reports"],
     gallery: [
-      { image: "/Image/bce/machinery_fleet.jpg", caption: "BCE fleet of 41 mixer trucks with GPS dispatch" },
-      { image: "/Image/bce/stats_fleet.jpg", caption: "Extended boom pump trucks mobilized for high-reach pour" },
-      { image: "/Image/bce/hse_safety.jpg", caption: "BCE certified HSE team and certified operators" },
+      { image: "/Image/bce/machinery_fleet.webp", caption: "BCE fleet of 41 mixer trucks with GPS dispatch" },
+      { image: "/Image/bce/stats_fleet.webp", caption: "Extended boom pump trucks mobilized for high-reach pour" },
+      { image: "/Image/bce/hse_safety.webp", caption: "BCE certified HSE team and certified operators" },
     ],
     equipment: [{ name: "Pump trucks", count: 3 }, { name: "Mixer trucks", count: 6 }],
   },

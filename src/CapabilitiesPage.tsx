@@ -47,7 +47,7 @@ export default function CapabilitiesPage() {
     <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
-      <ParallaxHero label="Technical capabilities" title="Engineered and tested in-house" image={unsplash("/Image/bce/hero_batching_plant.jpg", 2400)} />
+      <ParallaxHero label="Technical capabilities" title="Engineered and tested in-house" image={unsplash("/Image/bce/hero_batching_plant.webp", 2400)} />
 
       <div className="ol-page-body">
         <LabelCopy label="Overview" after={
@@ -61,7 +61,7 @@ export default function CapabilitiesPage() {
         </LabelCopy>
 
         <div className="ol-panels">
-          <TextMedia id="quality-assurance" kicker="Tested at every stage" title="Quality assurance" image={unsplash("/Image/bce/core_services.jpg", 1600)} alt="Engineers measuring a concrete wall"
+          <TextMedia id="quality-assurance" kicker="Tested at every stage" title="Quality assurance" image={unsplash("/Image/bce/core_services.webp", 1600)} alt="Engineers measuring a concrete wall"
             copy={["Strict quality control at every stage, from the materials that arrive at our plants to the strength of the concrete on site. Every result is recorded for the project."]}>
             <Rows rows={[
               ["01  Material check", "Before production"],
@@ -72,7 +72,7 @@ export default function CapabilitiesPage() {
             ]} />
           </TextMedia>
 
-          <TextMedia id="laboratory" reverse kicker="Our own laboratory" title="Laboratory" image={unsplash("/Image/bce/laboratory_qa.jpg", 1600)} alt="An engineer at work in the laboratory"
+          <TextMedia id="laboratory" reverse kicker="Our own laboratory" title="Laboratory" image={unsplash("/Image/bce/laboratory_qa.webp", 1600)} alt="An engineer at work in the laboratory"
             copy={["Our laboratory tests materials before they enter production and concrete after it leaves the plant, at the plant and on site."]}>
             <Rows rows={[
               ["Slump testing", "Every delivery"],
@@ -83,7 +83,7 @@ export default function CapabilitiesPage() {
             ]} />
           </TextMedia>
 
-          <TextMedia id="mix-designs" kicker="Designed for every pour" title="Mix designs" image={unsplash("/Image/bce/cert_mix_design.jpg", 1600)} alt="An engineer measuring technical drawings"
+          <TextMedia id="mix-designs" kicker="Designed for every pour" title="Mix designs" image={unsplash("/Image/bce/cert_mix_design.webp", 1600)} alt="An engineer measuring technical drawings"
             copy={["Each grade is designed, trial-mixed and tested before supply, then submitted with its results for consultant approval. Special mixes are designed on request."]}>
             <Rows rows={[
               ["C15  /  15 MPa", "Blinding and mass fill"],
@@ -95,7 +95,7 @@ export default function CapabilitiesPage() {
             ]} />
           </TextMedia>
 
-          <TextMedia id="materials-certificates" reverse kicker="Certified at source" title="Materials & certificates" image={unsplash("/Image/bce/project_page_14.jpg", 1600)} alt="A loader filling a truck with aggregate"
+          <TextMedia id="materials-certificates" reverse kicker="Certified at source" title="Materials & certificates" image={unsplash("/Image/bce/project_page_14.webp", 1600)} alt="A loader filling a truck with aggregate"
             copy={["Every material that goes into our concrete is certified at source and checked again before production. Certificates are available on request."]}>
             <Rows rows={[
               ["Cement", "Mill test certificate"],
@@ -109,7 +109,7 @@ export default function CapabilitiesPage() {
           </TextMedia>
         </div>
 
-        <DarkMedia id="equipment-fleet" kicker="Our own fleet" title="Equipment & fleet" image={unsplash("/Image/bce/machinery_fleet.jpg", 1800)} alt="Concrete mixer trucks"
+        <DarkMedia id="equipment-fleet" kicker="Our own fleet" title="Equipment & fleet" image={unsplash("/Image/bce/machinery_fleet.webp", 1800)} alt="Concrete mixer trucks"
           copy={["Our plants and fleet are owned, operated and maintained by our own team, so capacity is planned around your programme rather than a supplier's."]}>
           <Rows dark rows={[
             ["Batching plants", "04  /  70 m³/hr each"],
@@ -121,7 +121,7 @@ export default function CapabilitiesPage() {
         </DarkMedia>
 
         <div className="ol-panels ol-panels--after-dark">
-          <TextMedia id="engineering" kicker="People behind every project" title="Engineering capability" image={unsplash("/Image/bce/stats_fleet.jpg", 1600)} alt="An engineer inspecting reinforcement on site"
+          <TextMedia id="engineering" kicker="People behind every project" title="Engineering capability" image={unsplash("/Image/bce/stats_fleet.webp", 1600)} alt="An engineer inspecting reinforcement on site"
             copy={["Our engineers plan, design and supervise every project, from mix design and piling programmes to site supervision and handover records."]}>
             <Rows rows={[
               ["Engineers", "15"],

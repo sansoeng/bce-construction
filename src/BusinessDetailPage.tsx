@@ -210,12 +210,12 @@ function CountUp({ value }: { value: string }) {
 // The project records store corporate-profile pages as gallery images; these are photo crops of the same works for
 // the highlight cards.
 const projectPhoto: Record<string, string> = {
-  "kampong-thom-bridge-foundations": "/Image/bce/photos/piling-rig.jpg",
-  "phnom-penh-tower-foundations": "/Image/bce/photos/building-frame.jpg",
-  "poipet-logistics-warehouse": "/Image/bce/photos/slab-pour.jpg",
-  "siem-reap-commercial-ready-mix": "/Image/bce/photos/concrete-discharge.jpg",
-  "battambang-provincial-road": "/Image/bce/photos/road-crew.jpg",
-  "sihanoukville-fleet-hire": "/Image/bce/photos/boom-pump.jpg",
+  "kampong-thom-bridge-foundations": "/Image/bce/photos/piling-rig.webp",
+  "phnom-penh-tower-foundations": "/Image/bce/photos/building-frame.webp",
+  "poipet-logistics-warehouse": "/Image/bce/photos/slab-pour.webp",
+  "siem-reap-commercial-ready-mix": "/Image/bce/photos/concrete-discharge.webp",
+  "battambang-provincial-road": "/Image/bce/photos/road-crew.webp",
+  "sihanoukville-fleet-hire": "/Image/bce/photos/boom-pump.webp",
 };
 
 export default function BusinessDetailPage({ slug }: { slug: string }) {

@@ -5,7 +5,7 @@ import { useLayoutEffect, useRef } from "react";
 // headline, short paragraph and underlined "Request a quotation" link set in the right half. Type follows the site
 // (Aeonik). Cement silos photographed by Grant Ritchie (Unsplash), graded in CSS with a navy multiply that deepens
 // BCE batching plant silos
-const PHOTO = "/Image/bce/hero_batching_plant.jpg";
+const PHOTO = "/Image/bce/hero_batching_plant.webp";
 
 export default function QuoteCta({ href }: { href: string }) {
   const sectionRef = useRef<HTMLElement>(null);

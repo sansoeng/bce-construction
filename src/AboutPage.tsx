@@ -163,12 +163,12 @@ function ChairwomanMessage() {
           wide photo under the story column reaching the right edge. Each wipes in and drifts in its frame. */}
       <div data-px="media" className="pp-media ab-msg-photo ab-msg-photo--tall">
         <div className="ol-px-media">
-          <img src={unsplash("/Image/bce/about-portrait-1.jpg", 1400)} alt="Tower crane rising over reinforced concrete formwork" loading="lazy" />
+          <img src={unsplash("/Image/bce/about-portrait-1.webp", 1400)} alt="Tower crane rising over reinforced concrete formwork" loading="lazy" />
         </div>
       </div>
       <div data-px="media" className="pp-media ab-msg-photo ab-msg-photo--wide">
         <div className="ol-px-media">
-          <img src={unsplash("/Image/bce/about-portrait-2.jpg", 1600)} alt="Props and formwork supporting a new concrete slab" loading="lazy" />
+          <img src={unsplash("/Image/bce/about-portrait-2.webp", 1600)} alt="Props and formwork supporting a new concrete slab" loading="lazy" />
         </div>
       </div>
     </section>
@@ -193,7 +193,7 @@ export default function AboutPage() {
       <ParallaxHero
         label="Who we are"
         title="About BCE"
-        image="/Image/bce/about-hero-banner.jpg"
+        image="/Image/bce/about-hero-banner.webp"
         alt="Aerial view of a BCE batching plant and aggregate yard"
       />
 
