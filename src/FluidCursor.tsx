@@ -25,13 +25,12 @@ export default function FluidCursor() {
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
-      const offerPanel = target.closest<HTMLElement>(".offer-panel");
       const projectCard = target.closest<HTMLElement>("a.kp-item");
       // Any element can name its own label, e.g. data-cursor="View" on gallery photos, "Prev"/"Next" in the viewer.
       const custom = target.closest<HTMLElement>("[data-cursor]");
 
-      if (custom || offerPanel || projectCard) {
-        setLabel(custom?.dataset.cursor ?? (projectCard ? "View" : "Explore"));
+      if (custom || projectCard) {
+        setLabel(custom?.dataset.cursor ?? "View");
         setVisible(true);
       } else {
         setVisible(false);

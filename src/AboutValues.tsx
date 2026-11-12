@@ -27,26 +27,26 @@ const values = [
   {
     title: "Quality",
     text: "Built to last. From material selection and production to construction and delivery, laboratory quality control keeps every structure strong, durable and lasting.",
-    id: "/Image/bce/laboratory_qa.jpg",
-    alt: "BCE in-house testing laboratory and quality assurance",
+    id: "/Image/bce/value-quality.avif",
+    alt: "Concrete frame and formwork rising beside a tower crane",
   },
   {
     title: "Safety",
     text: "Our top priority. We protect our people, our partners and the communities we serve, from the batching plant to the project site.",
-    id: "/Image/bce/hse_safety.jpg",
-    alt: "BCE team safety protocols and on-site health standards",
+    id: "/Image/bce/value-safety.avif",
+    alt: "Crew working at height on scaffolding in high-visibility vests",
   },
   {
     title: "Reliability",
     text: "On time, every time. Our own batching plants, mixer trucks and pump trucks give us the capacity to keep projects on schedule and on spec.",
-    id: "/Image/bce/machinery_fleet.jpg",
-    alt: "BCE dedicated heavy equipment and mixer fleet",
+    id: "/Image/bce/value-reliability.avif",
+    alt: "Tower crane and formwork keeping the construction programme on schedule",
   },
   {
     title: "Partnership",
     text: "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success.",
-    id: "/Image/bce/core_services.jpg",
-    alt: "BCE collaborative construction and engineering management",
+    id: "/Image/bce/value-partnership.avif",
+    alt: "Two steel fixers working together on reinforcement",
   },
 ]
 
@@ -295,6 +295,7 @@ export default function AboutValues() {
           <div className="abv-values-image">
             <div className="abv-values-inner">
               <img
+                className="no-radius"
                 src={photo(values[0].id, 2400)}
                 alt={values[0].alt}
                 loading="lazy"
@@ -407,6 +408,7 @@ export default function AboutValues() {
                 <div className="abv-image">
                   <div className="abv-mask">
                     <img
+                      className="no-radius"
                       src={photo(v.id, 1600)}
                       alt=""
                       loading="lazy"

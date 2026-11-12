@@ -7,15 +7,17 @@ import { usePageSetup } from "./usePageSetup";
 import { projectHref, projects, type Category } from "./projects";
 import { useScrollParallax } from "./ServiceBlocks";
 
-// Project list: Centered header with title & subtext, Revolut/Blog-style pill dropdown filters
-// ("All categories" and "All years"), and Kononenko-style staggered project grid.
+// Project list (/?projects), after pda.archi/en/projects: the statement set large over a full-width hairline, a
+// Grid/List switch on the left and the standfirst on the right. The work below is either the staggered grid or a
+// ruled list. Filters live in a black pill docked to the bottom of the listing (sticky, so it follows the scroll)
+// which expands upwards into circular checkboxes for services and years — multi-select, OR within a group, AND
+// between the two.
 
 const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
-const CATEGORIES: ("All categories" | Category)[] = [
-  "All categories",
+const CATEGORIES: Category[] = [
   "Ready-Mix Concrete",
   "Piling",
   "Construction",
@@ -23,61 +25,78 @@ const CATEGORIES: ("All categories" | Category)[] = [
   "Truck & Equipment Rental",
 ];
 
-const YEARS = ["All years", "2025", "2024", "2023"];
+const YEARS = [...new Set(projects.map((p) => year(p.period)))].sort((a, b) => b.localeCompare(a));
 
-const ChevronDownIcon = ({ open }: { open?: boolean }) => (
-  <svg
-    viewBox="0 0 10 6"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={`size-2.5 transition-transform duration-200 text-[#191C1F] ${open ? "rotate-180" : ""}`}
-    aria-hidden
-  >
-    <path d="M1 1l4 4 4-4" />
+type View = "grid" | "list";
+
+const toggleValue = <T,>(list: T[], value: T): T[] =>
+  list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M1.7 5.2 4 7.5 8.4 2.7" />
+  </svg>
+);
+
+const ChevronIcon = () => (
+  <svg viewBox="0 0 14 14" fill="none" aria-hidden>
+    <path d="M7 9.33 3.29 5.62l.83-.83L7 7.68l2.89-2.89.83.83L7 9.33Z" fill="currentColor" />
+  </svg>
+);
+
+const ArrowIcon = () => (
+  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M2.6 9.4 9.4 2.6M4.4 2.6h5v5" />
+  </svg>
+);
+
+const PlusIcon = () => (
+  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" aria-hidden>
+    <path d="M7 1.2v11.6M1.2 7h11.6" />
   </svg>
 );
 
 export default function ProjectsPage() {
   usePageSetup("Projects | BCE., Ltd.");
 
-  const [activeCategory, setActiveCategory] = useState<string>("All categories");
-  const [activeYear, setActiveYear] = useState<string>("All years");
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isYearOpen, setIsYearOpen] = useState(false);
+  const [view, setView] = useState<View>("grid");
+  const [activeCategories, setActiveCategories] = useState<Category[]>([]);
+  const [activeYears, setActiveYears] = useState<string[]>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const categoryRef = useRef<HTMLDivElement>(null);
-  const yearRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLElement>(null);
   const rootRef = useRef<HTMLElement>(null);
   useScrollParallax(rootRef);
 
-  // Close dropdowns on click outside
+  // Close the filter panel on an outside click or Escape.
   useEffect(() => {
+    if (!isFilterOpen) return;
     const handlePointerDown = (e: PointerEvent) => {
-      if (categoryRef.current && !categoryRef.current.contains(e.target as Node)) {
-        setIsCategoryOpen(false);
-      }
-      if (yearRef.current && !yearRef.current.contains(e.target as Node)) {
-        setIsYearOpen(false);
-      }
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) setIsFilterOpen(false);
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFilterOpen(false);
     };
     window.addEventListener("pointerdown", handlePointerDown);
-    return () => window.removeEventListener("pointerdown", handlePointerDown);
-  }, []);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isFilterOpen]);
 
   const shown = useMemo(() => {
     return projects.filter((p) => {
-      const matchCat = activeCategory === "All categories" || p.category === activeCategory;
-      const matchYr = activeYear === "All years" || year(p.period) === activeYear;
+      const matchCat = activeCategories.length === 0 || activeCategories.includes(p.category);
+      const matchYr = activeYears.length === 0 || activeYears.includes(year(p.period));
       return matchCat && matchYr;
     });
-  }, [activeCategory, activeYear]);
+  }, [activeCategories, activeYears]);
 
-  // Photos wipe in as on the homepage grid, once 40% up the viewport and loaded; re-armed whenever the filter
-  // changes, since that remounts the cards.
+  // Photos wipe in as on the homepage grid, once 15% up the viewport and loaded (the statement hero pushes the first
+  // row further down than on the homepage, so it needs the gentler margin to show on arrival); re-armed whenever the
+  // filters or the view change, since that remounts the cards.
   useEffect(() => {
     const root = listRef.current;
     if (!root) return;
@@ -101,171 +120,199 @@ export default function ProjectsPage() {
           }
         });
       },
-      { rootMargin: "0px 0px -40% 0px" }
+      { rootMargin: "0px 0px -15% 0px" }
     );
     root.querySelectorAll<HTMLElement>(".kp-media:not(.is-revealed)").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [activeCategory, activeYear]);
+  }, [activeCategories, activeYears, view]);
+
+  const activeCount = activeCategories.length + activeYears.length;
+  const pillLabel = activeCount === 1 ? (activeCategories[0] ?? activeYears[0]) : "Filters";
+  const clearAll = () => {
+    setActiveCategories([]);
+    setActiveYears([]);
+  };
 
   return (
     <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#111]">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
-      {/* Clean Centered Header: Title & Subtext (Banner removed) */}
-      <header data-header-title="Projects" className="w-full max-w-[1000px] mx-auto text-center pt-28 sm:pt-32 md:pt-36 px-5 mb-8">
-        <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-tight">
-          All projects
-        </h1>
-        <p className="mt-3 text-[16px] sm:text-[17px] md:text-[18px] text-[#737373] leading-relaxed max-w-[640px] mx-auto">
-          Selected projects across Cambodia, from bridge foundations and factory floors to mixed-use towers, each delivered with our own concrete, piling rigs, fleet and engineers.
-        </p>
-      </header>
+      <div className="pl-shell">
+        {/* Statement, hairline, Grid/List switch and standfirst */}
+        <header data-header-title="Projects" className="pl-hero">
+          <h1 data-split data-split-type="words" className="pl-hero-title">
+            Building Cambodia from the ground up
+          </h1>
 
-      {/* Revolut/Blog-style Centered Pill Filters: "All categories" & "All years" */}
-      <div className="flex items-center justify-center gap-3 mb-10 sm:mb-14 px-5">
-        {/* Category Filter Pill */}
-        <div ref={categoryRef} className="relative">
-          <button
-            type="button"
-            onClick={() => {
-              setIsCategoryOpen(!isCategoryOpen);
-              setIsYearOpen(false);
-            }}
-            className="flex items-center gap-3 h-12 px-6 rounded-full bg-[#F3F4F5] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
-            aria-expanded={isCategoryOpen}
-          >
-            <span>{activeCategory}</span>
-            <ChevronDownIcon open={isCategoryOpen} />
-          </button>
+          <hr className="pl-hero-rule" />
 
-          {/* Category Dropdown Popover */}
-          {isCategoryOpen && (
-            <div className="absolute top-14 left-1/2 -translate-x-1/2 z-30 w-[260px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
-              <div className="max-h-[300px] overflow-y-auto space-y-1">
-                {CATEGORIES.map((cat) => (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => {
-                      setActiveCategory(cat);
-                      setIsCategoryOpen(false);
-                    }}
-                    className={`w-full text-left px-4 py-2 text-xs rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                      activeCategory === cat
-                        ? "bg-[#191C1F] text-white font-medium"
-                        : "text-[#191C1F] hover:bg-[#F3F4F6]"
-                    }`}
-                  >
-                    <span className="truncate">{cat}</span>
-                    {cat !== "All categories" && (
-                      <span className={`text-[11px] ml-2 ${activeCategory === cat ? "text-white/80" : "text-[#737373]"}`}>
-                        {projects.filter((p) => p.category === cat).length}
-                      </span>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Year Filter Pill */}
-        <div ref={yearRef} className="relative">
-          <button
-            type="button"
-            onClick={() => {
-              setIsYearOpen(!isYearOpen);
-              setIsCategoryOpen(false);
-            }}
-            className="flex items-center gap-3 h-12 px-6 rounded-full bg-[#F3F4F5] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
-            aria-expanded={isYearOpen}
-          >
-            <span>{activeYear}</span>
-            <ChevronDownIcon open={isYearOpen} />
-          </button>
-
-          {/* Year Dropdown Popover */}
-          {isYearOpen && (
-            <div className="absolute top-14 left-1/2 -translate-x-1/2 z-30 w-[180px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
-              <div className="space-y-1">
-                {YEARS.map((yr) => (
-                  <button
-                    key={yr}
-                    type="button"
-                    onClick={() => {
-                      setActiveYear(yr);
-                      setIsYearOpen(false);
-                    }}
-                    className={`w-full text-left px-4 py-2 text-xs rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                      activeYear === yr
-                        ? "bg-[#191C1F] text-white font-medium"
-                        : "text-[#191C1F] hover:bg-[#F3F4F6]"
-                    }`}
-                  >
-                    <span>{yr}</span>
-                    {yr !== "All years" && (
-                      <span className={`text-[11px] ml-2 ${activeYear === yr ? "text-white/80" : "text-[#737373]"}`}>
-                        {projects.filter((p) => year(p.period) === yr).length}
-                      </span>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Selected Projects Grid or Empty State */}
-      {shown.length === 0 ? (
-        <div className="w-full max-w-[1000px] mx-auto px-5 pb-24">
-          <div className="py-24 text-center rounded-[20px] bg-[#F8F8F8] border border-[rgba(0,0,0,0.04)]">
-            <p className="text-[18px] font-medium text-[#191C1F]">
-              No projects found for the selected filter.
-            </p>
+          <div className={`pl-view${view === "list" ? " is-list" : ""}`} role="group" aria-label="Layout">
+            <span className="pl-view-dot" aria-hidden />
             <button
               type="button"
-              onClick={() => {
-                setActiveCategory("All categories");
-                setActiveYear("All years");
-              }}
-              className="mt-4 px-6 py-2.5 rounded-full bg-[#191C1F] text-white text-[14px] font-medium hover:bg-black transition-colors cursor-pointer"
+              className={`pl-view-btn${view === "grid" ? " is-active" : ""}`}
+              aria-pressed={view === "grid"}
+              onClick={() => setView("grid")}
             >
+              Grid
+            </button>
+            <button
+              type="button"
+              className={`pl-view-btn${view === "list" ? " is-active" : ""}`}
+              aria-pressed={view === "list"}
+              onClick={() => setView("list")}
+            >
+              List
+            </button>
+          </div>
+
+          <p data-split className="pl-hero-copy">
+            Selected projects across Cambodia, from bridge foundations and factory floors to mixed-use towers, each
+            delivered with our own concrete, piling rigs, fleet and engineers.
+          </p>
+        </header>
+
+        {/* Selected Projects Grid, List or Empty State */}
+        {shown.length === 0 ? (
+          <section className="pl-empty" aria-label="Projects">
+            <p className="pl-empty-title">No projects found for the selected filter.</p>
+            <button type="button" onClick={clearAll} className="pl-empty-reset">
               Reset filters
+            </button>
+          </section>
+        ) : (
+          <section ref={listRef} aria-label="Projects" data-reveal-ready className="kp !pt-0">
+            <div
+              key={`${view}-${activeCategories.join()}-${activeYears.join()}`}
+              className={`kp-grid${view === "list" ? " pl-list" : ""}`}
+            >
+              {shown.map((p) => (
+                <a key={p.slug} href={projectHref(p.slug)} className="kp-item group">
+                  <div
+                    className="kp-media rounded-[24px]"
+                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                  >
+                    <img
+                      className="rounded-[24px]"
+                      src={p.gallery[0].image}
+                      alt={`${p.name}, ${p.location}`}
+                      loading="lazy"
+                      style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                    />
+                    <span className="kp-plus" aria-hidden>
+                      <PlusIcon />
+                    </span>
+                  </div>
+                  <div className="kp-info">
+                    <div className="kp-body">
+                      <div className="kp-text">
+                        <span className="kp-name">{p.name}</span>
+                        <span className="kp-location">{p.location}</span>
+                      </div>
+                      <span className="kp-tag">{p.category}</span>
+                    </div>
+                    <span className="kp-meta">{year(p.period)}</span>
+                  </div>
+                  {view === "list" && (
+                    <span className="kp-arrow" aria-hidden>
+                      <ArrowIcon />
+                    </span>
+                  )}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Floating filter pill, docked to the bottom of the listing while it is in view */}
+        <div className="pl-filters">
+          <div ref={filterRef} className={`pl-filter${isFilterOpen ? " is-open" : ""}`}>
+            <div
+              id="pl-filter-panel"
+              className="pl-filter-panel"
+              aria-hidden={!isFilterOpen}
+              inert={!isFilterOpen}
+            >
+              <div>
+                <div className="pl-filter-body">
+                  <fieldset className="pl-filter-group">
+                    <legend className="pl-filter-label">Services</legend>
+                    <ul>
+                      {CATEGORIES.map((cat) => (
+                        <li key={cat}>
+                          <label className="pl-filter-opt">
+                            <input
+                              type="checkbox"
+                              className="sr-only"
+                              checked={activeCategories.includes(cat)}
+                              onChange={() => setActiveCategories(toggleValue(activeCategories, cat))}
+                            />
+                            <span className="pl-filter-box">
+                              <CheckIcon />
+                            </span>
+                            <span className="pl-filter-name">{cat}</span>
+                            <span className="pl-filter-n">{projects.filter((p) => p.category === cat).length}</span>
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </fieldset>
+
+                  <fieldset className="pl-filter-group">
+                    <legend className="pl-filter-label">Year</legend>
+                    <ul>
+                      {YEARS.map((yr) => (
+                        <li key={yr}>
+                          <label className="pl-filter-opt">
+                            <input
+                              type="checkbox"
+                              className="sr-only"
+                              checked={activeYears.includes(yr)}
+                              onChange={() => setActiveYears(toggleValue(activeYears, yr))}
+                            />
+                            <span className="pl-filter-box">
+                              <CheckIcon />
+                            </span>
+                            <span className="pl-filter-name">{yr}</span>
+                            <span className="pl-filter-n">
+                              {projects.filter((p) => year(p.period) === yr).length}
+                            </span>
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  </fieldset>
+                </div>
+
+                <div className="pl-filter-foot">
+                  <span className="pl-filter-tally">
+                    {shown.length} / {projects.length}
+                  </span>
+                  {activeCount > 0 && (
+                    <button type="button" className="pl-filter-clear" onClick={clearAll}>
+                      Clear all
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="pl-filter-head"
+              onClick={() => setIsFilterOpen((open) => !open)}
+              aria-expanded={isFilterOpen}
+              aria-controls="pl-filter-panel"
+            >
+              <span className="pl-filter-title">{pillLabel}</span>
+              {activeCount > 1 && <span className="pl-filter-badge">{activeCount}</span>}
+              <span className="pl-filter-chev">
+                <ChevronIcon />
+              </span>
             </button>
           </div>
         </div>
-      ) : (
-        <section ref={listRef} aria-label="Projects" data-reveal-ready className="kp pl-kp !pt-0">
-          <div key={`${activeCategory}-${activeYear}`} className="kp-grid">
-            {shown.map((p) => (
-              <a key={p.slug} href={projectHref(p.slug)} className="kp-item group">
-                <div
-                  className="kp-media rounded-[18px]"
-                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                >
-                  <img
-                    className="rounded-[18px]"
-                    src={p.gallery[0].image}
-                    alt={`${p.name}, ${p.location}`}
-                    loading="lazy"
-                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                  />
-                </div>
-                <div className="kp-info">
-                  <div className="kp-text">
-                    <span className="kp-name">{p.name}</span>
-                    <span className="kp-location">{p.location}</span>
-                  </div>
-                  <span className="kp-meta">
-                    {p.category} · {year(p.period)}
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+      </div>
 
       <QuoteCta href="/?quote" />
       <Footer phones={phones} tel={tel} base="/" />

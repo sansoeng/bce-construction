@@ -523,11 +523,11 @@ export default function BlogPage() {
               </div>
 
               {/* Hero Image */}
-              <div className="rounded-[18px] overflow-hidden mb-10 bg-[#F0F1F3] aspect-[16/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+              <div className="rounded-[24px] overflow-hidden mb-10 bg-[#F0F1F3] aspect-[16/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                 <img
                   src={currentPost.image}
                   alt={currentPost.alt}
-                  className="w-full h-full object-cover rounded-[18px]"
+                  className="w-full h-full object-cover rounded-[24px]"
                   style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                 />
               </div>
@@ -607,11 +607,11 @@ export default function BlogPage() {
                         onClick={() => handleSelectPost(post.slug)}
                         className="group cursor-pointer"
                       >
-                        <div className="rounded-[18px] overflow-hidden aspect-[16/10] bg-[#F0F1F3] mb-3" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                        <div className="rounded-[24px] overflow-hidden aspect-[16/10] bg-[#F0F1F3] mb-3" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                           <img
                             src={post.image}
                             alt={post.alt}
-                            className="w-full h-full object-cover rounded-[18px] group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover rounded-[24px] group-hover:scale-105 transition-transform duration-300"
                             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                           />
                         </div>
@@ -767,7 +767,7 @@ export default function BlogPage() {
                       >
                         {/* Thumbnail Image */}
                         <div
-                          className={`w-full rounded-[18px] overflow-hidden bg-[#EAEBED] mb-4 relative ${
+                          className={`w-full rounded-[24px] overflow-hidden bg-[#EAEBED] mb-4 relative ${
                             isFeatured ? "aspect-[16/10] md:aspect-[16/9]" : "aspect-[16/10]"
                           }`}
                           style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
@@ -775,7 +775,7 @@ export default function BlogPage() {
                           <img
                             src={post.image}
                             alt={post.alt}
-                            className="w-full h-full object-cover rounded-[18px] group-hover:scale-[1.03] transition-transform duration-400 ease-out"
+                            className="w-full h-full object-cover rounded-[24px] group-hover:scale-[1.03] transition-transform duration-400 ease-out"
                             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                             loading="lazy"
                           />

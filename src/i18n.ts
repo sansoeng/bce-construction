@@ -958,6 +958,15 @@ const KM: Record<string, string> = {
   // Project List & Project Details
   "Selected projects across Cambodia, from bridge foundations and factory floors to mixed-use towers, each delivered with our own concrete, piling rigs, fleet and engineers.":
     "គម្រោងលេចធ្លោនានាទូទាំងកម្ពុជា ចាប់ពីគ្រឹះស្ពាន និងកម្រាលរោងចក្រ រហូតដល់អគារពហុមុខងារ ដែលសុទ្ធតែបានអនុវត្តដោយបេតុង ម៉ាស៊ីនបោះសសរ កងគ្រឿងចក្រ និងវិស្វករផ្ទាល់ខ្លួនរបស់យើង។",
+  "Building Cambodia from the ground up": "សាងសង់កម្ពុជាចាប់ពីគ្រឹះឡើងទៅ",
+  "Grid": "ក្រឡាចត្រង្គ",
+  "List": "បញ្ជី",
+  "Layout": "ប្លង់",
+  "Filters": "តម្រង",
+  "Services": "សេវាកម្ម",
+  "Year": "ឆ្នាំ",
+  "Clear all": "សម្អាតទាំងអស់",
+  "No projects found for the selected filter.": "រកមិនឃើញគម្រោងសម្រាប់តម្រងដែលបានជ្រើសរើសឡើយ។",
   "Information": "ព័ត៌មាន",
   "Project owner": "ម្ចាស់គម្រោង",
   "Location": "ទីតាំង",

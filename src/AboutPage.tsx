@@ -53,8 +53,8 @@ function SampleTag({ dark }: { dark?: boolean }) {
 
 // Explore more, as olympic.no's media link tiles: two photos side by side, each with a label, title and Explore button.
 const more: { label: string; title: string; href: string; image: string; alt: string }[] = [
-  { label: "What we do", title: "Our businesses", href: "/?businesses", image: "/Image/bce/core_services.jpg", alt: "BCE fleet and construction services" },
-  { label: "Tested at every stage", title: "Quality & HSE", href: "/?quality", image: "/Image/bce/laboratory_qa.jpg", alt: "BCE in-house certified QA laboratory" },
+  { label: "What we do", title: "Our businesses", href: "/?businesses", image: "/Image/bce/about-business-banner.avif", alt: "BCE site team reviewing a reinforced concrete slab" },
+  { label: "Tested at every stage", title: "Quality & HSE", href: "/?quality", image: "/Image/bce/about-hse-banner.webp", alt: "Concrete cylinder under compression testing in the BCE laboratory" },
 ]
 
 // The quote brightens word by word as it crosses the screen, after olympic.no's content-blocks quote: each word starts
@@ -236,7 +236,7 @@ export default function AboutPage() {
           {more.map((t) => (
             <div key={t.title} data-px="media" className="ab-tile">
               <div className="ab-tile-media ol-px-media">
-                <img src={t.image.startsWith("/") ? t.image : unsplash(t.image, 1800)} alt={t.alt} loading="lazy" />
+                <img className="no-radius" src={t.image.startsWith("/") ? t.image : unsplash(t.image, 1800)} alt={t.alt} loading="lazy" />
               </div>
               <div className="ab-tile-content">
                 <p data-split="content" className="ab-tile-label">

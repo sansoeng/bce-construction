@@ -4,7 +4,7 @@ import { getLang, setLang } from "./i18n";
 
 /**
  * Official Apple Global Navigation System (https://www.apple.com/):
- * - Fixed 44px top bar with dark frosted glass (rgba(22, 22, 23, 0.8) + saturate(180%) blur(20px))
+ * - Fixed 44px top bar with light frosted glass (rgba(245, 245, 247, 0.8) + saturate(180%) blur(44px))
  * - Perfectly centered navigation items in middle of container
  * - Unboxed BCE primary button for "Get a quote"
  * - Auto-hides on scroll, replaced by floating secondary capsule navigation containing the full primary nav
@@ -301,7 +301,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                 href={linkHref("/?quote")}
                 label="Get a quote"
                 theme="raw"
-                className="text-white hover:text-white"
+                className="text-[#1d1d1f] hover:text-black"
                 onClick={closeAll}
               />
             </li>
@@ -520,7 +520,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                 href={linkHref("/?quote")}
                 label="Get a quote"
                 theme="raw"
-                className="text-white hover:text-white"
+                className="text-[#1d1d1f] hover:text-black"
                 onClick={closeAll}
               />
             </li>
@@ -535,7 +535,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   href={linkHref("/?quote")}
                   label="Get a quote"
                   theme="raw"
-                  className="text-white hover:text-white"
+                  className="text-[#1d1d1f] hover:text-black"
                   onClick={closeAll}
                 />
               </div>
@@ -827,11 +827,11 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
             href={linkHref("/?quote")}
             label="Get a quote"
             theme="raw"
-            className="text-white hover:text-white"
+            className="text-[#1d1d1f] hover:text-black"
             onClick={closeAll}
           />
           <div className="apple-mobile-hotlines">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-white/40">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-black/40">
               Direct Batching Hotlines
             </span>
             <div className="flex flex-wrap gap-2 pt-1">
@@ -839,7 +839,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                 <a
                   key={p}
                   href={tel(p)}
-                  className="text-xs font-mono text-white/80 hover:text-white transition-colors"
+                  className="text-xs font-mono text-black/70 hover:text-black transition-colors"
                 >
                   {p}
                 </a>

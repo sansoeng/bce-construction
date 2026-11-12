@@ -10,20 +10,20 @@ import { getLang, translate } from "./i18n";
 // Real BCE project and plant photography
 const photo = (id: string) => id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=70`;
 
-type Tile = { pos: string; id: string; alt: string };
+type Tile = { pos: string; id: string; alt: string; focus?: string };
 const ROWS: { row: string; tiles: Tile[] }[] = [
   { row: "top", tiles: [
-    { pos: "midleft", id: "/Image/bce/project_page_14.jpg", alt: "Mixer truck discharging beside the excavation" },
-    { pos: "midright", id: "/Image/bce/project_page_15.jpg", alt: "Reinforcement cages assembled for the core walls" },
+    { pos: "midleft", id: "/Image/bce/about-zoom-crew.avif", alt: "BCE crew on a concrete frame, high-visibility jackets on site", focus: "28% 50%" },
+    { pos: "midright", id: "/Image/bce/about-zoom-earthworks.avif", alt: "Excavators and loaders working an earthworks platform" },
   ] },
   { row: "center", tiles: [
-    { pos: "left", id: "/Image/bce/project_page_16.jpg", alt: "Paver laying asphalt on the widened section" },
-    { pos: "center", id: "/Image/bce/hero_batching_plant.jpg", alt: "BCE batching plant operations" },
-    { pos: "right", id: "/Image/bce/machinery_fleet.jpg", alt: "Mixer trucks lined up" },
+    { pos: "left", id: "/Image/bce/about-zoom-foundations.avif", alt: "Steel fixers tying reinforcement across a foundation slab" },
+    { pos: "center", id: "/Image/bce/about-zoom-plant.avif", alt: "BCE mixer truck at a batching plant with silos" },
+    { pos: "right", id: "/Image/bce/about-zoom-tower-crane.avif", alt: "Tower crane over a residential construction site" },
   ] },
   { row: "bottom", tiles: [
-    { pos: "midleft", id: "/Image/bce/project_page_17.jpg", alt: "Hand finishing along the slab edge" },
-    { pos: "midright", id: "/Image/bce/project_page_18.jpg", alt: "Warehouse frame rising over the prepared sub-base" },
+    { pos: "midleft", id: "/Image/bce/about-zoom-cranes.avif", alt: "Tower cranes above a rising concrete frame" },
+    { pos: "midright", id: "/Image/bce/about-zoom-crew.avif", alt: "BCE crew walking the site past the barrier", focus: "84% 50%" },
   ] },
 ];
 
@@ -120,7 +120,7 @@ export default function AboutZoom() {
             <div key={row} className={`abz-row abz-row-${row}`}>
               {tiles.map((t) => (
                 <div key={t.id} className={`abz-tile abz-${t.pos}`}>
-                  <img src={photo(t.id)} alt="" loading={t.pos === "center" ? "eager" : "lazy"} decoding="async" />
+                  <img className="no-radius" src={photo(t.id)} alt="" loading={t.pos === "center" ? "eager" : "lazy"} decoding="async" style={t.focus ? { objectPosition: t.focus } : undefined} />
                 </div>
               ))}
             </div>

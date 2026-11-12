@@ -22,7 +22,20 @@ type LenisLike = { stop: () => void; start: () => void } | null | undefined;
 const lenis = () => (window as unknown as { __lenis?: LenisLike }).__lenis;
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const routeKey = () => location.pathname + location.search;
-const frames = (n: number) => new Promise<void>((r) => { const step = () => (n-- <= 0 ? r() : requestAnimationFrame(step)); step(); });
+// rAF is paused when the window is hidden or covered, so waiting on frames must never be what blocks navigation:
+// race each wait against a timer.
+const frames = (n: number) => new Promise<void>((resolve) => {
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    resolve();
+  };
+  let left = n;
+  const step = () => (left-- <= 0 ? finish() : requestAnimationFrame(step));
+  requestAnimationFrame(step);
+  setTimeout(finish, 150 + n * 150);
+});
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 let current = routeKey();
@@ -41,16 +54,13 @@ function swap(href: string, push: boolean) {
   flushSync(() => listeners.forEach((fn) => fn()));
 }
 
-async function navigate(href: string, push: boolean) {
-  if (busy) return;
-  busy = true;
+async function runNavigate(href: string, push: boolean) {
   const html = document.documentElement;
   const app = document.getElementById("root");
   lenis()?.stop();
 
   if (reduced()) {
     swap(href, push);
-    busy = false;
     return;
   }
 
@@ -69,8 +79,6 @@ async function navigate(href: string, push: boolean) {
     curtain.classList.remove("is-on");
     await wait(400);
     curtain.remove();
-    lenis()?.start();
-    busy = false;
     return;
   }
 
@@ -104,7 +112,29 @@ async function navigate(href: string, push: boolean) {
   lenis()?.start();
   dispatchEvent(new Event("scroll")); // let scroll-driven UI (header title, pinned sections) catch up
   setTimeout(() => html.classList.remove("pt-settle"), 600);
-  busy = false;
+}
+
+// Every navigation goes through here: the cleanup runs even if the transition was interrupted (a hidden window pauses
+// rAF, a page unloads mid-flight), so a stuck curtain can never leave the site unclickable.
+async function navigate(href: string, push: boolean) {
+  if (busy) return;
+  busy = true;
+  try {
+    await runNavigate(href, push);
+  } finally {
+    busy = false;
+    document.querySelectorAll(".pt-curtain, .pt-mask").forEach((el) => el.remove());
+    document.documentElement.classList.remove(
+      "pt-leave",
+      "pt-leave-shrink",
+      "pt-leave-mobile",
+      "pt-enter",
+      "pt-run",
+      "pt-enter-scrolled",
+      "pt-settle",
+    );
+    lenis()?.start();
+  }
 }
 
 /** Swap pages with no transition of its own, leaving a hint for the next page to play its own entrance (fluid.glass's
@@ -139,4 +169,16 @@ export function initPageTransitions() {
   history.scrollRestoration = "manual";
   document.addEventListener("click", onClick);
   addEventListener("popstate", onPopState);
+  // A previous session (or a transition cut short) may have left overlays behind: start clean.
+  document.querySelectorAll(".pt-curtain, .pt-mask").forEach((el) => el.remove());
+  document.documentElement.classList.remove(
+    "pt-leave",
+    "pt-leave-shrink",
+    "pt-leave-mobile",
+    "pt-enter",
+    "pt-run",
+    "pt-enter-scrolled",
+    "pt-settle",
+  );
+  busy = false;
 }

@@ -6,7 +6,7 @@ import QuoteCta from "./QuoteCta";
 import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
 import { businessDetailHref, businessDetails, findBusinessDetail } from "./businessDetails";
-import { quoteHref, unsplash } from "./company";
+import { offerings, quoteHref, unsplash } from "./company";
 import { findProject, projectHref } from "./projects";
 import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 
@@ -84,10 +84,8 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
 
         <section id="solutions" data-header-title={business.solutionsTitle} aria-labelledby="biz-solutions" className="ol-solutions">
           <div className="ol-solutions-head">
-            <div className="ol-solutions-head-copy">
-              <p data-split="content" className="ol-label">{business.solutionsKicker}</p>
-              <h2 id="biz-solutions" data-split className="ol-solutions-title">{business.solutionsTitle}</h2>
-            </div>
+            <p data-split="content" className="ol-label">{business.solutionsKicker}</p>
+            <h2 id="biz-solutions" data-split className="ol-solutions-title">{business.solutionsTitle}</h2>
             <p data-split="content" className="ol-solutions-lead">{business.solutionsLead}</p>
           </div>
           <ul className="ol-solutions-grid">
@@ -147,14 +145,32 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
           </div>
         </section>
 
-        <section className="ol-others" aria-label="Other businesses">
-          <p className="ol-label">Other businesses</p>
-          <ul className="ol-topics">
+        <section className="ol-others" aria-labelledby="biz-others">
+          <div className="ol-others-head">
+            <p id="biz-others" data-split="content" className="ol-label">Other businesses</p>
+            <ArrowButton href="/?businesses" label="All businesses" theme="outline" />
+          </div>
+          <div className="ol-others-grid">
             {others.map((b) => (
-              <li key={b.slug}><a href={businessDetailHref(b.slug)}>{b.name}</a></li>
+              <a key={b.slug} href={businessDetailHref(b.slug)} className="ol-other-tile">
+                <img className="no-radius" src={offerings.find((o) => o.slug === b.slug)?.image ?? b.heroImage} alt="" loading="lazy" />
+                <div className="ol-other-content">
+                  <p className="ol-other-label">{b.tagline}</p>
+                  <h3 className="ol-other-name">{b.name}</h3>
+                  <span className="fg-btn is-white ol-other-btn" aria-hidden>
+                    <svg viewBox="0 0 14 11" fill="none" className="fg-btn-arrow">
+                      <path d="M0.600006 0V6H13.1" stroke="currentColor" strokeWidth="1.2" />
+                      <rect x="9.18887" y="2.2251" width="5.56065" height="5.56065" transform="rotate(45 9.18887 2.2251)" stroke="currentColor" strokeWidth="1.2" />
+                    </svg>
+                    <span className="fg-btn-label">
+                      <span className="fg-btn-line">Explore</span>
+                      <span className="fg-btn-line">Explore</span>
+                    </span>
+                  </span>
+                </div>
+              </a>
             ))}
-            <li><a href="/?businesses">All businesses</a></li>
-          </ul>
+          </div>
         </section>
       </div>
 
