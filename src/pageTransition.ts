@@ -119,9 +119,16 @@ async function runNavigate(href: string, push: boolean) {
 async function navigate(href: string, push: boolean) {
   if (busy) return;
   busy = true;
+  const target = new URL(href, location.href);
+  const targetKey = target.pathname + target.search;
+  // Safety net: if the animated swap has not landed (interrupted transition, stalled browser), load the page for real.
+  const guard = setTimeout(() => {
+    if (routeKey() !== targetKey) location.assign(target.href);
+  }, 4000);
   try {
     await runNavigate(href, push);
   } finally {
+    clearTimeout(guard);
     busy = false;
     document.querySelectorAll(".pt-curtain, .pt-mask").forEach((el) => el.remove());
     document.documentElement.classList.remove(
@@ -134,6 +141,7 @@ async function navigate(href: string, push: boolean) {
       "pt-settle",
     );
     lenis()?.start();
+    if (routeKey() !== targetKey) location.assign(target.href);
   }
 }
 

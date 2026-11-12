@@ -485,7 +485,7 @@ function App() {
           </div>
           <div data-offers-track className="absolute inset-y-0 left-0 flex w-max pl-[100vw] will-change-transform">
             {offerings.map(({ slug, name, image, bg, fg, details }) => (
-              <article data-offer-panel className="offer-panel flex h-full w-[86vw] flex-none flex-col overflow-hidden rounded-[24px] md:w-[44vw]" style={{ background: bg, color: fg, WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} key={name}>
+              <article data-offer-panel className="offer-panel flex h-full w-[86vw] flex-none flex-col overflow-hidden md:w-[44vw]" style={{ background: bg, color: fg, WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} key={name}>
                 <div data-offer-media className="relative h-[48%] flex-none overflow-hidden rounded-[24px] md:h-[50%]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                   <div className="offer-zoom absolute inset-0">
                     <img data-offers-image className="no-radius absolute inset-y-0 left-[-8%] h-full w-[116%] max-w-none object-cover" src={image} alt="" loading="eager" decoding="async" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />

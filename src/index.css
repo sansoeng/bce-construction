@@ -149,9 +149,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
    the count, tagline, detail rows (each drawing its hairline) and the plus follow. Hover eases the photo in and turns the plus. */
 .offer-zoom { transition: transform 1s cubic-bezier(.22,1,.36,1); }
 .offer-panel {
-  border-radius: 24px;
-  -webkit-corner-smoothing: 60%;
-  corner-smoothing: 60%;
+  border-radius: 0;
   overflow: hidden;
 }
 .offer-panel [data-offer-media] {
