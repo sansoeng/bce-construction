@@ -13,17 +13,17 @@ const photo = (id: string) => id.startsWith("/") ? id : `https://images.unsplash
 type Tile = { pos: string; id: string; alt: string; focus?: string };
 const ROWS: { row: string; tiles: Tile[] }[] = [
   { row: "top", tiles: [
-    { pos: "midleft", id: "/Image/bce/about-zoom-crew.avif", alt: "BCE crew on a concrete frame, high-visibility jackets on site", focus: "28% 50%" },
-    { pos: "midright", id: "/Image/bce/about-zoom-earthworks.avif", alt: "Excavators and loaders working an earthworks platform" },
+    { pos: "midleft", id: "/Image/bce/about-zoom-rebar-crew.avif", alt: "Steel fixers tying reinforcement across a foundation slab" },
+    { pos: "midright", id: "/Image/bce/about-zoom-excavator.avif", alt: "Excavator loading a dumper with spoil on site" },
   ] },
   { row: "center", tiles: [
-    { pos: "left", id: "/Image/bce/about-zoom-foundations.avif", alt: "Steel fixers tying reinforcement across a foundation slab" },
-    { pos: "center", id: "/Image/bce/about-zoom-plant.avif", alt: "BCE mixer truck at a batching plant with silos" },
-    { pos: "right", id: "/Image/bce/about-zoom-tower-crane.avif", alt: "Tower crane over a residential construction site" },
+    { pos: "left", id: "/Image/bce/about-zoom-rebar-columns.avif", alt: "Workers fixing a reinforcement cage on site" },
+    { pos: "center", id: "/Image/bce/about-zoom-batching.avif", alt: "Aerial view of a batching plant and its aggregate yard" },
+    { pos: "right", id: "/Image/bce/about-zoom-boom-pumps.avif", alt: "Boom pumps placing concrete across a reinforced slab" },
   ] },
   { row: "bottom", tiles: [
-    { pos: "midleft", id: "/Image/bce/about-zoom-cranes.avif", alt: "Tower cranes above a rising concrete frame" },
-    { pos: "midright", id: "/Image/bce/about-zoom-crew.avif", alt: "BCE crew walking the site past the barrier", focus: "84% 50%" },
+    { pos: "midleft", id: "/Image/bce/about-zoom-piling-rig.avif", alt: "Piling rig and mixer truck working together on site" },
+    { pos: "midright", id: "/Image/bce/about-zoom-rebar-crew.avif", alt: "Foundation reinforcement and site crew at work", focus: "82% 50%" },
   ] },
 ];
 
