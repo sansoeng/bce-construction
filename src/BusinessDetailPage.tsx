@@ -17,8 +17,128 @@ import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 
 const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
-const pad = (n: number) => String(n).padStart(2, "0");
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
+
+// Line icons for the "Why BCE" value columns, keyed by the icon name stored on each value.
+const ICON_PROPS = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.4,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+} as const;
+
+function ValueIcon({ name }: { name: string }) {
+  switch (name) {
+    case "plant":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M3 21h18" />
+          <path d="M5 21V8l3-2 3 2v13" />
+          <path d="M14 21V6l3-2 3 2v15" />
+          <path d="M5 11h6M14 10h6" />
+        </svg>
+      );
+    case "lab":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M9 3h6" />
+          <path d="M10 3v6l-5 8a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 17l-5-8V3" />
+          <path d="M8 14h8" />
+        </svg>
+      );
+    case "record":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M6 3h8l4 4v14H6z" />
+          <path d="M14 3v4h4" />
+          <path d="M9 12h6M9 16h6" />
+        </svg>
+      );
+    case "truck":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M3 16V7h9v9" />
+          <path d="M12 10h4l3 3v3" />
+          <circle cx="7" cy="18" r="1.6" />
+          <circle cx="17" cy="18" r="1.6" />
+          <path d="M3 16h2M10 16h4" />
+        </svg>
+      );
+    case "rig":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M8 3h8v13" />
+          <path d="M8 8h8M8 13h8" />
+          <path d="M12 16v5M9 21h6" />
+        </svg>
+      );
+    case "blueprint":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <circle cx="12" cy="5" r="2" />
+          <path d="M12 7v3" />
+          <path d="M12 10 6 21M12 10l6 11" />
+        </svg>
+      );
+    case "shield":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M12 3 5 6v6c0 4 3 7 7 9 4-2 7-5 7-9V6z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
+      );
+    case "helmet":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M5 16a7 7 0 0 1 14 0" />
+          <path d="M10 9.5V7a2 2 0 0 1 4 0v2.5" />
+          <path d="M3 16h18v3H3z" />
+        </svg>
+      );
+    case "rain":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M7 15a4 4 0 0 1 .5-8 5.5 5.5 0 0 1 10.5 1.5A3.5 3.5 0 0 1 17.5 15z" />
+          <path d="M8 18l-1 3M12 18l-1 3M16 18l-1 3" />
+        </svg>
+      );
+    case "layers":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M12 3 3 8l9 5 9-5z" />
+          <path d="M3 13l9 5 9-5" />
+        </svg>
+      );
+    case "grid":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <rect x="4" y="4" width="16" height="16" rx="1" />
+          <path d="M4 12h16M12 4v16" />
+        </svg>
+      );
+    case "wrench":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M15.5 4.5a4 4 0 0 0-5.2 5.2L4 16l4 4 6.3-6.3a4 4 0 0 0 5.2-5.2l-2.6 2.6-2.6-2.6z" />
+        </svg>
+      );
+    case "pin":
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z" />
+          <circle cx="12" cy="10" r="2.5" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...ICON_PROPS} aria-hidden>
+          <path d="M5 12l4 4L19 6" />
+        </svg>
+      );
+  }
+}
 
 // Capacity figures count up as the dark band scrolls in. Only values that begin with a number animate ("04", "70 m³",
 // "13+", "1995"); letter grades ("C35–C40") stay put. Leading zeros and any unit suffix are preserved while counting.
@@ -126,9 +246,11 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
             <h2 id="biz-values" data-split className="ol-values-title">{business.valuesTitle}</h2>
           </div>
           <ul className="ol-values-grid">
-            {business.values.map((v, i) => (
+            {business.values.map((v) => (
               <li key={v.title} data-reveal className="ol-value">
-                <span className="ol-value-index">{pad(i + 1)}</span>
+                <span className="ol-value-icon" aria-hidden>
+                  <ValueIcon name={v.icon} />
+                </span>
                 <h3 className="ol-value-title">{v.title}</h3>
                 <p className="ol-value-text">{v.text}</p>
               </li>

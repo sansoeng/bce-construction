@@ -5,7 +5,7 @@
 // Figures reuse facts stated across the site: 4 batching plants at 70 m³/hr, 41 mixer trucks, 8 pump trucks, 7 piling
 // rigs, 15 engineers in a team of 71, building since 1995, 13 provinces and Phnom Penh, grades C15–C40.
 
-export type BusinessValue = { title: string; text: string };
+export type BusinessValue = { title: string; text: string; icon: string };
 export type BusinessSolution = { title: string; text: string; image: string; alt: string };
 export type BusinessFigure = { value: string; label: string };
 
@@ -45,18 +45,22 @@ export const businessDetails: BusinessDetail[] = [
     values: [
       {
         title: "Own plants, own trucks",
+        icon: "plant",
         text: "Four batching plants and 41 mixer trucks, all ours, so production and delivery are planned around your programme rather than a supplier's.",
       },
       {
         title: "Designed and tested in-house",
+        icon: "lab",
         text: "Every grade is trial-mixed and approved before supply, then slump-tested on delivery and sampled for strength in our own laboratory.",
       },
       {
         title: "Every batch recorded",
+        icon: "record",
         text: "Batch weights, delivery tickets and test results are documented for each pour and handed over with the works.",
       },
       {
         title: "Dispatch that keeps up",
+        icon: "truck",
         text: "Site pouring runs 24/7 on schedule, with deliveries sequenced to the placing crew's programme and the pour sequence.",
       },
     ],
@@ -106,18 +110,22 @@ export const businessDetails: BusinessDetail[] = [
     values: [
       {
         title: "Our own rigs and crews",
+        icon: "rig",
         text: "We mobilise our own piling rigs and installation crews, so the programme is set by our capacity, not a subcontractor's.",
       },
       {
         title: "Engineered from the drawings",
+        icon: "blueprint",
         text: "Our engineers plan the piling sequence, reinforcement and concrete supply around the structural design, then supervise installation on site.",
       },
       {
         title: "Concrete from our plants",
+        icon: "plant",
         text: "Piles are cast with concrete from our own batching plants, tested for slump and strength before it reaches the rig.",
       },
       {
         title: "Records with every pile",
+        icon: "record",
         text: "Installation records, concrete results and test reports are compiled and handed over with the foundation.",
       },
     ],
@@ -167,18 +175,22 @@ export const businessDetails: BusinessDetail[] = [
     values: [
       {
         title: "One point of responsibility",
+        icon: "shield",
         text: "Concrete, foundations and construction come from one team, so interfaces between trades do not become delays.",
       },
       {
         title: "Own materials and fleet",
+        icon: "truck",
         text: "Our plants, mixer and pump trucks and piling rigs are assigned from our own fleet, keeping programme and cost under control.",
       },
       {
         title: "Engineers on site",
+        icon: "helmet",
         text: "A team of 15 engineers plans, supervises and records the work from setting out to handover.",
       },
       {
         title: "Built for the wet season",
+        icon: "rain",
         text: "Programmes are sequenced around Cambodia's rainy season, with drainage and earthworks planned before the first rains.",
       },
     ],
@@ -228,18 +240,22 @@ export const businessDetails: BusinessDetail[] = [
     values: [
       {
         title: "Pumped by our own fleet",
+        icon: "truck",
         text: "Eight pump trucks place concrete across the slab, keeping pours steady and reducing manual handling on site.",
       },
       {
         title: "Finishing that lasts",
+        icon: "layers",
         text: "Power-float finishes, dry-shake hardeners and saw-cut joints are matched to how the floor will be used.",
       },
       {
         title: "Tested concrete, every delivery",
+        icon: "lab",
         text: "Slump is checked on arrival and cubes are crushed at 7 and 28 days, with results recorded for each pour.",
       },
       {
         title: "Pours planned in bays",
+        icon: "grid",
         text: "Large floors are divided into pour bays and sequenced with our batching plants so each day's work closes cleanly.",
       },
     ],
@@ -289,18 +305,22 @@ export const businessDetails: BusinessDetail[] = [
     values: [
       {
         title: "Maintained in-house",
+        icon: "wrench",
         text: "Every truck and rig is serviced by our own workshop team, so machines arrive on site ready to work.",
       },
       {
         title: "Operators included",
+        icon: "helmet",
         text: "Experienced operators and drivers come with the equipment, familiar with the machine and the site.",
       },
       {
         title: "Mobilised across Cambodia",
+        icon: "pin",
         text: "Equipment is dispatched from Battambang and mobilised to projects in 13 provinces and Phnom Penh.",
       },
       {
         title: "Backed by our plants",
+        icon: "plant",
         text: "Hire can be combined with ready-mix supply and pumping from the same team, under one schedule.",
       },
     ],
