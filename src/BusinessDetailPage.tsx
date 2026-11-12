@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
@@ -20,12 +20,72 @@ const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
-const sections = [
-  ["values", "Why BCE"],
-  ["solutions", "Solutions"],
-  ["capacity", "Capacity"],
-  ["projects", "Projects"],
-] as const;
+// Capacity figures count up as the dark band scrolls in. Only values that begin with a number animate ("04", "70 m³",
+// "13+", "1995"); letter grades ("C35–C40") stay put. Leading zeros and any unit suffix are preserved while counting.
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    const el = ref.current;
+    const m = value.match(/^(\d[\d.,]*)(.*)$/);
+    if (!el || !m) {
+      setText(value);
+      return;
+    }
+    const [, raw, suffix] = m;
+    const target = Number(raw.replace(/,/g, ""));
+    if (!Number.isFinite(target)) {
+      setText(value);
+      return;
+    }
+    const zeros = raw.length > 1 && raw.startsWith("0") ? raw.length : 0;
+    const decimals = raw.includes(".") ? raw.split(".")[1].length : 0;
+    const format = (n: number) => {
+      let out = decimals ? n.toFixed(decimals) : String(Math.round(n));
+      if (zeros) out = out.padStart(zeros, "0");
+      return out + suffix;
+    };
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setText(value);
+      return;
+    }
+
+    setText(format(0));
+    let raf = 0;
+    let started = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || started) return;
+          started = true;
+          io.disconnect();
+          const t0 = performance.now();
+          const duration = 1500;
+          const tick = (now: number) => {
+            const p = Math.min(1, (now - t0) / duration);
+            const eased = 1 - (1 - p) ** 3;
+            setText(p < 1 ? format(target * eased) : value);
+            if (p < 1) raf = requestAnimationFrame(tick);
+          };
+          raf = requestAnimationFrame(tick);
+        });
+      },
+      { threshold: 0.45 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [value]);
+
+  return (
+    <span ref={ref} className="ol-figure-value" aria-label={value}>
+      {text}
+    </span>
+  );
+}
 
 // The project records store corporate-profile pages as gallery images; these are photo crops of the same works for
 // the highlight cards.
@@ -56,13 +116,7 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
       <ParallaxHero label="Core business" headerTitle={business.name} title={business.name} image={unsplash(business.heroImage, 2400)} alt={business.heroAlt} />
 
       <div className="ol-page-body">
-        <LabelCopy label={business.tagline} after={
-          <ul className="ol-topics" aria-label="On this page">
-            {sections.map(([id, label], i) => (
-              <li key={id}><a href={`#${id}`}><span>{pad(i + 1)}</span>{label}</a></li>
-            ))}
-          </ul>
-        }>
+        <LabelCopy label={business.tagline}>
           {business.intro}
         </LabelCopy>
 
@@ -108,7 +162,7 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
           <ul className="ol-capacity-grid">
             {business.figures.map((f) => (
               <li key={f.label} data-reveal className="ol-figure">
-                <span className="ol-figure-value">{f.value}</span>
+                <CountUp value={f.value} />
                 <span className="ol-figure-label">{f.label}</span>
               </li>
             ))}
