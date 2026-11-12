@@ -94,7 +94,7 @@ html:not([lang="km"]) .apple-mega-big-link {
 @keyframes about-image-in { from { transform: scale(1.25); } }
 @keyframes hero-image-in { from { opacity: 0; transform: scale(1.16); } }
 
-/* Universal Apple-style 18px corner radius with 60% curvature smoothing for all images */
+/* Universal 24px corner radius with 60% curvature smoothing for all images */
 img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hamburger *):not([data-offers-image]):not(.lb-img):not(.sn-logo *):not(.glance-brand *),
 .media-frame,
 .project-image,
@@ -120,7 +120,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 .ab-tile,
 .ab-tile-media,
 .ab-tile-media img,
-[data-offer-media],
 [data-fly],
 [data-fly-about] {
   border-radius: 24px !important;
@@ -153,7 +152,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   overflow: hidden;
 }
 .offer-panel [data-offer-media] {
-  border-radius: 24px;
+  border-radius: 0 0 24px 24px;
   -webkit-corner-smoothing: 60%;
   corner-smoothing: 60%;
   overflow: hidden;
