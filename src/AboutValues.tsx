@@ -27,25 +27,25 @@ const values = [
   {
     title: "Quality",
     text: "Built to last. From material selection and production to construction and delivery, laboratory quality control keeps every structure strong, durable and lasting.",
-    id: "/Image/bce/value-quality.avif",
+    id: "/Image/bce/value-quality.webp",
     alt: "Concrete frame and formwork rising beside a tower crane",
   },
   {
     title: "Safety",
     text: "Our top priority. We protect our people, our partners and the communities we serve, from the batching plant to the project site.",
-    id: "/Image/bce/value-safety.avif",
+    id: "/Image/bce/value-safety.webp",
     alt: "Crew working at height on scaffolding in high-visibility vests",
   },
   {
     title: "Reliability",
     text: "On time, every time. Our own batching plants, mixer trucks and pump trucks give us the capacity to keep projects on schedule and on spec.",
-    id: "/Image/bce/value-reliability.avif",
+    id: "/Image/bce/value-reliability.webp",
     alt: "Tower crane and formwork keeping the construction programme on schedule",
   },
   {
     title: "Partnership",
     text: "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success.",
-    id: "/Image/bce/value-partnership.avif",
+    id: "/Image/bce/value-partnership.webp",
     alt: "Two steel fixers working together on reinforcement",
   },
 ]
@@ -216,19 +216,18 @@ export default function AboutValues() {
           cardTxt.forEach((els, i) => setOn(els, i === k))
         }
 
-        // Each later photo wipes up over the one before, centred on its card's start (scrubbed).
+        // Each later photo crossfades over the one before, centred on its card's start (scrubbed). A fade, rather
+        // than a slide, keeps exactly one photo inside the frame: nothing else peeks in at the edge mid-scroll.
         groups.forEach((g, gi) => {
           const i = gi + 1
           const q = clamp01((smooth - (start + CARD * i - CARD / 2)) / CARD)
           const image = g.children[1] as HTMLElement,
             mask = image.firstElementChild as HTMLElement,
             img = mask.firstElementChild as HTMLElement
-          ;(g.firstElementChild as HTMLElement).style.opacity = (
-            0.9 * q
-          ).toFixed(3)
-          image.style.transform = `translate3d(0, ${(100 * (1 - q)).toFixed(3)}%, 0)`
-          mask.style.transform = `translate3d(0, ${(-100 * (1 - q)).toFixed(3)}%, 0)`
-          img.style.transform = `scale(${(1.15 - 0.15 * q).toFixed(4)})`
+          g.style.opacity = q.toFixed(3)
+          image.style.transform = "none"
+          mask.style.transform = "none"
+          img.style.transform = `scale(${(1.08 - 0.08 * q).toFixed(4)})`
         })
         // The last photo drifts down as the section leaves.
         const out = clamp01((vh - r.bottom) / vh)

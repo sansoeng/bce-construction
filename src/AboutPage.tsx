@@ -53,7 +53,7 @@ function SampleTag({ dark }: { dark?: boolean }) {
 
 // Explore more, as olympic.no's media link tiles: two photos side by side, each with a label, title and Explore button.
 const more: { label: string; title: string; href: string; image: string; alt: string }[] = [
-  { label: "What we do", title: "Our businesses", href: "/?businesses", image: "/Image/bce/about-business-banner.avif", alt: "BCE site team reviewing a reinforced concrete slab" },
+  { label: "What we do", title: "Our businesses", href: "/?businesses", image: "/Image/bce/about-business-banner.webp", alt: "BCE site team reviewing a reinforced concrete slab" },
   { label: "Tested at every stage", title: "Quality & HSE", href: "/?quality", image: "/Image/bce/about-hse-banner.webp", alt: "Concrete cylinder under compression testing in the BCE laboratory" },
 ]
 

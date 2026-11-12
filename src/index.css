@@ -775,17 +775,20 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 
 /* BaseButton: the label rolls to its twin; the arrow's line retracts while its chevron sweeps into a full diamond.
    Dash lengths are the path (18.5) and diamond (22.24) lengths; the gap of .1 lets the diamond's dash wrap round. */
-.fg-btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 46px; line-height: 22px; padding: 0 24px; border-radius: 9999px !important; border: 1px solid transparent; vertical-align: middle; }
+.fg-btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 46px; line-height: 22px; padding: 0 24px; border-radius: 9999px !important; border: 1px solid transparent; vertical-align: middle; transition: background-color .3s ease, color .3s ease, border-color .3s ease, transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease; }
 .fg-btn.is-black { color: #fff; background: #000; border-color: #000; }
 .fg-btn.is-white { color: #111; background: #fff; border-color: #fff; box-shadow: none !important; }
-.fg-btn.is-white:hover { background: #f0f0f0; color: #000; }
-.fg-btn.is-outline, .fg-btn.is-alpha { color: #111; background: transparent; border: 1px solid #111; }
+.fg-btn.is-outline, .fg-btn.is-alpha { color: #111; background: transparent; border: 1.5px solid #111; }
 @media (hover: hover) {
-  .fg-btn.is-outline:hover, .fg-btn.is-alpha:hover { background: #111; color: #fff; }
+  .fg-btn.is-black:hover { background: #1d1d1f; border-color: #1d1d1f; transform: translateY(-2px); box-shadow: 0 10px 26px rgb(0 0 0 / .22); }
+  .fg-btn.is-white:hover { background: #ececec; border-color: #ececec; color: #000; transform: translateY(-2px); box-shadow: 0 10px 26px rgb(0 0 0 / .22); }
+  .fg-btn.is-outline:hover, .fg-btn.is-alpha:hover { background: #111; color: #fff; transform: translateY(-2px); box-shadow: 0 10px 24px rgb(0 0 0 / .18); }
 }
-.fg-btn.is-outline-white { color: #fff; background: transparent; border: 1px solid #fff; }
+.fg-btn:active { transform: translateY(0) scale(.985); }
+.fg-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.fg-btn.is-outline-white { color: #fff; background: transparent; border: 1.5px solid #fff; }
 @media (hover: hover) {
-  .fg-btn.is-outline-white:hover { background: #fff; color: #111; border-color: #fff; }
+  .fg-btn.is-outline-white:hover { background: #fff; color: #111; border-color: #fff; transform: translateY(-2px); box-shadow: 0 10px 24px rgb(0 0 0 / .28); }
 }
 /* Glass theme: matches Sharplink dark translucent glass nav buttons while preserving BCE primary button icon & animation */
 .fg-btn.is-glass {
