@@ -191,8 +191,8 @@ export default function AboutPage() {
       {/* Cover as Our Businesses and the business pages: the label and title set low over a full-screen banner,
           which drifts as the page scrolls and the introduction rises over it. */}
       <ParallaxHero
-        label="About BCE"
-        title="Building Cambodia since 1995"
+        label="Who we are"
+        title="About BCE"
         image={unsplash("/Image/bce/photos/slab-pour.jpg", 2400)}
         alt="Concrete placed into reinforced formwork on a BCE project"
       />
@@ -200,7 +200,7 @@ export default function AboutPage() {
       <div className="ol-page-body">
         <LeadText
           after={
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-12 md:mt-14 flex flex-wrap items-center gap-4">
               <ArrowButton
                 href="/assets/BCE_Corporate_Profile_2026.pdf"
                 label="Download Company Profile (PDF)"
