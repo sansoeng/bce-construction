@@ -493,7 +493,7 @@ function App() {
                 </div>
                 <div className="flex flex-1 flex-col justify-between gap-6 p-6 md:p-8 lg:p-10">
                   <div>
-                    <ul className="offer-details grid max-w-[32rem] grid-cols-2 gap-x-4 gap-y-1 text-[.85rem] leading-[1.3] md:gap-x-6 md:text-[.95rem]">
+                    <ul className="offer-details grid w-full grid-cols-2 gap-x-4 gap-y-1 text-[.85rem] leading-[1.3] md:gap-x-6 md:text-[.95rem]">
                       {details.map((d, k) => <li className="offer-detail py-2.5" style={{ "--k": k } as React.CSSProperties} key={d}>{d}</li>)}
                     </ul>
                   </div>
