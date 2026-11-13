@@ -12,6 +12,9 @@
    the Base size / line-height / weight scale is applied to them.
    ========================================================================== */
 
+/* The tokens live at :root as well as on .bce-admin so portalled Base surfaces
+   (selects, menus, popovers, dialogs) resolve them outside the admin wrapper. */
+:root,
 .bce-admin {
   /* ---- Base palette ---- */
   --base-black: #000000;
@@ -206,7 +209,9 @@
   --sidebar-accent-foreground: var(--base-white);
   --sidebar-border: rgb(255 255 255 / 0.14);
   --sidebar-ring: var(--base-blue-300);
+}
 
+.bce-admin {
   font-family: var(--base-font);
   background: var(--base-bg);
   color: var(--base-content);

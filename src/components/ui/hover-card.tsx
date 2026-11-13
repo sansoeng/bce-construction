@@ -31,7 +31,7 @@ function HoverCardContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          "z-50 w-72 origin-(--radix-hover-card-content-transform-origin) rounded-[12px] bg-popover p-4 text-popover-foreground shadow-[0_4px_16px_rgb(0_0_0_/_0.12),inset_0_0_0_1px_var(--base-border)] outline-hidden data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
+          "z-50 w-72 origin-(--radix-hover-card-content-transform-origin) rounded-[12px] bg-popover p-4 text-popover-foreground shadow-[0_20px_48px_-10px_rgb(0_0_0_/_0.32),0_6px_16px_rgb(0_0_0_/_0.10),inset_0_0_0_1px_rgb(0_0_0_/_0.10)] outline-hidden data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           className
         )}
         {...props}
