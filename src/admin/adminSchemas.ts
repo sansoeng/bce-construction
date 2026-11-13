@@ -23,6 +23,16 @@ export type Field = {
   required?: boolean;
   rows?: number;
   wide?: boolean;
+  /** Frame the image preview at the public site's ratio, e.g. "16 / 9". The whole image is always shown. */
+  aspect?: string;
+};
+
+/** A titled group of fields, rendered as its own card in the editor. */
+export type ContentSection = {
+  id: string;
+  title: string;
+  hint?: string;
+  keys: string[];
 };
 
 export type ContentSchema = {
@@ -34,6 +44,8 @@ export type ContentSchema = {
   titleKey: string;
   slugKey: string;
   fields: Field[];
+  /** The editor cards, in order. Fields left out land in a closing "More fields" card. */
+  sections: ContentSection[];
   defaults: () => Record<string, unknown>;
   /** Top-level fields that should not appear in the Khmer translation form. */
   skipKm?: string[];
@@ -89,6 +101,14 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       sample: false,
     }),
     skipKm: ["slug", "category", "sample"],
+    sections: [
+      { id: "basics", title: "Project details", hint: "Name, reference and the facts shown beside the summary." , keys: ["name", "slug", "category", "owner", "location", "period"] },
+      { id: "summary", title: "Summary & scope", hint: "The opening statement and the scope rows on the project page.", keys: ["summary", "scope"] },
+      { id: "gallery", title: "Gallery", hint: "The first image is the cover; the rest fill the gallery grid.", keys: ["gallery"] },
+      { id: "highlights", title: "Highlights", hint: "The counted figures under “Project highlights”.", keys: ["highlights"] },
+      { id: "technical", title: "Equipment & technical details", hint: "The ruled lists in the Details section.", keys: ["equipment", "technical"] },
+      { id: "outcome", title: "Outcome", hint: "The closing statement at the end of the page.", keys: ["outcome", "sample"] },
+    ],
     fields: [
       { key: "name", label: "Project name", type: "text", required: true, wide: true },
       { key: "slug", label: "URL slug", type: "text", required: true, hint: "Lowercase letters, numbers and hyphens." },
@@ -99,7 +119,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "summary", label: "Summary", type: "textarea", rows: 4, wide: true },
       { key: "scope", label: "Scope of work", type: "list", hint: "One line per scope item." },
       { key: "gallery", label: "Gallery", type: "objectList", itemLabel: "Image", itemFields: [
-        { key: "image", label: "Image", type: "image" },
+        { key: "image", label: "Image", type: "image", aspect: "4 / 3" },
         { key: "caption", label: "Caption", type: "text" },
       ] },
       { key: "highlights", label: "Highlights", type: "objectList", itemLabel: "Figure", itemFields: [
@@ -143,6 +163,11 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       author: { name: "", role: "" },
     }),
     skipKm: ["slug", "category", "year", "date", "readTime"],
+    sections: [
+      { id: "article", title: "Article", hint: "Title, filing and display metadata.", keys: ["title", "slug", "category", "year", "date", "readTime"] },
+      { id: "cover", title: "Cover image", hint: "The image and its alternative text.", keys: ["image", "alt"] },
+      { id: "body", title: "Body", hint: "Excerpt, author and the structured article body.", keys: ["excerpt", "author", "content"] },
+    ],
     fields: [
       { key: "title", label: "Title", type: "text", required: true, wide: true },
       { key: "slug", label: "URL slug", type: "text", required: true },
@@ -150,7 +175,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "year", label: "Year", type: "text" },
       { key: "date", label: "Display date", type: "text", placeholder: "15 April 2026" },
       { key: "readTime", label: "Read time", type: "text" },
-      { key: "image", label: "Cover image", type: "image", wide: true },
+      { key: "image", label: "Cover image", type: "image", wide: true, aspect: "16 / 9" },
       { key: "alt", label: "Image alt text", type: "text", wide: true },
       { key: "excerpt", label: "Excerpt", type: "textarea", rows: 3, wide: true },
       { key: "author", label: "Author", type: "group", fields: [
@@ -181,6 +206,10 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       qualifications: [],
     }),
     skipKm: ["id", "department", "location", "type", "deadline"],
+    sections: [
+      { id: "role", title: "Role", hint: "Title, reference and the listing metadata.", keys: ["title", "id", "department", "location", "type", "deadline"] },
+      { id: "description", title: "Description", hint: "The overview and the two lists on the job page.", keys: ["overview", "duties", "qualifications"] },
+    ],
     fields: [
       { key: "title", label: "Role title", type: "text", required: true, wide: true },
       { key: "id", label: "URL id", type: "text", required: true },
@@ -216,6 +245,10 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       downloadUrl: "",
     }),
     skipKm: ["id", "category", "fileFormat", "fileSize", "language", "revisionDate", "year", "downloadUrl"],
+    sections: [
+      { id: "document", title: "Document", hint: "Title, category and the summary shown in the list.", keys: ["title", "id", "category", "categoryLabel", "description"] },
+      { id: "file", title: "File", hint: "Format, size and the download link.", keys: ["fileFormat", "fileSize", "language", "revisionDate", "year", "downloadUrl"] },
+    ],
     fields: [
       { key: "title", label: "Title", type: "text", required: true, wide: true },
       { key: "id", label: "URL id", type: "text", required: true },
@@ -260,11 +293,18 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       projects: [],
     }),
     skipKm: ["slug", "projects"],
+    sections: [
+      { id: "identity", title: "Identity", hint: "Name, hero image and the opening statement.", keys: ["name", "slug", "tagline", "heroImage", "heroAlt", "intro"] },
+      { id: "values", title: "Why BCE", hint: "The value cards that follow the introduction.", keys: ["valuesKicker", "valuesTitle", "values"] },
+      { id: "solutions", title: "Solutions", hint: "The solution list with its photos.", keys: ["solutionsKicker", "solutionsTitle", "solutionsLead", "solutions"] },
+      { id: "capacity", title: "Capacity", hint: "The figures shown beneath the solutions.", keys: ["capacityKicker", "capacityTitle", "capacityCopy", "figures"] },
+      { id: "projects", title: "Related projects", hint: "Project slugs cross-sold at the end of the page.", keys: ["projects"] },
+    ],
     fields: [
       { key: "name", label: "Business name", type: "text", required: true },
       { key: "slug", label: "URL slug", type: "text", required: true },
       { key: "tagline", label: "Tagline", type: "text" },
-      { key: "heroImage", label: "Hero image", type: "image", wide: true },
+      { key: "heroImage", label: "Hero image", type: "image", wide: true, aspect: "16 / 9" },
       { key: "heroAlt", label: "Hero alt text", type: "text", wide: true },
       { key: "intro", label: "Introduction", type: "textarea", rows: 4, wide: true },
       { key: "valuesKicker", label: "Values kicker", type: "text" },
@@ -280,7 +320,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "solutions", label: "Solutions", type: "objectList", itemLabel: "Solution", itemFields: [
         { key: "title", label: "Title", type: "text" },
         { key: "text", label: "Text", type: "textarea", rows: 3 },
-        { key: "image", label: "Image", type: "image" },
+        { key: "image", label: "Image", type: "image", aspect: "4 / 3" },
         { key: "alt", label: "Alt text", type: "text" },
       ] },
       { key: "capacityKicker", label: "Capacity kicker", type: "text" },
@@ -313,12 +353,16 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       details: [],
     }),
     skipKm: ["slug", "bg", "fg"],
+    sections: [
+      { id: "card", title: "Service card", hint: "The card's name, copy, photo and colours.", keys: ["name", "slug", "tagline", "intro", "image", "bg", "fg"] },
+      { id: "facts", title: "Key facts", hint: "The bullet rows shown on the card.", keys: ["details"] },
+    ],
     fields: [
       { key: "name", label: "Name", type: "text", required: true },
       { key: "slug", label: "URL slug", type: "text", required: true },
       { key: "tagline", label: "Tagline", type: "text" },
       { key: "intro", label: "Introduction", type: "textarea", rows: 3, wide: true },
-      { key: "image", label: "Image", type: "image", wide: true },
+      { key: "image", label: "Image", type: "image", wide: true, aspect: "4 / 3" },
       { key: "bg", label: "Background colour", type: "text" },
       { key: "fg", label: "Text colour", type: "text" },
       { key: "details", label: "Key facts", type: "list" },
@@ -335,6 +379,9 @@ export const SCHEMAS: Record<string, ContentSchema> = {
     slugKey: "slug",
     defaults: () => ({ slug: "", title: "", data: {} }),
     skipKm: ["slug"],
+    sections: [
+      { id: "page", title: "Page", keys: ["title", "slug", "data"] },
+    ],
     fields: [
       { key: "title", label: "Title", type: "text", required: true, wide: true },
       { key: "slug", label: "URL slug", type: "text", required: true },

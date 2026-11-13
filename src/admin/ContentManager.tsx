@@ -2,11 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { api, ApiError, type ContentDoc, type ContentItem } from "./adminApi";
-import { SCHEMAS, slugifyTitle, type ContentSchema, type Field } from "./adminSchemas";
+import { SCHEMAS, slugifyTitle, type ContentSchema, type ContentSection, type Field } from "./adminSchemas";
 import { publicSiteUrl } from "./adminUrls";
 import { FieldEditor } from "./FieldEditor";
+import { ContentPreview } from "./ContentPreview";
 import { Badge, Banner, Button, Card, ConfirmDialog, EmptyState, Select, Spinner, TextInput, formatDate } from "./ui";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
@@ -111,6 +111,26 @@ const translatableFields = (fields: Field[]): Field[] =>
 const khmerFields = (schema: ContentSchema) =>
   translatableFields(schema.fields.filter((field) => !(schema.skipKm ?? []).includes(field.key)));
 
+type FieldGroup = ContentSection & { fields: Field[] };
+
+/** Split the visible fields into the schema's editor cards; anything unlisted closes in a "More fields" card. */
+const groupFields = (fields: Field[], sections: ContentSection[]): FieldGroup[] => {
+  const used = new Set<string>();
+  const groups: FieldGroup[] = sections
+    .map((section) => {
+      const present = section.keys
+        .map((key) => fields.find((field) => field.key === key))
+        .filter((field): field is Field => Boolean(field));
+      present.forEach((field) => used.add(field.key));
+      return { ...section, fields: present };
+    })
+    .filter((group) => group.fields.length > 0);
+
+  const rest = fields.filter((field) => !used.has(field.key));
+  if (rest.length) groups.push({ id: "more", title: "More fields", keys: [], fields: rest });
+  return groups;
+};
+
 const statusTone = (status: string) => {
   if (status === "published") return "green" as const;
   if (status === "staged") return "blue" as const;
@@ -132,7 +152,6 @@ export default function ContentManager({ type }: { type: string }) {
   const [offset, setOffset] = useState(0);
   const [editor, setEditor] = useState<EditorState | null>(null);
   const [lang, setLang] = useState<"en" | "km">("en");
-  const [tab, setTab] = useState<"fields" | "json">("fields");
   const [saving, setSaving] = useState(false);
   const [reordering, setReordering] = useState(false);
   const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set());
@@ -199,7 +218,6 @@ export default function ContentManager({ type }: { type: string }) {
       hasStage: false,
     });
     setLang("en");
-    setTab("fields");
   };
 
   const openEdit = async (item: ContentItem) => {
@@ -220,7 +238,6 @@ export default function ContentManager({ type }: { type: string }) {
         hasStage: doc.hasStage,
       });
       setLang("en");
-      setTab("fields");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not open document");
     }
@@ -411,6 +428,10 @@ export default function ContentManager({ type }: { type: string }) {
   if (editor) {
     const activeData = lang === "en" ? editor.data : editor.km;
     const fields = lang === "en" ? schema.fields : khmerFields(schema);
+    const groups = groupFields(fields, schema.sections);
+    const previewData = lang === "en"
+      ? editor.data
+      : (fillTranslation(editor.data, editor.km) as Record<string, unknown>);
     const setActive = (key: string, value: unknown) => {
       if (lang === "en") {
         setEditor({ ...editor, data: { ...editor.data, [key]: value } });
@@ -468,102 +489,82 @@ export default function ContentManager({ type }: { type: string }) {
 
         {error && <Banner tone="error">{error}</Banner>}
 
-        <Tabs value={tab} onValueChange={(value) => setTab(value as "fields" | "json")} className="gap-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <ToggleGroup
-              type="single"
-              value={lang}
-              onValueChange={(value) => value && changeLang(value as "en" | "km")}
-              variant="outline"
-              size="sm"
-            >
-              <ToggleGroupItem value="en">English</ToggleGroupItem>
-              <ToggleGroupItem value="km">ខ្មែរ</ToggleGroupItem>
-            </ToggleGroup>
-            <TabsList>
-              <TabsTrigger value="fields">Fields</TabsTrigger>
-              <TabsTrigger value="json">JSON</TabsTrigger>
-            </TabsList>
+        <div className="adm-editor">
+          <div className="adm-editor-main">
+            <div className="adm-editor-switch">
+              <ToggleGroup
+                type="single"
+                value={lang}
+                onValueChange={(value) => value && changeLang(value as "en" | "km")}
+                className="adm-lang-toggle"
+                aria-label="Language"
+              >
+                <ToggleGroupItem value="en">English</ToggleGroupItem>
+                <ToggleGroupItem value="km">ខ្មែរ</ToggleGroupItem>
+              </ToggleGroup>
+              <p className="adm-editor-mode">
+                {lang === "en" ? "Editing the English source" : "Editing the Khmer translation"}
+              </p>
+            </div>
+
+            {groups.map((group) => (
+              <Card key={`${lang}-${group.id}`} className="adm-section-card">
+                <div className="adm-section-head">
+                  <h2 className="adm-section-title">{group.title}</h2>
+                  {group.hint && <p className="adm-section-hint">{group.hint}</p>}
+                </div>
+                <div className="adm-form-grid">
+                  {group.fields.map((field) => (
+                    <FieldEditor
+                      key={`${lang}-${field.key}`}
+                      field={field}
+                      value={field.key === slugKey && lang === "en" ? editor.slug || activeData[slugKey] : activeData[field.key]}
+                      onChange={(value) => {
+                        if (field.key === slugKey && lang === "en") {
+                          setEditor({ ...editor, slug: String(value ?? ""), data: { ...editor.data, [slugKey]: value } });
+                        } else {
+                          setActive(field.key, value);
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              </Card>
+            ))}
+
+            {lang === "km" && <p className="adm-hint">Empty Khmer fields fall back to English.</p>}
+
+            <div className="adm-editor-footer">
+              <p className="adm-hint">
+                Saves stay on staging until you promote this {schema.singular.toLowerCase()} or publish staging.
+              </p>
+              {!editor.isNew && (
+                <Button
+                  variant="danger"
+                  onClick={() =>
+                    editor.originalSlug &&
+                    remove({
+                      slug: editor.originalSlug,
+                      title: String(editor.data[titleKey] ?? editor.originalSlug),
+                      live: editor.live,
+                    })
+                  }
+                >
+                  Delete
+                </Button>
+              )}
+            </div>
           </div>
 
-          <TabsContent value="fields">
-            <Card>
-              <div className="adm-form-grid">
-                {fields.map((field) => (
-                  <FieldEditor
-                    key={`${lang}-${field.key}`}
-                    field={field}
-                    value={field.key === slugKey && lang === "en" ? editor.slug || activeData[slugKey] : activeData[field.key]}
-                    onChange={(value) => {
-                      if (field.key === slugKey && lang === "en") {
-                        setEditor({ ...editor, slug: String(value ?? ""), data: { ...editor.data, [slugKey]: value } });
-                      } else {
-                        setActive(field.key, value);
-                      }
-                    }}
-                  />
-                ))}
-                <div className="adm-actions adm-span-2 items-end">
-                  {lang === "en" && (
-                    <label className="adm-field">
-                      <span className="adm-label">Sort order</span>
-                      <TextInput
-                        type="number"
-                        value={editor.sort}
-                        onChange={(event) => setEditor({ ...editor, sort: Number(event.target.value) || 0 })}
-                        className="w-32"
-                      />
-                    </label>
-                  )}
-                  {lang === "en" && (
-                    <Button
-                      onClick={() => {
-                        const generated = slugifyTitle(String(editor.data[titleKey] ?? ""));
-                        if (generated) setEditor({ ...editor, slug: generated, data: { ...editor.data, [slugKey]: generated } });
-                      }}
-                    >
-                      Generate slug
-                    </Button>
-                  )}
-                  {!editor.isNew && lang === "en" && (
-                    <Button
-                      variant="danger"
-                      onClick={() =>
-                        editor.originalSlug &&
-                        remove({
-                          slug: editor.originalSlug,
-                          title: String(editor.data[titleKey] ?? editor.originalSlug),
-                          live: editor.live,
-                        })
-                      }
-                    >
-                      Delete
-                    </Button>
-                  )}
-                </div>
-                {lang === "km" && <p className="adm-hint adm-span-2">Empty Khmer fields fall back to English.</p>}
-              </div>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="json">
-            <Card>
-              <FieldEditor
-                field={{ key: "__document", label: lang === "en" ? "English JSON" : "Khmer JSON", type: "json", rows: 26, wide: true }}
-                value={activeData}
-                onChange={(value) => {
-                  const next = (value && typeof value === "object" ? value : {}) as Record<string, unknown>;
-                  if (lang === "en") {
-                    const nextSlug = typeof next[slugKey] === "string" ? String(next[slugKey]) : editor.slug;
-                    setEditor({ ...editor, data: next, slug: nextSlug });
-                  } else {
-                    setEditor({ ...editor, km: next });
-                  }
-                }}
-              />
-            </Card>
-          </TabsContent>
-        </Tabs>
+          <aside className="adm-editor-preview" aria-label="Live preview">
+            <ContentPreview
+              type={type}
+              data={previewData}
+              lang={lang}
+              href={publicSiteUrl(previewUrl(type, editor.slug))}
+            />
+          </aside>
+        </div>
 
         <ConfirmDialog
           open={Boolean(confirmState)}

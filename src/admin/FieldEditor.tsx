@@ -71,7 +71,7 @@ function JsonEditor({ value, onChange, rows }: { value: unknown; onChange: (valu
   );
 }
 
-function ImageInput({ value, onChange }: { value: unknown; onChange: (value: unknown) => void }) {
+function ImageInput({ value, onChange, aspect }: { value: unknown; onChange: (value: unknown) => void; aspect?: string }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState("");
@@ -109,9 +109,15 @@ function ImageInput({ value, onChange }: { value: unknown; onChange: (value: unk
       {saved && <span className="text-xs text-[var(--base-positive)]">{saved}</span>}
       {error && <Banner tone="error">{error}</Banner>}
       {url && (
-        <div className="overflow-hidden rounded-[4px] border border-[color:var(--adm-line)] bg-[color:var(--adm-warm)]">
-          <img src={url} alt="" className="h-32 w-full object-cover" loading="lazy" />
-        </div>
+        <figure className="adm-image-preview">
+          <div className={`adm-image-frame${aspect ? "" : " is-natural"}`} style={aspect ? { aspectRatio: aspect } : undefined}>
+            <img src={url} alt="" loading="lazy" />
+          </div>
+          <figcaption className="adm-image-meta">
+            <span>{aspect ? `Site frame · ${aspect.replace(/\s/g, "")}` : "Natural size"}</span>
+            <a href={url} target="_blank" rel="noopener noreferrer">Open image ↗</a>
+          </figcaption>
+        </figure>
       )}
     </div>
   );
@@ -242,7 +248,7 @@ export function FieldEditor({ field, value, onChange }: { field: Field; value: u
   if (field.type === "image") {
     return (
       <FieldShell label={field.label} required={field.required} wide={field.wide ?? true}>
-        <ImageInput value={value} onChange={onChange} />
+        <ImageInput value={value} onChange={onChange} aspect={field.aspect} />
       </FieldShell>
     );
   }
