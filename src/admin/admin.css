@@ -1451,12 +1451,13 @@
 /* ---------- responsive ---------- */
 
 @media (max-width: 1023px) {
+  /* No drawer: the sidebar stays put, a little narrower, so navigation is always available. */
   .adm-sidebar {
-    display: none;
+    width: 216px;
   }
 
   .adm-body {
-    margin-left: 0;
+    margin-left: 216px;
   }
 
   .adm-topbar {

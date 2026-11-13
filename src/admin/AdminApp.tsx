@@ -12,7 +12,6 @@ import {
   Layers,
   LogOut,
   Mail,
-  Menu,
   Newspaper,
   Search,
   Settings,
@@ -56,9 +55,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Toaster } from "@/components/ui/sonner";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { buttonVariants } from "@/components/ui/button";
 import "./admin.css";
 import "./base.css";
@@ -88,7 +85,6 @@ export default function AdminApp() {
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState<{ message: string; status?: number } | null>(null);
   const [hash, setHash] = useState(() => location.hash || "#/dashboard");
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
 
   useEffect(() => {
@@ -117,10 +113,6 @@ export default function AdminApp() {
   }, []);
 
   useEffect(() => {
-    setMobileOpen(false);
-  }, [hash]);
-
-  useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
@@ -146,7 +138,6 @@ export default function AdminApp() {
   const navigate = (next: string) => {
     location.hash = next.replace(/^#/, "");
     setCommandOpen(false);
-    setMobileOpen(false);
   };
 
   const route = hash.replace(/^#\/?/, "");
@@ -181,36 +172,15 @@ export default function AdminApp() {
   const navProps = { me, hash, section, param, navigate };
 
   return (
-    <TooltipProvider delayDuration={200}>
-      <div className="bce-admin">
-        <div className="adm-shell">
+    <div className="bce-admin">
+      <div className="adm-shell">
           <aside className="adm-sidebar" aria-label="Admin navigation">
             <SidebarInner {...navProps} />
           </aside>
 
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetContent side="left" className="w-[288px] border-0 bg-primary p-0 text-primary-foreground">
-              <SheetHeader className="sr-only">
-                <SheetTitle>Admin navigation</SheetTitle>
-              </SheetHeader>
-              <div className="flex h-full flex-col">
-                <SidebarInner {...navProps} />
-              </div>
-            </SheetContent>
-          </Sheet>
-
           <div className="adm-body">
             <header className="adm-topbar">
               <div className="flex min-w-0 items-center gap-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon-sm" className="lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Open menu">
-                      <Menu className="size-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Open menu</TooltipContent>
-                </Tooltip>
-
                 <Breadcrumb className="hidden md:block">
                   <BreadcrumbList>
                     <BreadcrumbItem>
@@ -327,7 +297,6 @@ export default function AdminApp() {
 
         <Toaster position="bottom-right" richColors closeButton />
       </div>
-    </TooltipProvider>
   );
 }
 
