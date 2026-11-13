@@ -169,48 +169,20 @@ export default function Dashboard({ me, onNavigate }: { me: Me; onNavigate: (has
         </ChartContainer>
       </Card>
 
-      <div className="grid gap-6 xl:grid-cols-[1.18fr_0.82fr]">
-        <section>
-          <div className="adm-card-head">
-            <h2 className="adm-card-title">Content</h2>
-            <span className="adm-card-meta">{overview.pendingPublish} staged</span>
-          </div>
-          <div className="adm-quick-grid">
-            {Object.values(SCHEMAS).map((schema) => {
-              const row = overview.counts[schema.type] ?? { published: 0, staged: 0, draft: 0, deleted: 0 };
-              return (
-                <button key={schema.type} onClick={() => onNavigate(`#/content/${schema.type}`)} className="adm-quick">
-                  <span className="adm-quick-name">
-                    <span className="adm-quick-icon" aria-hidden>{schema.icon}</span>
-                    {schema.label}
-                  </span>
-                  <span className="adm-quick-counts">
-                    <span className="adm-quick-count">{row.published} live</span>
-                    {row.staged > 0 && <Badge tone="blue">{row.staged} staged</Badge>}
-                    {row.draft > 0 && <Badge tone="amber">{row.draft} draft</Badge>}
-                  </span>
-                </button>
-              );
-            })}
-            {Object.values(SCHEMAS).length % 2 === 1 && <span className="adm-quick adm-quick--blank" aria-hidden />}
-          </div>
-        </section>
-
-        <Card>
-          <div className="adm-card-head">
-            <h2 className="adm-card-title">Services</h2>
-            <span className="adm-card-meta">Free tier</span>
-          </div>
-          <div className="adm-list">
-            {Object.entries(overview.services).map(([name, value]) => (
-              <div key={name} className="adm-list-row">
-                <span className="adm-list-title uppercase tracking-[.12em]">{name}</span>
-                <Badge tone={serviceTone(value)}>{serviceLabel[value] ?? value}</Badge>
-              </div>
-            ))}
-          </div>
-        </Card>
-      </div>
+      <Card>
+        <div className="adm-card-head">
+          <h2 className="adm-card-title">Services</h2>
+          <span className="adm-card-meta">Free tier</span>
+        </div>
+        <div className="adm-list">
+          {Object.entries(overview.services).map(([name, value]) => (
+            <div key={name} className="adm-list-row">
+              <span className="adm-list-title uppercase tracking-[.12em]">{name}</span>
+              <Badge tone={serviceTone(value)}>{serviceLabel[value] ?? value}</Badge>
+            </div>
+          ))}
+        </div>
+      </Card>
 
       <div className="grid gap-6 xl:grid-cols-2">
         <Card>
