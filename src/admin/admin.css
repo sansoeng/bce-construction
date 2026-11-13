@@ -2053,6 +2053,12 @@
   color: rgb(17 17 17 / 0.58);
 }
 
+/* Listing rows: one semibold title, no excerpt underneath. */
+.bce-admin button.adm-row-title {
+  font-weight: 600;
+  color: var(--adm-ink);
+}
+
 .adm-prev-outcome h2 {
   font-size: 14px;
   font-weight: 400;

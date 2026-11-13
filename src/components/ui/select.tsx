@@ -70,7 +70,7 @@ function SelectContent({
         data-slot="select-content"
         className={cn(
           "relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-[12px] bg-popover p-2 text-popover-foreground",
-          "shadow-[0_4px_16px_rgb(0_0_0_/_0.12),inset_0_0_0_1px_var(--base-border)]",
+          "shadow-[0_20px_48px_-10px_rgb(0_0_0_/_0.32),0_6px_16px_rgb(0_0_0_/_0.10),inset_0_0_0_1px_rgb(0_0_0_/_0.10)]",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           position === "popper" &&
             "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
@@ -119,6 +119,8 @@ function SelectItem({
       className={cn(
         "relative flex w-full cursor-pointer items-center gap-3 rounded-[8px] py-2.5 pr-9 pl-3 text-base outline-hidden select-none",
         "focus:bg-[var(--base-gray-50)] data-[highlighted]:bg-[var(--base-gray-50)]",
+        "data-[state=checked]:bg-[#e8e8e8] data-[state=checked]:font-medium",
+        "data-[state=checked]:data-[highlighted]:bg-[#dedede]",
         "data-[disabled]:pointer-events-none data-[disabled]:text-[var(--base-content-disabled)]",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5",
         className

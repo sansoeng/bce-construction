@@ -657,7 +657,7 @@ export default function ContentManager({ type }: { type: string }) {
                   <TableCell>
                     <HoverCard>
                       <HoverCardTrigger asChild>
-                        <button className="text-left text-sm font-medium hover:underline" onClick={() => void openEdit(item)}>
+                        <button className="adm-row-title text-left hover:underline" onClick={() => void openEdit(item)}>
                           {item.title}
                         </button>
                       </HoverCardTrigger>
@@ -666,7 +666,6 @@ export default function ContentManager({ type }: { type: string }) {
                         <p className="mt-1 text-xs text-muted-foreground">{item.excerpt || item.slug}</p>
                       </HoverCardContent>
                     </HoverCard>
-                    {item.excerpt && <p className="mt-1 max-w-md truncate text-xs text-muted-foreground">{item.excerpt}</p>}
                   </TableCell>
                   <TableCell><span className="font-mono text-xs text-muted-foreground">{item.slug}</span></TableCell>
                   <TableCell>

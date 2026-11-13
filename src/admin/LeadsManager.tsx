@@ -204,10 +204,9 @@ export default function LeadsManager() {
                 <TableRow key={lead.id}>
                   <TableCell><span className="text-xs text-muted-foreground">{formatDate(lead.created_at)}</span></TableCell>
                   <TableCell>
-                    <button className="text-sm font-medium hover:underline" onClick={() => void open(lead)}>
+                    <button className="adm-row-title hover:underline" onClick={() => void open(lead)}>
                       {lead.name || "Unnamed"}
                     </button>
-                    <p className="mt-1 text-xs text-muted-foreground">{lead.phone || lead.email || "No contact"}</p>
                   </TableCell>
                   <TableCell><span className="font-mono text-xs text-muted-foreground">{lead.service || "—"}</span></TableCell>
                   <TableCell><p className="max-w-[34ch] truncate text-xs text-muted-foreground">{lead.message || lead.project || "—"}</p></TableCell>
