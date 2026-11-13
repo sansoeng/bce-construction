@@ -55,7 +55,45 @@ function Root() {
   const [, rerender] = useReducer((n: number) => n + 1, 0)
   useEffect(() => onRouteChange(rerender), [])
   useEffect(() => onLangChange(rerender), [])
-  useEffect(() => onContentChange(rerender), [])
+  useEffect(() => {
+    // Live content arrives moments after first paint and remounts the page. If the homepage intro is playing, hold
+    // that remount until it releases the page: remounting now would replace the loader's DOM mid-animation, so the
+    // black title/countdown would never be seen (which is what happens on hosts where the API answers quickly).
+    let observer: MutationObserver | null = null
+    let timer: number | undefined
+    let pending = false
+
+    const flush = () => {
+      pending = false
+      observer?.disconnect()
+      observer = null
+      window.clearTimeout(timer)
+      rerender()
+    }
+
+    const refresh = () => {
+      if (!document.documentElement.classList.contains('is-loading')) {
+        flush()
+        return
+      }
+      pending = true
+      if (!observer) {
+        observer = new MutationObserver(() => {
+          if (pending && !document.documentElement.classList.contains('is-loading')) flush()
+        })
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+      }
+      window.clearTimeout(timer)
+      timer = window.setTimeout(() => pending && flush(), 9000)
+    }
+
+    const off = onContentChange(refresh)
+    return () => {
+      off()
+      observer?.disconnect()
+      window.clearTimeout(timer)
+    }
+  }, [])
   // Child layout effects have run (DOM in place), child effects (text reveals) have not: translate now.
   useLayoutEffect(() => applyLanguage(document.getElementById('root')!))
   const lang = getLang()
