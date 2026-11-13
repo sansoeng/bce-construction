@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import { useMemo, useRef, useState, type CSSProperties } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
@@ -5,19 +6,19 @@ import FluidCursor from "./FluidCursor";
 import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
 import { offerings } from "./company";
+import { Turnstile } from "./turnstile";
+import { submitLead } from "./leads";
 
 // Request a Quote (website brief, sections 8 and 9): choose a BCE service first, estimate the concrete with the
 // volume calculator (its result fills the request), then service-specific project details and contact.
-// No backend yet: Submit assembles the request and offers to call, copy it, or (once QUOTE_EMAIL / QUOTE_TELEGRAM
-// are set) send it by email or Telegram. A backend that stores requests and drawing/BOQ uploads can replace `send`.
+// Submit stores the request in Cloudflare D1 through the Worker, with a Turnstile check and an optional Telegram
+// alert. The copy/email/Telegram buttons remain as a fallback if the API cannot be reached.
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 
-/** BCE's quotation inbox and Telegram username. */
-const QUOTE_EMAIL = "bcebtb999@gmail.com";
-const QUOTE_TELEGRAM = "thendLP";
+/** BCE's quotation inbox and Telegram username now come from live site settings. */
 
 type Shape = "slab" | "beam" | "column" | "footing" | "pile" | "custom";
 const SHAPES: { id: Shape; label: string; fields: [key: string, label: string][] }[] = [
@@ -72,7 +73,13 @@ export default function QuotePage() {
   const [error, setError] = useState("");
   const [sent, setSent] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [token, setToken] = useState("");
+  const [turnstileKey, setTurnstileKey] = useState(0);
+  const [sending, setSending] = useState(false);
+  const [serverNote, setServerNote] = useState("");
   const detailsRef = useRef<HTMLDivElement>(null);
+  const quoteEmail = siteSettings.contact.email;
+  const quoteTelegram = siteSettings.contact.telegram.replace(/^@/, "");
 
   const biz = offerings.find((b) => b.slug === service);
   const concrete = service === "" || service === "ready-mix-concrete" || service === "concrete-slab-works" || service === "construction" || service === "piling";
@@ -118,13 +125,47 @@ export default function QuotePage() {
     return lines.filter(([, v]) => v && v.trim()).map(([k, v]) => `${k}: ${v}`).join("\n");
   };
 
-  const send = (e: React.FormEvent) => {
+  const send = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!siteSettings.features.leadsEnabled) return setError("Online requests are temporarily paused. Please call 012 932 700.");
     if (!service) return setError("Please choose a service.");
     if (!form.contact?.trim() || !form.phone?.trim()) return setError("Please add a contact person and a phone or Telegram number.");
+    if (!token) return setError("Please complete the security check before sending.");
     setError("");
     setCopied(false);
-    setSent(`BCE quotation request\n\n${summary()}`);
+    setSending(true);
+    setServerNote("");
+    const message = `BCE quotation request\n\n${summary()}`;
+    try {
+      await submitLead({
+        kind: "quote",
+        name: form.contact,
+        phone: form.phone,
+        email: form.email,
+        service: biz?.name ?? service,
+        project: form.project,
+        location: form.location,
+        message: form.notes,
+        summary: message,
+        website: form.website ?? "",
+        turnstileToken: token,
+        ...Object.fromEntries(specific.map(([key]) => [key, form[key]])),
+        volume: form.volume ?? total.toFixed(1),
+      });
+      setSent(message);
+      setServerNote("Received by BCE. Our team will contact you shortly.");
+    } catch (err) {
+      setSent(message);
+      setServerNote(
+        err instanceof Error && err.message
+          ? `${err.message} You can still copy the request or send it by Telegram below.`
+          : "We could not reach the server. Copy the request or send it by Telegram below.",
+      );
+    } finally {
+      setSending(false);
+      setToken("");
+      setTurnstileKey((key) => key + 1);
+    }
   };
 
   const copy = async () => {
@@ -241,19 +282,32 @@ export default function QuotePage() {
           <div className="qf-grid">
             <Field label="Contact person" required><input className="qf-input" value={form.contact ?? ""} onChange={set("contact")} autoComplete="name" /></Field>
             <Field label="Phone / Telegram" required><input className="qf-input" type="tel" value={form.phone ?? ""} onChange={set("phone")} autoComplete="tel" /></Field>
+            <Field label="Email (optional)"><input className="qf-input" type="email" value={form.email ?? ""} onChange={set("email")} autoComplete="email" placeholder="name@company.com" /></Field>
+            <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+              <label>Website<input type="text" tabIndex={-1} autoComplete="off" value={form.website ?? ""} onChange={set("website")} /></label>
+            </div>
           </div>
           {error && <p role="alert" className="mt-6 text-[.95rem] text-[#b3261e]">{error}</p>}
-          <ArrowButton type="submit" label="Prepare my request" className="mt-10" />
+          {!siteSettings.features.leadsEnabled && (
+            <p className="mt-6 text-[.95rem] text-black/55">
+              Online requests are temporarily paused. Please call{" "}
+              <a href={tel(phones[0])} className="underline underline-offset-4">{phones[0]}</a>.
+            </p>
+          )}
+          <Turnstile onToken={setToken} resetKey={turnstileKey} action="quote" />
+          <ArrowButton type="submit" label={sending ? "Sending…" : "Prepare my request"} disabled={sending} className="mt-6" />
 
           {sent && (
             <div className="qf-sent" role="status">
               <p className="pd-statement">Your request is ready.</p>
-              <p className="mt-3 text-[1rem] leading-[1.45] text-black/55">Send it to our team and we’ll come back to you with a quotation.</p>
+              <p className="mt-3 text-[1rem] leading-[1.45] text-black/55">
+                {serverNote || "Send it to our team and we’ll come back to you with a quotation."}
+              </p>
               <pre className="qf-summary">{sent}</pre>
               <div className="mt-8 flex flex-wrap gap-3">
-                {QUOTE_EMAIL && <ArrowButton href={`mailto:${QUOTE_EMAIL}?subject=${encodeURIComponent(`Quotation request: ${biz?.name ?? ""}`)}&body=${encodeURIComponent(sent)}`} label="Send by email" />}
-                {QUOTE_TELEGRAM && <ArrowButton href={`https://t.me/${QUOTE_TELEGRAM}`} label="Open Telegram" />}
-                <ArrowButton label={copied ? "Copied" : "Copy request"} onClick={copy} theme={QUOTE_EMAIL ? "alpha" : "black"} />
+                {quoteEmail && <ArrowButton href={`mailto:${quoteEmail}?subject=${encodeURIComponent(`Quotation request: ${biz?.name ?? ""}`)}&body=${encodeURIComponent(sent)}`} label="Send by email" />}
+                {quoteTelegram && <ArrowButton href={`https://t.me/${quoteTelegram}`} label="Open Telegram" />}
+                <ArrowButton label={copied ? "Copied" : "Copy request"} onClick={copy} theme={quoteEmail ? "alpha" : "black"} />
                 <ArrowButton href={tel(phones[0])} label={`Call ${phones[0]}`} theme="alpha" />
               </div>
             </div>

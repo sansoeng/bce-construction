@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import { useRef } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
@@ -16,7 +17,7 @@ import { CardSlider, DarkMedia, LabelCopy, OlButton, ParallaxHero, TextMedia, us
 // page links back to this overview.
 // Photos: stand-ins from Unsplash (incl. Ray Donnelly, ThisisEngineering, uve sanchez, Toni Reed, Daniel Miksha).
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 
 // Read-more copy per business: label, one-line lead, description and the typical work.

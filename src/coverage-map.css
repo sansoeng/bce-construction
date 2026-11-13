@@ -130,7 +130,7 @@
 .ac-marker { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; }
 .ac-marker-pin { position: absolute; width: 30px; height: 35px; transform: translate(-50%, -100%); overflow: visible; filter: drop-shadow(0 4px 8px rgb(0 0 0 / .45)); transition: opacity .4s var(--ac-ease), transform .5s var(--ac-ease); }
 .ac-marker-pin path { fill: #111; stroke: #5c5c5c; }
-.ac-marker-pin text { fill: #fff; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; }
+.ac-marker-pin text { fill: #fff; font-size: 9.5px; font-weight: 500; letter-spacing: .02em; }
 .ac-marker:hover .ac-marker-pin { transform: translate(-50%, -100%) translateY(-2px); }
 .ac-marker:hover .ac-marker-pin path { stroke: #9a9a9a; }
 .ac-marker-label { position: absolute; left: 0; top: 6px; transform: translateX(-50%); white-space: nowrap; color: #8d8d8d; font-size: 12px; line-height: 16px; letter-spacing: .01em; transition: opacity .4s var(--ac-ease); }
@@ -267,7 +267,7 @@
 .ac-story-step--top.is-on { transform: none; }
 .ac-story-eyebrow { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgb(255 255 255 / .55); }
 .ac-story-eyebrow::before { content: ""; width: 7px; height: 7px; background: currentColor; transform: rotate(45deg); }
-.ac-story-num { margin: 22px 0 26px -.05em; font-size: clamp(8rem, 16vw, 16rem); line-height: .78; letter-spacing: -.06em; font-weight: 500; font-variant-numeric: tabular-nums; color: #fff; }
+.ac-story-num { margin: 22px 0 26px -.05em; font-size: clamp(8rem, 16vw, 16rem); line-height: .78; letter-spacing: -.06em; font-weight: 400; font-variant-numeric: tabular-nums; color: #fff; }
 .ac-story-num span { margin-left: .04em; font-size: .42em; font-weight: 400; letter-spacing: 0; color: rgb(255 255 255 / .3); }
 .ac-story-lead { max-width: 16ch; font-size: clamp(1.4rem, 2vw, 2rem); line-height: 1.12; letter-spacing: -.02em; color: #fff; }
 .ac-story-note { max-width: 34ch; margin-top: 16px; font-size: 15px; line-height: 1.45; color: rgb(255 255 255 / .55); }
@@ -299,7 +299,7 @@
 }
 
 /* Completed projects on the map: a number beside each pin (beside the head office's BCE bubble). */
-.ac-marker-num { position: absolute; left: 17px; top: -33px; padding: 4px 8px; border-radius: 999px; background: #fff; color: #111; font-size: 13px; font-weight: 600; line-height: 1; letter-spacing: -.01em; white-space: nowrap; font-variant-numeric: tabular-nums; box-shadow: 0 6px 16px -4px rgb(0 0 0 / .6); opacity: 0; transform: translateY(6px) scale(.8); transform-origin: 0 100%; transition: opacity .4s var(--ac-ease), transform .6s var(--ac-ease); }
+.ac-marker-num { position: absolute; left: 17px; top: -33px; padding: 4px 8px; border-radius: 999px; background: #fff; color: #111; font-size: 13px; font-weight: 500; line-height: 1; letter-spacing: -.01em; white-space: nowrap; font-variant-numeric: tabular-nums; box-shadow: 0 6px 16px -4px rgb(0 0 0 / .6); opacity: 0; transform: translateY(6px) scale(.8); transform-origin: 0 100%; transition: opacity .4s var(--ac-ease), transform .6s var(--ac-ease); }
 .ac-marker.show-num .ac-marker-num { opacity: 1; transform: none; }
 .ac-marker.is-active .ac-marker-num { opacity: 0; }
 .ac-marker--hq { z-index: 4; }

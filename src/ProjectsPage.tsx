@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import { useEffect, useMemo, useRef, useState } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
@@ -13,7 +14,7 @@ import { useScrollParallax } from "./ServiceBlocks";
 // which expands upwards into circular checkboxes for services and years — multi-select, OR within a group, AND
 // between the two.
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 

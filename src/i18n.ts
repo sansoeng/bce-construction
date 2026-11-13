@@ -21,7 +21,7 @@ let lang: Lang = (() => {
     return "km";
   }
 })();
-document.documentElement.lang = lang;
+if (typeof document !== "undefined") document.documentElement.lang = lang;
 
 const listeners = new Set<() => void>();
 export const getLang = () => lang;
@@ -33,7 +33,7 @@ export function setLang(next: Lang) {
   if (next === lang) return;
   lang = next;
   try { localStorage.setItem(KEY, next); } catch { /* not persisted in private mode */ }
-  document.documentElement.lang = next;
+  if (typeof document !== "undefined") document.documentElement.lang = next;
   listeners.forEach((fn) => fn());
 }
 

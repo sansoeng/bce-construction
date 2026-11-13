@@ -18,7 +18,8 @@
       // Skipped on the inner pages (projects, About, Our Businesses, Quality, Technical Capabilities, Request a Quote), and when arriving at a homepage #section from another site page.
       try {
         var params = new URLSearchParams(location.search);
-        var isInner = ["project", "projects", "about", "businesses", "business", "quality", "capabilities", "quote"].some(function (k) { return params.has(k); });
+        var isAdmin = location.hostname.indexOf("admin.") === 0 || params.has("admin");
+        var isInner = isAdmin || ["project", "projects", "about", "businesses", "business", "quality", "capabilities", "quote"].some(function (k) { return params.has(k); });
         var fromSite = !!location.hash && !!document.referrer && new URL(document.referrer).origin === location.origin;
         if (!isInner && !fromSite && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
           document.documentElement.classList.add("is-loading", "has-loader");

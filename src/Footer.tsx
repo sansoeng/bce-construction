@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import ArrowButton from "./ArrowButton";
 import { businessHref, offerings, quoteHref } from "./company";
+import { siteSettings } from "./siteSettings";
 
 // Footer after olympic.no's: navigation columns with grey headings (accordions on phones), a ruled row with the
 // enquiry block and head office with contact and social channels, then a ruled legal row. As the footer scrolls into
@@ -14,7 +15,6 @@ const columns: [string, Link[]][] = [
   ["Capabilities", [["Technical capabilities", "/?capabilities"], ["Quality & HSE", "/?quality"], ["Laboratory", "/?quality#laboratory"], ["Equipment & fleet", "/?capabilities#equipment-fleet"]]],
   ["Work with us", [["Request a quote", "/?quote"], ["Careers & Recruitment", "/?recruitment"], ["Hire our equipment", quoteHref("equipment-rental")], ["Get directions", "MAPS"]]],
 ];
-const ADDRESS = ["Ang Village, Sangkat O’Char", "Battambang City", "Battambang Province, Cambodia"];
 const MAPS = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("O'Char, Battambang, Cambodia");
 
 const toTop = (e: React.MouseEvent) => {
@@ -54,6 +54,9 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
   const wrapRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<number | null>(null);
+  const addressLines = siteSettings.contact.address.split(",").map((line) => line.trim()).filter(Boolean);
+  const telegram = siteSettings.contact.telegram.replace(/^@/, "");
+  const email = siteSettings.contact.email;
   const href = (h: string) => (h === "MAPS" ? MAPS : h.startsWith("/") ? h : base ? (h === "#" ? base : base + h) : h);
 
   // Their timeline, measured from the footer: the content slides from -25% to 0 between the footer's top entering the
@@ -119,7 +122,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
           <div className="ft-office">
             <h3 className="ft-label">Battambang · Head office</h3>
             <address className="ft-text not-italic">
-              {ADDRESS.map((l) => (
+              {addressLines.map((l) => (
                 <span key={l} className="block">
                   {l}
                 </span>
@@ -157,11 +160,11 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
                 </span>
                 <div className="flex items-center gap-2">
                   <a
-                    href="https://t.me/thendLP"
+                    href={`https://t.me/${telegram}`}
                     target="_blank"
                     rel="noopener"
                     aria-label="Telegram"
-                    title="Telegram: @thendLP"
+                    title={`Telegram: ${telegram}`}
                     className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#229ED9] hover:border-[#229ED9] hover:text-white transition-all duration-200"
                   >
                     <TelegramIcon className="size-4" />
@@ -175,9 +178,9 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
                     <PhoneIcon className="size-3.5" />
                   </a>
                   <a
-                    href="mailto:bcebtb999@gmail.com"
+                    href={`mailto:${email}`}
                     aria-label="Email BCE"
-                    title="Email: bcebtb999@gmail.com"
+                    title={`Email: ${email}`}
                     className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#EA4335] hover:border-[#EA4335] hover:text-white transition-all duration-200"
                   >
                     <MailIcon className="size-3.5" />
@@ -199,11 +202,11 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
         </div>
 
         <div className="ft-bottom">
-          <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-logo">BCE., Ltd.</a>
+          <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-logo">{siteSettings.site.shortName}., Ltd.</a>
           <a href={MAPS} target="_blank" rel="noopener" className="ft-b2">Get directions</a>
           <a href="#" onClick={toTop} className="ft-b3">Back to top</a>
           <span className="ft-b4">All rights reserved</span>
-          <small className="ft-copy">© 2026 Battambang Construction and Engineering, Co., Ltd.</small>
+          <small className="ft-copy">© {new Date().getFullYear()} {siteSettings.site.nameEn}</small>
         </div>
       </div>
     </footer>

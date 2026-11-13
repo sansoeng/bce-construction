@@ -81,10 +81,31 @@ npm run preview
 npm run deploy
 ```
 
+- **One place for every URL**: open `docs/quick-links.html` in a browser (production, www, Pages fallback, staging, admin, local dev, Cloudflare and GitHub dashboards). It is a local helper page and is never deployed.
+
 ---
 
 ## 5. Deployment & CI/CD
 
 - **Hosting Platform**: Cloudflare Pages (`bce-construction`)
-- **Custom Domains**: `bce-construction.com`, `www.bce-construction.com`
-- **Automated CI/CD**: Pushing to the `main` branch on GitHub triggers `.github/workflows/deploy.yml`, which automatically builds and publishes the site.
+- **Custom Domains**: `bce-construction.com`, `www.bce-construction.com`, `admin.bce-construction.com`
+- **Automated CI/CD**: Pushing to the `main` branch on GitHub triggers `.github/workflows/deploy.yml`, which applies D1 migrations, deploys the Worker API, builds the site and publishes Pages.
+
+---
+
+## 6. Admin & Cloudflare Platform
+
+- **Admin console**: https://admin.bce-construction.com/ (Cloudflare Access, one-time PIN).
+- **Admin UI**: shadcn/ui components in `src/components/ui`, configured by `components.json`. The admin runs on the **Base (Uber)** design system ported from the Figma Community file `❖ Base Gallery (Community)`: tokens and `base-*` classes live in `src/admin/base.css`, the legacy `.adm-*` chrome is re-skinned in `src/admin/base-overrides.css`, and the extra Base component families (Tag, Banner, Tile, Pagination, Progress, Stepper, FileDrop, …) live in `src/components/base` and are re-exported from `src/admin/ui.tsx`. Everything is scoped to `.bce-admin` so public pages are unaffected. Add shadcn primitives with `npx shadcn@latest add <name>`, then restyle them to Base. Full reference: `docs/BASE-DESIGN-SYSTEM.md`.
+- **Worker API**: `wrangler.toml` → `bce-api`, routes `/api/*` on the site hosts and the admin host.
+- **D1**: `bce-content` stores `documents`, `leads`, `media`, `settings`, `audit_log`, `rate_limits`, `meta`.
+- **KV**: `bce-sessions` caches Access certificates and short-lived values.
+- **R2**: `bce-media` stores uploads. Requires a one-time dashboard enable; the binding stays commented until then.
+- **Turnstile**: protects the quote form (`src/turnstile.tsx`, `POST /api/leads`).
+- **Workers AI**: optional EN↔KM translation in the admin (`POST /api/admin/ai/translate`).
+- **Cron**: daily 03:17 UTC housekeeping.
+- **Content bridge**: `src/contentStore.ts` fetches `/api/content/bootstrap` after first paint, updates the bundled arrays in place and remounts the page. The static TypeScript content remains the offline fallback.
+- **Staging first**: admin saves write `stage_data`/`stage_km` and `staging_version`; `staging.bce-construction.com` reads staged content, production reads published content. Publish from the Dashboard or Promote on a document.
+- **Bilingual**: every content editor has English and ខ្មែរ tabs. Khmer lives in the same document as an overlay; empty Khmer fields fall back to English.
+- **Seed snapshot**: `npm run content:export` regenerates `seed/content.json`, `seed/seed.sql`, `public/content-seed.json` and `public/sitemap.xml`. Never run `content:seed` on every deploy — it overwrites live rows.
+- **Full setup, free-tier limits, security model and troubleshooting**: `docs/CLOUDFLARE.md`.

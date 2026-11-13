@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import { useEffect, useRef, useState } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
@@ -15,7 +16,7 @@ import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 // related project highlights. Everything is built from the site's existing Olympic-style blocks and tokens
 // (ServiceBlocks.tsx, index.css) so the pages match Our Businesses and Technical Capabilities.
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
@@ -293,8 +294,8 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
             <p className="ol-label">Talk to our team</p>
             <div className="ol-capacity-links">
               {phones.slice(0, 2).map((p) => <a key={p} href={tel(p)}>{p}</a>)}
-              <a href="mailto:bcebtb999@gmail.com">bcebtb999@gmail.com</a>
-              <a href="https://t.me/thendLP" target="_blank" rel="noreferrer">Telegram</a>
+              <a href={`mailto:${siteSettings.contact.email}`}>{siteSettings.contact.email}</a>
+              <a href={`https://t.me/${siteSettings.contact.telegram.replace(/^@/, "")}`} target="_blank" rel="noreferrer">Telegram</a>
             </div>
           </div>
         </section>

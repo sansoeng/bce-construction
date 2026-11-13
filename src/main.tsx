@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useReducer } from 'react'
+import React, { Suspense, lazy, useEffect, useLayoutEffect, useReducer } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import ProjectPage from './ProjectPage'
@@ -16,11 +16,19 @@ import BlogPage from './BlogPage'
 import './index.css'
 import { initPageTransitions, onRouteChange } from './pageTransition'
 import { applyLanguage, getLang, onLangChange, translate } from './i18n'
+import {
+  bootstrapContent,
+  getRuntimeContentVersion,
+  onContentChange,
+} from './contentStore'
 
 // Pages: /?project=<slug> (project details), /?projects (project list), /?about (About BCE), /?businesses, /?quality (Quality & HSE), /?capabilities (Technical Capabilities), /?quote, everything else the homepage. Links between
 // them navigate in-app with the page transition (src/pageTransition.ts), so the shell re-renders on route changes.
 // Switching language remounts the page; in Khmer the translator runs after render and before the text reveals split it.
 const homeTitle = document.title
+
+// The admin console is a separate chunk so public visitors never download it.
+const AdminApp = lazy(() => import('./admin/AdminApp'))
 
 function Page() {
   const params = new URLSearchParams(location.search)
@@ -47,16 +55,39 @@ function Root() {
   const [, rerender] = useReducer((n: number) => n + 1, 0)
   useEffect(() => onRouteChange(rerender), [])
   useEffect(() => onLangChange(rerender), [])
+  useEffect(() => onContentChange(rerender), [])
   // Child layout effects have run (DOM in place), child effects (text reveals) have not: translate now.
   useLayoutEffect(() => applyLanguage(document.getElementById('root')!))
   const lang = getLang()
-  return <Page key={`${lang}-${location.search}`} />
+  return <Page key={`${lang}-${location.search}-${getRuntimeContentVersion()}`} />
 }
 
-initPageTransitions()
+const isAdminRoute =
+  location.hostname.startsWith('admin.') || new URLSearchParams(location.search).has('admin')
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
-)
+const root = ReactDOM.createRoot(document.getElementById('root')!)
+
+if (isAdminRoute) {
+  document.title = 'BCE Operations'
+  document.documentElement.lang = 'en'
+  const robots = document.createElement('meta')
+  robots.name = 'robots'
+  robots.content = 'noindex,nofollow'
+  document.head.appendChild(robots)
+  root.render(
+    <React.StrictMode>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f1f5f9' }} />}>
+        <AdminApp />
+      </Suspense>
+    </React.StrictMode>,
+  )
+} else {
+  initPageTransitions()
+  root.render(
+    <React.StrictMode>
+      <Root />
+    </React.StrictMode>,
+  )
+  // Load live content from D1 in the background; the bundled content renders first.
+  void bootstrapContent()
+}

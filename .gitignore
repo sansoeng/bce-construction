@@ -3,6 +3,8 @@ dist/
 build/
 .cache/
 .env*
+!.env.example
+.dev.vars
 .vite/
 vite.config.*.timestamp-*
 *.tsbuildinfo
@@ -17,6 +19,9 @@ logs/
 Company_Profile_2026.pdf
 screenshot_*.png
 screenshot_*.jpg
+# Raw source photography, not part of the deployed build
+Image folder/
+*.mov
 
 # Platform-managed agentplat state
 /.plugins/

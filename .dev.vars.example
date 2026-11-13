@@ -1,0 +1,13 @@
+# Copy to .dev.vars for `npm run worker:dev`. Never commit real values.
+ENVIRONMENT=development
+DEV_ADMIN_EMAIL=you@example.com
+ACCESS_TEAM_DOMAIN=bce-construction.cloudflareaccess.com
+ACCESS_AUD=
+ADMIN_EMAILS=you@example.com
+PUBLIC_ORIGIN=http://localhost:8443
+ADMIN_ORIGIN=http://localhost:8443
+TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET=
+# Optional Telegram lead alerts
+# TELEGRAM_BOT_TOKEN=
+# TELEGRAM_CHAT_ID=

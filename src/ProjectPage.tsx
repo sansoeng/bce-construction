@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
@@ -15,7 +16,7 @@ import { findProject, projectHref, projects, type Project } from "./projects";
 // reveals, hairline-ruled fact rows, the "at a glance" figure grid for highlights, the Selected Projects staggered grid
 // for the gallery, then the closing quotation section and footer. Optional blocks render only when a project has them.
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 

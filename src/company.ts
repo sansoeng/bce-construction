@@ -5,6 +5,8 @@ import type { Category } from "./projects";
 
 // Stand-in Unsplash photos until BCE supplies its own;
 // credits: Ray Donnelly, Vladyslav Melnyk, Josue Isai Ramos Figueroa, Mélyna Côté, Vong Vathanak.
+import { registerContentType } from "./contentStore";
+
 export const unsplash = (id: string, w = 1200) =>
   id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`;
 
@@ -50,3 +52,8 @@ export const commitments: [[string, string], string][] = [
   [["Delivering", "quality"], "Built to last. From certified batching to precision placement, laboratory quality control ensures every structure remains strong, durable and enduring."],
   [["Building", "trust"], "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success."],
 ];
+
+registerContentType("offerings", (items) => {
+  offerings.length = 0;
+  offerings.push(...(items as Business[]));
+});

@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import { useRef, type CSSProperties } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
@@ -12,7 +13,7 @@ import { DarkMedia, LabelCopy, OlButton, ParallaxHero, TextMedia, useScrollParal
 // as the dark band), each with a ruled list of the detail. Grades, materials and test lists are sample content until
 // BCE confirms them. Photos: stand-ins from Unsplash.
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 

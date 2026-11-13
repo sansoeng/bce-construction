@@ -7,6 +7,8 @@
 // stand-in Unsplash photography. `sample: true` shows a "Sample content" tag on the page; replace each entry with real
 // project records and delete the flag before launch.
 
+import { registerContentType } from "./contentStore";
+
 export type Category = "Ready-Mix Concrete" | "Piling" | "Construction" | "Concrete Slab Works" | "Truck & Equipment Rental";
 
 export type Project = {
@@ -186,3 +188,8 @@ export const projects: Project[] = [
 ];
 
 export const findProject = (slug: string) => projects.find((p) => p.slug === slug);
+
+registerContentType("projects", (items) => {
+  projects.length = 0;
+  projects.push(...(items as Project[]));
+});

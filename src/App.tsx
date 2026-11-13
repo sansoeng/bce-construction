@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
@@ -53,7 +54,7 @@ function Loader() {
   );
 }
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"];
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
@@ -285,7 +286,9 @@ function App() {
       heroCopy.forEach((el) => {
         const o = clamp(1 - p * 2.5);
         el.style.opacity = String(o);
-        // Visible copy falls back to its own CSS, so layers inside the cover (the scrim) stay click-through.
+        // The wrapper is pointer-events:none, but its inner card re-enables pointer events.
+        // Once the hero has scrolled away, hide the layer so it can never cover buttons below.
+        el.style.visibility = o > 0.1 ? "" : "hidden";
         el.style.pointerEvents = o > 0.1 ? "" : "none";
       });
     };
@@ -473,7 +476,7 @@ function App() {
       {/* After lpas.com: a full-screen opening holds while the five full-height panels slide in over it from the right. */}
       <section id="expertise" data-offers data-header-title="Core business" aria-labelledby="offers-title" className="relative h-[400vh] bg-white">
         <div data-offers-sticky className="sticky top-0 h-[100svh] overflow-hidden">
-          <div data-offers-head className="absolute inset-0 text-[#111]">
+          <div data-offers-head className="pointer-events-none absolute inset-0 text-[#111]">
             <div className="absolute inset-x-5 top-[44%] grid grid-cols-2 items-start gap-5 text-[.95rem] md:grid-cols-12">
               <p data-split="content" className="text-black/45 md:col-span-3">Core business</p>
               <p data-split="content" className="hidden max-w-[24rem] text-[1.05rem] leading-[1.4] md:col-span-4 md:col-start-5 md:block">Concrete supply, piling, construction, slab works and equipment rental under one roof.</p>
@@ -483,7 +486,7 @@ function App() {
                 the rewritten DOM) whenever its line breaks change during live editing. */}
             <h2 key="our-core/business-offering" id="offers-title" data-split data-split-hold className="absolute bottom-5 left-5 max-w-[min(70rem,90vw)] font-medium text-[clamp(2.75rem,6.2vw,6.5rem)] leading-[1.02] tracking-[-.03em]"><span className="block">Our core</span> <span className="block">business offering</span></h2>
           </div>
-          <div data-offers-track className="absolute inset-y-0 left-0 flex w-max pl-[100vw] will-change-transform">
+          <div data-offers-track className="absolute inset-y-0 left-0 z-[1] flex w-max pl-[100vw] will-change-transform">
             {offerings.map(({ slug, name, image, bg, fg, details }) => (
               <article data-offer-panel className="offer-panel flex h-full w-[86vw] flex-none flex-col overflow-hidden md:w-[44vw]" style={{ background: bg, color: fg, WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} key={name}>
                 <div data-offer-media className="relative h-[48%] flex-none overflow-hidden md:h-[50%]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>

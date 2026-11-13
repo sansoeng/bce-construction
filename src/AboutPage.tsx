@@ -1,3 +1,4 @@
+import { siteSettings } from "./siteSettings";
 import {
   useLayoutEffect,
   useRef,
@@ -24,7 +25,7 @@ import { translate } from "./i18n"
 // It speaks the site's language: line-by-line title reveals, hairline rows drawing in, and photos wiping in from the
 // top once they are well into view.
 
-const phones = ["012 932 700", "017 222 205", "012 867 475", "070 867 475"]
+const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`
 // Stand-in Unsplash photo fallback
 const unsplash = (id: string, w = 1600) =>
