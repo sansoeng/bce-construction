@@ -4726,3 +4726,19 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
   padding-bottom: 0 !important;
   line-height: var(--button-h) !important;
 }
+
+/* Careers job rows: the reference dark curtain wipe on hover (clip-path from the centre line). */
+.career-row-wipe {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #1e2226;
+  clip-path: inset(50% 0);
+  transition: clip-path .66s cubic-bezier(.22, .7, .2, 1);
+  pointer-events: none;
+}
+
+.career-row:hover .career-row-wipe,
+.career-row:focus-within .career-row-wipe {
+  clip-path: inset(0);
+}
