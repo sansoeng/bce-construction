@@ -3,9 +3,11 @@
 The site now has a small, free-tier content platform on Cloudflare:
 
 - **Cloudflare Pages** serves the React/Vite site.
-- **Cloudflare Worker `bce-api`** serves `/api/*` (public content + admin API).
-- **Cloudflare D1 `bce-content`** stores content, leads, media metadata, settings and audit rows.
-- **Cloudflare KV `bce-sessions`** caches Access certificates and short-lived values.
+- **Cloudflare Worker `bce-api`** serves `/api/*` for production (public content + admin API).
+- **Cloudflare Worker `bce-api-staging`** serves `/api/*` for `staging.bce-construction.com` and is read-only.
+- **Cloudflare D1 `bce-content`** stores content, leads, media metadata, settings and audit rows (shared by both Workers).
+- **Cloudflare KV `bce-sessions`** caches Access certificates and short-lived values in production.
+- **Cloudflare KV `bce-sessions-staging`** does the same for staging.
 - **Cloudflare R2 `bce-media`** stores uploads (one dashboard step still needed).
 - **Cloudflare Access** protects `admin.bce-construction.com` and `/api/admin/*`.
 - **Cloudflare Turnstile** protects the public quote form.
@@ -39,7 +41,7 @@ The admin is also available at `https://bce-construction.com/?admin`, but the AP
 Two places must agree:
 
 1. **Access policy:** Cloudflare dashboard → Zero Trust → Access → Applications → **BCE Admin Console** → Policies → **BCE Admins** → add the email.
-2. **Worker allowlist:** edit `ADMIN_EMAILS` in `wrangler.toml`, then `npx wrangler deploy`.
+2. **Worker allowlist:** edit `ADMIN_EMAILS` in both the top-level `[vars]` and `[env.production.vars]` in `wrangler.toml`, then `npm run worker:deploy` and `npm run worker:deploy:staging`.
 
 The Access application **BCE Admin API** (`bce-construction.com/api/admin`) has the same policy for defence in depth.
 
@@ -81,10 +83,12 @@ The content editor has **English** and **ខ្មែរ** tabs. The Khmer tab m
 
 | Resource | Name / ID |
 | --- | --- |
-| Pages project | `bce-construction` |
-| Worker | `bce-api` (`https://bce-api.sansoeng16.workers.dev`) |
-| D1 database | `bce-content` · `22b54a9a-08cd-4e52-af8d-46845713e806` |
-| KV namespace | `bce-sessions` · `55940bab43aa4c45a489a75fed1e10bc` |
+| Pages project | `bce-construction` (Production + Preview environments) |
+| Worker (production) | `bce-api` (`https://bce-api.sansoeng16.workers.dev`) |
+| Worker (staging) | `bce-api-staging` (`https://bce-api-staging.sansoeng16.workers.dev`) |
+| D1 database | `bce-content` · `22b54a9a-08cd-4e52-af8d-46845713e806` (shared, see below) |
+| KV namespace (production) | `bce-sessions` · `55940bab43aa4c45a489a75fed1e10bc` |
+| KV namespace (staging) | `bce-sessions-staging` · `7d8351fdd650496d9b3d95466ef6100e` |
 | R2 bucket | `bce-media` (create after enabling R2) |
 | Access team domain | `bce-construction.cloudflareaccess.com` |
 | Access app (admin console) | `admin.bce-construction.com` · AUD `b1102189ed791313011c4460d8ce7aac4f6cbaad079d8377fd67e060e6954b5d` |
@@ -94,10 +98,24 @@ The content editor has **English** and **ខ្មែរ** tabs. The Khmer tab m
 
 Worker routes:
 
-- `bce-construction.com/api/*`
-- `www.bce-construction.com/api/*`
-- `staging.bce-construction.com/api/*`
-- `admin.bce-construction.com/api/*`
+| Worker | Routes |
+| --- | --- |
+| `bce-api` (production) | `bce-construction.com/api/*` · `www.bce-construction.com/api/*` · `admin.bce-construction.com/api/*` |
+| `bce-api-staging` | `staging.bce-construction.com/api/*` |
+
+### Environments
+
+`wrangler.toml` is deliberately inverted: the **top-level config is staging** (`bce-api-staging`) and `[env.production]` is `bce-api`. A bare `wrangler deploy` therefore publishes staging; production requires the explicit flag.
+
+- `npm run worker:deploy` → `wrangler deploy --env production`
+- `npm run worker:deploy:staging` → `wrangler deploy` (staging)
+- CI runs `wrangler deploy` on `staging` and `wrangler deploy --env production` on `main`
+- Bindings, vars, routes and triggers are **not inherited**, so `[env.production]` redeclares everything it needs
+- **Separate KV and secrets**: staging uses `bce-sessions-staging` and its own `wrangler secret` store. Set a staging secret with `npx wrangler secret put NAME` (no `--env`); production with `npx wrangler secret put NAME --env production`
+- **Shared D1 on purpose**: pending edits live in the `stage_*` columns and `staging.bce-construction.com` is the live preview of that pending version, so both Workers read `bce-content`. The staging Worker sends `READ_ONLY=true` and the API refuses every `/api/admin/*` write and `POST /api/leads` there (HTTP 403), so a broken or compromised staging deploy cannot change production content, leads, media or settings
+- **Migrations are production-only**: CI applies them from `main` only. Never run `wrangler d1 migrations apply` without `--env production` — both configs point at the same live database
+- **No cron on staging**: production housekeeping already prunes the shared database
+- **Local**: `npm run worker:dev` uses the staging config against a local D1; `npm run worker:dev:production` uses the production config. `DEV_ADMIN_EMAIL` is honoured on `localhost` only
 
 ## Free-tier design
 
@@ -130,7 +148,7 @@ R2 must be enabled once per account in the dashboard. The API cannot do it.
 
 1. Cloudflare dashboard → **Storage & databases → R2** → **Enable R2**. Accept the terms (the free tier does not require a payment method for 10 GB, but the dashboard may ask to add billing details).
 2. Create a bucket named **`bce-media`**.
-3. Uncomment the R2 block in `wrangler.toml`:
+3. Uncomment the R2 block in **both** Workers in `wrangler.toml` — the top-level staging block and `[env.production]`:
 
    ```toml
    [[r2_buckets]]
@@ -138,7 +156,13 @@ R2 must be enabled once per account in the dashboard. The API cannot do it.
    bucket_name = "bce-media"
    ```
 
-4. Deploy: `npx wrangler deploy`.
+   ```toml
+   [[env.production.r2_buckets]]
+   binding = "MEDIA"
+   bucket_name = "bce-media"
+   ```
+
+4. Deploy both Workers: `npm run worker:deploy` and `npm run worker:deploy:staging`.
 5. Reload **Admin → Media**. Uploads now work.
 
 Until then, the whole admin works and Media shows a clear “R2 is not enabled” banner. Media endpoints return HTTP 503.
@@ -193,35 +217,37 @@ This writes `seed/content.json`, `seed/seed.sql`, `public/content-seed.json` and
 Push to `main` (or run the workflow manually). `.github/workflows/deploy.yml`:
 
 1. installs dependencies,
-2. applies D1 migrations,
-3. deploys the Worker,
+2. applies D1 migrations (**`main` only**, never staging),
+3. deploys the matching Worker (`--env production` on `main`, bare `wrangler deploy` on `staging`),
 4. exports the content snapshot,
 5. builds the site,
-6. deploys Pages.
+6. deploys Pages to the matching branch.
 
-Manual deploy:
+Manual production deploy:
 
 ```bash
 npm run db:migrate
-npx wrangler deploy
+npm run worker:deploy       # wrangler deploy --env production
 npm run content:export
 npm run build
 npx wrangler pages deploy dist --project-name bce-construction --branch=main --commit-dirty=true
 ```
 
-**Do not run `content:seed` on every deploy.** It overwrites live rows. The Dashboard's **Stage bundled content** button is the intentional reset path and stays on staging until you publish.
-
-To deploy the staging branch explicitly:
+Manual staging deploy:
 
 ```bash
-npm run deploy:staging
+npm run deploy:staging      # wrangler deploy + Pages --branch=staging
 ```
+
+**Do not run `content:seed` on every deploy.** It overwrites live rows. The Dashboard's **Stage bundled content** button is the intentional reset path and stays on staging until you publish. The staging Worker is read-only, so staging cannot publish either — publish from **https://admin.bce-construction.com/**.
 
 ## Security model
 
 - `admin.bce-construction.com` is fully behind Cloudflare Access.
 - The Worker verifies the `Cf-Access-Jwt-Assertion` signature against the Access JWKS, checks `iss`, `aud` and expiry, then checks the email against `ADMIN_EMAILS`.
 - The admin API returns 404 on public hostnames in production.
+- The staging Worker is read-only: admin mutations and lead submissions return 403, so staging cannot write to the shared content database.
+- The local `DEV_ADMIN_EMAIL` bypass only applies on `localhost`/`127.0.0.1`, never on a deployed host.
 - Quote submissions require a Turnstile token, use a honeypot field and are rate-limited per hashed IP (8/hour) in D1.
 - Raw IPs are never stored; only a truncated SHA-256 hash.
 - Uploads are restricted to JPEG, PNG, WebP, AVIF, GIF and PDF, max 25 MB, with random keys.
@@ -275,3 +301,6 @@ These are not on the free plan, so the platform avoids them: Cloudflare Images, 
 | Quote form says “security check failed” | Check the Turnstile site key/secret and that the hostname is listed on the widget. |
 | Worker deploy fails on R2 | The bucket does not exist yet; keep the binding commented out until R2 is enabled. |
 | `wrangler pages deploy` goes to staging | Pass `--branch=main` explicitly. |
+| Staging API returns `403 read_only` | Expected: `bce-api-staging` refuses admin/lead writes. Publish from `admin.bce-construction.com`. |
+| Staging API 404s after the split | Deploy production first (`wrangler deploy --env production`, which releases the route), then `wrangler deploy` for staging. |
+| A secret works in production but staging says missing | Secrets are per environment: `npx wrangler secret put NAME` (staging) vs `npx wrangler secret put NAME --env production`. |

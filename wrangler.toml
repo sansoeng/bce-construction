@@ -1,35 +1,51 @@
 # BCE Cloudflare Worker API — free-tier stack
 # Bindings: D1 (content/leads/audit), KV (cache/sessions), R2 (media), Workers AI (assist).
-# Deploy: npx wrangler deploy
-# Local:  npx wrangler dev --local --port 8787
+#
+# Environments (deliberately inverted so the safe target is the default):
+#   wrangler deploy                    -> bce-api-staging  (staging.bce-construction.com)
+#   wrangler deploy --env production   -> bce-api          (bce-construction.com, www, admin)
+#
+# Bindings, vars, routes and triggers are NOT inherited by `[env.production]`, so
+# production redeclares everything it needs. Never deploy production without the flag.
+#
+# The two Workers share the `bce-content` D1 database on purpose: pending edits live in
+# the stage_* columns and staging.bce-construction.com previews that pending version.
+# The staging Worker therefore runs with READ_ONLY=true and refuses every admin/lead
+# write, so it can never mutate production content, media, leads or settings.
+# Only `main` applies D1 migrations.
 
-name = "bce-api"
+name = "bce-api-staging"
 main = "worker/src/index.ts"
 compatibility_date = "2026-11-01"
 workers_dev = true
 
 [vars]
-ENVIRONMENT = "production"
+ENVIRONMENT = "staging"
+# Reject every admin/lead write so staging can never touch production content.
+READ_ONLY = "true"
 ACCESS_TEAM_DOMAIN = "bce-construction.cloudflareaccess.com"
 # Comma-separated AUD tags from the Access applications that front the admin.
 ACCESS_AUD = "4f245234c75053e39dd12ef6ea6a7e20571ff5daef900e3696dda736191e8aeb,b1102189ed791313011c4460d8ce7aac4f6cbaad079d8377fd67e060e6954b5d"
 ADMIN_EMAILS = "sansoeng16@gmail.com"
-PUBLIC_ORIGIN = "https://bce-construction.com"
-ADMIN_ORIGIN = "https://admin.bce-construction.com"
+PUBLIC_ORIGIN = "https://staging.bce-construction.com"
+ADMIN_ORIGIN = "https://staging.bce-construction.com"
 TURNSTILE_SITE_KEY = "0x4AAAAAAF-VzpfgSQaEPDl7"
 CONTENT_TYPES = "projects,posts,vacancies,resources,businesses,offerings,pages"
+# Never set DEV_ADMIN_EMAIL here: it would bypass Cloudflare Access.
 
-# D1 — content, leads, media index, settings, audit log, rate limits, meta.
+# Shared content database: the staging preview of the pending stage_* version.
+# Do not run `wrangler d1 migrations apply` without `--env production`; the default
+# config points at the same live database.
 [[d1_databases]]
 binding = "DB"
 database_name = "bce-content"
 database_id = "22b54a9a-08cd-4e52-af8d-46845713e806"
 migrations_dir = "worker/migrations"
 
-# KV — edge cache for bootstrap payloads, Access cert cache, short-lived tokens.
+# Staging KV: Access certificate cache + short-lived values stay separate.
 [[kv_namespaces]]
 binding = "KV"
-id = "55940bab43aa4c45a489a75fed1e10bc"
+id = "7d8351fdd650496d9b3d95466ef6100e"
 
 # R2 — original and admin-optimised media. Enable R2 once in the dashboard, then
 # uncomment this binding and redeploy. Media endpoints return a clear 503 until then.
@@ -43,28 +59,74 @@ binding = "AI"
 
 # Routes: intercept only /api/* and leave the static site on Pages.
 [[routes]]
-pattern = "bce-construction.com/api/*"
-zone_name = "bce-construction.com"
-
-[[routes]]
-pattern = "www.bce-construction.com/api/*"
-zone_name = "bce-construction.com"
-
-[[routes]]
 pattern = "staging.bce-construction.com/api/*"
 zone_name = "bce-construction.com"
 
-[[routes]]
-pattern = "admin.bce-construction.com/api/*"
-zone_name = "bce-construction.com"
-
-# Daily housekeeping: prune rate limits + old audit rows, warm the content cache.
-[triggers]
-crons = ["17 3 * * *"]
+# No cron on staging: production housekeeping already prunes the shared database.
 
 [version_metadata]
 binding = "VERSION"
 
 [observability]
+enabled = true
+head_sampling_rate = 1
+
+# ---------------------------------------------------------------------------
+# Production — deploy with `wrangler deploy --env production`.
+# ---------------------------------------------------------------------------
+[env.production]
+name = "bce-api"
+workers_dev = true
+
+[env.production.vars]
+ENVIRONMENT = "production"
+READ_ONLY = "false"
+ACCESS_TEAM_DOMAIN = "bce-construction.cloudflareaccess.com"
+ACCESS_AUD = "4f245234c75053e39dd12ef6ea6a7e20571ff5daef900e3696dda736191e8aeb,b1102189ed791313011c4460d8ce7aac4f6cbaad079d8377fd67e060e6954b5d"
+ADMIN_EMAILS = "sansoeng16@gmail.com"
+PUBLIC_ORIGIN = "https://bce-construction.com"
+ADMIN_ORIGIN = "https://admin.bce-construction.com"
+TURNSTILE_SITE_KEY = "0x4AAAAAAF-VzpfgSQaEPDl7"
+CONTENT_TYPES = "projects,posts,vacancies,resources,businesses,offerings,pages"
+
+# D1 — content, leads, media index, settings, audit log, rate limits, meta.
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "bce-content"
+database_id = "22b54a9a-08cd-4e52-af8d-46845713e806"
+migrations_dir = "worker/migrations"
+
+# KV — edge cache for bootstrap payloads, Access cert cache, short-lived tokens.
+[[env.production.kv_namespaces]]
+binding = "KV"
+id = "55940bab43aa4c45a489a75fed1e10bc"
+
+# [[env.production.r2_buckets]]
+# binding = "MEDIA"
+# bucket_name = "bce-media"
+
+[env.production.ai]
+binding = "AI"
+
+[[env.production.routes]]
+pattern = "bce-construction.com/api/*"
+zone_name = "bce-construction.com"
+
+[[env.production.routes]]
+pattern = "www.bce-construction.com/api/*"
+zone_name = "bce-construction.com"
+
+[[env.production.routes]]
+pattern = "admin.bce-construction.com/api/*"
+zone_name = "bce-construction.com"
+
+# Daily housekeeping: prune rate limits + old audit rows, warm the content cache.
+[env.production.triggers]
+crons = ["17 3 * * *"]
+
+[env.production.version_metadata]
+binding = "VERSION"
+
+[env.production.observability]
 enabled = true
 head_sampling_rate = 1

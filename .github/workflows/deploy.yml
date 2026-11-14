@@ -13,11 +13,15 @@ concurrency:
 
 jobs:
   deploy-api:
-    name: Deploy Worker API + D1 migrations
+    name: Deploy Worker API
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
+    env:
+      CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+      CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -31,19 +35,19 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Apply D1 migrations
-        env:
-          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
-          CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Migrations run only from main. Staging shares the content database, so a
+      # staging push must never alter the schema production is still serving.
+      - name: Apply D1 migrations (production only)
+        if: github.ref == 'refs/heads/main'
         run: npx wrangler d1 migrations apply bce-content --remote
 
-      - name: Deploy Worker
-        env:
-          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
-          CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx wrangler deploy
+      - name: Deploy Worker API
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            npx wrangler deploy --env production
+          else
+            npx wrangler deploy
+          fi
 
   deploy-site:
     name: Deploy Website

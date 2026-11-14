@@ -7,6 +7,8 @@ export interface Env {
   };
   VERSION?: { id: string; tag: string; timestamp: string };
   ENVIRONMENT: string;
+  /** "true" on staging: reject admin/lead writes so production content stays untouched. */
+  READ_ONLY?: string;
   ACCESS_TEAM_DOMAIN: string;
   ACCESS_AUD: string;
   ADMIN_EMAILS: string;

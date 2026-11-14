@@ -81,6 +81,15 @@ const route = async (request: Request, env: Env, ctx: ExecutionContext): Promise
   // Only /api/* is served by this Worker. Everything else belongs to Pages.
   if (parts[0] !== "api") return json({ ok: false, error: { code: "not_found", message: "Not found" } }, { status: 404 });
 
+  // Staging is a read-only preview: it shares the content database with production, so
+  // every write path (admin mutations, leads) must be refused here.
+  if (env.READ_ONLY === "true" && method !== "GET" && method !== "HEAD" && (parts[1] === "admin" || parts[1] === "leads")) {
+    return json(
+      { ok: false, error: { code: "read_only", message: "Staging is a read-only preview. Publish from the admin console." } },
+      { status: 403 },
+    );
+  }
+
   // Admin API is reachable only on the Access-protected admin host (or locally).
   if (parts[1] === "admin" && env.ENVIRONMENT === "production" && !isAdminHost(host)) {
     return json({ ok: false, error: { code: "not_found", message: "Not found" } }, { status: 404 });

@@ -164,7 +164,11 @@ export const adminEmails = (env: Env) =>
  * Local development can opt into a fixed identity with DEV_ADMIN_EMAIL.
  */
 export const getAdmin = async (request: Request, env: Env): Promise<AdminIdentity | null> => {
-  if (env.ENVIRONMENT !== "production" && env.DEV_ADMIN_EMAIL) {
+  // The dev bypass is local-only. Requiring localhost means a leaked DEV_ADMIN_EMAIL
+  // on a deployed staging Worker still cannot skip Cloudflare Access.
+  const hostname = new URL(request.url).hostname;
+  const localHost = hostname === "localhost" || hostname === "127.0.0.1";
+  if (env.ENVIRONMENT !== "production" && localHost && env.DEV_ADMIN_EMAIL) {
     return { email: env.DEV_ADMIN_EMAIL.toLowerCase(), source: "dev" };
   }
 

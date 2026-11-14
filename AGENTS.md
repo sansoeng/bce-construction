@@ -91,7 +91,7 @@ npm run deploy
 - **Branch policy**: do all work on `staging` and push every completed change to `origin staging` (website **and** admin console together — they ship in the same build). Never commit straight to `main`; `main` is production and only receives promoted staging work.
 - **Hosting Platform**: Cloudflare Pages (`bce-construction`)
 - **Custom Domains**: `bce-construction.com`, `www.bce-construction.com`, `admin.bce-construction.com`
-- **Automated CI/CD**: Pushing to `staging` or `main` triggers `.github/workflows/deploy.yml`, which applies D1 migrations, deploys the Worker API, builds the site and publishes Pages. A `staging` push publishes the preview consumed by `staging.bce-construction.com` (site + admin); a `main` push publishes production.
+- **Automated CI/CD**: Pushing to `staging` or `main` triggers `.github/workflows/deploy.yml`. On `main` it applies D1 migrations, deploys `bce-api` (`--env production`), builds the site and publishes production Pages. On `staging` it deploys `bce-api-staging` (bare `wrangler deploy`, no migrations), builds and publishes the preview consumed by `staging.bce-construction.com` (site + admin).
 
 ---
 
@@ -99,9 +99,10 @@ npm run deploy
 
 - **Admin console**: https://admin.bce-construction.com/ (Cloudflare Access, one-time PIN).
 - **Admin UI**: shadcn/ui components in `src/components/ui`, configured by `components.json`. The admin runs on the **Base (Uber)** design system ported from the Figma Community file `❖ Base Gallery (Community)`: tokens and `base-*` classes live in `src/admin/base.css`, the legacy `.adm-*` chrome is re-skinned in `src/admin/base-overrides.css`, and the extra Base component families (Tag, Banner, Tile, Pagination, Progress, Stepper, FileDrop, …) live in `src/components/base` and are re-exported from `src/admin/ui.tsx`. Everything is scoped to `.bce-admin` so public pages are unaffected. Add shadcn primitives with `npx shadcn@latest add <name>`, then restyle them to Base. Full reference: `docs/BASE-DESIGN-SYSTEM.md`.
-- **Worker API**: `wrangler.toml` → `bce-api`, routes `/api/*` on the site hosts and the admin host.
-- **D1**: `bce-content` stores `documents`, `leads`, `media`, `settings`, `audit_log`, `rate_limits`, `meta`.
-- **KV**: `bce-sessions` caches Access certificates and short-lived values.
+- **Worker API**: `wrangler.toml` → top-level is `bce-api-staging` (`staging.bce-construction.com`); `[env.production]` is `bce-api` (production hosts). Always deploy with `--env production` for prod; a bare deploy publishes staging.
+- **D1**: `bce-content` stores `documents`, `leads`, `media`, `settings`, `audit_log`, `rate_limits`, `meta`. Both Workers share it so the staging site can preview `stage_*` edits; the staging Worker is `READ_ONLY=true` and refuses admin/lead writes.
+- **KV**: `bce-sessions` (production) and `bce-sessions-staging` cache Access certificates and short-lived values.
+- **Secrets**: per environment — `npx wrangler secret put NAME` for staging, `npx wrangler secret put NAME --env production` for production.
 - **R2**: `bce-media` stores uploads. Requires a one-time dashboard enable; the binding stays commented until then.
 - **Turnstile**: protects the quote form (`src/turnstile.tsx`, `POST /api/leads`).
 - **Workers AI**: optional EN↔KM translation in the admin (`POST /api/admin/ai/translate`).

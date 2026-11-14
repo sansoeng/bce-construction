@@ -1,5 +1,6 @@
 # Copy to .dev.vars for `npm run worker:dev`. Never commit real values.
 ENVIRONMENT=development
+READ_ONLY=false
 DEV_ADMIN_EMAIL=you@example.com
 ACCESS_TEAM_DOMAIN=bce-construction.cloudflareaccess.com
 ACCESS_AUD=
