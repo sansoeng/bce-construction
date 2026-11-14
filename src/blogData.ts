@@ -1,19 +1,20 @@
 import { registerContentType } from "./contentStore";
 
-// TEMPORARY IMAGERY — the journal redesign is matched to olympic.no/journal, so these are the reference site's
-// photographs (copied to public/Image/journal) used to prove the layout. Swap each `image` back to a BCE photograph
-// (public/Image/bce/…) before launch; nothing else in the page needs to change.
-const REFERENCE = (file: string) => `/Image/journal/${file}.webp`;
+// TEMPORARY IMAGERY — the journal redesign is matched to olympic.no/journal, so these are the reference-site
+// photographs supplied in "Image folder/blog page" (copied to public/Image/blog) used to prove the layout. Swap each
+// `image` back to a BCE photograph (public/Image/bce/…) before launch; nothing else in the page needs to change.
+const REFERENCE = (file: string) => `/Image/blog/${file}.webp`;
 
 const REFERENCE_IMAGES = {
-  feature: REFERENCE("feature"),
-  heritage: REFERENCE("heritage"),
-  brand: REFERENCE("brand"),
   built: REFERENCE("built"),
-  sustainable: REFERENCE("sustainable"),
-  operations: REFERENCE("operations"),
-  vessel: REFERENCE("vessel"),
-  nextGeneration: REFERENCE("next-generation"),
+  explore: REFERENCE("explore-our-roots"),
+  brand: REFERENCE("brand-new"),
+  responsibility: REFERENCE("responsibility"),
+  responsibilityMobile: REFERENCE("responsibility-mobile"),
+  heritageSquare: REFERENCE("heritage-square"),
+  heritageCliff: REFERENCE("heritage-cliff"),
+  olympians: REFERENCE("olympians"),
+  unity: REFERENCE("unity"),
 };
 
 /** Journal sections, after olympic.no/journal: the two broadcast categories, with the topic carried as a tag. */
@@ -55,8 +56,8 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2026",
     date: "15 April 2026",
     readTime: "5 min read",
-    image: REFERENCE_IMAGES.feature,
-    alt: "Computerized concrete batching plant and ready-mix production",
+    image: REFERENCE_IMAGES.built,
+    alt: "Offshore vessel moored beside an industrial quay",
     excerpt:
       "A deep dive into how BCE engineers formulate compressive strengths from 20 to 50 MPa, balancing water-cement ratios and mineral admixtures for high-load industrial floors.",
     content: {
@@ -99,8 +100,8 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2026",
     date: "28 March 2026",
     readTime: "6 min read",
-    image: REFERENCE_IMAGES.heritage,
-    alt: "Hydraulic static pile press rig on commercial construction site",
+    image: REFERENCE_IMAGES.explore,
+    alt: "Ship approaching across open water",
     excerpt:
       "Why hydraulic static pile pressing eliminates vibration hazards for adjacent urban structures while achieving 120-tonne bearing capacities in Battambang river basin clays.",
     content: {
@@ -143,7 +144,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "12 March 2026",
     readTime: "4 min read",
     image: REFERENCE_IMAGES.brand,
-    alt: "BCE in-house testing laboratory with DYE-2000 compression machine",
+    alt: "Flag with a circular emblem caught in the wind",
     excerpt:
       "Inside BCE’s accredited testing laboratory: our systematic protocol for casting standard test cylinders, water tank curing, and digital breaking to ASTM C39 standards.",
     content: {
@@ -185,8 +186,8 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2025",
     date: "18 November 2025",
     readTime: "4 min read",
-    image: REFERENCE_IMAGES.built,
-    alt: "Fleet of BCE concrete mixer trucks and boom pump trucks lined up",
+    image: REFERENCE_IMAGES.responsibility,
+    alt: "Crew member standing on a vessel helideck at sunset",
     excerpt:
       "How strategic fleet investments allow BCE to supply over 1,500 cubic meters of ready-mix concrete in single continuous shifts for major arterial roads and bridge decks.",
     content: {
@@ -226,8 +227,8 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2025",
     date: "24 August 2025",
     readTime: "5 min read",
-    image: REFERENCE_IMAGES.sustainable,
-    alt: "Concrete pouring during daytime in Cambodian hot weather conditions",
+    image: REFERENCE_IMAGES.heritageCliff,
+    alt: "Person standing on a coastal cliff at dusk",
     excerpt:
       "When temperatures exceed 36°C, hydration accelerates rapidly. Learn how BCE maintains fresh concrete temperatures below 32°C using flaked ice batching and extended set retarders.",
     content: {
@@ -267,8 +268,8 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2025",
     date: "10 June 2025",
     readTime: "4 min read",
-    image: REFERENCE_IMAGES.operations,
-    alt: "BCE construction team conducting safety briefing with full personal protective equipment",
+    image: REFERENCE_IMAGES.olympians,
+    alt: "Portrait of a crew member in front of a flag",
     excerpt:
       "A look into BCE’s Health, Safety, and Environment (HSE) management system: daily toolbox meetings, certified rigging protocols, and zero Lost Time Injuries.",
     content: {
@@ -308,8 +309,8 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2024",
     date: "14 December 2024",
     readTime: "6 min read",
-    image: REFERENCE_IMAGES.vessel,
-    alt: "Ms. Loeung Chan Chairwoman of Battambang Construction and Engineering",
+    image: REFERENCE_IMAGES.heritageSquare,
+    alt: "Portrait of an experienced worker in a hard hat",
     excerpt:
       "How a modest local aggregate trading business founded in 1995 transformed into Battambang's foremost integrated ready-mix concrete and civil engineering powerhouse.",
     content: {
@@ -349,8 +350,8 @@ export const BLOG_POSTS: BlogPost[] = [
     year: "2024",
     date: "08 September 2024",
     readTime: "5 min read",
-    image: REFERENCE_IMAGES.nextGeneration,
-    alt: "Concrete slab finishing and laser leveling on industrial warehouse project",
+    image: REFERENCE_IMAGES.unity,
+    alt: "Portrait of a crew member in a black jacket",
     excerpt:
       "Automated laser screed technology achieves precise floor flatness (FF) and floor levelness (FL) numbers required for high-bay logistics racking and automated forklifts.",
     content: {
