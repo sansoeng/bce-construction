@@ -44,12 +44,57 @@ enum DisplayMode: Int, CaseIterable {
     ]
 }
 
+/// A Cloudflare account the app monitors. One credential (stored in the Keychain)
+/// can cover several accounts — e.g. a personal account and a client account.
+struct MonitorAccount: Codable, Identifiable, Equatable {
+    /// Cloudflare account ID.
+    var id: String
+    /// Display name shown in the menu.
+    var label: String
+
+    var shortName: String { label.isEmpty ? String(id.prefix(8)) : label }
+}
+
 enum Prefs {
     private static let d = UserDefaults.standard
 
+    /// Accounts to monitor, persisted as JSON. Empty means "not configured yet".
+    static var accounts: [MonitorAccount] {
+        get {
+            guard let data = d.data(forKey: "accounts"),
+                  let list = try? JSONDecoder().decode([MonitorAccount].self, from: data)
+            else { return [] }
+            return list.filter { !$0.id.isEmpty }
+        }
+        set {
+            let cleaned = newValue.filter { !$0.id.trimmingCharacters(in: .whitespaces).isEmpty }
+            d.set(try? JSONEncoder().encode(cleaned), forKey: "accounts")
+        }
+    }
+
+    /// Legacy single-account setting, kept so older installs migrate cleanly.
     static var accountID: String {
         get { d.string(forKey: "accountID") ?? "" }
         set { d.set(newValue, forKey: "accountID") }
+    }
+
+    /// Seeds the account list from the pre-multi-account setting exactly once.
+    static func migrateAccountsIfNeeded() {
+        guard accounts.isEmpty else { return }
+        let legacy = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !legacy.isEmpty else { return }
+        accounts = [MonitorAccount(id: legacy, label: "") ]
+    }
+
+    /// Parses `CF_MENUBAR_ACCOUNTS="id:Label,id2:Label2"` for headless setup.
+    static func accounts(fromEnv value: String) -> [MonitorAccount] {
+        value.split(separator: ",").compactMap { entry in
+            let parts = entry.split(separator: ":", maxSplits: 1).map {
+                $0.trimmingCharacters(in: .whitespaces)
+            }
+            guard let id = parts.first, !id.isEmpty else { return nil }
+            return MonitorAccount(id: id, label: parts.count > 1 ? parts[1] : "")
+        }
     }
 
     static var authMode: AuthMode {
@@ -161,7 +206,15 @@ struct Credentials {
     /// Otherwise the Keychain + UserDefaults pair is used.
     static func load() -> Credentials? {
         let env = ProcessInfo.processInfo.environment
-        let account = env["CF_MENUBAR_ACCOUNT"] ?? Prefs.accountID
+        let fallback = env["CF_MENUBAR_ACCOUNT"] ?? Prefs.accounts.first?.id ?? Prefs.accountID
+        return load(accountID: fallback)
+    }
+
+    /// Credentials for one monitored account. The secret and email are shared across
+    /// accounts; only the account ID changes per lookup.
+    static func load(accountID: String) -> Credentials? {
+        let env = ProcessInfo.processInfo.environment
+        let account = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !account.isEmpty else { return nil }
 
         if let token = env["CF_MENUBAR_TOKEN"], !token.isEmpty {
@@ -179,10 +232,22 @@ struct Credentials {
         return creds.isComplete ? creds : nil
     }
 
-    static func store(accountID: String, authMode: AuthMode, secret: String?, email: String) {
-        Prefs.accountID = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
+    /// Saves the shared credential only; the account list is managed separately.
+    static func storeCredential(authMode: AuthMode, secret: String?, email: String) {
         Prefs.authMode = authMode
         if let secret, !secret.isEmpty { Keychain.set(secret, for: "secret") }
         Keychain.set(email.trimmingCharacters(in: .whitespacesAndNewlines), for: "email")
+    }
+
+    static func store(accountID: String, authMode: AuthMode, secret: String?, email: String) {
+        let account = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !account.isEmpty {
+            Prefs.accountID = account
+            // Keep the first monitored account in sync when there is no list yet.
+            if Prefs.accounts.isEmpty {
+                Prefs.accounts = [MonitorAccount(id: account, label: "")]
+            }
+        }
+        storeCredential(authMode: authMode, secret: secret, email: email)
     }
 }

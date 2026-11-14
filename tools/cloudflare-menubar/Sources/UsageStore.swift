@@ -1,8 +1,9 @@
 import Foundation
 
-/// Fetches usage and keeps the last good snapshot around so a transient
-/// API failure doesn't blank the menu bar.
+/// Fetches usage for one Cloudflare account and keeps the last good snapshot
+/// around so a transient API failure doesn't blank the menu bar.
 final class UsageStore {
+    let account: MonitorAccount
     private(set) var snapshot: UsageSnapshot?
     private(set) var lastError: String?
     private(set) var isLoading = false
@@ -10,10 +11,20 @@ final class UsageStore {
 
     var onChange: (() -> Void)?
 
+    /// OpenCode usage is local to the Mac, not per Cloudflare account, so only the
+    /// first store fetches it.
+    var includeOpenCode = true
+
     private let api = CloudflareAPI()
     private var zoneCache: [ZoneInfo] = []
     private var zoneCacheDate: Date?
     private var inFlight = false
+
+    init(account: MonitorAccount) {
+        self.account = account
+    }
+
+    var label: String { account.shortName }
 
     func refreshIfStale(_ maxAge: TimeInterval) {
         if let lastAttempt, Date().timeIntervalSince(lastAttempt) < maxAge { return }
@@ -22,9 +33,9 @@ final class UsageStore {
 
     func refresh() {
         guard !inFlight else { return }
-        guard let creds = Credentials.load(), creds.isComplete else {
+        guard let creds = Credentials.load(accountID: account.id), creds.isComplete else {
             snapshot = nil
-            lastError = "Add your Cloudflare account ID and API token in Settings."
+            lastError = "Add a credential for \(label) in Settings."
             lastAttempt = Date()
             onChange?()
             return
@@ -51,7 +62,7 @@ final class UsageStore {
 
             // OpenCode is independent: a broken CLI must not hide Cloudflare usage.
             async let openCodeTask = OpenCodeProbe.load(
-                enabled: Prefs.openCodeEnabled,
+                enabled: Prefs.openCodeEnabled && self.includeOpenCode,
                 customPath: Prefs.openCodePath
             )
 

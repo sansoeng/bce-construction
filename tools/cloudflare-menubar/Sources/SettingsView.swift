@@ -9,7 +9,10 @@ enum TestState: Equatable {
 }
 
 final class SettingsModel: ObservableObject {
+    @Published var accounts: [MonitorAccount] = []
+    @Published var selected = 0
     @Published var accountID = ""
+    @Published var accountLabel = ""
     @Published var authMode = 0
     @Published var email = ""
     @Published var secret = ""
@@ -36,7 +39,17 @@ final class SettingsModel: ObservableObject {
     init() { load() }
 
     func load() {
-        accountID = Prefs.accountID
+        Prefs.migrateAccountsIfNeeded()
+        accounts = Prefs.accounts
+        if accounts.isEmpty, !Prefs.accountID.isEmpty {
+            accounts = [MonitorAccount(id: Prefs.accountID, label: "")]
+        }
+        if accounts.isEmpty {
+            accounts = [MonitorAccount(id: "", label: "")]
+        }
+        selected = min(max(0, selected), accounts.count - 1)
+        applySelection()
+
         authMode = Prefs.authMode.rawValue
         email = Keychain.get("email") ?? ""
         hasStoredSecret = Keychain.has("secret")
@@ -55,6 +68,45 @@ final class SettingsModel: ObservableObject {
         refreshOpenCodeDetection()
         testState = .idle
         saveError = nil
+    }
+
+    // MARK: - Account list
+
+    func select(_ index: Int) {
+        guard accounts.indices.contains(index) else { return }
+        commitCurrentEdits()
+        selected = index
+        applySelection()
+        testState = .idle
+    }
+
+    func addAccount() {
+        commitCurrentEdits()
+        accounts.append(MonitorAccount(id: "", label: ""))
+        selected = accounts.count - 1
+        applySelection()
+        testState = .idle
+    }
+
+    func removeSelected() {
+        guard accounts.count > 1, accounts.indices.contains(selected) else { return }
+        accounts.remove(at: selected)
+        selected = min(selected, accounts.count - 1)
+        applySelection()
+        testState = .idle
+    }
+
+    private func applySelection() {
+        guard accounts.indices.contains(selected) else { return }
+        accountID = accounts[selected].id
+        accountLabel = accounts[selected].label
+    }
+
+    /// Writes the edited fields back into the selected row so switching rows doesn't lose them.
+    private func commitCurrentEdits() {
+        guard accounts.indices.contains(selected) else { return }
+        accounts[selected].id = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
+        accounts[selected].label = accountLabel.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     func refreshOpenCodeDetection() {
@@ -78,7 +130,7 @@ final class SettingsModel: ObservableObject {
         authMode == 1 ? "Global API key" : "API token"
     }
 
-    /// Builds credentials from the form, falling back to the stored secret when the field is blank.
+    /// Builds credentials for the selected account, falling back to the stored secret.
     func credentials() -> Credentials? {
         let account = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
         let key = secret.isEmpty ? (Keychain.get("secret") ?? "") : secret
@@ -111,9 +163,16 @@ final class SettingsModel: ObservableObject {
     }
 
     func save() {
-        let account = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !account.isEmpty else {
-            saveError = "Account ID is required."
+        commitCurrentEdits()
+
+        let cleaned = accounts.filter { !$0.id.isEmpty }
+        guard !cleaned.isEmpty else {
+            saveError = "Add at least one account ID."
+            return
+        }
+        let ids = cleaned.map(\.id)
+        guard Set(ids).count == ids.count else {
+            saveError = "Each account ID can only be listed once."
             return
         }
         guard credentials() != nil else {
@@ -137,8 +196,8 @@ final class SettingsModel: ObservableObject {
             return
         }
 
-        Credentials.store(
-            accountID: account,
+        Prefs.accounts = cleaned
+        Credentials.storeCredential(
             authMode: AuthMode(rawValue: authMode) ?? .apiToken,
             secret: secret.isEmpty ? nil : secret,
             email: email
@@ -185,18 +244,44 @@ struct SettingsView: View {
             Divider()
             footer
         }
-        .frame(width: 560, height: 560)
+        .frame(width: 560, height: 620)
+    }
+
+    private var selection: Binding<Int> {
+        Binding(get: { model.selected }, set: { model.select($0) })
     }
 
     private var accountTab: some View {
         Form {
-            Section("Cloudflare account") {
+            Section("Accounts") {
+                Picker("Monitor", selection: selection) {
+                    ForEach(Array(model.accounts.enumerated()), id: \.offset) { index, account in
+                        Text(rowLabel(account)).tag(index)
+                    }
+                }
+                HStack(spacing: 10) {
+                    Button("Add account") { model.addAccount() }
+                    Button("Remove") { model.removeSelected() }
+                        .disabled(model.accounts.count < 2)
+                    Spacer()
+                }
+                Text("One credential can monitor several Cloudflare accounts — for example a personal account and a client account.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Section("Selected account") {
+                TextField("Name", text: $model.accountLabel)
+                    .textFieldStyle(.roundedBorder)
                 TextField("Account ID", text: $model.accountID)
                     .textFieldStyle(.roundedBorder)
                 Text("Find it in the dashboard URL, or run `npx wrangler whoami`.")
                     .font(.caption)
                     .foregroundColor(.secondary)
+            }
 
+            Section("Authentication (shared by all accounts)") {
                 Picker("Authentication", selection: $model.authMode) {
                     Text("API token").tag(0)
                     Text("Global API key").tag(1)
@@ -217,7 +302,7 @@ struct SettingsView: View {
                         .foregroundColor(.secondary)
                 }
 
-                Text("Required token permissions: Account → Account Analytics → Read, Zone → Analytics → Read, Zone → Zone → Read.")
+                Text("Required token permissions: Account → Account Analytics → Read, Zone → Analytics → Read, Zone → Zone → Read. A Global API key covers every account the email can manage.")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -233,6 +318,11 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
+    }
+
+    private func rowLabel(_ account: MonitorAccount) -> String {
+        let name = account.label.isEmpty ? String(account.id.prefix(10)) : account.label
+        return account.id.isEmpty ? "\(name) (new)" : "\(name) · \(account.id.prefix(8))"
     }
 
     private var menuBarTab: some View {
@@ -252,7 +342,7 @@ struct SettingsView: View {
             }
 
             Section {
-                Text("The icon always shows the selected metric. Quota rows are tagged daily or monthly, and the menu shows the next reset in local time.")
+                Text("The icon always shows the selected metric. With several accounts, absolute counts are summed and percentages use the busiest account. Quota rows are tagged daily or monthly, and the menu shows the next reset in local time.")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -277,7 +367,7 @@ struct SettingsView: View {
             }
 
             Section {
-                Text("Free-plan defaults. Raise these if you are on a paid plan.")
+                Text("Free-plan defaults per account. Raise these if you are on a paid plan.")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -364,7 +454,7 @@ struct SettingsView: View {
             Text(message)
                 .font(.caption)
                 .foregroundColor(.red)
-                .lineLimit(3)
+                .lineLimit(2)
         }
     }
 }

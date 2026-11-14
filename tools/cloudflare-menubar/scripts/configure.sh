@@ -4,6 +4,11 @@
 #   ./scripts/configure.sh <account-id> <api-token>
 #   ./scripts/configure.sh <account-id> <global-key> <email> --global-key
 #
+# The account list can be seeded at the same time (comma-separated id:Label):
+#
+#   CF_MENUBAR_ACCOUNTS="<id>:BCE,<id2>:Overland" \
+#     ./scripts/configure.sh <id> <global-key> <email> --global-key
+#
 # The token/key is verified with a read-only analytics call before anything is saved,
 # then handed to the app through its environment so the app itself writes the
 # Keychain item (no "wants to access" prompt on later launches).
@@ -32,6 +37,9 @@ APP="/Applications/Cloudflare Usage.app"
 BIN="$APP/Contents/MacOS/CFMenuBar"
 
 ENV=(CF_MENUBAR_ACCOUNT="$ACCOUNT")
+if [ -n "${CF_MENUBAR_ACCOUNTS:-}" ]; then
+  ENV+=(CF_MENUBAR_ACCOUNTS="$CF_MENUBAR_ACCOUNTS")
+fi
 if [ "$MODE" = "--global-key" ] || [ "$MODE" = "global-key" ]; then
   [ -n "$EMAIL" ] || { echo "Global API key authentication also needs the account email." >&2; exit 64; }
   ENV+=(CF_MENUBAR_KEY="$SECRET" CF_MENUBAR_EMAIL="$EMAIL")

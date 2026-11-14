@@ -1,10 +1,10 @@
 import AppKit
 import Foundation
 
-/// Owns the menu bar item and builds its menu from the latest snapshot.
+/// Owns the menu bar item and builds its menu from the latest snapshots.
 final class StatusController: NSObject, NSMenuDelegate {
     private let statusItem: NSStatusItem
-    private let store: UsageStore
+    private var stores: [UsageStore]
     private let menu = NSMenu()
     private var menuOpen = false
     private var pendingRebuild = false
@@ -24,8 +24,8 @@ final class StatusController: NSObject, NSMenuDelegate {
         return f
     }()
 
-    init(store: UsageStore) {
-        self.store = store
+    init(stores: [UsageStore]) {
+        self.stores = stores
         self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         super.init()
 
@@ -44,10 +44,28 @@ final class StatusController: NSObject, NSMenuDelegate {
         menu.minimumWidth = 390
         statusItem.menu = menu
 
-        store.onChange = { [weak self] in self?.apply() }
+        wire()
         rebuildMenu()
         updateButton()
     }
+
+    /// Rewires the controller after Settings adds or removes accounts.
+    func attach(stores: [UsageStore]) {
+        self.stores = stores
+        wire()
+        rebuildMenu()
+        updateButton()
+    }
+
+    private func wire() {
+        for store in stores {
+            store.onChange = { [weak self] in self?.apply() }
+        }
+    }
+
+    /// Accounts that currently have data, in configured order.
+    private var liveStores: [UsageStore] { stores.filter { $0.snapshot != nil } }
+
 
     // MARK: - Button
 
@@ -61,29 +79,33 @@ final class StatusController: NSObject, NSMenuDelegate {
         let title: String
         var color: NSColor?
 
-        if let snapshot = store.snapshot {
+        let live = liveStores
+        if !live.isEmpty {
             let mode = Prefs.displayMode
-            var pressure = snapshot.worstFraction
+            let worst = worstCloudflareFraction
+            let limits = openCodeSnapshot?.openCodeLimits
+            var pressure = worst
             switch mode {
-            case .workers: title = Fmt.compact(snapshot.workerRequests)
-            case .sites: title = Fmt.compact(snapshot.zoneRequests)
-            case .d1Reads: title = Fmt.compact(snapshot.d1RowsRead)
-            case .worstQuota: title = Fmt.shortPercent(snapshot.worstFraction)
-            case .openCode: title = snapshot.openCode.map { Fmt.compact($0.totalTokens) } ?? "—"
+            case .workers: title = Fmt.compact(total { $0.workerRequests })
+            case .sites: title = Fmt.compact(total { $0.zoneRequests })
+            case .d1Reads: title = Fmt.compact(total { $0.d1RowsRead })
+            case .worstQuota: title = Fmt.shortPercent(worst)
+            case .openCode:
+                title = openCodeSnapshot?.openCode.map { Fmt.compact($0.totalTokens) } ?? "—"
             case .combined:
-                let openCode = snapshot.openCodeLimits?.headlineFraction
-                title = "CF \(Fmt.shortPercent(snapshot.worstFraction)) · OC \(openCode.map { Fmt.shortPercent($0) } ?? "—")"
+                let openCode = limits?.headlineFraction
+                title = "CF \(Fmt.shortPercent(worst)) · OC \(openCode.map { Fmt.shortPercent($0) } ?? "—")"
                 pressure = max(pressure, openCode ?? 0)
             case .openCodeRolling:
-                let fraction = snapshot.openCodeLimits?.rolling.fraction
+                let fraction = limits?.rolling.fraction
                 title = fraction.map { Fmt.shortPercent($0) } ?? "—"
                 pressure = fraction ?? 0
             case .openCodeWeekly:
-                let fraction = snapshot.openCodeLimits?.weekly.fraction
+                let fraction = limits?.weekly.fraction
                 title = fraction.map { Fmt.shortPercent($0) } ?? "—"
                 pressure = fraction ?? 0
             case .openCodeMonthly:
-                let fraction = snapshot.openCodeLimits?.monthly.fraction
+                let fraction = limits?.monthly.fraction
                 title = fraction.map { Fmt.shortPercent($0) } ?? "—"
                 pressure = fraction ?? 0
             }
@@ -92,10 +114,10 @@ final class StatusController: NSObject, NSMenuDelegate {
             } else if pressure >= 0.75 {
                 color = .systemOrange
             }
-            button.toolTip = tooltip(for: snapshot)
+            button.toolTip = tooltip()
         } else {
-            title = store.isLoading ? "…" : "—"
-            button.toolTip = store.lastError ?? "Cloudflare usage — no data yet"
+            title = stores.contains { $0.isLoading } ? "…" : "—"
+            button.toolTip = stores.compactMap { $0.lastError }.first ?? "Cloudflare usage — no data yet"
         }
 
         if let color {
@@ -112,23 +134,52 @@ final class StatusController: NSObject, NSMenuDelegate {
         }
     }
 
-    private func tooltip(for snapshot: UsageSnapshot) -> String {
-        var lines = ["Cloudflare & OpenCode · \(snapshot.day) (UTC day)"]
-        lines.append("Workers: \(Fmt.grouped(snapshot.workerRequests)) / \(Fmt.grouped(Prefs.workerLimit)) requests (\(Fmt.percent(snapshot.workerFraction)))")
-        lines.append("D1: \(Fmt.compact(snapshot.d1RowsRead)) rows read, \(Fmt.compact(snapshot.d1RowsWritten)) written")
-        lines.append("R2: \(Fmt.bytes(snapshot.r2StorageBytes)) stored · \(Fmt.compact(snapshot.r2ClassA + snapshot.r2ClassB)) ops this month")
-        lines.append("Sites: \(Fmt.compact(snapshot.zoneRequests)) requests · \(Fmt.bytes(snapshot.zoneBytes))")
-        if let usage = snapshot.openCode {
-            lines.append("OpenCode: \(Fmt.grouped(usage.totalTokens)) tokens today · \(Fmt.grouped(usage.steps)) steps")
-        } else if let error = snapshot.openCodeError {
-            lines.append("OpenCode: \(error)")
+    /// Highest daily allowance share across every monitored account.
+    private var worstCloudflareFraction: Double {
+        liveStores.map { $0.snapshot?.worstFraction ?? 0 }.max() ?? 0
+    }
+
+    /// The store that fetched the local OpenCode usage (only the first store does).
+    private var openCodeSnapshot: UsageSnapshot? {
+        stores.first { store in
+            guard let snapshot = store.snapshot else { return false }
+            return snapshot.openCode != nil || snapshot.openCodeLimits != nil || snapshot.openCodeError != nil
+        }?.snapshot
+    }
+
+    private func total(_ keyPath: (UsageSnapshot) -> Double) -> Double {
+        liveStores.reduce(0) { sum, store in
+            guard let snapshot = store.snapshot else { return sum }
+            return sum + keyPath(snapshot)
         }
-        if let limits = snapshot.openCodeLimits {
-            lines.append("OpenCode Go: month \(Fmt.percent(limits.monthly.fraction)) · week \(Fmt.percent(limits.weekly.fraction)) · 5h \(Fmt.percent(limits.rolling.fraction))")
-        } else if let error = snapshot.openCodeLimitsError {
-            lines.append("OpenCode Go limits: \(error)")
+    }
+
+    private func tooltip() -> String {
+        let live = liveStores
+        var lines = ["Cloudflare & OpenCode · \(live.first?.snapshot?.day ?? "") (UTC day)"]
+        for store in live {
+            guard let snapshot = store.snapshot else { continue }
+            lines.append("— \(store.label) —")
+            lines.append("Workers: \(Fmt.grouped(snapshot.workerRequests)) / \(Fmt.grouped(Prefs.workerLimit)) requests (\(Fmt.percent(snapshot.workerFraction)))")
+            lines.append("D1: \(Fmt.compact(snapshot.d1RowsRead)) rows read, \(Fmt.compact(snapshot.d1RowsWritten)) written")
+            lines.append("R2: \(Fmt.bytes(snapshot.r2StorageBytes)) stored · \(Fmt.compact(snapshot.r2ClassA + snapshot.r2ClassB)) ops this month")
+            lines.append("Sites: \(Fmt.compact(snapshot.zoneRequests)) requests · \(Fmt.bytes(snapshot.zoneBytes))")
         }
-        lines.append("Updated \(clock.string(from: snapshot.fetchedAt))")
+        if let snapshot = openCodeSnapshot {
+            if let usage = snapshot.openCode {
+                lines.append("OpenCode: \(Fmt.grouped(usage.totalTokens)) tokens today · \(Fmt.grouped(usage.steps)) steps")
+            } else if let error = snapshot.openCodeError {
+                lines.append("OpenCode: \(error)")
+            }
+            if let limits = snapshot.openCodeLimits {
+                lines.append("OpenCode Go: month \(Fmt.percent(limits.monthly.fraction)) · week \(Fmt.percent(limits.weekly.fraction)) · 5h \(Fmt.percent(limits.rolling.fraction))")
+            } else if let error = snapshot.openCodeLimitsError {
+                lines.append("OpenCode Go limits: \(error)")
+            }
+        }
+        if let fetched = live.first?.snapshot?.fetchedAt {
+            lines.append("Updated \(clock.string(from: fetched))")
+        }
         return lines.joined(separator: "\n")
     }
 
@@ -145,7 +196,7 @@ final class StatusController: NSObject, NSMenuDelegate {
     }
 
     func menuNeedsUpdate(_ menu: NSMenu) {
-        store.refreshIfStale(60)
+        stores.forEach { $0.refreshIfStale(60) }
         rebuildMenu()
     }
 
@@ -161,7 +212,7 @@ final class StatusController: NSObject, NSMenuDelegate {
         header.isEnabled = false
         menu.addItem(header)
 
-        if let snapshot = store.snapshot {
+        if let snapshot = liveStores.first?.snapshot {
             let subtitle = NSMenuItem()
             subtitle.attributedTitle = NSAttributedString(
                 string: "\(snapshot.day) · UTC day · daily + monthly limits",
@@ -173,42 +224,83 @@ final class StatusController: NSObject, NSMenuDelegate {
 
         menu.addItem(.separator())
 
-        if let snapshot = store.snapshot {
-            addUsageRows(snapshot)
-            if Prefs.openCodeEnabled {
+        if stores.isEmpty {
+            let empty = NSMenuItem(title: "No Cloudflare accounts yet — open Settings…", action: nil, keyEquivalent: "")
+            empty.isEnabled = false
+            menu.addItem(empty)
+        } else {
+            for (index, store) in stores.enumerated() {
+                if index > 0 { menu.addItem(.separator()) }
+                menu.addItem(accountHeader(store))
+
+                if let snapshot = store.snapshot {
+                    addUsageRows(snapshot)
+                    if let error = store.lastError {
+                        menu.addItem(errorRow(error))
+                    } else if let warning = snapshot.warnings.first {
+                        menu.addItem(warningRow(warning))
+                    }
+                } else if store.isLoading {
+                    let loading = NSMenuItem(title: "Refreshing…", action: nil, keyEquivalent: "")
+                    loading.isEnabled = false
+                    menu.addItem(loading)
+                } else {
+                    let empty = NSMenuItem(title: "Waiting for the first refresh…", action: nil, keyEquivalent: "")
+                    empty.isEnabled = false
+                    menu.addItem(empty)
+                    if let error = store.lastError { menu.addItem(errorRow(error)) }
+                }
+            }
+
+            if Prefs.openCodeEnabled, let snapshot = openCodeSnapshot {
                 menu.addItem(.separator())
                 addOpenCodeRows(snapshot)
             }
-        } else {
-            let empty = NSMenuItem(title: "Waiting for the first refresh…", action: nil, keyEquivalent: "")
-            empty.isEnabled = false
-            menu.addItem(empty)
-        }
-
-        if let error = store.lastError {
-            menu.addItem(.separator())
-            let item = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-            item.attributedTitle = NSAttributedString(
-                string: "⚠︎ " + Self.truncate(error, 90),
-                attributes: [.font: NSFont.systemFont(ofSize: 12), .foregroundColor: NSColor.systemRed]
-            )
-            item.isEnabled = false
-            item.toolTip = error
-            menu.addItem(item)
-        } else if let warning = store.snapshot?.warnings.first {
-            menu.addItem(.separator())
-            let item = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-            item.attributedTitle = NSAttributedString(
-                string: "⚠︎ " + Self.truncate(warning, 80),
-                attributes: [.font: NSFont.systemFont(ofSize: 12), .foregroundColor: NSColor.systemOrange]
-            )
-            item.isEnabled = false
-            item.toolTip = warning
-            menu.addItem(item)
         }
 
         menu.addItem(.separator())
         addFooterRows()
+    }
+
+    private func accountHeader(_ store: UsageStore) -> NSMenuItem {
+        let item = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        let text = NSMutableAttributedString(
+            string: store.label,
+            attributes: [.font: NSFont.boldSystemFont(ofSize: 12), .foregroundColor: NSColor.labelColor]
+        )
+        let id = store.account.id
+        if !id.isEmpty {
+            text.append(NSAttributedString(
+                string: "  ·  " + String(id.prefix(8)),
+                attributes: [.font: NSFont.systemFont(ofSize: 10), .foregroundColor: NSColor.tertiaryLabelColor]
+            ))
+        }
+        item.attributedTitle = text
+        item.isEnabled = false
+        item.toolTip = store.account.id
+        return item
+    }
+
+    private func errorRow(_ message: String) -> NSMenuItem {
+        let item = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        item.attributedTitle = NSAttributedString(
+            string: "⚠︎ " + Self.truncate(message, 90),
+            attributes: [.font: NSFont.systemFont(ofSize: 12), .foregroundColor: NSColor.systemRed]
+        )
+        item.isEnabled = false
+        item.toolTip = message
+        return item
+    }
+
+    private func warningRow(_ message: String) -> NSMenuItem {
+        let item = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        item.attributedTitle = NSAttributedString(
+            string: "⚠︎ " + Self.truncate(message, 80),
+            attributes: [.font: NSFont.systemFont(ofSize: 12), .foregroundColor: NSColor.systemOrange]
+        )
+        item.isEnabled = false
+        item.toolTip = message
+        return item
     }
 
     private func addUsageRows(_ snapshot: UsageSnapshot) {
@@ -402,7 +494,7 @@ final class StatusController: NSObject, NSMenuDelegate {
     }
 
     private func addFooterRows() {
-        if let snapshot = store.snapshot {
+        if let snapshot = liveStores.first?.snapshot {
             let updated = row(
                 label: "Updated",
                 value: "\(clock.string(from: snapshot.fetchedAt)) · \(relative.localizedString(for: snapshot.fetchedAt, relativeTo: Date()))",
@@ -447,7 +539,20 @@ final class StatusController: NSObject, NSMenuDelegate {
         menu.addItem(interval)
 
         menu.addItem(.separator())
-        menu.addItem(action("Open Cloudflare dashboard", #selector(openDashboard), key: "d"))
+        if stores.count > 1 {
+            let dash = NSMenuItem(title: "Open Cloudflare dashboard", action: nil, keyEquivalent: "")
+            let sub = NSMenu()
+            for store in stores {
+                let item = action(store.label, #selector(openAccountDashboard(_:)), key: "")
+                item.representedObject = store.account.id
+                sub.addItem(item)
+            }
+            dash.submenu = sub
+            dash.isEnabled = true
+            menu.addItem(dash)
+        } else {
+            menu.addItem(action("Open Cloudflare dashboard", #selector(openDashboard), key: "d"))
+        }
 
         let login = action("Launch at login", #selector(toggleLogin), key: "")
         login.state = LoginItem.isEnabled ? .on : .off
@@ -509,7 +614,7 @@ final class StatusController: NSObject, NSMenuDelegate {
 
     // MARK: - Actions
 
-    @objc private func refreshNow() { store.refresh() }
+    @objc private func refreshNow() { stores.forEach { $0.refresh() } }
 
     @objc private func setDisplayMode(_ sender: NSMenuItem) {
         Prefs.displayMode = DisplayMode(rawValue: sender.tag) ?? .workers
@@ -527,10 +632,17 @@ final class StatusController: NSObject, NSMenuDelegate {
     @objc private func quit() { onQuit?() }
 
     @objc private func openDashboard() {
-        let account = Prefs.accountID
-        let url = account.isEmpty
+        openAccountDashboard(accountID: stores.first?.account.id ?? Prefs.accountID)
+    }
+
+    @objc private func openAccountDashboard(_ sender: NSMenuItem) {
+        openAccountDashboard(accountID: (sender.representedObject as? String) ?? Prefs.accountID)
+    }
+
+    private func openAccountDashboard(accountID: String) {
+        let url = accountID.isEmpty
             ? "https://dash.cloudflare.com/"
-            : "https://dash.cloudflare.com/\(account)/analytics"
+            : "https://dash.cloudflare.com/\(accountID)/analytics"
         if let url = URL(string: url) { NSWorkspace.shared.open(url) }
     }
 

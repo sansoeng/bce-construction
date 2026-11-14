@@ -74,6 +74,27 @@ hands them to the app so the Keychain item is created by the app itself.
 > Missing site numbers? The token can only read zones it is scoped to. A global
 > API key or a token with Zone → Zone → Read fixes it.
 
+### Several Cloudflare accounts
+
+One credential can monitor more than one account — for example a personal account
+and a client account that granted you access. Add them in **Settings → Cloudflare
+→ Accounts → Add account**, give each a name, and save. The menu then shows a
+section per account, the menu bar uses the busiest account for percentages, and
+absolute counts (workers, D1, site requests) are summed.
+
+You can also seed the list from the terminal:
+
+```bash
+CF_MENUBAR_ACCOUNTS="<account-id>:BCE,<account-id>:Overland" \
+  ./scripts/configure.sh <account-id> <global-key> <email> --global-key
+```
+
+The credential itself (token or key + email) is shared by every account, so there
+is only one Keychain item. The account list lives in
+`~/Library/Preferences/com.bce.cloudflare-menubar.plist`.
+
+OpenCode usage is local to the Mac, not per account, so it is queried once.
+
 ### Positioning
 
 macOS puts new menu bar items to the left of the system cluster. Hold **⌘** and
@@ -126,8 +147,10 @@ working.
 ## Configuration
 
 - Credentials live in the login **Keychain** (service
-  `com.bce.cloudflare-menubar`), never in a plain-text file.
-- Preferences (account ID, display mode, refresh interval, limits) live in
+  `com.bce.cloudflare-menubar`), never in a plain-text file. They are shared by
+  every monitored account.
+- The **account list** (IDs + display names) and preferences (display mode,
+  refresh interval, limits) live in
   `~/Library/Preferences/com.bce.cloudflare-menubar.plist`.
 - Daily allowances are editable in **Settings → Allowances → Daily** — raise them
   if you move off the Free plan.
