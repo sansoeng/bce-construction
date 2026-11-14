@@ -1,0 +1,155 @@
+import Foundation
+
+enum AuthMode: Int {
+    case apiToken = 0
+    case globalKey = 1
+
+    var label: String {
+        switch self {
+        case .apiToken: return "API token"
+        case .globalKey: return "Global API key"
+        }
+    }
+}
+
+enum DisplayMode: Int, CaseIterable {
+    case workers = 0
+    case sites = 1
+    case d1Reads = 2
+    case worstQuota = 3
+
+    var label: String {
+        switch self {
+        case .workers: return "Worker requests"
+        case .sites: return "Site requests"
+        case .d1Reads: return "D1 rows read"
+        case .worstQuota: return "Highest quota used"
+        }
+    }
+}
+
+enum Prefs {
+    private static let d = UserDefaults.standard
+
+    static var accountID: String {
+        get { d.string(forKey: "accountID") ?? "" }
+        set { d.set(newValue, forKey: "accountID") }
+    }
+
+    static var authMode: AuthMode {
+        get { AuthMode(rawValue: d.integer(forKey: "authMode")) ?? .apiToken }
+        set { d.set(newValue.rawValue, forKey: "authMode") }
+    }
+
+    static var displayMode: DisplayMode {
+        get { DisplayMode(rawValue: d.integer(forKey: "displayMode")) ?? .workers }
+        set { d.set(newValue.rawValue, forKey: "displayMode") }
+    }
+
+    static var refreshSeconds: Int {
+        get {
+            let v = d.integer(forKey: "refreshSeconds")
+            return v > 0 ? v : 300
+        }
+        set { d.set(newValue, forKey: "refreshSeconds") }
+    }
+
+    /// Values below are the Cloudflare Free plan daily allowances this app reports against.
+    /// Edit them in Settings → Limits if a plan changes.
+    static var workerLimit: Double { limit("limit.workers", 100_000) }
+    static var d1ReadLimit: Double { limit("limit.d1Reads", 5_000_000) }
+    static var d1WriteLimit: Double { limit("limit.d1Writes", 100_000) }
+    static var aiNeuronLimit: Double { limit("limit.aiNeurons", 10_000) }
+
+    private static func limit(_ key: String, _ fallback: Double) -> Double {
+        let v = d.double(forKey: key)
+        return v > 0 ? v : fallback
+    }
+}
+
+/// Minimal Keychain wrapper. The app owns the items, so reads never prompt.
+enum Keychain {
+    private static let service = "com.bce.cloudflare-menubar"
+
+    static func set(_ value: String, for account: String) {
+        let base: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+        ]
+        SecItemDelete(base as CFDictionary)
+        guard !value.isEmpty else { return }
+        var attrs = base
+        attrs[kSecValueData as String] = Data(value.utf8)
+        attrs[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+        SecItemAdd(attrs as CFDictionary, nil)
+    }
+
+    static func get(_ account: String) -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+        ]
+        var out: CFTypeRef?
+        guard SecItemCopyMatching(query as CFDictionary, &out) == errSecSuccess,
+              let data = out as? Data
+        else { return nil }
+        let value = String(decoding: data, as: UTF8.self)
+        return value.isEmpty ? nil : value
+    }
+
+    static func has(_ account: String) -> Bool { get(account) != nil }
+
+    static func delete(_ account: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+        ]
+        SecItemDelete(query as CFDictionary)
+    }
+}
+
+struct Credentials {
+    var accountID: String
+    var authMode: AuthMode
+    var secret: String
+    var email: String
+
+    var isComplete: Bool {
+        if accountID.isEmpty || secret.isEmpty { return false }
+        return authMode == .apiToken || !email.isEmpty
+    }
+
+    /// Credentials from env vars win, which makes `--probe` and development easy.
+    /// Otherwise the Keychain + UserDefaults pair is used.
+    static func load() -> Credentials? {
+        let env = ProcessInfo.processInfo.environment
+        let account = env["CF_MENUBAR_ACCOUNT"] ?? Prefs.accountID
+        guard !account.isEmpty else { return nil }
+
+        if let token = env["CF_MENUBAR_TOKEN"], !token.isEmpty {
+            return Credentials(accountID: account, authMode: .apiToken, secret: token, email: "")
+        }
+        if let key = env["CF_MENUBAR_KEY"], !key.isEmpty {
+            let email = env["CF_MENUBAR_EMAIL"] ?? Keychain.get("email") ?? ""
+            return Credentials(accountID: account, authMode: .globalKey, secret: key, email: email)
+        }
+
+        let mode = Prefs.authMode
+        guard let secret = Keychain.get("secret") else { return nil }
+        let email = Keychain.get("email") ?? ""
+        let creds = Credentials(accountID: account, authMode: mode, secret: secret, email: email)
+        return creds.isComplete ? creds : nil
+    }
+
+    static func store(accountID: String, authMode: AuthMode, secret: String?, email: String) {
+        Prefs.accountID = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
+        Prefs.authMode = authMode
+        if let secret, !secret.isEmpty { Keychain.set(secret, for: "secret") }
+        Keychain.set(email.trimmingCharacters(in: .whitespacesAndNewlines), for: "email")
+    }
+}
