@@ -4,7 +4,6 @@ import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
-import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
 import { translate } from "./i18n";
 import { BLOG_POSTS, journalKind, type BlogPost, type JournalKind } from "./blogData";
@@ -17,23 +16,6 @@ const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 
 const KINDS: ("All" | JournalKind)[] = ["All", "News", "Insight"];
-
-function Check() {
-  return (
-    <svg
-      viewBox="0 0 10 10"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.9"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      className="size-2.5"
-    >
-      <path d="M1.7 5.2 4 7.5 8.4 2.7" />
-    </svg>
-  );
-}
 
 function Meta({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
@@ -85,6 +67,28 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
   );
 }
 
+function ShareIcon({ network }: { network: "linkedin" | "facebook" | "telegram" }) {
+  if (network === "linkedin") {
+    return (
+      <svg viewBox="0 0 24 24" className="size-3.5" fill="currentColor" aria-hidden>
+        <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm6.5 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 5.9V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.2 1.5-2.2 3V21h-4V9z" />
+      </svg>
+    );
+  }
+  if (network === "facebook") {
+    return (
+      <svg viewBox="0 0 24 24" className="size-3.5" fill="currentColor" aria-hidden>
+        <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.2c0-.9.3-1.5 1.6-1.5H16.4V5.1c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4V11H7.5v3H10v7h3.5z" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" className="size-3.5" fill="currentColor" aria-hidden>
+      <path d="M21.9 4.3 18.7 20c-.2 1.1-.9 1.4-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.2-8.3c.4-.4-.1-.6-.6-.2L6.2 13.9l-4.8-1.5c-1-.3-1-1 .2-1.5L20.4 2.8c.9-.3 1.7.2 1.5 1.5z" />
+    </svg>
+  );
+}
+
 export default function BlogPage() {
   usePageSetup("Blog & Engineering Insights | BCE., Ltd.");
 
@@ -127,14 +131,6 @@ export default function BlogPage() {
     toTop();
   };
 
-  const handleBackToList = () => {
-    setSelectedSlug(null);
-    const url = new URL(window.location.href);
-    url.searchParams.delete("post");
-    window.history.pushState(null, "", url.toString());
-    toTop();
-  };
-
   // Filter posts
   const filteredPosts = useMemo(() => {
     return BLOG_POSTS.filter((p) => kindFilter === "All" || journalKind(p) === kindFilter);
@@ -150,6 +146,29 @@ export default function BlogPage() {
     return BLOG_POSTS.filter((p) => p.slug !== currentPost.slug).slice(0, 3);
   }, [currentPost]);
 
+  const currentIndex = currentPost ? BLOG_POSTS.findIndex((p) => p.slug === currentPost.slug) : 0;
+  const prevPost = BLOG_POSTS[(currentIndex - 1 + BLOG_POSTS.length) % BLOG_POSTS.length];
+  const nextPost = BLOG_POSTS[(currentIndex + 1) % BLOG_POSTS.length];
+
+  const shareHref = typeof window !== "undefined" ? window.location.href : "";
+  const shareLinks = [
+    {
+      key: "linkedin" as const,
+      label: "LinkedIn",
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareHref)}`,
+    },
+    {
+      key: "facebook" as const,
+      label: "Facebook",
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareHref)}`,
+    },
+    {
+      key: "telegram" as const,
+      label: "Telegram",
+      href: `https://t.me/share/url?url=${encodeURIComponent(shareHref)}&text=${encodeURIComponent(currentPost?.title ?? "")}`,
+    },
+  ];
+
   const clearFilters = () => {
     setKindFilter("All");
   };
@@ -161,54 +180,52 @@ export default function BlogPage() {
       <main className="min-h-screen bg-white">
         {currentPost ? (
           /* =========================================================================
-              VIEW A: SINGLE JOURNAL STORY
+              VIEW A: SINGLE JOURNAL STORY (after olympic.no/journal/<story>)
              ========================================================================= */
-          <article className="w-full px-5 pb-24 pt-32 sm:px-6 md:px-8 md:pt-44 xl:px-10">
-            <div className="mx-auto w-full max-w-[1680px]">
-              <button
-                type="button"
-                onClick={handleBackToList}
-                className="group inline-flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.1em] text-[#191C1F]/50 transition-colors hover:text-[#191C1F] hover:opacity-100 md:text-[11px]"
-              >
-                <span className="transition-transform duration-300 group-hover:-translate-x-1" aria-hidden>
-                  ←
-                </span>
-                Back to journal
-              </button>
+          <article className="w-full">
+            <section className="px-5 pb-0 pt-32 sm:px-6 md:px-5 md:pt-56 lg:pt-[340px]">
+              <div className="mx-auto flex w-full max-w-[1360px] flex-col items-center px-0 md:px-5">
+                <Meta className="text-[#FF3C1E]">News &amp; insight</Meta>
+                <h1
+                  data-split
+                  data-split-type="words"
+                  className="mt-6 max-w-[670px] text-center text-[clamp(26px,2.31vw,44px)] font-medium uppercase leading-[1.1] tracking-[-0.01em] text-[#1E2226]"
+                >
+                  {currentPost.title}
+                </h1>
 
-              <div className="mt-10 grid grid-cols-1 gap-8 md:mt-14 md:grid-cols-12 md:gap-6">
-                <div className="md:col-span-8">
-                  <Meta className="text-[#191C1F]/50">
-                    {journalKind(currentPost)} <span aria-hidden>•</span> {currentPost.category}
-                  </Meta>
-                  <h1
-                    data-split
-                    data-split-type="words"
-                    className="mt-6 max-w-[19ch] text-[clamp(34px,4.6vw,78px)] font-medium leading-[1.04] tracking-[-0.035em] text-[#191C1F]"
-                  >
-                    {currentPost.title}
-                  </h1>
+                <div className="mt-8 flex w-full items-center justify-between gap-4 font-mono text-[10px] uppercase leading-[1.6] tracking-[0.02em] text-[#A5A7A8]">
+                  <span>{currentPost.category}</span>
+                  <span className="text-right">
+                    Scroll to read <span aria-hidden>•</span> {currentPost.readTime}
+                  </span>
                 </div>
 
-                <div className="flex flex-col justify-end gap-5 border-t border-black/[0.08] pt-5 md:col-span-4 md:border-t-0 md:pt-0">
-                  <Meta className="text-[#191C1F]/50">
-                    {currentPost.date} <span aria-hidden>•</span> {currentPost.readTime}
-                  </Meta>
-                  <div className="flex items-center gap-3">
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#191C1F] text-[13px] font-medium text-white">
-                      {currentPost.author.name.charAt(0)}
-                    </span>
-                    <div>
-                      <div className="text-[14px] font-medium leading-tight text-[#191C1F]">
-                        {currentPost.author.name}
-                      </div>
-                      <div className="mt-0.5 text-[12px] leading-snug text-[#191C1F]/50">{currentPost.author.role}</div>
-                    </div>
-                  </div>
+                <div className="mt-8 flex w-full items-center justify-between md:mt-10">
+                  <a
+                    href={`/?blog&post=${prevPost.slug}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleSelectPost(prevPost.slug);
+                    }}
+                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[10px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
+                  >
+                    <span aria-hidden>←</span> Prev
+                  </a>
+                  <a
+                    href={`/?blog&post=${nextPost.slug}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleSelectPost(nextPost.slug);
+                    }}
+                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[10px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
+                  >
+                    Next <span aria-hidden>→</span>
+                  </a>
                 </div>
               </div>
 
-              <figure className="relative mt-10 aspect-[4/3] overflow-hidden rounded-[6px] bg-[#F0F1F3] md:mt-14 md:aspect-[16/9]">
+              <figure className="mx-auto mt-14 aspect-[4/3] w-full max-w-[1400px] overflow-hidden bg-[#F0F1F3] md:mt-16 md:aspect-[1400/1013]">
                 <img
                   src={currentPost.image}
                   alt={currentPost.alt}
@@ -220,94 +237,100 @@ export default function BlogPage() {
                     } as CSSProperties
                   }
                 />
-                <span className="absolute left-4 top-4 rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[10px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px] md:left-5 md:top-5">
-                  {journalKind(currentPost)}
-                </span>
-                <span className="absolute right-4 top-4 rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[10px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px] md:right-5 md:top-5">
-                  {currentPost.year}
-                </span>
               </figure>
+            </section>
 
-              <div className="mx-auto mt-12 w-full max-w-[700px] md:mt-16">
-                <p className="text-[19px] leading-[1.55] tracking-[-0.01em] text-[#191C1F] md:text-[23px]">
-                  {currentPost.content.intro}
-                </p>
+            <section className="mt-20 px-5 sm:px-6 md:mt-[140px] md:px-10">
+              <div className="mx-auto grid w-full max-w-[1360px] grid-cols-1 gap-10 md:grid-cols-12 md:gap-5">
+                <aside className="order-2 md:order-1 md:col-span-4">
+                  <Meta className="text-[#1E2226]">Share</Meta>
+                  <ul className="mt-4 flex items-center gap-2">
+                    {shareLinks.map(({ key, label, href }) => (
+                      <li key={key}>
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Share on ${label}`}
+                          className="flex size-[31px] items-center justify-center rounded-[8px] border border-[#1E2226]/15 text-[#1E2226]/65 transition-colors hover:border-[#1E2226] hover:text-[#1E2226] hover:opacity-100"
+                        >
+                          <ShareIcon network={key} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
 
-                <div className="mt-12 space-y-12 text-[15.5px] leading-[1.78] text-[#3A3D42] md:mt-16 md:text-[17px]">
-                  {currentPost.content.sections?.map((sec, idx) => (
-                    <section key={idx} className="space-y-5">
-                      <h2 className="text-[24px] font-medium leading-[1.15] tracking-[-0.02em] text-[#191C1F] md:text-[31px]">
-                        {sec.heading}
-                      </h2>
-                      {sec.body.map((p, pIdx) => (
-                        <p key={pIdx}>{p}</p>
-                      ))}
-                      {sec.callout && (
-                        <blockquote className="my-10 border-l border-[#191C1F]/20 pl-6 text-[20px] leading-[1.45] tracking-[-0.015em] text-[#5A5D66] md:text-[26px] md:leading-[1.4]">
-                          {sec.callout}
-                        </blockquote>
-                      )}
-                    </section>
-                  ))}
-
-                  {currentPost.content.takeaways && (
-                    <div className="rounded-[8px] bg-[#F8F8F9] p-7 md:p-9">
-                      <Meta className="text-[#191C1F]/45">Key takeaways</Meta>
-                      <h3 className="mt-3 text-[19px] font-medium leading-snug tracking-[-0.01em] text-[#191C1F] md:text-[21px]">
-                        Key Takeaways for Site Contractors &amp; Developers
-                      </h3>
-                      <ul className="mt-5 space-y-3.5">
-                        {currentPost.content.takeaways.map((item, tIdx) => (
-                          <li
-                            key={tIdx}
-                            className="flex items-start gap-3 text-[14.5px] leading-relaxed text-[#3A3D42] md:text-[15.5px]"
-                          >
-                            <span className="mt-[3px] shrink-0 text-[#191C1F]/70">
-                              <Check />
-                            </span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Dispatch call to action */}
-              <div className="mx-auto mt-16 flex w-full max-w-[1180px] flex-col gap-8 rounded-[8px] bg-[#191C1F] p-8 text-white md:mt-24 md:flex-row md:items-center md:justify-between md:p-14">
-                <div className="max-w-[520px]">
-                  <h3 className="text-[24px] font-medium leading-[1.15] tracking-[-0.02em] md:text-[30px]">
-                    Have a technical concrete inquiry?
-                  </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-white/60 md:text-[15px]">
-                    Connect directly with BCE’s batching dispatch engineers to schedule test cylinders, mix design
-                    approvals, or provincial delivery.
+                <div className="order-1 md:order-2 md:col-span-5 md:col-start-7">
+                  <p className="text-[17.5px] leading-[1.5] tracking-[-0.01em] text-[#1E2226]">
+                    {currentPost.content.intro}
                   </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <ArrowButton href="/?quote" label="Request a concrete quote" theme="white" />
-                  <a
-                    href="tel:012932700"
-                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[13px] font-medium text-white transition-colors hover:bg-white/10 hover:opacity-100"
-                  >
-                    Call Dispatch Hotline
-                  </a>
+
+                  <div className="mt-11 space-y-[50px]">
+                    {currentPost.content.sections?.map((sec, idx) => (
+                      <section key={idx}>
+                        <h2 className="text-[21px] font-medium leading-[1.35] tracking-[-0.01em] text-[#1E2226]">
+                          {sec.heading}
+                        </h2>
+                        <div className="mt-6 space-y-[27px] text-[15.5px] leading-[1.7] text-[#787A7D]">
+                          {sec.body.map((paragraph, pIdx) => (
+                            <p key={pIdx}>{paragraph}</p>
+                          ))}
+                        </div>
+                        {sec.callout && (
+                          <blockquote className="relative mt-[50px] border-l border-[#1E2226]/20 pl-6 text-[clamp(20px,1.74vw,25px)] leading-[1.25] tracking-[-0.01em] text-[#1E2226]">
+                            <span
+                              aria-hidden
+                              className="absolute left-5 -top-4 font-serif text-[44px] leading-none text-[#1E2226]/25"
+                            >
+                              &ldquo;
+                            </span>
+                            {sec.callout}
+                          </blockquote>
+                        )}
+                      </section>
+                    ))}
+
+                    {currentPost.content.takeaways && (
+                      <section className="border-t border-[#1E2226]/10 pt-8">
+                        <h2 className="text-[21px] font-medium leading-[1.35] tracking-[-0.01em] text-[#1E2226]">
+                          Key takeaways
+                        </h2>
+                        <ul className="mt-5 space-y-3 text-[15px] leading-[1.65] text-[#787A7D]">
+                          {currentPost.content.takeaways.map((item, tIdx) => (
+                            <li key={tIdx} className="flex gap-3">
+                              <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#1E2226]/50" aria-hidden />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    )}
+                  </div>
                 </div>
               </div>
+            </section>
 
-              {/* Related stories */}
-              {relatedPosts.length > 0 && (
-                <div className="mt-20 border-t border-black/[0.08] pt-12 md:mt-28">
-                  <Meta className="text-[#191C1F]/45">Related articles</Meta>
-                  <div className="mt-8 grid grid-cols-1 gap-x-5 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
+            {/* Explore more */}
+            {relatedPosts.length > 0 && (
+              <section className="mt-20 bg-[#F8F8F9] px-5 py-16 sm:px-6 md:mt-[140px] md:px-10 md:py-20">
+                <div className="mx-auto w-full max-w-[1360px]">
+                  <Meta className="text-[#FF3C1E]">News &amp; insight</Meta>
+                  <h2
+                    data-split
+                    data-split-type="words"
+                    className="mt-5 max-w-[670px] text-[clamp(26px,2.31vw,44px)] font-medium uppercase leading-[1.1] tracking-[-0.01em] text-[#1E2226]"
+                  >
+                    {translate("Explore more of latest news & insights")}
+                  </h2>
+                  <div className="mt-12 grid grid-cols-1 gap-x-5 gap-y-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
                     {relatedPosts.map((post) => (
                       <PostTile key={post.slug} post={post} onSelect={handleSelectPost} />
                     ))}
                   </div>
                 </div>
-              )}
-            </div>
+              </section>
+            )}
           </article>
         ) : (
           /* =========================================================================
@@ -386,7 +409,7 @@ export default function BlogPage() {
           </section>
         )}
 
-        <QuoteCta href="/?quote" />
+        {currentPost ? null : <QuoteCta href="/?quote" />}
         <Footer phones={phones} tel={tel} base="/" />
         <FluidCursor />
       </main>

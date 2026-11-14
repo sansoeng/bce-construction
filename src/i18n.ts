@@ -194,6 +194,8 @@ const KM: Record<string, string> = {
   "Key takeaways": "ចំណុចសំខាន់ៗ",
   "Back to journal": "ត្រឡប់ទៅបញ្ជីអត្ថបទ",
   "Related articles": "អត្ថបទពាក់ព័ន្ធ",
+  "Scroll to read": "រំកិលដើម្បីអាន",
+  "Explore more of latest news & insights": "ស្វែងយល់បន្ថែមពីព័ត៌មាន & ការយល់ដឹងថ្មីៗ",
   "Back to Blog": "ត្រឡប់ទៅទំព័រប្លុក",
   "Read article": "អានអត្ថបទ",
   "Related Articles": "អត្ថបទពាក់ព័ន្ធ",
