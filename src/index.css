@@ -4728,3 +4728,145 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
 .career-row:focus-within .career-row-wipe {
   clip-path: inset(0);
 }
+
+/* Primary button, after olympic.no: sage fill, TT Commons Pro Mono caps, and the two-layer sweep hover
+   (the current fill contracts while the hover fill rises from the bottom, then the label flips colour).
+   Secondary treatments — raw, glass and outline — keep their own behaviour. */
+.fg-btn.is-black,
+.fg-btn.is-white {
+  --btn-bg: #caccc4;
+  --btn-bg-hover: #1e2226;
+  --btn-fg: #1e2226;
+  --btn-fg-hover: #caccc4;
+  height: 30px !important;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius) !important;
+  background: transparent !important;
+  color: var(--btn-fg) !important;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: color 0.4s ease 0.2s;
+}
+
+.fg-btn.is-black::before,
+.fg-btn.is-white::before,
+.fg-btn.is-black::after,
+.fg-btn.is-white::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.fg-btn.is-white {
+  --btn-bg-hover: #ff3c1e;
+  --btn-fg-hover: #1e2226;
+}
+
+.fg-btn.is-black::before,
+.fg-btn.is-white::before {
+  background: var(--btn-bg);
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0, 0.25, 0, 1) calc(0.3s / 1.8);
+}
+
+.fg-btn.is-black::after,
+.fg-btn.is-white::after {
+  background: var(--btn-bg-hover);
+  transform: translateY(calc(100% + 1px));
+  transition: transform 0.3s cubic-bezier(0.9, 0, 1, 1);
+}
+
+.fg-btn.is-black > *,
+.fg-btn.is-white > * {
+  position: relative;
+  z-index: 1;
+}
+
+.fg-btn.is-black .fg-btn-label,
+.fg-btn.is-white .fg-btn-label,
+.fg-btn.is-black .fg-btn-line,
+.fg-btn.is-white .fg-btn-line {
+  height: 14px;
+  line-height: 14px;
+}
+
+.fg-btn.is-black .fg-btn-line,
+.fg-btn.is-white .fg-btn-line {
+  transition: none;
+}
+
+.fg-btn.is-black .fg-btn-arrow,
+.fg-btn.is-white .fg-btn-arrow {
+  order: 2;
+  width: 12px;
+  height: 10px;
+  margin-right: 0;
+  margin-left: 8px;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .fg-btn.is-black:hover,
+  .fg-btn.is-white:hover {
+    color: var(--btn-fg-hover) !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .fg-btn.is-black:hover::before,
+  .fg-btn.is-white:hover::before {
+    transform: scale(0.9);
+    transition-delay: 0s;
+    transition-timing-function: cubic-bezier(0.9, 0, 1, 1);
+  }
+
+  .fg-btn.is-black:hover::after,
+  .fg-btn.is-white:hover::after {
+    transform: translateY(0);
+    transition-delay: calc(0.3s / 1.8);
+    transition-timing-function: cubic-bezier(0, 0.25, 0, 1);
+  }
+
+  .fg-btn.is-black:hover .fg-btn-line,
+  .fg-btn.is-white:hover .fg-btn-line {
+    transform: none;
+  }
+
+  .fg-btn.is-black:hover .fg-btn-arrow,
+  .fg-btn.is-white:hover .fg-btn-arrow {
+    transform: translateX(2px);
+  }
+
+  .fg-btn.is-black:hover .fg-btn-arrow path,
+  .fg-btn.is-white:hover .fg-btn-arrow path {
+    stroke-dasharray: 18.5 0.1;
+  }
+
+  .fg-btn.is-black:hover .fg-btn-arrow rect,
+  .fg-btn.is-white:hover .fg-btn-arrow rect {
+    stroke-dasharray: 11.1213 11.2213;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Khmer button labels need a little more size than the 10px Latin mono caps. */
+html[lang="km"] .fg-btn.is-black,
+html[lang="km"] .fg-btn.is-white {
+  font-size: 13px;
+}
