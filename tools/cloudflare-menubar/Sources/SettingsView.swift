@@ -239,7 +239,7 @@ struct SettingsView: View {
         Form {
             Section("Menu bar") {
                 Picker("Show", selection: $model.displayMode) {
-                    ForEach(DisplayMode.allCases, id: \.rawValue) { mode in
+                    ForEach(DisplayMode.displayOrder, id: \.rawValue) { mode in
                         Text(mode.label).tag(mode.rawValue)
                     }
                 }
@@ -303,6 +303,11 @@ struct SettingsView: View {
                     .lineLimit(2)
 
                 Text("Runs `opencode stats --json` on this Mac; nothing is sent anywhere. Usage resets at local midnight and has no quota.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Text("Percentages come from your OpenCode Go account: 5-hour (20% of the monthly allowance), weekly (50%) and monthly (100%), with the reset time shown in the menu.")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

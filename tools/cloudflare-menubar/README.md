@@ -1,16 +1,16 @@
-# Cloudflare Usage (macOS menu bar)
+# Cloudflare & OpenCode Usage (macOS menu bar)
 
-A tiny native menu bar app that shows today's Cloudflare usage right next to the
-Wi‑Fi and battery icons:
+A tiny native menu bar app that puts Cloudflare and OpenCode usage right next to
+the Wi‑Fi and battery icons:
 
 ```
-☁ 184
+☁ CF 0.2% · OC 5%
 ```
 
-Clicking it opens a breakdown of the free-plan allowances that actually matter
-for this project, each tagged with its cadence, plus local OpenCode usage:
+Cloudflare percentage first, OpenCode monthly percentage second. Clicking it
+opens the full breakdown, each row tagged with its cadence:
 
-| Row | Free-plan allowance | Cadence |
+| Row | Allowance | Cadence |
 | --- | --- | --- |
 | Workers requests | 100,000 | **daily** (00:00 UTC) |
 | D1 rows read | 5,000,000 | **daily** |
@@ -20,10 +20,14 @@ for this project, each tagged with its cadence, plus local OpenCode usage:
 | R2 Class A operations | 1,000,000 | **monthly** |
 | R2 Class B operations | 10,000,000 | **monthly** |
 | Site requests / bandwidth / threats | informational | today |
-| OpenCode tokens | no quota | today (local midnight) |
+| OpenCode Go monthly | 100% of the model allowance | **monthly** |
+| OpenCode Go weekly | 50% of the monthly allowance | **weekly** |
+| OpenCode Go 5-hour | 20% of the monthly allowance | **rolling 5 hours** |
+| OpenCode tokens | usage only, no allowance | today (local midnight) |
 
-There are **no weekly allowances** in this stack — only daily (Workers, D1,
-Workers AI) and monthly (R2). Pages builds (500/month) are not tracked; site
+Cloudflare has **no weekly allowances** — only daily and monthly. OpenCode Go
+sits on top of that with a rolling 5-hour window and a weekly window carved out
+of its monthly allowance. Pages builds (500/month) are not tracked; site
 requests and bandwidth are unlimited on the Free plan and shown for context.
 
 Numbers turn orange at 75% and red at 90% of an allowance. Cloudflare analytics
@@ -84,12 +88,15 @@ drag the cloud icon to move it exactly where you want it.
   until it is, the rows show zero.
 - **Site requests** — today's requests, bandwidth, threats and cached hits per
   zone, tagged `today`.
+- **OpenCode Go** — the monthly percentage first (the top-level allowance),
+  then weekly (50% of it) and 5-hour (20% of it), each with its reset time.
 - **OpenCode** — today's local token usage (input, output, reasoning, cache
-  reads), steps, sessions and cost, plus a 30-day total. Tagged `today`.
-- **Resets** — shows the next daily and monthly rollover in local time.
-- **Menu bar shows** — pick which number appears next to the cloud:
-  Worker requests (default), site requests, D1 rows read, the highest daily
-  quota percentage, or OpenCode tokens.
+  reads), steps, sessions and cost, plus a 30-day total, in a submenu.
+- **Resets** — shows the next daily and monthly Cloudflare rollover in local time.
+- **Menu bar shows** — the default is **Cloudflare + OpenCode**
+  (`CF 0.2% · OC 5%`), where OC is the monthly window. Also available:
+  Cloudflare daily %, OpenCode monthly/weekly/5-hour %, worker requests, site
+  requests, D1 rows read, and OpenCode tokens.
 - **Refresh every** — 1, 5 (default), 15 or 60 minutes. The menu also refreshes
   on open, when the Mac wakes, and whenever you click **Refresh now** (⌘R).
 - **Open Cloudflare dashboard** (⌘D), **Settings…** (⌘,), **Launch at login**,
@@ -101,12 +108,20 @@ token cannot read zone analytics.
 
 ### OpenCode
 
-OpenCode usage is read locally by running `opencode stats --json --cost --days 1`
-(plus a `--days 30` call for the 30-day total). Nothing is uploaded and no
-OpenCode credentials are needed. Because the current provider
-(`opencode-go`) is flat-rate, cost shows as “no extra charge”; on a metered
-provider the actual cost appears instead. If the CLI cannot be found, the row
-says so and Settings has a path override.
+Two local sources feed the OpenCode section:
+
+- **Percentages** come from OpenCode Go's own usage endpoint,
+  `GET https://opencode.ai/zen/go/v1/usage`, authenticated with the key OpenCode
+  already has (`opencode auth export`). It returns the share used and the reset
+  time for the 5-hour, weekly and monthly windows. The key is used only for that
+  request — it is never displayed, logged or stored by this app.
+- **Tokens and cost** come from `opencode stats --json --cost --days 1` (plus a
+  `--days 30` call for the 30-day total). On the flat-rate `opencode-go` plan the
+  cost shows as “no extra charge”; on a metered provider the actual cost appears.
+
+If the CLI cannot be found, the row says so and Settings has a path override. If
+OpenCode Go is not connected, percentages show as unavailable while tokens keep
+working.
 
 ## Configuration
 
@@ -149,7 +164,7 @@ tools/cloudflare-menubar/
 │   ├── UsageStore.swift       # fetch orchestration, last-good snapshot, error state
 │   ├── CloudflareAPI.swift    # REST zone list + GraphQL analytics query
 │   ├── Prefs.swift            # UserDefaults, Keychain, credentials
-│   ├── OpenCodeUsage.swift    # `opencode stats --json` probe + parsing
+│   ├── OpenCodeUsage.swift    # `opencode stats` + Go usage endpoint
 │   ├── SettingsView.swift     # SwiftUI settings form + validation
 │   ├── Format.swift           # compact numbers, bytes, percentages
 │   └── Probe.swift            # headless output
@@ -182,6 +197,11 @@ R2 analytics is queried month-to-date (the API rejects R2 ranges wider than
 4 weeks); storage uses the latest reported day, while Class A/B operations are
 summed. Class A is writes and listings, Class B is reads, and deletes/aborts are
 free operations and excluded.
+
+OpenCode Go percentages come from `https://opencode.ai/zen/go/v1/usage` with the
+key from `opencode auth export`; that endpoint reports the used share (0–100)
+and reset time for the 5-hour, weekly and monthly windows. The monthly window is
+the headline because weekly and 5-hour are shares of it.
 
 Cloudflare's analytics pipeline can lag a few minutes behind live traffic, so
 the menu bar is a guide, not a billing meter. For exact enforcement, check the

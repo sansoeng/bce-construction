@@ -37,7 +37,9 @@ struct UsageSnapshot {
     var r2ClassA: Double = 0
     var r2ClassB: Double = 0
     var openCode: OpenCodeUsage?
+    var openCodeLimits: OpenCodeLimits?
     var openCodeError: String?
+    var openCodeLimitsError: String?
     var zones: [ZoneUsage] = []
     var warnings: [String] = []
 

@@ -45,7 +45,17 @@ enum Fmt {
     static func percent(_ fraction: Double) -> String {
         let p = max(0, fraction) * 100
         if p == 0 { return "0%" }
+        if p.rounded() == p { return String(format: "%.0f%%", p) }
         if p < 1 { return String(format: "%.2f%%", p) }
+        if p < 10 { return String(format: "%.1f%%", p) }
+        return String(format: "%.0f%%", p)
+    }
+
+    /// 0.007 → "0.7%", 0.42 → "42%" — but rounded for the menu bar title.
+    static func shortPercent(_ fraction: Double) -> String {
+        let p = max(0, fraction) * 100
+        if p == 0 { return "0%" }
+        if p.rounded() == p { return String(format: "%.0f%%", p) }
         if p < 10 { return String(format: "%.1f%%", p) }
         return String(format: "%.0f%%", p)
     }

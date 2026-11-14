@@ -18,16 +18,30 @@ enum DisplayMode: Int, CaseIterable {
     case d1Reads = 2
     case worstQuota = 3
     case openCode = 4
+    case combined = 5
+    case openCodeRolling = 6
+    case openCodeWeekly = 7
+    case openCodeMonthly = 8
 
     var label: String {
         switch self {
         case .workers: return "Worker requests"
         case .sites: return "Site requests"
         case .d1Reads: return "D1 rows read"
-        case .worstQuota: return "Highest daily quota"
+        case .worstQuota: return "Cloudflare daily %"
         case .openCode: return "OpenCode tokens"
+        case .combined: return "Cloudflare + OpenCode"
+        case .openCodeRolling: return "OpenCode 5-hour %"
+        case .openCodeWeekly: return "OpenCode weekly %"
+        case .openCodeMonthly: return "OpenCode monthly %"
         }
     }
+
+    /// Picker/title order: the at-a-glance options first.
+    static let displayOrder: [DisplayMode] = [
+        .combined, .worstQuota, .openCodeMonthly, .openCodeWeekly, .openCodeRolling,
+        .workers, .sites, .d1Reads, .openCode,
+    ]
 }
 
 enum Prefs {
@@ -44,7 +58,10 @@ enum Prefs {
     }
 
     static var displayMode: DisplayMode {
-        get { DisplayMode(rawValue: d.integer(forKey: "displayMode")) ?? .workers }
+        get {
+            guard d.object(forKey: "displayMode") != nil else { return .combined }
+            return DisplayMode(rawValue: d.integer(forKey: "displayMode")) ?? .combined
+        }
         set { d.set(newValue.rawValue, forKey: "displayMode") }
     }
 

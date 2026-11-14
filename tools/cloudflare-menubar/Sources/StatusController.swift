@@ -62,16 +62,34 @@ final class StatusController: NSObject, NSMenuDelegate {
         var color: NSColor?
 
         if let snapshot = store.snapshot {
-            switch Prefs.displayMode {
+            let mode = Prefs.displayMode
+            var pressure = snapshot.worstFraction
+            switch mode {
             case .workers: title = Fmt.compact(snapshot.workerRequests)
             case .sites: title = Fmt.compact(snapshot.zoneRequests)
             case .d1Reads: title = Fmt.compact(snapshot.d1RowsRead)
-            case .worstQuota: title = Fmt.percent(snapshot.worstFraction)
+            case .worstQuota: title = Fmt.shortPercent(snapshot.worstFraction)
             case .openCode: title = snapshot.openCode.map { Fmt.compact($0.totalTokens) } ?? "—"
+            case .combined:
+                let openCode = snapshot.openCodeLimits?.headlineFraction
+                title = "CF \(Fmt.shortPercent(snapshot.worstFraction)) · OC \(openCode.map { Fmt.shortPercent($0) } ?? "—")"
+                pressure = max(pressure, openCode ?? 0)
+            case .openCodeRolling:
+                let fraction = snapshot.openCodeLimits?.rolling.fraction
+                title = fraction.map { Fmt.shortPercent($0) } ?? "—"
+                pressure = fraction ?? 0
+            case .openCodeWeekly:
+                let fraction = snapshot.openCodeLimits?.weekly.fraction
+                title = fraction.map { Fmt.shortPercent($0) } ?? "—"
+                pressure = fraction ?? 0
+            case .openCodeMonthly:
+                let fraction = snapshot.openCodeLimits?.monthly.fraction
+                title = fraction.map { Fmt.shortPercent($0) } ?? "—"
+                pressure = fraction ?? 0
             }
-            if snapshot.worstFraction >= 0.9 {
+            if pressure >= 0.9 {
                 color = .systemRed
-            } else if snapshot.worstFraction >= 0.75 {
+            } else if pressure >= 0.75 {
                 color = .systemOrange
             }
             button.toolTip = tooltip(for: snapshot)
@@ -104,6 +122,11 @@ final class StatusController: NSObject, NSMenuDelegate {
             lines.append("OpenCode: \(Fmt.grouped(usage.totalTokens)) tokens today · \(Fmt.grouped(usage.steps)) steps")
         } else if let error = snapshot.openCodeError {
             lines.append("OpenCode: \(error)")
+        }
+        if let limits = snapshot.openCodeLimits {
+            lines.append("OpenCode Go: month \(Fmt.percent(limits.monthly.fraction)) · week \(Fmt.percent(limits.weekly.fraction)) · 5h \(Fmt.percent(limits.rolling.fraction))")
+        } else if let error = snapshot.openCodeLimitsError {
+            lines.append("OpenCode Go limits: \(error)")
         }
         lines.append("Updated \(clock.string(from: snapshot.fetchedAt))")
         return lines.joined(separator: "\n")
@@ -294,6 +317,31 @@ final class StatusController: NSObject, NSMenuDelegate {
     }
 
     private func addOpenCodeRows(_ snapshot: UsageSnapshot) {
+        if let limits = snapshot.openCodeLimits {
+            menu.addItem(row(
+                label: "OpenCode monthly",
+                value: Fmt.percent(limits.monthly.fraction),
+                period: "resets \(Self.resetDateTime(limits.monthly.resetsAt))",
+                fraction: limits.monthly.fraction
+            ))
+            menu.addItem(row(
+                label: "OpenCode weekly",
+                value: Fmt.percent(limits.weekly.fraction),
+                period: "resets \(Self.resetDayTime(limits.weekly.resetsAt))",
+                fraction: limits.weekly.fraction
+            ))
+            menu.addItem(row(
+                label: "OpenCode 5-hour",
+                value: Fmt.percent(limits.rolling.fraction),
+                period: "resets \(Self.resetClock(limits.rolling.resetsAt))",
+                fraction: limits.rolling.fraction
+            ))
+        } else if let error = snapshot.openCodeLimitsError {
+            let item = row(label: "OpenCode limits", value: "unavailable", period: "OpenCode Go", small: true)
+            item.toolTip = error
+            menu.addItem(item)
+        }
+
         if let usage = snapshot.openCode {
             let item = row(
                 label: "OpenCode",
@@ -375,7 +423,7 @@ final class StatusController: NSObject, NSMenuDelegate {
         menu.addItem(action("Refresh now", #selector(refreshNow), key: "r"))
 
         let displayMenu = NSMenu()
-        for mode in DisplayMode.allCases {
+        for mode in DisplayMode.displayOrder {
             let item = action(mode.label, #selector(setDisplayMode(_:)), key: "")
             item.tag = mode.rawValue
             item.state = Prefs.displayMode == mode ? .on : .off
@@ -526,6 +574,29 @@ final class StatusController: NSObject, NSMenuDelegate {
     private static func localDay(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMM"
+        return formatter.string(from: date)
+    }
+
+    // MARK: - OpenCode window resets
+
+    private static func resetClock(_ date: Date?) -> String {
+        guard let date else { return "—" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+    }
+
+    private static func resetDayTime(_ date: Date?) -> String {
+        guard let date else { return "—" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE HH:mm"
+        return formatter.string(from: date)
+    }
+
+    private static func resetDateTime(_ date: Date?) -> String {
+        guard let date else { return "—" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM HH:mm"
         return formatter.string(from: date)
     }
 }

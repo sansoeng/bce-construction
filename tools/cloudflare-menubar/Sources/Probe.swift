@@ -29,6 +29,8 @@ enum Probe {
                 let openCode = await OpenCodeProbe.load(enabled: true, customPath: Prefs.openCodePath)
                 snapshot.openCode = openCode.usage
                 snapshot.openCodeError = openCode.error
+                snapshot.openCodeLimits = openCode.limits
+                snapshot.openCodeLimitsError = openCode.limitsError
                 outcome = .success(snapshot)
             } catch {
                 outcome = .failure(error)
@@ -64,6 +66,13 @@ enum Probe {
             } else if let error = snapshot.openCodeError {
                 print("OpenCode     unavailable — \(error)")
             }
+            if let limits = snapshot.openCodeLimits {
+                print("  monthly \(Fmt.percent(limits.monthly.fraction))  resets \(Probe.dateTime(limits.monthly.resetsAt))")
+                print("  weekly  \(Fmt.percent(limits.weekly.fraction))  resets \(Probe.dayTime(limits.weekly.resetsAt))")
+                print("  5-hour  \(Fmt.percent(limits.rolling.fraction))  resets \(Probe.clock(limits.rolling.resetsAt))")
+            } else if let error = snapshot.openCodeLimitsError {
+                print("  limits  unavailable — \(error)")
+            }
             if !snapshot.warnings.isEmpty {
                 print(String(repeating: "─", count: 46))
                 for warning in snapshot.warnings { print("⚠︎  \(warning)") }
@@ -76,5 +85,26 @@ enum Probe {
             FileHandle.standardError.write(Data("Probe failed: no result.\n".utf8))
             exit(1)
         }
+    }
+
+    private static func clock(_ date: Date?) -> String {
+        guard let date else { return "—" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+    }
+
+    private static func dayTime(_ date: Date?) -> String {
+        guard let date else { return "—" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE HH:mm"
+        return formatter.string(from: date)
+    }
+
+    private static func dateTime(_ date: Date?) -> String {
+        guard let date else { return "—" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM HH:mm"
+        return formatter.string(from: date)
     }
 }

@@ -74,6 +74,8 @@ final class UsageStore {
                 if cloudflareSnapshot != nil, let warning { merged.warnings.insert(warning, at: 0) }
                 merged.openCode = self.snapshot?.openCode
                 merged.openCodeError = self.snapshot?.openCodeError
+                merged.openCodeLimits = self.snapshot?.openCodeLimits
+                merged.openCodeLimitsError = self.snapshot?.openCodeLimitsError
                 self.snapshot = merged
                 self.lastError = failure
                 self.notify()
@@ -85,6 +87,8 @@ final class UsageStore {
                 guard var merged = self.snapshot else { return }
                 merged.openCode = openCode.usage
                 merged.openCodeError = openCode.error
+                merged.openCodeLimits = openCode.limits
+                merged.openCodeLimitsError = openCode.limitsError
                 self.snapshot = merged
                 self.isLoading = false
                 self.inFlight = false
