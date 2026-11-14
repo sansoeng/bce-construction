@@ -114,11 +114,11 @@ says so and Settings has a path override.
   `com.bce.cloudflare-menubar`), never in a plain-text file.
 - Preferences (account ID, display mode, refresh interval, limits) live in
   `~/Library/Preferences/com.bce.cloudflare-menubar.plist`.
-- Daily allowances are editable in **Settings → Daily allowances** — raise them
+- Daily allowances are editable in **Settings → Allowances → Daily** — raise them
   if you move off the Free plan.
-- R2 allowances are editable in **Settings → Monthly allowances (R2)**.
+- R2 allowances live in **Settings → Allowances → Monthly (R2)**.
 - OpenCode tracking can be disabled, and its CLI path overridden, in
-  **Settings → OpenCode (local)**. The app auto-detects
+  **Settings → OpenCode**. The app auto-detects
   `~/.opencode/bin/opencode`, Homebrew paths and anything on `PATH`.
 - Headless setup: launching the app with `CF_MENUBAR_STORE_ENV=1` and
   `CF_MENUBAR_ACCOUNT` + `CF_MENUBAR_TOKEN` (or `CF_MENUBAR_KEY` +

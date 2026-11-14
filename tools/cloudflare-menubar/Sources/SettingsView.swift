@@ -74,6 +74,10 @@ final class SettingsModel: ObservableObject {
         return authMode == 0 ? "Paste API token" : "Paste global API key"
     }
 
+    var secretLabel: String {
+        authMode == 1 ? "Global API key" : "API token"
+    }
+
     /// Builds credentials from the form, falling back to the stored secret when the field is blank.
     func credentials() -> Credentials? {
         let account = accountID.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -164,111 +168,165 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Form {
-                Section("Cloudflare account") {
-                    TextField("Account ID", text: $model.accountID)
-                        .textFieldStyle(.roundedBorder)
-                    Text("Find it in the dashboard URL, or run `npx wrangler whoami`.")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-
-                    Picker("Authentication", selection: $model.authMode) {
-                        Text("API token").tag(0)
-                        Text("Global API key").tag(1)
-                    }
-                    .pickerStyle(.segmented)
-
-                    if model.authMode == 1 {
-                        TextField("Account email", text: $model.email)
-                            .textFieldStyle(.roundedBorder)
-                    }
-
-                    SecureField(model.secretPrompt, text: $model.secret)
-                        .textFieldStyle(.roundedBorder)
-                    Text("Required token permissions: Account → Account Analytics → Read, Zone → Analytics → Read, Zone → Zone → Read.")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Section("Menu bar") {
-                    Picker("Show", selection: $model.displayMode) {
-                        ForEach(DisplayMode.allCases, id: \.rawValue) { mode in
-                            Text(mode.label).tag(mode.rawValue)
-                        }
-                    }
-                    Picker("Refresh every", selection: $model.refreshSeconds) {
-                        Text("1 minute").tag(60)
-                        Text("5 minutes").tag(300)
-                        Text("15 minutes").tag(900)
-                        Text("1 hour").tag(3600)
-                    }
-                }
-
-                Section("Daily allowances (UTC day)") {
-                    limitRow("Worker requests", $model.workerLimit)
-                    limitRow("D1 rows read", $model.d1ReadLimit)
-                    limitRow("D1 rows written", $model.d1WriteLimit)
-                    limitRow("Workers AI neurons", $model.aiLimit)
-                }
-
-                Section("Monthly allowances (R2)") {
-                    limitRow("Storage (GB-month)", $model.r2StorageGB)
-                    limitRow("Class A operations", $model.r2ClassA)
-                    limitRow("Class B operations", $model.r2ClassB)
-                    Text("R2 is billed monthly: the free plan includes 10 GB-month, 1M Class A and 10M Class B operations. Egress is free.")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Section("OpenCode (local)") {
-                    Toggle("Show OpenCode usage", isOn: $model.openCodeEnabled)
-                    HStack {
-                        TextField("CLI path (auto-detected)", text: $model.openCodePath)
-                            .textFieldStyle(.roundedBorder)
-                        Button("Detect") { model.refreshOpenCodeDetection() }
-                    }
-                    Text(model.openCodeDetected)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(2)
-                    Text("Runs `opencode stats --json` on this Mac; nothing is sent anywhere. Usage resets at local midnight and has no quota.")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Section {
-                    HStack(spacing: 10) {
-                        Button("Test connection") { model.test() }
-                            .disabled(model.testState == .testing)
-                        testStatus
-                        Spacer()
-                    }
-                }
+            TabView {
+                accountTab
+                    .tabItem { Label("Cloudflare", systemImage: "cloud") }
+                menuBarTab
+                    .tabItem { Label("Menu bar", systemImage: "menubar.rectangle") }
+                limitsTab
+                    .tabItem { Label("Allowances", systemImage: "gauge") }
+                openCodeTab
+                    .tabItem { Label("OpenCode", systemImage: "terminal") }
             }
-            .formStyle(.grouped)
+            .padding(.horizontal, 8)
+            .padding(.top, 10)
+            .padding(.bottom, 4)
 
             Divider()
-
-            HStack {
-                if let error = model.saveError {
-                    Text(error)
-                        .font(.caption)
-                        .foregroundColor(.red)
-                        .lineLimit(2)
-                }
-                Spacer()
-                Button("Cancel") { NSApp.keyWindow?.close() }
-                    .keyboardShortcut(.cancelAction)
-                Button("Save") { model.save() }
-                    .keyboardShortcut(.defaultAction)
-                    .buttonStyle(.borderedProminent)
-            }
-            .padding(16)
+            footer
         }
-        .frame(width: 540, height: 780)
+        .frame(width: 560, height: 560)
+    }
+
+    private var accountTab: some View {
+        Form {
+            Section("Cloudflare account") {
+                TextField("Account ID", text: $model.accountID)
+                    .textFieldStyle(.roundedBorder)
+                Text("Find it in the dashboard URL, or run `npx wrangler whoami`.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Picker("Authentication", selection: $model.authMode) {
+                    Text("API token").tag(0)
+                    Text("Global API key").tag(1)
+                }
+                .pickerStyle(.segmented)
+
+                if model.authMode == 1 {
+                    TextField("Account email", text: $model.email)
+                        .textFieldStyle(.roundedBorder)
+                }
+
+                SecureField(model.secretLabel, text: $model.secret)
+                    .textFieldStyle(.roundedBorder)
+
+                if model.hasStoredSecret {
+                    Text("A credential is stored in the Keychain — leave this blank to keep it.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+
+                Text("Required token permissions: Account → Account Analytics → Read, Zone → Analytics → Read, Zone → Zone → Read.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Section {
+                HStack(spacing: 10) {
+                    Button("Test connection") { model.test() }
+                        .disabled(model.testState == .testing)
+                    testStatus
+                    Spacer()
+                }
+            }
+        }
+        .formStyle(.grouped)
+    }
+
+    private var menuBarTab: some View {
+        Form {
+            Section("Menu bar") {
+                Picker("Show", selection: $model.displayMode) {
+                    ForEach(DisplayMode.allCases, id: \.rawValue) { mode in
+                        Text(mode.label).tag(mode.rawValue)
+                    }
+                }
+                Picker("Refresh every", selection: $model.refreshSeconds) {
+                    Text("1 minute").tag(60)
+                    Text("5 minutes").tag(300)
+                    Text("15 minutes").tag(900)
+                    Text("1 hour").tag(3600)
+                }
+            }
+
+            Section {
+                Text("The icon always shows the selected metric. Quota rows are tagged daily or monthly, and the menu shows the next reset in local time.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .formStyle(.grouped)
+    }
+
+    private var limitsTab: some View {
+        Form {
+            Section("Daily (UTC day)") {
+                limitRow("Worker requests", $model.workerLimit)
+                limitRow("D1 rows read", $model.d1ReadLimit)
+                limitRow("D1 rows written", $model.d1WriteLimit)
+                limitRow("Workers AI neurons", $model.aiLimit)
+            }
+
+            Section("Monthly (R2)") {
+                limitRow("Storage (GB-month)", $model.r2StorageGB)
+                limitRow("Class A operations", $model.r2ClassA)
+                limitRow("Class B operations", $model.r2ClassB)
+            }
+
+            Section {
+                Text("Free-plan defaults. Raise these if you are on a paid plan.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .formStyle(.grouped)
+    }
+
+    private var openCodeTab: some View {
+        Form {
+            Section("OpenCode (local)") {
+                Toggle("Show OpenCode usage", isOn: $model.openCodeEnabled)
+
+                HStack {
+                    TextField("CLI path (auto-detected)", text: $model.openCodePath)
+                        .textFieldStyle(.roundedBorder)
+                    Button("Detect") { model.refreshOpenCodeDetection() }
+                }
+
+                Text(model.openCodeDetected)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+
+                Text("Runs `opencode stats --json` on this Mac; nothing is sent anywhere. Usage resets at local midnight and has no quota.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .formStyle(.grouped)
+    }
+
+    private var footer: some View {
+        HStack {
+            if let error = model.saveError {
+                Text(error)
+                    .font(.caption)
+                    .foregroundColor(.red)
+                    .lineLimit(2)
+            }
+            Spacer()
+            Button("Cancel") { NSApp.keyWindow?.close() }
+                .keyboardShortcut(.cancelAction)
+            Button("Save") { model.save() }
+                .keyboardShortcut(.defaultAction)
+                .buttonStyle(.borderedProminent)
+        }
+        .padding(16)
     }
 
     private func limitRow(_ title: String, _ text: Binding<String>) -> some View {
