@@ -2566,7 +2566,7 @@ html[lang="km"] .apple-mobile-link {
 }
 
 /* Unified Apple-style pill shape for buttons (excluding 24px box controls) */
-button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-close):not(.box-24):not(.rounded-\[24px\]):not(.pd-zoom):not(.lb-thumb):not(.base-btn):not(.base-page-btn):not(.base-tab):not(.base-menu-item):not(.base-segmented__item):not(.base-check *):not(.base-tag):not([data-slot]):not(.adm-btn),
+button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-close):not(.box-24):not(.rounded-\[24px\]):not(.pd-zoom):not(.lb-thumb):not(.resource-action):not(.base-btn):not(.base-page-btn):not(.base-tab):not(.base-menu-item):not(.base-segmented__item):not(.base-check *):not(.base-tag):not([data-slot]):not(.adm-btn),
 .btn:not(.box-24):not(.rounded-\[24px\]),
 .all-projects,
 .view-project,

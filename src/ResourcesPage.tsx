@@ -1,5 +1,5 @@
 import { siteSettings } from "./siteSettings";
-import { useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
@@ -33,6 +33,44 @@ export default function ResourcesPage() {
 
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
+
+  // Copy-to-clipboard feedback on a document's icon action.
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const copyTimer = useRef<number | null>(null);
+  useEffect(() => () => {
+    if (copyTimer.current) window.clearTimeout(copyTimer.current);
+  }, []);
+
+  const copyLink = async (doc: ResourceDocument) => {
+    const url = new URL(doc.downloadUrl, location.href).href;
+    let ok = false;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+        ok = true;
+      }
+    } catch {
+      ok = false;
+    }
+    if (!ok) {
+      try {
+        const field = document.createElement("textarea");
+        field.value = url;
+        field.style.position = "fixed";
+        field.style.opacity = "0";
+        document.body.appendChild(field);
+        field.select();
+        ok = document.execCommand("copy");
+        field.remove();
+      } catch {
+        ok = false;
+      }
+    }
+    if (!ok) return;
+    setCopiedId(doc.id);
+    if (copyTimer.current) window.clearTimeout(copyTimer.current);
+    copyTimer.current = window.setTimeout(() => setCopiedId((id) => (id === doc.id ? null : id)), 1800);
+  };
 
   const filteredDocs = useMemo(() => {
     return DOCUMENTS.filter((doc) => {
@@ -200,71 +238,90 @@ export default function ResourcesPage() {
             <div className="md:col-span-8 lg:col-span-8 flex flex-col gap-3.5 md:gap-4">
               {filteredDocs.length > 0 ? (
                 filteredDocs.map((doc) => (
-                  <a
+                  <div
                     key={doc.id}
-                    href={doc.downloadUrl}
-                    download
-                    className="box-24 group relative isolate block p-6 sm:p-7 rounded-[24px] border-0"
-                    style={{
-                      WebkitCornerSmoothing: "60%",
-                      cornerSmoothing: "60%",
-                    } as any}
+                    className="group relative isolate flex min-h-[300px] flex-col rounded-[16px]"
                   >
                     {/* Only the panel zooms; the copy inside stays put and crisp. */}
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute inset-0 -z-10 rounded-[24px] bg-[#F8F9FA] transition-transform duration-300 ease-in-out group-hover:scale-[1.02]"
+                      className="pointer-events-none absolute inset-0 -z-10 rounded-[16px] bg-[#F8F9FA] transition-transform duration-300 ease-in-out group-hover:scale-[1.02]"
                       style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                     />
-                    <div className="flex items-start justify-between gap-4">
-                      {/* Left: Document info */}
-                      <div className="flex-1 min-w-0">
-                        {/* Eyebrow: Year · Revision · Category */}
-                        <div className="flex flex-wrap items-center gap-2 mb-2">
-                          <span className="text-[12px] font-medium text-[#191C1F]/50 tracking-[-0.01em]">
-                            {doc.year} · {doc.revisionDate}
-                          </span>
-                          <span className="text-[11px] font-medium px-2 py-0.5 rounded-[6px] bg-[#EAEBED] text-[#191C1F]/70">
-                            {doc.categoryLabel}
-                          </span>
-                        </div>
 
-                        {/* Title */}
-                        <h3 className="text-[18px] sm:text-[20px] md:text-[21px] font-medium text-[#191C1F] tracking-[-0.015em] leading-[1.3] mb-4">
-                          {doc.title}
-                        </h3>
-
-                        {/* Bottom Row: Download Link & File Metadata */}
-                        <div className="flex flex-wrap items-center gap-4 text-[13px] pt-1">
-                          <span className="inline-flex items-center gap-1.5 font-medium text-[#0075EB] group-hover:underline">
-                            <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M8 2v8M4 7l4 4 4-4M2 13h12" />
-                            </svg>
-                            <span>Download</span>
-                          </span>
-
-                          <span className="text-[#191C1F]/30">·</span>
-
-                          <span className="text-[#191C1F]/50 font-mono text-[12px]">
-                            {doc.fileFormat} · {doc.fileSize}
-                          </span>
-
-                          <span className="text-[#191C1F]/30">·</span>
-
-                          <span className="text-[#191C1F]/50 text-[12px]">
-                            {doc.language}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Right Chevron Indicator */}
-                      <div className="shrink-0 pt-1 text-[#191C1F]/40 group-hover:text-[#191C1F] group-hover:translate-x-1 transition-all">
-                        <svg viewBox="0 0 20 20" className="size-5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 4l6 6-6 6" />
-                        </svg>
-                      </div>
+                    {/* Head: the document title above a hairline rule. */}
+                    <div className="border-b border-[#191C1F]/10 px-6 pb-5 pt-6 sm:px-7 sm:pb-6 sm:pt-7">
+                      <h3 className="max-w-[34rem] text-[18px] font-medium leading-[1.3] tracking-[-0.015em] text-[#191C1F] sm:text-[21px]">
+                        {doc.title}
+                      </h3>
                     </div>
-                  </a>
+
+                    {/* Foot: date and size on the left, icon actions on the right. */}
+                    <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-6 py-5 sm:px-7">
+                      <div className="flex flex-wrap items-center gap-2 text-[13px] text-[#A5A7A8]">
+                        <span>{doc.revisionDate}</span>
+                        <span aria-hidden>•</span>
+                        <span>{doc.fileSize}</span>
+                      </div>
+
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => void copyLink(doc)}
+                          aria-label={copiedId === doc.id ? "Link copied" : "Copy link"}
+                          title={copiedId === doc.id ? "Link copied" : "Copy link"}
+                          className={`resource-action inline-flex size-10 items-center justify-center rounded-[8px] transition-colors ${
+                            copiedId === doc.id
+                              ? "bg-[#191C1F] text-white"
+                              : "bg-[#D9DBDE] text-[#191C1F] hover:bg-[#191C1F] hover:text-white"
+                          }`}
+                        >
+                          {copiedId === doc.id ? (
+                            <svg viewBox="0 0 16 16" className="size-4 fill-none stroke-current" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                              <path d="M3 8.5l3.2 3.2L13 5" />
+                            </svg>
+                          ) : (
+                            <svg width="16" height="8" viewBox="0 0 15 8" fill="none" aria-hidden>
+                              <path d="M5.5 3.51172L9.5 3.51172" stroke="currentColor" />
+                              <path d="M11.5 0.5H13.5C14.0523 0.5 14.5 0.947715 14.5 1.5V5.52344C14.5 6.07572 14.0523 6.52344 13.5 6.52344H11.5" stroke="currentColor" />
+                              <path d="M3.5 0.5H1.5C0.947715 0.5 0.5 0.947715 0.5 1.5V5.52344C0.5 6.07572 0.947715 6.52344 1.5 6.52344H3.5" stroke="currentColor" />
+                            </svg>
+                          )}
+                        </button>
+
+                        <a
+                          href={doc.downloadUrl}
+                          target="_blank"
+                          rel="noopener"
+                          aria-label="Preview"
+                          title="Preview"
+                          className="inline-flex size-10 items-center justify-center rounded-[8px] bg-[#D9DBDE] text-[#191C1F] transition-colors hover:bg-[#191C1F] hover:text-white"
+                        >
+                          <svg width="16" height="9" viewBox="0 0 14 8" fill="none" aria-hidden>
+                            <path d="M5.01064 6.73084L0.890625 3.92585L5.01064 1.11985C5.6049 0.715166 6.29648 0.5 7.00296 0.5C7.70944 0.5 8.40102 0.715166 8.99528 1.11985L13.1153 3.92585L8.99528 6.73084C8.40102 7.13553 7.70944 7.35069 7.00296 7.35069C6.29648 7.35069 5.6049 7.13553 5.01064 6.73084Z" stroke="currentColor" strokeMiterlimit="10" />
+                            <path d="M7.0023 5.23707C7.6853 5.23707 8.23898 4.65059 8.23898 3.92713C8.23898 3.20367 7.6853 2.61719 7.0023 2.61719C6.3193 2.61719 5.76562 3.20367 5.76562 3.92713C5.76562 4.65059 6.3193 5.23707 7.0023 5.23707Z" stroke="currentColor" strokeMiterlimit="10" />
+                          </svg>
+                        </a>
+
+                        <a
+                          href={doc.downloadUrl}
+                          download
+                          aria-label="Download"
+                          title="Download"
+                          className="inline-flex size-10 items-center justify-center rounded-[8px] bg-[#D9DBDE] text-[#191C1F] transition-colors hover:bg-[#191C1F] hover:text-white"
+                        >
+                          <svg width="10" height="12" viewBox="0 0 9 11" fill="none" aria-hidden>
+                            <path d="M0 10H8.33333" stroke="currentColor" />
+                            <path d="M4.16406 7.5L4.16406 0" stroke="currentColor" strokeMiterlimit="10" />
+                            <path d="M0.828125 4.16797L4.23973 7.66848L7.64758 4.16797" stroke="currentColor" strokeMiterlimit="10" />
+                          </svg>
+                        </a>
+                      </div>
+                      <span className="sr-only" aria-live="polite">
+                        {copiedId === doc.id ? "Link copied" : ""}
+                      </span>
+                    </div>
+                  </div>
                 ))
               ) : (
                 <div className="py-16 text-center rounded-[20px] bg-[#F8F9FA] border border-[rgba(0,0,0,0.02)]">
