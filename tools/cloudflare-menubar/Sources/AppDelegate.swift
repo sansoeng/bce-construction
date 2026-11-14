@@ -59,7 +59,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             window.styleMask = [.titled, .closable]
             window.isReleasedWhenClosed = false
             window.center()
-            window.setFrameAutosaveName("CloudflareUsageSettings")
             settingsWindow = window
             settingsModel = model
         } else {
