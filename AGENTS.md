@@ -2,6 +2,8 @@
 
 This repository contains the official, high-performance bilingual corporate web application for **Battambang Construction and Engineering Co., Ltd. (BCE)** (ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី).
 
+> **Start here for infrastructure:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) is the living snapshot (environments, resources, invariants, decisions, changelog). Read it before changing deployment or Cloudflare config, and update it in the same commit when the architecture evolves.
+
 ---
 
 ## 1. Project Context & Corporate Profile
@@ -58,6 +60,10 @@ BCE/
 │   ├── fonts/                   # Aeonik webfonts (Regular, Medium, Bold, Mono)
 │   ├── Image/ & assets/         # Photography and graphic assets
 │   └── favicon.svg              # Official BCE crest monogram
+├── docs/
+│   ├── ARCHITECTURE.md          # Living system snapshot: envs, resources, invariants, changelog
+│   ├── CLOUDFLARE.md            # Deep Cloudflare setup, free-tier limits, troubleshooting
+│   └── BASE-DESIGN-SYSTEM.md    # Admin design-system reference
 ├── .figma/make/site.json        # SEO title, description, and OpenGraph metadata
 ├── .github/workflows/deploy.yml # Auto CI/CD deploy on push to main
 ├── vite.config.ts               # Vite configuration
@@ -69,8 +75,11 @@ BCE/
 ## 4. Commands & Workflow
 
 ```bash
-# Start local development server with hot-reload
+# Start local development server with hot-reload (vite on :8443)
 npm run dev
+
+# Worker API locally on :8787 with local D1 (writes enabled)
+npm run worker:dev
 
 # Build production bundle to dist/
 npm run build
@@ -78,8 +87,15 @@ npm run build
 # Preview production build locally on port 8000
 npm run preview
 
-# Deploy manually to Cloudflare Pages
+# Deploy staging (bare wrangler deploy targets staging by design)
+npm run deploy:staging
+
+# Deploy production (explicit environment + D1 migrations)
 npm run deploy
+
+# Worker only
+npm run worker:deploy           # production: wrangler deploy --env production
+npm run worker:deploy:staging   # staging:    wrangler deploy
 ```
 
 - **One place for every URL**: open `docs/quick-links.html` in a browser (production, www, Pages fallback, staging, admin, local dev, Cloudflare and GitHub dashboards). It is a local helper page and is never deployed.
@@ -112,3 +128,4 @@ npm run deploy
 - **Bilingual**: every content editor has English and ខ្មែរ tabs. Khmer lives in the same document as an overlay; empty Khmer fields fall back to English.
 - **Seed snapshot**: `npm run content:export` regenerates `seed/content.json`, `seed/seed.sql`, `public/content-seed.json` and `public/sitemap.xml`. Never run `content:seed` on every deploy — it overwrites live rows.
 - **Full setup, free-tier limits, security model and troubleshooting**: `docs/CLOUDFLARE.md`.
+- **Architecture log**: `docs/ARCHITECTURE.md` — read before infra work; update its snapshot, ADRs and changelog whenever environments, bindings, deploy flow or content flow change.

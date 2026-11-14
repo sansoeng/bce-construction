@@ -1,5 +1,7 @@
 # BCE Cloudflare Platform
 
+> Current environment layout, invariants and decision log: [`ARCHITECTURE.md`](ARCHITECTURE.md). This file is the deep setup and troubleshooting guide.
+
 The site now has a small, free-tier content platform on Cloudflare:
 
 - **Cloudflare Pages** serves the React/Vite site.
