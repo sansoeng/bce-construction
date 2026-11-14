@@ -92,8 +92,8 @@ export function runLoader(getLenis: () => Lenis | null) {
 
   // Measure and animate only once the brand font is ready (capped), so line breaks and the wordmark never jump.
   const fontReady = Promise.all([
-    document.fonts?.load('400 1em "Aeonik Pro"').catch(() => undefined),
-    document.fonts?.load('500 1em "Aeonik Pro"').catch(() => undefined),
+    document.fonts?.load('400 1em "TT Commons Pro"').catch(() => undefined),
+    document.fonts?.load('500 1em "TT Commons Pro"').catch(() => undefined),
   ]);
   const play = () => {
     // Fit the wordmark to the full available width.

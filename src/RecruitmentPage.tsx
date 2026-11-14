@@ -12,7 +12,7 @@ import { unsplash } from "./company";
 // Careers after olympic.no/career-crew: a full-height media hero, a label-with-copy standfirst, a hairline-free board
 // of open roles with an offshore/onshore-style switch, a split "life on site / life in the plant" divider, and a
 // full-bleed "one team" media block. The job view follows their job page: oversized title, photo, share rail, metadata
-// table, description and a paired Apply / Back-to-list footer. Typography stays BCE's Aeonik family throughout; the
+// table, description and a paired Apply / Back-to-list footer. Typography stays BCE's TT Commons family throughout; the
 // palette, scale and spacing follow the reference.
 
 const phones = siteSettings.contact.phones;

@@ -11,7 +11,7 @@ import ArrowButton from "./ArrowButton";
 //   (or 1-5) that slides from -15% to 0 while the panel crosses the viewport ("entry 0%" to "cover 100%").
 // - DarkMedia: the full-bleed dark band with the photo flush to the page edge.
 // - OlButton: the homepage's ArrowButton.
-// Type, colours, buttons and text reveals follow the homepage (Aeonik 500, sentence-case titles, grey labels, line
+// Type, colours, buttons and text reveals follow the homepage (TT Commons 500, sentence-case titles, grey labels, line
 // reveals via data-split); only the layouts and scroll effects come from Olympic.
 // - CardSlider: their looping "onboard" slider: centred cards with the previous card fully visible, images that
 //   drift against the motion, a progress line and arrow buttons.

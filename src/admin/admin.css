@@ -1,5 +1,5 @@
 /* BCE Operations — admin design system.
-   Mirrors the public site: Aeonik Pro / Aeonik Mono, warm off-white paper,
+   Mirrors the public site: TT Commons Pro / TT Commons Pro Mono, warm off-white paper,
    black panels, hairline rules, 4px surfaces and 999px pill actions. */
 
 .bce-admin {
@@ -17,7 +17,7 @@
   --adm-green: #2c6b3a;
   --adm-amber: #7a5a1e;
   --adm-red: #8e3b2f;
-  --adm-mono: var(--font-ui-mono, "Aeonik Mono", ui-monospace, monospace);
+  --adm-mono: var(--font-ui-mono, "TT Commons Pro Mono", ui-monospace, monospace);
 
   /* shadcn/ui tokens, scoped to the admin so the public site is untouched. */
   --background: #f1f1ef;
@@ -48,7 +48,7 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.12);
   --sidebar-ring: #8fa2ee;
-  font-family: var(--font-sans, "Aeonik Pro", system-ui, sans-serif);
+  font-family: var(--font-sans, "TT Commons Pro", system-ui, sans-serif);
   color: var(--adm-ink);
   background: var(--adm-paper);
   color-scheme: light;
@@ -443,7 +443,7 @@
   padding: 0 18px;
   border: 1px solid transparent;
   border-radius: 999px;
-  font-family: var(--font-sans, "Aeonik Pro", sans-serif);
+  font-family: var(--font-sans, "TT Commons Pro", sans-serif);
   font-size: 13px;
   font-weight: 500;
   line-height: 1;
@@ -1829,12 +1829,12 @@
   padding: 56px 56px 72px;
   background: #fff;
   color: #111;
-  font-family: var(--font-sans, "Aeonik Pro", system-ui, sans-serif);
+  font-family: var(--font-sans, "TT Commons Pro", system-ui, sans-serif);
   letter-spacing: -0.01em;
 }
 
 .adm-preview-page[data-lang="km"] {
-  font-family: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif;
+  font-family: "TT Commons Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif;
   letter-spacing: 0;
 }
 

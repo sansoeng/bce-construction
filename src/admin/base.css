@@ -8,7 +8,7 @@
    Progress, Avatar, Tooltip, Empty state, File drop, Stepper, Section heading,
    Notification badge, Segmented control, Star rating, Page control, Spacer).
 
-   Typography keeps the self-hosted Aeonik faces (Uber Move is proprietary);
+   Typography keeps the self-hosted TT Commons faces (Uber Move is proprietary);
    the Base size / line-height / weight scale is applied to them.
    ========================================================================== */
 
@@ -139,8 +139,8 @@
   --base-press-dark: inset 0 0 0 999px rgb(0 0 0 / 0.08);
 
   /* ---- Base type scale ---- */
-  --base-font: var(--font-sans, "Aeonik Pro", system-ui, sans-serif);
-  --base-font-mono: var(--adm-mono, "Aeonik Mono", ui-monospace, monospace);
+  --base-font: var(--font-sans, "TT Commons Pro", system-ui, sans-serif);
+  --base-font-mono: var(--adm-mono, "TT Commons Pro Mono", ui-monospace, monospace);
 
   --base-display-lg: 96px / 112px;
   --base-display-md: 52px / 64px;

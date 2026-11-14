@@ -4,7 +4,7 @@ import { homepage } from "./homepage";
 // Closing statement above the footer, after lenvalproperties.com's CTA: a square, full-bleed photograph with a slow
 // parallax, white hairlines (one down the centre, one rising across the right half) that draw in on entry, and a
 // headline, short paragraph and underlined "Request a quotation" link set in the right half. Type follows the site
-// (Aeonik). The photo, headline and copy are editable in the admin console.
+// (TT Commons). The photo, headline and copy are editable in the admin console.
 
 export default function QuoteCta({ href }: { href?: string }) {
   const sectionRef = useRef<HTMLElement>(null);

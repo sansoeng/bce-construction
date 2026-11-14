@@ -4,54 +4,40 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* English display & text: TT Commons Pro (as on olympic.no). Khmer falls through to the Hanuman /
+   Kantumruy / Noto Khmer stack that follows in every font stack. */
 @font-face {
-  font-family: "Aeonik Pro";
-  src: url("/fonts/Aeonik-Regular.woff2") format("woff2");
+  font-family: "TT Commons Pro";
+  src: url("/fonts/TTCommonsPro-Normal.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 450;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Aeonik Pro";
-  src: url("/fonts/Aeonik-Medium.woff2") format("woff2");
+  font-family: "TT Commons Pro";
+  src: url("/fonts/TTCommonsPro-Md.woff2") format("woff2");
   font-style: normal;
-  font-weight: 500;
+  font-weight: 451 900;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Aeonik Pro";
-  src: url("/fonts/Aeonik-Bold.woff2") format("woff2");
+  font-family: "TT Commons Pro Mono";
+  src: url("/fonts/TTCommonsProMono-Md.woff2") format("woff2");
   font-style: normal;
-  font-weight: 600 800;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aeonik Mono";
-  src: url("/fonts/AeonikMono-Medium.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aeonik Mono";
-  src: url("/fonts/AeonikMono-SemiBold.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 600 700;
+  font-weight: 100 900;
   font-display: swap;
 }
 
 @theme {
-  --font-sans: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", ui-monospace, monospace;
+  --font-sans: "TT Commons Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "TT Commons Pro Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", ui-monospace, monospace;
 }
 
 @layer base {
   html { scroll-behavior: auto; }
-  body { font-family: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { font-family: "TT Commons Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; font-kerning: normal; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   h1, h2, h3 { text-wrap: balance; }
   h1, h2 { font-weight: 500; }
   p { text-wrap: pretty; }
@@ -790,7 +776,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 /* Fluid Glass (fluid.glass) buttons, floating header and menu. Sizes are Fluid's (its rem is 10px), so in px here.
    Easings are GSAP's power3 in / out / inOut. */
 :root {
-  --font-ui-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", ui-monospace, monospace;
+  --font-ui-mono: "TT Commons Pro Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", ui-monospace, monospace;
   --p3-in: cubic-bezier(.32, 0, .67, 0);
   --p3-out: cubic-bezier(.33, 1, .68, 1);
   --p3-io: cubic-bezier(.65, 0, .35, 1);
@@ -829,7 +815,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 .fg-header, .fg-menu-title { font-family: var(--font-ui-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
-/* Text buttons: Aeonik Pro, sentence case, semi-bold, 16px — no mono caps. */
+/* Text buttons: TT Commons Pro, sentence case, semi-bold, 16px — no mono caps. */
 .fg-btn { font-family: var(--font-sans); font-size: 16px; font-weight: 500; letter-spacing: 0; text-transform: none; }
 .fg-header a:hover, .fg-menu a:hover, a.fg-btn:hover { opacity: 1; }
 
@@ -2540,7 +2526,7 @@ html[lang="km"] .glance-num > span {
 
 /* Khmer language typography enhancements for Apple Global Nav */
 .font-khmer {
-  font-family: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif !important;
+  font-family: "TT Commons Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif !important;
 }
 
 html[lang="km"] .apple-header,
@@ -2646,7 +2632,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 
 /* Footer (src/Footer.tsx), after olympic.no's: 12-column navigation with grey headings, a ruled row with the enquiry
    block, both offices and the animated back-to-top square, then the ruled legal row. Measurements follow their
-   stylesheet (10px rem converted); type is the site's Aeonik, colours the site's black with white at 80% / 45%. */
+   stylesheet (10px rem converted); type is the site's TT Commons, colours the site's black with white at 80% / 45%. */
 .ft { --m: 48px; --g: 24px; position: relative; margin-top: -1px; overflow: hidden; contain: paint; background: #111; color: #fff; font-size: 1rem; line-height: 1.375; }
 .ft-veil { position: absolute; inset: 0; z-index: 1; background: rgb(0 0 0 / .4); pointer-events: none; }
 .ft-wrap { padding-inline: var(--m); will-change: transform; }
@@ -3345,9 +3331,9 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
 /* Khmer mode (src/i18n.ts). Khmer clusters stack vowels and subscripts above and below the line, so: no negative
    tracking, taller line boxes for the tight display type, room in the reveal masks and in the rolling button labels. */
 html[lang="km"] {
-  --font-sans: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", sans-serif;
-  --font-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
-  --font-ui-mono: "Aeonik Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
+  --font-sans: "TT Commons Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", "Noto Serif Khmer", "Khmer OS Battambang", "Khmer OS", sans-serif;
+  --font-mono: "TT Commons Pro Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
+  --font-ui-mono: "TT Commons Pro Mono", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", monospace;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -3834,7 +3820,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 
 /* Olympic-style service blocks (src/ServiceBlocks.tsx), used by Our Businesses and Technical Capabilities. Sizes
    follow olympic.no's stylesheet (their 10px rem converted to px): 12 columns, 24px gutter, 48px margin (20px below
-   1024px, 16px below 520px), 5px radius. Type, colours and buttons follow the homepage: Aeonik 500 sentence-case
+   1024px, 16px below 520px), 5px radius. Type, colours and buttons follow the homepage: TT Commons 500 sentence-case
    titles with tight tracking, grey labels, #111 ink, black ArrowButtons and data-split line reveals. Scroll progress (--p, 0..1) is written by useScrollParallax. */
 .ol-page, .ol-head { --olm: 48px; --olg: 24px; --ol-col: calc((min(100vw, 1728px) - 2 * var(--olm) - 11 * var(--olg)) / 12); --ol-ink: #111; --ol-bg: #fff; --ol-dim: rgb(17 17 17 / .45); --ol-dark: #111; color: var(--ol-ink); }
 .ol-page { background: var(--ol-bg); }
@@ -4379,7 +4365,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 
 /* Core business detail pages (src/BusinessDetailPage.tsx), after Skanska's service pages: "why BCE" numbered columns,
    solution cards with rounded photos, a dark capacity band with large figures and a contact line, then related
-   projects. Same 12-column grid, 48/20/16px margins, Aeonik 500 titles and 18px rounded imagery as the rest of the
+   projects. Same 12-column grid, 48/20/16px margins, TT Commons 500 titles and 18px rounded imagery as the rest of the
    Olympic-style inner pages. */
 .ol-values { padding: 200px var(--olm) 0; }
 .ol-values-head { display: flex; flex-direction: column; gap: 24px; max-width: 44rem; }

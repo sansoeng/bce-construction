@@ -7,7 +7,7 @@ import { siteSettings } from "./siteSettings";
 // Footer after olympic.no's: navigation columns with grey headings (accordions on phones), a ruled row with the
 // enquiry block and head office with contact and social channels, then a ruled legal row. As the footer scrolls into
 // view its content settles from 25% above into place while a dark veil clears (their view-timeline "parallax-footer"
-// and "disappear"). Set in the site's Aeonik, with the homepage's ArrowButtons. Copy is editable in the admin console.
+// and "disappear"). Set in the site's TT Commons, with the homepage's ArrowButtons. Copy is editable in the admin console.
 
 type Link = [string, string];
 const MAPS = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("O'Char, Battambang, Cambodia");
