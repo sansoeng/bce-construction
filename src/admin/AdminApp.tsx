@@ -7,6 +7,7 @@ import {
   FileJson,
   FileText,
   FolderOpen,
+  Home,
   Image as ImageIcon,
   LayoutDashboard,
   Layers,
@@ -64,6 +65,7 @@ import "./base-overrides.css";
 const ADMIN_HOST = "admin.bce-construction.com";
 
 const typeIcons = {
+  homepage: Home,
   projects: FolderOpen,
   posts: Newspaper,
   vacancies: Briefcase,

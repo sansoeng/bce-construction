@@ -1,20 +1,15 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import ArrowButton from "./ArrowButton";
-import { businessHref, offerings, quoteHref } from "./company";
+import { offerings } from "./company";
+import { homepage } from "./homepage";
 import { siteSettings } from "./siteSettings";
 
 // Footer after olympic.no's: navigation columns with grey headings (accordions on phones), a ruled row with the
 // enquiry block and head office with contact and social channels, then a ruled legal row. As the footer scrolls into
 // view its content settles from 25% above into place while a dark veil clears (their view-timeline "parallax-footer"
-// and "disappear"). Set in the site's Aeonik, with the homepage's ArrowButtons.
+// and "disappear"). Set in the site's Aeonik, with the homepage's ArrowButtons. Copy is editable in the admin console.
 
 type Link = [string, string];
-const columns: [string, Link[]][] = [
-  ["Company", [["Home", "#"], ["About BCE", "/?about"], ["Projects", "/?projects"], ["Blog & Insights", "/?blog"], ["Coverage", "#coverage"], ["Resources & Downloads", "/?resources"]]],
-  ["Our businesses", offerings.map((b) => [b.name, businessHref(b.slug)] as Link)],
-  ["Capabilities", [["Technical capabilities", "/?capabilities"], ["Quality & HSE", "/?quality"], ["Laboratory", "/?quality#laboratory"], ["Equipment & fleet", "/?capabilities#equipment-fleet"]]],
-  ["Work with us", [["Request a quote", "/?quote"], ["Careers & Recruitment", "/?recruitment"], ["Hire our equipment", quoteHref("equipment-rental")], ["Get directions", "MAPS"]]],
-];
 const MAPS = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("O'Char, Battambang, Cambodia");
 
 const toTop = (e: React.MouseEvent) => {
@@ -54,6 +49,30 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
   const wrapRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<number | null>(null);
+  const {
+    columns,
+    enquiryTitle,
+    enquiryText,
+    primaryLabel,
+    primaryHref,
+    callLabel,
+    officeTitle,
+    hotlinesLabel,
+    socialLabel,
+    directionsLabel,
+    backToTopLabel,
+    rightsLabel,
+  } = homepage.footer;
+  const navColumns: [string, Link[]][] = columns.map((column) => [
+    column.title,
+    column.links.map((link) => {
+      // Keep the "Our businesses" column in step with names edited under Home services.
+      const business = link.href.startsWith("/?business=")
+        ? offerings.find((item) => `/?business=${item.slug}` === link.href)
+        : undefined;
+      return [business?.name ?? link.label, link.href] as Link;
+    }),
+  ]);
   const addressLines = siteSettings.contact.address.split(",").map((line) => line.trim()).filter(Boolean);
   const telegram = siteSettings.contact.telegram.replace(/^@/, "");
   const email = siteSettings.contact.email;
@@ -92,7 +111,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
       <div ref={veilRef} className="ft-veil" aria-hidden />
       <div ref={wrapRef} className="ft-wrap">
         <nav aria-label="Footer" className="ft-nav">
-          {columns.map(([title, links], i) => (
+          {navColumns.map(([title, links], i) => (
             <div key={title} className={`ft-col ${open === i ? "is-open" : ""}`}>
               <button type="button" className="ft-label ft-trigger" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
                 <span>{title}</span>
@@ -111,16 +130,16 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
 
         <div className="ft-container">
           <div className="ft-enquiry">
-            <h3 className="ft-label">Talk to us about your project</h3>
-            <p className="ft-text">Tell us your site, scope and schedule. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet.</p>
+            <h3 className="ft-label">{enquiryTitle}</h3>
+            <p className="ft-text">{enquiryText}</p>
             <div className="ft-ctas">
-              <ArrowButton href="/?quote" label="Request a quote" theme="white" />
-              <ArrowButton href={tel(phones[0])} label="Call for a Quotation" theme="outline-white" />
+              <ArrowButton href={href(primaryHref)} label={primaryLabel} theme="white" />
+              <ArrowButton href={tel(phones[0])} label={callLabel} theme="outline-white" />
             </div>
           </div>
 
           <div className="ft-office">
-            <h3 className="ft-label">Battambang · Head office</h3>
+            <h3 className="ft-label">{officeTitle}</h3>
             <address className="ft-text not-italic">
               {addressLines.map((l) => (
                 <span key={l} className="block">
@@ -133,13 +152,13 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
                 rel="noopener"
                 className="ft-ul ft-dir inline-block mt-3 text-white/90 hover:text-white"
               >
-                <span>Get directions</span>
+                <span>{directionsLabel}</span>
               </a>
             </address>
 
             <div className="ft-text">
               <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1.5">
-                Sales & Quotations Hotlines
+                {hotlinesLabel}
               </span>
               <div className="flex flex-col gap-1 w-full">
                 {phones.map((n) => (
@@ -156,7 +175,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
               {/* Social Media & Direct Contact */}
               <div className="mt-4 pt-3.5 border-t border-white/10 w-full">
                 <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-2">
-                  Social & Direct Contact
+                  {socialLabel}
                 </span>
                 <div className="flex items-center gap-2">
                   <a
@@ -203,9 +222,9 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
 
         <div className="ft-bottom">
           <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-logo">{siteSettings.site.shortName}., Ltd.</a>
-          <a href={MAPS} target="_blank" rel="noopener" className="ft-b2">Get directions</a>
-          <a href="#" onClick={toTop} className="ft-b3">Back to top</a>
-          <span className="ft-b4">All rights reserved</span>
+          <a href={MAPS} target="_blank" rel="noopener" className="ft-b2">{directionsLabel}</a>
+          <a href="#" onClick={toTop} className="ft-b3">{backToTopLabel}</a>
+          <span className="ft-b4">{rightsLabel}</span>
           <small className="ft-copy">© {new Date().getFullYear()} {siteSettings.site.nameEn}</small>
         </div>
       </div>

@@ -6,7 +6,7 @@ import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
-import { businessDetailHref, businessDetails, findBusinessDetail } from "./businessDetails";
+import { businessDetailHref, businessDetails, findBusinessDetail, type BusinessDetail } from "./businessDetails";
 import { offerings, quoteHref, unsplash } from "./company";
 import { findProject, projectHref } from "./projects";
 import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
@@ -219,6 +219,101 @@ const projectPhoto: Record<string, string> = {
   "sihanoukville-fleet-hire": "/Image/bce/photos/boom-pump.webp",
 };
 
+/**
+ * The remaining businesses, as a horizontal rail: one compact row of tiles that scrolls left and right (trackpad,
+ * touch, arrow keys or the buttons) instead of a 2 × 2 wall of oversized tiles.
+ */
+function OtherBusinessesRail({ items }: { items: BusinessDetail[] }) {
+  const railRef = useRef<HTMLUListElement>(null);
+  const [edges, setEdges] = useState({ start: true, end: false, scrollable: false });
+
+  const measure = () => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const max = rail.scrollWidth - rail.clientWidth;
+    setEdges({ start: rail.scrollLeft <= 4, end: rail.scrollLeft >= max - 4, scrollable: max > 4 });
+  };
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    measure();
+    const onScroll = () => measure();
+    rail.addEventListener("scroll", onScroll, { passive: true });
+    const observer = new ResizeObserver(measure);
+    observer.observe(rail);
+    return () => {
+      rail.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
+  }, [items.length]);
+
+  const step = (direction: number) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const tile = rail.querySelector<HTMLElement>(".ol-other-tile");
+    const gap = parseFloat(getComputedStyle(rail).columnGap || "24") || 24;
+    const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    rail.scrollBy({ left: direction * ((tile?.offsetWidth ?? 320) + gap), behavior });
+  };
+
+  return (
+    <>
+      <ul
+        ref={railRef}
+        className="ol-others-grid"
+        aria-label="Other businesses"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            step(1);
+          } else if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            step(-1);
+          }
+        }}
+      >
+        {items.map((b) => (
+          <li key={b.slug}>
+            <a href={businessDetailHref(b.slug)} className="ol-other-tile">
+              <img className="no-radius" src={offerings.find((o) => o.slug === b.slug)?.image ?? b.heroImage} alt="" loading="lazy" />
+              <div className="ol-other-content">
+                <p className="ol-other-label">{b.tagline}</p>
+                <h3 className="ol-other-name">{b.name}</h3>
+                <span className="fg-btn is-white ol-other-btn" aria-hidden>
+                  <svg viewBox="0 0 14 11" fill="none" className="fg-btn-arrow">
+                    <path d="M0.600006 0V6H13.1" stroke="currentColor" strokeWidth="1.2" />
+                    <rect x="9.18887" y="2.2251" width="5.56065" height="5.56065" transform="rotate(45 9.18887 2.2251)" stroke="currentColor" strokeWidth="1.2" />
+                  </svg>
+                  <span className="fg-btn-label">
+                    <span className="fg-btn-line">Explore</span>
+                    <span className="fg-btn-line">Explore</span>
+                  </span>
+                </span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+      {edges.scrollable && (
+        <div className="ol-others-nav">
+          <p className="ol-others-hint" aria-hidden>Scroll sideways for more</p>
+          <div className="ol-others-buttons">
+            <button type="button" className="ol-rail-btn" onClick={() => step(-1)} disabled={edges.start} aria-label="Previous businesses">
+              ←
+            </button>
+            <button type="button" className="ol-rail-btn" onClick={() => step(1)} disabled={edges.end} aria-label="Next businesses">
+              →
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+
 export default function BusinessDetailPage({ slug }: { slug: string }) {
   const business = findBusinessDetail(slug);
   const rootRef = useRef<HTMLElement>(null);
@@ -327,27 +422,7 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
             <p id="biz-others" data-split="content" className="ol-label">Other businesses</p>
             <ArrowButton href="/?businesses" label="All businesses" theme="outline" />
           </div>
-          <div className="ol-others-grid">
-            {others.map((b) => (
-              <a key={b.slug} href={businessDetailHref(b.slug)} className="ol-other-tile">
-                <img className="no-radius" src={offerings.find((o) => o.slug === b.slug)?.image ?? b.heroImage} alt="" loading="lazy" />
-                <div className="ol-other-content">
-                  <p className="ol-other-label">{b.tagline}</p>
-                  <h3 className="ol-other-name">{b.name}</h3>
-                  <span className="fg-btn is-white ol-other-btn" aria-hidden>
-                    <svg viewBox="0 0 14 11" fill="none" className="fg-btn-arrow">
-                      <path d="M0.600006 0V6H13.1" stroke="currentColor" strokeWidth="1.2" />
-                      <rect x="9.18887" y="2.2251" width="5.56065" height="5.56065" transform="rotate(45 9.18887 2.2251)" stroke="currentColor" strokeWidth="1.2" />
-                    </svg>
-                    <span className="fg-btn-label">
-                      <span className="fg-btn-line">Explore</span>
-                      <span className="fg-btn-line">Explore</span>
-                    </span>
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
+          <OtherBusinessesRail items={others} />
         </section>
       </div>
 

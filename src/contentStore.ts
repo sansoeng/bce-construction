@@ -37,7 +37,7 @@ const isBlank = (value: unknown) =>
   value === undefined || value === null || (typeof value === "string" && value.trim() === "");
 
 /** Overlay Khmer values on the English document shape; blanks fall back to English. */
-const mergeTranslation = (en: unknown, km: unknown): unknown => {
+export const mergeTranslation = (en: unknown, km: unknown): unknown => {
   if (Array.isArray(en)) {
     if (!Array.isArray(km)) return en;
     return en.map((item, index) => mergeTranslation(item, km[index]));

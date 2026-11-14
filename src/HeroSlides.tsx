@@ -18,7 +18,13 @@ export const heroSlides = [
  * - Instant fallback poster (/Image/bce/hero_batching_plant.webp) to avoid blank frame.
  * - Resource-saving pause on scroll down and tab change.
  */
-export function HeroVideo() {
+export function HeroVideo({
+  video = "/video/hero_highlight.mp4",
+  poster = "/Image/bce/hero_batching_plant.webp",
+}: {
+  video?: string;
+  poster?: string;
+} = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -66,15 +72,16 @@ export function HeroVideo() {
     <div data-hero-image className="absolute inset-0 h-full w-full overflow-hidden will-change-transform">
       <video
         ref={videoRef}
+        key={`${video}|${poster}`}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        poster="/Image/bce/hero_batching_plant.webp"
+        poster={poster}
         className="h-full w-full object-cover"
       >
-        <source src="/video/hero_highlight.mp4" type="video/mp4" />
+        <source src={video} type="video/mp4" />
       </video>
     </div>
   );

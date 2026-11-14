@@ -12,6 +12,7 @@ import CapabilitiesPage from './CapabilitiesPage'
 import QuotePage from './QuotePage'
 import RecruitmentPage from './RecruitmentPage'
 import ResourcesPage from './ResourcesPage'
+import ContactPage from './ContactPage'
 import BlogPage from './BlogPage'
 import './index.css'
 import { initPageTransitions, onRouteChange } from './pageTransition'
@@ -46,6 +47,7 @@ function Page() {
   if (params.has('quote')) return <QuotePage />
   if (params.has('recruitment') || params.has('careers')) return <RecruitmentPage />
   if (params.has('resources')) return <ResourcesPage />
+  if (params.has('contact')) return <ContactPage />
   if (params.has('blog') || params.has('news')) return <BlogPage />
   document.title = translate(homeTitle)
   return <App />

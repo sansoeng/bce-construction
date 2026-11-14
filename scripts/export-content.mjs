@@ -60,6 +60,7 @@ const staticPages = [
   ["/?quote", "0.8"],
   ["/?recruitment", "0.6"],
   ["/?resources", "0.6"],
+  ["/?contact", "0.7"],
   ["/?blog", "0.7"],
 ];
 const sitemapUrls = [

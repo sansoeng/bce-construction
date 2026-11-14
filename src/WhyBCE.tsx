@@ -1,12 +1,8 @@
 import { useLayoutEffect, useRef } from "react";
+import { homepage } from "./homepage";
 
 // Why Choose BCE, after fluid.glass/about: "The beliefs that shape us" (three oversized words at staggered offsets,
-// each with a small mono tag). Content distilled from "Our integrated advantage", Corporate Profile 2026, p. 07.
-const beliefs = [
-  ["Quality", "Tested at every stage"],
-  ["Capacity", "Our own plants and fleet"],
-  ["Trust", "Partners for the long term"],
-];
+// each with a small mono tag). Copy is editable in the admin console.
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const power3InOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -17,6 +13,7 @@ function Eyebrow({ children, id }: { children: string; id?: string }) {
 
 export default function WhyBCE() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { eyebrow, beliefs } = homepage.why;
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -61,10 +58,10 @@ export default function WhyBCE() {
 
   return (
     <section data-header-title="Why BCE" aria-labelledby="why-title" className="wb relative z-[2] -mt-[100svh]">
-      <div className="wb-head"><Eyebrow id="why-title">Why choose BCE</Eyebrow></div>
+      <div className="wb-head"><Eyebrow id="why-title">{eyebrow}</Eyebrow></div>
       <div ref={containerRef} className="wb-container">
-        {beliefs.map(([word, tag]) => (
-          <div className="wb-block" key={word}>
+        {beliefs.map(({ word, tag }, index) => (
+          <div className="wb-block" key={`${word}-${index}`}>
             <div className="wb-heading"><div className="wb-mask">{word}</div></div>
             <div className="wb-tag">{tag}</div>
           </div>

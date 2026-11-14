@@ -226,7 +226,7 @@ export default function RecruitmentPage() {
           VIEW A: DEDICATED JOB DETAILS PAGE (Revolut Style)
          ========================================================================= */}
       {selectedJobId && currentJob ? (
-        <section className="min-h-screen pt-28 pb-24 px-5">
+        <section className="min-h-screen pt-[280px] pb-24 px-5">
           <div className="max-w-[760px] mx-auto">
             {/* Back to all positions button */}
             <button
@@ -374,7 +374,7 @@ export default function RecruitmentPage() {
            ========================================================================= */
         <>
           {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="w-full px-5 sm:px-6 md:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
+          <section className="w-full px-5 sm:px-6 md:px-8 pt-[280px] pb-16 md:pb-24">
             <div className="w-full max-w-[1000px] mx-auto">
               {/* Revolut Centered Display Hero Headline */}
               <div className="text-center max-w-[800px] mx-auto mb-10 md:mb-12">

@@ -19,7 +19,7 @@
       try {
         var params = new URLSearchParams(location.search);
         var isAdmin = location.hostname.indexOf("admin.") === 0 || params.has("admin");
-        var isInner = isAdmin || ["project", "projects", "about", "businesses", "business", "quality", "capabilities", "quote"].some(function (k) { return params.has(k); });
+        var isInner = isAdmin || ["project", "projects", "about", "businesses", "business", "quality", "capabilities", "quote", "resources", "recruitment", "careers", "contact", "blog", "news"].some(function (k) { return params.has(k); });
         var fromSite = !!location.hash && !!document.referrer && new URL(document.referrer).origin === location.origin;
         if (!isInner && !fromSite && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
           document.documentElement.classList.add("is-loading", "has-loader");

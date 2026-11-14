@@ -1359,6 +1359,35 @@ const KM: Record<string, string> = {
   "Mixer trucks for hire": "រថយន្តលាយបេតុងសម្រាប់ជួល",
   "Pump trucks for hire": "រថយន្តបូមបេតុងសម្រាប់ជួល",
   "Piling rigs for hire": "ម៉ាស៊ីនបោះសសរស្ដម្ភសម្រាប់ជួល",
+
+  // Contact page
+  "Contact us": "ទំនាក់ទំនងយើង",
+  "Get in touch": "ទាក់ទងមកយើង",
+  "Ready-mix concrete, piling, civil works or fleet hire — our team answers every day from Battambang.":
+    "បេតុងលាយរួច ការបោះសសរគ្រឹះ ការងារសំណង់ស៊ីវិល ឬការជួលគ្រឿងចក្រ — ក្រុមការងាររបស់យើងឆ្លើយតបជារៀងរាល់ថ្ងៃពីបាត់ដំបង។",
+  "Hotlines": "ខ្សែទូរស័ព្ទបន្ទាន់",
+  "Email": "អ៊ីមែល",
+  "Email address": "អាសយដ្ឋានអ៊ីមែល",
+  "Direct chat & quotations": "ជជែកផ្ទាល់ & ស្នើសុំតម្លៃ",
+  "24/7 site pouring dispatch upon schedule": "ការបញ្ជូនបេតុងចាក់នៅការដ្ឋាន ២៤/៧ តាមកាលវិភាគ",
+  "Send us a message": "ផ្ញើសារមកយើង",
+  "Tell us what you need and our team will come back to you.":
+    "ប្រាប់យើងពីតម្រូវការរបស់អ្នក ហើយក្រុមការងារនឹងតបមកវិញ។",
+  "Your name": "ឈ្មោះរបស់អ្នក",
+  "Phone": "ទូរស័ព្ទ",
+  "Message": "សារ",
+  "How can we help?": "តើយើងអាចជួយអ្នកយ៉ាងដូចម្តេច?",
+  "Send message": "ផ្ញើសារ",
+  "Sending…": "កំពុងផ្ញើ…",
+  "Message sent": "សារត្រូវបានផ្ញើ",
+  "Thank you. Our team will be in touch shortly.": "សូមអរគុណ។ ក្រុមការងាររបស់យើងនឹងទាក់ទងអ្នកឆាប់ៗនេះ។",
+  "Send another message": "ផ្ញើសារមួយទៀត",
+  "Please add your name and a phone number.":
+    "សូមបញ្ចូលឈ្មោះ និងលេខទូរស័ព្ទ។",
+  "Please tell us how we can help.": "សូមប្រាប់យើងពីអ្វីដែលអ្នកត្រូវការជំនួយ។",
+  "Please complete the security check before sending.": "សូមបំពេញការត្រួតពិនិត្យសុវត្ថិភាពមុននឹងផ្ញើ។",
+  "Online requests are temporarily paused. Please call 012 932 700.":
+    "ការស្នើសុំតាមអនឡាញត្រូវបានផ្អាកជាបណ្តោះអាសន្ន។ សូមទូរស័ព្ទមក 012 932 700។",
 };
 
 // Templated strings

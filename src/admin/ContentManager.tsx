@@ -2,11 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { api, ApiError, type ContentDoc, type ContentItem } from "./adminApi";
+import { mergeTranslation } from "../contentStore";
 import { SCHEMAS, slugifyTitle, type ContentSchema, type ContentSection, type Field } from "./adminSchemas";
 import { publicSiteUrl } from "./adminUrls";
 import { FieldEditor } from "./FieldEditor";
 import { ContentPreview } from "./ContentPreview";
-import { Badge, Banner, Button, Card, ConfirmDialog, EmptyState, Select, Spinner, TextInput, formatDate } from "./ui";
+import { Badge, Banner, Button, Card, ConfirmDialog, EmptyState, Select, Spinner, TextInput, cx, formatDate } from "./ui";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
@@ -96,6 +97,7 @@ const fillTranslation = (base: unknown, overlay: unknown): unknown => {
 /** Only text-like fields appear in the Khmer form. */
 const translatableFields = (fields: Field[]): Field[] =>
   fields.flatMap((field) => {
+    if (field.locale === false) return [];
     if (["image", "select", "number", "boolean"].includes(field.type)) return [];
     if (field.type === "group") {
       const nested = translatableFields(field.fields ?? []);
@@ -152,6 +154,7 @@ export default function ContentManager({ type }: { type: string }) {
   const [offset, setOffset] = useState(0);
   const [editor, setEditor] = useState<EditorState | null>(null);
   const [lang, setLang] = useState<"en" | "km">("en");
+  const [activeSection, setActiveSection] = useState("");
   const [saving, setSaving] = useState(false);
   const [reordering, setReordering] = useState(false);
   const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set());
@@ -210,7 +213,7 @@ export default function ContentManager({ type }: { type: string }) {
     setEditor({
       data,
       km: blankTranslation(data),
-      slug: "",
+      slug: schema?.singleton ? "home" : "",
       status: "staged",
       sort: items.length,
       isNew: true,
@@ -242,6 +245,18 @@ export default function ContentManager({ type }: { type: string }) {
       setError(err instanceof Error ? err.message : "Could not open document");
     }
   };
+
+  // Singletons (the homepage) open their one document straight away: there is no list to choose from.
+  const autoOpened = useRef(false);
+  useEffect(() => {
+    autoOpened.current = false;
+  }, [type]);
+  useEffect(() => {
+    if (!schema?.singleton || loading || editor || !items.length || autoOpened.current) return;
+    autoOpened.current = true;
+    void openEdit(items[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [schema?.singleton, loading, items, editor]);
 
   const save = async () => {
     if (!editor) return;
@@ -423,15 +438,34 @@ export default function ContentManager({ type }: { type: string }) {
     [editor, schema, titleKey],
   );
 
+  /** The cards in the current language, used by the tabbed editor (homepage). */
+  const editorGroups = useMemo(() => {
+    if (!schema) return [] as FieldGroup[];
+    const fields = editor && lang === "km" ? khmerFields(schema) : schema.fields;
+    return groupFields(fields, schema.sections);
+  }, [schema, editor, lang]);
+  const sectionKey = editorGroups.map((group) => group.id).join("|");
+
+  useEffect(() => {
+    if (!schema?.tabs) return;
+    setActiveSection((current) =>
+      editorGroups.some((group) => group.id === current) ? current : editorGroups[0]?.id ?? "",
+    );
+    // The group ids are enough to detect a language or field-set change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [schema?.tabs, sectionKey]);
+
   if (!schema) return <Banner tone="error">Unknown content type: {type}</Banner>;
 
   if (editor) {
     const activeData = lang === "en" ? editor.data : editor.km;
     const fields = lang === "en" ? schema.fields : khmerFields(schema);
-    const groups = groupFields(fields, schema.sections);
+    const groups = editorGroups;
+    const activeGroup = groups.find((group) => group.id === activeSection) ?? groups[0];
+    const activeIndex = Math.max(0, groups.findIndex((group) => group.id === activeGroup?.id));
     const previewData = lang === "en"
       ? editor.data
-      : (fillTranslation(editor.data, editor.km) as Record<string, unknown>);
+      : (mergeTranslation(editor.data, editor.km) as Record<string, unknown>);
     const setActive = (key: string, value: unknown) => {
       if (lang === "en") {
         setEditor({ ...editor, data: { ...editor.data, [key]: value } });
@@ -454,7 +488,7 @@ export default function ContentManager({ type }: { type: string }) {
       <div className="adm-page">
         <header className="adm-page-head">
           <div>
-            <button className="adm-back" onClick={() => setEditor(null)}>← Back to {schema.label}</button>
+            {!schema.singleton && <button className="adm-back" onClick={() => setEditor(null)}>← Back to {schema.label}</button>}
             <p className="adm-eyebrow">Content <em>·</em> {schema.label}</p>
             <h1 className="adm-title adm-title--sm">{title || `New ${schema.singular}`}</h1>
             <p className="adm-sub">{editor.isNew ? "Unsaved" : editor.originalSlug}</p>
@@ -507,7 +541,24 @@ export default function ContentManager({ type }: { type: string }) {
               </p>
             </div>
 
-            {groups.map((group) => (
+            {schema.tabs && (
+              <div className="adm-subtabs" role="tablist" aria-label={`${schema.label} sections`}>
+                {groups.map((group) => (
+                  <button
+                    key={group.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeGroup?.id === group.id}
+                    className={cx("adm-subtab", activeGroup?.id === group.id && "is-active")}
+                    onClick={() => setActiveSection(group.id)}
+                  >
+                    {group.title}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {(schema.tabs && activeGroup ? [activeGroup] : groups).map((group) => (
               <Card key={`${lang}-${group.id}`} className="adm-section-card">
                 <div className="adm-section-head">
                   <h2 className="adm-section-title">{group.title}</h2>
@@ -532,13 +583,37 @@ export default function ContentManager({ type }: { type: string }) {
               </Card>
             ))}
 
+            {schema.tabs && groups.length > 1 && (
+              <div className="adm-subtabs-nav">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  disabled={activeIndex <= 0}
+                  onClick={() => setActiveSection(groups[activeIndex - 1].id)}
+                >
+                  ← Previous
+                </Button>
+                <span className="adm-subtabs-count">
+                  {activeIndex + 1} / {groups.length}
+                </span>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  disabled={activeIndex >= groups.length - 1}
+                  onClick={() => setActiveSection(groups[activeIndex + 1].id)}
+                >
+                  Next →
+                </Button>
+              </div>
+            )}
+
             {lang === "km" && <p className="adm-hint">Empty Khmer fields fall back to English.</p>}
 
             <div className="adm-editor-footer">
               <p className="adm-hint">
                 Saves stay on staging until you promote this {schema.singular.toLowerCase()} or publish staging.
               </p>
-              {!editor.isNew && (
+              {!editor.isNew && !schema.singleton && (
                 <Button
                   variant="danger"
                   onClick={() =>
@@ -561,6 +636,8 @@ export default function ContentManager({ type }: { type: string }) {
               type={type}
               data={previewData}
               lang={lang}
+              section={schema.tabs ? activeGroup?.id : undefined}
+              sectionLabel={schema.tabs ? activeGroup?.title : undefined}
               href={publicSiteUrl(previewUrl(type, editor.slug))}
             />
           </aside>
@@ -588,7 +665,7 @@ export default function ContentManager({ type }: { type: string }) {
         </div>
         <div className="adm-actions">
           <Button onClick={() => void load(0, false)} disabled={loading}>Refresh</Button>
-          <Button variant="primary" onClick={openNew}>+ New {schema.singular}</Button>
+          {(!schema.singleton || items.length === 0) && <Button variant="primary" onClick={openNew}>+ New {schema.singular}</Button>}
         </div>
       </header>
 
@@ -703,9 +780,13 @@ export default function ContentManager({ type }: { type: string }) {
                             </>
                           )}
                           {item.hasStage && <DropdownMenuItem onClick={() => void promoteItem(item)}>Promote</DropdownMenuItem>}
-                          <DropdownMenuItem onClick={() => void duplicate(item)}>Duplicate</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem className="text-destructive" onClick={() => void remove(item)}>Delete</DropdownMenuItem>
+                          {!schema.singleton && <DropdownMenuItem onClick={() => void duplicate(item)}>Duplicate</DropdownMenuItem>}
+                          {!schema.singleton && (
+                            <>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem className="text-destructive" onClick={() => void remove(item)}>Delete</DropdownMenuItem>
+                            </>
+                          )}
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>

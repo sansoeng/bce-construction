@@ -1,5 +1,5 @@
 import { siteSettings } from "./siteSettings";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { LENIS_OPTIONS } from "./smoothScroll";
@@ -15,9 +15,8 @@ import SiteHeader from "./SiteHeader";
 import ArrowButton from "./ArrowButton";
 import FluidCursor from "./FluidCursor";
 import { projectHref, projects } from "./projects";
-import { commitments, offerings, businessHref } from "./company";
-
-const A = "/assets";
+import { offerings, businessHref } from "./company";
+import { homepage } from "./homepage";
 
 // The scroll choreography in App is imperative DOM setup. A new value on every live update of this module makes it
 // tear down and set up again, so edits never leave it driving elements React has since replaced.
@@ -26,10 +25,9 @@ const SETUP_ID = import.meta.hot ? Date.now() : 0;
 // The loader outlives React StrictMode's effect re-runs, so it always talks to the current Lenis instance.
 let activeLenis: Lenis | null = null;
 
-const LOADER_LETTERS = [..."BCE., LTD."];
-
 function Loader() {
-  const letters = LOADER_LETTERS.map((c, i) => <span key={i} className="inline-block">{c === " " ? "\u00a0" : c}</span>);
+  const { word, titleLines, locationLines, statusLines } = homepage.loader;
+  const letters = [...word].map((c, i) => <span key={i} className="inline-block">{c === " " ? "\u00a0" : c}</span>);
   const line = (group: string, text: string, extra?: object) => (
     <span className="block overflow-hidden"><span data-ll={group} className="block" {...extra}>{text}</span></span>
   );
@@ -44,10 +42,16 @@ function Loader() {
         </div>
       </div>
       <div data-loader-overlay className="absolute inset-0 bg-black opacity-0" />
-      <div className="absolute left-5 top-5">{line("title", "Construction company")}{line("title", "Infrastructure & building")}</div>
+      <div className="absolute left-5 top-5">{titleLines.map((text, i) => <Fragment key={i}>{line("title", text)}</Fragment>)}</div>
       <div className="absolute inset-x-5 bottom-5 grid grid-cols-2 gap-5 md:bottom-auto md:top-5 md:grid-cols-12">
-        <div className="text-white/60 md:col-span-4 md:col-start-5">{line("location", "Battambang")}{line("location", "Cambodia")}</div>
-        <div className="text-right md:col-span-4 md:col-start-9">{line("status", "Loading")}{line("status", "0%", { "data-loader-counter": "", style: { fontVariantNumeric: "tabular-nums" } })}</div>
+        <div className="text-white/60 md:col-span-4 md:col-start-5">{locationLines.map((text, i) => <Fragment key={i}>{line("location", text)}</Fragment>)}</div>
+        <div className="text-right md:col-span-4 md:col-start-9">
+          {statusLines.map((text, i) => (
+            <Fragment key={i}>
+              {line("status", text, i === statusLines.length - 1 ? { "data-loader-counter": "", style: { fontVariantNumeric: "tabular-nums" } } : undefined)}
+            </Fragment>
+          ))}
+        </div>
       </div>
       <div data-loader-panel className="absolute inset-0 bg-white" />
     </div>
@@ -59,31 +63,32 @@ const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
 function HeroLatestNews() {
+  const { newsKicker, newsTitle, newsHref, newsDownload, newsImage, newsAlt } = homepage.hero;
   return (
     <div className="relative select-none">
       <a
-        href="/assets/BCE_Corporate_Profile_2026.pdf"
+        href={newsHref}
         target="_blank"
         rel="noopener noreferrer"
-        download="BCE_Corporate_Profile_2026.pdf"
+        download={newsDownload || undefined}
         className="c-hero-card group flex w-full flex-row gap-3 rounded-lg p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
         data-hero-home="card"
       >
         <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[24px] shrink-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
           <img
-            src="/Image/bce/core_services.webp"
-            alt="BCE Company Profile"
+            src={newsImage}
+            alt={newsAlt}
             className="w-full h-full object-cover rounded-[24px] transition-transform duration-700 ease-out group-hover:scale-105"
             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
           />
         </div>
         <div className="flex flex-1 flex-col justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2">
           <span className="text-[11px] font-mono tracking-widest uppercase text-white/50">
-            latest news
+            {newsKicker}
           </span>
           <div className="flex items-end justify-between gap-3">
             <span className="max-w-[78%] text-[14px] sm:text-[15px] font-bold text-white leading-tight">
-              Download company profile
+              {newsTitle}
             </span>
             <span className="pb-1 text-white/80 transition-transform duration-300 ease-out group-hover:scale-125 group-hover:text-white shrink-0">
               <svg
@@ -411,12 +416,12 @@ function App() {
       {/* Fixed banner frame; JS morphs its rect from the viewport into the About image slot. */}
       <div data-fly className="pointer-events-none fixed left-0 top-0 z-20 h-[100svh] w-full overflow-hidden bg-black will-change-[top,left,width,height]">
         <div className="hero-media absolute inset-0">
-          <HeroVideo />
-          <img data-fly-about className="absolute inset-0 h-full w-full object-cover opacity-0" src={`${A}/6ae3a.webp`} alt="" />
+          <HeroVideo video={homepage.hero.video} poster={homepage.hero.poster} />
+          <img data-fly-about className="absolute inset-0 h-full w-full object-cover opacity-0" src={homepage.about.image} alt={homepage.about.imageAlt} />
         </div>
         <div data-hero-copy className="hero-scrim absolute inset-0" />
       </div>
-      {/* Hero Banner Bottom Section: Left has Title, Right has Wolverine Worldwide Latest News */}
+      {/* Hero Banner Bottom Section: Left has Title, Right has the latest news card */}
       <div
         data-hero-copy
         className="hero-copy-wrap fixed bottom-8 inset-x-0 px-[20px] z-30 pointer-events-none md:bottom-10"
@@ -425,12 +430,13 @@ function App() {
           {/* Left: Slogan Title */}
           <div className="w-full md:max-w-[660px] text-left">
             <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.3rem,4.8vw,4.4rem)] leading-[1.04] tracking-[-.025em] text-white">
-              <span className="block">Building on Strength.</span>{" "}
-              <span className="block">Delivering with Trust.</span>
+              {homepage.hero.titleLines.map((line, index) => (
+                <span className="block" key={index}>{line}</span>
+              ))}
             </h1>
           </div>
 
-          {/* Right: Wolverine Worldwide Latest News card */}
+          {/* Right: Latest news card */}
           <div className="w-full md:w-auto flex md:justify-end">
             <HeroLatestNews />
           </div>
@@ -443,31 +449,34 @@ function App() {
       <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white px-5 pb-24 pt-6">
         <div className="relative">
         <div data-about-track className="pointer-events-none absolute left-0 top-0 z-[1] w-full max-w-[15.5rem]">
-          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[24px]" src={`${A}/6ae3a.webp`} alt="BCE architectural detail" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
+          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[24px]" src={homepage.about.image} alt={homepage.about.imageAlt} style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
         </div>
         <div className="grid gap-10 md:grid-cols-2">
           <div className="aspect-[5/6] w-full max-w-[15.5rem]" aria-hidden />
           <div className="flex flex-col justify-between gap-12 md:min-h-[18.5rem]">
-            <p data-split="content" data-split-hold data-about-intro className="max-w-[440px] text-[1.1rem] font-medium leading-[22px]">BCE is a Battambang-based engineering and construction company, building across Cambodia since 1995 with modern equipment and a skilled team.</p>
+            <p data-split="content" data-split-hold data-about-intro className="max-w-[440px] text-[1.1rem] font-medium leading-[22px]">{homepage.about.intro}</p>
             <div>
-              <ArrowButton href="/?about" label="See more about us" theme="black" />
+              <ArrowButton href={homepage.about.ctaHref} label={homepage.about.ctaLabel} theme="black" />
             </div>
           </div>
         </div>
         <h2 data-split data-about-title className="about-title mt-40 font-medium text-[74px] leading-[1.08] tracking-[-.025em]">
-          <span className="inline-block md:pl-[max(25%,17.5rem)]">
-            We supply ready-mix concrete
-            <span className="sw"><span className="sw-i"><a href="/?business=ready-mix-concrete" className="about-core-badge" aria-label="Ready-Mix Concrete" title="Ready-Mix Concrete"><GlanceIcon kind="plants" clipIdPrefix="ab-plant" strokeWidth={2.3} /></a></span></span>,
-          </span>{" "}
-          foundation piling
-          <span className="sw"><span className="sw-i"><a href="/?business=piling" className="about-core-badge" aria-label="Foundation Piling" title="Foundation Piling"><GlanceIcon kind="piling" clipIdPrefix="ab-piling" strokeWidth={2.3} /></a></span></span>,{" "}
-          civil construction
-          <span className="sw"><span className="sw-i"><a href="/?business=construction" className="about-core-badge" aria-label="Civil Construction" title="Civil Construction"><GlanceIcon kind="projects" clipIdPrefix="ab-crane" strokeWidth={2.3} /></a></span></span>,{" "}
-          slab works
-          <span className="sw"><span className="sw-i"><a href="/?business=concrete-slab-works" className="about-core-badge" aria-label="Concrete Slab Works" title="Concrete Slab Works"><GlanceIcon kind="pump" clipIdPrefix="ab-pump" strokeWidth={2.3} /></a></span></span>,{" "}
-          and equipment rental
-          <span className="sw"><span className="sw-i"><a href="/?business=equipment-rental" className="about-core-badge" aria-label="Equipment Rental" title="Equipment Rental"><GlanceIcon kind="mixer" clipIdPrefix="ab-mixer" strokeWidth={2.3} /></a></span></span>{" "}
-          across Cambodia.
+          {homepage.about.titleSegments.map((segment, index) => {
+            const badge = (
+              <span className="sw"><span className="sw-i"><a href={segment.href} className="about-core-badge" aria-label={segment.label} title={segment.label}><GlanceIcon kind={segment.icon as IconKind} clipIdPrefix={`ab-${index}-${segment.icon}`} strokeWidth={2.3} /></a></span></span>
+            );
+            const comma = index < homepage.about.titleSegments.length - 1 ? "," : "";
+            return (
+              <Fragment key={index}>
+                {index === 0 ? (
+                  <span className="inline-block md:pl-[max(25%,17.5rem)]">{segment.text}{badge}{comma}</span>
+                ) : (
+                  <>{segment.text}{badge}{comma}</>
+                )}{" "}
+              </Fragment>
+            );
+          })}
+          {homepage.about.titleClosing}
         </h2>
         </div>
       </section>
@@ -478,13 +487,17 @@ function App() {
         <div data-offers-sticky className="sticky top-0 h-[100svh] overflow-hidden">
           <div data-offers-head className="pointer-events-none absolute inset-0 text-[#111]">
             <div className="absolute inset-x-5 top-[44%] grid grid-cols-2 items-start gap-5 text-[.95rem] md:grid-cols-12">
-              <p data-split="content" className="text-black/45 md:col-span-3">Core business</p>
-              <p data-split="content" className="hidden max-w-[24rem] text-[1.05rem] leading-[1.4] md:col-span-4 md:col-start-5 md:block">Concrete supply, piling, construction, slab works and equipment rental under one roof.</p>
-              <span className="flex items-center gap-3 justify-self-end text-black/45 md:col-span-3 md:col-start-10">Scroll to explore<span aria-hidden className="grid size-7 place-items-center rounded-[4px] border border-black/25 text-[#111]">→</span></span>
+              <p data-split="content" className="text-black/45 md:col-span-3">{homepage.expertise.kicker}</p>
+              <p data-split="content" className="hidden max-w-[24rem] text-[1.05rem] leading-[1.4] md:col-span-4 md:col-start-5 md:block">{homepage.expertise.lead}</p>
+              <span className="flex items-center gap-3 justify-self-end text-black/45 md:col-span-3 md:col-start-10">{homepage.expertise.scrollLabel}<span aria-hidden className="grid size-7 place-items-center rounded-[4px] border border-black/25 text-[#111]">→</span></span>
             </div>
             {/* The split reveal rewrites this heading's words in place, so the key makes React remount it (rather than patch
                 the rewritten DOM) whenever its line breaks change during live editing. */}
-            <h2 key="our-core/business-offering" id="offers-title" data-split data-split-hold className="absolute bottom-5 left-5 max-w-[min(70rem,90vw)] font-medium text-[clamp(2.75rem,6.2vw,6.5rem)] leading-[1.02] tracking-[-.03em]"><span className="block">Our core</span> <span className="block">business offering</span></h2>
+            <h2 key={homepage.expertise.titleLines.join("/")} id="offers-title" data-split data-split-hold className="absolute bottom-5 left-5 max-w-[min(70rem,90vw)] font-medium text-[clamp(2.75rem,6.2vw,6.5rem)] leading-[1.02] tracking-[-.03em]">
+              {homepage.expertise.titleLines.map((line, index) => (
+                <span className="block" key={index}>{line}</span>
+              ))}
+            </h2>
           </div>
           <div data-offers-track className="absolute inset-y-0 left-0 z-[1] flex w-max pl-[100vw] will-change-transform">
             {offerings.map(({ slug, name, image, bg, fg, details }) => (
@@ -520,11 +533,11 @@ function App() {
 
       <Glance />
 
-      <section data-vision data-nav-dark data-header-title="HSE & Operational Commitments" aria-label="HSE & Operational Commitments" className="relative h-[560vh] bg-white text-white">
+      <section data-vision data-nav-dark data-header-title={homepage.commitments.label} aria-label={homepage.commitments.label} className="relative h-[560vh] bg-white text-white">
         <div className="sticky top-0 h-[100svh] overflow-hidden">
           <div data-vision-frame className="absolute inset-0 overflow-hidden bg-[#111]">
           <div data-vision-image-scroll className="vision-img-scroll">
-            <img src={`${A}/slider-3@xxxl.webp`} alt="BCE HSE and operational commitments" />
+            <img src={homepage.commitments.image} alt={homepage.commitments.imageAlt} />
           </div>
           <div data-vision-shade className="absolute inset-0 bg-black opacity-0" />
 
@@ -532,14 +545,14 @@ function App() {
           <div data-vision-rule className="absolute top-[43%] flex items-center gap-4 text-[.95rem] opacity-0" style={{ left: "calc(var(--vs, 0vw) + 1.25rem)", right: "calc(var(--vs, 0vw) + 1.25rem)" }}>
             <span data-vision-num className="w-6 text-white/60">01</span>
             <span className="h-px flex-1 bg-white/25" />
-            <span>HSE &amp; Operational Commitments</span>
+            <span>{homepage.commitments.label}</span>
           </div>
 
           <div data-vision-copy className="vision-copy absolute inset-0">
           <div className="absolute inset-x-0 top-[23%]">
             <div data-vision-track className="vision-track relative flex w-max gap-[12.5vw] whitespace-nowrap pl-5 text-[clamp(2.2rem,3.5vw,3.85rem)] leading-[1.08] tracking-[-.025em] will-change-transform md:pl-[17.7vw]">
-              {commitments.map(([lines], t) => (
-                <h2 data-vision-title className={`vision-title font-medium${t === 0 ? " is-active" : ""}`} style={{ "--t": t } as React.CSSProperties} key={lines.join(" ")}>
+              {homepage.commitments.items.map(({ lines }, t) => (
+                <h2 data-vision-title className={`vision-title font-medium${t === 0 ? " is-active" : ""}`} style={{ "--t": t } as React.CSSProperties} key={`${lines.join(" ")}-${t}`}>
                   {lines.map((line, l) => (
                     <span className="vt-mask block" key={l}>
                       <span className="vt-line block">{line}</span>
@@ -552,12 +565,12 @@ function App() {
 
           <div className="absolute left-5 right-5 top-[53%] md:left-[58.6%] md:right-auto md:w-[min(24vw,22rem)]">
             <div className="relative min-h-[5.5rem]">
-              {commitments.map(([lines, text], i) => (
-                <p data-vision-text data-split="content" data-split-toggle className={`vision-text text-[.95rem] leading-[1.35] ${i === 0 ? "relative" : "absolute inset-x-0 top-0"}`} key={lines.join(" ")}>{text}</p>
+              {homepage.commitments.items.map(({ lines, text }, i) => (
+                <p data-vision-text data-split="content" data-split-toggle className={`vision-text text-[.95rem] leading-[1.35] ${i === 0 ? "relative" : "absolute inset-x-0 top-0"}`} key={`${lines.join(" ")}-${i}`}>{text}</p>
               ))}
             </div>
             <div className="mt-8 pt-2">
-              <ArrowButton href="/?quality" label="Explore Quality & HSE" theme="outline-white" />
+              <ArrowButton href={homepage.commitments.ctaHref} label={homepage.commitments.ctaLabel} theme="outline-white" />
             </div>
           </div>
           </div>
@@ -567,7 +580,12 @@ function App() {
 
       {/* Kononenko-style staggered work grid: 15 columns, per-item offsets */}
       <section id="projects" data-header-title="Projects" className="kp">
-        <h2 data-split className="kp-title font-medium">Selected<br /><span data-km="ជ្រើសរើស">Projects</span><sup className="kp-count">({String(projects.length).padStart(2, "0")})</sup></h2>
+        <h2 data-split className="kp-title font-medium">
+          {homepage.projects.titleLines.map((line, index) => (
+            <Fragment key={index}>{index > 0 && <br />}{line}</Fragment>
+          ))}
+          <sup className="kp-count">({String(projects.length).padStart(2, "0")})</sup>
+        </h2>
         <div className="kp-grid">
           {projects.map((p) => (
             <a href={projectHref(p.slug)} className="kp-item group" key={p.slug}>
@@ -584,14 +602,14 @@ function App() {
             </a>
           ))}
         </div>
-        <div className="kp-more"><ArrowButton href="/?projects" label="See all projects" /></div>
+        <div className="kp-more"><ArrowButton href={homepage.projects.ctaHref} label={homepage.projects.ctaLabel} /></div>
       </section>
 
       <Coverage />
 
       <WhyBCE />
 
-      <QuoteCta href="/?quote" />
+      <QuoteCta href={homepage.quote.ctaHref} />
 
       <Footer phones={phones} tel={tel} />
     </main>

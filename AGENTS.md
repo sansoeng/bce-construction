@@ -44,6 +44,7 @@ BCE/
 │   ├── BusinessesPage.tsx       # 4 Core operating divisions (hub)
 │   ├── BusinessDetailPage.tsx   # One detail page per core business (?business=<slug>)
 │   ├── businessDetails.ts       # Copy, figures, solutions and photos for the five detail pages
+│   ├── homepage.ts              # Every editable home-page string, figure and photo (admin-backed)
 │   ├── CapabilitiesPage.tsx     # Fleet specs (4 plants, 41 mixers, 8 pumps, 7 rigs)
 │   ├── QualityPage.tsx          # In-house lab, DYE-2000 compression testing, ACI 211.1
 │   ├── ProjectsPage.tsx         # 30-project portfolio database with category filtering

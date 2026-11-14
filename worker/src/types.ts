@@ -54,6 +54,7 @@ export class HttpError extends Error {
 }
 
 export const CONTENT_TYPES = [
+  "homepage",
   "projects",
   "posts",
   "vacancies",

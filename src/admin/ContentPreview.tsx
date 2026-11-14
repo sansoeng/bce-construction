@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 // A scaled-down render of the public page, built from the form's current values. It deliberately mirrors the live
 // layout (title, cover, ruled facts, highlights, gallery, equipment and outcome) with its own admin-scoped styles, so
@@ -16,6 +16,9 @@ type PreviewProps = {
   data: Record<string, unknown>;
   lang: "en" | "km";
   href: string;
+  /** The editor tab currently open (tabbed content types such as the homepage). */
+  section?: string;
+  sectionLabel?: string;
 };
 
 /** Scale the fixed-width page canvas to the panel, keeping the preview's height in the flow. */
@@ -313,7 +316,326 @@ function GenericPreview({ type, data }: { type: string; data: Record<string, unk
   );
 }
 
-export function ContentPreview({ type, data, lang, href }: PreviewProps) {
+type HomepagePreviewProps = {
+  data: Record<string, unknown>;
+  /** The editor tab currently open, e.g. "glance". Omit to show every section. */
+  section?: string;
+};
+
+const linesOf = (value: unknown) => list(value).map(text).filter(Boolean);
+
+function PreviewSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="adm-prev-section">
+      <h2>{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+/**
+ * A focused preview of the homepage. When the editor is tabbed, only the matching section is rendered, so the
+ * preview mirrors the card the editor is working in; with no section it shows the whole page, top to bottom.
+ */
+function HomepagePreview({ data, section }: HomepagePreviewProps) {
+  const show = (id: string) => !section || section === id;
+
+  const hero = record(data.hero);
+  const loader = record(data.loader);
+  const about = record(data.about);
+  const expertise = record(data.expertise);
+  const glance = record(data.glance);
+  const commitments = record(data.commitments);
+  const projects = record(data.projects);
+  const coverage = record(data.coverage);
+  const why = record(data.why);
+  const quote = record(data.quote);
+  const footer = record(data.footer);
+
+  const segments = list(about.titleSegments).map(record);
+  const stats = list(glance.stats).map(record);
+  const partnerGroups = list(glance.groups).map(record);
+  const commitmentsList = list(commitments.items).map(record);
+  const story = list(coverage.story).map(record);
+  const beliefs = list(why.beliefs).map(record);
+  const footerColumns = list(footer.columns).map(record);
+
+  return (
+    <>
+      {show("hero") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{linesOf(hero.titleLines).join(" ") || "Homepage"}</h1>
+            {text(hero.newsKicker) ? <p>{text(hero.newsKicker)}</p> : null}
+          </header>
+          {text(hero.poster) ? (
+            <figure className="adm-prev-hero">
+              <img src={text(hero.poster)} alt={text(hero.imageAlt)} />
+              <figcaption>
+                <span>Hero banner</span>
+                <span>{text(hero.video)}</span>
+              </figcaption>
+            </figure>
+          ) : null}
+          <PreviewSection title="Latest news card">
+            <div className="adm-prev-cards">
+              <div>
+                {text(hero.newsImage) ? <img src={text(hero.newsImage)} alt={text(hero.newsAlt)} /> : null}
+                <strong>{text(hero.newsTitle)}</strong>
+                <span>{text(hero.newsHref)}</span>
+              </div>
+            </div>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("loader") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{text(loader.word) || "Loading screen"}</h1>
+            <p>Shown while the home page loads</p>
+          </header>
+          <PreviewSection title="Loading screen">
+            <div className="rounded-[12px] bg-[#111] p-8 text-white">
+              <p className="font-mono text-[10px] uppercase tracking-[.16em] text-white/50">
+                {linesOf(loader.titleLines).join(" · ")}
+              </p>
+              <p className="mt-8 text-4xl font-medium tracking-[-.03em]">{text(loader.word)}</p>
+              <div className="mt-8 flex justify-between gap-6 font-mono text-[11px] uppercase tracking-[.12em] text-white/55">
+                <span>{linesOf(loader.locationLines).join(" · ")}</span>
+                <span>{linesOf(loader.statusLines).join(" · ")}</span>
+              </div>
+            </div>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("about") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>About BCE</h1>
+            <p>{[text(about.ctaLabel), text(about.ctaHref)].filter(Boolean).join(" · ")}</p>
+          </header>
+          {text(about.image) ? (
+            <figure className="adm-prev-hero">
+              <img src={text(about.image)} alt={text(about.imageAlt)} />
+            </figure>
+          ) : null}
+          <PreviewSection title="Introduction">
+            <p className="adm-prev-statement">{text(about.intro)}</p>
+            {segments.length > 0 ? (
+              <p className="adm-prev-statement">
+                {segments.map((segment) => text(segment.text)).filter(Boolean).join(", ")}
+                {text(about.titleClosing) ? ` ${text(about.titleClosing)}` : ""}
+              </p>
+            ) : null}
+            <dl className="adm-prev-rows">
+              <div>
+                <dt>Button</dt>
+                <dd>{[text(about.ctaLabel), text(about.ctaHref)].filter(Boolean).join(" · ")}</dd>
+              </div>
+            </dl>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("expertise") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{linesOf(expertise.titleLines).join(" ") || "Core business intro"}</h1>
+            <p>{text(expertise.kicker)}</p>
+          </header>
+          <PreviewSection title="Opening copy">
+            <p className="adm-prev-statement">{text(expertise.lead)}</p>
+            <dl className="adm-prev-rows">
+              <div>
+                <dt>Scroll label</dt>
+                <dd>{text(expertise.scrollLabel)}</dd>
+              </div>
+            </dl>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("glance") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{text(glance.title) || "BCE at a glance"}</h1>
+            <p>{text(glance.partnersTitle)}</p>
+          </header>
+          <PreviewSection title="Figures">
+            <div className="adm-prev-glance">
+              {stats.map((item, index) => (
+                <div key={index} className="adm-prev-glance-cell">
+                  <span className="adm-prev-glance-value">{String(item.value ?? "")}{text(item.suffix)}</span>
+                  <span className="adm-prev-glance-label">{text(item.label)}</span>
+                  {text(item.note) ? <span className="adm-prev-glance-note">{text(item.note)}</span> : null}
+                </div>
+              ))}
+            </div>
+          </PreviewSection>
+          <PreviewSection title={text(glance.partnersTitle) || "Partner groups"}>
+            {partnerGroups.map((group, index) => (
+              <div key={index} className="mt-5 first:mt-0">
+                <p className="mb-2 font-mono text-[10px] uppercase tracking-[.12em] text-[rgb(17_17_17_/_0.45)]">
+                  {text(group.label)} · {list(group.items).length}
+                </p>
+                <ul className="adm-prev-list">
+                  {list(group.items).map(record).map((partner, partnerIndex) => (
+                    <li key={partnerIndex}><span>{text(partner.name)}</span></li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("commitments") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{text(commitments.label) || "Commitments"}</h1>
+            <p>{text(commitments.imageAlt)}</p>
+          </header>
+          {text(commitments.image) ? (
+            <figure className="adm-prev-hero">
+              <img src={text(commitments.image)} alt={text(commitments.imageAlt)} />
+            </figure>
+          ) : null}
+          <PreviewSection title="Statements">
+            <div className="adm-prev-cards">
+              {commitmentsList.map((item, index) => (
+                <div key={index}>
+                  <strong>{linesOf(item.lines).join(" ")}</strong>
+                  <span>{text(item.text)}</span>
+                </div>
+              ))}
+            </div>
+            <p className="adm-prev-statement mt-5">{[text(commitments.ctaLabel), text(commitments.ctaHref)].filter(Boolean).join(" · ")}</p>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("projects") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{linesOf(projects.titleLines).join(" ") || "Selected projects"}</h1>
+            <p>{[text(projects.ctaLabel), text(projects.ctaHref)].filter(Boolean).join(" · ")}</p>
+          </header>
+          <PreviewSection title="Portfolio">
+            <p className="adm-prev-statement">
+              The project cards come from Projects. This section controls the heading and the button that leads to the
+              full portfolio.
+            </p>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("coverage") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{linesOf(coverage.titleLines).join(" ") || "Coverage"}</h1>
+            <p>{text(coverage.hint)}</p>
+          </header>
+          <PreviewSection title="Story over the map">
+            <dl className="adm-prev-rows">
+              {story.map((entry, index) => (
+                <div key={index}>
+                  <dt>{text(entry.label)}</dt>
+                  <dd>{text(entry.lead)}</dd>
+                </div>
+              ))}
+            </dl>
+            {text(coverage.fleetNote) ? <p className="adm-prev-statement mt-4">{text(coverage.fleetNote)}</p> : null}
+            {text(coverage.credit) ? <p className="adm-prev-statement mt-2">{text(coverage.credit)}</p> : null}
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("why") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{text(why.eyebrow) || "Why choose BCE"}</h1>
+            <p>Three oversized words, each with its tag</p>
+          </header>
+          <PreviewSection title="Beliefs">
+            <div className="adm-prev-cards">
+              {beliefs.map((belief, index) => (
+                <div key={index}>
+                  <strong>{text(belief.word)}</strong>
+                  <span>{text(belief.tag)}</span>
+                </div>
+              ))}
+            </div>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("quote") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{text(quote.title) || "Request a quotation"}</h1>
+            <p>{[text(quote.ctaLabel), text(quote.ctaHref)].filter(Boolean).join(" · ")}</p>
+          </header>
+          {text(quote.image) ? (
+            <figure className="adm-prev-hero">
+              <img src={text(quote.image)} alt="" />
+            </figure>
+          ) : null}
+          <PreviewSection title="Closing panel">
+            <p className="adm-prev-statement">{text(quote.text)}</p>
+          </PreviewSection>
+        </>
+      ) : null}
+
+      {show("footer") ? (
+        <>
+          <header className="adm-prev-head">
+            <h1>{text(footer.enquiryTitle) || "Footer"}</h1>
+            <p>{text(footer.officeTitle)}</p>
+          </header>
+          <PreviewSection title="Navigation">
+            <dl className="adm-prev-rows">
+              {footerColumns.map((column, index) => (
+                <div key={index}>
+                  <dt>{text(column.title)}</dt>
+                  <dd>
+                    {list(column.links).map(record).map((link, linkIndex) => (
+                      <span key={linkIndex} className="block">{text(link.label)}</span>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </PreviewSection>
+          <PreviewSection title="Contact block">
+            <p className="adm-prev-statement">{text(footer.enquiryText)}</p>
+            <dl className="adm-prev-rows">
+              <div>
+                <dt>Buttons</dt>
+                <dd>{[text(footer.primaryLabel), text(footer.callLabel)].filter(Boolean).join(" · ")}</dd>
+              </div>
+              <div>
+                <dt>Labels</dt>
+                <dd>
+                  {[
+                    text(footer.hotlinesLabel),
+                    text(footer.socialLabel),
+                    text(footer.directionsLabel),
+                    text(footer.backToTopLabel),
+                    text(footer.rightsLabel),
+                  ].filter(Boolean).join(" · ")}
+                </dd>
+              </div>
+            </dl>
+          </PreviewSection>
+        </>
+      ) : null}
+    </>
+  );
+}
+
+export function ContentPreview({ type, data, lang, href, section, sectionLabel }: PreviewProps) {
   const { viewport, page, fit } = useFit(DESIGN_WIDTH);
   const khmer = lang === "km";
 
@@ -321,6 +643,7 @@ export function ContentPreview({ type, data, lang, href }: PreviewProps) {
     <div className="adm-preview">
       <div className="adm-preview-bar">
         <span className="adm-preview-label">Live preview</span>
+        {sectionLabel ? <span className="adm-preview-section">{sectionLabel}</span> : null}
         <span className="adm-preview-lang">{khmer ? "ខ្មែរ" : "English"}</span>
         <a className="adm-preview-open" href={href} target="_blank" rel="noopener noreferrer">Open ↗</a>
       </div>
@@ -331,11 +654,19 @@ export function ContentPreview({ type, data, lang, href }: PreviewProps) {
           data-lang={lang}
           style={{ width: DESIGN_WIDTH, transform: `scale(${fit.scale})` }}
         >
-          {type === "projects" ? <ProjectPreview data={data} /> : <GenericPreview type={type} data={data} />}
+          {type === "homepage" ? (
+            <HomepagePreview data={data} section={section} />
+          ) : type === "projects" ? (
+            <ProjectPreview data={data} />
+          ) : (
+            <GenericPreview type={type} data={data} />
+          )}
         </div>
       </div>
       <p className="adm-preview-note">
-        Rendered from the values in this form. Save, then open the page to check the final type and spacing.
+        {khmer
+          ? "Khmer preview: fields left empty fall back to English, exactly as the live site does."
+          : "Rendered from the values in this form. Save, then open the page to check the final type and spacing."}
       </p>
     </div>
   );

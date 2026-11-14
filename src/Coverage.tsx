@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { khmProvinces } from "./cambodiaMap";
+import { homepage } from "./homepage";
 import "./coverage-map.css";
 
 // Operational coverage, after aircenter.space/location ("Transport accessibility"): a pinned, full-screen dark map
@@ -869,6 +870,8 @@ export default function Coverage() {
   const sel = shown === null ? null : items[shown];
 
   const shownName = shown === null ? null : items[shown].name;
+  const copy = homepage.coverage;
+  const step = (index: number) => copy.story[index] ?? { label: "", lead: "" };
 
   return (
     <section id="coverage" data-nav-dark data-header-title="Coverage" aria-labelledby="coverage-title" className="ac relative bg-black text-white">
@@ -927,41 +930,43 @@ export default function Coverage() {
 
           {/* The story told over the map itself, one big number at a time. */}
           {/* Last step: a short prompt; the details wait for a click on the map. */}
-          <p className={`ac-hint${!free && phase === "explore" ? " is-on" : ""}`}><PinIcon />Click on a province to see more details</p>
+          <p className={`ac-hint${!free && phase === "explore" ? " is-on" : ""}`}><PinIcon />{copy.hint}</p>
 
           {/* Intro: the section title, slid together on the way in, then zoomed through to reveal the map. */}
           <div ref={introRef} className="ac-intro">
             <h2 id="coverage-title" className="ac-title ac-intro-title">
-              <span data-ac-row className="block">Everywhere You Build,</span> <span data-ac-row className="block">We’ve Got You Covered.</span>
+              {copy.titleLines.map((line, index) => (
+                <span key={index} data-ac-row className="block">{line}</span>
+              ))}
             </h2>
           </div>
 
           <div className="ac-story">
             <div className={`ac-story-step${!free && phase === "count" ? " is-on" : ""}`}>
-              <p className="ac-story-eyebrow">Operational coverage</p>
+              <p className="ac-story-eyebrow">{step(0).label}</p>
               <p className="ac-story-num">{String(count).padStart(2, "0")}</p>
-              <p className="ac-story-lead">Locations covered across Cambodia</p>
+              <p className="ac-story-lead">{step(0).lead}</p>
             </div>
             <div className={`ac-story-step${!free && phase === "hq" ? " is-on" : ""}`}>
-              <p className="ac-story-eyebrow">Head office</p>
+              <p className="ac-story-eyebrow">{step(1).label}</p>
               <p className="ac-story-num"><CountUp to={items[0].projects ?? 0} run={!free && phase === "hq"} /><span>{items[0].suffix || "+"}</span></p>
-              <p className="ac-story-lead">Projects completed from Battambang</p>
+              <p className="ac-story-lead">{step(1).lead}</p>
             </div>
             <div className={`ac-story-step ac-story-step--right${!free && phase === "projects" ? " is-on" : ""}`}>
-              <p className="ac-story-eyebrow">Completed projects</p>
+              <p className="ac-story-eyebrow">{step(2).label}</p>
               <p className="ac-story-num"><CountUp to={totalProjects} run={!free && phase === "projects"} /><span>+</span></p>
-              <p className="ac-story-lead">Projects completed in 2025 across Cambodia</p>
+              <p className="ac-story-lead">{step(2).lead}</p>
             </div>
             <div className={`ac-story-step ac-story-step--right${!free && phase === "equip" ? " is-on" : ""}`}>
-              <p className="ac-story-eyebrow">Equipment fleet</p>
+              <p className="ac-story-eyebrow">{step(3).label}</p>
               <p className="ac-story-num"><CountUp to={fleetTotal} run={!free && phase === "equip"} /></p>
-              <p className="ac-story-lead">Machines in our own fleet</p>
+              <p className="ac-story-lead">{step(3).lead}</p>
               <ul className="ac-story-fleet">
                 {FLEET.map(([n, label]) => (
                   <li key={label}><span><CountUp to={n} run={!free && phase === "equip"} pad={2} /></span>{label}</li>
                 ))}
               </ul>
-              <p className="ac-story-note">Plus our own piling rigs.</p>
+              <p className="ac-story-note">{copy.fleetNote}</p>
             </div>
           </div>
 
@@ -1115,7 +1120,7 @@ export default function Coverage() {
             </button>
           </div>
 
-          <p className="ac-credit">Boundaries © OpenStreetMap contributors · Completed projects across Cambodia</p>
+          <p className="ac-credit">{copy.credit}</p>
         </div>
       </div>
     </section>

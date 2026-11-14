@@ -1600,6 +1600,58 @@
   color: var(--adm-faint);
 }
 
+/* Tabbed sections (the homepage): one card at a time instead of a very long scroll. */
+.adm-subtabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+  border-bottom: 1px solid var(--adm-line-soft);
+  scrollbar-width: thin;
+  scrollbar-color: var(--adm-line) transparent;
+}
+
+.adm-subtab {
+  flex: none;
+  padding: 8px 14px;
+  border: 1px solid var(--adm-line-soft);
+  border-radius: 999px;
+  background: var(--adm-warm);
+  color: var(--adm-muted);
+  font-family: var(--adm-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.adm-subtab:hover {
+  border-color: var(--adm-line);
+  color: var(--adm-ink);
+}
+
+.adm-subtab.is-active {
+  border-color: var(--adm-ink);
+  background: var(--adm-ink);
+  color: #fff;
+}
+
+.adm-subtabs-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.adm-subtabs-count {
+  font-family: var(--adm-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--adm-faint);
+}
+
 .adm-section-card {
   border-radius: 8px;
 }
@@ -1726,6 +1778,21 @@
   color: var(--adm-ink);
 }
 
+.adm-preview-section {
+  max-width: 55%;
+  overflow: hidden;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--adm-ink);
+  color: #fff;
+  font-family: var(--adm-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .adm-preview-lang {
   margin-left: auto;
   font-family: var(--adm-mono);
@@ -1767,7 +1834,7 @@
 }
 
 .adm-preview-page[data-lang="km"] {
-  font-family: "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif;
+  font-family: "Aeonik Pro", "Hanuman", "Kantumruy Pro", "Noto Sans Khmer", sans-serif;
   letter-spacing: 0;
 }
 

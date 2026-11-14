@@ -128,7 +128,7 @@ export function FieldEditor({ field, value, onChange }: { field: Field; value: u
     const object = value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
     return (
       <div className="adm-subcard adm-span-2">
-        <p className="adm-label mb-3">{field.label}</p>
+        {field.label && <p className="adm-label mb-3">{field.label}</p>}
         <div className="grid gap-3 sm:grid-cols-2">
           {(field.fields ?? []).map((sub) => (
             <FieldEditor

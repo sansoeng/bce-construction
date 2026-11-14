@@ -47,6 +47,7 @@ The Access application **BCE Admin API** (`bce-construction.com/api/admin`) has 
 
 | Section | Contents |
 | --- | --- |
+| Homepage | Every home-page headline, paragraph, figure, photo, button and footer link (one document) |
 | Projects | Portfolio records, galleries, figures, equipment, technical details |
 | Journal | Article copy, sections, takeaways, author |
 | Careers | Vacancies and requirements |

@@ -1,42 +1,10 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { homepage } from "./homepage";
 
-// Eight figures from the BCE Corporate Profile 2026 (4 overview figures + 4 fleet categories listed separately): 4 rows of 2 highlights.
+// Figures for the "BCE at a glance" grid. The defaults live in src/homepage.ts and the admin console can edit
+// every value, suffix, label, note and icon.
 export type IconKind = "years" | "projects" | "clients" | "plants" | "mixer" | "provinces" | "pump" | "piling";
-const stats: { value: number; label: string; note: string; icon: IconKind; suffix?: string }[] = [
-  // Row 1
-  { value: 30, suffix: "+", label: "Years of experience", note: "Established 1995", icon: "years" },
-  { value: 128, label: "Projects Completed in 2025", note: "Verified company records", icon: "projects" },
-  // Row 2
-  { value: 1564, label: "Clients served", note: "In 2025", icon: "clients" },
-  { value: 14, label: "Provinces served", note: "13 provinces + Phnom Penh", icon: "provinces" },
-  // Row 3: Plant & Fleet (As of 2026)
-  { value: 4, label: "Batching plants", note: "70 m³/hr each · Battambang", icon: "plants" },
-  { value: 41, label: "Mixer trucks", note: "Fleet as of 2026", icon: "mixer" },
-  // Row 4: Specialized Fleet (As of 2026)
-  { value: 8, label: "Concrete pump trucks", note: "Boom reach up to 48m", icon: "pump" },
-  { value: 7, label: "Hydraulic piling rigs", note: "Bore & hammer rigs", icon: "piling" },
-];
 
-// Clients & partners, grouped from the Corporate Profile 2026 client and supplier lists (pp. 33-35).
-// 1. Clients: Obayashi, Hanshin E&C, Thang Long JSC, SUMEC, SchneiTec, Build Bright University
-// 2. Suppliers: Chip Mong Group
-// 3. Technical Partners: Sika Cambodia
-const clientPartners: { name: string; logo?: string }[] = [
-  { name: "Obayashi", logo: "/assets/partners/placeholder-1.svg" },
-  { name: "Hanshin E&C", logo: "/assets/partners/placeholder-2.svg" },
-  { name: "Thang Long JSC", logo: "/assets/partners/placeholder-3.svg" },
-  { name: "SUMEC", logo: "/assets/partners/placeholder-4.svg" },
-  { name: "SchneiTec", logo: "/assets/partners/placeholder-5.svg" },
-  { name: "Build Bright University", logo: "/assets/partners/placeholder-6.svg" },
-];
-
-const supplierPartners: { name: string; logo?: string }[] = [
-  { name: "Chip Mong Group", logo: "/assets/partners/placeholder-7.svg" },
-];
-
-const technicalPartners: { name: string; logo?: string }[] = [
-  { name: "Sika Cambodia", logo: "/assets/partners/placeholder-8.svg" },
-];
 
 // Line icons on a 48-unit grid, one stroke weight throughout. Strokes marked `draw` trace themselves in when the grid
 // reveals; the brand-blue part of each then keeps a small loop going (sand, hook, nod, drip, drum, pin).
@@ -171,82 +139,100 @@ function useInView<T extends Element>(threshold = 0.2) {
   return [ref, inView] as const;
 }
 
-// Trusted partners & clients: a second title + ruled grid pair in the "BCE at a glance" layout,
-// grouped into 3 distinct categories: Clients, Suppliers, and Technical Partners.
+// Trusted partners & clients: a second title + ruled grid pair in the "BCE at a glance" layout. The first group
+// spans the full grid; the next two sit side by side, as Clients / Suppliers / Technical Partners did originally.
+const padCount = (n: number) => `(${String(n).padStart(2, "0")})`;
+
+function PartnerLogo({ partner }: { partner: { name: string; logo?: string } }) {
+  return (
+    <span className="glance-logo-mask">
+      <span className="glance-logo-inner">
+        {partner.logo ? (
+          <img src={partner.logo} alt={`${partner.name} logo`} decoding="async" />
+        ) : (
+          <span className="glance-wordmark">{partner.name}</span>
+        )}
+      </span>
+    </span>
+  );
+}
+
 function Partners() {
   const [ref, inView] = useInView<HTMLDivElement>(0.15);
+  const { partnersTitle, groups } = homepage.glance;
+  const primary = groups[0];
+  const secondary = groups.slice(1, 3);
+  const extra = groups.slice(3);
+
   return (
     <div className="glance-layout glance-partners">
       <div className="glance-title-col">
         <div className="glance-title-sticky">
           <h2 data-split className="text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
-            Trusted partners &amp; clients
+            {partnersTitle}
           </h2>
         </div>
       </div>
       <div ref={ref} className={`glance ${inView ? "is-in" : ""}`}>
-        {/* Category 1: Clients */}
-        <div>
-          <div className="mb-4 flex items-center justify-between border-b border-black/10 pb-2">
-            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
-              Clients
-            </span>
-            <span className="font-mono text-[11px] text-black/35">(06)</span>
+        {primary && (
+          <div>
+            <div className="mb-4 flex items-center justify-between border-b border-black/10 pb-2">
+              <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
+                {primary.label}
+              </span>
+              <span className="font-mono text-[11px] text-black/35">{padCount(primary.items.length)}</span>
+            </div>
+            <ul className="glance-grid glance-logos">
+              {primary.items.map((p, i) => (
+                <li key={`${p.name}-${i}`} className="glance-cell glance-logo" style={{ "--i": i, "--r": Math.floor(i / 2), "--c": i % 2 } as CSSProperties}>
+                  <PartnerLogo partner={p} />
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="glance-grid glance-logos">
-            {clientPartners.map((p, i) => (
-              <li key={p.name} className="glance-cell glance-logo" style={{ "--i": i, "--r": Math.floor(i / 2), "--c": i % 2 } as CSSProperties}>
-                <span className="glance-logo-mask">
-                  <span className="glance-logo-inner">
-                    {p.logo ? <img src={p.logo} alt={`${p.name} logo`} decoding="async" /> : <span className="glance-wordmark">{p.name}</span>}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        )}
 
-        {/* Categories 2 & 3: Suppliers and Technical Partners side by side */}
-        <div className="mt-12 md:mt-16">
-          <div className="grid grid-cols-2">
-            <div className="border-b border-black/10 pb-2 pr-4">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
-                  Suppliers
-                </span>
-                <span className="font-mono text-[11px] text-black/35">(01)</span>
+        {secondary.length > 0 && (
+          <div className="mt-12 md:mt-16 grid grid-cols-2 gap-x-8">
+            {secondary.map((group, gi) => (
+              <div key={`${group.label}-${gi}`}>
+                <div className="border-b border-black/10 pb-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
+                      {group.label}
+                    </span>
+                    <span className="font-mono text-[11px] text-black/35">{padCount(group.items.length)}</span>
+                  </div>
+                </div>
+                <ul className="glance-logos grid grid-cols-1">
+                  {group.items.map((p, i) => (
+                    <li key={`${p.name}-${i}`} className="glance-cell glance-logo" style={{ "--i": (primary?.items.length ?? 0) + gi * 2 + i, "--r": 3, "--c": gi } as CSSProperties}>
+                      <PartnerLogo partner={p} />
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-            <div className="border-b border-black/10 pb-2 pl-4">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
-                  Technical Partners
-                </span>
-                <span className="font-mono text-[11px] text-black/35">(01)</span>
-              </div>
-            </div>
+            ))}
           </div>
-          <ul className="glance-grid glance-logos">
-            {supplierPartners.map((p, i) => (
-              <li key={p.name} className="glance-cell glance-logo" style={{ "--i": 6 + i, "--r": 3, "--c": 0 } as CSSProperties}>
-                <span className="glance-logo-mask">
-                  <span className="glance-logo-inner">
-                    {p.logo ? <img src={p.logo} alt={`${p.name} logo`} decoding="async" /> : <span className="glance-wordmark">{p.name}</span>}
-                  </span>
-                </span>
-              </li>
-            ))}
-            {technicalPartners.map((p, i) => (
-              <li key={p.name} className="glance-cell glance-logo" style={{ "--i": 7 + i, "--r": 3, "--c": 1 } as CSSProperties}>
-                <span className="glance-logo-mask">
-                  <span className="glance-logo-inner">
-                    {p.logo ? <img src={p.logo} alt={`${p.name} logo`} decoding="async" /> : <span className="glance-wordmark">{p.name}</span>}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        )}
+
+        {extra.map((group, gi) => (
+          <div key={`${group.label}-${gi}`} className="mt-12 md:mt-16">
+            <div className="mb-4 flex items-center justify-between border-b border-black/10 pb-2">
+              <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
+                {group.label}
+              </span>
+              <span className="font-mono text-[11px] text-black/35">{padCount(group.items.length)}</span>
+            </div>
+            <ul className="glance-grid glance-logos">
+              {group.items.map((p, i) => (
+                <li key={`${p.name}-${i}`} className="glance-cell glance-logo" style={{ "--i": i, "--r": Math.floor(i / 2), "--c": i % 2 } as CSSProperties}>
+                  <PartnerLogo partner={p} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -275,7 +261,7 @@ export default function Glance() {
   // One clock drives every counter; each figure starts a little after the one before it.
   useEffect(() => {
     if (!inView) return;
-    const end = COUNT_MS + STAGGER_MS * stats.length;
+    const end = COUNT_MS + STAGGER_MS * homepage.glance.stats.length;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return setElapsed(end);
     let raf = 0;
     const start = performance.now() + 250;
@@ -288,13 +274,15 @@ export default function Glance() {
     return () => cancelAnimationFrame(raf);
   }, [inView]);
 
+  const { title, stats } = homepage.glance;
+
   return (
     <section aria-labelledby="glance-title" data-header-title="At a glance" className="bg-white px-6 py-20 text-[#111] md:py-28 lg:py-32">
       <div className="glance-layout">
         <div className="glance-title-col">
           <div className="glance-title-sticky">
             <h2 id="glance-title" data-split className="text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
-              BCE at a glance 2025–2026
+              {title}
             </h2>
           </div>
         </div>
@@ -302,10 +290,10 @@ export default function Glance() {
         <div ref={ref} className={`glance ${inView ? "is-in" : ""}`}>
           <dl className="glance-grid">
             {stats.map((s, i) => {
-              const n = Math.round(s.value * expoOut(Math.min(Math.max((elapsed - i * STAGGER_MS) / COUNT_MS, 0), 1)));
+              const n = Math.round(Number(s.value || 0) * expoOut(Math.min(Math.max((elapsed - i * STAGGER_MS) / COUNT_MS, 0), 1)));
               return (
                 <div
-                  key={s.label}
+                  key={`${s.label}-${i}`}
                   className="glance-cell"
                   style={{ "--i": i } as CSSProperties}
                 >

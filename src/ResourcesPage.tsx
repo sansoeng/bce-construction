@@ -48,7 +48,7 @@ export default function ResourcesPage() {
       <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
 
         {/* Revolut Reports Document Listing Section */}
-        <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-28 sm:pt-32 md:pt-36 pb-20 sm:pb-28">
+        <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-[280px] pb-20 sm:pb-28">
 
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">
@@ -204,12 +204,18 @@ export default function ResourcesPage() {
                     key={doc.id}
                     href={doc.downloadUrl}
                     download
-                    className="box-24 group block p-6 sm:p-7 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] border-0 transition-all duration-200"
+                    className="box-24 group relative isolate block p-6 sm:p-7 rounded-[24px] border-0"
                     style={{
                       WebkitCornerSmoothing: "60%",
                       cornerSmoothing: "60%",
                     } as any}
                   >
+                    {/* Only the panel zooms; the copy inside stays put and crisp. */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 -z-10 rounded-[24px] bg-[#F8F9FA] transition-transform duration-300 ease-in-out group-hover:scale-[1.02]"
+                      style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                    />
                     <div className="flex items-start justify-between gap-4">
                       {/* Left: Document info */}
                       <div className="flex-1 min-w-0">
@@ -224,14 +230,9 @@ export default function ResourcesPage() {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-[18px] sm:text-[20px] md:text-[21px] font-medium text-[#191C1F] group-hover:text-[#0075EB] tracking-[-0.015em] leading-[1.3] transition-colors mb-2">
+                        <h3 className="text-[18px] sm:text-[20px] md:text-[21px] font-medium text-[#191C1F] tracking-[-0.015em] leading-[1.3] mb-4">
                           {doc.title}
                         </h3>
-
-                        {/* Description */}
-                        <p className="text-[13px] sm:text-[14px] text-[#191C1F]/65 leading-[1.55] max-w-[680px] mb-4">
-                          {doc.description}
-                        </p>
 
                         {/* Bottom Row: Download Link & File Metadata */}
                         <div className="flex flex-wrap items-center gap-4 text-[13px] pt-1">

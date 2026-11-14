@@ -428,7 +428,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                   {/* Column 1: Explore Pages */}
                   <div className="apple-mega-col">
                     <h3>Explore</h3>
-                    <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-big-link">
+                    <a href={linkHref("/?contact")} onClick={closeAll} className="apple-mega-big-link">
                       Contact
                     </a>
                     <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-big-link">
@@ -638,7 +638,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                 {/* Column 1: Explore Pages */}
                 <div className="apple-mega-col">
                   <h3>Explore</h3>
-                  <a href={linkHref("#contact")} onClick={closeAll} className="apple-mega-big-link">
+                  <a href={linkHref("/?contact")} onClick={closeAll} className="apple-mega-big-link">
                     Contact
                   </a>
                   <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-big-link">
@@ -800,7 +800,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
             </button>
             {mobileAccordion === "more" && (
               <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
-                <a href={linkHref("#contact")} onClick={closeAll} className="apple-mobile-sublink">
+                <a href={linkHref("/?contact")} onClick={closeAll} className="apple-mobile-sublink">
                   Contact
                   <span>›</span>
                 </a>

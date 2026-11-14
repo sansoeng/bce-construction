@@ -1,3 +1,5 @@
+import { DEFAULT_HOMEPAGE, HOMEPAGE_ICONS } from "../homepage";
+
 export type FieldType =
   | "text"
   | "textarea"
@@ -23,6 +25,8 @@ export type Field = {
   required?: boolean;
   rows?: number;
   wide?: boolean;
+  /** Set false for paths, colours, links and other values that are the same in both languages. */
+  locale?: boolean;
   /** Frame the image preview at the public site's ratio, e.g. "16 / 9". The whole image is always shown. */
   aspect?: string;
 };
@@ -49,6 +53,10 @@ export type ContentSchema = {
   defaults: () => Record<string, unknown>;
   /** Top-level fields that should not appear in the Khmer translation form. */
   skipKm?: string[];
+  /** A single document edited in place (the home page); the list view opens it directly. */
+  singleton?: boolean;
+  /** Split the editor cards into tabs instead of one long scroll. */
+  tabs?: boolean;
 };
 
 const projectCategories = [
@@ -366,6 +374,165 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "bg", label: "Background colour", type: "text" },
       { key: "fg", label: "Text colour", type: "text" },
       { key: "details", label: "Key facts", type: "list" },
+    ],
+  },
+
+  homepage: {
+    type: "homepage",
+    label: "Homepage",
+    singular: "Homepage",
+    description: "Every headline, paragraph, figure, photo and button on the home page.",
+    icon: "⌂",
+    titleKey: "title",
+    slugKey: "slug",
+    singleton: true,
+    tabs: true,
+    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_HOMEPAGE)) as Record<string, unknown>), title: "Homepage", slug: "home" }),
+    skipKm: ["title", "slug"],
+    sections: [
+      { id: "hero", title: "Hero banner", hint: "The opening video, headline and the latest-news card.", keys: ["title", "slug", "hero"] },
+      { id: "loader", title: "Loading screen", hint: "The intro shown while the home page loads.", keys: ["loader"] },
+      { id: "about", title: "About introduction", hint: "The photo, opening paragraph and the core-business sentence.", keys: ["about"] },
+      { id: "expertise", title: "Core business intro", hint: "The opening screen before the five service panels slide in.", keys: ["expertise"] },
+      { id: "glance", title: "BCE at a glance", hint: "The counted figures and the partner logo groups.", keys: ["glance"] },
+      { id: "commitments", title: "HSE & operational commitments", hint: "The pinned photo and the five commitment statements.", keys: ["commitments"] },
+      { id: "projects", title: "Selected projects", hint: "The portfolio heading and its call to action. Project cards come from Projects.", keys: ["projects"] },
+      { id: "coverage", title: "Coverage", hint: "The map introduction and the story labels over the map.", keys: ["coverage"] },
+      { id: "why", title: "Why choose BCE", hint: "The oversized belief words and their tags.", keys: ["why"] },
+      { id: "quote", title: "Request a quotation", hint: "The closing panel above the footer.", keys: ["quote"] },
+      { id: "footer", title: "Footer", hint: "Navigation columns and the contact block. Phones and email come from Settings.", keys: ["footer"] },
+    ],
+    fields: [
+      { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
+      { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “home”.", locale: false },
+
+      { key: "hero", label: "", type: "group", fields: [
+        { key: "video", label: "Hero video", type: "text", hint: "MP4 path, e.g. /video/hero_highlight.mp4", locale: false, wide: true },
+        { key: "poster", label: "Hero poster", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "image", label: "About reveal image", type: "image", wide: true, aspect: "5 / 6" },
+        { key: "imageAlt", label: "About reveal alt text", type: "text", wide: true, locale: false },
+        { key: "titleLines", label: "Hero headline", type: "list", hint: "One line per row." },
+        { key: "newsKicker", label: "News kicker", type: "text" },
+        { key: "newsTitle", label: "News card title", type: "text" },
+        { key: "newsHref", label: "News card link", type: "text", locale: false },
+        { key: "newsDownload", label: "Download filename", type: "text", hint: "Optional. Leave blank to open the link in the browser.", locale: false },
+        { key: "newsImage", label: "News card image", type: "image", wide: true, aspect: "4 / 3" },
+        { key: "newsAlt", label: "News card alt text", type: "text", wide: true, locale: false },
+      ] },
+
+      { key: "loader", label: "", type: "group", fields: [
+        { key: "word", label: "Loader wordmark", type: "text" },
+        { key: "titleLines", label: "Title lines", type: "list" },
+        { key: "locationLines", label: "Location lines", type: "list" },
+        { key: "statusLines", label: "Status lines", type: "list", hint: "The last line becomes the animated counter." },
+      ] },
+
+      { key: "about", label: "", type: "group", fields: [
+        { key: "image", label: "About image", type: "image", wide: true, aspect: "5 / 6" },
+        { key: "imageAlt", label: "Image alt text", type: "text", wide: true, locale: false },
+        { key: "intro", label: "Introduction", type: "textarea", rows: 3, wide: true },
+        { key: "ctaLabel", label: "Button label", type: "text" },
+        { key: "ctaHref", label: "Button link", type: "text", locale: false },
+        { key: "titleSegments", label: "Core-business sentence", type: "objectList", itemLabel: "Segment", hint: "Each segment prints its text, then one of the drawn icons linked to a business page.", itemFields: [
+          { key: "text", label: "Text", type: "text" },
+          { key: "label", label: "Icon label", type: "text", hint: "Accessible name and tooltip." },
+          { key: "icon", label: "Icon", type: "select", options: HOMEPAGE_ICONS, locale: false },
+          { key: "href", label: "Link", type: "text", locale: false },
+        ] },
+        { key: "titleClosing", label: "Closing words", type: "text", hint: "Printed after the last segment, e.g. “across Cambodia.”" },
+      ] },
+
+      { key: "expertise", label: "", type: "group", fields: [
+        { key: "kicker", label: "Kicker", type: "text" },
+        { key: "lead", label: "Lead", type: "textarea", rows: 3, wide: true },
+        { key: "scrollLabel", label: "Scroll label", type: "text" },
+        { key: "titleLines", label: "Heading", type: "list" },
+      ] },
+
+      { key: "glance", label: "", type: "group", fields: [
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "stats", label: "Figures", type: "objectList", itemLabel: "Figure", itemFields: [
+          { key: "value", label: "Value", type: "number", locale: false },
+          { key: "suffix", label: "Suffix", type: "text", locale: false, hint: "e.g. +" },
+          { key: "label", label: "Label", type: "text" },
+          { key: "note", label: "Note", type: "text" },
+          { key: "icon", label: "Icon", type: "select", options: HOMEPAGE_ICONS, locale: false },
+        ] },
+        { key: "partnersTitle", label: "Partners heading", type: "text", wide: true },
+        { key: "groups", label: "Partner groups", type: "objectList", itemLabel: "Group", itemFields: [
+          { key: "label", label: "Group label", type: "text" },
+          { key: "items", label: "Logos", type: "objectList", itemLabel: "Partner", itemFields: [
+            { key: "name", label: "Name", type: "text" },
+            { key: "logo", label: "Logo", type: "image", aspect: "16 / 9", locale: false },
+          ] },
+        ] },
+      ] },
+
+      { key: "commitments", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "image", label: "Background photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "ctaLabel", label: "Button label", type: "text" },
+        { key: "ctaHref", label: "Button link", type: "text", locale: false },
+        { key: "items", label: "Commitments", type: "objectList", itemLabel: "Commitment", itemFields: [
+          { key: "lines", label: "Title lines", type: "list" },
+          { key: "text", label: "Statement", type: "textarea", rows: 3 },
+        ] },
+      ] },
+
+      { key: "projects", label: "", type: "group", fields: [
+        { key: "titleLines", label: "Heading", type: "list" },
+        { key: "ctaLabel", label: "Button label", type: "text" },
+        { key: "ctaHref", label: "Button link", type: "text", locale: false },
+      ] },
+
+      { key: "coverage", label: "", type: "group", fields: [
+        { key: "titleLines", label: "Map headline", type: "list" },
+        { key: "hint", label: "Click hint", type: "text" },
+        { key: "story", label: "Story steps", type: "objectList", itemLabel: "Step", itemFields: [
+          { key: "label", label: "Label", type: "text" },
+          { key: "lead", label: "Line", type: "text" },
+        ] },
+        { key: "fleetNote", label: "Fleet note", type: "text" },
+        { key: "credit", label: "Map credit", type: "text", wide: true },
+      ] },
+
+      { key: "why", label: "", type: "group", fields: [
+        { key: "eyebrow", label: "Eyebrow", type: "text" },
+        { key: "beliefs", label: "Beliefs", type: "objectList", itemLabel: "Belief", itemFields: [
+          { key: "word", label: "Word", type: "text" },
+          { key: "tag", label: "Tag", type: "text" },
+        ] },
+      ] },
+
+      { key: "quote", label: "", type: "group", fields: [
+        { key: "image", label: "Background photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "text", label: "Paragraph", type: "textarea", rows: 4, wide: true },
+        { key: "ctaLabel", label: "Button label", type: "text" },
+        { key: "ctaHref", label: "Button link", type: "text", locale: false },
+      ] },
+
+      { key: "footer", label: "", type: "group", fields: [
+        { key: "columns", label: "Navigation columns", type: "objectList", itemLabel: "Column", itemFields: [
+          { key: "title", label: "Column title", type: "text" },
+          { key: "links", label: "Links", type: "objectList", itemLabel: "Link", itemFields: [
+            { key: "label", label: "Label", type: "text" },
+            { key: "href", label: "Link", type: "text", locale: false, hint: "Use MAPS for the directions link." },
+          ] },
+        ] },
+        { key: "enquiryTitle", label: "Enquiry title", type: "text" },
+        { key: "enquiryText", label: "Enquiry text", type: "textarea", rows: 3, wide: true },
+        { key: "primaryLabel", label: "Primary button label", type: "text" },
+        { key: "primaryHref", label: "Primary button link", type: "text", locale: false },
+        { key: "callLabel", label: "Call button label", type: "text" },
+        { key: "officeTitle", label: "Office heading", type: "text" },
+        { key: "hotlinesLabel", label: "Hotlines label", type: "text" },
+        { key: "socialLabel", label: "Social label", type: "text" },
+        { key: "directionsLabel", label: "Directions label", type: "text" },
+        { key: "backToTopLabel", label: "Back-to-top label", type: "text" },
+        { key: "rightsLabel", label: "Rights label", type: "text" },
+      ] },
     ],
   },
 
