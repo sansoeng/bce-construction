@@ -4695,3 +4695,34 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
 :where([class*="rounded"]):not([class*="rounded-none"]):not(.no-radius):not(.bce-admin *) {
   border-radius: var(--radius) !important;
 }
+
+/* One control height across the public site: primary buttons, segmented controls, filters and CTA links
+   are 30px tall. Large clickable cards and square icon controls keep their own hit areas, and the admin
+   console keeps its Base sizing. */
+:root {
+  --button-h: 30px;
+}
+
+:is(
+  .fg-btn,
+  .all-projects,
+  .pl-filter-head,
+  button[class~="h-9"],
+  button[class~="h-10"],
+  button[class~="h-11"],
+  button[class~="h-12"],
+  a[class~="h-9"],
+  a[class~="h-10"],
+  a[class~="h-11"],
+  a[class~="h-12"],
+  button[class*="h-[30px]"],
+  button[class*="h-[31px]"],
+  a[class*="h-[30px]"],
+  a[class*="h-[31px]"]
+):not(.bce-admin *):not([data-keep-height]) {
+  height: var(--button-h) !important;
+  min-height: var(--button-h) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: var(--button-h) !important;
+}
