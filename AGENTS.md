@@ -88,9 +88,10 @@ npm run deploy
 
 ## 5. Deployment & CI/CD
 
+- **Branch policy**: do all work on `staging` and push every completed change to `origin staging` (website **and** admin console together — they ship in the same build). Never commit straight to `main`; `main` is production and only receives promoted staging work.
 - **Hosting Platform**: Cloudflare Pages (`bce-construction`)
 - **Custom Domains**: `bce-construction.com`, `www.bce-construction.com`, `admin.bce-construction.com`
-- **Automated CI/CD**: Pushing to the `main` branch on GitHub triggers `.github/workflows/deploy.yml`, which applies D1 migrations, deploys the Worker API, builds the site and publishes Pages.
+- **Automated CI/CD**: Pushing to `staging` or `main` triggers `.github/workflows/deploy.yml`, which applies D1 migrations, deploys the Worker API, builds the site and publishes Pages. A `staging` push publishes the preview consumed by `staging.bce-construction.com` (site + admin); a `main` push publishes production.
 
 ---
 
