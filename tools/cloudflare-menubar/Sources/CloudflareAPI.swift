@@ -32,6 +32,12 @@ struct UsageSnapshot {
     var d1ReadQueries: Double = 0
     var d1WriteQueries: Double = 0
     var aiNeurons: Double = 0
+    var r2StorageBytes: Double = 0
+    var r2ObjectCount: Double = 0
+    var r2ClassA: Double = 0
+    var r2ClassB: Double = 0
+    var openCode: OpenCodeUsage?
+    var openCodeError: String?
     var zones: [ZoneUsage] = []
     var warnings: [String] = []
 
@@ -45,6 +51,9 @@ struct UsageSnapshot {
     var d1ReadFraction: Double { d1RowsRead / Prefs.d1ReadLimit }
     var d1WriteFraction: Double { d1RowsWritten / Prefs.d1WriteLimit }
     var aiFraction: Double { aiNeurons / Prefs.aiNeuronLimit }
+    var r2StorageFraction: Double { r2StorageBytes / Prefs.r2StorageLimit }
+    var r2ClassAFraction: Double { r2ClassA / Prefs.r2ClassALimit }
+    var r2ClassBFraction: Double { r2ClassB / Prefs.r2ClassBLimit }
 
     /// Highest share of any daily free-tier allowance consumed today.
     var worstFraction: Double {
@@ -105,10 +114,11 @@ final class CloudflareAPI {
     /// Today's usage (Cloudflare analytics days are UTC) for the account and its zones.
     func usage(for creds: Credentials, zones: [ZoneInfo]) async throws -> UsageSnapshot {
         let day = Self.todayUTC()
+        let monthStart = Self.monthStartUTC()
         let query = Self.usageQuery(zoneIDs: zones.prefix(20).map(\.id), day: day)
         let body: [String: Any] = [
             "query": query,
-            "variables": ["account": creds.accountID, "from": day, "to": day],
+            "variables": ["account": creds.accountID, "from": day, "to": day, "monthStart": monthStart],
         ]
         var request = URLRequest(url: base.appendingPathComponent("graphql"))
         request.httpMethod = "POST"
@@ -168,6 +178,34 @@ final class CloudflareAPI {
             snapshot.aiNeurons += Self.num(Self.dict(Self.dict(group)["sum"])["totalNeurons"])
         }
 
+        // R2 is monthly: storage is the latest reported day, operations are month-to-date.
+        var storageByDay: [String: Double] = [:]
+        var objectsByDay: [String: Double] = [:]
+        for group in Self.arr(account["r2StorageAdaptiveGroups"]) {
+            let g = Self.dict(group)
+            let dims = Self.dict(g["dimensions"])
+            let maxValues = Self.dict(g["max"])
+            let key = Self.str(dims["date"]) ?? ""
+            storageByDay[key, default: 0] += Self.num(maxValues["payloadSize"]) + Self.num(maxValues["metadataSize"])
+            objectsByDay[key, default: 0] += Self.num(maxValues["objectCount"])
+        }
+        if let latest = storageByDay.keys.max() {
+            snapshot.r2StorageBytes = storageByDay[latest] ?? 0
+            snapshot.r2ObjectCount = objectsByDay[latest] ?? 0
+        }
+
+        for group in Self.arr(account["r2OperationsAdaptiveGroups"]) {
+            let g = Self.dict(group)
+            let dims = Self.dict(g["dimensions"])
+            let requests = Self.num(Self.dict(g["sum"])["requests"])
+            let action = Self.str(dims["actionType"]) ?? ""
+            switch Self.r2Class(action) {
+            case .a: snapshot.r2ClassA += requests
+            case .b: snapshot.r2ClassB += requests
+            case .free: break
+            }
+        }
+
         // Per-zone: HTTP requests, bandwidth, threats.
         for (index, zone) in zones.prefix(20).enumerated() {
             let node = Self.dict(Self.arr(viewer["z\(index)"]).first)
@@ -200,7 +238,7 @@ final class CloudflareAPI {
         }.joined(separator: "\n")
 
         return """
-        query Usage($account: String!, $from: Date!, $to: Date!) {
+        query Usage($account: String!, $from: Date!, $to: Date!, $monthStart: Date!) {
           viewer {
             accounts(filter: {accountTag: $account}) {
               workersInvocationsAdaptive(limit: 1000, filter: {date_geq: $from, date_leq: $to}) {
@@ -215,6 +253,14 @@ final class CloudflareAPI {
                 dimensions { date modelId }
                 sum { totalNeurons }
               }
+              r2StorageAdaptiveGroups(limit: 1000, filter: {date_geq: $monthStart, date_leq: $to}) {
+                dimensions { date bucketName }
+                max { payloadSize metadataSize objectCount }
+              }
+              r2OperationsAdaptiveGroups(limit: 1000, filter: {date_geq: $monthStart, date_leq: $to}) {
+                dimensions { date bucketName actionType }
+                sum { requests }
+              }
             }
         \(zoneBlocks)
           }
@@ -223,11 +269,37 @@ final class CloudflareAPI {
     }
 
     static func todayUTC() -> String {
+        dayString(for: Date())
+    }
+
+    static func monthStartUTC() -> String {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        let components = calendar.dateComponents([.year, .month], from: Date())
+        let start = calendar.date(from: components) ?? Date()
+        return dayString(for: start)
+    }
+
+    private static func dayString(for date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: Date())
+        return formatter.string(from: date)
+    }
+
+    enum R2OperationClass {
+        case a, b, free
+    }
+
+    /// Cloudflare's R2 classification: writes/lists are Class A, reads are Class B,
+    /// and deletes/aborts are free and do not count against either allowance.
+    static func r2Class(_ actionType: String) -> R2OperationClass {
+        let action = actionType.lowercased()
+        if action.hasPrefix("delete") || action.hasPrefix("abort") { return .free }
+        let classA = ["put", "copy", "list", "upload", "create", "complete", "lifecycle"]
+        if classA.contains(where: { action.hasPrefix($0) }) { return .a }
+        return .b
     }
 
     // MARK: - Plumbing

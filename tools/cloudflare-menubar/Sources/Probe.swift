@@ -26,6 +26,9 @@ enum Probe {
                 }
                 var snapshot = try await api.usage(for: creds, zones: zones)
                 if let warning { snapshot.warnings.insert(warning, at: 0) }
+                let openCode = await OpenCodeProbe.load(enabled: true, customPath: Prefs.openCodePath)
+                snapshot.openCode = openCode.usage
+                snapshot.openCodeError = openCode.error
                 outcome = .success(snapshot)
             } catch {
                 outcome = .failure(error)
@@ -39,16 +42,27 @@ enum Probe {
         case .success(let snapshot):
             print("Cloudflare usage — \(snapshot.day) (UTC)")
             print(String(repeating: "─", count: 46))
-            print("Workers      \(Fmt.grouped(snapshot.workerRequests)) / \(Fmt.grouped(Prefs.workerLimit))  (\(Fmt.percent(snapshot.workerFraction)))")
+            print("Workers      \(Fmt.grouped(snapshot.workerRequests)) / \(Fmt.grouped(Prefs.workerLimit))  (\(Fmt.percent(snapshot.workerFraction)))  · daily")
             for script in snapshot.scripts {
                 print("  · \(script.name)  \(Fmt.grouped(script.requests)) req\(script.errors > 0 ? "  \(Fmt.grouped(script.errors)) err" : "")")
             }
-            print("D1 reads     \(Fmt.grouped(snapshot.d1RowsRead)) / \(Fmt.grouped(Prefs.d1ReadLimit))  (\(Fmt.percent(snapshot.d1ReadFraction)))")
-            print("D1 writes    \(Fmt.grouped(snapshot.d1RowsWritten)) / \(Fmt.grouped(Prefs.d1WriteLimit))  (\(Fmt.percent(snapshot.d1WriteFraction)))")
-            print("Workers AI   \(Fmt.decimal(snapshot.aiNeurons, digits: 2)) / \(Fmt.grouped(Prefs.aiNeuronLimit)) neurons  (\(Fmt.percent(snapshot.aiFraction)))")
-            print("Sites        \(Fmt.grouped(snapshot.zoneRequests)) req · \(Fmt.bytes(snapshot.zoneBytes)) · \(Fmt.grouped(snapshot.zoneThreats)) threats")
+            print("D1 reads     \(Fmt.grouped(snapshot.d1RowsRead)) / \(Fmt.grouped(Prefs.d1ReadLimit))  (\(Fmt.percent(snapshot.d1ReadFraction)))  · daily")
+            print("D1 writes    \(Fmt.grouped(snapshot.d1RowsWritten)) / \(Fmt.grouped(Prefs.d1WriteLimit))  (\(Fmt.percent(snapshot.d1WriteFraction)))  · daily")
+            print("Workers AI   \(Fmt.decimal(snapshot.aiNeurons, digits: 2)) / \(Fmt.grouped(Prefs.aiNeuronLimit)) neurons  (\(Fmt.percent(snapshot.aiFraction)))  · daily")
+            print("R2 storage   \(Fmt.bytes(snapshot.r2StorageBytes)) / \(Fmt.bytes(Prefs.r2StorageLimit))  (\(Fmt.percent(snapshot.r2StorageFraction)))  · monthly")
+            print("R2 Class A   \(Fmt.grouped(snapshot.r2ClassA)) / \(Fmt.grouped(Prefs.r2ClassALimit))  (\(Fmt.percent(snapshot.r2ClassAFraction)))  · monthly")
+            print("R2 Class B   \(Fmt.grouped(snapshot.r2ClassB)) / \(Fmt.grouped(Prefs.r2ClassBLimit))  (\(Fmt.percent(snapshot.r2ClassBFraction)))  · monthly")
+            print("Sites        \(Fmt.grouped(snapshot.zoneRequests)) req · \(Fmt.bytes(snapshot.zoneBytes)) · \(Fmt.grouped(snapshot.zoneThreats)) threats  · today")
             for zone in snapshot.zones {
                 print("  · \(zone.name)  \(Fmt.grouped(zone.requests)) req · \(Fmt.bytes(zone.bytes))")
+            }
+            print(String(repeating: "─", count: 46))
+            if let usage = snapshot.openCode {
+                print("OpenCode     \(Fmt.grouped(usage.totalTokens)) tokens today · \(Fmt.grouped(usage.steps)) steps · \(Fmt.grouped(usage.sessions)) sessions")
+                print("  input \(Fmt.grouped(usage.tokensInput)) · output \(Fmt.grouped(usage.tokensOutput)) · cache read \(Fmt.grouped(usage.cacheRead))")
+                print("  last 30 days \(Fmt.compact(usage.monthTokens)) tokens\(usage.monthCost > 0 ? String(format: " · $%.2f", usage.monthCost) : "")")
+            } else if let error = snapshot.openCodeError {
+                print("OpenCode     unavailable — \(error)")
             }
             if !snapshot.warnings.isEmpty {
                 print(String(repeating: "─", count: 46))

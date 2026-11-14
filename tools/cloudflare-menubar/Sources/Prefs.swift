@@ -17,13 +17,15 @@ enum DisplayMode: Int, CaseIterable {
     case sites = 1
     case d1Reads = 2
     case worstQuota = 3
+    case openCode = 4
 
     var label: String {
         switch self {
         case .workers: return "Worker requests"
         case .sites: return "Site requests"
         case .d1Reads: return "D1 rows read"
-        case .worstQuota: return "Highest quota used"
+        case .worstQuota: return "Highest daily quota"
+        case .openCode: return "OpenCode tokens"
         }
     }
 }
@@ -54,12 +56,26 @@ enum Prefs {
         set { d.set(newValue, forKey: "refreshSeconds") }
     }
 
-    /// Values below are the Cloudflare Free plan daily allowances this app reports against.
+    /// Values below are the Cloudflare Free plan allowances this app reports against.
     /// Edit them in Settings → Limits if a plan changes.
     static var workerLimit: Double { limit("limit.workers", 100_000) }
     static var d1ReadLimit: Double { limit("limit.d1Reads", 5_000_000) }
     static var d1WriteLimit: Double { limit("limit.d1Writes", 100_000) }
     static var aiNeuronLimit: Double { limit("limit.aiNeurons", 10_000) }
+    /// R2 free tier is monthly: 10 GB-month, 1M Class A and 10M Class B operations.
+    static var r2StorageLimit: Double { limit("limit.r2Storage", 10 * 1024 * 1024 * 1024) }
+    static var r2ClassALimit: Double { limit("limit.r2ClassA", 1_000_000) }
+    static var r2ClassBLimit: Double { limit("limit.r2ClassB", 10_000_000) }
+
+    static var openCodeEnabled: Bool {
+        get { d.object(forKey: "openCode.enabled") == nil ? true : d.bool(forKey: "openCode.enabled") }
+        set { d.set(newValue, forKey: "openCode.enabled") }
+    }
+
+    static var openCodePath: String {
+        get { d.string(forKey: "openCode.path") ?? "" }
+        set { d.set(newValue, forKey: "openCode.path") }
+    }
 
     private static func limit(_ key: String, _ fallback: Double) -> Double {
         let v = d.double(forKey: key)

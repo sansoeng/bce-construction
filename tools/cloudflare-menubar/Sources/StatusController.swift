@@ -41,7 +41,7 @@ final class StatusController: NSObject, NSMenuDelegate {
 
         menu.autoenablesItems = false
         menu.delegate = self
-        menu.minimumWidth = 360
+        menu.minimumWidth = 390
         statusItem.menu = menu
 
         store.onChange = { [weak self] in self?.apply() }
@@ -67,6 +67,7 @@ final class StatusController: NSObject, NSMenuDelegate {
             case .sites: title = Fmt.compact(snapshot.zoneRequests)
             case .d1Reads: title = Fmt.compact(snapshot.d1RowsRead)
             case .worstQuota: title = Fmt.percent(snapshot.worstFraction)
+            case .openCode: title = snapshot.openCode.map { Fmt.compact($0.totalTokens) } ?? "—"
             }
             if snapshot.worstFraction >= 0.9 {
                 color = .systemRed
@@ -94,10 +95,16 @@ final class StatusController: NSObject, NSMenuDelegate {
     }
 
     private func tooltip(for snapshot: UsageSnapshot) -> String {
-        var lines = ["Cloudflare usage · \(snapshot.day) (UTC day)"]
+        var lines = ["Cloudflare & OpenCode · \(snapshot.day) (UTC day)"]
         lines.append("Workers: \(Fmt.grouped(snapshot.workerRequests)) / \(Fmt.grouped(Prefs.workerLimit)) requests (\(Fmt.percent(snapshot.workerFraction)))")
         lines.append("D1: \(Fmt.compact(snapshot.d1RowsRead)) rows read, \(Fmt.compact(snapshot.d1RowsWritten)) written")
+        lines.append("R2: \(Fmt.bytes(snapshot.r2StorageBytes)) stored · \(Fmt.compact(snapshot.r2ClassA + snapshot.r2ClassB)) ops this month")
         lines.append("Sites: \(Fmt.compact(snapshot.zoneRequests)) requests · \(Fmt.bytes(snapshot.zoneBytes))")
+        if let usage = snapshot.openCode {
+            lines.append("OpenCode: \(Fmt.grouped(usage.totalTokens)) tokens today · \(Fmt.grouped(usage.steps)) steps")
+        } else if let error = snapshot.openCodeError {
+            lines.append("OpenCode: \(error)")
+        }
         lines.append("Updated \(clock.string(from: snapshot.fetchedAt))")
         return lines.joined(separator: "\n")
     }
@@ -125,7 +132,7 @@ final class StatusController: NSObject, NSMenuDelegate {
 
         let header = NSMenuItem()
         header.attributedTitle = NSAttributedString(
-            string: "Cloudflare usage",
+            string: "Cloudflare & OpenCode",
             attributes: [.font: NSFont.boldSystemFont(ofSize: 13), .foregroundColor: NSColor.labelColor]
         )
         header.isEnabled = false
@@ -134,7 +141,7 @@ final class StatusController: NSObject, NSMenuDelegate {
         if let snapshot = store.snapshot {
             let subtitle = NSMenuItem()
             subtitle.attributedTitle = NSAttributedString(
-                string: "\(snapshot.day) · UTC day · free-plan limits",
+                string: "\(snapshot.day) · UTC day · daily + monthly limits",
                 attributes: [.font: NSFont.systemFont(ofSize: 11), .foregroundColor: NSColor.secondaryLabelColor]
             )
             subtitle.isEnabled = false
@@ -145,6 +152,10 @@ final class StatusController: NSObject, NSMenuDelegate {
 
         if let snapshot = store.snapshot {
             addUsageRows(snapshot)
+            if Prefs.openCodeEnabled {
+                menu.addItem(.separator())
+                addOpenCodeRows(snapshot)
+            }
         } else {
             let empty = NSMenuItem(title: "Waiting for the first refresh…", action: nil, keyEquivalent: "")
             empty.isEnabled = false
@@ -182,6 +193,7 @@ final class StatusController: NSObject, NSMenuDelegate {
         let workers = row(
             label: "Workers requests",
             value: "\(Fmt.grouped(snapshot.workerRequests)) / \(Fmt.grouped(Prefs.workerLimit))  ·  \(Fmt.percent(snapshot.workerFraction))",
+            period: "daily",
             fraction: snapshot.workerFraction
         )
         let scriptMenu = NSMenu()
@@ -201,27 +213,51 @@ final class StatusController: NSObject, NSMenuDelegate {
         workers.isEnabled = true
         menu.addItem(workers)
 
-        // D1.
+        // D1 — daily.
         menu.addItem(row(
             label: "D1 rows read",
             value: "\(Fmt.grouped(snapshot.d1RowsRead)) / \(Fmt.grouped(Prefs.d1ReadLimit))  ·  \(Fmt.percent(snapshot.d1ReadFraction))",
+            period: "daily",
             fraction: snapshot.d1ReadFraction
         ))
         menu.addItem(row(
             label: "D1 rows written",
             value: "\(Fmt.grouped(snapshot.d1RowsWritten)) / \(Fmt.grouped(Prefs.d1WriteLimit))  ·  \(Fmt.percent(snapshot.d1WriteFraction))",
+            period: "daily",
             fraction: snapshot.d1WriteFraction
         ))
         menu.addItem(row(
             label: "Workers AI neurons",
             value: "\(Fmt.decimal(snapshot.aiNeurons, digits: 2)) / \(Fmt.grouped(Prefs.aiNeuronLimit))  ·  \(Fmt.percent(snapshot.aiFraction))",
+            period: "daily",
             fraction: snapshot.aiFraction
+        ))
+
+        // R2 — monthly.
+        menu.addItem(row(
+            label: "R2 storage",
+            value: "\(Fmt.bytes(snapshot.r2StorageBytes)) / \(Fmt.bytes(Prefs.r2StorageLimit))  ·  \(Fmt.percent(snapshot.r2StorageFraction))",
+            period: "monthly",
+            fraction: snapshot.r2StorageFraction
+        ))
+        menu.addItem(row(
+            label: "R2 Class A ops",
+            value: "\(Fmt.grouped(snapshot.r2ClassA)) / \(Fmt.grouped(Prefs.r2ClassALimit))  ·  \(Fmt.percent(snapshot.r2ClassAFraction))",
+            period: "monthly",
+            fraction: snapshot.r2ClassAFraction
+        ))
+        menu.addItem(row(
+            label: "R2 Class B ops",
+            value: "\(Fmt.grouped(snapshot.r2ClassB)) / \(Fmt.grouped(Prefs.r2ClassBLimit))  ·  \(Fmt.percent(snapshot.r2ClassBFraction))",
+            period: "monthly",
+            fraction: snapshot.r2ClassBFraction
         ))
 
         // Sites — click through for per-zone traffic.
         let sites = row(
             label: "Site requests",
-            value: "\(Fmt.compact(snapshot.zoneRequests))  ·  \(Fmt.bytes(snapshot.zoneBytes))"
+            value: "\(Fmt.compact(snapshot.zoneRequests))  ·  \(Fmt.bytes(snapshot.zoneBytes))",
+            period: "today"
         )
         let zoneMenu = NSMenu()
         if snapshot.zones.isEmpty {
@@ -257,6 +293,66 @@ final class StatusController: NSObject, NSMenuDelegate {
         }
     }
 
+    private func addOpenCodeRows(_ snapshot: UsageSnapshot) {
+        if let usage = snapshot.openCode {
+            let item = row(
+                label: "OpenCode",
+                value: "\(Fmt.compact(usage.totalTokens)) tokens",
+                period: "today"
+            )
+            item.isEnabled = true
+            item.toolTip = "Local OpenCode usage for today. Resets at local midnight; no quota applies."
+
+            let sub = NSMenu()
+            sub.addItem(info("Input  \(Fmt.grouped(usage.tokensInput)) tokens"))
+            sub.addItem(info("Output  \(Fmt.grouped(usage.tokensOutput)) tokens"))
+            if usage.tokensReasoning > 0 {
+                sub.addItem(info("Reasoning  \(Fmt.grouped(usage.tokensReasoning)) tokens"))
+            }
+            sub.addItem(info("Cache read  \(Fmt.grouped(usage.cacheRead)) tokens"))
+            sub.addItem(.separator())
+            sub.addItem(info("Sessions  \(Fmt.grouped(usage.sessions))  ·  steps  \(Fmt.grouped(usage.steps))"))
+            sub.addItem(info(usage.cost > 0 ? "Cost today  \(Self.money(usage.cost))" : "Cost today  no extra charge"))
+            if usage.monthTokens > 0 || usage.monthCost > 0 {
+                sub.addItem(.separator())
+                let cost = usage.monthCost > 0 ? "  ·  \(Self.money(usage.monthCost))" : ""
+                sub.addItem(info("Last 30 days  \(Fmt.compact(usage.monthTokens)) tokens\(cost)"))
+            }
+            item.submenu = sub
+            menu.addItem(item)
+        } else {
+            let item = row(
+                label: "OpenCode",
+                value: snapshot.openCodeError == nil ? "—" : "unavailable",
+                period: "today"
+            )
+            item.toolTip = snapshot.openCodeError
+            item.isEnabled = false
+            menu.addItem(item)
+
+            if let error = snapshot.openCodeError {
+                let warn = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+                warn.attributedTitle = NSAttributedString(
+                    string: "⚠︎ " + Self.truncate(error, 80),
+                    attributes: [.font: NSFont.systemFont(ofSize: 11), .foregroundColor: NSColor.systemOrange]
+                )
+                warn.isEnabled = false
+                warn.toolTip = error
+                menu.addItem(warn)
+            }
+        }
+    }
+
+    private func info(_ title: String) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+        item.isEnabled = false
+        return item
+    }
+
+    private static func money(_ value: Double) -> String {
+        String(format: "$%.2f", value)
+    }
+
     private func addFooterRows() {
         if let snapshot = store.snapshot {
             let updated = row(
@@ -266,6 +362,14 @@ final class StatusController: NSObject, NSMenuDelegate {
             )
             updated.toolTip = "Cloudflare analytics can lag a few minutes behind real traffic."
             menu.addItem(updated)
+
+            let resets = row(
+                label: "Resets",
+                value: "daily \(Self.localTime(Self.nextDailyResetUTC()))  ·  monthly \(Self.localDay(Self.nextMonthlyResetUTC()))",
+                small: true
+            )
+            resets.toolTip = "Cloudflare daily allowances roll over at 00:00 UTC. R2 allowances reset on the 1st."
+            menu.addItem(resets)
         }
 
         menu.addItem(action("Refresh now", #selector(refreshNow), key: "r"))
@@ -309,26 +413,36 @@ final class StatusController: NSObject, NSMenuDelegate {
 
     // MARK: - Row builders
 
-    private func row(label: String, value: String, fraction: Double? = nil, small: Bool = false) -> NSMenuItem {
+    private func row(label: String, value: String, period: String? = nil, fraction: Double? = nil, small: Bool = false) -> NSMenuItem {
         let item = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-        item.attributedTitle = Self.rowTitle(label: label, value: value, fraction: fraction, small: small)
+        item.attributedTitle = Self.rowTitle(label: label, value: value, period: period, fraction: fraction, small: small)
         item.isEnabled = false
         return item
     }
 
-    static func rowTitle(label: String, value: String, fraction: Double? = nil, small: Bool = false) -> NSAttributedString {
+    static func rowTitle(label: String, value: String, period: String? = nil, fraction: Double? = nil, small: Bool = false) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
-        paragraph.tabStops = [NSTextTab(textAlignment: .right, location: 330, options: [:])]
-        paragraph.defaultTabInterval = 330
+        paragraph.tabStops = [NSTextTab(textAlignment: .right, location: 360, options: [:])]
+        paragraph.defaultTabInterval = 360
         let size: CGFloat = small ? 11 : 12.5
-        let text = NSMutableAttributedString(
-            string: "\(label)\t\(value)",
-            attributes: [
-                .font: NSFont.menuFont(ofSize: size),
-                .foregroundColor: small ? NSColor.secondaryLabelColor : NSColor.labelColor,
-                .paragraphStyle: paragraph,
-            ]
-        )
+        let base: [NSAttributedString.Key: Any] = [
+            .font: NSFont.menuFont(ofSize: size),
+            .foregroundColor: small ? NSColor.secondaryLabelColor : NSColor.labelColor,
+            .paragraphStyle: paragraph,
+        ]
+        let text = NSMutableAttributedString(string: label, attributes: base)
+        if let period {
+            text.append(NSAttributedString(
+                string: "  " + period,
+                attributes: [
+                    .font: NSFont.systemFont(ofSize: 10),
+                    .foregroundColor: NSColor.tertiaryLabelColor,
+                    .paragraphStyle: paragraph,
+                ]
+            ))
+        }
+        text.append(NSAttributedString(string: "\t" + value, attributes: base))
+
         if let fraction, fraction >= 0.75 {
             let range = (text.string as NSString).range(of: value, options: .backwards)
             if range.location != NSNotFound {
@@ -379,5 +493,39 @@ final class StatusController: NSObject, NSMenuDelegate {
 
     private static func truncate(_ text: String, _ limit: Int) -> String {
         text.count <= limit ? text : String(text.prefix(limit - 1)) + "…"
+    }
+
+    // MARK: - Reset clock
+
+    private static func utcCalendar() -> Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        return calendar
+    }
+
+    private static func nextDailyResetUTC() -> Date {
+        let calendar = utcCalendar()
+        let start = calendar.startOfDay(for: Date())
+        return calendar.date(byAdding: .day, value: 1, to: start) ?? Date()
+    }
+
+    private static func nextMonthlyResetUTC() -> Date {
+        let calendar = utcCalendar()
+        let components = calendar.dateComponents([.year, .month], from: Date())
+        let start = calendar.date(from: components) ?? Date()
+        return calendar.date(byAdding: .month, value: 1, to: start) ?? Date()
+    }
+
+    /// Local wall-clock time, because 00:00 UTC is 07:00 in Cambodia.
+    private static func localTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+    }
+
+    private static func localDay(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM"
+        return formatter.string(from: date)
     }
 }

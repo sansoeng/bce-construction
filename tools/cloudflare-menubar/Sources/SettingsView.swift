@@ -19,6 +19,12 @@ final class SettingsModel: ObservableObject {
     @Published var d1ReadLimit = ""
     @Published var d1WriteLimit = ""
     @Published var aiLimit = ""
+    @Published var r2StorageGB = ""
+    @Published var r2ClassA = ""
+    @Published var r2ClassB = ""
+    @Published var openCodeEnabled = true
+    @Published var openCodePath = ""
+    @Published var openCodeDetected = ""
     @Published var hasStoredSecret = false
     @Published var testState: TestState = .idle
     @Published var saveError: String?
@@ -41,8 +47,26 @@ final class SettingsModel: ObservableObject {
         d1ReadLimit = String(Int(Prefs.d1ReadLimit))
         d1WriteLimit = String(Int(Prefs.d1WriteLimit))
         aiLimit = String(Int(Prefs.aiNeuronLimit))
+        r2StorageGB = Fmt.decimal(Prefs.r2StorageLimit / 1_073_741_824, digits: 2)
+        r2ClassA = String(Int(Prefs.r2ClassALimit))
+        r2ClassB = String(Int(Prefs.r2ClassBLimit))
+        openCodeEnabled = Prefs.openCodeEnabled
+        openCodePath = Prefs.openCodePath
+        refreshOpenCodeDetection()
         testState = .idle
         saveError = nil
+    }
+
+    func refreshOpenCodeDetection() {
+        guard openCodeEnabled else {
+            openCodeDetected = "OpenCode tracking is off."
+            return
+        }
+        if let path = OpenCodeProbe.detectPath(custom: openCodePath) {
+            openCodeDetected = "Using \(path)"
+        } else {
+            openCodeDetected = "Not found — install OpenCode or point to the binary."
+        }
     }
 
     var secretPrompt: String {
@@ -100,9 +124,12 @@ final class SettingsModel: ObservableObject {
         guard let workers = Double(workerLimit), workers > 0,
               let d1Read = Double(d1ReadLimit), d1Read > 0,
               let d1Write = Double(d1WriteLimit), d1Write > 0,
-              let ai = Double(aiLimit), ai > 0
+              let ai = Double(aiLimit), ai > 0,
+              let r2GB = Double(r2StorageGB), r2GB > 0,
+              let r2A = Double(r2ClassA), r2A > 0,
+              let r2B = Double(r2ClassB), r2B > 0
         else {
-            saveError = "Daily limits must be positive numbers."
+            saveError = "Allowances must be positive numbers."
             return
         }
 
@@ -114,14 +141,20 @@ final class SettingsModel: ObservableObject {
         )
         Prefs.displayMode = DisplayMode(rawValue: displayMode) ?? .workers
         Prefs.refreshSeconds = refreshSeconds
+        Prefs.openCodeEnabled = openCodeEnabled
+        Prefs.openCodePath = openCodePath.trimmingCharacters(in: .whitespacesAndNewlines)
         UserDefaults.standard.set(workers, forKey: "limit.workers")
         UserDefaults.standard.set(d1Read, forKey: "limit.d1Reads")
         UserDefaults.standard.set(d1Write, forKey: "limit.d1Writes")
         UserDefaults.standard.set(ai, forKey: "limit.aiNeurons")
+        UserDefaults.standard.set(r2GB * 1_073_741_824, forKey: "limit.r2Storage")
+        UserDefaults.standard.set(r2A, forKey: "limit.r2ClassA")
+        UserDefaults.standard.set(r2B, forKey: "limit.r2ClassB")
 
         hasStoredSecret = Keychain.has("secret")
         secret = ""
         saveError = nil
+        refreshOpenCodeDetection()
         onSave?()
     }
 }
@@ -173,37 +206,37 @@ struct SettingsView: View {
                 }
 
                 Section("Daily allowances (UTC day)") {
-                    HStack {
-                        Text("Worker requests")
-                        Spacer()
-                        TextField("100000", text: $model.workerLimit)
-                            .textFieldStyle(.roundedBorder)
-                            .frame(width: 130)
-                    }
-                    HStack {
-                        Text("D1 rows read")
-                        Spacer()
-                        TextField("5000000", text: $model.d1ReadLimit)
-                            .textFieldStyle(.roundedBorder)
-                            .frame(width: 130)
-                    }
-                    HStack {
-                        Text("D1 rows written")
-                        Spacer()
-                        TextField("100000", text: $model.d1WriteLimit)
-                            .textFieldStyle(.roundedBorder)
-                            .frame(width: 130)
-                    }
-                    HStack {
-                        Text("Workers AI neurons")
-                        Spacer()
-                        TextField("10000", text: $model.aiLimit)
-                            .textFieldStyle(.roundedBorder)
-                            .frame(width: 130)
-                    }
-                    Text("Defaults are the Cloudflare Free plan limits. Raise them if you are on a paid plan.")
+                    limitRow("Worker requests", $model.workerLimit)
+                    limitRow("D1 rows read", $model.d1ReadLimit)
+                    limitRow("D1 rows written", $model.d1WriteLimit)
+                    limitRow("Workers AI neurons", $model.aiLimit)
+                }
+
+                Section("Monthly allowances (R2)") {
+                    limitRow("Storage (GB-month)", $model.r2StorageGB)
+                    limitRow("Class A operations", $model.r2ClassA)
+                    limitRow("Class B operations", $model.r2ClassB)
+                    Text("R2 is billed monthly: the free plan includes 10 GB-month, 1M Class A and 10M Class B operations. Egress is free.")
                         .font(.caption)
                         .foregroundColor(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                Section("OpenCode (local)") {
+                    Toggle("Show OpenCode usage", isOn: $model.openCodeEnabled)
+                    HStack {
+                        TextField("CLI path (auto-detected)", text: $model.openCodePath)
+                            .textFieldStyle(.roundedBorder)
+                        Button("Detect") { model.refreshOpenCodeDetection() }
+                    }
+                    Text(model.openCodeDetected)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                    Text("Runs `opencode stats --json` on this Mac; nothing is sent anywhere. Usage resets at local midnight and has no quota.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Section {
@@ -235,7 +268,18 @@ struct SettingsView: View {
             }
             .padding(16)
         }
-        .frame(width: 540, height: 660)
+        .frame(width: 540, height: 780)
+    }
+
+    private func limitRow(_ title: String, _ text: Binding<String>) -> some View {
+        HStack {
+            Text(title)
+            Spacer()
+            TextField("", text: text)
+                .textFieldStyle(.roundedBorder)
+                .multilineTextAlignment(.trailing)
+                .frame(width: 150)
+        }
     }
 
     @ViewBuilder

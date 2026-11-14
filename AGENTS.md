@@ -98,7 +98,7 @@ npm run worker:deploy           # production: wrangler deploy --env production
 npm run worker:deploy:staging   # staging:    wrangler deploy
 ```
 
-- **macOS menu bar usage tracker**: `tools/cloudflare-menubar` is a local, native Swift/AppKit menu bar app (no Xcode project) that shows today's Cloudflare usage against the Free-plan allowances. `npm run menubar:install` builds, installs and launches it; `npm run menubar:probe` prints the same numbers in the terminal. It is a developer tool and is never part of the deployed site.
+- **macOS menu bar usage tracker**: `tools/cloudflare-menubar` is a local, native Swift/AppKit menu bar app (no Xcode project) that shows Cloudflare usage (Workers, D1, Workers AI, R2 — daily and monthly) plus local OpenCode token usage in one menu. `npm run menubar:install` builds, installs and launches it; `npm run menubar:probe` prints the same numbers in the terminal. It is a developer tool and is never part of the deployed site.
 - **One place for every URL**: open `docs/quick-links.html` in a browser (production, www, Pages fallback, staging, admin, local dev, Cloudflare and GitHub dashboards). It is a local helper page and is never deployed.
 
 ---

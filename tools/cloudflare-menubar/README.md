@@ -8,18 +8,26 @@ Wi‑Fi and battery icons:
 ```
 
 Clicking it opens a breakdown of the free-plan allowances that actually matter
-for this project:
+for this project, each tagged with its cadence, plus local OpenCode usage:
 
-| Row | Free-plan daily allowance |
-| --- | --- |
-| Workers requests | 100,000 |
-| D1 rows read | 5,000,000 |
-| D1 rows written | 100,000 |
-| Workers AI neurons | 10,000 |
-| Site requests / bandwidth / threats | informational, per zone |
+| Row | Free-plan allowance | Cadence |
+| --- | --- | --- |
+| Workers requests | 100,000 | **daily** (00:00 UTC) |
+| D1 rows read | 5,000,000 | **daily** |
+| D1 rows written | 100,000 | **daily** |
+| Workers AI neurons | 10,000 | **daily** |
+| R2 storage | 10 GB-month | **monthly** (1st, UTC) |
+| R2 Class A operations | 1,000,000 | **monthly** |
+| R2 Class B operations | 10,000,000 | **monthly** |
+| Site requests / bandwidth / threats | informational | today |
+| OpenCode tokens | no quota | today (local midnight) |
 
-Numbers turn orange at 75% and red at 90% of an allowance. Analytics days are
-Cloudflare's UTC days, so the counter resets at 00:00 UTC (07:00 in Cambodia).
+There are **no weekly allowances** in this stack — only daily (Workers, D1,
+Workers AI) and monthly (R2). Pages builds (500/month) are not tracked; site
+requests and bandwidth are unlimited on the Free plan and shown for context.
+
+Numbers turn orange at 75% and red at 90% of an allowance. Cloudflare analytics
+days are UTC, so daily counters reset at 00:00 UTC (07:00 in Cambodia).
 
 ## Install
 
@@ -69,11 +77,19 @@ drag the cloud icon to move it exactly where you want it.
 
 ## What the menu does
 
-- **Workers requests / D1 / Workers AI / Site requests** — today's totals against
-  the configured limits, with per-script and per-zone breakdowns in submenus.
+- **Workers requests / D1 / Workers AI** — today's totals against the daily
+  allowances, tagged `daily`, with per-script breakdowns in a submenu.
+- **R2 storage / Class A / Class B** — month-to-date totals against the monthly
+  allowances, tagged `monthly`. R2 must be enabled in the Cloudflare dashboard;
+  until it is, the rows show zero.
+- **Site requests** — today's requests, bandwidth, threats and cached hits per
+  zone, tagged `today`.
+- **OpenCode** — today's local token usage (input, output, reasoning, cache
+  reads), steps, sessions and cost, plus a 30-day total. Tagged `today`.
+- **Resets** — shows the next daily and monthly rollover in local time.
 - **Menu bar shows** — pick which number appears next to the cloud:
-  Worker requests (default), site requests, D1 rows read, or the highest
-  percentage of any allowance.
+  Worker requests (default), site requests, D1 rows read, the highest daily
+  quota percentage, or OpenCode tokens.
 - **Refresh every** — 1, 5 (default), 15 or 60 minutes. The menu also refreshes
   on open, when the Mac wakes, and whenever you click **Refresh now** (⌘R).
 - **Open Cloudflare dashboard** (⌘D), **Settings…** (⌘,), **Launch at login**,
@@ -83,6 +99,15 @@ drag the cloud icon to move it exactly where you want it.
 The app also warns in the menu when the API rejects the credentials or when the
 token cannot read zone analytics.
 
+### OpenCode
+
+OpenCode usage is read locally by running `opencode stats --json --cost --days 1`
+(plus a `--days 30` call for the 30-day total). Nothing is uploaded and no
+OpenCode credentials are needed. Because the current provider
+(`opencode-go`) is flat-rate, cost shows as “no extra charge”; on a metered
+provider the actual cost appears instead. If the CLI cannot be found, the row
+says so and Settings has a path override.
+
 ## Configuration
 
 - Credentials live in the login **Keychain** (service
@@ -91,6 +116,10 @@ token cannot read zone analytics.
   `~/Library/Preferences/com.bce.cloudflare-menubar.plist`.
 - Daily allowances are editable in **Settings → Daily allowances** — raise them
   if you move off the Free plan.
+- R2 allowances are editable in **Settings → Monthly allowances (R2)**.
+- OpenCode tracking can be disabled, and its CLI path overridden, in
+  **Settings → OpenCode (local)**. The app auto-detects
+  `~/.opencode/bin/opencode`, Homebrew paths and anything on `PATH`.
 - Headless setup: launching the app with `CF_MENUBAR_STORE_ENV=1` and
   `CF_MENUBAR_ACCOUNT` + `CF_MENUBAR_TOKEN` (or `CF_MENUBAR_KEY` +
   `CF_MENUBAR_EMAIL`) saves those credentials to the Keychain on start.
@@ -120,6 +149,7 @@ tools/cloudflare-menubar/
 │   ├── UsageStore.swift       # fetch orchestration, last-good snapshot, error state
 │   ├── CloudflareAPI.swift    # REST zone list + GraphQL analytics query
 │   ├── Prefs.swift            # UserDefaults, Keychain, credentials
+│   ├── OpenCodeUsage.swift    # `opencode stats --json` probe + parsing
 │   ├── SettingsView.swift     # SwiftUI settings form + validation
 │   ├── Format.swift           # compact numbers, bytes, percentages
 │   └── Probe.swift            # headless output
@@ -144,8 +174,14 @@ npm run menubar:configure -- <account-id> <api-token>
 
 One GraphQL request per refresh (`https://api.cloudflare.com/client/v4/graphql`)
 combines `workersInvocationsAdaptive`, `d1AnalyticsAdaptiveGroups`,
-`aiInferenceAdaptiveGroups` and one `httpRequests1dGroups` block per zone
+`aiInferenceAdaptiveGroups`, `r2StorageAdaptiveGroups`,
+`r2OperationsAdaptiveGroups` and one `httpRequests1dGroups` block per zone
 (up to 20 zones). Zone names come from `GET /zones?account.id=…`.
+
+R2 analytics is queried month-to-date (the API rejects R2 ranges wider than
+4 weeks); storage uses the latest reported day, while Class A/B operations are
+summed. Class A is writes and listings, Class B is reads, and deletes/aborts are
+free operations and excluded.
 
 Cloudflare's analytics pipeline can lag a few minutes behind live traffic, so
 the menu bar is a guide, not a billing meter. For exact enforcement, check the

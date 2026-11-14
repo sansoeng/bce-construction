@@ -37,7 +37,7 @@ final class UsageStore {
 
         Task { [weak self] in
             guard let self else { return }
-            var warning: String?
+            var zoneWarning: String?
             var zones = self.zoneCache
             if zones.isEmpty || self.zoneCacheDate.map({ Date().timeIntervalSince($0) > 3600 }) == true {
                 do {
@@ -45,28 +45,50 @@ final class UsageStore {
                     self.zoneCache = zones
                     self.zoneCacheDate = Date()
                 } catch {
-                    warning = "Site analytics unavailable — \(error.localizedDescription)"
+                    zoneWarning = "Site analytics unavailable — \(error.localizedDescription)"
                 }
             }
 
+            // OpenCode is independent: a broken CLI must not hide Cloudflare usage.
+            async let openCodeTask = OpenCodeProbe.load(
+                enabled: Prefs.openCodeEnabled,
+                customPath: Prefs.openCodePath
+            )
+
+            var cloudflareError: String?
+            var fresh: UsageSnapshot?
             do {
-                var fresh = try await self.api.usage(for: creds, zones: zones)
-                if let warning { fresh.warnings.insert(warning, at: 0) }
-                let snapshot = fresh
-                await MainActor.run {
-                    self.snapshot = snapshot
-                    self.lastError = nil
-                    self.isLoading = false
-                    self.inFlight = false
-                    self.notify()
-                }
+                fresh = try await self.api.usage(for: creds, zones: zones)
             } catch {
-                await MainActor.run {
-                    self.lastError = error.localizedDescription
-                    self.isLoading = false
-                    self.inFlight = false
-                    self.notify()
-                }
+                cloudflareError = error.localizedDescription
+            }
+
+            let cloudflareSnapshot = fresh
+            let warning = zoneWarning
+            let failure = cloudflareError
+
+            // Publish Cloudflare numbers first so a slow CLI never delays them.
+            await MainActor.run {
+                var merged = cloudflareSnapshot ?? self.snapshot ?? UsageSnapshot()
+                if merged.day.isEmpty { merged.day = CloudflareAPI.todayUTC() }
+                if cloudflareSnapshot != nil, let warning { merged.warnings.insert(warning, at: 0) }
+                merged.openCode = self.snapshot?.openCode
+                merged.openCodeError = self.snapshot?.openCodeError
+                self.snapshot = merged
+                self.lastError = failure
+                self.notify()
+            }
+
+            let openCode = await openCodeTask
+
+            await MainActor.run {
+                guard var merged = self.snapshot else { return }
+                merged.openCode = openCode.usage
+                merged.openCodeError = openCode.error
+                self.snapshot = merged
+                self.isLoading = false
+                self.inFlight = false
+                self.notify()
             }
         }
     }
