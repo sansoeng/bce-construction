@@ -117,6 +117,11 @@ export default function BlogPage() {
     return BLOG_POSTS.filter((p) => p.slug !== currentPost.slug).slice(0, 3);
   }, [currentPost]);
 
+  // The archive mirrors olympic.no/journal: the newest matching story opens the page as a large feature, the rest
+  // follow in a three-column tile grid.
+  const featuredPost = filteredPosts[0] ?? null;
+  const gridPosts = filteredPosts.slice(1);
+
   return (
     <>
       <SiteHeader phones={phones} tel={tel} base="/" />
@@ -277,27 +282,68 @@ export default function BlogPage() {
           </article>
         ) : (
           /* =========================================================================
-              VIEW B: REVOLUT-STYLE BLOG INDEX PAGE
-              Exact specifications:
-              - Centered H1: "Blog"
-              - Centered Combobox Pills: "All topics" & "All years"
-              - 6-Column Responsive Grid (Top 2 cards span 3 cols, next span 2 cols)
-              - Card anatomy: rounded-[20px], bg-[#F8F8F8], 16:9 thumbnail, category tag, title, date
+              VIEW B: JOURNAL-STYLE ARCHIVE (after olympic.no/journal)
              ========================================================================= */
           <section className="w-full px-5 sm:px-6 md:px-8 pt-28 md:pt-36 pb-20">
             <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto">
-              {/* Revolut Centered Header: H1 Blog */}
-              <div className="text-center max-w-[700px] mx-auto mb-8">
-                <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-tight">
+              {/* Label, statement and standfirst */}
+              <div className="max-w-[900px]">
+                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#191C1F]/45">
+                  News &amp; insight
+                </p>
+                <h1 className="mt-5 text-[clamp(44px,8vw,104px)] font-medium leading-[0.96] tracking-[-0.045em] text-[#191C1F]">
                   Blog
                 </h1>
-                <p className="mt-3 text-base sm:text-lg text-[#737373] leading-relaxed">
+                <p className="mt-6 max-w-[560px] text-[15px] sm:text-[17px] leading-[1.55] text-[#191C1F]/60">
                   Engineering insights, concrete batching innovations, and major infrastructure milestones from BCE across Cambodia.
                 </p>
               </div>
 
-              {/* Revolut Centered Pill Filters: "All topics" & "All years" */}
-              <div className="flex items-center justify-center gap-3 mb-12 sm:mb-16">
+              {/* Featured story: the newest matching article opens the page. */}
+              {featuredPost && (
+                <a
+                  href={`/?blog&post=${featuredPost.slug}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleSelectPost(featuredPost.slug);
+                  }}
+                  className="group relative mt-10 block md:mt-14"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] bg-[#F0F1F3] md:aspect-[21/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                    <img
+                      src={featuredPost.image}
+                      alt={featuredPost.alt}
+                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
+                      style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                    />
+                    <span className="absolute left-5 top-5 inline-flex items-center rounded-[6px] border border-white/40 bg-black/20 px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.08em] text-white backdrop-blur-sm">
+                      {featuredPost.category}
+                    </span>
+                  </div>
+                  <div className="mt-5 md:mt-0">
+                    <div className="md:absolute md:bottom-6 md:right-6 md:max-w-[460px] md:rounded-[20px] md:bg-white md:p-6" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                      <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#191C1F]/45">
+                        {featuredPost.date} · {featuredPost.readTime}
+                      </p>
+                      <h2 className="mt-2 max-w-[28ch] text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#191C1F] md:text-[26px]">
+                        {featuredPost.title}
+                      </h2>
+                      <span className="mt-4 inline-flex size-11 items-center justify-center rounded-full bg-[#191C1F] text-white transition-transform duration-300 group-hover:translate-x-1">
+                        <svg viewBox="0 0 16 16" className="size-4 fill-none stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                          <path d="M3.5 12.5 12.5 3.5M5.5 3.5h7v7" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              )}
+
+              {/* Count + pill filters */}
+              <div className="mt-12 flex flex-wrap items-center justify-between gap-4 md:mt-16">
+                <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#191C1F]/45">
+                  <span>{filteredPosts.length}</span> <span>{filteredPosts.length === 1 ? "article" : "articles"}</span>
+                </p>
+                <div className="flex flex-wrap items-center gap-3">
                 {/* Topic Filter Pill */}
                 <div ref={topicRef} className="relative">
                   <button
@@ -379,9 +425,10 @@ export default function BlogPage() {
                 </div>
               </div>
 
-              {/* Revolut Article Grid: 6-Column Grid Layout */}
+              </div>
+
               {filteredPosts.length === 0 ? (
-                <div className="py-24 text-center rounded-[20px] bg-[#F8F8F8] border border-[rgba(0,0,0,0.04)]">
+                <div className="mt-16 py-24 text-center rounded-[20px] bg-[#F8F8F8] border border-[rgba(0,0,0,0.04)]">
                   <p className="text-[18px] font-medium text-[#191C1F]">
                     No articles found for the selected filter.
                   </p>
@@ -396,69 +443,46 @@ export default function BlogPage() {
                     Reset filters
                   </button>
                 </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 md:gap-8">
-                  {filteredPosts.map((post, index) => {
-                    // First 2 cards span 3 columns each (prominent featured row); remaining cards span 2 columns (3-per-row)
-                    const isFeatured = index < 2;
-                    const colSpanClass = isFeatured
-                      ? "lg:col-span-3"
-                      : "lg:col-span-2";
-
-                    return (
-                      <article
-                        key={post.slug}
-                        onClick={() => handleSelectPost(post.slug)}
-                        className={`group flex flex-col p-6 rounded-[24px] bg-[#F8F8F8] hover:bg-[#F0F1F3] transition-all duration-300 cursor-pointer border border-[rgba(0,0,0,0.02)] ${colSpanClass}`}
+              ) : gridPosts.length > 0 ? (
+                <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                  {gridPosts.map((post) => (
+                    <a
+                      key={post.slug}
+                      href={`/?blog&post=${post.slug}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleSelectPost(post.slug);
+                      }}
+                      className="group flex flex-col"
+                    >
+                      <div
+                        className="relative aspect-[4/5] overflow-hidden rounded-[24px] bg-[#F0F1F3]"
                         style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                       >
-                        {/* Thumbnail Image */}
-                        <div
-                          className={`w-full rounded-[24px] overflow-hidden bg-[#EAEBED] mb-4 relative ${
-                            isFeatured ? "aspect-[16/10] md:aspect-[16/9]" : "aspect-[16/10]"
-                          }`}
+                        <img
+                          src={post.image}
+                          alt={post.alt}
+                          className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
                           style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                        >
-                          <img
-                            src={post.image}
-                            alt={post.alt}
-                            className="w-full h-full object-cover rounded-[24px] group-hover:scale-[1.03] transition-transform duration-400 ease-out"
-                            style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                            loading="lazy"
-                          />
-                        </div>
-
-                        {/* Category Tag */}
-                        <div className="text-[13px] font-medium text-[#737373] mb-2 uppercase tracking-[0.04em]">
+                          loading="lazy"
+                        />
+                        <span className="absolute left-4 top-4 inline-flex items-center rounded-[6px] border border-white/40 bg-black/20 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-white backdrop-blur-sm">
                           {post.category}
-                        </div>
+                        </span>
+                      </div>
 
-                        {/* Title */}
-                        <h2
-                          className={`font-semibold text-[#191C1F] group-hover:text-black transition-colors leading-[1.25] mb-2.5 ${
-                            isFeatured
-                              ? "text-[22px] md:text-[24px]"
-                              : "text-[18px] md:text-[20px]"
-                          }`}
-                        >
-                          {post.title}
-                        </h2>
+                      <div className="mt-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.08em] text-[#191C1F]/45">
+                        <span>{post.date}</span>
+                        <span>{post.readTime}</span>
+                      </div>
 
-                        {/* Excerpt */}
-                        <p className="text-sm text-[#5A5D66] leading-relaxed line-clamp-2 mb-4">
-                          {post.excerpt}
-                        </p>
-
-                        {/* Card Footer: Date & Reading Time */}
-                        <div className="mt-auto pt-3 border-t border-[rgba(0,0,0,0.05)] flex items-center justify-between text-xs text-[#8C8C8C]">
-                          <span>{post.date}</span>
-                          <span className="font-mono">{post.readTime}</span>
-                        </div>
-                      </article>
-                    );
-                  })}
+                      <h3 className="mt-2 text-[20px] font-medium leading-[1.22] tracking-[-0.02em] text-[#191C1F] group-hover:underline group-hover:underline-offset-4 sm:text-[22px]">
+                        {post.title}
+                      </h3>
+                    </a>
+                  ))}
                 </div>
-              )}
+              ) : null}
             </div>
           </section>
         )}
