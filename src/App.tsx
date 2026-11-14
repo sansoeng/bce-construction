@@ -74,11 +74,11 @@ function HeroLatestNews() {
         className="c-hero-card group flex w-full flex-row gap-3 rounded-lg p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
         data-hero-home="card"
       >
-        <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[24px] shrink-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+        <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[10px] shrink-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
           <img
             src={newsImage}
             alt={newsAlt}
-            className="w-full h-full object-cover rounded-[24px] transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover rounded-[10px] transition-transform duration-700 ease-out group-hover:scale-105"
             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
           />
         </div>
@@ -449,7 +449,7 @@ function App() {
       <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white px-5 pb-24 pt-6">
         <div className="relative">
         <div data-about-track className="pointer-events-none absolute left-0 top-0 z-[1] w-full max-w-[15.5rem]">
-          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[24px]" src={homepage.about.image} alt={homepage.about.imageAlt} style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
+          <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[10px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[10px]" src={homepage.about.image} alt={homepage.about.imageAlt} style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
         </div>
         <div className="grid gap-10 md:grid-cols-2">
           <div className="aspect-[5/6] w-full max-w-[15.5rem]" aria-hidden />
@@ -589,8 +589,8 @@ function App() {
         <div className="kp-grid">
           {projects.map((p) => (
             <a href={projectHref(p.slug)} className="kp-item group" key={p.slug}>
-              <div className="kp-media rounded-[24px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
-                <img className="rounded-[24px]" src={p.gallery[0].image} alt={`${p.name}, ${p.location}`} loading="lazy" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />
+              <div className="kp-media rounded-[10px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                <img className="rounded-[10px]" src={p.gallery[0].image} alt={`${p.name}, ${p.location}`} loading="lazy" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />
               </div>
               <div className="kp-info">
                 <div className="kp-text">

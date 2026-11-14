@@ -370,210 +370,200 @@ export default function RecruitmentPage() {
         </section>
       ) : (
         /* =========================================================================
-            VIEW B: REVOLUT-STYLE CAREERS SEARCH & LISTING PAGE
+            VIEW B: CAREERS ARCHIVE (after olympic.no/career-crew)
            ========================================================================= */
         <>
-          {/* Revolut Careers Search & Two-Column Listing Section */}
-          <section className="w-full px-5 sm:px-6 md:px-8 pt-[280px] pb-16 md:pb-24">
-            <div className="w-full max-w-[1000px] mx-auto">
-              {/* Revolut Centered Display Hero Headline */}
-              <div className="text-center max-w-[800px] mx-auto mb-10 md:mb-12">
-                <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-[1.1]">
-                  We have {VACANCIES.length} open positions
-                </h1>
-                <p className="mt-3 md:mt-4 text-base sm:text-lg text-[#72757E] max-w-[620px] mx-auto leading-relaxed">
-                  The future of infrastructure and ready-mix concrete in Cambodia. Be the one who builds it.
-                </p>
+          {/* Full-bleed hero: label, statement and the direct route to the board. */}
+          <section className="relative isolate flex min-h-[72svh] items-end overflow-hidden bg-[#191C1F] px-5 pb-12 pt-36 text-white sm:px-6 md:min-h-[82svh] md:px-8 md:pb-16">
+            <img
+              src={unsplash("/Image/bce/hero_batching_plant.webp", 2200)}
+              alt=""
+              className="absolute inset-0 -z-20 h-full w-full object-cover"
+            />
+            <span aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/75 via-black/35 to-black/15" />
+            <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto">
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/65">Career at BCE</p>
+              <h1 className="mt-5 max-w-[16ch] text-[clamp(40px,7.4vw,96px)] font-medium leading-[0.98] tracking-[-0.045em]">
+                Build the country. Build your career.
+              </h1>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <ArrowButton href="#open-positions" label="See open positions" theme="white" />
+                <span className="text-[13px] text-white/60">
+                  <span className="font-mono">{VACANCIES.length}</span> roles open now
+                </span>
+              </div>
+            </div>
+          </section>
+
+          {/* Label-with-copy: the standfirst sets the tone before the board. */}
+          <section id="open-positions" className="scroll-mt-24 px-5 pt-20 sm:px-6 md:px-8 md:pt-28">
+            <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto grid gap-6 md:grid-cols-12 md:gap-5">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#191C1F]/45 md:col-span-3">
+                Open positions
+              </p>
+              <p className="max-w-[820px] text-[21px] font-medium leading-[1.3] tracking-[-0.02em] text-[#191C1F] sm:text-[25px] md:col-span-9 md:text-[30px]">
+                From computerized batching plants and the in-house laboratory to piling rigs and provincial sites, BCE teams build Cambodia&rsquo;s infrastructure. Join a crew with 30 years of stability, modern equipment and a safety-first culture.
+              </p>
+            </div>
+          </section>
+
+          {/* The board: department pills, location/search, then ruled rows with a dark hover fill. */}
+          <section className="px-5 pb-16 pt-14 sm:px-6 md:px-8 md:pb-24 md:pt-20">
+            <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto">
+              <div className="flex flex-col gap-5 border-b border-[#191C1F]/10 pb-6 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex flex-wrap gap-2">
+                  {DEPARTMENTS.map((dept) => {
+                    const isSelected = activeTeam === dept;
+                    return (
+                      <button
+                        key={dept}
+                        type="button"
+                        onClick={() => setActiveTeam(dept)}
+                        className={`inline-flex items-center gap-2 px-4 py-2 text-[12.5px] font-medium transition-colors ${
+                          isSelected
+                            ? "bg-[#191C1F] text-white"
+                            : "bg-[#F1F2F3] text-[#191C1F] hover:bg-[#E7E8EA]"
+                        }`}
+                      >
+                        <span>{dept}</span>
+                        <span className={`font-mono text-[10.5px] ${isSelected ? "text-white/60" : "text-[#191C1F]/40"}`}>
+                          {teamCounts[dept] ?? 0}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  {/* Location dropdown */}
+                  <div ref={locationRef} className="relative sm:w-[225px]">
+                    <button
+                      type="button"
+                      onClick={() => setIsLocationOpen(!isLocationOpen)}
+                      className="flex h-11 w-full items-center justify-between gap-3 rounded-full bg-[#F1F2F3] px-5 text-[13px] font-medium text-[#191C1F] transition-colors hover:bg-[#E7E8EA] cursor-pointer"
+                    >
+                      <span className="truncate">
+                        {activeLocation === "All Locations" ? "All locations" : activeLocation}
+                      </span>
+                      <ChevronDownIcon open={isLocationOpen} />
+                    </button>
+
+                    {isLocationOpen && (
+                      <div className="absolute left-0 top-12 z-30 w-[260px] rounded-[16px] border border-[rgba(0,0,0,0.06)] bg-white p-2 shadow-[0_12px_36px_rgba(0,0,0,0.12)] animate-in fade-in duration-150">
+                        <div className="max-h-[260px] overflow-y-auto space-y-1">
+                          {LOCATIONS.map((loc) => (
+                            <button
+                              key={loc}
+                              type="button"
+                              onClick={() => {
+                                setActiveLocation(loc);
+                                setIsLocationOpen(false);
+                              }}
+                              className={`w-full text-left px-4 py-2.5 text-xs rounded-full transition-colors flex items-center justify-between cursor-pointer ${
+                                activeLocation === loc
+                                  ? "bg-[#191C1F] text-white font-medium"
+                                  : "text-[#191C1F] hover:bg-[#F3F4F6]"
+                              }`}
+                            >
+                              <span className="truncate">{loc}</span>
+                              <span className={`text-[11px] font-mono ml-2 ${activeLocation === loc ? "text-white/70" : "text-[#72757E]"}`}>
+                                {locationCounts[loc] || 0}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Search */}
+                  <div className="relative sm:w-[250px]">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={`Search ${VACANCIES.length} positions`}
+                      className="h-11 w-full rounded-full bg-[#F1F2F3] pl-5 pr-11 text-[13px] text-[#191C1F] placeholder-[#72757E] transition-colors hover:bg-[#E7E8EA] focus:bg-white focus:outline-none"
+                    />
+                    <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#72757E]">
+                      <SearchIcon />
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Revolut Filter Bar: Location Dropdown + Search Input (mirrors 2-column widths) */}
-              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 mb-8 w-full">
-                {/* Location Filter Dropdown Pill */}
-                <div ref={locationRef} className="relative w-full md:w-[272px] shrink-0">
+              {/* Column labels on the 12-column rule. */}
+              <div className="hidden grid-cols-12 items-center gap-5 border-b border-[#191C1F]/10 py-4 font-mono text-[10.5px] uppercase tracking-[0.12em] text-[#191C1F]/40 md:grid">
+                <span className="col-span-5">Role</span>
+                <span className="col-span-3">Department</span>
+                <span className="col-span-2">Type</span>
+                <span className="col-span-2 text-right">Deadline</span>
+              </div>
+
+              {filteredVacancies.length === 0 ? (
+                <div className="py-20 text-center">
+                  <p className="text-[17px] font-medium text-[#191C1F]">
+                    There are currently no open positions.
+                  </p>
+                  <p className="mt-2 text-sm text-[#72757E] max-w-[420px] mx-auto">
+                    No roles matched your current filters. You may reset your search or send an open CV to{" "}
+                    <a href={`mailto:${HR_EMAIL}?subject=General%20Application%20-%20BCE`} className="underline underline-offset-4 text-[#191C1F] font-medium">
+                      {HR_EMAIL}
+                    </a>.
+                  </p>
                   <button
                     type="button"
-                    onClick={() => setIsLocationOpen(!isLocationOpen)}
-                    className="box-24 flex items-center justify-between gap-3 w-full h-[56px] px-6 rounded-[24px] bg-[#F0F1F3] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer border-0"
-                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                    onClick={() => {
+                      setActiveTeam("All teams");
+                      setActiveLocation("All Locations");
+                      setSearchQuery("");
+                    }}
+                    className="mt-5 inline-flex items-center px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium cursor-pointer"
                   >
-                    <span className="truncate">
-                      {activeLocation === "All Locations" ? "Location" : activeLocation}
-                    </span>
-                    <ChevronDownIcon open={isLocationOpen} />
+                    Reset filters
                   </button>
-
-                  {/* Dropdown Floating Popover */}
-                  {isLocationOpen && (
-                    <div
-                      className="box-24 absolute top-16 left-0 z-30 w-[280px] p-2 bg-white rounded-[24px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border-0 animate-in fade-in duration-150"
-                      style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                </div>
+              ) : (
+                <div>
+                  {filteredVacancies.map((v) => (
+                    <a
+                      key={v.id}
+                      href={`/?recruitment&job=${v.id}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleSelectJob(v.id);
+                      }}
+                      className="group -mx-4 grid grid-cols-1 items-center gap-2 border-b border-[#191C1F]/10 px-4 py-5 transition-colors duration-300 hover:bg-[#191C1F] hover:text-white md:grid-cols-12 md:gap-5 md:py-6"
                     >
-                      <div className="max-h-[260px] overflow-y-auto space-y-1">
-                        {LOCATIONS.map((loc) => (
-                          <button
-                            key={loc}
-                            type="button"
-                            onClick={() => {
-                              setActiveLocation(loc);
-                              setIsLocationOpen(false);
-                            }}
-                            className={`box-24 w-full text-left px-4 py-2.5 text-xs rounded-[24px] transition-colors flex items-center justify-between cursor-pointer border-0 ${
-                              activeLocation === loc
-                                ? "bg-[#191C1F] text-white font-medium"
-                                : "text-[#191C1F] hover:bg-[#F3F4F6]"
-                            }`}
-                          >
-                            <span className="truncate">{loc}</span>
-                            <span className={`text-[11px] font-mono ml-2 ${activeLocation === loc ? "text-white/70" : "text-[#72757E]"}`}>
-                              {locationCounts[loc] || 0}
-                            </span>
-                          </button>
-                        ))}
+                      <div className="md:col-span-5">
+                        <h3 className="text-[20px] font-medium leading-[1.2] tracking-[-0.02em] md:text-[23px]">
+                          {v.title}
+                        </h3>
+                        <p className="mt-1 text-[13px] text-[#191C1F]/45 transition-colors group-hover:text-white/60 md:hidden">
+                          {v.department} · {v.type} · {v.deadline}
+                        </p>
                       </div>
-                    </div>
-                  )}
+
+                      <span className="hidden text-[14px] text-[#5A5D66] transition-colors group-hover:text-white/70 md:col-span-3 md:block">
+                        {v.department}
+                      </span>
+
+                      <span className="hidden text-[14px] text-[#5A5D66] transition-colors group-hover:text-white/70 md:col-span-2 md:block">
+                        {v.type}
+                      </span>
+
+                      <span className="hidden items-center justify-end gap-2 md:col-span-2 md:flex">
+                        <span className="text-[13px] text-[#5A5D66] transition-colors group-hover:text-white/70">
+                          {v.deadline}
+                        </span>
+                        <svg viewBox="0 0 12 12" className="size-3.5 fill-none stroke-current text-[#191C1F]/30 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-white" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                          <path d="M2.6 9.4 9.4 2.6M4.4 2.6h5v5" />
+                        </svg>
+                      </span>
+                    </a>
+                  ))}
                 </div>
-
-                {/* Search Input Bar */}
-                <div className="relative flex-1 min-w-0">
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={`Search from ${VACANCIES.length} open positions`}
-                    className="box-24 w-full h-[56px] pl-6 pr-12 rounded-[24px] bg-[#F0F1F3] hover:bg-[#EAEBED] focus:bg-white focus:outline-none text-[15px] text-[#191C1F] placeholder-[#72757E] transition-all border-0"
-                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                  />
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#72757E]">
-                    <SearchIcon />
-                  </div>
-                </div>
-              </div>
-
-              {/* Revolut Two-Column Layout */}
-              <div className="flex flex-col md:flex-row gap-6 items-start w-full">
-                {/* Left Sidebar: Filter by teams */}
-                <aside className="w-full md:w-[272px] shrink-0 md:sticky md:top-24">
-                  <h3 className="text-sm font-semibold text-[#191C1F] uppercase tracking-[0.04em] mb-4">
-                    Filter by teams
-                  </h3>
-                  <div className="flex flex-row md:flex-col flex-wrap gap-1">
-                    {DEPARTMENTS.map((dept) => {
-                      const isSelected = activeTeam === dept;
-                      const count = teamCounts[dept] || 0;
-                      return (
-                        <button
-                          key={dept}
-                          type="button"
-                          onClick={() => setActiveTeam(dept)}
-                          className={`box-24 flex items-center justify-between text-left px-5 py-3 rounded-[24px] text-sm transition-all cursor-pointer w-full border-0 ${
-                            isSelected
-                              ? "bg-[#F0F1F3] text-[#191C1F] font-semibold"
-                              : "text-[#5A5D66] hover:bg-[#F0F1F3]/60 hover:text-[#191C1F]"
-                          }`}
-                          style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                        >
-                          <span>{dept}</span>
-                          <span className={`text-xs font-mono ml-3 ${isSelected ? "text-[#191C1F]" : "text-[#72757E]"}`}>
-                            · {count}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </aside>
-
-                {/* Right Column: Roles Feed */}
-                <div className="flex-1 w-full min-w-0">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-base font-semibold text-[#191C1F]">
-                      Featured roles
-                    </h3>
-                    <span className="text-xs text-[#72757E] font-mono">
-                      {filteredVacancies.length} {filteredVacancies.length === 1 ? "position" : "positions"}
-                    </span>
-                  </div>
-
-                  {filteredVacancies.length === 0 ? (
-                    <div className="box-24 py-20 text-center rounded-[24px] bg-[#F8F9FA] border-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
-                      <p className="text-[17px] font-medium text-[#191C1F]">
-                        There are currently no open positions.
-                      </p>
-                      <p className="mt-2 text-sm text-[#72757E] max-w-[420px] mx-auto">
-                        No roles matched your current filters. You may reset your search or send an open CV to{" "}
-                        <a href={`mailto:${HR_EMAIL}?subject=General%20Application%20-%20BCE`} className="underline underline-offset-4 text-[#191C1F] font-medium">
-                          {HR_EMAIL}
-                        </a>.
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setActiveTeam("All teams");
-                          setActiveLocation("All Locations");
-                          setSearchQuery("");
-                        }}
-                        className="mt-5 inline-flex items-center px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium cursor-pointer border-0"
-                      >
-                        Reset filters
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {filteredVacancies.map((v) => (
-                        <article
-                          key={v.id}
-                          onClick={() => handleSelectJob(v.id)}
-                          className="box-24 group block p-6 sm:p-7 rounded-[24px] bg-[#F8F9FA] hover:bg-[#F0F1F3] transition-all duration-200 cursor-pointer border-0"
-                          style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                        >
-                          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div>
-                              <h4 className="text-[20px] md:text-[22px] font-semibold text-[#191C1F] group-hover:text-black transition-colors mb-2.5 leading-snug">
-                                {v.title}
-                              </h4>
-                              <div className="space-y-2.5">
-                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs md:text-sm text-[#5A5D66]">
-                                  <div className="flex items-center gap-1.5">
-                                    <BuildingIcon />
-                                    <span>Plant: {v.location}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1.5">
-                                    <ToolsIcon />
-                                    <span>{v.department}</span>
-                                  </div>
-                                </div>
-
-                                {/* Standout Full-time and Deadline Tags */}
-                                <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] text-xs font-semibold bg-[#E4E7EC] text-[#191C1F]">
-                                    <span className="size-1.5 rounded-full bg-[#191C1F]"></span>
-                                    <span>{v.type}</span>
-                                  </span>
-
-                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] text-xs font-semibold bg-[#FFF1EB] text-[#D9531E]">
-                                    <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                      <circle cx="8" cy="8" r="6" />
-                                      <path d="M8 5v3.5l2.5 1.5" />
-                                    </svg>
-                                    <span>Deadline: {v.deadline}</span>
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="self-end md:self-center shrink-0">
-                              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#191C1F] opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span>View</span>
-                                <span>→</span>
-                              </span>
-                            </div>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
+              )}
             </div>
           </section>
 

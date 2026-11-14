@@ -150,19 +150,19 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 .ab-tile-media img,
 [data-fly],
 [data-fly-about] {
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
 
 .media-frame, .project-image {
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
 .media-frame img, .project-image img {
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   transition: transform .8s cubic-bezier(.22,1,.36,1);
@@ -280,7 +280,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   width: 100%;
   height: calc(540 * var(--u));
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 10px;
   -webkit-corner-smoothing: 60%;
   corner-smoothing: 60%;
   background-color: #ededed; /* placeholder tone the photo is revealed over */
@@ -291,7 +291,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px;
+  border-radius: 10px;
   -webkit-corner-smoothing: 60%;
   corner-smoothing: 60%;
   display: block;
@@ -669,9 +669,9 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 .pl-list .kp-item:nth-child(n) .kp-media {
   width: calc(172 * var(--u));
   height: calc(112 * var(--u));
-  border-radius: 24px;
+  border-radius: 10px;
 }
-.pl-list .kp-media img { border-radius: 24px; }
+.pl-list .kp-media img { border-radius: 10px; }
 .pl-list .kp-info { display: contents; }
 .pl-list .kp-body { gap: 8px; }
 .pl-list .kp-plus { display: none; }
@@ -2583,21 +2583,21 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 }
 
 .about-image {
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   overflow: hidden;
 }
 
 .about-image img {
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
 
 [data-fly],
 [data-fly-about] {
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   overflow: hidden;
@@ -2806,7 +2806,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 .pd-hero {
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -2815,7 +2815,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   animation: kp-reveal-clip 1.4s cubic-bezier(.41, .35, .2, 1) .2s backwards;
@@ -2870,7 +2870,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   width: clamp(9rem, 22vw, 22rem);
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -2879,7 +2879,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   transform: scale(1.06);
@@ -2929,8 +2929,8 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 .lb-caption--mobile { display: none; }
 .lb-thumbs { grid-column: 2; display: flex; gap: .5rem; max-width: min(60vw, 40rem); overflow-x: auto; scrollbar-width: none; }
 .lb-thumbs::-webkit-scrollbar { display: none; }
-.lb-thumb { flex: none; width: 4.5rem; height: 3.25rem; padding: 0; overflow: hidden; border-radius: 24px; border: 0; opacity: .35; transition: opacity .4s; }
-.lb-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; }
+.lb-thumb { flex: none; width: 4.5rem; height: 3.25rem; padding: 0; overflow: hidden; border-radius: 10px; border: 0; opacity: .35; transition: opacity .4s; }
+.lb-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 .lb-thumb.is-active { opacity: 1; box-shadow: inset 0 0 0 1px #fff; }
 @media (hover: hover) { .lb-thumb:hover { opacity: .8; } }
 .lb-arrows { justify-self: end; display: flex; gap: .5rem; }
@@ -3052,7 +3052,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   aspect-ratio: 1920 / 2366;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3065,7 +3065,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3146,7 +3146,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   display: block;
   width: 100%;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3156,7 +3156,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   transition: transform 1.109s cubic-bezier(.17, .84, .44, 1);
@@ -3196,7 +3196,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   aspect-ratio: 1920 / 2366;
   margin: calc(220 * var(--u)) auto 0;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   transform-origin: 50% 50%;
@@ -3208,7 +3208,7 @@ html.pt-settle .fg-header, html.pt-settle .fx-side { animation: pt-fade-in .4s c
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3668,7 +3668,7 @@ html[lang="km"] .kp-tag {
 .ab-milestone-text { font-size: clamp(1rem, 1.2vw, 1.2rem); line-height: 1.35; }
 .ab-photo {
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3678,7 +3678,7 @@ html[lang="km"] .kp-tag {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3785,7 +3785,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   margin-top: 2rem;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3794,7 +3794,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3818,7 +3818,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   display: block;
   grid-column: 8 / 13;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -3909,7 +3909,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   position: relative;
   overflow: hidden;
   aspect-ratio: 666 / 899;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -3952,7 +3952,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
     width: 100%;
     margin: 0;
     aspect-ratio: 343 / 372;
-    border-radius: 24px !important;
+    border-radius: 10px !important;
     -webkit-corner-smoothing: 60% !important;
     corner-smoothing: 60% !important;
   }
@@ -3991,7 +3991,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   left: 0;
   overflow: clip;
   aspect-ratio: var(--slide-ar);
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   color: #fff;
@@ -4063,7 +4063,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .ol-dialog-media {
   height: 433px;
   overflow: hidden;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #ededed;
@@ -4141,7 +4141,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   .qx-lab-photo, .qx-split--media .qx-photo {
     height: calc(100vh - 7.5rem);
     aspect-ratio: auto;
-    border-radius: 24px !important;
+    border-radius: 10px !important;
     -webkit-corner-smoothing: 60% !important;
     corner-smoothing: 60% !important;
     overflow: hidden;
@@ -4287,14 +4287,14 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   flex-direction: column;
   overflow: hidden;
   aspect-ratio: 828 / 765;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: #1d1d1d;
   color: #fff;
 }
 .ab-tile-media {
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -4411,7 +4411,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background: #ededed;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -4464,7 +4464,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   overflow: hidden;
   aspect-ratio: 16 / 10;
   background: #ededed;
-  border-radius: 24px !important;
+  border-radius: 10px !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
 }
@@ -4509,7 +4509,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   overflow: hidden;
   width: 100%;
   height: 100%;
-  border-radius: 28px;
+  border-radius: 10px;
   background: #1d1d1d;
   color: #fff;
   -webkit-corner-smoothing: 60%;
@@ -4667,4 +4667,23 @@ img.no-radius { border-radius: 0 !important; }
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Photography corners: 10px site-wide. Overrides every media frame and the photo inside it, whatever the
+   component sets, so images keep one radius across the homepage, inner pages, lightbox and cards. */
+img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offers-image]):not(.lb-img):not(.sn-logo *):not(.glance-brand *),
+.media-frame, .media-frame img, .project-image, .project-image img,
+.kp-media, .kp-media img,
+.pl-list .kp-media, .pl-list .kp-media img,
+.about-image, .about-image img,
+.ab-photo, .ab-photo img, .ab-tile, .ab-tile-media,
+.abv-card-photo, .abv-card-photo img, .abv-vision-images,
+.pp-asset, .pp-asset img, .pp-media, .pp-media img, .pp-foot-asset, .pp-foot-asset img,
+.ol-tm-media, .ol-dk-media, .ol-slide, .ol-solution-media, .ol-work-media,
+.ol-dialog-media, .ol-other-tile,
+.pd-hero, .pd-hero img, .pd-next-media, .pd-next-media img,
+.lb-thumb, .lb-thumb img,
+.qx-lab-photo, .qx-photo, .qx-split--media .qx-photo,
+[data-fly], [data-fly-about] {
+  border-radius: 10px !important;
 }

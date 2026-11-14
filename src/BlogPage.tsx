@@ -175,11 +175,11 @@ export default function BlogPage() {
               </div>
 
               {/* Hero Image */}
-              <div className="rounded-[24px] overflow-hidden mb-10 bg-[#F0F1F3] aspect-[16/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+              <div className="rounded-[10px] overflow-hidden mb-10 bg-[#F0F1F3] aspect-[16/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                 <img
                   src={currentPost.image}
                   alt={currentPost.alt}
-                  className="w-full h-full object-cover rounded-[24px]"
+                  className="w-full h-full object-cover rounded-[10px]"
                   style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                 />
               </div>
@@ -259,11 +259,11 @@ export default function BlogPage() {
                         onClick={() => handleSelectPost(post.slug)}
                         className="group cursor-pointer"
                       >
-                        <div className="rounded-[24px] overflow-hidden aspect-[16/10] bg-[#F0F1F3] mb-3" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                        <div className="rounded-[10px] overflow-hidden aspect-[16/10] bg-[#F0F1F3] mb-3" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                           <img
                             src={post.image}
                             alt={post.alt}
-                            className="w-full h-full object-cover rounded-[24px] group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover rounded-[10px] group-hover:scale-105 transition-transform duration-300"
                             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                           />
                         </div>
@@ -309,7 +309,7 @@ export default function BlogPage() {
                   }}
                   className="group relative mt-10 block md:mt-14"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] bg-[#F0F1F3] md:aspect-[21/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-[10px] bg-[#F0F1F3] md:aspect-[21/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
                     <img
                       src={featuredPost.image}
                       alt={featuredPost.alt}
@@ -456,7 +456,7 @@ export default function BlogPage() {
                       className="group flex flex-col"
                     >
                       <div
-                        className="relative aspect-[4/5] overflow-hidden rounded-[24px] bg-[#F0F1F3]"
+                        className="relative aspect-[4/5] overflow-hidden rounded-[10px] bg-[#F0F1F3]"
                         style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                       >
                         <img

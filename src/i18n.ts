@@ -112,6 +112,20 @@ const KM: Record<string, string> = {
   "News & insight": "ព័ត៌មាន & ការយល់ដឹង",
   "articles": "អត្ថបទ",
   "article": "អត្ថបទ",
+
+  // Careers
+  "Career at BCE": "អាជីពនៅ BCE",
+  "Build the country. Build your career.": "សាងសង់ប្រទេស។ សាងសង់អាជីពរបស់អ្នក។",
+  "See open positions": "មើលមុខតំណែងទំនេរ",
+  "Open positions": "មុខតំណែងទំនេរ",
+  "roles open now": "មុខតំណែងកំពុងបើក",
+  "All locations": "គ្រប់ទីតាំង",
+  "Role": "មុខតំណែង",
+  "Department": "ផ្នែក",
+  "Type": "ប្រភេទ",
+  "Deadline": "កាលកំណត់",
+  "From computerized batching plants and the in-house laboratory to piling rigs and provincial sites, BCE teams build Cambodia’s infrastructure. Join a crew with 30 years of stability, modern equipment and a safety-first culture.":
+    "ចាប់ពីរោងចក្រលាយបេតុងកុំព្យូទ័រ និងមន្ទីរពិសោធន៍ផ្ទៃក្នុង រហូតដល់ម៉ាស៊ីនបោះសសរគ្រឹះ និងការដ្ឋាននៅតាមខេត្ត ក្រុមការងារ BCE កសាងហេដ្ឋារចនាសម្ព័ន្ធរបស់កម្ពុជា។ ចូលរួមក្រុមដែលមានស្ថិរភាព ៣០ ឆ្នាំ គ្រឿងចក្រទំនើប និងវប្បធម៌សុវត្ថិភាពជាអាទិភាព។",
   "Blog & Insights": "ប្លុក & ចំណេះដឹងបច្ចេកទេស",
   "Blog & Engineering Insights | BCE., Ltd.": "ប្លុក & ចំណេះដឹងវិស្វកម្មសំណង់ | BCE., Ltd.",
   "Engineering insights, concrete batching innovations, and major infrastructure milestones from BCE across Cambodia.": "ចំណេះដឹងវិស្វកម្ម ការច្នៃប្រឌិតផលិតបេតុង និងសមិទ្ធផលហេដ្ឋារចនាសម្ព័ន្ធសំខាន់ៗរបស់ BCE ទូទាំងប្រទេសកម្ពុជា។",
