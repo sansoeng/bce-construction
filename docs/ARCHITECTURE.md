@@ -16,7 +16,7 @@
 | --- | --- | --- |
 | Public site | https://bce-construction.com (also `www`) | https://staging.bce-construction.com |
 | Admin | https://admin.bce-construction.com (Cloudflare Access) | staging host + `?admin` (UI loads, API is read-only and needs Access — use the production admin) |
-| Pages project | `bce-construction` · **Production** environment · branch `main` | same project · **Preview** environment · branch `staging` |
+| Pages project | `bce-construction` · **Production** environment · branch `main` | `bce-construction-staging` · **Production** environment · production branch `staging` |
 | Worker | `bce-api` | `bce-api-staging` |
 | Worker route | `bce-construction.com/api/*` · `www.bce-construction.com/api/*` · `admin.bce-construction.com/api/*` | `staging.bce-construction.com/api/*` |
 | Worker secret store | production | staging (separate) |
@@ -29,11 +29,11 @@
 
 Also provisioned: Cloudflare Access apps for the admin console and `bce-construction.com/api/admin`,
 Turnstile widget `bce-website` (public site key only; secret is a Worker secret), Workers AI
-binding `AI` on both Workers, Web Analytics on the zone, Pages fallback
-`https://bce-construction.pages.dev`.
+binding `AI` on both Workers, Web Analytics on the zone, Pages fallbacks
+`https://bce-construction.pages.dev` and `https://bce-construction-staging.pages.dev`.
 
 Other environments: local dev (`vite` on 8443 + `wrangler dev` on 8787, local SQLite)
-and ephemeral Pages preview URLs (`<hash>.bce-construction.pages.dev`) for other branches.
+and ephemeral Pages preview URLs (`<hash>.<project>.pages.dev`) for other branches.
 Neither is a managed environment.
 
 ## 2. Environment matrix (runtime)
@@ -43,6 +43,7 @@ Neither is a managed environment.
 | `ENVIRONMENT` | `production` | `staging` |
 | API deploy | `wrangler deploy --env production` | `wrangler deploy` (bare) |
 | Deploy script | `npm run deploy` | `npm run deploy:staging` |
+| Pages target | project `bce-construction`, branch `main` | project `bce-construction-staging`, branch `staging` |
 | CI branch | `main` | `staging` |
 | D1 migrations | applied by CI on `main` | never applied |
 | CORS origins | prod origins + local + staging | staging origins + local (allows prod list too — harmless) |
@@ -65,7 +66,7 @@ Public visitor (production)
                                └────▶ R2 bce-media        (when enabled)
 
 Public visitor (staging)
-  staging.bce-construction.com ──Pages preview──▶ static React bundle
+  staging.bce-construction.com ──Pages (bce-construction-staging)──▶ static React bundle
         └─ /api/* ──route──▶ bce-api-staging ──▶ D1 bce-content   (stage_* overlay)
                                    └────▶ KV bce-sessions-staging
 
@@ -101,6 +102,9 @@ the site never blanks if the API is down.
   `worker/src/auth.ts`. Never set it in deployed vars.
 - One host route belongs to exactly one Worker. Cutover order when moving a route:
   release it on the old Worker first, then claim it on the new one.
+- A Pages custom domain serves exactly one project's production deployment. Keep
+  `staging.bce-construction.com` on `bce-construction-staging`; attaching it to
+  `bce-construction` silently serves production code on the staging URL.
 - Bindings, vars, routes and triggers are not inherited by `[env.production]` — mirror any
   new binding in both blocks (and update the R2 docs if applicable).
 - Secrets are per environment: `wrangler secret put X` (staging) vs `--env production`.
@@ -110,7 +114,7 @@ the site never blanks if the API is down.
 
 | ID | Decision | Why | Revisit when |
 | --- | --- | --- | --- |
-| ADR-001 | One Pages project, staging as a preview branch | Cheapest, same build artifact, custom domain already wired | Staging needs isolated build env vars or auth at the Pages layer |
+| ADR-001 | Two Pages projects: `bce-construction` (prod) and `bce-construction-staging` | Pages custom domains always serve a project's production deployment, so a single project cannot put the staging branch on `staging.bce-construction.com` | Pages adds per-branch custom domains, or staging needs isolated build env vars |
 | ADR-002 | Shared `bce-content` D1, staging read-only | Pending `stage_*` edits must be previewable on the staging site; a separate DB breaks Stage → Preview → Publish | You need to test destructive migrations, or staging must own independent data → add `bce-content-staging` + cross-DB publish |
 | ADR-003 | Inverted Wrangler config (default = staging) | Makes the dangerous command the deliberate one; CI and agents forget flags | Wrangler changes env defaults, or tooling assumes top-level = production |
 | ADR-004 | Migrations only from `main` | Staging shares the schema production is serving | A separate staging DB exists |
@@ -126,6 +130,7 @@ npx wrangler d1 list
 npx wrangler kv namespace list
 npx wrangler pages project list
 npx wrangler pages deployment list --project-name=bce-construction
+npx wrangler pages deployment list --project-name=bce-construction-staging
 
 # Deploy
 npm run worker:deploy            # production Worker
@@ -160,6 +165,10 @@ curl -s https://staging.bce-construction.com/api/admin/me
 # 5. Production admin still hands off to Access (expect 302)
 curl -s -o /dev/null -w '%{http_code}\n' -X POST https://bce-construction.com/api/admin/revalidate \
   -H 'content-type: application/json' -d '{}'
+
+# 6. Staging serves the staging build, production serves main (asset hashes differ)
+curl -s https://staging.bce-construction.com/ | grep -o '/assets/index-[^"]*\.js' | head -1
+curl -s https://bce-construction.com/ | grep -o '/assets/index-[^"]*\.js' | head -1
 ```
 
 ## 9. Known gaps
@@ -184,4 +193,5 @@ When architecture changes, in the same commit:
 
 | Date | Change | Files | Verified |
 | --- | --- | --- | --- |
+| 2026-11-14 | Split Pages into two projects; moved `staging.bce-construction.com` to `bce-construction-staging` so the branded staging host serves staging code (it previously CNAME'd to production). CI and `deploy:staging` target the staging project | `.github/workflows/deploy.yml`, `package.json`, `docs/CLOUDFLARE.md`, `AGENTS.md` | staging serves `index-DWR1_jSx.js` with new careers copy; prod still serves `index-KIyKaZoX.js`; staging API reports `staging`, bootstrap mode `staging`; domain status `active` |
 | 2026-11-14 | Split staging and production Workers; added `bce-api-staging` + `bce-sessions-staging`; staging made read-only (`READ_ONLY`); inverted Wrangler default to staging; CI is env-aware and migrates only on `main`; local dev admin bypass restricted to localhost | `wrangler.toml`, `worker/src/index.ts`, `worker/src/auth.ts`, `worker/src/types.ts`, `.github/workflows/deploy.yml`, `package.json`, `docs/CLOUDFLARE.md`, `AGENTS.md` | `/api/health` per host, bootstrap `x-content-mode`, 403 read-only probes, 401 staging admin, 302 prod Access |

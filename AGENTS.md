@@ -105,9 +105,9 @@ npm run worker:deploy:staging   # staging:    wrangler deploy
 ## 5. Deployment & CI/CD
 
 - **Branch policy**: do all work on `staging` and push every completed change to `origin staging` (website **and** admin console together — they ship in the same build). Never commit straight to `main`; `main` is production and only receives promoted staging work.
-- **Hosting Platform**: Cloudflare Pages (`bce-construction`)
+- **Hosting Platform**: Cloudflare Pages — `bce-construction` (production, `main`) and `bce-construction-staging` (staging, production branch `staging`)
 - **Custom Domains**: `bce-construction.com`, `www.bce-construction.com`, `admin.bce-construction.com`
-- **Automated CI/CD**: Pushing to `staging` or `main` triggers `.github/workflows/deploy.yml`. On `main` it applies D1 migrations, deploys `bce-api` (`--env production`), builds the site and publishes production Pages. On `staging` it deploys `bce-api-staging` (bare `wrangler deploy`, no migrations), builds and publishes the preview consumed by `staging.bce-construction.com` (site + admin).
+- **Automated CI/CD**: Pushing to `staging` or `main` triggers `.github/workflows/deploy.yml`. On `main` it applies D1 migrations, deploys `bce-api` (`--env production`), builds the site and publishes to the `bce-construction` Pages project. On `staging` it deploys `bce-api-staging` (bare `wrangler deploy`, no migrations), builds and publishes to `bce-construction-staging`, which serves `staging.bce-construction.com` (site + admin).
 
 ---
 

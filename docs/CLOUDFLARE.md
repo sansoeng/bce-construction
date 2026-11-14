@@ -85,7 +85,8 @@ The content editor has **English** and **ខ្មែរ** tabs. The Khmer tab m
 
 | Resource | Name / ID |
 | --- | --- |
-| Pages project | `bce-construction` (Production + Preview environments) |
+| Pages project (production) | `bce-construction` · branch `main` · `bce-construction.com`, `www`, `admin` |
+| Pages project (staging) | `bce-construction-staging` · production branch `staging` · `staging.bce-construction.com` |
 | Worker (production) | `bce-api` (`https://bce-api.sansoeng16.workers.dev`) |
 | Worker (staging) | `bce-api-staging` (`https://bce-api-staging.sansoeng16.workers.dev`) |
 | D1 database | `bce-content` · `22b54a9a-08cd-4e52-af8d-46845713e806` (shared, see below) |
@@ -111,6 +112,7 @@ Worker routes:
 
 - `npm run worker:deploy` → `wrangler deploy --env production`
 - `npm run worker:deploy:staging` → `wrangler deploy` (staging)
+- Pages mirrors this: `main` → `bce-construction`, `staging` → `bce-construction-staging`. The staging custom domain is attached to the staging project, so it serves staging code as well as staged content.
 - CI runs `wrangler deploy` on `staging` and `wrangler deploy --env production` on `main`
 - Bindings, vars, routes and triggers are **not inherited**, so `[env.production]` redeclares everything it needs
 - **Separate KV and secrets**: staging uses `bce-sessions-staging` and its own `wrangler secret` store. Set a staging secret with `npx wrangler secret put NAME` (no `--env`); production with `npx wrangler secret put NAME --env production`
@@ -223,7 +225,7 @@ Push to `main` (or run the workflow manually). `.github/workflows/deploy.yml`:
 3. deploys the matching Worker (`--env production` on `main`, bare `wrangler deploy` on `staging`),
 4. exports the content snapshot,
 5. builds the site,
-6. deploys Pages to the matching branch.
+6. deploys Pages to the matching project and branch (`bce-construction`/`main` or `bce-construction-staging`/`staging`).
 
 Manual production deploy:
 
@@ -238,7 +240,7 @@ npx wrangler pages deploy dist --project-name bce-construction --branch=main --c
 Manual staging deploy:
 
 ```bash
-npm run deploy:staging      # wrangler deploy + Pages --branch=staging
+npm run deploy:staging      # wrangler deploy + Pages bce-construction-staging --branch=staging
 ```
 
 **Do not run `content:seed` on every deploy.** It overwrites live rows. The Dashboard's **Stage bundled content** button is the intentional reset path and stays on staging until you publish. The staging Worker is read-only, so staging cannot publish either — publish from **https://admin.bce-construction.com/**.
@@ -299,10 +301,11 @@ These are not on the free plan, so the platform avoids them: Cloudflare Images, 
 | `invalid_audience` after recreating Access apps | Copy the new app AUD tags into `ACCESS_AUD` in `wrangler.toml` and redeploy. |
 | Media upload returns 503 | Enable R2 and add the binding, then redeploy. |
 | Public site shows old content | Check **Publish** on the Dashboard, then **Clear cache**; the bootstrap cache also expires in 60 seconds. |
-| Staging host redirects to `staging.bce-construction.pages.dev` | Remove the legacy Page Rule for `staging.bce-construction.com/*` in the zone. |
+| Staging host shows production code / old build | Confirm `staging.bce-construction.com` is attached to `bce-construction-staging` (not `bce-construction`) and its CNAME points to `bce-construction-staging.pages.dev`; then redeploy staging. |
+| Staging host returns 522 after moving the domain | The Pages domain is still initializing or the CNAME still targets the old project. Wait for the domain status to become `active`. |
 | Quote form says “security check failed” | Check the Turnstile site key/secret and that the hostname is listed on the widget. |
 | Worker deploy fails on R2 | The bucket does not exist yet; keep the binding commented out until R2 is enabled. |
-| `wrangler pages deploy` goes to staging | Pass `--branch=main` explicitly. |
+| `wrangler pages deploy` goes to staging | Pass `--project-name=bce-construction --branch=main` explicitly. |
 | Staging API returns `403 read_only` | Expected: `bce-api-staging` refuses admin/lead writes. Publish from `admin.bce-construction.com`. |
 | Staging API 404s after the split | Deploy production first (`wrangler deploy --env production`, which releases the route), then `wrangler deploy` for staging. |
 | A secret works in production but staging says missing | Secrets are per environment: `npx wrangler secret put NAME` (staging) vs `npx wrangler secret put NAME --env production`. |

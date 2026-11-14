@@ -82,5 +82,10 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           BRANCH_NAME="${GITHUB_REF_NAME:-main}"
-          echo "Deploying branch ${BRANCH_NAME} to Cloudflare Pages..."
-          npx wrangler pages deploy dist --project-name=bce-construction --branch="${BRANCH_NAME}" --commit-dirty=true
+          if [ "${BRANCH_NAME}" = "main" ]; then
+            PROJECT="bce-construction"
+          else
+            PROJECT="bce-construction-staging"
+          fi
+          echo "Deploying branch ${BRANCH_NAME} to Cloudflare Pages project ${PROJECT}..."
+          npx wrangler pages deploy dist --project-name="${PROJECT}" --branch="${BRANCH_NAME}" --commit-dirty=true

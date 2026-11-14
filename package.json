@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview --port 8000 --host",
     "deploy": "npm run content:export && npm run build && npm run db:migrate && npm run worker:deploy && wrangler pages deploy dist --project-name bce-construction --branch=main --commit-dirty=true",
-    "deploy:staging": "npm run content:export && npm run build && npm run worker:deploy:staging && wrangler pages deploy dist --project-name bce-construction --branch=staging --commit-dirty=true",
+    "deploy:staging": "npm run content:export && npm run build && npm run worker:deploy:staging && wrangler pages deploy dist --project-name=bce-construction-staging --branch=staging --commit-dirty=true",
     "format": "oxfmt",
     "typecheck": "tsc --noEmit && tsc -p worker/tsconfig.json --noEmit",
     "worker:dev": "wrangler dev --port 8787 --local --var READ_ONLY:false",
