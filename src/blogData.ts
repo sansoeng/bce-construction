@@ -1,11 +1,30 @@
-import { unsplash } from "./company";
-
 import { registerContentType } from "./contentStore";
+
+// TEMPORARY IMAGERY — the journal redesign is matched to olympic.no/journal, so these are the reference site's
+// photographs (copied to public/Image/journal) used to prove the layout. Swap each `image` back to a BCE photograph
+// (public/Image/bce/…) before launch; nothing else in the page needs to change.
+const REFERENCE = (file: string) => `/Image/journal/${file}.webp`;
+
+const REFERENCE_IMAGES = {
+  feature: REFERENCE("feature"),
+  heritage: REFERENCE("heritage"),
+  brand: REFERENCE("brand"),
+  built: REFERENCE("built"),
+  sustainable: REFERENCE("sustainable"),
+  operations: REFERENCE("operations"),
+  vessel: REFERENCE("vessel"),
+  nextGeneration: REFERENCE("next-generation"),
+};
+
+/** Journal sections, after olympic.no/journal: the two broadcast categories, with the topic carried as a tag. */
+export type JournalKind = "News" | "Insight";
 
 export interface BlogPost {
   slug: string;
   title: string;
   category: string;
+  /** Optional so older admin documents keep working; `journalKind` derives it from the topic when absent. */
+  kind?: JournalKind;
   year: string;
   date: string;
   readTime: string;
@@ -32,10 +51,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "aci-211-high-strength-mix-designs",
     title: "ACI 211.1 High-Strength Mix Design for Heavy Industrial Pours in Battambang",
     category: "Concrete Technology",
+    kind: "Insight",
     year: "2026",
     date: "15 April 2026",
     readTime: "5 min read",
-    image: unsplash("/Image/bce/hero_batching_plant.webp", 1600),
+    image: REFERENCE_IMAGES.feature,
     alt: "Computerized concrete batching plant and ready-mix production",
     excerpt:
       "A deep dive into how BCE engineers formulate compressive strengths from 20 to 50 MPa, balancing water-cement ratios and mineral admixtures for high-load industrial floors.",
@@ -75,10 +95,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "hydraulic-static-piling-soft-alluvial-soil",
     title: "Precision Piling: Hydraulic Static Pressing in Soft Alluvial Soil Formations",
     category: "Foundation Piling",
+    kind: "Insight",
     year: "2026",
     date: "28 March 2026",
     readTime: "6 min read",
-    image: unsplash("/Image/bce/project_page_17.webp", 1600),
+    image: REFERENCE_IMAGES.heritage,
     alt: "Hydraulic static pile press rig on commercial construction site",
     excerpt:
       "Why hydraulic static pile pressing eliminates vibration hazards for adjacent urban structures while achieving 120-tonne bearing capacities in Battambang river basin clays.",
@@ -117,10 +138,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "dye-2000-compressive-strength-testing",
     title: "DYE-2000 Compressive Testing: How BCE Validates 28-Day Strength Across 4 Batching Plants",
     category: "Quality & Lab",
+    kind: "Insight",
     year: "2026",
     date: "12 March 2026",
     readTime: "4 min read",
-    image: unsplash("/Image/bce/laboratory_qa.webp", 1600),
+    image: REFERENCE_IMAGES.brand,
     alt: "BCE in-house testing laboratory with DYE-2000 compression machine",
     excerpt:
       "Inside BCE’s accredited testing laboratory: our systematic protocol for casting standard test cylinders, water tank curing, and digital breaking to ASTM C39 standards.",
@@ -159,10 +181,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "bce-fleet-expansion-41-mixers-8-pumps",
     title: "BCE Fleet Expansion: 8 Boom Pumps and 41 Mixer Trucks Mobilized for Highway 5 & Provincial Upgrades",
     category: "Fleet & Equipment",
+    kind: "News",
     year: "2025",
     date: "18 November 2025",
     readTime: "4 min read",
-    image: unsplash("/Image/bce/machinery_fleet.webp", 1600),
+    image: REFERENCE_IMAGES.built,
     alt: "Fleet of BCE concrete mixer trucks and boom pump trucks lined up",
     excerpt:
       "How strategic fleet investments allow BCE to supply over 1,500 cubic meters of ready-mix concrete in single continuous shifts for major arterial roads and bridge decks.",
@@ -199,10 +222,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "hot-weather-concreting-ice-batching",
     title: "Overcoming High-Ambient Heat in Cambodian Pouring: Ice Batching and Retarder Dosage Protocols",
     category: "Concrete Technology",
+    kind: "Insight",
     year: "2025",
     date: "24 August 2025",
     readTime: "5 min read",
-    image: unsplash("/Image/bce/project_page_14.webp", 1600),
+    image: REFERENCE_IMAGES.sustainable,
     alt: "Concrete pouring during daytime in Cambodian hot weather conditions",
     excerpt:
       "When temperatures exceed 36°C, hydration accelerates rapidly. Learn how BCE maintains fresh concrete temperatures below 32°C using flaked ice batching and extended set retarders.",
@@ -239,10 +263,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "one-million-safe-man-hours-milestone",
     title: "Safety-First Infrastructure: Achieving 1,000,000 Safe Man-Hours on Commercial Substructures",
     category: "Site Quality & HSE",
+    kind: "News",
     year: "2025",
     date: "10 June 2025",
     readTime: "4 min read",
-    image: unsplash("/Image/bce/hse_safety.webp", 1600),
+    image: REFERENCE_IMAGES.operations,
     alt: "BCE construction team conducting safety briefing with full personal protective equipment",
     excerpt:
       "A look into BCE’s Health, Safety, and Environment (HSE) management system: daily toolbox meetings, certified rigging protocols, and zero Lost Time Injuries.",
@@ -279,10 +304,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "30-years-of-bce-heritage-from-1995",
     title: "The History of BCE: 30 Years from Hong Huot Ly in 1995 to Western Cambodia’s Concrete Leader",
     category: "Company News",
+    kind: "News",
     year: "2024",
     date: "14 December 2024",
     readTime: "6 min read",
-    image: unsplash("/Image/bce/chairwoman.webp", 1600),
+    image: REFERENCE_IMAGES.vessel,
     alt: "Ms. Loeung Chan Chairwoman of Battambang Construction and Engineering",
     excerpt:
       "How a modest local aggregate trading business founded in 1995 transformed into Battambang's foremost integrated ready-mix concrete and civil engineering powerhouse.",
@@ -319,10 +345,11 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "concrete-slab-laser-screeding-superflat",
     title: "Concrete Slab Laser Screeding: Delivering Ultra-Flat Superflat Flooring for Modern Warehouses",
     category: "Civil Construction",
+    kind: "Insight",
     year: "2024",
     date: "08 September 2024",
     readTime: "5 min read",
-    image: unsplash("/Image/bce/project_page_16.webp", 1600),
+    image: REFERENCE_IMAGES.nextGeneration,
     alt: "Concrete slab finishing and laser leveling on industrial warehouse project",
     excerpt:
       "Automated laser screed technology achieves precise floor flatness (FF) and floor levelness (FL) numbers required for high-bay logistics racking and automated forklifts.",
@@ -356,6 +383,14 @@ export const BLOG_POSTS: BlogPost[] = [
     },
   },
 ];
+
+// Topics that read as company announcements rather than technical writing. Admin documents saved before the
+// `kind` field existed still land in the right journal section.
+const NEWS_TOPICS = new Set(["Company News", "Fleet & Equipment", "Site Quality & HSE"]);
+
+export function journalKind(post: BlogPost): JournalKind {
+  return post.kind ?? (NEWS_TOPICS.has(post.category) ? "News" : "Insight");
+}
 
 registerContentType("posts", (items) => {
   BLOG_POSTS.length = 0;

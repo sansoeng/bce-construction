@@ -1,44 +1,127 @@
 import { siteSettings } from "./siteSettings";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
+import { translate } from "./i18n";
+import { BLOG_POSTS, journalKind, type BlogPost, type JournalKind } from "./blogData";
+
+// Journal archive after olympic.no/journal: a small mono standfirst, a two-line display title, the newest story as a
+// full-width feature with its caption card tucked into the corner, one segmented News/Insight control beside a
+// Categories panel, and square photographic tiles in a three-column grid. The reader below keeps the same paper
+// layout: oversized title, full-bleed photograph, a narrow measure, then related tiles.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 
-import { BLOG_POSTS, type BlogPost } from "./blogData";
+const KINDS: ("All" | JournalKind)[] = ["All", "News", "Insight"];
 
-const TOPICS = [
-  "All topics",
-  "Concrete Technology",
-  "Foundation Piling",
-  "Quality & Lab",
-  "Fleet & Equipment",
-  "Site Quality & HSE",
-  "Company News",
-  "Civil Construction",
-];
+const toggle = <T,>(list: T[], value: T): T[] =>
+  list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 
-const YEARS = ["All years", "2026", "2025", "2024"];
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 10 6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className={`size-2.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+    >
+      <path d="M1 1l4 4 4-4" />
+    </svg>
+  );
+}
 
-const ChevronDownIcon = ({ open }: { open?: boolean }) => (
-  <svg
-    viewBox="0 0 10 6"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={`size-2.5 transition-transform duration-200 text-[#191C1F] ${open ? "rotate-180" : ""}`}
-    aria-hidden
-  >
-    <path d="M1 1l4 4 4-4" />
-  </svg>
-);
+function Check() {
+  return (
+    <svg
+      viewBox="0 0 10 10"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className="size-2.5"
+    >
+      <path d="M1.7 5.2 4 7.5 8.4 2.7" />
+    </svg>
+  );
+}
+
+function ArrowUpRight({ className = "size-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className={className}
+    >
+      <path d="M5.5 18.5 18.5 5.5M8.5 5.5h10v10" />
+    </svg>
+  );
+}
+
+function Meta({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <span className={`font-mono text-[10px] uppercase leading-[1.6] tracking-[0.1em] md:text-[11px] ${className}`}>
+      {children}
+    </span>
+  );
+}
+
+function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string) => void }) {
+  return (
+    <a
+      href={`/?blog&post=${post.slug}`}
+      onClick={(event) => {
+        event.preventDefault();
+        onSelect(post.slug);
+      }}
+      className="group block hover:opacity-100"
+    >
+      <div className="relative aspect-square overflow-hidden rounded-[6px] bg-[#F0F1F3]">
+        <img
+          src={post.image}
+          alt={post.alt}
+          loading="lazy"
+          className="size-full object-cover transition-transform duration-[1100ms] ease-out group-hover:scale-[1.04]"
+          style={
+            {
+              WebkitCornerSmoothing: "60%",
+              cornerSmoothing: "60%",
+            } as CSSProperties
+          }
+        />
+        <ul className="absolute left-4 top-4 flex flex-wrap gap-2 md:left-5 md:top-5">
+          <li className="rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[10px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px]">
+            {journalKind(post)}
+          </li>
+        </ul>
+      </div>
+
+      <div className="pt-4 md:pt-5">
+        <Meta className="text-[#A5A7A8]">{post.category}</Meta>
+        <h3 className="mt-3 text-[18px] font-medium leading-[1.2] tracking-[-0.015em] text-[#191C1F] sm:text-[19px] lg:text-[clamp(19px,1.55vw,26px)] lg:leading-[1.19]">
+          <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
+            {post.title}
+          </span>
+        </h3>
+      </div>
+    </a>
+  );
+}
 
 export default function BlogPage() {
   usePageSetup("Blog & Engineering Insights | BCE., Ltd.");
@@ -50,13 +133,15 @@ export default function BlogPage() {
     return params.get("post");
   });
 
-  const [activeTopic, setActiveTopic] = useState<string>("All topics");
-  const [activeYear, setActiveYear] = useState<string>("All years");
-  const [isTopicOpen, setIsTopicOpen] = useState(false);
-  const [isYearOpen, setIsYearOpen] = useState(false);
+  const [kindFilter, setKindFilter] = useState<"All" | JournalKind>("All");
+  const [topics, setTopics] = useState<string[]>([]);
+  const [years, setYears] = useState<string[]>([]);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
-  const topicRef = useRef<HTMLDivElement>(null);
-  const yearRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  const topicsList = useMemo(() => [...new Set(BLOG_POSTS.map((p) => p.category))], []);
+  const yearsList = useMemo(() => [...new Set(BLOG_POSTS.map((p) => p.year))].sort((a, b) => b.localeCompare(a)), []);
 
   // Synchronize browser history / deep link
   useEffect(() => {
@@ -68,26 +153,39 @@ export default function BlogPage() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Close dropdowns on click outside
+  // Close the categories panel on click outside or Escape
   useEffect(() => {
+    if (!isPanelOpen) return;
     const handlePointerDown = (e: PointerEvent) => {
-      if (topicRef.current && !topicRef.current.contains(e.target as Node)) {
-        setIsTopicOpen(false);
-      }
-      if (yearRef.current && !yearRef.current.contains(e.target as Node)) {
-        setIsYearOpen(false);
-      }
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) setIsPanelOpen(false);
     };
+    const handleKey = (e: KeyboardEvent) => e.key === "Escape" && setIsPanelOpen(false);
     window.addEventListener("pointerdown", handlePointerDown);
-    return () => window.removeEventListener("pointerdown", handlePointerDown);
-  }, []);
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [isPanelOpen]);
+
+  const toTop = () => {
+    const lenis = (
+      window as unknown as {
+        __lenis?: {
+          scrollTo: (target: number, opts?: { immediate?: boolean }) => void;
+        };
+      }
+    ).__lenis;
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleSelectPost = (slug: string) => {
     setSelectedSlug(slug);
     const url = new URL(window.location.href);
     url.searchParams.set("post", slug);
     window.history.pushState(null, "", url.toString());
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    toTop();
   };
 
   const handleBackToList = () => {
@@ -95,17 +193,18 @@ export default function BlogPage() {
     const url = new URL(window.location.href);
     url.searchParams.delete("post");
     window.history.pushState(null, "", url.toString());
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    toTop();
   };
 
   // Filter posts
   const filteredPosts = useMemo(() => {
     return BLOG_POSTS.filter((p) => {
-      const matchTopic = activeTopic === "All topics" || p.category === activeTopic;
-      const matchYear = activeYear === "All years" || p.year === activeYear;
-      return matchTopic && matchYear;
+      const matchKind = kindFilter === "All" || journalKind(p) === kindFilter;
+      const matchTopic = topics.length === 0 || topics.includes(p.category);
+      const matchYear = years.length === 0 || years.includes(p.year);
+      return matchKind && matchTopic && matchYear;
     });
-  }, [activeTopic, activeYear]);
+  }, [kindFilter, topics, years]);
 
   const currentPost = useMemo(() => {
     if (!selectedSlug) return null;
@@ -117,10 +216,16 @@ export default function BlogPage() {
     return BLOG_POSTS.filter((p) => p.slug !== currentPost.slug).slice(0, 3);
   }, [currentPost]);
 
-  // The archive mirrors olympic.no/journal: the newest matching story opens the page as a large feature, the rest
-  // follow in a three-column tile grid.
   const featuredPost = filteredPosts[0] ?? null;
   const gridPosts = filteredPosts.slice(1);
+  const panelFilterCount = topics.length + years.length;
+  const filterCount = panelFilterCount + (kindFilter === "All" ? 0 : 1);
+
+  const clearFilters = () => {
+    setKindFilter("All");
+    setTopics([]);
+    setYears([]);
+  };
 
   return (
     <>
@@ -129,151 +234,148 @@ export default function BlogPage() {
       <main className="min-h-screen bg-white">
         {currentPost ? (
           /* =========================================================================
-              VIEW A: SINGLE BLOG POST READER VIEW
+              VIEW A: SINGLE JOURNAL STORY
              ========================================================================= */
-          <article className="w-full px-5 sm:px-6 md:px-8 pt-28 md:pt-36 pb-20">
-            <div className="w-full max-w-[840px] mx-auto">
-              {/* Back to Blog Button */}
+          <article className="w-full px-5 pb-24 pt-32 sm:px-6 md:px-8 md:pt-44 xl:px-10">
+            <div className="mx-auto w-full max-w-[1680px]">
               <button
                 type="button"
                 onClick={handleBackToList}
-                className="inline-flex items-center gap-2 text-sm font-medium text-[#737373] hover:text-[#191C1F] transition-colors mb-8 cursor-pointer"
+                className="group inline-flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.1em] text-[#191C1F]/50 transition-colors hover:text-[#191C1F] hover:opacity-100 md:text-[11px]"
               >
-                <span>←</span>
-                <span>Back to Blog</span>
+                <span className="transition-transform duration-300 group-hover:-translate-x-1" aria-hidden>
+                  ←
+                </span>
+                Back to journal
               </button>
 
-              {/* Category & Meta */}
-              <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm font-medium text-[#737373] mb-4">
-                <span className="inline-block px-3 py-1 rounded-full bg-[#F3F4F6] text-[#191C1F] font-semibold text-xs">
-                  {currentPost.category}
-                </span>
-                <span>·</span>
-                <span>{currentPost.date}</span>
-                <span>·</span>
-                <span>{currentPost.readTime}</span>
+              <div className="mt-10 grid grid-cols-1 gap-8 md:mt-14 md:grid-cols-12 md:gap-6">
+                <div className="md:col-span-8">
+                  <Meta className="text-[#191C1F]/50">
+                    {journalKind(currentPost)} <span aria-hidden>•</span> {currentPost.category}
+                  </Meta>
+                  <h1
+                    data-split
+                    data-split-type="words"
+                    className="mt-6 max-w-[19ch] text-[clamp(34px,4.6vw,78px)] font-medium leading-[1.04] tracking-[-0.035em] text-[#191C1F]"
+                  >
+                    {currentPost.title}
+                  </h1>
+                </div>
+
+                <div className="flex flex-col justify-end gap-5 border-t border-black/[0.08] pt-5 md:col-span-4 md:border-t-0 md:pt-0">
+                  <Meta className="text-[#191C1F]/50">
+                    {currentPost.date} <span aria-hidden>•</span> {currentPost.readTime}
+                  </Meta>
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#191C1F] text-[13px] font-medium text-white">
+                      {currentPost.author.name.charAt(0)}
+                    </span>
+                    <div>
+                      <div className="text-[14px] font-medium leading-tight text-[#191C1F]">
+                        {currentPost.author.name}
+                      </div>
+                      <div className="mt-0.5 text-[12px] leading-snug text-[#191C1F]/50">{currentPost.author.role}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Title */}
-              <h1 className="text-[32px] sm:text-[42px] md:text-[64px] font-semibold tracking-[-0.03em] text-[#191C1F] leading-[1.14] mb-6">
-                {currentPost.title}
-              </h1>
-
-              {/* Author Row */}
-              <div className="flex items-center gap-3.5 py-4 border-y border-[rgba(0,0,0,0.06)] mb-8">
-                <div className="size-11 rounded-full bg-[#191C1F] text-white flex items-center justify-center font-bold text-sm">
-                  {currentPost.author.name.charAt(0)}
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-[#191C1F]">
-                    {currentPost.author.name}
-                  </div>
-                  <div className="text-xs text-[#737373]">
-                    {currentPost.author.role}
-                  </div>
-                </div>
-              </div>
-
-              {/* Hero Image */}
-              <div className="rounded-[10px] overflow-hidden mb-10 bg-[#F0F1F3] aspect-[16/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+              <figure className="relative mt-10 aspect-[4/3] overflow-hidden rounded-[6px] bg-[#F0F1F3] md:mt-14 md:aspect-[16/9]">
                 <img
                   src={currentPost.image}
                   alt={currentPost.alt}
-                  className="w-full h-full object-cover rounded-[10px]"
-                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                  className="size-full object-cover"
+                  style={
+                    {
+                      WebkitCornerSmoothing: "60%",
+                      cornerSmoothing: "60%",
+                    } as CSSProperties
+                  }
                 />
-              </div>
+                <span className="absolute left-4 top-4 rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[10px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px] md:left-5 md:top-5">
+                  {journalKind(currentPost)}
+                </span>
+                <span className="absolute right-4 top-4 rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[10px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px] md:right-5 md:top-5">
+                  {currentPost.year}
+                </span>
+              </figure>
 
-              {/* Article Lead Introduction */}
-              <p className="text-lg md:text-[21px] text-[#191C1F] leading-relaxed font-normal mb-8">
-                {currentPost.content.intro}
-              </p>
-
-              {/* Article Content Sections */}
-              <div className="space-y-10 text-[16px] md:text-[17px] leading-[1.75] text-[#333333]">
-                {currentPost.content.sections?.map((sec, idx) => (
-                  <section key={idx} className="space-y-4">
-                    <h2 className="text-[24px] md:text-[28px] font-bold tracking-tight text-[#191C1F] pt-2">
-                      {sec.heading}
-                    </h2>
-                    {sec.body.map((p, pIdx) => (
-                      <p key={pIdx}>{p}</p>
-                    ))}
-                    {sec.callout && (
-                      <aside className="my-6 p-6 rounded-[16px] bg-[#F8F9FA] border-l-4 border-[#191C1F] text-[16px] text-[#191C1F] font-medium leading-relaxed">
-                        “{sec.callout}”
-                      </aside>
-                    )}
-                  </section>
-                ))}
-
-                {/* Key Takeaways */}
-                {currentPost.content.takeaways && (
-                  <div className="mt-12 p-8 rounded-[20px] bg-[#F8F9FA] border border-[rgba(0,0,0,0.06)]">
-                    <h3 className="text-lg font-bold text-[#191C1F] mb-4">
-                      Key Takeaways for Site Contractors &amp; Developers
-                    </h3>
-                    <ul className="space-y-3">
-                      {currentPost.content.takeaways.map((item, tIdx) => (
-                        <li key={tIdx} className="flex items-start gap-3 text-sm md:text-[15px] text-[#555]">
-                          <span className="text-[#191C1F] font-bold">✓</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              {/* Consultation / Dispatch Call to Action */}
-              <div className="mt-16 p-8 rounded-[20px] bg-[#191C1F] text-white text-center">
-                <h3 className="text-[24px] font-bold mb-2">Have a technical concrete inquiry?</h3>
-                <p className="text-white/70 text-sm max-w-[480px] mx-auto mb-6 leading-relaxed">
-                  Connect directly with BCE’s batching dispatch engineers to schedule test cylinders, mix design approvals, or provincial delivery.
+              <div className="mx-auto mt-12 w-full max-w-[700px] md:mt-16">
+                <p className="text-[19px] leading-[1.55] tracking-[-0.01em] text-[#191C1F] md:text-[23px]">
+                  {currentPost.content.intro}
                 </p>
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                  <ArrowButton
-                    href="/?quote"
-                    label="Request a concrete quote"
-                    theme="white"
-                  />
+
+                <div className="mt-12 space-y-12 text-[15.5px] leading-[1.78] text-[#3A3D42] md:mt-16 md:text-[17px]">
+                  {currentPost.content.sections?.map((sec, idx) => (
+                    <section key={idx} className="space-y-5">
+                      <h2 className="text-[24px] font-medium leading-[1.15] tracking-[-0.02em] text-[#191C1F] md:text-[31px]">
+                        {sec.heading}
+                      </h2>
+                      {sec.body.map((p, pIdx) => (
+                        <p key={pIdx}>{p}</p>
+                      ))}
+                      {sec.callout && (
+                        <blockquote className="my-10 border-l border-[#191C1F]/20 pl-6 text-[20px] leading-[1.45] tracking-[-0.015em] text-[#5A5D66] md:text-[26px] md:leading-[1.4]">
+                          {sec.callout}
+                        </blockquote>
+                      )}
+                    </section>
+                  ))}
+
+                  {currentPost.content.takeaways && (
+                    <div className="rounded-[8px] bg-[#F8F8F9] p-7 md:p-9">
+                      <Meta className="text-[#191C1F]/45">Key takeaways</Meta>
+                      <h3 className="mt-3 text-[19px] font-medium leading-snug tracking-[-0.01em] text-[#191C1F] md:text-[21px]">
+                        Key Takeaways for Site Contractors &amp; Developers
+                      </h3>
+                      <ul className="mt-5 space-y-3.5">
+                        {currentPost.content.takeaways.map((item, tIdx) => (
+                          <li
+                            key={tIdx}
+                            className="flex items-start gap-3 text-[14.5px] leading-relaxed text-[#3A3D42] md:text-[15.5px]"
+                          >
+                            <span className="mt-[3px] shrink-0 text-[#191C1F]/70">
+                              <Check />
+                            </span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Dispatch call to action */}
+              <div className="mx-auto mt-16 flex w-full max-w-[1180px] flex-col gap-8 rounded-[8px] bg-[#191C1F] p-8 text-white md:mt-24 md:flex-row md:items-center md:justify-between md:p-14">
+                <div className="max-w-[520px]">
+                  <h3 className="text-[24px] font-medium leading-[1.15] tracking-[-0.02em] md:text-[30px]">
+                    Have a technical concrete inquiry?
+                  </h3>
+                  <p className="mt-3 text-[14px] leading-relaxed text-white/60 md:text-[15px]">
+                    Connect directly with BCE’s batching dispatch engineers to schedule test cylinders, mix design
+                    approvals, or provincial delivery.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <ArrowButton href="/?quote" label="Request a concrete quote" theme="white" />
                   <a
                     href="tel:012932700"
-                    className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/20 text-white text-sm font-medium hover:bg-white/10 transition-colors"
+                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[13px] font-medium text-white transition-colors hover:bg-white/10 hover:opacity-100"
                   >
                     Call Dispatch Hotline
                   </a>
                 </div>
               </div>
 
-              {/* Related / Next Articles */}
+              {/* Related stories */}
               {relatedPosts.length > 0 && (
-                <div className="mt-20 pt-12 border-t border-[rgba(0,0,0,0.08)]">
-                  <h3 className="text-[24px] font-bold text-[#191C1F] mb-8">
-                    Related Articles
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="mt-20 border-t border-black/[0.08] pt-12 md:mt-28">
+                  <Meta className="text-[#191C1F]/45">Related articles</Meta>
+                  <div className="mt-8 grid grid-cols-1 gap-x-5 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
                     {relatedPosts.map((post) => (
-                      <div
-                        key={post.slug}
-                        onClick={() => handleSelectPost(post.slug)}
-                        className="group cursor-pointer"
-                      >
-                        <div className="rounded-[10px] overflow-hidden aspect-[16/10] bg-[#F0F1F3] mb-3" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
-                          <img
-                            src={post.image}
-                            alt={post.alt}
-                            className="w-full h-full object-cover rounded-[10px] group-hover:scale-105 transition-transform duration-300"
-                            style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                          />
-                        </div>
-                        <div className="text-xs font-medium text-[#737373] mb-1">
-                          {post.category}
-                        </div>
-                        <h4 className="text-[16px] font-semibold text-[#191C1F] group-hover:text-black leading-snug line-clamp-2">
-                          {post.title}
-                        </h4>
-                      </div>
+                      <PostTile key={post.slug} post={post} onSelect={handleSelectPost} />
                     ))}
                   </div>
                 </div>
@@ -282,24 +384,23 @@ export default function BlogPage() {
           </article>
         ) : (
           /* =========================================================================
-              VIEW B: JOURNAL-STYLE ARCHIVE (after olympic.no/journal)
+              VIEW B: JOURNAL ARCHIVE
              ========================================================================= */
-          <section className="w-full px-5 sm:px-6 md:px-8 pt-28 md:pt-36 pb-20">
-            <div className="w-full max-w-[1000px] 2xl:max-w-[1432px] mx-auto">
-              {/* Label, statement and standfirst */}
-              <div className="max-w-[900px]">
-                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#191C1F]/45">
-                  News &amp; insight
-                </p>
-                <h1 className="mt-5 text-[clamp(44px,8vw,104px)] font-medium leading-[0.96] tracking-[-0.045em] text-[#191C1F]">
-                  Blog
+          <section className="w-full px-5 pb-24 pt-32 sm:px-6 md:px-8 md:pt-44 xl:px-12 lg:pt-[36vh]">
+            <div className="mx-auto w-full max-w-[1680px]">
+              <header>
+                <Meta className="text-[#191C1F]/50">News &amp; insight</Meta>
+                <h1
+                  data-split
+                  data-split-type="words"
+                  className="mt-5 text-[clamp(42px,4.72vw,96px)] font-medium uppercase leading-[1.02] tracking-[-0.03em] text-[#191C1F] md:mt-7"
+                >
+                  <span className="block">{translate("Building with")}</span>{" "}
+                  <span className="block">{translate("insight")}</span>
                 </h1>
-                <p className="mt-6 max-w-[560px] text-[15px] sm:text-[17px] leading-[1.55] text-[#191C1F]/60">
-                  Engineering insights, concrete batching innovations, and major infrastructure milestones from BCE across Cambodia.
-                </p>
-              </div>
+              </header>
 
-              {/* Featured story: the newest matching article opens the page. */}
+              {/* Newest matching story, opened as a full-width feature */}
               {featuredPost && (
                 <a
                   href={`/?blog&post=${featuredPost.slug}`}
@@ -307,179 +408,196 @@ export default function BlogPage() {
                     event.preventDefault();
                     handleSelectPost(featuredPost.slug);
                   }}
-                  className="group relative mt-10 block md:mt-14"
+                  className="group relative mt-10 block hover:opacity-100 md:mt-14"
                 >
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-[10px] bg-[#F0F1F3] md:aspect-[21/9]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-[6px] bg-[#F0F1F3] md:aspect-[1372/991]">
                     <img
                       src={featuredPost.image}
                       alt={featuredPost.alt}
-                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
-                      style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+                      className="size-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.03]"
+                      style={
+                        {
+                          WebkitCornerSmoothing: "60%",
+                          cornerSmoothing: "60%",
+                        } as CSSProperties
+                      }
                     />
-                    <span className="absolute left-5 top-5 inline-flex items-center rounded-[6px] border border-white/40 bg-black/20 px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.08em] text-white backdrop-blur-sm">
-                      {featuredPost.category}
-                    </span>
                   </div>
-                  <div className="mt-5 md:mt-0">
-                    <div className="md:absolute md:bottom-6 md:right-6 md:max-w-[460px] md:rounded-[20px] md:bg-white md:p-6" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
-                      <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#191C1F]/45">
-                        {featuredPost.date} · {featuredPost.readTime}
-                      </p>
-                      <h2 className="mt-2 max-w-[28ch] text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#191C1F] md:text-[26px]">
+
+                  <div className="mt-4 flex items-start justify-between gap-6 bg-[#F8F8F9] p-6 lg:absolute lg:bottom-0 lg:right-0 lg:mt-0 lg:block lg:w-[31%] lg:min-w-[300px] lg:max-w-[440px] lg:rounded-[6px] lg:p-7">
+                    <div>
+                      <Meta className="text-[#191C1F]/45">
+                        {journalKind(featuredPost)} <span aria-hidden>•</span> {featuredPost.category}
+                      </Meta>
+                      <h2 className="mt-3 text-[17px] font-medium leading-[1.25] tracking-[-0.015em] text-[#191C1F] md:text-[18px] lg:text-[21px]">
                         {featuredPost.title}
                       </h2>
-                      <span className="mt-4 inline-flex size-11 items-center justify-center rounded-full bg-[#191C1F] text-white transition-transform duration-300 group-hover:translate-x-1">
-                        <svg viewBox="0 0 16 16" className="size-4 fill-none stroke-current" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                          <path d="M3.5 12.5 12.5 3.5M5.5 3.5h7v7" />
-                        </svg>
-                      </span>
                     </div>
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-[6px] bg-[#191C1F]/[0.06] text-[#191C1F] transition-colors duration-300 group-hover:bg-[#191C1F] group-hover:text-white lg:mt-7 lg:size-11">
+                      <ArrowUpRight />
+                    </span>
                   </div>
                 </a>
               )}
 
-              {/* Count + pill filters */}
-              <div className="mt-12 flex flex-wrap items-center justify-between gap-4 md:mt-16">
-                <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[#191C1F]/45">
-                  <span>{filteredPosts.length}</span> <span>{filteredPosts.length === 1 ? "article" : "articles"}</span>
-                </p>
-                <div className="flex flex-wrap items-center gap-3">
-                {/* Topic Filter Pill */}
-                <div ref={topicRef} className="relative">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsTopicOpen(!isTopicOpen);
-                      setIsYearOpen(false);
-                    }}
-                    className="flex items-center gap-3 h-12 px-6 rounded-full bg-[#F3F4F5] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
+              {/* Segmented section control, categories panel and clear action */}
+              <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 md:mt-24 lg:mt-32">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <div
+                    className="inline-flex items-center rounded-[6px] bg-[#191C1F]/10 p-[3px]"
+                    role="group"
+                    aria-label="Journal sections"
                   >
-                    <span>{activeTopic}</span>
-                    <ChevronDownIcon open={isTopicOpen} />
-                  </button>
+                    {KINDS.map((kind) => {
+                      const active = kindFilter === kind;
+                      return (
+                        <button
+                          key={kind}
+                          type="button"
+                          aria-pressed={active}
+                          onClick={() => setKindFilter(kind)}
+                          className={`h-9 rounded-[4px] px-4 font-mono text-[10px] uppercase leading-none tracking-[0.08em] transition-colors duration-200 md:text-[11px] ${
+                            active ? "bg-[#191C1F] text-white" : "text-[#191C1F]/60 hover:text-[#191C1F]"
+                          }`}
+                        >
+                          {kind}
+                        </button>
+                      );
+                    })}
+                  </div>
 
-                  {/* Topic Dropdown Popover */}
-                  {isTopicOpen && (
-                    <div className="absolute top-14 left-1/2 -translate-x-1/2 z-30 w-[240px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
-                      <div className="max-h-[300px] overflow-y-auto space-y-1">
-                        {TOPICS.map((topic) => (
+                  <div ref={panelRef} className="relative w-full sm:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => setIsPanelOpen((open) => !open)}
+                      aria-expanded={isPanelOpen}
+                      aria-controls="journal-categories"
+                      className={`flex h-9 items-center gap-2.5 rounded-[6px] px-3.5 font-mono text-[10px] uppercase leading-none tracking-[0.08em] transition-colors duration-200 md:text-[11px] ${
+                        isPanelOpen || panelFilterCount > 0
+                          ? "bg-[#191C1F] text-white"
+                          : "bg-[#191C1F]/[0.06] text-[#191C1F]/70 hover:text-[#191C1F]"
+                      }`}
+                    >
+                      Categories
+                      {panelFilterCount > 0 && (
+                        <span className="flex size-4 items-center justify-center rounded-full bg-white/20 text-[9px] leading-none">
+                          {panelFilterCount}
+                        </span>
+                      )}
+                      <Chevron open={isPanelOpen} />
+                    </button>
+
+                    {isPanelOpen && (
+                      <div
+                        id="journal-categories"
+                        className="absolute left-0 top-[calc(100%+10px)] z-40 max-h-[min(70vh,540px)] w-[min(320px,calc(100vw-2.5rem))] overflow-y-auto rounded-[8px] border border-black/[0.06] bg-white p-6 shadow-[0_24px_64px_rgba(0,0,0,0.14)]"
+                      >
+                        <Meta className="text-[#191C1F]/45">Select categories</Meta>
+
+                        <fieldset className="mt-5">
+                          <legend className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#191C1F]/35">
+                            Topics
+                          </legend>
+                          <ul className="mt-2.5 space-y-0.5">
+                            {topicsList.map((topic) => {
+                              const checked = topics.includes(topic);
+                              const count = BLOG_POSTS.filter((p) => p.category === topic).length;
+                              return (
+                                <li key={topic}>
+                                  <label className="flex cursor-pointer items-center gap-3 py-2 text-[13px] leading-snug text-[#191C1F]">
+                                    <input
+                                      type="checkbox"
+                                      className="peer sr-only"
+                                      checked={checked}
+                                      onChange={() => setTopics((list) => toggle(list, topic))}
+                                    />
+                                    <span className="grid size-[18px] shrink-0 place-items-center rounded-full border border-[#191C1F]/20 text-transparent transition-colors peer-checked:border-[#191C1F] peer-checked:bg-[#191C1F] peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#191C1F]/40">
+                                      <Check />
+                                    </span>
+                                    <span className="flex-1">{topic}</span>
+                                    <span className="font-mono text-[10px] text-[#191C1F]/30">{count}</span>
+                                  </label>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </fieldset>
+
+                        <fieldset className="mt-5 border-t border-black/[0.06] pt-5">
+                          <legend className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#191C1F]/35">
+                            Year
+                          </legend>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {yearsList.map((yr) => {
+                              const checked = years.includes(yr);
+                              return (
+                                <label key={yr} className="cursor-pointer">
+                                  <input
+                                    type="checkbox"
+                                    className="peer sr-only"
+                                    checked={checked}
+                                    onChange={() => setYears((list) => toggle(list, yr))}
+                                  />
+                                  <span
+                                    className={`inline-flex h-8 items-center rounded-[4px] border px-3 font-mono text-[10px] uppercase tracking-[0.08em] transition-colors ${
+                                      checked
+                                        ? "border-[#191C1F] bg-[#191C1F] text-white"
+                                        : "border-[#191C1F]/15 text-[#191C1F]/60 hover:text-[#191C1F] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#191C1F]/40"
+                                    }`}
+                                  >
+                                    {yr}
+                                  </span>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+
+                        <div className="mt-6 flex items-center justify-between border-t border-black/[0.06] pt-4">
+                          <Meta className="text-[#191C1F]/40">
+                            {filteredPosts.length} / {BLOG_POSTS.length}
+                          </Meta>
                           <button
-                            key={topic}
                             type="button"
-                            onClick={() => {
-                              setActiveTopic(topic);
-                              setIsTopicOpen(false);
-                            }}
-                            className={`w-full text-left px-4 py-2 text-xs rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                              activeTopic === topic
-                                ? "bg-[#191C1F] text-white font-medium"
-                                : "text-[#191C1F] hover:bg-[#F3F4F6]"
-                            }`}
+                            onClick={clearFilters}
+                            disabled={filterCount === 0}
+                            className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#191C1F] underline underline-offset-4 disabled:text-[#191C1F]/25 disabled:no-underline"
                           >
-                            <span className="truncate">{topic}</span>
+                            Clear all
                           </button>
-                        ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
 
-                {/* Year Filter Pill */}
-                <div ref={yearRef} className="relative">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsYearOpen(!isYearOpen);
-                      setIsTopicOpen(false);
-                    }}
-                    className="flex items-center gap-3 h-12 px-6 rounded-full bg-[#F3F4F5] hover:bg-[#EAEBED] transition-colors text-[15px] font-medium text-[#191C1F] cursor-pointer"
-                  >
-                    <span>{activeYear}</span>
-                    <ChevronDownIcon open={isYearOpen} />
-                  </button>
-
-                  {/* Year Dropdown Popover */}
-                  {isYearOpen && (
-                    <div className="absolute top-14 left-1/2 -translate-x-1/2 z-30 w-[180px] p-2 bg-white rounded-[16px] shadow-[0_12px_36px_rgba(0,0,0,0.12)] border border-[rgba(0,0,0,0.06)] animate-in fade-in duration-150">
-                      <div className="space-y-1">
-                        {YEARS.map((yr) => (
-                          <button
-                            key={yr}
-                            type="button"
-                            onClick={() => {
-                              setActiveYear(yr);
-                              setIsYearOpen(false);
-                            }}
-                            className={`w-full text-left px-4 py-2 text-xs rounded-full transition-colors flex items-center justify-between cursor-pointer ${
-                              activeYear === yr
-                                ? "bg-[#191C1F] text-white font-medium"
-                                : "text-[#191C1F] hover:bg-[#F3F4F6]"
-                            }`}
-                          >
-                            <span>{yr}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  disabled={filterCount === 0}
+                  className="hidden font-mono text-[10px] uppercase tracking-[0.1em] text-[#191C1F]/50 transition-colors hover:text-[#191C1F] disabled:text-[#191C1F]/25 sm:inline-flex md:text-[11px]"
+                >
+                  Clear filters
+                </button>
               </div>
 
-              </div>
-
-              {filteredPosts.length === 0 ? (
-                <div className="mt-16 py-24 text-center rounded-[20px] bg-[#F8F8F8] border border-[rgba(0,0,0,0.04)]">
-                  <p className="text-[18px] font-medium text-[#191C1F]">
+              {featuredPost === null ? (
+                <div className="mt-16 border-t border-black/[0.08] pt-16 md:mt-20">
+                  <p className="text-[20px] font-medium tracking-[-0.01em] text-[#191C1F] md:text-[24px]">
                     No articles found for the selected filter.
                   </p>
                   <button
                     type="button"
-                    onClick={() => {
-                      setActiveTopic("All topics");
-                      setActiveYear("All years");
-                    }}
-                    className="mt-4 px-5 py-2.5 rounded-full bg-[#191C1F] text-white text-xs font-medium cursor-pointer"
+                    onClick={clearFilters}
+                    className="mt-5 rounded-[4px] bg-[#191C1F] px-5 py-3 font-mono text-[10px] uppercase tracking-[0.08em] text-white"
                   >
                     Reset filters
                   </button>
                 </div>
               ) : gridPosts.length > 0 ? (
-                <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-12 grid grid-cols-1 gap-x-5 gap-y-14 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-[104px]">
                   {gridPosts.map((post) => (
-                    <a
-                      key={post.slug}
-                      href={`/?blog&post=${post.slug}`}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        handleSelectPost(post.slug);
-                      }}
-                      className="group flex flex-col"
-                    >
-                      <div
-                        className="relative aspect-[4/5] overflow-hidden rounded-[10px] bg-[#F0F1F3]"
-                        style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                      >
-                        <img
-                          src={post.image}
-                          alt={post.alt}
-                          className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
-                          style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                          loading="lazy"
-                        />
-                        <span className="absolute left-4 top-4 inline-flex items-center rounded-[6px] border border-white/40 bg-black/20 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-white backdrop-blur-sm">
-                          {post.category}
-                        </span>
-                      </div>
-
-                      <div className="mt-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.08em] text-[#191C1F]/45">
-                        <span>{post.date}</span>
-                        <span>{post.readTime}</span>
-                      </div>
-
-                      <h3 className="mt-2 text-[20px] font-medium leading-[1.22] tracking-[-0.02em] text-[#191C1F] group-hover:underline group-hover:underline-offset-4 sm:text-[22px]">
-                        {post.title}
-                      </h3>
-                    </a>
+                    <PostTile key={post.slug} post={post} onSelect={handleSelectPost} />
                   ))}
                 </div>
               ) : null}
