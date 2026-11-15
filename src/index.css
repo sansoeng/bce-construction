@@ -1475,7 +1475,7 @@ html[lang="km"] .glance-num > span {
 .ls-nav {
   --ls-ink: #1e2226;
   --ls-hairline: rgb(30 34 38 / .12);
-  --ls-compact: max(0px, (100vw - 1180px) / 2 - 8px);
+  --ls-compact: max(0px, (100vw - 1180px) / 2 - var(--page-gutter));
   position: fixed;
   z-index: 210;
   left: 0;
@@ -1487,11 +1487,13 @@ html[lang="km"] .glance-num > span {
 }
 .ls-nav:not(.is-in) { opacity: 0; transform: translateY(-10px); }
 
-/* One clipped surface: the bar narrows and slides up over the first 800px of scroll. */
+/* One clipped surface: the bar sits on the page gutter (the same 20/24/32/48px as the pages, capped at 1680px) and
+   narrows and slides up over the first 800px of scroll. */
 .ls-nav-surface {
   position: relative;
   display: block;
-  width: calc(100% - 16px - 2 * var(--ls-compact) * var(--ls-p, 0));
+  width: calc(100% - 2 * var(--page-gutter) - 2 * var(--ls-compact) * var(--ls-p, 0));
+  max-width: var(--page-max);
   height: 54px;
   margin: 0 auto;
   overflow: hidden;
