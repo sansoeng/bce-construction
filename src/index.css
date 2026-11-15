@@ -3788,7 +3788,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .abv-box { background: rgb(17 17 17 / .55); } }
 .abv-vision { padding: 6rem var(--page-gutter) 0; }
 .abv-cards { display: grid; gap: 4.5rem; margin-top: 2.5rem; }
-.abv-card-title { font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
+.abv-card-title { font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 .abv-card-text { max-width: 26rem; margin-top: 1.25rem; font-size: 1.05rem; line-height: 1.4; color: rgb(17 17 17 / .7); }
 .abv-card-photo {
   margin-top: 2rem;
@@ -4214,7 +4214,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 }
 .qd-title {
   margin-top: 1.15rem;
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(2rem, 3.5vw, 44px);
   font-weight: 500;
   line-height: 1.04;
   letter-spacing: -.03em;
@@ -4292,25 +4292,35 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   text-transform: uppercase;
   color: rgb(17 17 17 / .45);
 }
-.qd-grade-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: .85rem; padding: 0; list-style: none; }
+/* The grades read as one spec row: equal tiles, the grade large and the strength small beneath it, so the six can be
+   compared at a glance. */
+.qd-grade-list {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: .85rem;
+  padding: 0;
+  list-style: none;
+}
 .qd-grade {
-  display: inline-flex;
-  align-items: baseline;
-  gap: .45rem;
-  padding: .55rem .85rem;
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  padding: .9rem 1rem;
   border-radius: var(--radius);
   background: #fff;
-  font-size: .9rem;
-  color: rgb(17 17 17 / .5);
 }
-.qd-grade b { font-weight: 500; color: #111; }
-.qd-note { margin-top: .9rem; font-size: .85rem; line-height: 1.45; color: rgb(17 17 17 / .45); }
+.qd-grade b { font-size: 1.3rem; font-weight: 500; line-height: 1.1; letter-spacing: -.02em; color: #111; }
+.qd-grade span { font-size: .8rem; line-height: 1.3; color: rgb(17 17 17 / .5); font-variant-numeric: tabular-nums; }
+.qd-note { margin-top: 1rem; max-width: 46rem; font-size: .85rem; line-height: 1.45; color: rgb(17 17 17 / .45); }
 @media (max-width: 1023px) {
   .qd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .qd-grade-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 639px) {
   .qd-grid { grid-template-columns: 1fr; }
   .qd-card { min-height: 0; }
+  .qd-grade-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Request a Quote (src/QuotePage.tsx): ruled fields on the site's type, service tiles in the offer-panel colours,

@@ -4,7 +4,6 @@ import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
-import ArrowButton from "./ArrowButton";
 import { useMediaReveal, usePageSetup } from "./usePageSetup";
 import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 import StickyValues, { type StickyItem } from "./StickyValues";
@@ -245,7 +244,6 @@ export default function QualityPage() {
             <p data-split="content" className="qd-note">{quality.documents.note}</p>
           </div>
 
-          <ArrowButton href={quality.documents.ctaHref} label={quality.documents.ctaLabel} className="mt-10" />
         </section>
       </div>
 
