@@ -3759,7 +3759,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 .abv-values-inner { will-change: transform; }
 .abv-values-inner img { width: 100%; height: 100%; object-fit: cover; }
 .abv-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgb(0 0 0 / .45), rgb(0 0 0 / .2) 45%, rgb(0 0 0 / .28)); }
-.abv-values-grid { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 2.5rem; height: 100%; padding: 6.25rem 1.25rem 1.25rem; }
+.abv-values-grid { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 2.5rem; height: 100%; padding: 6.25rem var(--page-gutter) 1.25rem; }
 .abv-values-content { display: grid; gap: .75rem; max-width: 30rem; }
 /* Vision and mission each sit in a frosted glass box over the photo. --abv-in (0 to 1) eases the box in when the
    section arrives; --abv-out (0 to 1, set from the scroll) lifts and fades it out again. Opacity and transform stay
@@ -3786,7 +3786,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 .abv-label { margin-bottom: .9rem; font-family: var(--font-ui-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; color: rgb(255 255 255 / .7); }
 .abv-statement { font-size: clamp(1.15rem, 1.45vw, 1.5rem); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .abv-box { background: rgb(17 17 17 / .55); } }
-.abv-vision { padding: 6rem 1.25rem 0; }
+.abv-vision { padding: 6rem var(--page-gutter) 0; }
 .abv-cards { display: grid; gap: 4.5rem; margin-top: 2.5rem; }
 .abv-card-title { font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 .abv-card-text { max-width: 26rem; margin-top: 1.25rem; font-size: 1.05rem; line-height: 1.4; color: rgb(17 17 17 / .7); }
@@ -3815,7 +3815,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 .abv.is-live .abv-values-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.25rem; }
 .abv.is-live .abv-values-head { grid-column: 1 / 6; align-self: start; }
 .abv.is-live .abv-values-content { grid-column: 8 / 13; align-self: end; max-width: none; }
-.abv.is-live .abv-vision { position: absolute; inset: 0; z-index: 2; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.25rem; padding: 6.25rem 1.25rem 1.25rem; pointer-events: none; }
+.abv.is-live .abv-vision { position: absolute; inset: 0; z-index: 2; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.25rem; padding: 6.25rem var(--page-gutter) 1.25rem; pointer-events: none; }
 .abv.is-live .abv-vision-left { grid-column: 1 / 6; display: flex; flex-direction: column; justify-content: flex-start; padding-block: clamp(3rem, 6.7vw, 6rem); }
 .abv.is-live .abv-cards { position: relative; display: block; flex: 1; margin-top: 24px; }
 /* As the Our Businesses panels: label and title at the top of the column, the text pinned to its foot. */
