@@ -220,7 +220,7 @@ export default function RecruitmentPage() {
               <div className="mt-10 grid grid-cols-1 gap-8 md:mt-14 md:grid-cols-12 md:gap-5">
                 <div className="md:col-span-7">
                   <Kicker style={{ color: ACCENT }}>Become a builder</Kicker>
-                  <h1 className="mt-5 max-w-[16ch] text-[clamp(36px,4.8vw,80px)] font-medium uppercase leading-[0.98] tracking-[-0.03em]">
+                  <h1 className="mt-5 max-w-[16ch] text-[clamp(36px,4.8vw,64px)] font-medium uppercase leading-[0.98] tracking-[-0.03em]">
                     {currentJob.title}
                   </h1>
                 </div>

@@ -429,7 +429,7 @@ function App() {
         <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12 pointer-events-auto">
           {/* Left: Slogan Title */}
           <div className="w-full md:max-w-[660px] text-left">
-            <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.3rem,4.8vw,4.4rem)] leading-[1.04] tracking-[-.025em] text-white">
+            <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.3rem,4.8vw,4rem)] leading-[1.04] tracking-[-.025em] text-white">
               {homepage.hero.titleLines.map((line, index) => (
                 <span className="block" key={index}>{line}</span>
               ))}

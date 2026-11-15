@@ -343,7 +343,7 @@ export default function BlogPage() {
                 <h1
                   data-split
                   data-split-type="words"
-                  className="mt-5 text-[clamp(42px,4.72vw,96px)] font-medium uppercase leading-[1.02] tracking-[-0.03em] text-[#191C1F] md:mt-7"
+                  className="mt-5 text-[clamp(42px,4.72vw,64px)] font-medium uppercase leading-[1.02] tracking-[-0.03em] text-[#191C1F] md:mt-7"
                 >
                   <span className="block">{translate("Building with")}</span>{" "}
                   <span className="block">{translate("insight")}</span>

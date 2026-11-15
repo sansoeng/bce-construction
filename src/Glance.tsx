@@ -168,7 +168,7 @@ function Partners() {
     <div className="glance-layout glance-partners">
       <div className="glance-title-col">
         <div className="glance-title-sticky">
-          <h2 data-split className="text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
+          <h2 data-split className="glance-title text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
             {partnersTitle}
           </h2>
         </div>
@@ -281,7 +281,7 @@ export default function Glance() {
       <div className="glance-layout">
         <div className="glance-title-col">
           <div className="glance-title-sticky">
-            <h2 id="glance-title" data-split className="text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
+            <h2 id="glance-title" data-split className="glance-title text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
               {title}
             </h2>
           </div>

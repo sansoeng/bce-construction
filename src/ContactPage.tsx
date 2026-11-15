@@ -160,7 +160,7 @@ export default function ContactPage() {
           {/* Centered hero */}
           <div className="text-center max-w-[760px] mx-auto mb-10 sm:mb-14">
             <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#191C1F]/40 mb-5">Get in touch</p>
-            <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold text-[#191C1F] tracking-[-0.03em] leading-[1.12]">
+            <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold uppercase text-[#191C1F] tracking-[-0.03em] leading-[1.12]">
               Contact us
             </h1>
             <p className="mt-4 sm:mt-5 text-[15px] sm:text-[17px] text-[#191C1F]/60 leading-[1.55] max-w-[620px] mx-auto">
