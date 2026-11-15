@@ -4280,7 +4280,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qx-head { grid-column: 1 / 7; align-self: start; }
 .qx-body { grid-column: 8 / span 4; align-self: start; }
 .qx-copy { display: flex; flex-direction: column; gap: 1.4em; font-size: 1.08rem; line-height: 1.45; color: rgb(17 17 17 / .64); }
-.qx-label { display: block; font-family: var(--font-ui-mono); font-size: 13px; font-weight: 500; letter-spacing: .06em; line-height: 1.5; text-transform: uppercase; color: #111; }
+.qx-label { display: block; font-family: var(--font-ui-mono); font-size: 14px; font-weight: 500; letter-spacing: .06em; line-height: 1.5; text-transform: uppercase; color: #ff3c1e; }
 .qx-cell-text { display: block; font-size: 1.08rem; line-height: 1.45; color: rgb(17 17 17 / .64); }
 /* 01: numbered process list. */
 .qx-list-label { margin-top: clamp(3.5rem, 6vw, 5rem); }
@@ -4297,7 +4297,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qx-cell, .qx-area { display: flex; flex-direction: column; gap: .8rem; padding: 1.2rem 0 1.7rem; border-top: 1px solid transparent; }
 /* The material/equipment name and the certificate that backs it, set a step larger than the 13px section labels so the
    ruled cells read as the section's content. Applied to both lists on Quality & HSE (raw materials, calibration). */
-.qx-cell .qx-label, .qx-area .qx-label { font-size: 16px; }
+.qx-cell .qx-label, .qx-area .qx-label { font-size: 14px; }
 .qx-cell .qx-cell-text, .qx-area .qx-cell-text { font-size: 20px; }
 /* 03: a full-width rule (left margin to the screen edge) opening the label and the ruled equipment list. */
 .qx-areas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 20px; margin: clamp(4.5rem, 8vw, 7.5rem) 0 0 20px; padding-right: 20px; border-top: 1px solid transparent; }
