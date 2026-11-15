@@ -125,6 +125,15 @@ html:not([lang="km"]) .apple-mega-big-link {
   }
 }
 
+/* Home page section titles inside the content (core-business panels, At a glance, the HSE statement, Selected
+   projects, Request a quotation) share one desktop size: 54px from 1024px up. Below that each keeps its own fluid
+   clamp, so they still fit phones and tablets in portrait. */
+@media (min-width: 1024px) {
+  :is(.offer-title, .glance-title, .vision-track, .kp-title, .qc-title) {
+    font-size: 54px !important;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;

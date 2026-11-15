@@ -158,6 +158,7 @@ export default function ContentManager({ type }: { type: string }) {
   const [saving, setSaving] = useState(false);
   const [reordering, setReordering] = useState(false);
   const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set());
+  const [barStuck, setBarStuck] = useState(false);
   const [confirmState, setConfirmState] = useState<{
     title: string;
     description: string;
@@ -166,6 +167,7 @@ export default function ContentManager({ type }: { type: string }) {
     action: () => void;
   } | null>(null);
   const debounce = useRef<number | undefined>(undefined);
+  const barSentinel = useRef<HTMLDivElement>(null);
 
   const canReorder = statusFilter === "all" && !query.trim() && offset === 0;
 
@@ -257,6 +259,19 @@ export default function ContentManager({ type }: { type: string }) {
     void openEdit(items[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema?.singleton, loading, items, editor]);
+
+  // The action bar floats once the page header scrolls away, so Save stays reachable from any tab.
+  useEffect(() => {
+    const node = barSentinel.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setBarStuck(!entry.isIntersecting),
+      // The admin top bar is 64px tall and the bar parks 12px below it.
+      { rootMargin: "-76px 0px 0px 0px", threshold: 0 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [editor]);
 
   const save = async () => {
     if (!editor) return;
@@ -500,6 +515,34 @@ export default function ContentManager({ type }: { type: string }) {
                 {editor.status === "draft" ? "Draft" : "Staged"}
               </Badge>
             )}
+          </div>
+        </header>
+
+        {error && <Banner tone="error">{error}</Banner>}
+
+        <div ref={barSentinel} aria-hidden className="adm-edit-sentinel" />
+
+        <div className={cx("adm-edit-bar", barStuck && "is-stuck")}>
+          {schema.tabs && groups.length ? (
+            <div className="adm-subtabs adm-edit-bar-tabs" role="tablist" aria-label={`${schema.label} sections`}>
+              {groups.map((group) => (
+                <button
+                  key={group.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeGroup?.id === group.id}
+                  className={cx("adm-subtab", activeGroup?.id === group.id && "is-active")}
+                  onClick={() => setActiveSection(group.id)}
+                >
+                  {group.title}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <p className="adm-edit-bar-title">{title || `New ${schema.singular}`}</p>
+          )}
+
+          <div className="adm-actions adm-edit-bar-actions">
             <RadioGroup
               value={editor.status}
               onValueChange={(value) => setEditor({ ...editor, status: value as "draft" | "staged" })}
@@ -519,9 +562,7 @@ export default function ContentManager({ type }: { type: string }) {
             )}
             <Button variant="primary" onClick={save} disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
           </div>
-        </header>
-
-        {error && <Banner tone="error">{error}</Banner>}
+        </div>
 
         <div className="adm-editor">
           <div className="adm-editor-main">
@@ -540,23 +581,6 @@ export default function ContentManager({ type }: { type: string }) {
                 {lang === "en" ? "Editing the English source" : "Editing the Khmer translation"}
               </p>
             </div>
-
-            {schema.tabs && (
-              <div className="adm-subtabs" role="tablist" aria-label={`${schema.label} sections`}>
-                {groups.map((group) => (
-                  <button
-                    key={group.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={activeGroup?.id === group.id}
-                    className={cx("adm-subtab", activeGroup?.id === group.id && "is-active")}
-                    onClick={() => setActiveSection(group.id)}
-                  >
-                    {group.title}
-                  </button>
-                ))}
-              </div>
-            )}
 
             {(schema.tabs && activeGroup ? [activeGroup] : groups).map((group) => (
               <Card key={`${lang}-${group.id}`} className="adm-section-card">

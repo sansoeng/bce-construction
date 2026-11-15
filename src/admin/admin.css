@@ -1611,6 +1611,83 @@
   scrollbar-color: var(--adm-line) transparent;
 }
 
+/* The editor action bar: tabs and Save float in a frosted band once the page header scrolls away. */
+.adm-edit-sentinel {
+  height: 1px;
+  /* Cancels one of the two 28px page gaps this extra flex child would add. */
+  margin-bottom: -28px;
+}
+
+.adm-edit-bar {
+  position: sticky;
+  top: 76px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.adm-edit-bar.is-stuck {
+  border-color: var(--adm-line);
+  background: rgb(241 241 239 / 0.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 14px 34px rgb(17 17 17 / 0.09);
+}
+
+.adm-edit-bar-tabs {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.adm-edit-bar-title {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--adm-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--adm-faint);
+}
+
+.adm-edit-bar-actions {
+  flex: none;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 900px) {
+  .adm-edit-bar {
+    top: 68px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .adm-edit-bar-tabs {
+    order: 2;
+    width: 100%;
+  }
+
+  .adm-edit-bar-actions {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .adm-edit-bar-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
 .adm-subtab {
   flex: none;
   padding: 8px 14px;
