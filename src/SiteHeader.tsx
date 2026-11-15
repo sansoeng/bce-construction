@@ -4,10 +4,10 @@ import { getLang, setLang } from "./i18n";
 import { businessHref, offerings } from "./company";
 
 /**
- * Navigation after lightshiprv.com: a floating, inset bar — hamburger and primary links at the left, the BCE mark
- * centred, More and the quote button at the right. Every expandable entry (Businesses, Projects, Quality & Lab, More)
- * opens the same full-viewport menu, already expanded on that section; the hamburger opens it at the top. The surface
- * stays full-screen in compact/scrolled mode too, so the menu is always one clipped curtain across the viewport.
+ * Navigation after lightshiprv.com: a floating, inset bar — hamburger and the main links at the left, the BCE mark
+ * centred, Resources, Careers, Blog, Contact and the quote button at the right. The main links go straight to their
+ * pages; the hamburger opens the full-viewport menu, where Businesses, Projects and Quality & Lab still expand in
+ * place. The surface stays full-screen in compact/scrolled mode too, so the menu is always one clipped curtain.
  */
 
 const revealListeners = new Set<() => void>();
@@ -49,7 +49,7 @@ const easeScroll = cubicBezier(0.15, 0.61, 0, 1);
 const SCROLL_DISTANCE = 800;
 
 type Item = { label: string; href: string; desc?: string };
-type SectionKey = "about" | "businesses" | "projects" | "quality" | "more";
+type SectionKey = "about" | "businesses" | "projects" | "quality";
 
 const BUSINESS_DESCRIPTIONS: Record<string, string> = {
   "ready-mix-concrete": "Four plants, 41 mixer trucks, C15 to C40",
@@ -80,11 +80,11 @@ const QUALITY_ITEMS: Item[] = [
   { label: "Mix design documents", href: "/?quality#mix-design", desc: "Approved C15–C40 mix designs" },
 ];
 
-const MORE_ITEMS: Item[] = [
+const UTILITY_ITEMS: Item[] = [
   { label: "Resources", href: "/?resources", desc: "Company profile, certificates and tender documents" },
-  { label: "Contact", href: "/?contact", desc: "Head office, hotlines and site directions" },
   { label: "Careers", href: "/?recruitment", desc: "Open roles on site, in the plant and in the lab" },
   { label: "Blog", href: "/?blog", desc: "Project notes, technical writing and company news" },
+  { label: "Contact", href: "/?contact", desc: "Head office, hotlines and site directions" },
 ];
 
 const MENU_CARDS = [
@@ -221,11 +221,6 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
     };
   }, [menuOpen]);
 
-  const openMenuAt = (key: SectionKey) => {
-    setOpenSection(key);
-    setMenuOpen(true);
-  };
-
   const closeAll = () => {
     setMenuOpen(false);
     setOpenSection(null);
@@ -265,39 +260,9 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
               </button>
               <nav className="ls-nav-links" aria-label="Primary">
                 <a href={linkHref("/?about")} className="ls-link" onClick={closeAll}>About</a>
-                <a
-                  href={linkHref("/?businesses")}
-                  className={`ls-link ${menuOpen && openSection === "businesses" ? "is-active" : ""}`}
-                  aria-haspopup="dialog"
-                  aria-expanded={menuOpen && openSection === "businesses"}
-                  onMouseEnter={() => openMenuAt("businesses")}
-                  onFocus={() => openMenuAt("businesses")}
-                  onClick={closeAll}
-                >
-                  Businesses
-                </a>
-                <a
-                  href={linkHref("/?projects")}
-                  className={`ls-link ${menuOpen && openSection === "projects" ? "is-active" : ""}`}
-                  aria-haspopup="dialog"
-                  aria-expanded={menuOpen && openSection === "projects"}
-                  onMouseEnter={() => openMenuAt("projects")}
-                  onFocus={() => openMenuAt("projects")}
-                  onClick={closeAll}
-                >
-                  Projects
-                </a>
-                <a
-                  href={linkHref("/?quality")}
-                  className={`ls-link ${menuOpen && openSection === "quality" ? "is-active" : ""}`}
-                  aria-haspopup="dialog"
-                  aria-expanded={menuOpen && openSection === "quality"}
-                  onMouseEnter={() => openMenuAt("quality")}
-                  onFocus={() => openMenuAt("quality")}
-                  onClick={closeAll}
-                >
-                  Quality &amp; Lab
-                </a>
+                <a href={linkHref("/?businesses")} className="ls-link" onClick={closeAll}>Businesses</a>
+                <a href={linkHref("/?projects")} className="ls-link" onClick={closeAll}>Projects</a>
+                <a href={linkHref("/?quality")} className="ls-link" onClick={closeAll}>Quality &amp; Lab</a>
               </nav>
             </div>
 
@@ -308,17 +273,11 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
 
             <div className="ls-nav-right">
               <nav className="ls-nav-links ls-nav-links-right" aria-label="Secondary">
-                <a
-                  href={linkHref("/?contact")}
-                  className={`ls-link ${menuOpen && openSection === "more" ? "is-active" : ""}`}
-                  aria-haspopup="dialog"
-                  aria-expanded={menuOpen && openSection === "more"}
-                  onMouseEnter={() => openMenuAt("more")}
-                  onFocus={() => openMenuAt("more")}
-                  onClick={closeAll}
-                >
-                  More
-                </a>
+                {UTILITY_ITEMS.map((item) => (
+                  <a key={item.label} href={linkHref(item.href)} className="ls-link" onClick={closeAll}>
+                    {item.label}
+                  </a>
+                ))}
               </nav>
               <span className="ls-nav-sep" aria-hidden />
               <LangSwitch />
@@ -357,22 +316,26 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
                       { key: "businesses", label: "Businesses", href: "/?businesses", items: BUSINESS_ITEMS },
                       { key: "projects", label: "Projects", href: "/?projects", items: PROJECT_ITEMS },
                       { key: "quality", label: "Quality & Lab", href: "/?quality", items: QUALITY_ITEMS },
-                      { key: "more", label: "More", href: "/?contact", items: MORE_ITEMS },
                     ] as { key: SectionKey; label: string; href: string; items?: Item[] }[]
                   ).map((row, i) => {
                     const isOpen = openSection === row.key;
                     return (
                       <div key={row.key} className={`ls-menu-row ${isOpen ? "is-open" : ""}`} style={{ "--i": i } as CSSProperties}>
                         {row.items ? (
-                          <button
-                            type="button"
-                            className="ls-menu-row-head"
-                            aria-expanded={isOpen}
-                            onClick={() => setOpenSection(isOpen ? null : row.key)}
-                          >
-                            <span className="ls-menu-row-label">{row.label}</span>
-                            <span className="ls-menu-row-toggle" aria-hidden />
-                          </button>
+                          <div className="ls-menu-row-head">
+                            <a href={linkHref(row.href)} className="ls-menu-row-label" onClick={closeAll}>
+                              {row.label}
+                            </a>
+                            <button
+                              type="button"
+                              className="ls-menu-row-toggle-btn"
+                              aria-label={`${isOpen ? "Collapse" : "Expand"} ${row.label}`}
+                              aria-expanded={isOpen}
+                              onClick={() => setOpenSection(isOpen ? null : row.key)}
+                            >
+                              <span className="ls-menu-row-toggle" aria-hidden />
+                            </button>
+                          </div>
                         ) : (
                           <a href={linkHref(row.href)} className="ls-menu-row-head" onClick={closeAll}>
                             <span className="ls-menu-row-label">{row.label}</span>
@@ -392,11 +355,9 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
                                   </li>
                                 ))}
                               </ul>
-                              {row.key !== "more" ? (
-                                <a href={linkHref(row.href)} className="ls-menu-row-all" onClick={closeAll}>
-                                  View all <span aria-hidden>→</span>
-                                </a>
-                              ) : null}
+                              <a href={linkHref(row.href)} className="ls-menu-row-all" onClick={closeAll}>
+                                View all <span aria-hidden>→</span>
+                              </a>
                             </div>
                           </div>
                         ) : null}
@@ -404,6 +365,17 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
                     );
                   })}
                 </div>
+
+                <ul className="ls-menu-sublinks ls-menu-utility">
+                  {UTILITY_ITEMS.map((item) => (
+                    <li key={item.label}>
+                      <a href={linkHref(item.href)} onClick={closeAll}>
+                        <span className="ls-menu-sublink-label">{item.label}</span>
+                        {item.desc ? <span className="ls-menu-sublink-desc">{item.desc}</span> : null}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
 
                 <div className="ls-menu-actions">
                   <ArrowButton href={linkHref("/?quote")} label="Get a quote" onClick={closeAll} />

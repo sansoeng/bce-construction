@@ -1877,6 +1877,7 @@ html[lang="km"] .glance-num > span {
 .ls-nav:not(.is-menu-open) .ls-menu-row-label { clip-path: inset(100% 0 0); transform: translateY(-100%); }
 .ls-nav.is-menu-open .ls-menu-row-label { transition-delay: calc(var(--i, 0) * 70ms + 150ms); }
 .ls-menu-row-toggle { position: relative; flex: none; width: 18px; height: 18px; }
+.ls-menu-row-toggle-btn { display: grid; place-content: center; width: 28px; height: 28px; margin-right: -5px; padding: 0; border: 0; background: none; color: inherit; }
 .ls-menu-row-toggle::before,
 .ls-menu-row-toggle::after { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 1.5px; background: currentColor; transition: transform .5s var(--ls-ease); }
 .ls-menu-row-toggle::after { transform: rotate(90deg); }
@@ -1891,6 +1892,9 @@ html[lang="km"] .glance-num > span {
 .ls-menu-sublink-label { font-size: 14px; }
 .ls-menu-sublink-desc { font-size: 11.5px; line-height: 1.35; opacity: .55; }
 .ls-menu-row-all { display: inline-block; padding: 9px 0 16px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.ls-menu-utility { margin-top: 2px; }
+@media (min-width: 1024px) { .ls-menu-utility li:nth-child(-n+2) a { border-top: 0; } }
+@media (max-width: 1023px) { .ls-menu-utility li:first-child a { border-top: 0; } }
 
 .ls-menu-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: auto; }
 .ls-menu .ls-lang-btn { opacity: .45; }
@@ -1921,6 +1925,8 @@ html[lang="km"] .glance-num > span {
   .ls-nav-links { gap: 14px; }
   .ls-link { font-size: 13px; }
   .ls-nav-left, .ls-nav-right { gap: 10px; }
+  /* Below this width the four utility links would crowd the mark; the menu carries them instead. */
+  .ls-nav-links-right { display: none; }
 }
 @media (max-width: 1023px) {
   .ls-menu { padding: 12px 14px 16px; }
