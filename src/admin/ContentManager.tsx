@@ -4,7 +4,8 @@ import { toast } from "sonner";
 import { api, ApiError, type ContentDoc, type ContentItem } from "./adminApi";
 import { mergeTranslation } from "../contentStore";
 import { SCHEMAS, slugifyTitle, type ContentSchema, type ContentSection, type Field } from "./adminSchemas";
-import { publicSiteUrl } from "./adminUrls";
+import { previewSiteUrl } from "./adminUrls";
+import { setLeaveGuard } from "./leaveGuard";
 import { FieldEditor } from "./FieldEditor";
 import { ContentPreview } from "./ContentPreview";
 import { Badge, Banner, Button, Card, ConfirmDialog, EmptyState, Select, Spinner, TextInput, cx, formatDate } from "./ui";
@@ -41,7 +42,12 @@ type EditorState = {
   isNew: boolean;
   live: boolean;
   hasStage: boolean;
+  /** Serialised form of the last saved state, so unsaved edits can be detected. */
+  baseline: string;
 };
+
+const editorSnapshot = (editor: Pick<EditorState, "slug" | "status" | "data" | "km">) =>
+  JSON.stringify([editor.slug, editor.status, editor.data, editor.km]);
 
 const PAGE_SIZE = 50;
 
@@ -168,6 +174,7 @@ export default function ContentManager({ type }: { type: string }) {
   } | null>(null);
   const debounce = useRef<number | undefined>(undefined);
   const barSentinel = useRef<HTMLDivElement>(null);
+  const cardAnchor = useRef<HTMLDivElement>(null);
 
   const canReorder = statusFilter === "all" && !query.trim() && offset === 0;
 
@@ -212,7 +219,7 @@ export default function ContentManager({ type }: { type: string }) {
 
   const openNew = () => {
     const data = schema.defaults();
-    setEditor({
+    const draft: EditorState = {
       data,
       km: blankTranslation(data),
       slug: schema?.singleton ? "home" : "",
@@ -221,7 +228,9 @@ export default function ContentManager({ type }: { type: string }) {
       isNew: true,
       live: false,
       hasStage: false,
-    });
+      baseline: "",
+    };
+    setEditor({ ...draft, baseline: editorSnapshot(draft) });
     setLang("en");
   };
 
@@ -231,7 +240,7 @@ export default function ContentManager({ type }: { type: string }) {
       const doc = (await api.getContent(type, item.slug)) as ContentDoc;
       const data = doc.stageData ?? doc.data ?? {};
       const km = fillTranslation(blankTranslation(data), doc.stageKm ?? doc.km ?? {}) as Record<string, unknown>;
-      setEditor({
+      const opened: EditorState = {
         data,
         km,
         slug: doc.slug,
@@ -241,7 +250,9 @@ export default function ContentManager({ type }: { type: string }) {
         isNew: false,
         live: doc.status === "published",
         hasStage: doc.hasStage,
-      });
+        baseline: "",
+      };
+      setEditor({ ...opened, baseline: editorSnapshot(opened) });
       setLang("en");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not open document");
@@ -295,7 +306,7 @@ export default function ContentManager({ type }: { type: string }) {
         await api.saveContent(type, { slug, status: editor.status, sort: editor.sort, data, km: editor.km });
       }
 
-      setEditor({ ...editor, slug, data, isNew: false, originalSlug: slug, hasStage: true });
+      setEditor({ ...editor, slug, data, isNew: false, originalSlug: slug, hasStage: true, baseline: editorSnapshot({ ...editor, slug, data }) });
       toast.success(editor.status === "draft" ? "Saved as a draft on staging." : "Staged. Promote when ready.");
       await load(0, false);
     } catch (err) {
@@ -453,6 +464,49 @@ export default function ContentManager({ type }: { type: string }) {
     [editor, schema, titleKey],
   );
 
+  const dirty = editor ? editorSnapshot(editor) !== editor.baseline : false;
+
+  /** True while the panel would sit under the floating bar, i.e. the reader has scrolled. */
+  useEffect(() => {
+    if (!schema?.tabs) return;
+    if (window.scrollY < 160) return;
+    cardAnchor.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [activeSection, schema?.tabs]);
+
+  // Closing the tab or reloading with unsaved edits asks first.
+  useEffect(() => {
+    if (!dirty) return;
+    const onBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
+  }, [dirty]);
+
+  // Route changes inside the admin (sidebar, palette, back link, browser history) ask the same question.
+  useEffect(() => {
+    if (!dirty) {
+      setLeaveGuard(null);
+      return;
+    }
+    setLeaveGuard(() => window.confirm("You have unsaved changes. Leave this editor without saving?"));
+    return () => setLeaveGuard(null);
+  }, [dirty]);
+
+  // ⌘S / Ctrl+S saves from wherever the cursor is.
+  useEffect(() => {
+    if (!editor) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "s") return;
+      event.preventDefault();
+      if (!saving) void save();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor, saving]);
+
   /** The cards in the current language, used by the tabbed editor (homepage). */
   const editorGroups = useMemo(() => {
     if (!schema) return [] as FieldGroup[];
@@ -503,7 +557,17 @@ export default function ContentManager({ type }: { type: string }) {
       <div className="adm-page">
         <header className="adm-page-head">
           <div>
-            {!schema.singleton && <button className="adm-back" onClick={() => setEditor(null)}>← Back to {schema.label}</button>}
+            {!schema.singleton && (
+              <button
+                className="adm-back"
+                onClick={() => {
+                  if (dirty && !window.confirm("You have unsaved changes. Leave this editor without saving?")) return;
+                  setEditor(null);
+                }}
+              >
+                ← Back to {schema.label}
+              </button>
+            )}
             <p className="adm-eyebrow">Content <em>·</em> {schema.label}</p>
             <h1 className="adm-title adm-title--sm">{title || `New ${schema.singular}`}</h1>
             <p className="adm-sub">{editor.isNew ? "Unsaved" : editor.originalSlug}</p>
@@ -524,25 +588,46 @@ export default function ContentManager({ type }: { type: string }) {
 
         <div className={cx("adm-edit-bar", barStuck && "is-stuck")}>
           {schema.tabs && groups.length ? (
-            <div className="adm-subtabs adm-edit-bar-tabs" role="tablist" aria-label={`${schema.label} sections`}>
-              {groups.map((group) => (
-                <button
-                  key={group.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeGroup?.id === group.id}
-                  className={cx("adm-subtab", activeGroup?.id === group.id && "is-active")}
-                  onClick={() => setActiveSection(group.id)}
-                >
-                  {group.title}
-                </button>
-              ))}
+            <div className="adm-edit-bar-tabs">
+              <button
+                type="button"
+                className="adm-tab-arrow"
+                aria-label="Previous section"
+                disabled={activeIndex <= 0}
+                onClick={() => setActiveSection(groups[activeIndex - 1].id)}
+              >
+                ‹
+              </button>
+              <div className="adm-subtabs" role="tablist" aria-label={`${schema.label} sections`}>
+                {groups.map((group) => (
+                  <button
+                    key={group.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeGroup?.id === group.id}
+                    className={cx("adm-subtab", activeGroup?.id === group.id && "is-active")}
+                    onClick={() => setActiveSection(group.id)}
+                  >
+                    {group.title}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="adm-tab-arrow"
+                aria-label="Next section"
+                disabled={activeIndex >= groups.length - 1}
+                onClick={() => setActiveSection(groups[activeIndex + 1].id)}
+              >
+                ›
+              </button>
             </div>
           ) : (
             <p className="adm-edit-bar-title">{title || `New ${schema.singular}`}</p>
           )}
 
           <div className="adm-actions adm-edit-bar-actions">
+            {dirty && <span className="adm-dirty" title="Unsaved changes" aria-label="Unsaved changes" />}
             <RadioGroup
               value={editor.status}
               onValueChange={(value) => setEditor({ ...editor, status: value as "draft" | "staged" })}
@@ -560,7 +645,14 @@ export default function ContentManager({ type }: { type: string }) {
             {editor.hasStage && (
               <Button onClick={() => void promote()} disabled={saving}>Promote</Button>
             )}
-            <Button variant="primary" onClick={save} disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
+            <Button
+              variant="primary"
+              onClick={save}
+              disabled={saving || (!dirty && !editor.isNew)}
+              title="Save (⌘S)"
+            >
+              {saving ? "Saving…" : "Save"}
+            </Button>
           </div>
         </div>
 
@@ -583,28 +675,30 @@ export default function ContentManager({ type }: { type: string }) {
             </div>
 
             {(schema.tabs && activeGroup ? [activeGroup] : groups).map((group) => (
-              <Card key={`${lang}-${group.id}`} className="adm-section-card">
-                <div className="adm-section-head">
-                  <h2 className="adm-section-title">{group.title}</h2>
-                  {group.hint && <p className="adm-section-hint">{group.hint}</p>}
-                </div>
-                <div className="adm-form-grid">
-                  {group.fields.map((field) => (
-                    <FieldEditor
-                      key={`${lang}-${field.key}`}
-                      field={field}
-                      value={field.key === slugKey && lang === "en" ? editor.slug || activeData[slugKey] : activeData[field.key]}
-                      onChange={(value) => {
-                        if (field.key === slugKey && lang === "en") {
-                          setEditor({ ...editor, slug: String(value ?? ""), data: { ...editor.data, [slugKey]: value } });
-                        } else {
-                          setActive(field.key, value);
-                        }
-                      }}
-                    />
-                  ))}
-                </div>
-              </Card>
+              <div key={`${lang}-${group.id}`} ref={cardAnchor} className="adm-section-anchor">
+                <Card className="adm-section-card">
+                  <div className="adm-section-head">
+                    <h2 className="adm-section-title">{group.title}</h2>
+                    {group.hint && <p className="adm-section-hint">{group.hint}</p>}
+                  </div>
+                  <div className="adm-form-grid">
+                    {group.fields.map((field) => (
+                      <FieldEditor
+                        key={`${lang}-${field.key}`}
+                        field={field}
+                        value={field.key === slugKey && lang === "en" ? editor.slug || activeData[slugKey] : activeData[field.key]}
+                        onChange={(value) => {
+                          if (field.key === slugKey && lang === "en") {
+                            setEditor({ ...editor, slug: String(value ?? ""), data: { ...editor.data, [slugKey]: value } });
+                          } else {
+                            setActive(field.key, value);
+                          }
+                        }}
+                      />
+                    ))}
+                  </div>
+                </Card>
+              </div>
             ))}
 
             {schema.tabs && groups.length > 1 && (
@@ -662,7 +756,8 @@ export default function ContentManager({ type }: { type: string }) {
               lang={lang}
               section={schema.tabs ? activeGroup?.id : undefined}
               sectionLabel={schema.tabs ? activeGroup?.title : undefined}
-              href={publicSiteUrl(previewUrl(type, editor.slug))}
+              href={previewSiteUrl(previewUrl(type, editor.slug), editor.hasStage || editor.isNew)}
+              openLabel={editor.hasStage || editor.isNew ? "Open staging ↗" : "Open live ↗"}
             />
           </aside>
         </div>

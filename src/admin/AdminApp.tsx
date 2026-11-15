@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Briefcase,
   Building2,
@@ -22,6 +22,7 @@ import {
 import { api, ApiError, type Me } from "./adminApi";
 import { SCHEMAS } from "./adminSchemas";
 import { publicSiteUrl } from "./adminUrls";
+import { canLeaveEditor } from "./leaveGuard";
 import ContentManager from "./ContentManager";
 import Dashboard from "./Dashboard";
 import LeadsManager from "./LeadsManager";
@@ -90,6 +91,7 @@ export default function AdminApp() {
   const [authError, setAuthError] = useState<{ message: string; status?: number } | null>(null);
   const [hash, setHash] = useState(() => location.hash || "#/dashboard");
   const [commandOpen, setCommandOpen] = useState(false);
+  const pendingHash = useRef<string | null>(null);
 
   useEffect(() => {
     const onAdminHost =
@@ -111,7 +113,24 @@ export default function AdminApp() {
   }, []);
 
   useEffect(() => {
-    const onHash = () => setHash(location.hash || "#/dashboard");
+    let current = location.hash || "#/dashboard";
+    const onHash = () => {
+      const next = location.hash || "#/dashboard";
+      if (next === current) return;
+      // A navigation the admin started itself has already asked the guard.
+      if (next === pendingHash.current) {
+        pendingHash.current = null;
+        current = next;
+        setHash(next);
+        return;
+      }
+      if (!canLeaveEditor()) {
+        history.replaceState(null, "", current);
+        return;
+      }
+      current = next;
+      setHash(next);
+    };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
@@ -140,7 +159,15 @@ export default function AdminApp() {
   }
 
   const navigate = (next: string) => {
-    location.hash = next.replace(/^#/, "");
+    const target = next.replace(/^#/, "");
+    const current = location.hash.replace(/^#/, "") || "dashboard";
+    if (target === current) {
+      setCommandOpen(false);
+      return;
+    }
+    if (!canLeaveEditor()) return;
+    pendingHash.current = `#${target}`;
+    location.hash = target;
     setCommandOpen(false);
   };
 

@@ -16,6 +16,8 @@ type PreviewProps = {
   data: Record<string, unknown>;
   lang: "en" | "km";
   href: string;
+  /** Text of the link out of the preview, e.g. "Open staging ↗" while the edit is unpublished. */
+  openLabel?: string;
   /** The editor tab currently open (tabbed content types such as the homepage). */
   section?: string;
   sectionLabel?: string;
@@ -635,7 +637,7 @@ function HomepagePreview({ data, section }: HomepagePreviewProps) {
   );
 }
 
-export function ContentPreview({ type, data, lang, href, section, sectionLabel }: PreviewProps) {
+export function ContentPreview({ type, data, lang, href, openLabel = "Open ↗", section, sectionLabel }: PreviewProps) {
   const { viewport, page, fit } = useFit(DESIGN_WIDTH);
   const khmer = lang === "km";
 
@@ -645,7 +647,7 @@ export function ContentPreview({ type, data, lang, href, section, sectionLabel }
         <span className="adm-preview-label">Live preview</span>
         {sectionLabel ? <span className="adm-preview-section">{sectionLabel}</span> : null}
         <span className="adm-preview-lang">{khmer ? "ខ្មែរ" : "English"}</span>
-        <a className="adm-preview-open" href={href} target="_blank" rel="noopener noreferrer">Open ↗</a>
+        <a className="adm-preview-open" href={href} target="_blank" rel="noopener noreferrer">{openLabel}</a>
       </div>
       <div className="adm-preview-viewport" ref={viewport} style={{ height: fit.height || undefined }}>
         <div

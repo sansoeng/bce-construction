@@ -1640,10 +1640,58 @@
 }
 
 .adm-edit-bar-tabs {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.adm-edit-bar-tabs .adm-subtabs {
   flex: 1 1 auto;
   min-width: 0;
   padding-bottom: 0;
   border-bottom: 0;
+}
+
+.adm-tab-arrow {
+  display: grid;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid var(--adm-line-soft);
+  border-radius: 50%;
+  background: var(--adm-panel);
+  color: var(--adm-muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.adm-tab-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.adm-tab-arrow:not(:disabled):hover {
+  border-color: var(--adm-ink);
+  color: var(--adm-ink);
+}
+
+/* Unsaved-edits dot: sits beside Save, gone once the form matches the server. */
+.adm-dirty {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--adm-amber);
+  box-shadow: 0 0 0 3px rgb(184 134 11 / 0.14);
+}
+
+/* Keeps a tab switch clear of the floating bar when it scrolls the card into view. */
+.adm-section-anchor {
+  scroll-margin-top: 112px;
 }
 
 .adm-edit-bar-title {
