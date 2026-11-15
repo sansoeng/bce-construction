@@ -8,6 +8,7 @@ import { translate } from "./i18n";
 import { VACANCIES, type Vacancy } from "./careersData";
 import StickyValues, { type StickyItem } from "./StickyValues";
 import { ParallaxHero, useScrollParallax } from "./ServiceBlocks";
+import ArrowButton from "./ArrowButton";
 import { unsplash } from "./company";
 
 // Careers after olympic.no/career-crew: the shared ParallaxHero cover (a full-height photo whose title drifts on
@@ -232,13 +233,7 @@ export default function RecruitmentPage() {
                       {groupOf(currentJob) === "On site" ? "On site across Cambodia" : "Battambang"}
                     </p>
                   </div>
-                  <a
-                    href={mailtoFor(currentJob.title)}
-                    className="inline-flex h-11 items-center justify-center gap-3 rounded-[3px] bg-[#1E2226] px-7 font-mono text-[10px] uppercase tracking-[0.06em] text-white transition-colors hover:bg-black"
-                  >
-                    Apply
-                    <ArrowRight />
-                  </a>
+                  <ArrowButton href={mailtoFor(currentJob.title)} label="Apply" />
                 </div>
               </div>
 
@@ -250,11 +245,11 @@ export default function RecruitmentPage() {
                 />
               </div>
 
-              <section className="grid grid-cols-1 gap-6 border-b border-[#1E2226]/10 py-14 md:grid-cols-12 md:gap-5 md:py-20">
-                <Kicker className="md:col-span-3" style={{ color: ACCENT }}>
+              <section aria-label="We are BCE" className="grid grid-cols-1 gap-6 border-b border-[#1E2226]/10 py-14 md:grid-cols-12 md:gap-6 md:py-20">
+                <Kicker className="md:col-span-4" style={{ color: ACCENT }}>
                   We are BCE
                 </Kicker>
-                <div className="space-y-4 text-[15px] leading-[1.7] text-[#1E2226]/70 md:col-span-8 md:col-start-5 md:text-[16px]">
+                <div className="max-w-[560px] space-y-4 text-[18px] leading-[1.5] tracking-[-0.01em] text-[#1E2226]/70 md:col-span-5 md:col-start-8">
                   <p>
                     Battambang Construction and Engineering, Co., Ltd. (BCE) is one of Western Cambodia&rsquo;s leading
                     construction, concrete and foundation engineering companies. Operating 4 computerized batching
@@ -365,8 +360,8 @@ export default function RecruitmentPage() {
                         ],
                       ].map(([title, text]) => (
                         <div key={title}>
-                          <h4 className="text-[14px] font-medium leading-snug">{title}</h4>
-                          <p className="mt-1 text-[13px] leading-[1.6] text-[#1E2226]/55">{text}</p>
+                          <h4 className="text-[16px] font-medium leading-snug">{title}</h4>
+                          <p className="mt-1 text-[16px] leading-[1.6] text-[#1E2226]/55">{text}</p>
                         </div>
                       ))}
                     </div>
@@ -390,22 +385,9 @@ export default function RecruitmentPage() {
                     </div>
                   </div>
 
-                  <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <a
-                      href={mailtoFor(currentJob.title)}
-                      className="inline-flex h-12 items-center justify-center gap-3 rounded-[3px] bg-[#1E2226] px-6 font-mono text-[10px] uppercase tracking-[0.06em] text-white transition-colors hover:bg-black"
-                    >
-                      Apply
-                      <ArrowRight />
-                    </a>
-                    <button
-                      type="button"
-                      data-slot="career-back"
-                      onClick={backToList}
-                      className="inline-flex h-12 items-center justify-center rounded-[3px] bg-[#EDEEF0] px-6 font-mono text-[10px] uppercase tracking-[0.06em] text-[#1E2226] transition-colors hover:bg-[#E3E4E6]"
-                    >
-                      Back to list
-                    </button>
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    <ArrowButton href={mailtoFor(currentJob.title)} label="Apply" />
+                    <ArrowButton label="Back to list" theme="white" onClick={backToList} />
                   </div>
                 </div>
               </section>
@@ -416,15 +398,7 @@ export default function RecruitmentPage() {
                   Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience
                   behind your career.
                 </p>
-                <button
-                  type="button"
-                  data-slot="career-all"
-                  onClick={backToList}
-                  className="mt-8 inline-flex h-11 items-center gap-3 rounded-[3px] bg-[#1E2226] px-6 font-mono text-[10px] uppercase tracking-[0.06em] text-white transition-colors hover:bg-black"
-                >
-                  View all positions
-                  <ArrowRight />
-                </button>
+                <ArrowButton className="mt-8" label="View all positions" onClick={backToList} />
               </section>
             </div>
           </article>
