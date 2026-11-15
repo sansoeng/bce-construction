@@ -146,13 +146,18 @@ Worker routes:
 
 The Worker only receives the final compact file or JSON and performs authentication, validation, D1 writes, R2 writes and cache invalidation.
 
-## Enable R2 (one dashboard step)
+## R2 (enabled 2026-11-15)
 
-R2 must be enabled once per account in the dashboard. The API cannot do it.
+R2 is **on**: bucket `bce-media` (Standard storage, free tier: 10 GB-month, 1M Class A / 10M Class B
+ops per month, no egress fees). The `MEDIA` binding is live in both Workers, so `/api/admin/media`
+uploads and `/api/media/<key>` reads work.
 
-1. Cloudflare dashboard → **Storage & databases → R2** → **Enable R2**. Accept the terms (the free tier does not require a payment method for 10 GB, but the dashboard may ask to add billing details).
-2. Create a bucket named **`bce-media`**.
-3. Uncomment the R2 block in **both** Workers in `wrangler.toml` — the top-level staging block and `[env.production]`:
+Enabling R2 is a per-account dashboard checkout — the API returns `10042 Please enable R2 through the
+Cloudflare Dashboard` until an account owner completes it, so it cannot be scripted. For a new account:
+
+1. Cloudflare dashboard → **Storage & databases → R2** → **Enable R2** / complete the $0 checkout.
+2. `npx wrangler r2 bucket create bce-media`
+3. Keep both binding blocks in `wrangler.toml` (top-level staging + `[env.production]`):
 
    ```toml
    [[r2_buckets]]
@@ -160,16 +165,14 @@ R2 must be enabled once per account in the dashboard. The API cannot do it.
    bucket_name = "bce-media"
    ```
 
-   ```toml
-   [[env.production.r2_buckets]]
-   binding = "MEDIA"
-   bucket_name = "bce-media"
-   ```
+4. Deploy both Workers: `npm run worker:deploy:staging` and `npm run worker:deploy`.
+5. Verify: `curl -s https://bce-construction.com/api/health` → `"r2":"bound"`.
 
-4. Deploy both Workers: `npm run worker:deploy` and `npm run worker:deploy:staging`.
-5. Reload **Admin → Media**. Uploads now work.
+If the binding is ever removed, the admin keeps working and Media shows an “R2 is not enabled” banner
+with media endpoints returning HTTP 503 (`r2_not_enabled`).
 
-Until then, the whole admin works and Media shows a clear “R2 is not enabled” banner. Media endpoints return HTTP 503.
+Note: `wrangler r2 object put|get|list` operate on local Miniflare storage unless you pass `--remote`,
+so a local object will 404 through the deployed Worker.
 
 ## Email notifications (optional)
 

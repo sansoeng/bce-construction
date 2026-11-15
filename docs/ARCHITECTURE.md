@@ -1,6 +1,6 @@
 # BCE Architecture — living reference
 
-**Last verified:** 2026-11-14 · **Verified by:** agent (live endpoints, wrangler, Cloudflare dashboard API)
+**Last verified:** 2026-11-15 · **Verified by:** agent (live endpoints, wrangler, Cloudflare dashboard API)
 **Audience:** humans and AI agents working in this repo.
 
 > This file is a snapshot of how the system is wired **today**, plus the decisions behind it.
@@ -25,7 +25,7 @@
 | Content view | published rows (`data`, `km`) | pending rows (`stage_data`, `stage_km`) |
 | Writes | allowed (Access JWT + allowlist) | `READ_ONLY=true` → admin and lead writes return 403 |
 | Cron | `17 3 * * *` housekeeping | none |
-| R2 | `bce-media` — **not enabled**, binding commented | same (shared bucket if enabled) |
+| R2 | `bce-media` — enabled 2026-11-15, `MEDIA` binding in both Workers | same bucket (deliberate; staged uploads preview before promote) |
 
 Also provisioned: Cloudflare Access apps for the admin console and `bce-construction.com/api/admin`,
 Turnstile widget `bce-website` (public site key only; secret is a Worker secret), Workers AI
@@ -63,7 +63,7 @@ Public visitor (production)
   bce-construction.com  ──Pages──▶ static React bundle
         └─ /api/* ──route──▶ bce-api ──▶ D1 bce-content   (published rows only)
                                └────▶ KV bce-sessions     (Access certs)
-                               └────▶ R2 bce-media        (when enabled)
+                               └────▶ R2 bce-media        (uploads, variants)
 
 Public visitor (staging)
   staging.bce-construction.com ──Pages (bce-construction-staging)──▶ static React bundle
@@ -173,7 +173,6 @@ curl -s https://bce-construction.com/ | grep -o '/assets/index-[^"]*\.js' | head
 
 ## 9. Known gaps
 
-- R2 is not enabled; media endpoints return 503 until the bucket exists and both bindings are uncommented.
 - Staging and production share one D1, so a staging deploy cannot safely test schema changes.
 - The staging host is public; only writes are blocked.
 - `.env` still holds a Global API Key; a scoped CI token is the recommended replacement.
@@ -193,5 +192,6 @@ When architecture changes, in the same commit:
 
 | Date | Change | Files | Verified |
 | --- | --- | --- | --- |
+| 2026-11-15 | Enabled R2 on the BCE account; created bucket `bce-media` (Standard, free tier) and uncommented the `MEDIA` binding in both Workers, so admin uploads and `/api/media/<key>` reads work | `wrangler.toml`, `docs/CLOUDFLARE.md`, `AGENTS.md` | `wrangler r2 bucket list` shows `bce-media`; both deploys log `env.MEDIA (bce-media)`; `/api/health` → `"r2":"bound"` on prod and staging; a test object uploaded with `--remote` served 200 through both hosts, then deleted |
 | 2026-11-14 | Split Pages into two projects; moved `staging.bce-construction.com` to `bce-construction-staging` so the branded staging host serves staging code (it previously CNAME'd to production). CI and `deploy:staging` target the staging project | `.github/workflows/deploy.yml`, `package.json`, `docs/CLOUDFLARE.md`, `AGENTS.md` | staging serves `index-DWR1_jSx.js` with new careers copy; prod still serves `index-KIyKaZoX.js`; staging API reports `staging`, bootstrap mode `staging`; domain status `active` |
 | 2026-11-14 | Split staging and production Workers; added `bce-api-staging` + `bce-sessions-staging`; staging made read-only (`READ_ONLY`); inverted Wrangler default to staging; CI is env-aware and migrates only on `main`; local dev admin bypass restricted to localhost | `wrangler.toml`, `worker/src/index.ts`, `worker/src/auth.ts`, `worker/src/types.ts`, `.github/workflows/deploy.yml`, `package.json`, `docs/CLOUDFLARE.md`, `AGENTS.md` | `/api/health` per host, bootstrap `x-content-mode`, 403 read-only probes, 401 staging admin, 302 prod Access |

@@ -123,7 +123,7 @@ npm run worker:deploy:staging   # staging:    wrangler deploy
 - **D1**: `bce-content` stores `documents`, `leads`, `media`, `settings`, `audit_log`, `rate_limits`, `meta`. Both Workers share it so the staging site can preview `stage_*` edits; the staging Worker is `READ_ONLY=true` and refuses admin/lead writes.
 - **KV**: `bce-sessions` (production) and `bce-sessions-staging` cache Access certificates and short-lived values.
 - **Secrets**: per environment — `npx wrangler secret put NAME` for staging, `npx wrangler secret put NAME --env production` for production.
-- **R2**: `bce-media` stores uploads. Requires a one-time dashboard enable; the binding stays commented until then.
+- **R2**: `bce-media` stores uploads (enabled 2026-11-15; binding live in both Workers, bucket shared by staging and production).
 - **Turnstile**: protects the quote form (`src/turnstile.tsx`, `POST /api/leads`).
 - **Workers AI**: optional EN↔KM translation in the admin (`POST /api/admin/ai/translate`).
 - **Cron**: daily 03:17 UTC housekeeping.

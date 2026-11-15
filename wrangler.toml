@@ -47,11 +47,11 @@ migrations_dir = "worker/migrations"
 binding = "KV"
 id = "7d8351fdd650496d9b3d95466ef6100e"
 
-# R2 — original and admin-optimised media. Enable R2 once in the dashboard, then
-# uncomment this binding and redeploy. Media endpoints return a clear 503 until then.
-# [[r2_buckets]]
-# binding = "MEDIA"
-# bucket_name = "bce-media"
+# R2 — original and admin-optimised media (uploads, resized variants). Bucket created
+# 2026-11-15; the media endpoints 503 with r2_not_enabled if this binding is removed.
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "bce-media"
 
 # Workers AI — optional writing/translation assist for the admin.
 [ai]
@@ -101,9 +101,10 @@ migrations_dir = "worker/migrations"
 binding = "KV"
 id = "55940bab43aa4c45a489a75fed1e10bc"
 
-# [[env.production.r2_buckets]]
-# binding = "MEDIA"
-# bucket_name = "bce-media"
+# R2 — same bucket as staging so staged uploads preview before promote.
+[[env.production.r2_buckets]]
+binding = "MEDIA"
+bucket_name = "bce-media"
 
 [env.production.ai]
 binding = "AI"
