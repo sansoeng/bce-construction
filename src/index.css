@@ -94,9 +94,9 @@ html:not([lang="km"]) .apple-mega-big-link {
   font-weight: 600 !important;
 }
 
-/* Display titles at 54px and above are set in full caps; anything smaller keeps sentence case. The fluid titles reach
-   54px only on wider screens (4.6vw of a 1174px viewport), so they switch caps there rather than shrinking mid-word.
-   Khmer has no case, so the rule is a no-op there. */
+/* Display titles are set in full caps from their desktop sizes up; anything smaller keeps sentence case. The fluid
+   titles only reach the desktop size on wider screens, so they switch caps there rather than shrinking mid-word.
+   Khmer has no case, so the rule is a no-op. */
 :is(.pd-h2, .pd-outcome, .about-title, .wb-heading) {
   text-transform: uppercase;
 }
@@ -131,6 +131,14 @@ html:not([lang="km"]) .apple-mega-big-link {
 @media (min-width: 1024px) {
   :is(.offer-title, .glance-title, .vision-track, .kp-title, .qc-title) {
     font-size: 54px !important;
+  }
+}
+
+/* The quote band also closes every subpage, where its heading follows the 44px subpage display size; the homepage
+   keeps the 54px section scale above. */
+@media (min-width: 1024px) {
+  main:not([data-home]) .qc-title {
+    font-size: 44px !important;
   }
 }
 
@@ -2790,12 +2798,12 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 }
 
 /* Project details (src/ProjectPage.tsx): the homepage's type scale, greys, hairlines and 4px corners. */
-.pd-title { font-size: clamp(34px, 4.5vw, 54px) !important; font-weight: 600; line-height: 1.08; letter-spacing: -.03em; }
+.pd-title { font-size: clamp(34px, 4.5vw, 44px) !important; font-weight: 600; line-height: 1.08; letter-spacing: -.03em; }
 @media (min-width: 1024px) { .pd-title { font-size: 64px !important; } }
-.pd-h2 { font-size: 54px; font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
+.pd-h2 { font-size: 44px; font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
 .pd-h3 { font-size: clamp(1.9rem, 2.6vw, 3rem); font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
 .pd-statement { font-size: clamp(1.35rem, 1.75vw, 1.9rem); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
-.pd-outcome { font-size: 54px; font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
+.pd-outcome { font-size: 44px; font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
 
 /* "All projects": the site's mono button label, with a left arrow that nudges on hover. */
 .pd-back { display: inline-flex; align-items: center; gap: .75rem; font-family: var(--font-ui-mono); font-size: 16px; font-weight: 500; letter-spacing: 0; text-transform: none; line-height: 1.4; transition: color .3s; }
@@ -2841,7 +2849,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 
 /* Gallery: the Selected Projects frames and captions on a two-column stagger that suits any number of photos. */
 .pd-gallery { padding-top: calc(200 * var(--u)); }
-.pd-gallery .kp-title.pd-h2 { font-size: 54px; line-height: 1.08; letter-spacing: -.025em; }
+.pd-gallery .kp-title.pd-h2 { font-size: 44px !important; line-height: 1.08; letter-spacing: -.025em; }
 .pd-gallery .kp-item:nth-child(odd) { grid-column: 1 / 9; margin-top: calc(-140 * var(--u)); }
 .pd-gallery .kp-item:nth-child(even) { grid-column: 10 / -1; margin-top: calc(260 * var(--u)); }
 .pd-gallery .kp-item:first-child { margin-top: 0; }
@@ -3620,7 +3628,7 @@ html[lang="km"] :is(p, li, dd, dt, figcaption) { line-height: 1.65 !important; }
 html[lang="km"] .ol-hero-title,
 html[lang="km"] .ol-hl-title,
 html[lang="km"] .pd-title {
-  font-size: clamp(34px, 4.5vw, 54px) !important;
+  font-size: clamp(34px, 4.5vw, 44px) !important;
   line-height: 1.35 !important;
 }
 @media (min-width: 1024px) {
@@ -3847,7 +3855,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
    below in 40px type over nine columns, 220px clear of what follows. */
 .ol-hl { display: flex; flex-direction: column; }
 .ol-hl-wrap { padding: clamp(150px, 18vh, 200px) var(--olm) 90px; padding-top: clamp(150px, 18vh, 200px); }
-.ol-hl-title { max-width: 60rem; margin-top: 24px; font-size: clamp(34px, 4.5vw, 54px) !important; font-weight: 600; line-height: 1.08; letter-spacing: -.03em; }
+.ol-hl-title { max-width: 60rem; margin-top: 24px; font-size: clamp(34px, 4.5vw, 44px) !important; font-weight: 600; line-height: 1.08; letter-spacing: -.03em; }
 @media (min-width: 1024px) { .ol-hl-title { font-size: 64px !important; } }
 .ol-hl-media { position: relative; width: 100%; aspect-ratio: 1728 / 1147; overflow: hidden; background: #ededed; }
 .ol-lead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); margin: 90px 0 220px; padding-inline: var(--olm); }

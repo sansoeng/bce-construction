@@ -411,7 +411,7 @@ function App() {
     {showLoader && <Loader />}
     <FluidCursor />
     <SiteHeader phones={phones} tel={tel} />
-    <main className="relative z-[1] overflow-x-clip bg-white text-[#111]">
+    <main data-home className="relative z-[1] overflow-x-clip bg-white text-[#111]">
 
       {/* Fixed banner frame; JS morphs its rect from the viewport into the About image slot. */}
       <div data-fly className="pointer-events-none fixed left-0 top-0 z-20 h-[100svh] w-full overflow-hidden bg-black will-change-[top,left,width,height]">
