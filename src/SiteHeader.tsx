@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import ArrowButton from "./ArrowButton";
 import { getLang, setLang } from "./i18n";
+import { businessHref, offerings } from "./company";
 
 /**
- * Official Apple Global Navigation System (https://www.apple.com/):
- * - Fixed 44px top bar with light frosted glass (rgba(245, 245, 247, 0.8) + saturate(180%) blur(44px))
- * - Perfectly centered navigation items in middle of container
- * - Unboxed BCE primary button for "Get a quote"
- * - Auto-hides on scroll, replaced by floating secondary capsule navigation containing the full primary nav
- * - Mega-menu dropdowns for Businesses and Projects
- * - Full bilingual support (EN / KH)
+ * Navigation after lightshiprv.com: a floating, inset bar — hamburger and primary links at the left, the BCE mark
+ * centred, the remaining links and the quote button at the right. Over a dark cover it is transparent with white type;
+ * once the page scrolls it settles into a compact frosted pill. The hamburger opens the full-screen menu: great rows
+ * that expand to their sub-pages (the Apple-style expandable navigation this replaces), image cards and the secondary
+ * links. Everything else (lang switch, hotlines, quote) lives in the menu and the bar as before.
  */
 
 const revealListeners = new Set<() => void>();
@@ -25,46 +24,113 @@ export function SharplinkButton() {
   return null;
 }
 
-function AppleLogo({ href = "/", dark = false }: { href?: string; dark?: boolean }) {
+type Item = { label: string; href: string; desc?: string };
+type SectionKey = "about" | "businesses" | "projects" | "quality" | "more";
+
+const BUSINESS_DESCRIPTIONS: Record<string, string> = {
+  "ready-mix-concrete": "Four plants, 41 mixer trucks, C15 to C40",
+  piling: "Reinforced piles with our own rigs",
+  construction: "Infrastructure, industrial and residential",
+  "concrete-slab-works": "Pumped, placed and finished with 8 pumps",
+  "equipment-rental": "Mixer trucks, pumps and piling rigs for hire",
+};
+
+const BUSINESS_ITEMS: Item[] = offerings.map((b) => ({
+  label: b.name,
+  href: businessHref(b.slug),
+  desc: BUSINESS_DESCRIPTIONS[b.slug] ?? b.tagline,
+}));
+
+const PROJECT_ITEMS: Item[] = [
+  { label: "All 30+ landmark projects", href: "/?projects", desc: "Bridge foundations, factories, towers and plants" },
+  { label: "Industrial & Commercial", href: "/?projects#industrial", desc: "Garment factories, warehouses & logistics depots" },
+  { label: "Infrastructure & Roads", href: "/?projects#infrastructure", desc: "National roads, bridges, culverts & irrigation" },
+  { label: "Foundation Piling Works", href: "/?projects#piling", desc: "Hydraulic static pressing & driven RC piles" },
+];
+
+const MORE_ITEMS: Item[] = [
+  { label: "Contact", href: "/?contact", desc: "Head office, hotlines and site directions" },
+  { label: "Resources & Downloads", href: "/?resources", desc: "Company profile, certificates and tender documents" },
+  { label: "Careers & Recruitment", href: "/?recruitment", desc: "Open roles on site, in the plant and in the lab" },
+  { label: "Blog & Insights", href: "/?blog", desc: "Project notes, technical writing and company news" },
+  { label: "Technical Capabilities", href: "/?capabilities", desc: "4 plants, 41 mixers, 8 pumps and our own piling rigs" },
+];
+
+type Panel = { label: string; href: string; blurb: string; items: Item[]; card: { title: string; text: string; href: string; image: string } };
+
+const PANELS: Record<"businesses" | "projects" | "more", Panel> = {
+  businesses: {
+    label: "Our businesses",
+    href: "/?businesses",
+    blurb: "Concrete, piling, construction, slab works and fleet hire — delivered with our own plants, crews and laboratory.",
+    items: BUSINESS_ITEMS,
+    card: {
+      title: "Integrated from plant to pour",
+      text: "Four batching plants, 41 mixer trucks, 8 pumps and an accredited in-house laboratory.",
+      href: "/?businesses",
+      image: "/Image/bce/about-business-banner.webp",
+    },
+  },
+  projects: {
+    label: "Selected work",
+    href: "/?projects",
+    blurb: "Infrastructure, industrial and foundation works across 13 provinces and Phnom Penh.",
+    items: PROJECT_ITEMS,
+    card: {
+      title: "30+ landmark projects",
+      text: "Bridges, factories, warehouses, towers and residential developments since 1995.",
+      href: "/?projects",
+      image: "/Image/bce/core-business-construction.webp",
+    },
+  },
+  more: {
+    label: "The company",
+    href: "/?contact",
+    blurb: "The people, the paperwork and the ways to reach us.",
+    items: MORE_ITEMS,
+    card: {
+      title: "Talk to our engineers",
+      text: "Site, scope and schedule — we review it and come back with a clear, detailed quotation.",
+      href: "/?contact",
+      image: "/Image/bce/about-zoom-rebar-crew.webp",
+    },
+  },
+};
+
+const SECONDARY: Item[] = [
+  { label: "About BCE", href: "/?about" },
+  { label: "Quality & Lab", href: "/?quality" },
+  { label: "Technical capabilities", href: "/?capabilities" },
+  { label: "Resources & downloads", href: "/?resources" },
+  { label: "Careers & recruitment", href: "/?recruitment" },
+  { label: "Blog & insights", href: "/?blog" },
+  { label: "Contact", href: "/?contact" },
+];
+
+const MENU_CARDS = [
+  { title: "Our businesses", text: "Five core operations, one integrated company.", href: "/?businesses", image: "/Image/bce/about-business-banner.webp" },
+  { title: "Projects", text: "Bridge foundations, factories and towers.", href: "/?projects", image: "/Image/bce/core-business-piling.webp" },
+];
+
+function Crest({ className = "" }: { className?: string }) {
   return (
-    <a
-      href={href}
-      className={`apple-logo select-none ${dark ? "is-dark" : ""}`}
-      aria-label="BCE., Ltd. home"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        className="apple-logo-icon stroke-current fill-none stroke-[1.8] transition-transform duration-300"
-        aria-hidden
-      >
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-      <span className="apple-logo-text">BCE</span>
-    </a>
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+    </svg>
   );
 }
 
-function LangSwitch({ dark = false }: { dark?: boolean }) {
+function LangSwitch() {
   const lang = getLang();
   return (
-    <div className={`apple-lang-switch select-none ${dark ? "is-dark" : ""}`} data-no-translate>
-      <button
-        type="button"
-        className={`apple-lang-btn ${lang === "en" ? "is-current" : ""}`}
-        aria-pressed={lang === "en"}
-        onClick={() => setLang("en")}
-      >
+    <div className="ls-lang" data-no-translate>
+      <button type="button" className={`ls-lang-btn ${lang === "en" ? "is-current" : ""}`} aria-pressed={lang === "en"} onClick={() => setLang("en")}>
         EN
       </button>
-      <span className="apple-lang-divider">/</span>
-      <button
-        type="button"
-        className={`apple-lang-btn font-khmer ${lang === "km" ? "is-current" : ""}`}
-        aria-pressed={lang === "km"}
-        onClick={() => setLang("km")}
-      >
+      <span className="ls-lang-divider">/</span>
+      <button type="button" className={`ls-lang-btn font-khmer ${lang === "km" ? "is-current" : ""}`} aria-pressed={lang === "km"} onClick={() => setLang("km")}>
         ខ្មែរ
       </button>
     </div>
@@ -78,34 +144,13 @@ interface SiteHeaderProps {
 }
 
 export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [activeMega, setActiveMega] = useState<"businesses" | "projects" | "more" | null>(null);
-  const [mobileAccordion, setMobileAccordion] = useState<"businesses" | "projects" | "more" | null>(null);
-  const [showSubnav, setShowSubnav] = useState(false);
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
-  const [panelHeights, setPanelHeights] = useState<{ businesses: number; projects: number; more: number }>({
-    businesses: 280,
-    projects: 240,
-    more: 240,
-  });
-  const headerRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [onCover, setOnCover] = useState(false);
+  const [activePanel, setActivePanel] = useState<"businesses" | "projects" | "more" | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<SectionKey | null>(null);
   const closeTimeout = useRef<number | null>(null);
-  const businessesRef = useRef<HTMLDivElement>(null);
-  const projectsRef = useRef<HTMLDivElement>(null);
-  const moreRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const measure = () => {
-      setPanelHeights({
-        businesses: businessesRef.current?.offsetHeight || 280,
-        projects: projectsRef.current?.offsetHeight || 240,
-        more: moreRef.current?.offsetHeight || 240,
-      });
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
 
   useEffect(() => {
     const handleReveal = () => setIsIn(true);
@@ -115,739 +160,289 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
     };
   }, []);
 
-  // Listen to window scroll: hide primary header and reveal floating capsule navigation
+  // The bar is transparent over a dark cover at the top of the page and frosts into its pill as soon as you scroll.
   useEffect(() => {
-    const handleScroll = () => {
-      setShowSubnav(window.scrollY > 80);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      const cover = document.querySelector<HTMLElement>("[data-nav-dark]");
+      const rect = cover?.getBoundingClientRect();
+      setOnCover(y < 24 && !!rect && rect.top <= 8 && rect.bottom > 96);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    const request = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    addEventListener("scroll", request, { passive: true });
+    addEventListener("resize", request);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(raf);
+      removeEventListener("scroll", request);
+      removeEventListener("resize", request);
     };
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Menu open: freeze the page and Lenis, close on Escape.
   useEffect(() => {
-    if (isMobileOpen) {
+    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } | null }).__lenis;
+    if (menuOpen) {
+      lenis?.stop();
       document.body.style.overflow = "hidden";
     } else {
+      lenis?.start();
       document.body.style.overflow = "";
     }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMenuOpen(false);
+      setActivePanel(null);
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
+      window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [isMobileOpen]);
+  }, [menuOpen]);
 
-  // Handle ESC and click outside
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setActiveMega(null);
-        setIsMobileOpen(false);
-      }
-    };
-
-    const handlePointerDown = (e: PointerEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        !target.closest(".apple-header") &&
-        !target.closest(".apple-floating-nav")
-      ) {
-        setActiveMega(null);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("pointerdown", handlePointerDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("pointerdown", handlePointerDown);
-    };
-  }, []);
-
-  const handleMouseEnterItem = (name: "businesses" | "projects" | "more" | null) => {
+  const openPanel = (key: "businesses" | "projects" | "more" | null) => {
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
     }
-    setActiveMega(name);
+    if (menuOpen) return;
+    setActivePanel(key);
   };
 
-  const handleMouseLeaveNav = () => {
-    closeTimeout.current = window.setTimeout(() => {
-      setActiveMega(null);
-    }, 220);
+  const leavePanel = () => {
+    closeTimeout.current = window.setTimeout(() => setActivePanel(null), 220);
   };
 
   const closeAll = () => {
-    setActiveMega(null);
-    setIsMobileOpen(false);
+    setActivePanel(null);
+    setMenuOpen(false);
+    setOpenSection(null);
   };
 
-  const linkHref = (path: string) => {
-    if (path.startsWith("#")) return base ? `${base}${path}` : path;
-    return path;
+  const linkHref = (path: string) => (path.startsWith("#") && base ? `${base}${path}` : path);
+
+  const toggleMenu = () => {
+    setMenuOpen((open) => {
+      if (!open) setActivePanel(null);
+      return !open;
+    });
   };
 
   return (
     <>
-      {/* ==========================================================================
-          Primary Apple Global Header (Top of page, hides when scrolling down)
-         ========================================================================== */}
       <header
-        ref={headerRef}
         data-nav
-        className={`apple-header ${isIn ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"} ${
-          showSubnav ? "is-scrolled-out" : ""
-        } ${activeMega ? "has-mega-open" : ""} ${isMobileOpen ? "is-menu-open" : ""}`}
-        onMouseLeave={handleMouseLeaveNav}
+        className={`ls-nav ${isIn ? "is-in" : ""} ${scrolled ? "is-scrolled" : ""} ${onCover ? "is-on-cover" : ""} ${
+          activePanel ? "has-panel" : ""
+        } ${menuOpen ? "is-menu-open" : ""}`}
+        onMouseLeave={leavePanel}
       >
-        <div className="apple-nav-content">
-          {/* Desktop Navigation List: ALL content in ONE single list, exactly like apple.com */}
-          <ul className={`apple-nav-list ${activeMega ? "has-focus" : ""}`}>
-            {/* 1. BCE Logo */}
-            <li className="apple-nav-item apple-nav-item-logo">
-              <AppleLogo href={base || "/"} />
-            </li>
-
-            {/* 2. About */}
-            <li
-              className="apple-nav-item"
-              onMouseEnter={() => handleMouseEnterItem(null)}
+        <div className="ls-nav-bar">
+          <div className="ls-nav-left">
+            <button
+              type="button"
+              className={`ls-burger ${menuOpen ? "is-active" : ""}`}
+              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={menuOpen}
+              onClick={toggleMenu}
             >
-              <a
-                href={linkHref("/?about")}
-                className="apple-nav-link"
-                onClick={closeAll}
-              >
-                About
-              </a>
-            </li>
-
-            {/* 3. Businesses (with Mega Menu) */}
-            <li
-              className={`apple-nav-item ${activeMega === "businesses" ? "is-active" : ""}`}
-              onMouseEnter={() => handleMouseEnterItem("businesses")}
-            >
-              <a
-                href={linkHref("/?businesses")}
-                className="apple-nav-link"
-                onClick={closeAll}
+              <span />
+              <span />
+            </button>
+            <nav className="ls-nav-links" aria-label="Primary">
+              <a href={linkHref("/?about")} className="ls-link" onClick={closeAll}>About</a>
+              <button
+                type="button"
+                className={`ls-link ls-link-panel ${activePanel === "businesses" ? "is-active" : ""}`}
+                aria-expanded={activePanel === "businesses"}
+                onMouseEnter={() => openPanel("businesses")}
+                onClick={() => setActivePanel(activePanel === "businesses" ? null : "businesses")}
               >
                 Businesses
-              </a>
-            </li>
-
-            {/* 4. Projects (with Mega Menu) */}
-            <li
-              className={`apple-nav-item ${activeMega === "projects" ? "is-active" : ""}`}
-              onMouseEnter={() => handleMouseEnterItem("projects")}
-            >
-              <a
-                href={linkHref("/?projects")}
-                className="apple-nav-link"
-                onClick={closeAll}
+              </button>
+              <button
+                type="button"
+                className={`ls-link ls-link-panel ${activePanel === "projects" ? "is-active" : ""}`}
+                aria-expanded={activePanel === "projects"}
+                onMouseEnter={() => openPanel("projects")}
+                onClick={() => setActivePanel(activePanel === "projects" ? null : "projects")}
               >
                 Projects
-              </a>
-            </li>
+              </button>
+            </nav>
+          </div>
 
-            {/* 5. Quality & Lab */}
-            <li
-              className="apple-nav-item"
-              onMouseEnter={() => handleMouseEnterItem(null)}
-            >
-              <a
-                href={linkHref("/?quality")}
-                className="apple-nav-link"
-                onClick={closeAll}
-              >
-                Quality & Lab
-              </a>
-            </li>
+          <a href={base || "/"} className="ls-logo" aria-label="BCE., Ltd. home">
+            <Crest className="ls-logo-crest" />
+            <span className="ls-logo-text">BCE</span>
+          </a>
 
-            {/* 6. More (with Mega Menu) */}
-            <li
-              className={`apple-nav-item ${activeMega === "more" ? "is-active" : ""}`}
-              onMouseEnter={() => handleMouseEnterItem("more")}
-            >
+          <div className="ls-nav-right">
+            <nav className="ls-nav-links ls-nav-links-right" aria-label="Secondary">
+              <a href={linkHref("/?quality")} className="ls-link" onClick={closeAll}>Quality & Lab</a>
               <button
                 type="button"
-                className="apple-nav-link flex items-center gap-1 cursor-pointer bg-transparent border-0 font-inherit"
-                onClick={() => setActiveMega(activeMega === "more" ? null : "more")}
+                className={`ls-link ls-link-panel ${activePanel === "more" ? "is-active" : ""}`}
+                aria-expanded={activePanel === "more"}
+                onMouseEnter={() => openPanel("more")}
+                onClick={() => setActivePanel(activePanel === "more" ? null : "more")}
               >
-                <span>More</span>
-                <svg
-                  viewBox="0 0 10 6"
-                  className={`size-2 stroke-current fill-none stroke-[1.8] transition-transform duration-200 ${
-                    activeMega === "more" ? "rotate-180" : ""
-                  }`}
-                  aria-hidden
-                >
-                  <path d="M1 1l4 4 4-4" />
-                </svg>
+                More
               </button>
-            </li>
-
-            {/* 7. Language Switch */}
-            <li className="apple-nav-item apple-nav-item-lang">
-              <LangSwitch />
-            </li>
-
-            {/* 8. Get a quote (Unboxed Primary Button) */}
-            <li className="apple-nav-item apple-nav-item-quote">
-              <ArrowButton
-                href={linkHref("/?quote")}
-                label="Get a quote"
-                theme="raw"
-                className="text-[#1d1d1f] hover:text-black"
-                onClick={closeAll}
-              />
-            </li>
-          </ul>
-
-          {/* Mobile Right Controls (< 834px) */}
-          <div className="apple-mobile-bar">
-            <AppleLogo href={base || "/"} />
-            <div className="flex items-center gap-3">
-              <LangSwitch />
-              <button
-                type="button"
-                className={`apple-hamburger ${isMobileOpen ? "is-active" : ""}`}
-                aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
-                aria-expanded={isMobileOpen}
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
-              >
-                <span className="apple-hamburger-line apple-hamburger-top" />
-                <span className="apple-hamburger-line apple-hamburger-bottom" />
-              </button>
-            </div>
+            </nav>
+            <span className="ls-nav-sep" aria-hidden />
+            <LangSwitch />
+            <ArrowButton href={linkHref("/?quote")} label="Get a quote" onClick={closeAll} className="ls-quote" />
           </div>
         </div>
 
-        {/* ==========================================================================
-            Apple Mega-Menu Dropdowns (Desktop - Top Header)
-            Exact Apple.com Curtain Expand, Dynamic Height & Crossfade Mechanics
-           ========================================================================== */}
-        <div
-          className={`apple-mega-menu ${activeMega && !showSubnav ? "is-open" : ""}`}
-          style={{
-            height: !showSubnav && activeMega ? panelHeights[activeMega] : 0,
-          }}
-          onMouseEnter={() => {
-            if (closeTimeout.current) clearTimeout(closeTimeout.current);
-          }}
-          onMouseLeave={handleMouseLeaveNav}
-        >
-          <div className="apple-mega-wrapper">
-            {/* Businesses Mega Menu Panel */}
-            <div
-              ref={businessesRef}
-              className={`apple-mega-panel ${activeMega === "businesses" ? "is-active" : ""}`}
-            >
-              <div className="apple-mega-inner">
-                <div className="apple-mega-grid">
-                  {/* Column 1: Explore Businesses */}
-                  <div className="apple-mega-col">
-                    <h3>Explore Businesses</h3>
-                    <a href={linkHref("/?businesses")} onClick={closeAll} className="apple-mega-big-link">
-                      Explore all core businesses
-                    </a>
-                    <a href={linkHref("/?business=ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
-                      Ready-Mix Concrete
-                    </a>
-                    <a href={linkHref("/?business=piling")} onClick={closeAll} className="apple-mega-big-link">
-                      Foundation Piling
-                    </a>
-                    <a href={linkHref("/?business=construction")} onClick={closeAll} className="apple-mega-big-link">
-                      Civil Construction
-                    </a>
-                    <a href={linkHref("/?business=concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
-                      Concrete Slab Works
-                    </a>
-                    <a href={linkHref("/?business=equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
-                      Heavy Equipment Rental
-                    </a>
-                  </div>
-                </div>
+        {/* Hover panels: the expandable navigation, kept from the previous header and widened with a lead card. */}
+        <div className={`ls-mega ${activePanel ? "is-open" : ""}`}>
+          {(Object.keys(PANELS) as (keyof typeof PANELS)[]).map((key) => (
+            <div key={key} className={`ls-mega-panel ${activePanel === key ? "is-active" : ""}`}>
+              <div className="ls-mega-links">
+                <p className="ls-mega-label">{PANELS[key].label}</p>
+                <p className="ls-mega-blurb">{PANELS[key].blurb}</p>
+                <ul>
+                  {PANELS[key].items.map((item) => (
+                    <li key={item.label}>
+                      <a href={linkHref(item.href)} onClick={closeAll} className="ls-mega-link">
+                        <span className="ls-mega-link-label">{item.label}</span>
+                        {item.desc ? <span className="ls-mega-link-desc">{item.desc}</span> : null}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a href={linkHref(PANELS[key].href)} onClick={closeAll} className="ls-mega-all">
+                  View all
+                  <span aria-hidden>→</span>
+                </a>
               </div>
+              <a href={linkHref(PANELS[key].card.href)} onClick={closeAll} className="ls-mega-card">
+                <img src={PANELS[key].card.image} alt="" loading="lazy" />
+                <span className="ls-mega-card-body">
+                  <span className="ls-mega-card-title">{PANELS[key].card.title}</span>
+                  <span className="ls-mega-card-text">{PANELS[key].card.text}</span>
+                </span>
+              </a>
             </div>
-
-            {/* Projects Mega Menu Panel */}
-            <div
-              ref={projectsRef}
-              className={`apple-mega-panel ${activeMega === "projects" ? "is-active" : ""}`}
-            >
-              <div className="apple-mega-inner">
-                <div className="apple-mega-grid">
-                  {/* Column 1: Explore Projects */}
-                  <div className="apple-mega-col">
-                    <h3>Explore Projects</h3>
-                    <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
-                      All 30+ Landmark Projects
-                    </a>
-                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
-                      Industrial & Commercial
-                    </a>
-                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
-                      Infrastructure & Roads
-                    </a>
-                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
-                      Foundation Piling Works
-                    </a>
-                  </div>
-
-                  {/* Column 2: Landmark Sectors */}
-                  <div className="apple-mega-col">
-                    <h3>Landmark Sectors</h3>
-                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Industrial & Commercial</span>
-                      <span className="apple-mega-sublink-desc">Garment factories, warehouses & logistics depots</span>
-                    </a>
-                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Infrastructure & Roads</span>
-                      <span className="apple-mega-sublink-desc">National roads, bridges, culverts & irrigation</span>
-                    </a>
-                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Foundation Piling Works</span>
-                      <span className="apple-mega-sublink-desc">Hydraulic static pressing & driven RC piles</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* More Mega Menu Panel */}
-            <div
-              ref={moreRef}
-              className={`apple-mega-panel ${activeMega === "more" ? "is-active" : ""}`}
-            >
-              <div className="apple-mega-inner">
-                <div className="apple-mega-grid">
-                  {/* Column 1: Explore Pages */}
-                  <div className="apple-mega-col">
-                    <h3>Explore</h3>
-                    <a href={linkHref("/?contact")} onClick={closeAll} className="apple-mega-big-link">
-                      Contact
-                    </a>
-                    <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-big-link">
-                      Resources
-                    </a>
-                    <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-big-link">
-                      Recruitment
-                    </a>
-                    <a href={linkHref("/?blog")} onClick={closeAll} className="apple-mega-big-link">
-                      Blog
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </header>
 
-      {/* ==========================================================================
-          Secondary Floating Capsule Navigation on Scroll (Apple iPhone style)
-          Contains full primary navigation content: Logo, Centered Links, LangSwitch, unboxed quote CTA
-         ========================================================================== */}
-      <div
-        className={`apple-floating-nav ${
-          showSubnav && !isMobileOpen ? "is-visible" : ""
-        }`}
-        aria-label="Floating global navigation"
-        onMouseLeave={handleMouseLeaveNav}
-      >
-        <div className="apple-floating-inner">
-          {/* Unified Navigation List centered inside floating capsule */}
-          <ul className={`apple-floating-list ${activeMega ? "has-focus" : ""}`}>
-            <li className="apple-floating-item apple-floating-item-logo">
-              <AppleLogo href={base || "/"} />
-            </li>
-            <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
-              <a href={linkHref("/?about")} className="apple-floating-link" onClick={closeAll}>
-                About
-              </a>
-            </li>
-            <li
-              className={`apple-floating-item ${activeMega === "businesses" ? "is-active" : ""}`}
-              onMouseEnter={() => handleMouseEnterItem("businesses")}
-            >
-              <a href={linkHref("/?businesses")} className="apple-floating-link" onClick={closeAll}>
-                Businesses
-              </a>
-            </li>
-            <li
-              className={`apple-floating-item ${activeMega === "projects" ? "is-active" : ""}`}
-              onMouseEnter={() => handleMouseEnterItem("projects")}
-            >
-              <a href={linkHref("/?projects")} className="apple-floating-link" onClick={closeAll}>
-                Projects
-              </a>
-            </li>
-            <li className="apple-floating-item" onMouseEnter={() => handleMouseEnterItem(null)}>
-              <a href={linkHref("/?quality")} className="apple-floating-link" onClick={closeAll}>
-                Quality & Lab
-              </a>
-            </li>
-            <li
-              className={`apple-floating-item ${activeMega === "more" ? "is-active" : ""}`}
-              onMouseEnter={() => handleMouseEnterItem("more")}
-            >
-              <button
-                type="button"
-                className="apple-floating-link flex items-center gap-1 cursor-pointer bg-transparent border-0 font-inherit"
-                onClick={() => setActiveMega(activeMega === "more" ? null : "more")}
-              >
-                <span>More</span>
-                <svg
-                  viewBox="0 0 10 6"
-                  className={`size-2 stroke-current fill-none stroke-[1.8] transition-transform duration-200 ${
-                    activeMega === "more" ? "rotate-180" : ""
-                  }`}
-                  aria-hidden
-                >
-                  <path d="M1 1l4 4 4-4" />
-                </svg>
-              </button>
-            </li>
-            <li className="apple-floating-item apple-floating-item-lang">
-              <LangSwitch />
-            </li>
-            <li className="apple-floating-item apple-floating-item-quote">
-              <ArrowButton
-                href={linkHref("/?quote")}
-                label="Get a quote"
-                theme="raw"
-                className="text-[#1d1d1f] hover:text-black"
-                onClick={closeAll}
-              />
-            </li>
-          </ul>
+      <div className={`ls-scrim ${activePanel ? "is-active" : ""}`} onClick={() => setActivePanel(null)} aria-hidden />
 
-          {/* Mobile Right Controls (< 834px) */}
-          <div className="apple-floating-mobile-bar">
-            <AppleLogo href={base || "/"} />
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="apple-floating-mobile-quote">
-                <ArrowButton
-                  href={linkHref("/?quote")}
-                  label="Get a quote"
-                  theme="raw"
-                  className="text-[#1d1d1f] hover:text-black"
-                  onClick={closeAll}
-                />
-              </div>
-              <LangSwitch />
-              <button
-                type="button"
-                className={`apple-hamburger ${isMobileOpen ? "is-active" : ""}`}
-                aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
-                aria-expanded={isMobileOpen}
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
-              >
-                <span className="apple-hamburger-line apple-hamburger-top" />
-                <span className="apple-hamburger-line apple-hamburger-bottom" />
-              </button>
-            </div>
+      {/* Full-screen menu, after the Lightship takeover: great expandable rows on the left, cards and the secondary
+          links on the right. */}
+      <div className={`ls-menu ${menuOpen ? "is-open" : ""}`} aria-hidden={!menuOpen} inert={!menuOpen} role="dialog" aria-modal="true" aria-label="Site navigation">
+        <div className="ls-menu-inner">
+          <div className="ls-menu-main">
+            {(
+              [
+                { key: "about", label: "About", href: "/?about" },
+                { key: "businesses", label: "Businesses", href: "/?businesses", items: BUSINESS_ITEMS },
+                { key: "projects", label: "Projects", href: "/?projects", items: PROJECT_ITEMS },
+                { key: "quality", label: "Quality & Lab", href: "/?quality" },
+                { key: "more", label: "More", href: "/?contact", items: MORE_ITEMS },
+              ] as { key: SectionKey; label: string; href: string; items?: Item[] }[]
+            ).map((row, i) => {
+              const isOpen = openSection === row.key;
+              return (
+                <div key={row.key} className={`ls-menu-row ${isOpen ? "is-open" : ""}`} style={{ "--i": i } as CSSProperties}>
+                  {row.items ? (
+                    <button
+                      type="button"
+                      className="ls-menu-row-head"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenSection(isOpen ? null : row.key)}
+                    >
+                      <span className="ls-menu-row-label">{row.label}</span>
+                      <span className="ls-menu-row-toggle" aria-hidden />
+                    </button>
+                  ) : (
+                    <a href={linkHref(row.href)} className="ls-menu-row-head" onClick={closeAll}>
+                      <span className="ls-menu-row-label">{row.label}</span>
+                      <span className="ls-menu-row-arrow" aria-hidden>→</span>
+                    </a>
+                  )}
+                  {row.items ? (
+                    <div className="ls-menu-row-panel">
+                      <div className="ls-menu-row-panel-inner">
+                        <ul className="ls-menu-sublinks">
+                          {row.items.map((item) => (
+                            <li key={item.label}>
+                              <a href={linkHref(item.href)} onClick={closeAll}>
+                                <span className="ls-menu-sublink-label">{item.label}</span>
+                                {item.desc ? <span className="ls-menu-sublink-desc">{item.desc}</span> : null}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                        <a href={linkHref(row.href)} className="ls-menu-row-all" onClick={closeAll}>
+                          View all <span aria-hidden>→</span>
+                        </a>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
-        </div>
 
-        {/* Floating Mega-Menu Dropdown */}
-        {activeMega && showSubnav && (
-          <div
-            className="apple-floating-dropdown"
-            onMouseEnter={() => {
-              if (closeTimeout.current) clearTimeout(closeTimeout.current);
-            }}
-            onMouseLeave={handleMouseLeaveNav}
-          >
-            <div className="apple-mega-wrapper">
-              {/* Businesses Mega Menu Panel */}
-              <div className={`apple-mega-panel ${activeMega === "businesses" ? "is-active" : ""}`}>
-                <div className="apple-mega-grid">
-                  {/* Column 1: Explore Businesses */}
-                  <div className="apple-mega-col">
-                    <h3>Explore Businesses</h3>
-                    <a href={linkHref("/?businesses")} onClick={closeAll} className="apple-mega-big-link">
-                      Explore all core businesses
-                    </a>
-                    <a href={linkHref("/?business=ready-mix-concrete")} onClick={closeAll} className="apple-mega-big-link">
-                      Ready-Mix Concrete
-                    </a>
-                    <a href={linkHref("/?business=piling")} onClick={closeAll} className="apple-mega-big-link">
-                      Foundation Piling
-                    </a>
-                    <a href={linkHref("/?business=construction")} onClick={closeAll} className="apple-mega-big-link">
-                      Civil Construction
-                    </a>
-                    <a href={linkHref("/?business=concrete-slab-works")} onClick={closeAll} className="apple-mega-big-link">
-                      Concrete Slab Works
-                    </a>
-                    <a href={linkHref("/?business=equipment-rental")} onClick={closeAll} className="apple-mega-big-link">
-                      Heavy Equipment Rental
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Projects Mega Menu Panel */}
-              <div className={`apple-mega-panel ${activeMega === "projects" ? "is-active" : ""}`}>
-                <div className="apple-mega-grid">
-                  {/* Column 1: Explore Projects */}
-                  <div className="apple-mega-col">
-                    <h3>Explore Projects</h3>
-                    <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mega-big-link">
-                      All 30+ Landmark Projects
-                    </a>
-                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-big-link">
-                      Industrial & Commercial
-                    </a>
-                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-big-link">
-                      Infrastructure & Roads
-                    </a>
-                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-big-link">
-                      Foundation Piling Works
-                    </a>
-                  </div>
-
-                  {/* Column 2: Landmark Sectors */}
-                  <div className="apple-mega-col">
-                    <h3>Landmark Sectors</h3>
-                    <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Industrial & Commercial</span>
-                      <span className="apple-mega-sublink-desc">Garment factories, warehouses & logistics depots</span>
-                    </a>
-                    <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Infrastructure & Roads</span>
-                      <span className="apple-mega-sublink-desc">National roads, bridges, culverts & irrigation</span>
-                    </a>
-                    <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mega-sublink">
-                      <span className="apple-mega-sublink-title">Foundation Piling Works</span>
-                      <span className="apple-mega-sublink-desc">Hydraulic static pressing & driven RC piles</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* More Mega Menu Panel */}
-            <div className={`apple-mega-panel ${activeMega === "more" ? "is-active" : ""}`}>
-              <div className="apple-mega-grid">
-                {/* Column 1: Explore Pages */}
-                <div className="apple-mega-col">
-                  <h3>Explore</h3>
-                  <a href={linkHref("/?contact")} onClick={closeAll} className="apple-mega-big-link">
-                    Contact
-                  </a>
-                  <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mega-big-link">
-                    Resources
-                  </a>
-                  <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mega-big-link">
-                    Recruitment
-                  </a>
-                  <a href={linkHref("/?blog")} onClick={closeAll} className="apple-mega-big-link">
-                    Blog
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Full-Page Backdrop Scrim (Dims page when mega menu is open) */}
-      <div
-        className={`apple-scrim ${activeMega ? "is-active" : ""}`}
-        onClick={() => setActiveMega(null)}
-        aria-hidden
-      />
-
-      {/* ==========================================================================
-          Apple Mobile Fullscreen Menu Overlay (< 834px)
-         ========================================================================== */}
-      <nav
-        className={`apple-mobile-overlay ${isMobileOpen ? "is-open" : ""}`}
-        aria-hidden={!isMobileOpen}
-      >
-        <ul className="apple-mobile-list">
-          {/* About */}
-          <li className="apple-mobile-item">
-            <a href={linkHref("/?about")} onClick={closeAll} className="apple-mobile-link">
-              About
-            </a>
-          </li>
-
-          {/* Businesses (Accordion) */}
-          <li className="apple-mobile-item">
-            <button
-              type="button"
-              className="apple-mobile-link w-full text-left"
-              onClick={() =>
-                setMobileAccordion(mobileAccordion === "businesses" ? null : "businesses")
-              }
-            >
-              <span>Businesses</span>
-              <svg
-                viewBox="0 0 10 6"
-                className={`size-3 stroke-current fill-none stroke-[1.8] transition-transform duration-300 ${
-                  mobileAccordion === "businesses" ? "rotate-180" : ""
-                }`}
-                aria-hidden
-              >
-                <path d="M1 1l4 4 4-4" />
-              </svg>
-            </button>
-            {mobileAccordion === "businesses" && (
-              <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
-                <a href={linkHref("/?businesses")} onClick={closeAll} className="apple-mobile-sublink">
-                  Explore all core businesses
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?business=ready-mix-concrete")} onClick={closeAll} className="apple-mobile-sublink">
-                  Ready-Mix Concrete
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?business=piling")} onClick={closeAll} className="apple-mobile-sublink">
-                  Foundation Piling
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?business=construction")} onClick={closeAll} className="apple-mobile-sublink">
-                  Civil Construction
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?business=concrete-slab-works")} onClick={closeAll} className="apple-mobile-sublink">
-                  Concrete Slab Works
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?business=equipment-rental")} onClick={closeAll} className="apple-mobile-sublink">
-                  Heavy Equipment Rental
-                  <span>›</span>
-                </a>
-              </div>
-            )}
-          </li>
-
-          {/* Projects (Accordion) */}
-          <li className="apple-mobile-item">
-            <button
-              type="button"
-              className="apple-mobile-link w-full text-left"
-              onClick={() =>
-                setMobileAccordion(mobileAccordion === "projects" ? null : "projects")
-              }
-            >
-              <span>Projects</span>
-              <svg
-                viewBox="0 0 10 6"
-                className={`size-3 stroke-current fill-none stroke-[1.8] transition-transform duration-300 ${
-                  mobileAccordion === "projects" ? "rotate-180" : ""
-                }`}
-                aria-hidden
-              >
-                <path d="M1 1l4 4 4-4" />
-              </svg>
-            </button>
-            {mobileAccordion === "projects" && (
-              <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
-                <a href={linkHref("/?projects")} onClick={closeAll} className="apple-mobile-sublink">
-                  All 30+ Landmark Projects
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?projects#industrial")} onClick={closeAll} className="apple-mobile-sublink">
-                  Industrial & Commercial
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?projects#infrastructure")} onClick={closeAll} className="apple-mobile-sublink">
-                  Infrastructure & Roads
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?projects#piling")} onClick={closeAll} className="apple-mobile-sublink">
-                  Foundation Piling
-                  <span>›</span>
-                </a>
-              </div>
-            )}
-          </li>
-
-          {/* Quality & Lab */}
-          <li className="apple-mobile-item">
-            <a href={linkHref("/?quality")} onClick={closeAll} className="apple-mobile-link">
-              Quality & Lab
-            </a>
-          </li>
-
-          {/* More (Accordion: Contact, Resources, Recruitment) */}
-          <li className="apple-mobile-item">
-            <button
-              type="button"
-              className="apple-mobile-link w-full text-left"
-              onClick={() =>
-                setMobileAccordion(mobileAccordion === "more" ? null : "more")
-              }
-            >
-              <span>More</span>
-              <svg
-                viewBox="0 0 10 6"
-                className={`size-3 stroke-current fill-none stroke-[1.8] transition-transform duration-300 ${
-                  mobileAccordion === "more" ? "rotate-180" : ""
-                }`}
-                aria-hidden
-              >
-                <path d="M1 1l4 4 4-4" />
-              </svg>
-            </button>
-            {mobileAccordion === "more" && (
-              <div className="apple-mobile-accordion animate-in fade-in slide-in-from-top-1 duration-200">
-                <a href={linkHref("/?contact")} onClick={closeAll} className="apple-mobile-sublink">
-                  Contact
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?resources")} onClick={closeAll} className="apple-mobile-sublink">
-                  Resources
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?recruitment")} onClick={closeAll} className="apple-mobile-sublink">
-                  Recruitment
-                  <span>›</span>
-                </a>
-                <a href={linkHref("/?blog")} onClick={closeAll} className="apple-mobile-sublink">
-                  Blog
-                  <span>›</span>
-                </a>
-              </div>
-            )}
-          </li>
-        </ul>
-
-        {/* Mobile Quick Actions Footer */}
-        <div className="apple-mobile-footer">
-          <ArrowButton
-            href={linkHref("/?quote")}
-            label="Get a quote"
-            theme="raw"
-            className="text-[#1d1d1f] hover:text-black"
-            onClick={closeAll}
-          />
-          <div className="apple-mobile-hotlines">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-black/40">
-              Direct Batching Hotlines
-            </span>
-            <div className="flex flex-wrap gap-2 pt-1">
-              {phones.slice(0, 2).map((p) => (
-                <a
-                  key={p}
-                  href={tel(p)}
-                  className="text-xs font-mono text-black/70 hover:text-black transition-colors"
-                >
-                  {p}
+          <aside className="ls-menu-aside">
+            <div className="ls-menu-cards">
+              {MENU_CARDS.map((card) => (
+                <a key={card.title} href={linkHref(card.href)} className="ls-menu-card" onClick={closeAll}>
+                  <img src={card.image} alt="" loading="lazy" />
+                  <span className="ls-menu-card-body">
+                    <span className="ls-menu-card-title">{card.title}</span>
+                    <span className="ls-menu-card-text">{card.text}</span>
+                  </span>
                 </a>
               ))}
             </div>
-          </div>
+
+            <ul className="ls-menu-secondary">
+              {SECONDARY.map((item) => (
+                <li key={item.label}>
+                  <a href={linkHref(item.href)} onClick={closeAll}>{item.label}</a>
+                </li>
+              ))}
+            </ul>
+
+            <div className="ls-menu-contact">
+              <p className="ls-menu-contact-label">Direct batching hotlines</p>
+              <div className="ls-menu-phones">
+                {phones.slice(0, 2).map((p) => (
+                  <a key={p} href={tel(p)}>{p}</a>
+                ))}
+              </div>
+              <p className="ls-menu-address">
+                Ang Village, Sangkat O’Char
+                <br />
+                Battambang City, Cambodia
+              </p>
+            </div>
+
+            <div className="ls-menu-actions">
+              <ArrowButton href={linkHref("/?quote")} label="Get a quote" onClick={closeAll} />
+              <LangSwitch />
+            </div>
+          </aside>
         </div>
-      </nav>
+
+        <div className="ls-menu-foot">
+          <span>Battambang Construction and Engineering, Co., Ltd.</span>
+          <span>Building across Cambodia since 1995</span>
+          <a href="/assets/BCE_Corporate_Profile_2026.pdf" onClick={closeAll}>Company profile (PDF)</a>
+        </div>
+      </div>
     </>
   );
 }
