@@ -3,9 +3,10 @@ import ArrowButton from "./ArrowButton";
 
 // Building blocks after olympic.no/what-we-do-services (design by KIND), shared by Our Businesses and Technical
 // Capabilities. Measurements follow their stylesheet (12 columns, 24px gutter, 48px margin; 20px under 1024px):
-// - ParallaxHero: full-screen photo with the label and title set low. As the hero leaves the viewport its content
-//   drifts down by 40vh and the photo by a further 40vh (their view-timeline "exit" parallax), so the copy scrolls at
-//   60% speed and the photo at 20%, and the next section rises over it.
+// - ParallaxHero: full-screen photo under a dark scrim with the label and title set on the baseline at the bottom (the
+//   careers cover). As the hero leaves the viewport its content drifts down by 40vh and the photo by a further 40vh
+//   (their view-timeline "exit" parallax), so the copy scrolls at 60% speed and the photo at 20%, and the next section
+//   rises over it.
 // - LabelCopy: mono label on the left, copy from column 8.
 // - TextMedia: text in columns 1-5 (or 8-11 reversed) with the copy pinned low, and a portrait photo in columns 8-12
 //   (or 1-5) that slides from -15% to 0 while the panel crosses the viewport ("entry 0%" to "cover 100%").
@@ -51,16 +52,34 @@ export function useScrollParallax(rootRef: RefObject<HTMLElement | null>) {
   }, [rootRef]);
 }
 
-export function ParallaxHero({ label, title, image, alt = "", headerTitle }: { label: string; title: string; image: string; alt?: string; headerTitle?: string }) {
+// The cover every page opens with, after the careers page: a full-height photo under a dark scrim, with the label and
+// the oversized title set on the baseline at the bottom. It keeps the Olympic exit parallax from Our Businesses, so the
+// copy drifts at 60% of the scroll and the photo at 20%, and the page body rises over it. `title` takes an array when the
+// heading should break over set lines (the careers cover).
+export function ParallaxHero({ label, title, image, alt = "", headerTitle, children }: {
+  label?: string;
+  title: string | string[];
+  image: string;
+  alt?: string;
+  headerTitle?: string;
+  children?: ReactNode;
+}) {
+  const lines = Array.isArray(title) ? title : [title];
   return (
-    <header data-px="hero" data-nav-dark data-header-title={headerTitle ?? label} className="ol-hero">
+    <header data-px="hero" data-nav-dark data-header-title={headerTitle ?? label ?? lines[0]} className="ol-hero">
       <div className="ol-hero-c">
         <div className="ol-hero-bg">
           <div className="ol-hero-media"><img src={image} alt={alt} fetchPriority="high" /></div>
+          <span className="ol-hero-scrim" aria-hidden />
         </div>
         <div className="ol-hero-wrap">
-          <p data-split="content" className="ol-hero-label">{label}</p>
-          <h1 data-split className="ol-hero-title">{title}</h1>
+          {label ? <p data-split="content" className="ol-hero-label">{label}</p> : null}
+          <h1 data-split className="ol-hero-title">
+            {lines.map((line, i) => (
+              <span key={line} className="ol-hero-line">{i ? " " : null}{line}</span>
+            ))}
+          </h1>
+          {children}
         </div>
       </div>
     </header>

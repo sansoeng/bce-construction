@@ -1,5 +1,5 @@
 import { siteSettings } from "./siteSettings";
-import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
@@ -7,13 +7,15 @@ import { usePageSetup } from "./usePageSetup";
 import { translate } from "./i18n";
 import { VACANCIES, type Vacancy } from "./careersData";
 import StickyValues, { type StickyItem } from "./StickyValues";
+import { ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 import { unsplash } from "./company";
 
-// Careers after olympic.no/career-crew: a full-height media hero, a label-with-copy standfirst, a hairline-free board
-// of open roles with an offshore/onshore-style switch, a split "life on site / life in the plant" divider, and a
-// full-bleed "one team" media block. The job view follows their job page: oversized title, photo, share rail, metadata
-// table, description and a paired Apply / Back-to-list footer. Typography stays BCE's TT Commons family throughout; the
-// palette, scale and spacing follow the reference.
+// Careers after olympic.no/career-crew: the shared ParallaxHero cover (a full-height photo whose title drifts on
+// scroll, as Our Businesses), a label-with-copy standfirst, a hairline-free board of open roles with an
+// offshore/onshore-style switch, a split "life on site / life in the plant" divider, and a full-bleed "one team" media
+// block. The job view follows their job page: oversized title, photo, share rail, metadata table, description and a
+// paired Apply / Back-to-list footer. Typography stays BCE's TT Commons family throughout; the palette, scale and
+// spacing follow the reference.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
@@ -142,6 +144,8 @@ const ShareIcon = ({ network }: { network: "facebook" | "linkedin" | "telegram" 
 
 export default function RecruitmentPage() {
   usePageSetup("Careers & Recruitment | BCE., Ltd.");
+  const rootRef = useRef<HTMLElement>(null);
+  useScrollParallax(rootRef);
 
   // Deep link: ?recruitment&job=<slug>
   const [selectedJobId, setSelectedJobId] = useState<string | null>(() => {
@@ -195,7 +199,7 @@ export default function RecruitmentPage() {
   return (
     <>
       <SiteHeader phones={phones} tel={tel} base="/" />
-      <main className="bg-white text-[#1E2226]">
+      <main ref={rootRef} className="bg-white text-[#1E2226]">
         {currentJob ? (
           /* =====================================================================
               JOB VIEW
@@ -429,38 +433,19 @@ export default function RecruitmentPage() {
               CAREERS ARCHIVE
              ===================================================================== */
           <>
-            {/* Full-height media hero */}
-            <section className="relative isolate flex min-h-[92svh] flex-col justify-end overflow-hidden bg-[#1E2226] px-5 pb-10 pt-40 text-white sm:px-6 md:min-h-screen md:px-10 md:pb-14">
-              <img
-                src="/Image/bce/about-zoom-boom-pumps.webp"
-                alt=""
-                className="absolute inset-0 -z-20 size-full object-cover"
-              />
-              <span
-                aria-hidden
-                className="absolute inset-0 -z-10"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(15,17,19,.55) 0%, rgba(15,17,19,.12) 45%, rgba(15,17,19,.78) 100%)",
-                }}
-              />
-
-              <h1
-                data-split
-                data-split-type="words"
-                className="max-w-[18ch] text-[clamp(38px,4.4vw,76px)] font-medium uppercase leading-[1.02] tracking-[-0.03em] text-white"
-              >
-                {translate("Build the country.")}
-                <br />
-                {translate("Build your career.")}
-              </h1>
-            </section>
+            {/* Full-height media cover, the same cover as Our Businesses: the photo drifts as the page scrolls. */}
+            <ParallaxHero
+              label={translate("Careers & recruitment")}
+              title={[translate("Build the country."), translate("Build your career.")]}
+              image="/Image/bce/about-zoom-boom-pumps.webp"
+              alt="BCE boom pumps and crews on a suspended slab pour"
+            />
 
             {/* Label with copy */}
             <section className="bg-[#F8F8F9] px-5 pb-2 pt-12 sm:px-6 md:px-10 md:pt-14">
               <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
                 <span
-                  className="block font-mono text-[16px] uppercase leading-[1.6] tracking-[0.02em] md:col-span-3"
+                  className="block font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] md:col-span-3"
                   style={{ color: ACCENT }}
                 >
                   Open positions
