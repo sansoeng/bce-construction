@@ -962,6 +962,10 @@ const KM: Record<string, string> = {
   "Characteristic cube strength at 28 days. Other grades and special mixes designed on request.":
     "កម្លាំងគំរូគូបស្តង់ដារនៅអាយុ ២៨ ថ្ងៃ។ កម្រិតផ្សេងទៀត និងរូបមន្តពិសេសអាចរៀបចំតាមការស្នើសុំ។",
   "Licences & certifications": "អាជ្ញាប័ណ្ណ និងវិញ្ញាបនបត្រផ្លូវការ",
+  "Quality documents": "ឯកសារគុណភាព",
+  "Mix designs & certification": "រូបមន្តលាយបេតុង និងវិញ្ញាបនបត្រ",
+  "The mix designs behind every grade, and the licences, certificates and company profile that procurement and tender teams ask for.":
+    "រូបមន្តលាយបេតុងសម្រាប់គ្រប់កម្រិត ព្រមទាំងអាជ្ញាប័ណ្ណ វិញ្ញាបនបត្រ និងប្រវត្តិរូបក្រុមហ៊ុន ដែលក្រុមលទ្ធកម្ម និងគណៈកម្មការដេញថ្លៃត្រូវការ។",
   "Registration, licences and our company profile for procurement teams and tender reviewers, available on request.":
     "ការចុះបញ្ជីពាណិជ្ជកម្ម អាជ្ញាប័ណ្ណ និងប្រវត្តិរូបក្រុមហ៊ុនសម្រាប់ក្រុមលទ្ធកម្ម និងគណៈកម្មការដេញថ្លៃ អាចផ្តល់ជូនតាមការស្នើសុំ។",
   "Business licence & registration": "វិញ្ញាបនបត្រចុះបញ្ជីពាណិជ្ជកម្ម",

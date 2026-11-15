@@ -83,7 +83,7 @@ html:not([lang="km"]) :is(
   .wb-heading, .pd-title, .pd-h2, .pp-heading, .pp-name, .pp-foot-name,
   .ol-hero-title, .ol-hl-title, .ol-tm-title, .ol-onboard-heading, .ol-h2,
   .ol-dialog-title, .ol-dialog-headline, .ol-slide-title, .ac-title, .ab-story-title,
-  .ab-tile-title, .abz-title, .abv-card-title, .qh-grade-name, .qf-tile-name, .qx-step-title, .qp-title
+  .ab-tile-title, .abz-title, .abv-card-title, .qf-tile-name, .qx-step-title, .qp-title
 ) {
   font-weight: 500 !important;
 }
@@ -3368,7 +3368,7 @@ html[lang="km"] :is(
   .wb-heading, .wb-eyebrow, .pd-title, .pd-h2, .pp-heading, .pp-name,
   .pp-foot-name, .ol-hero-title, .ol-hl-title, .ol-tm-title, .ol-onboard-heading, .ol-h2,
   .ol-dialog-title, .ol-dialog-headline, .ol-slide-title, .ac-title, .ab-story-title,
-  .ab-tile-title, .abz-title, .abv-card-title, .qh-grade-name, .qf-tile-name,
+  .ab-tile-title, .abz-title, .abv-card-title, .qf-tile-name,
   .qx-step-title, .qp-title, .apple-mega-big-link, .apple-mobile-link, .apple-mega-col h3,
   .glance-label-title, .glance-wordmark,
   .fg-btn, .fg-btn-label, .fg-btn-line, button, .qc-btn-label,
@@ -4186,40 +4186,123 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   .qx-areas { margin-left: var(--olm, var(--page-gutter)); padding-right: var(--olm, var(--page-gutter)); }
   .qx-cells { grid-template-columns: 1fr; }
 }
-.qh-row { display: grid; grid-template-columns: minmax(9rem, 1fr) 1.6fr auto; align-items: baseline; }
-.qh-status { font-family: var(--font-ui-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: rgb(17 17 17 / .45); white-space: nowrap; }
-.qh-grades { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .75rem; }
-.qh-grade {
+/* 05 Documents on Quality & Lab, after olympic.no/investor: one light band holding the mono eyebrow, the uppercase
+   title and the mix designs, licences and certificates as near-black cards — a hairline under the title, the date or
+   status and its icon actions on the foot — then the concrete grades as a compact row of chips. */
+.qd {
+  margin-top: clamp(6rem, 11vw, 11rem);
+  padding-block: clamp(5rem, 9vw, 9rem);
+  background: #f2f3f4;
+}
+.qd-label {
+  display: block;
+  font-family: var(--font-ui-mono);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #ff3c1e;
+}
+.qd-title {
+  margin-top: 1.15rem;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  color: #111;
+}
+.qd-copy {
+  margin-top: 1.4rem;
+  max-width: 44rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: rgb(17 17 17 / .6);
+}
+.qd-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: clamp(2.5rem, 4vw, 4rem);
+  padding: 0;
+  list-style: none;
+}
+.qd-card {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
   min-height: 15rem;
-  padding: 1rem 1.1rem 1.2rem;
   border-radius: var(--radius) !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
-  background: #f3f3f3;
+  background: #1e2226;
+  color: #fff;
   opacity: 0;
   transform: translate3d(0, 1rem, 0);
-  transition: opacity 1s cubic-bezier(.16, 1, .3, 1), transform 1s cubic-bezier(.16, 1, .3, 1), background-color .4s ease, color .4s ease;
-  transition-delay: calc(var(--k, 0) * .07s), calc(var(--k, 0) * .07s), 0s, 0s;
+  transition: opacity .9s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1), background-color .35s ease;
+  transition-delay: calc(var(--k, 0) * .06s), calc(var(--k, 0) * .06s), 0s;
 }
-.qh-grade.is-visible { opacity: 1; transform: none; }
-.qh-grade-use { min-height: 2.7em; }
-.qh-grade-name { margin-top: auto; font-size: clamp(2.6rem, 4vw, 4.4rem); font-weight: 500; line-height: .95; letter-spacing: -.04em; }
+.qd-card.is-visible { opacity: 1; transform: none; }
 @media (hover: hover) {
-  .qh-grade:hover { background: #293e8a; color: #fff; }
-  .qh-grade:hover span { color: rgb(255 255 255 / .7); }
-  .qh-grade:hover .qh-grade-name { color: #fff; }
+  .qd-card:hover { background: #16191c; }
 }
+.qd-card-head { padding: 1.5rem 1.6rem 1.35rem; border-bottom: 1px solid rgb(255 255 255 / .12); }
+.qd-card-title { font-size: 1.2rem; font-weight: 400; line-height: 1.28; letter-spacing: -.01em; }
+.qd-card-sub { margin-top: .55rem; font-size: .9rem; line-height: 1.4; color: rgb(255 255 255 / .55); }
+.qd-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding: 1.1rem 1.15rem 1.1rem 1.6rem;
+  font-size: .85rem;
+  color: rgb(255 255 255 / .6);
+  font-variant-numeric: tabular-nums;
+}
+.qd-actions { display: flex; align-items: center; gap: 6px; }
+.qd-act {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: var(--button-h);
+  border-radius: 6px;
+  background: #d9dbde;
+  color: #1e2226;
+  transition: background-color .25s ease, color .25s ease;
+}
+.qd-act:hover { background: #fff; color: #111; opacity: 1; }
+.qd-act:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.qd-act svg { width: 15px; height: 15px; }
+.qd-grades { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
+.qd-grades-label {
+  font-family: var(--font-ui-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgb(17 17 17 / .45);
+}
+.qd-grade-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: .85rem; padding: 0; list-style: none; }
+.qd-grade {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .45rem;
+  padding: .55rem .85rem;
+  border-radius: var(--radius);
+  background: #fff;
+  font-size: .9rem;
+  color: rgb(17 17 17 / .5);
+}
+.qd-grade b { font-weight: 500; color: #111; }
+.qd-note { margin-top: .9rem; font-size: .85rem; line-height: 1.45; color: rgb(17 17 17 / .45); }
 @media (max-width: 1023px) {
-  .qh-grades { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .qd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 }
 @media (max-width: 639px) {
-  .qh-grades { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .qh-grade { min-height: 10rem; }
-  .qh-row { grid-template-columns: 1fr auto; row-gap: .25rem; }
-  .qh-row > :nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+  .qd-grid { grid-template-columns: 1fr; }
+  .qd-card { min-height: 0; }
 }
 
 /* Request a Quote (src/QuotePage.tsx): ruled fields on the site's type, service tiles in the offer-panel colours,

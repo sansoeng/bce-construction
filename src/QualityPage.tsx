@@ -1,5 +1,5 @@
 import { siteSettings } from "./siteSettings";
-import { useRef, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
@@ -23,21 +23,23 @@ const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 
 
-// Section heading block shared by the document sections: title and statement.
-function DocHead({ id, title, text }: { id: string; title: string; text: string }) {
-  return (
-    <div>
-      <h2 id={id} data-split className="pd-h2">{title}</h2>
-      <p data-split className="pd-statement mt-8 max-w-[34rem]">{text}</p>
-    </div>
-  );
-}
-
 export default function QualityPage() {
   usePageSetup("Quality & HSE | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);
+
+  // Copy-link feedback on the document cards (the same action as on the Resources page).
+  const [copiedFile, setCopiedFile] = useState<string | null>(null);
+  const copyFile = async (file: string) => {
+    try {
+      await navigator.clipboard.writeText(`${location.origin}${file}`);
+      setCopiedFile(file);
+      window.setTimeout(() => setCopiedFile(null), 1600);
+    } catch {
+      /* Clipboard unavailable (insecure context): the preview and download links still work. */
+    }
+  };
 
   // Built during render so edits made in the admin replace the defaults on the next bootstrap.
   const hseItems: StickyItem[] = quality.hse.items.map(({ lines, text, image, imageAlt }) => ({
@@ -142,54 +144,108 @@ export default function QualityPage() {
         {/* 04 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. */}
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} />
 
-        {/* 05 Mix design documents: the grades as tiles, then the documents supplied with each design. */}
-        <section id="mix-design" data-header-title={quality.mix.title} aria-labelledby="qs-mix" className="qh-section site-pad pt-24 md:pt-40">
-          <div className="grid gap-y-10 md:grid-cols-12 md:gap-x-5">
-            <div className="md:col-span-6"><DocHead id="qs-mix" title={quality.mix.title} text={quality.mix.text} /></div>
-            <div className="md:col-span-5 md:col-start-8 md:self-end">
-              <h3 data-split="content" className="text-[.95rem] text-black/45">{quality.mix.docsLabel}</h3>
-              <ul className="pd-list mt-4">
-                {quality.mix.docs.map((doc, i) => (
-                  <li key={doc} data-reveal className="pd-list-row pd-rule" style={{ "--rd": `${i * 0.06}s` } as CSSProperties}>
-                    <span data-split="content">{doc}</span>
-                    <span data-split="content" className="text-black/45">{pad(i + 1)}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        {/* 05 Documents: mix designs, licences and certificates merged into one set of cards, after
+            olympic.no/investor — a light band, the mono eyebrow and uppercase title, then near-black document cards
+            with a hairline head, a date or status foot and their actions. */}
+        <section id="documents" data-header-title={quality.documents.title} aria-labelledby="qs-documents" className="qd site-pad">
+          <div className="qd-head">
+            <span className="qd-label">{quality.documents.label}</span>
+            <h2 id="qs-documents" data-split className="qd-title">{quality.documents.title}</h2>
+            <p data-split className="qd-copy">{quality.documents.text}</p>
           </div>
-          <ul className="qh-grades mt-14 md:mt-20" aria-label="Concrete grades">
-            {quality.mix.grades.map(({ grade, strength, use }, i) => (
-              <li key={grade} data-reveal className="qh-grade" style={{ "--k": i } as CSSProperties}>
-                <span className="text-[.9rem] text-black/45">{strength}</span>
-                <span className="qh-grade-name">{grade}</span>
-                <span className="qh-grade-use text-[.95rem] leading-[1.35] text-black/60">{use}</span>
+
+          <ul className="qd-grid">
+            {quality.documents.items.map((item, i) => (
+              <li key={item.title} data-reveal className="qd-card" style={{ "--k": i } as CSSProperties}>
+                <div className="qd-card-head">
+                  <h3 data-split="content" className="qd-card-title">{item.title}</h3>
+                  {item.subtitle && <p data-split="content" className="qd-card-sub">{item.subtitle}</p>}
+                </div>
+
+                <div className="qd-card-foot">
+                  <span className="qd-meta">
+                    {item.file ? [item.date, item.size].filter(Boolean).join(" · ") : item.status}
+                  </span>
+
+                  <span className="qd-actions">
+                    {item.file ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => void copyFile(item.file)}
+                          aria-label={copiedFile === item.file ? "Link copied" : "Copy link"}
+                          title={copiedFile === item.file ? "Link copied" : "Copy link"}
+                          className="qd-act"
+                        >
+                          {copiedFile === item.file ? (
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                              <path d="M3 8.5l3.2 3.2L13 5" />
+                            </svg>
+                          ) : (
+                            <svg viewBox="0 0 15 8" fill="none" aria-hidden>
+                              <path d="M5.5 3.51172L9.5 3.51172" stroke="currentColor" />
+                              <path d="M11.5 0.5H13.5C14.0523 0.5 14.5 0.947715 14.5 1.5V5.52344C14.5 6.07572 14.0523 6.52344 13.5 6.52344H11.5" stroke="currentColor" />
+                              <path d="M3.5 0.5H1.5C0.947715 0.5 0.5 0.947715 0.5 1.5V5.52344C0.5 6.07572 0.947715 6.52344 1.5 6.52344H3.5" stroke="currentColor" />
+                            </svg>
+                          )}
+                        </button>
+                        <a
+                          href={item.file}
+                          target="_blank"
+                          rel="noopener"
+                          aria-label="Preview"
+                          title="Preview"
+                          className="qd-act"
+                        >
+                          <svg viewBox="0 0 14 8" fill="none" aria-hidden>
+                            <path d="M5.01064 6.73084L0.890625 3.92585L5.01064 1.11985C5.6049 0.715166 6.29648 0.5 7.00296 0.5C7.70944 0.5 8.40102 0.715166 8.99528 1.11985L13.1153 3.92585L8.99528 6.73084C8.40102 7.13553 7.70944 7.35069 7.00296 7.35069C6.29648 7.35069 5.6049 7.13553 5.01064 6.73084Z" stroke="currentColor" strokeMiterlimit="10" />
+                            <path d="M7.0023 5.23707C7.6853 5.23707 8.23898 4.65059 8.23898 3.92713C8.23898 3.20367 7.6853 2.61719 7.0023 2.61719C6.3193 2.61719 5.76562 3.20367 5.76562 3.92713C5.76562 4.65059 6.3193 5.23707 7.0023 5.23707Z" stroke="currentColor" strokeMiterlimit="10" />
+                          </svg>
+                        </a>
+                        <a
+                          href={item.file}
+                          download
+                          aria-label="Download"
+                          title="Download"
+                          className="qd-act"
+                        >
+                          <svg viewBox="0 0 9 11" fill="none" aria-hidden>
+                            <path d="M0 10H8.33333" stroke="currentColor" />
+                            <path d="M4.16406 7.5L4.16406 0" stroke="currentColor" strokeMiterlimit="10" />
+                            <path d="M0.828125 4.16797L4.23973 7.66848L7.64758 4.16797" stroke="currentColor" strokeMiterlimit="10" />
+                          </svg>
+                        </a>
+                      </>
+                    ) : (
+                      <a
+                        href={quality.documents.ctaHref}
+                        aria-label={quality.documents.ctaLabel}
+                        title={quality.documents.ctaLabel}
+                        className="qd-act"
+                      >
+                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                          <path d="M2.6 9.4 9.4 2.6M4.4 2.6h5v5" />
+                        </svg>
+                      </a>
+                    )}
+                  </span>
+                  <span className="sr-only" aria-live="polite">{copiedFile === item.file ? "Link copied" : ""}</span>
+                </div>
               </li>
             ))}
           </ul>
-          <p data-split="content" className="mt-5 text-[.875rem] text-black/40">{quality.mix.note}</p>
-        </section>
 
-        {/* 06 Licences & certifications */}
-        <section id="licences" data-header-title={quality.licences.title} aria-labelledby="qs-lic" className="qh-section site-pad pb-24 pt-24 md:pb-40 md:pt-40">
-          <div className="grid gap-y-8 md:grid-cols-12 md:gap-x-5">
-            <div className="md:col-span-6">
-              <h2 id="qs-lic" data-split className="pd-h2">{quality.licences.title}</h2>
-            </div>
-            <div className="w-full md:col-span-6 md:col-start-7">
-              <p data-split className="pd-statement">{quality.licences.text}</p>
-              <ul className="pd-list mt-12 md:mt-16">
-                {quality.licences.rows.map(({ document, issuer }, i) => (
-                  <li key={document} data-reveal className="pd-list-row qh-row pd-rule" style={{ "--rd": `${i * 0.08}s` } as CSSProperties}>
-                    <span data-split="content" className="font-medium">{document}</span>
-                    <span data-split="content" className="text-black/55">{issuer}</span>
-                    <span data-split="content" className="qh-status">{quality.licences.statusLabel}</span>
-                  </li>
-                ))}
-              </ul>
-              <ArrowButton href={quality.licences.ctaHref} label={quality.licences.ctaLabel} className="mt-10" />
-            </div>
+          <div className="qd-grades">
+            <p className="qd-grades-label">Concrete grades</p>
+            <ul className="qd-grade-list">
+              {quality.documents.grades.map(({ grade, strength }) => (
+                <li key={grade} className="qd-grade"><b>{grade}</b><span>{strength}</span></li>
+              ))}
+            </ul>
+            <p data-split="content" className="qd-note">{quality.documents.note}</p>
           </div>
+
+          <ArrowButton href={quality.documents.ctaHref} label={quality.documents.ctaLabel} className="mt-10" />
         </section>
       </div>
 

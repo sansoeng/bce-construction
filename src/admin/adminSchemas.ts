@@ -408,8 +408,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "materials", title: "Raw material certificates", hint: "The certified materials and the photo beside them.", keys: ["materials"] },
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
-      { id: "mix", title: "Mix design", hint: "The documents supplied with every design and the concrete grades.", keys: ["mix"] },
-      { id: "licences", title: "Licences", hint: "The licences and certificates list and its button.", keys: ["licences"] },
+      { id: "documents", title: "Documents", hint: "Mix designs, licences and certificates as one set of cards, with the concrete grades and the request button.", keys: ["documents"] },
     ],
     fields: [
       { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
@@ -472,29 +471,25 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         ] },
       ] },
 
-      { key: "mix", label: "", type: "group", fields: [
+      { key: "documents", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
         { key: "title", label: "Heading", type: "text", wide: true },
-        { key: "text", label: "Statement", type: "textarea", rows: 3, wide: true },
-        { key: "docsLabel", label: "Documents label", type: "text" },
-        { key: "docs", label: "Supplied documents", type: "list", hint: "One document per row." },
+        { key: "text", label: "Introduction", type: "textarea", rows: 3, wide: true },
+        { key: "items", label: "Documents", type: "objectList", itemLabel: "Document", itemFields: [
+          { key: "title", label: "Title", type: "text" },
+          { key: "subtitle", label: "Subtitle", type: "text" },
+          { key: "file", label: "File path", type: "text", hint: "A file in /public, e.g. /assets/profile.pdf. Leave empty for a document supplied on request.", locale: false },
+          { key: "date", label: "Date", type: "text", locale: false },
+          { key: "size", label: "File size", type: "text", hint: "As shown on the card, e.g. 3.6 KB.", locale: false },
+          { key: "status", label: "Status", type: "text", hint: "Shown instead of the date and size when there is no file, e.g. On request." },
+        ] },
         { key: "grades", label: "Concrete grades", type: "objectList", itemLabel: "Grade", itemFields: [
           { key: "grade", label: "Grade", type: "text", locale: false },
           { key: "strength", label: "Strength", type: "text", locale: false },
-          { key: "use", label: "Typical use", type: "text" },
         ] },
         { key: "note", label: "Footnote", type: "text", wide: true },
-      ] },
-
-      { key: "licences", label: "", type: "group", fields: [
-        { key: "title", label: "Heading", type: "text", wide: true },
-        { key: "text", label: "Statement", type: "textarea", rows: 3, wide: true },
-        { key: "statusLabel", label: "Status label", type: "text", hint: "Shown at the end of every row." },
-        { key: "rows", label: "Licences & certificates", type: "objectList", itemLabel: "Document", itemFields: [
-          { key: "document", label: "Document", type: "text" },
-          { key: "issuer", label: "Issuer", type: "text" },
-        ] },
-        { key: "ctaLabel", label: "Button label", type: "text" },
-        { key: "ctaHref", label: "Button link", type: "text", locale: false },
+        { key: "ctaLabel", label: "Request button label", type: "text" },
+        { key: "ctaHref", label: "Request button link", type: "text", locale: false },
       ] },
     ],
   },

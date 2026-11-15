@@ -51,19 +51,20 @@ export type QualityContent = {
     heading: string;
     items: { lines: string[]; text: string; image: string; imageAlt: string }[];
   };
-  mix: {
+  documents: {
+    label: string;
     title: string;
     text: string;
-    docsLabel: string;
-    docs: string[];
-    grades: { grade: string; strength: string; use: string }[];
+    items: {
+      title: string;
+      subtitle: string;
+      status: string;
+      date: string;
+      size: string;
+      file: string;
+    }[];
+    grades: { grade: string; strength: string }[];
     note: string;
-  };
-  licences: {
-    title: string;
-    text: string;
-    statusLabel: string;
-    rows: { document: string; issuer: string }[];
     ctaLabel: string;
     ctaHref: string;
   };
@@ -157,31 +158,61 @@ export const DEFAULT_QUALITY: QualityContent = {
       },
     ],
   },
-  mix: {
-    title: "Mix design documents",
-    text: "Each grade is designed, trial-mixed and tested before supply, and submitted for consultant approval.",
-    docsLabel: "Supplied with every mix design",
-    docs: ["Mix design submittal", "Trial mix results", "Material proportions per m³", "7- and 28-day strength records"],
+  documents: {
+    label: "Quality documents",
+    title: "Mix designs & certification",
+    text: "The mix designs behind every grade, and the licences, certificates and company profile that procurement and tender teams ask for.",
+    items: [
+      {
+        title: "Company profile",
+        subtitle: "BCE Corporate Profile 2026",
+        status: "",
+        date: "2026",
+        size: "3.6 KB",
+        file: "/assets/BCE_Corporate_Profile_2026.pdf",
+      },
+      {
+        title: "Mix design documents",
+        subtitle: "Supplied with every mix design",
+        status: "On request",
+        date: "",
+        size: "",
+        file: "",
+      },
+      {
+        title: "Business licence & registration",
+        subtitle: "Ministry of Commerce",
+        status: "On request",
+        date: "",
+        size: "",
+        file: "",
+      },
+      {
+        title: "Construction licence",
+        subtitle: "Ministry of Land Management, Urban Planning and Construction",
+        status: "On request",
+        date: "",
+        size: "",
+        file: "",
+      },
+      {
+        title: "Tax registration (VAT) certificate",
+        subtitle: "General Department of Taxation",
+        status: "On request",
+        date: "",
+        size: "",
+        file: "",
+      },
+    ],
     grades: [
-      { grade: "C15", strength: "15 MPa", use: "Blinding and mass fill" },
-      { grade: "C20", strength: "20 MPa", use: "Ground slabs and paths" },
-      { grade: "C25", strength: "25 MPa", use: "Floor slabs and footings" },
-      { grade: "C30", strength: "30 MPa", use: "Columns, beams and suspended slabs" },
-      { grade: "C35", strength: "35 MPa", use: "Foundations and piles" },
-      { grade: "C40", strength: "40 MPa", use: "Bridges and heavy structures" },
+      { grade: "C15", strength: "15 MPa" },
+      { grade: "C20", strength: "20 MPa" },
+      { grade: "C25", strength: "25 MPa" },
+      { grade: "C30", strength: "30 MPa" },
+      { grade: "C35", strength: "35 MPa" },
+      { grade: "C40", strength: "40 MPa" },
     ],
     note: "Characteristic cube strength at 28 days. Other grades and special mixes designed on request.",
-  },
-  licences: {
-    title: "Licences & certifications",
-    text: "Registration, licences and our company profile for procurement teams and tender reviewers, available on request.",
-    statusLabel: "On request",
-    rows: [
-      { document: "Business licence & registration", issuer: "Ministry of Commerce" },
-      { document: "Construction licence", issuer: "Ministry of Land Management, Urban Planning and Construction" },
-      { document: "Tax registration (VAT) certificate", issuer: "General Department of Taxation" },
-      { document: "Company profile", issuer: "BCE Corporate Profile 2026" },
-    ],
     ctaLabel: "Request documents",
     ctaHref: "#contact",
   },
