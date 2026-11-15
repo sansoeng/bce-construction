@@ -86,7 +86,7 @@ export default function ResourcesPage() {
       <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
 
         {/* Revolut Reports Document Listing Section */}
-        <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-[280px] pb-20 sm:pb-28">
+        <section className="site-pad max-w-[1000px] w-full mx-auto pt-[280px] pb-20 sm:pb-28">
 
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">

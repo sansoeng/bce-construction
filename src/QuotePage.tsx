@@ -50,7 +50,7 @@ function Field({ label, required, children, wide }: { label: string; required?: 
 // A numbered step: the homepage's left-title / right-content split.
 function Step({ n, title, note, children, id }: { n: number; title: string; note?: string; children: React.ReactNode; id?: string }) {
   return (
-    <section id={id} className="qf-step grid gap-y-8 px-5 pt-20 md:grid-cols-12 md:gap-x-5 md:pt-32">
+    <section id={id} className="qf-step grid gap-y-8 pt-20 md:grid-cols-12 md:gap-x-5 md:pt-32">
       <div className="md:col-span-5">
         <p className="text-[.95rem] text-black/45">{pad(n)}</p>
         <h2 data-split className="pd-h2 mt-4">{title}</h2>
@@ -182,13 +182,13 @@ export default function QuotePage() {
     <main className="relative z-[1] overflow-x-clip bg-white text-[#111]">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
-      <header data-header-title="Request a quote" className="px-5 pt-28 md:pt-36">
+      <header data-header-title="Request a quote" className="site-shell pt-28 md:pt-36">
         <p data-split="content" className="mt-20 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#FF3C1E] md:mt-36">Request a quote</p>
         <h1 data-split data-split-type="words" className="pd-title mt-6 max-w-[72rem]">Tell us about your project. We’ll come back with a quotation.</h1>
         <p data-split="content" className="mt-8 max-w-[34rem] text-[1.05rem] leading-[1.45] text-black/55">Choose a service, estimate your concrete with the calculator, and add your details. Prefer to talk? Call <a href={tel(phones[0])} className="underline underline-offset-4">{phones[0]}</a>.</p>
       </header>
 
-      <form onSubmit={send} noValidate className="pb-24 md:pb-40">
+      <form onSubmit={send} noValidate className="site-shell pb-24 md:pb-40">
         {/* 01: service, as five tiles in the homepage panel colours. */}
         <Step n={1} title="Choose a service">
           <fieldset className="qf-tiles">

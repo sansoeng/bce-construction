@@ -143,7 +143,7 @@ export default function QualityPage() {
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} />
 
         {/* 05 Mix design documents: the grades as tiles, then the documents supplied with each design. */}
-        <section id="mix-design" data-header-title={quality.mix.title} aria-labelledby="qs-mix" className="qh-section px-5 pt-24 md:pt-40">
+        <section id="mix-design" data-header-title={quality.mix.title} aria-labelledby="qs-mix" className="qh-section site-pad pt-24 md:pt-40">
           <div className="grid gap-y-10 md:grid-cols-12 md:gap-x-5">
             <div className="md:col-span-6"><DocHead id="qs-mix" title={quality.mix.title} text={quality.mix.text} /></div>
             <div className="md:col-span-5 md:col-start-8 md:self-end">
@@ -171,7 +171,7 @@ export default function QualityPage() {
         </section>
 
         {/* 06 Licences & certifications */}
-        <section id="licences" data-header-title={quality.licences.title} aria-labelledby="qs-lic" className="qh-section px-5 pb-24 pt-24 md:pb-40 md:pt-40">
+        <section id="licences" data-header-title={quality.licences.title} aria-labelledby="qs-lic" className="qh-section site-pad pb-24 pt-24 md:pb-40 md:pt-40">
           <div className="grid gap-y-8 md:grid-cols-12 md:gap-x-5">
             <div className="md:col-span-6">
               <h2 id="qs-lic" data-split className="pd-h2">{quality.licences.title}</h2>

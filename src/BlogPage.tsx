@@ -187,8 +187,8 @@ export default function BlogPage() {
               VIEW A: SINGLE JOURNAL STORY (after olympic.no/journal/<story>)
              ========================================================================= */
           <article className="w-full">
-            <section className="px-5 pb-0 pt-32 sm:px-6 md:px-5 md:pt-56 lg:pt-[340px]">
-              <div className="mx-auto flex w-full max-w-[1360px] flex-col items-center px-0 md:px-5">
+            <section className="site-pad pb-0 pt-32 md:pt-56 lg:pt-[340px]">
+              <div className="mx-auto flex w-full max-w-[1360px] flex-col items-center">
                 <Meta accent>News &amp; insight</Meta>
                 <h1
                   data-split
@@ -244,7 +244,7 @@ export default function BlogPage() {
               </figure>
             </section>
 
-            <section className="mt-20 px-5 sm:px-6 md:mt-[140px] md:px-10">
+            <section className="site-pad mt-20 md:mt-[140px]">
               <div className="mx-auto grid w-full max-w-[1360px] grid-cols-1 gap-10 md:grid-cols-12 md:gap-5">
                 <aside className="order-2 md:order-1 md:col-span-4">
                   <Meta className="text-[#1E2226]">Share</Meta>
@@ -317,7 +317,7 @@ export default function BlogPage() {
 
             {/* Explore more */}
             {relatedPosts.length > 0 && (
-              <section className="mt-20 bg-[#F8F8F9] px-5 py-16 sm:px-6 md:mt-[140px] md:px-10 md:py-20">
+              <section className="site-pad mt-20 bg-[#F8F8F9] py-16 md:mt-[140px] md:py-20">
                 <div className="mx-auto w-full max-w-[1360px]">
                   <Meta accent>News &amp; insight</Meta>
                   <h2
@@ -340,8 +340,8 @@ export default function BlogPage() {
           /* =========================================================================
               VIEW B: JOURNAL ARCHIVE
              ========================================================================= */
-          <section className="w-full px-5 pb-24 pt-32 sm:px-6 md:px-8 md:pt-44 xl:px-12 lg:pt-[24vh]">
-            <div className="mx-auto w-full max-w-[1680px]">
+          <section className="site-shell pb-24 pt-32 md:pt-44 lg:pt-[24vh]">
+            <div className="w-full">
               <header>
                 <Meta accent>News &amp; insight</Meta>
                 <h1

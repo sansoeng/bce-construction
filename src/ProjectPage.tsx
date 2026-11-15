@@ -89,7 +89,7 @@ function Row({ label, children, i = 0 }: { label: string; children: React.ReactN
 function Highlights({ items }: { items: NonNullable<Project["highlights"]> }) {
   const [ref, inView] = useInView<HTMLDivElement>();
   return (
-    <section data-header-title="Highlights" aria-labelledby="pd-highlights" className="px-5 pt-24 md:pt-40">
+    <section data-header-title="Highlights" aria-labelledby="pd-highlights" className="pt-24 md:pt-40">
       <div className="glance-layout">
         <div className="glance-title-col">
           <div className="glance-title-sticky">
@@ -118,7 +118,7 @@ function Highlights({ items }: { items: NonNullable<Project["highlights"]> }) {
 
 function NotFound() {
   return (
-    <section data-header-title="Projects" className="flex min-h-[100svh] flex-col justify-end gap-8 px-5 pb-16">
+    <section data-header-title="Projects" className="site-shell flex min-h-[100svh] flex-col justify-end gap-8 pb-16">
       <p className="text-[.95rem] text-black/45">Project not found</p>
       <h1 className="pd-title">This project is not available.</h1>
       <a href="/?projects" className="pd-back self-start">All projects</a>
@@ -202,9 +202,9 @@ export default function ProjectPage({ slug }: { slug: string }) {
     <main className="relative z-[1] overflow-x-clip bg-white text-[#111]">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
-      <article>
+      <article className="site-shell">
         {/* Opening: back link, category and index on the 12-column rule, then the name as the page title. */}
-        <header data-header-title="Project" className="px-5 pt-28 md:pt-36">
+        <header data-header-title="Project" className="pt-28 md:pt-36">
           <h1 key={project.slug} data-split data-split-type="words" className="pd-title mt-10 max-w-[72rem] md:mt-16">{project.name}</h1>
           <p className="mt-6 flex items-center gap-3 text-[.95rem] text-black/45">
             <span data-split="content">{project.category}</span>
@@ -212,7 +212,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
           </p>
         </header>
 
-        <figure className="mt-10 px-5 md:mt-16">
+        <figure className="mt-10 md:mt-16">
           <button type="button" className="pd-hero pd-zoom" data-cursor="View" aria-label={`View photo: ${hero.caption}`} onClick={() => setViewing(0)}>
             <img src={hero.image} alt={hero.caption} fetchPriority="high" />
           </button>
@@ -220,7 +220,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
         </figure>
 
         {/* Project details: a numbered label on the left; the summary and the ruled fact rows fill the right half. */}
-        <section data-header-title="Overview" aria-labelledby="pd-overview" className="px-5 pt-24 md:pt-40">
+        <section data-header-title="Overview" aria-labelledby="pd-overview" className="pt-24 md:pt-40">
           <div className="grid gap-y-8 md:grid-cols-12 md:gap-x-5">
             <h2 id="pd-overview" data-split className="pd-h2 md:col-span-6">Project details</h2>
             <div className="w-full md:col-span-6 md:col-start-7 md:w-[780px] md:max-w-full">
@@ -259,7 +259,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
 
         {/* Optional: equipment deployed, then technical scope, each titled on the left with its list in the right half. */}
         {hasDetails && (
-          <section data-header-title="Details" className="px-5 pt-8 md:pt-16">
+          <section data-header-title="Details" className="pt-8 md:pt-16">
             {project.equipment?.length ? (
               <div className="grid gap-y-8 md:grid-cols-12 md:gap-x-5">
                 <h2 data-split className="pd-h2 md:col-span-6">Equipment deployed</h2>
@@ -290,14 +290,14 @@ export default function ProjectPage({ slug }: { slug: string }) {
         )}
 
         {project.outcome && (
-          <section data-header-title="Outcome" aria-labelledby="pd-outcome" className="px-5 pt-24 md:pt-40">
+          <section data-header-title="Outcome" aria-labelledby="pd-outcome" className="pt-24 md:pt-40">
             <h2 id="pd-outcome" data-split="content" className="text-[.95rem] text-black/45">Project outcome</h2>
             <p data-split className="pd-outcome mt-8 md:mt-10">{project.outcome}</p>
           </section>
         )}
 
         {/* Next project: a large ruled link with the next cover. */}
-        <section data-header-title="Next project" className="px-5 pb-24 pt-24 md:pb-36 md:pt-40">
+        <section data-header-title="Next project" className="pb-24 pt-24 md:pb-36 md:pt-40">
           <a href={projectHref(next.slug)} className="pd-next group">
             <span className="pd-next-meta">
               <span data-split="content" className="text-black/45">Next project</span>

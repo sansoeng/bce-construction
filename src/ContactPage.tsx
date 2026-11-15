@@ -156,7 +156,7 @@ export default function ContactPage() {
     <>
       <SiteHeader phones={phones} tel={tel} base="/" />
       <main className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
-        <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-[280px] pb-20 sm:pb-28">
+        <section className="site-pad max-w-[1000px] w-full mx-auto pt-[280px] pb-20 sm:pb-28">
           {/* Centered hero */}
           <div className="text-center max-w-[760px] mx-auto mb-10 sm:mb-14">
             <p className="mb-5 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#FF3C1E]">Get in touch</p>

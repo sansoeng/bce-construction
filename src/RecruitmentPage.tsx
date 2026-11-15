@@ -204,7 +204,7 @@ export default function RecruitmentPage() {
           /* =====================================================================
               JOB VIEW
              ===================================================================== */
-          <article className="w-full px-5 pb-0 pt-32 sm:px-6 md:px-10 md:pt-44">
+          <article className="site-pad w-full pb-0 pt-32 md:pt-44">
             <div className="mx-auto w-full">
               <button
                 type="button"
@@ -410,7 +410,7 @@ export default function RecruitmentPage() {
                 </div>
               </section>
 
-              <section className="-mx-5 flex flex-col items-center bg-[#F8F8F9] px-5 py-20 text-center sm:-mx-6 md:-mx-10 md:py-28">
+              <section className="site-bleed site-pad flex flex-col items-center bg-[#F8F8F9] py-20 text-center md:py-28">
                 <Kicker style={{ color: ACCENT }}>Ready to build?</Kicker>
                 <p className="mt-5 max-w-[720px] text-[24px] font-medium leading-[1.25] tracking-[-0.02em] text-[#1E2226]/55 md:text-[34px]">
                   Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience
@@ -442,7 +442,7 @@ export default function RecruitmentPage() {
             />
 
             {/* Label with copy */}
-            <section className="bg-[#F8F8F9] px-5 pb-2 pt-12 sm:px-6 md:px-10 md:pt-14">
+            <section className="site-pad bg-[#F8F8F9] pb-2 pt-12 md:pt-14">
               <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
                 <span
                   className="block font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] md:col-span-3"
@@ -464,7 +464,7 @@ export default function RecruitmentPage() {
             {/* Board */}
             <section
               id="open-positions"
-              className="scroll-mt-20 bg-[#F8F8F9] px-5 pb-16 pt-12 sm:px-6 md:px-10 md:pb-24 md:pt-16"
+              className="site-pad scroll-mt-20 bg-[#F8F8F9] pb-16 pt-12 md:pb-24 md:pt-16"
             >
               <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:items-center md:gap-5">
                 <fieldset
@@ -521,7 +521,7 @@ export default function RecruitmentPage() {
                           event.preventDefault();
                           selectJob(v.id);
                         }}
-                        className="career-row group relative isolate -mx-5 grid grid-cols-1 items-center gap-2 border-b border-[#1E2226]/10 px-5 py-5 text-[#1E2226] transition-colors hover:opacity-100 md:-mx-10 md:grid-cols-12 md:gap-5 md:px-10 md:py-[27px]"
+                        className="career-row site-bleed site-pad group relative isolate grid grid-cols-1 items-center gap-2 border-b border-[#1E2226]/10 py-5 text-[#1E2226] transition-colors hover:opacity-100 md:grid-cols-12 md:gap-5 md:py-[27px]"
                       >
                         <span className="career-row-wipe" aria-hidden />
                         <h3 className="text-[14px] font-normal leading-snug tracking-[-0.005em] transition-colors duration-500 group-hover:text-[#F8F8F9] md:col-span-5">
