@@ -1,4 +1,5 @@
 import { DEFAULT_HOMEPAGE, HOMEPAGE_ICONS } from "../homepage";
+import { DEFAULT_QUALITY } from "../quality";
 
 export type FieldType =
   | "text"
@@ -374,6 +375,116 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "bg", label: "Background colour", type: "text" },
       { key: "fg", label: "Text colour", type: "text" },
       { key: "details", label: "Key facts", type: "list" },
+    ],
+  },
+
+  quality: {
+    type: "quality",
+    label: "Quality & Lab",
+    singular: "Quality & Lab",
+    description: "Every headline, certificate row, concrete grade and photo on the Quality & HSE page.",
+    icon: "◉",
+    titleKey: "title",
+    slugKey: "slug",
+    singleton: true,
+    tabs: true,
+    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_QUALITY)) as Record<string, unknown>), title: "Quality & HSE", slug: "quality" }),
+    skipKm: ["title", "slug"],
+    sections: [
+      { id: "cover", title: "Cover", hint: "The banner label, headline and photo at the top of the page.", keys: ["title", "slug", "cover"] },
+      { id: "intro", title: "Introduction", hint: "The grey label and the opening statement.", keys: ["intro"] },
+      { id: "laboratory", title: "Laboratory & QA", hint: "The laboratory copy, the five-step process and its photo.", keys: ["laboratory"] },
+      { id: "materials", title: "Raw material certificates", hint: "The certified materials and the photo beside them.", keys: ["materials"] },
+      { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
+      { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
+      { id: "mix", title: "Mix design", hint: "The documents supplied with every design and the concrete grades.", keys: ["mix"] },
+      { id: "licences", title: "Licences", hint: "The licences and certificates list and its button.", keys: ["licences"] },
+    ],
+    fields: [
+      { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
+      { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “quality”.", locale: false },
+
+      { key: "cover", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "title", label: "Headline", type: "text", wide: true },
+        { key: "image", label: "Banner photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true, locale: false },
+      ] },
+
+      { key: "intro", label: "", type: "group", fields: [
+        { key: "label", label: "Label", type: "text" },
+        { key: "text", label: "Statement", type: "textarea", rows: 4, wide: true },
+      ] },
+
+      { key: "laboratory", label: "", type: "group", fields: [
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "copy", label: "Copy", type: "textarea", rows: 4, wide: true },
+        { key: "listLabel", label: "List label", type: "text" },
+        { key: "steps", label: "Quality process", type: "objectList", itemLabel: "Step", itemFields: [
+          { key: "title", label: "Step title", type: "text" },
+          { key: "text", label: "Step text", type: "text" },
+        ] },
+        { key: "image", label: "Photo", type: "image", wide: true, aspect: "4 / 3" },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+      ] },
+
+      { key: "materials", label: "", type: "group", fields: [
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "copy", label: "Copy", type: "textarea", rows: 3, wide: true },
+        { key: "listLabel", label: "List label", type: "text" },
+        { key: "items", label: "Certified materials", type: "objectList", itemLabel: "Material", itemFields: [
+          { key: "name", label: "Material", type: "text" },
+          { key: "certificate", label: "Certificate", type: "text" },
+        ] },
+        { key: "image", label: "Photo", type: "image", wide: true, aspect: "5 / 6" },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+      ] },
+
+      { key: "calibration", label: "", type: "group", fields: [
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "copy", label: "Copy", type: "textarea", rows: 3, wide: true },
+        { key: "listLabel", label: "List label", type: "text" },
+        { key: "items", label: "Calibrated equipment", type: "objectList", itemLabel: "Equipment", itemFields: [
+          { key: "equipment", label: "Equipment", type: "text" },
+          { key: "scope", label: "What is calibrated", type: "text" },
+        ] },
+      ] },
+
+      { key: "hse", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "heading", label: "Heading", type: "text", wide: true },
+        { key: "items", label: "Commitments", type: "objectList", itemLabel: "Commitment", itemFields: [
+          { key: "lines", label: "Title lines", type: "list", hint: "One line per row; they print on separate lines." },
+          { key: "text", label: "Statement", type: "textarea", rows: 3 },
+          { key: "image", label: "Photo", type: "image", aspect: "4 / 3" },
+          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+        ] },
+      ] },
+
+      { key: "mix", label: "", type: "group", fields: [
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "text", label: "Statement", type: "textarea", rows: 3, wide: true },
+        { key: "docsLabel", label: "Documents label", type: "text" },
+        { key: "docs", label: "Supplied documents", type: "list", hint: "One document per row." },
+        { key: "grades", label: "Concrete grades", type: "objectList", itemLabel: "Grade", itemFields: [
+          { key: "grade", label: "Grade", type: "text", locale: false },
+          { key: "strength", label: "Strength", type: "text", locale: false },
+          { key: "use", label: "Typical use", type: "text" },
+        ] },
+        { key: "note", label: "Footnote", type: "text", wide: true },
+      ] },
+
+      { key: "licences", label: "", type: "group", fields: [
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "text", label: "Statement", type: "textarea", rows: 3, wide: true },
+        { key: "statusLabel", label: "Status label", type: "text", hint: "Shown at the end of every row." },
+        { key: "rows", label: "Licences & certificates", type: "objectList", itemLabel: "Document", itemFields: [
+          { key: "document", label: "Document", type: "text" },
+          { key: "issuer", label: "Issuer", type: "text" },
+        ] },
+        { key: "ctaLabel", label: "Button label", type: "text" },
+        { key: "ctaHref", label: "Button link", type: "text", locale: false },
+      ] },
     ],
   },
 

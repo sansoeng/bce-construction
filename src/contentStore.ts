@@ -54,6 +54,32 @@ export const mergeTranslation = (en: unknown, km: unknown): unknown => {
   return isBlank(km) ? en : km;
 };
 
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  Boolean(value) && typeof value === "object" && !Array.isArray(value);
+
+/**
+ * Fill a partial document into the default shape so a draft can never blank the
+ * page. Arrays are replaced whole, unknown keys pass through, and missing keys
+ * keep their bundled default.
+ */
+export const mergeDefaults = <T>(base: T, incoming: unknown): T => {
+  const walk = (fallback: unknown, value: unknown): unknown => {
+    if (Array.isArray(fallback)) return Array.isArray(value) ? value : fallback;
+    if (isPlainObject(fallback)) {
+      if (!isPlainObject(value)) return fallback;
+      const out: Record<string, unknown> = { ...fallback };
+      for (const key of Object.keys(fallback)) {
+        if (key in value) out[key] = walk(fallback[key], value[key]);
+      }
+      // Unknown-but-present keys pass through so newer fields survive an older bundle.
+      for (const key of Object.keys(value)) if (!(key in out)) out[key] = value[key];
+      return out;
+    }
+    return value === undefined || value === null ? fallback : value;
+  };
+  return walk(base, incoming) as T;
+};
+
 const renderContent = (lang: Lang) => {
   if (!hasContent) return;
   for (const [type, apply] of appliers) {

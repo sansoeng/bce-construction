@@ -6,6 +6,7 @@ import {
   ExternalLink,
   FileJson,
   FileText,
+  FlaskConical,
   FolderOpen,
   Home,
   Image as ImageIcon,
@@ -66,6 +67,7 @@ const ADMIN_HOST = "admin.bce-construction.com";
 
 const typeIcons = {
   homepage: Home,
+  quality: FlaskConical,
   projects: FolderOpen,
   posts: Newspaper,
   vacancies: Briefcase,

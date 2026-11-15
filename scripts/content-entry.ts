@@ -4,6 +4,7 @@ import { projects } from "../src/projects";
 import { businessDetails } from "../src/businessDetails";
 import { offerings } from "../src/company";
 import { DEFAULT_HOMEPAGE } from "../src/homepage";
+import { DEFAULT_QUALITY } from "../src/quality";
 import { BLOG_POSTS } from "../src/blogData";
 import { VACANCIES } from "../src/careersData";
 import { DOCUMENTS } from "../src/resourcesData";
@@ -12,6 +13,7 @@ import { DEFAULT_SETTINGS } from "../worker/src/content";
 export function getContent() {
   const documents = [
     { type: "homepage", slug: "home", sort: 0, data: { ...DEFAULT_HOMEPAGE, title: "Homepage", slug: "home" } },
+    { type: "quality", slug: "quality", sort: 0, data: { ...DEFAULT_QUALITY, title: "Quality & HSE", slug: "quality" } },
     ...projects.map((item, sort) => ({ type: "projects", slug: item.slug, sort, data: item })),
     ...BLOG_POSTS.map((item, sort) => ({ type: "posts", slug: item.slug, sort, data: item })),
     ...VACANCIES.map((item, sort) => ({ type: "vacancies", slug: item.id, sort, data: item })),

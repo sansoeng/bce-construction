@@ -8,7 +8,7 @@
  * bootstrap, and the page remounts (main.tsx keys on the content version).
  */
 
-import { registerContentType } from "./contentStore";
+import { mergeDefaults, registerContentType } from "./contentStore";
 import { offerings } from "./company";
 
 export type HomepageIcon =
@@ -307,28 +307,8 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
 /** Live content. Read these values during render; the object is replaced on bootstrap. */
 export const homepage: HomepageContent = JSON.parse(JSON.stringify(DEFAULT_HOMEPAGE)) as HomepageContent;
 
-const isPlainObject = (value: unknown): value is Record<string, unknown> =>
-  Boolean(value) && typeof value === "object" && !Array.isArray(value);
-
-/** Fill a partial document into the default shape so a draft can never blank the page. */
-const merge = (base: unknown, incoming: unknown): unknown => {
-  if (Array.isArray(base)) return Array.isArray(incoming) ? incoming : base;
-  if (isPlainObject(base)) {
-    if (!isPlainObject(incoming)) return base;
-    const out: Record<string, unknown> = { ...base };
-    for (const key of Object.keys(base)) {
-      if (key in incoming) out[key] = merge(base[key], incoming[key]);
-    }
-    // Unknown-but-present keys pass through so newer fields survive an older bundle.
-    for (const key of Object.keys(incoming)) if (!(key in out)) out[key] = incoming[key];
-    return out;
-  }
-  return incoming === undefined || incoming === null ? base : incoming;
-};
-
 registerContentType("homepage", (items) => {
   const first = items[0];
-  if (!isPlainObject(first)) return;
-  const merged = merge(DEFAULT_HOMEPAGE, first) as HomepageContent;
-  Object.assign(homepage, merged);
+  if (!first || typeof first !== "object" || Array.isArray(first)) return;
+  Object.assign(homepage, mergeDefaults(DEFAULT_HOMEPAGE, first));
 });
