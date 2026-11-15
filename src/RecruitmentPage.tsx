@@ -96,7 +96,7 @@ function Kicker({
   return (
     <span
       style={style}
-      className={`block font-mono text-[10px] uppercase leading-[1.6] tracking-[0.02em] ${className}`}
+      className={`block font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] ${className}`}
     >
       {children}
     </span>

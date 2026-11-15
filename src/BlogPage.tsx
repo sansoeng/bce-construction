@@ -17,9 +17,13 @@ const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 
 const KINDS: ("All" | JournalKind)[] = ["All", "News", "Insight"];
 
-function Meta({ children, className = "" }: { children: ReactNode; className?: string }) {
+function Meta({ children, className = "", accent = false }: { children: ReactNode; className?: string; accent?: boolean }) {
   return (
-    <span className={`font-mono text-[10px] uppercase leading-[1.6] tracking-[0.1em] md:text-[11px] ${className}`}>
+    <span
+      className={`font-mono uppercase leading-[1.6] tracking-[0.1em] ${
+        accent ? "text-[14px] text-[#FF3C1E]" : "text-[10px] md:text-[11px]"
+      } ${className}`}
+    >
       {children}
     </span>
   );
@@ -185,7 +189,7 @@ export default function BlogPage() {
           <article className="w-full">
             <section className="px-5 pb-0 pt-32 sm:px-6 md:px-5 md:pt-56 lg:pt-[340px]">
               <div className="mx-auto flex w-full max-w-[1360px] flex-col items-center px-0 md:px-5">
-                <Meta className="text-[#FF3C1E]">News &amp; insight</Meta>
+                <Meta accent>News &amp; insight</Meta>
                 <h1
                   data-split
                   data-split-type="words"
@@ -315,7 +319,7 @@ export default function BlogPage() {
             {relatedPosts.length > 0 && (
               <section className="mt-20 bg-[#F8F8F9] px-5 py-16 sm:px-6 md:mt-[140px] md:px-10 md:py-20">
                 <div className="mx-auto w-full max-w-[1360px]">
-                  <Meta className="text-[#FF3C1E]">News &amp; insight</Meta>
+                  <Meta accent>News &amp; insight</Meta>
                   <h2
                     data-split
                     data-split-type="words"
@@ -339,7 +343,7 @@ export default function BlogPage() {
           <section className="w-full px-5 pb-24 pt-32 sm:px-6 md:px-8 md:pt-44 xl:px-12 lg:pt-[24vh]">
             <div className="mx-auto w-full max-w-[1680px]">
               <header>
-                <Meta className="text-[#191C1F]/50">News &amp; insight</Meta>
+                <Meta accent>News &amp; insight</Meta>
                 <h1
                   data-split
                   data-split-type="words"

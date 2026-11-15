@@ -183,7 +183,7 @@ export default function QuotePage() {
       <SiteHeader phones={phones} tel={tel} base="/" />
 
       <header data-header-title="Request a quote" className="px-5 pt-28 md:pt-36">
-        <p data-split="content" className="mt-20 text-[.95rem] text-black/45 md:mt-36">Request a quote</p>
+        <p data-split="content" className="mt-20 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#FF3C1E] md:mt-36">Request a quote</p>
         <h1 data-split data-split-type="words" className="pd-title mt-6 max-w-[72rem]">Tell us about your project. We’ll come back with a quotation.</h1>
         <p data-split="content" className="mt-8 max-w-[34rem] text-[1.05rem] leading-[1.45] text-black/55">Choose a service, estimate your concrete with the calculator, and add your details. Prefer to talk? Call <a href={tel(phones[0])} className="underline underline-offset-4">{phones[0]}</a>.</p>
       </header>

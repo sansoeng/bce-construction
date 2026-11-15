@@ -159,7 +159,7 @@ export default function ContactPage() {
         <section className="max-w-[1000px] w-full mx-auto px-5 sm:px-6 md:px-8 pt-[280px] pb-20 sm:pb-28">
           {/* Centered hero */}
           <div className="text-center max-w-[760px] mx-auto mb-10 sm:mb-14">
-            <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#191C1F]/40 mb-5">Get in touch</p>
+            <p className="mb-5 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#FF3C1E]">Get in touch</p>
             <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold uppercase text-[#191C1F] tracking-[-0.03em] leading-[1.12]">
               Contact us
             </h1>
