@@ -647,6 +647,322 @@
       }
     },
     {
+      "type": "about",
+      "slug": "about",
+      "sort": 0,
+      "data": {
+        "cover": {
+          "label": "Who we are",
+          "title": "About BCE",
+          "image": "/Image/bce/about-hero-banner.webp",
+          "imageAlt": "Aerial view of a BCE batching plant and aggregate yard"
+        },
+        "intro": {
+          "text": "Battambang Construction and Engineering, Co., Ltd. (BCE) is a Battambang-based construction, concrete, piling and engineering company, supplying ready-mix concrete, reinforced concrete piling and civil construction to projects across Cambodia with its own plants, fleet and a team of 71.",
+          "primaryLabel": "Download Company Profile (PDF)",
+          "primaryHref": "/assets/BCE_Corporate_Profile_2026.pdf",
+          "secondaryLabel": "View all resources",
+          "secondaryHref": "/?resources"
+        },
+        "message": {
+          "quote": "For more than thirty years we have built on four pillars: quality, safety, reliability and partnership. They guide every pour, every pile and every project.",
+          "attribution": "Chairwoman, BCE., Ltd."
+        },
+        "story": {
+          "title": "Our story",
+          "text": "Founded in Battambang in 1995, BCE has grown into an integrated operation, delivering concrete, piling, construction, slab works and equipment rental with its own plants and fleet.",
+          "milestones": [
+            {
+              "year": "1995",
+              "text": "BCE is established in Battambang as an engineering and construction company."
+            },
+            {
+              "year": "2025",
+              "text": "128 projects completed and 1,564 clients served in a single year."
+            },
+            {
+              "year": "2026",
+              "text": "Operating across 13 provinces and Phnom Penh with 4 batching plants, 41 mixer trucks and 8 pump trucks."
+            }
+          ]
+        },
+        "vision": {
+          "sectionLabel": "Vision & mission",
+          "label": "Our vision",
+          "statement": "To be Cambodia’s most trusted partner for concrete, piling and construction."
+        },
+        "mission": {
+          "label": "Our mission",
+          "statement": "To deliver quality-controlled concrete, foundations and construction on time and on spec, with our own plants, fleet and people."
+        },
+        "values": {
+          "sectionLabel": "Core values",
+          "items": [
+            {
+              "title": "Quality",
+              "text": "Built to last. From material selection and production to construction and delivery, laboratory quality control keeps every structure strong, durable and lasting.",
+              "image": "/Image/bce/value-quality.webp",
+              "imageAlt": "Concrete frame and formwork rising beside a tower crane"
+            },
+            {
+              "title": "Safety",
+              "text": "Our top priority. We protect our people, our partners and the communities we serve, from the batching plant to the project site.",
+              "image": "/Image/bce/value-safety.webp",
+              "imageAlt": "Crew working at height on scaffolding in high-visibility vests"
+            },
+            {
+              "title": "Reliability",
+              "text": "On time, every time. Our own batching plants, mixer trucks and pump trucks give us the capacity to keep projects on schedule and on spec.",
+              "image": "/Image/bce/value-reliability.webp",
+              "imageAlt": "Tower crane and formwork keeping the construction programme on schedule"
+            },
+            {
+              "title": "Partnership",
+              "text": "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success.",
+              "image": "/Image/bce/value-partnership.webp",
+              "imageAlt": "Two steel fixers working together on reinforcement"
+            }
+          ]
+        },
+        "zoom": {
+          "statements": [
+            "Engineering and construction, from Battambang across Cambodia since 1995",
+            "Concrete, piling, construction and fleet, all under one roof"
+          ]
+        },
+        "explore": {
+          "label": "Explore more",
+          "tiles": [
+            {
+              "label": "What we do",
+              "title": "Our businesses",
+              "href": "/?businesses",
+              "image": "/Image/bce/about-business-banner.webp",
+              "imageAlt": "BCE site team reviewing a reinforced concrete slab"
+            },
+            {
+              "label": "Tested at every stage",
+              "title": "Quality & HSE",
+              "href": "/?quality",
+              "image": "/Image/bce/about-hse-banner.webp",
+              "imageAlt": "Concrete cylinder under compression testing in the BCE laboratory"
+            }
+          ]
+        },
+        "title": "About BCE",
+        "slug": "about"
+      }
+    },
+    {
+      "type": "capabilities",
+      "slug": "capabilities",
+      "sort": 0,
+      "data": {
+        "cover": {
+          "label": "Technical capabilities",
+          "title": "Engineered and tested in-house",
+          "image": "/Image/bce/hero_batching_plant.webp",
+          "imageAlt": "Aerial view of a BCE batching plant and aggregate yard"
+        },
+        "overview": {
+          "label": "Overview",
+          "text": "Behind every BCE project is the capability to test, design and deliver concrete in-house: a quality process on every pour, our own laboratory, approved mix designs, certified materials, a fleet we own and maintain, and the engineers who bring it together."
+        },
+        "qualityAssurance": {
+          "kicker": "Tested at every stage",
+          "title": "Quality assurance",
+          "image": "/Image/bce/core_services.webp",
+          "imageAlt": "Engineers measuring a concrete wall",
+          "copy": [
+            "Strict quality control at every stage, from the materials that arrive at our plants to the strength of the concrete on site. Every result is recorded for the project."
+          ],
+          "rows": [
+            {
+              "label": "01  Material check",
+              "value": "Before production"
+            },
+            {
+              "label": "02  Production control",
+              "value": "Every batch weighed"
+            },
+            {
+              "label": "03  Fresh concrete test",
+              "value": "Slump on delivery"
+            },
+            {
+              "label": "04  Strength test",
+              "value": "Cured and crushed"
+            },
+            {
+              "label": "05  Quality verification",
+              "value": "Recorded per project"
+            }
+          ]
+        },
+        "laboratory": {
+          "kicker": "Our own laboratory",
+          "title": "Laboratory",
+          "image": "/Image/bce/laboratory_qa.webp",
+          "imageAlt": "An engineer at work in the laboratory",
+          "copy": [
+            "Our laboratory tests materials before they enter production and concrete after it leaves the plant, at the plant and on site."
+          ],
+          "rows": [
+            {
+              "label": "Slump testing",
+              "value": "Every delivery"
+            },
+            {
+              "label": "Compressive strength",
+              "value": "7- and 28-day cubes"
+            },
+            {
+              "label": "Aggregate grading",
+              "value": "Sieve analysis"
+            },
+            {
+              "label": "Silt and moisture content",
+              "value": "Fine and coarse aggregate"
+            },
+            {
+              "label": "Trial mixes",
+              "value": "For every new design"
+            }
+          ]
+        },
+        "mixDesigns": {
+          "kicker": "Designed for every pour",
+          "title": "Mix designs",
+          "image": "/Image/bce/cert_mix_design.webp",
+          "imageAlt": "An engineer measuring technical drawings",
+          "copy": [
+            "Each grade is designed, trial-mixed and tested before supply, then submitted with its results for consultant approval. Special mixes are designed on request."
+          ],
+          "rows": [
+            {
+              "label": "C15  /  15 MPa",
+              "value": "Blinding and mass fill"
+            },
+            {
+              "label": "C20  /  20 MPa",
+              "value": "Ground slabs and paths"
+            },
+            {
+              "label": "C25  /  25 MPa",
+              "value": "Floor slabs and footings"
+            },
+            {
+              "label": "C30  /  30 MPa",
+              "value": "Columns, beams, suspended slabs"
+            },
+            {
+              "label": "C35  /  35 MPa",
+              "value": "Foundations and piles"
+            },
+            {
+              "label": "C40  /  40 MPa",
+              "value": "Bridges and heavy structures"
+            }
+          ]
+        },
+        "materials": {
+          "kicker": "Certified at source",
+          "title": "Materials & certificates",
+          "image": "/Image/bce/project_page_14.webp",
+          "imageAlt": "A loader filling a truck with aggregate",
+          "copy": [
+            "Every material that goes into our concrete is certified at source and checked again before production. Certificates are available on request."
+          ],
+          "rows": [
+            {
+              "label": "Cement",
+              "value": "Mill test certificate"
+            },
+            {
+              "label": "Fine aggregate",
+              "value": "Grading and silt content"
+            },
+            {
+              "label": "Coarse aggregate",
+              "value": "Grading and crushing value"
+            },
+            {
+              "label": "Admixtures",
+              "value": "Product compliance certificate"
+            },
+            {
+              "label": "Mixing water",
+              "value": "Water quality results"
+            },
+            {
+              "label": "Calibration",
+              "value": "Scales, meters, test machine"
+            }
+          ],
+          "ctaLabel": "Quality & HSE documents",
+          "ctaHref": "/?quality#raw-materials"
+        },
+        "equipment": {
+          "kicker": "Our own fleet",
+          "title": "Equipment & fleet",
+          "image": "/Image/bce/machinery_fleet.webp",
+          "imageAlt": "Concrete mixer trucks",
+          "copy": [
+            "Our plants and fleet are owned, operated and maintained by our own team, so capacity is planned around your programme rather than a supplier's."
+          ],
+          "rows": [
+            {
+              "label": "Batching plants",
+              "value": "04  /  70 m³/hr each"
+            },
+            {
+              "label": "Mixer trucks",
+              "value": "41"
+            },
+            {
+              "label": "Pump trucks",
+              "value": "08"
+            },
+            {
+              "label": "Piling rigs",
+              "value": "Own rigs and crews"
+            }
+          ],
+          "ctaLabel": "Hire our equipment",
+          "ctaHref": "/?quote&service=equipment-rental"
+        },
+        "engineering": {
+          "kicker": "People behind every project",
+          "title": "Engineering capability",
+          "image": "/Image/bce/stats_fleet.webp",
+          "imageAlt": "An engineer inspecting reinforcement on site",
+          "copy": [
+            "Our engineers plan, design and supervise every project, from mix design and piling programmes to site supervision and handover records."
+          ],
+          "rows": [
+            {
+              "label": "Engineers",
+              "value": "15"
+            },
+            {
+              "label": "Team",
+              "value": "71"
+            },
+            {
+              "label": "Building since",
+              "value": "1995"
+            },
+            {
+              "label": "Coverage",
+              "value": "13 provinces + Phnom Penh"
+            }
+          ]
+        },
+        "title": "Technical Capabilities",
+        "slug": "capabilities"
+      }
+    },
+    {
       "type": "projects",
       "slug": "kampong-thom-bridge-foundations",
       "sort": 0,

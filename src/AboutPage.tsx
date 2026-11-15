@@ -15,6 +15,7 @@ import ArrowButton from "./ArrowButton"
 import { useMediaReveal, usePageSetup } from "./usePageSetup"
 import { LeadText, ParallaxHero, useScrollParallax } from "./ServiceBlocks"
 import { translate } from "./i18n"
+import { about } from "./about"
 
 // About BCE, after the website brief ("10. About BCE"), kept short so it reads at a glance: the olympic.no-style
 // header (title, banner, introduction), who we are (a TopTier-style zoom-out), the Chairwoman's message as a pull quote, vision, mission
@@ -31,18 +32,7 @@ const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`
 const unsplash = (id: string, w = 1600) =>
   id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`
 
-// Milestones the profile states. Add BCE's own dated milestones here as they are confirmed.
-const milestones: [string, string][] = [
-  [
-    "1995",
-    "BCE is established in Battambang as an engineering and construction company.",
-  ],
-  ["2025", "128 projects completed and 1,564 clients served in a single year."],
-  [
-    "2026",
-    "Operating across 13 provinces and Phnom Penh with 4 batching plants, 41 mixer trucks and 8 pump trucks.",
-  ],
-]
+// Milestones, the message and the Explore tiles all come from `src/about.ts`, which the admin edits through D1.
 
 function SampleTag({ dark }: { dark?: boolean }) {
   return (
@@ -53,10 +43,7 @@ function SampleTag({ dark }: { dark?: boolean }) {
 }
 
 // Explore more, as olympic.no's media link tiles: two photos side by side, each with a label, title and Explore button.
-const more: { label: string; title: string; href: string; image: string; alt: string }[] = [
-  { label: "What we do", title: "Our businesses", href: "/?businesses", image: "/Image/bce/about-business-banner.webp", alt: "BCE site team reviewing a reinforced concrete slab" },
-  { label: "Tested at every stage", title: "Quality & HSE", href: "/?quality", image: "/Image/bce/about-hse-banner.webp", alt: "Concrete cylinder under compression testing in the BCE laboratory" },
-]
+// Read from `about.explore.tiles` inside the component so admin edits show on the next bootstrap.
 
 // The quote brightens word by word as it crosses the screen, after olympic.no's content-blocks quote: each word starts
 // at 16% opacity and rises to full over its own slice of the scroll (a .16 window, stepping 1/79 of the range per
@@ -97,8 +84,9 @@ const QUOTE =
 function ChairwomanMessage() {
   const quoteRef = useRef<HTMLQuoteElement>(null)
   useWordReveal(quoteRef)
-  const quoteText = translate(QUOTE)
+  const quoteText = translate(about.message.quote)
   const words = quoteText.split(" ")
+  const milestones = about.story.milestones
   return (
     <section
       data-header-title="Chairwoman’s message"
@@ -122,7 +110,7 @@ function ChairwomanMessage() {
           </p>
         </blockquote>
         <p className="ab-msg-by">
-          <span data-split="content">Chairwoman, BCE., Ltd.</span>
+          <span data-split="content">{about.message.attribution}</span>
         </p>
       </div>
       <div className="ab-msg-body">
@@ -134,15 +122,13 @@ function ChairwomanMessage() {
           className="ab-story"
         >
           <h3 id="ab-story" data-split className="ab-story-title">
-            Our story
+            {about.story.title}
           </h3>
           <p data-split="content" className="mt-5">
-            Founded in Battambang in 1995, BCE has grown into an integrated
-            operation, delivering concrete, piling, construction, slab works and
-            equipment rental with its own plants and fleet.
+            {about.story.text}
           </p>
           <ol className="pd-list mt-10">
-            {milestones.map(([year, text], i) => (
+            {milestones.map(({ year, text }, i) => (
               <li
                 key={year}
                 data-reveal
@@ -192,10 +178,10 @@ export default function AboutPage() {
       {/* Cover as Our Businesses and the business pages: the label and title set low over a full-screen banner,
           which drifts as the page scrolls and the introduction rises over it. */}
       <ParallaxHero
-        label="Who we are"
-        title="About BCE"
-        image="/Image/bce/about-hero-banner.webp"
-        alt="Aerial view of a BCE batching plant and aggregate yard"
+        label={about.cover.label}
+        title={about.cover.title}
+        image={unsplash(about.cover.image)}
+        alt={about.cover.imageAlt}
       />
 
       <div className="ol-page-body">
@@ -203,19 +189,19 @@ export default function AboutPage() {
           after={
             <div className="mt-12 md:mt-14 flex flex-wrap items-center gap-4">
               <ArrowButton
-                href="/assets/BCE_Corporate_Profile_2026.pdf"
-                label="Download Company Profile (PDF)"
+                href={about.intro.primaryHref}
+                label={about.intro.primaryLabel}
                 theme="black"
               />
               <ArrowButton
-                href="/?resources"
-                label="View all resources"
+                href={about.intro.secondaryHref}
+                label={about.intro.secondaryLabel}
                 theme="outline"
               />
             </div>
           }
         >
-          Battambang Construction and Engineering, Co., Ltd. (BCE) is a Battambang-based construction, concrete, piling and engineering company, supplying ready-mix concrete, reinforced concrete piling and civil construction to projects across Cambodia with its own plants, fleet and a team of 71.
+          {about.intro.text}
         </LeadText>
 
         {/* 1. Who we are, as a scroll-driven zoom-out. */}
@@ -232,12 +218,12 @@ export default function AboutPage() {
           className="ab-tiles"
         >
           <h2 id="ab-more" className="sr-only">
-            Explore more
+            {about.explore.label}
           </h2>
-          {more.map((t) => (
+          {about.explore.tiles.map((t) => (
             <div key={t.title} data-px="media" className="ab-tile">
               <div className="ab-tile-media ol-px-media">
-                <img className="no-radius" src={t.image.startsWith("/") ? t.image : unsplash(t.image, 1800)} alt={t.alt} loading="lazy" />
+                <img className="no-radius" src={t.image.startsWith("/") ? t.image : unsplash(t.image, 1800)} alt={t.imageAlt} loading="lazy" />
               </div>
               <div className="ab-tile-content">
                 <p data-split="content" className="ab-tile-label">

@@ -48,6 +48,8 @@ BCE/
 │   ├── businessDetails.ts       # Copy, figures, solutions and photos for the five detail pages
 │   ├── homepage.ts              # Every editable home-page string, figure and photo (admin-backed)
 │   ├── quality.ts               # Every editable Quality & HSE string, certificate row and photo (admin-backed)
+│   ├── about.ts                 # Every editable About BCE string, milestone and photo (admin-backed)
+│   ├── capabilities.ts          # Every editable capability panel, figure and photo (admin-backed)
 │   ├── CapabilitiesPage.tsx     # Fleet specs (4 plants, 41 mixers, 8 pumps, 7 rigs)
 │   ├── QualityPage.tsx          # In-house lab, DYE-2000 compression testing, ACI 211.1
 │   ├── ProjectsPage.tsx         # 30-project portfolio database with category filtering

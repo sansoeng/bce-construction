@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import { getLang, translate } from "./i18n";
+import { about } from "./about";
 
 // "Who we are" as a scroll-driven zoom-out, after toptier.relats.com's intro: a sticky screen inside a 400vh section
 // (200vh below 1100px) holds a brick grid of full-screen photos (two above, three across the middle, two below). The
@@ -27,10 +28,7 @@ const ROWS: { row: string; tiles: Tile[] }[] = [
   ] },
 ];
 
-const TITLES = [
-  "Engineering and construction, from Battambang across Cambodia since 1995",
-  "Concrete, piling, construction and fleet, all under one roof",
-];
+const TITLES_FALLBACK = about.zoom.statements;
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 const expoOut = (t: number) => (t >= 1 ? 1 : 1 - 2 ** (-10 * t));
@@ -67,7 +65,7 @@ export default function AboutZoom() {
   const sectionRef = useRef<HTMLElement>(null);
   const rowsRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
-  const titles = TITLES.map(translate);
+  const titles = (about.zoom.statements.length ? about.zoom.statements : TITLES_FALLBACK).slice(0, 2).map(translate);
 
   useLayoutEffect(() => {
     const section = sectionRef.current, rows = rowsRef.current, center = centerRef.current;

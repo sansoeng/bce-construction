@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, type CSSProperties } from "react"
+import { about } from "./about"
 
 // Vision, mission and core values, after telhaclarke.com.au/studio's <c-values-vision> ("Our values" into "Our vision").
 // A sticky screen inside a tall section. It opens on a full-screen photo with the vision and mission at the lower
@@ -22,33 +23,7 @@ const BOX_OUT: [number, number][] = [
 const photo = (id: string, w = 1800) =>
   id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`
 
-// BCE's four pillars (Corporate Profile 2026: Chairwoman's message, pp. 01 and 07).
-const values = [
-  {
-    title: "Quality",
-    text: "Built to last. From material selection and production to construction and delivery, laboratory quality control keeps every structure strong, durable and lasting.",
-    id: "/Image/bce/value-quality.webp",
-    alt: "Concrete frame and formwork rising beside a tower crane",
-  },
-  {
-    title: "Safety",
-    text: "Our top priority. We protect our people, our partners and the communities we serve, from the batching plant to the project site.",
-    id: "/Image/bce/value-safety.webp",
-    alt: "Crew working at height on scaffolding in high-visibility vests",
-  },
-  {
-    title: "Reliability",
-    text: "On time, every time. Our own batching plants, mixer trucks and pump trucks give us the capacity to keep projects on schedule and on spec.",
-    id: "/Image/bce/value-reliability.webp",
-    alt: "Tower crane and formwork keeping the construction programme on schedule",
-  },
-  {
-    title: "Partnership",
-    text: "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success.",
-    id: "/Image/bce/value-partnership.webp",
-    alt: "Two steel fixers working together on reinforcement",
-  },
-]
+// BCE's four pillars (Corporate Profile 2026: Chairwoman's message, pp. 01 and 07), edited in `src/about.ts`.
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v))
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
@@ -76,6 +51,9 @@ function Subtitle({
 
 export default function AboutValues() {
   const rootRef = useRef<HTMLElement>(null)
+  // Read on every render: the content bridge replaces `about` after bootstrap.
+  const items = about.values.items.map(({ title, text, image, imageAlt }) => ({ title, text, id: image, alt: imageAlt }))
+  const values = items.length ? items : [{ title: "", text: "", id: "", alt: "" }]
 
   useLayoutEffect(() => {
     const root = rootRef.current
@@ -231,8 +209,8 @@ export default function AboutValues() {
         })
         // The last photo drifts down as the section leaves.
         const out = clamp01((vh - r.bottom) / vh)
-        groups[groups.length - 1].style.transform =
-          `translate3d(0, ${(15 * out).toFixed(3)}%, 0)`
+        const lastGroup = groups[groups.length - 1]
+        if (lastGroup) lastGroup.style.transform = `translate3d(0, ${(15 * out).toFixed(3)}%, 0)`
 
         if (smooth !== u) request()
       }
@@ -309,7 +287,7 @@ export default function AboutValues() {
                 Vision and mission
               </h2>
               <Subtitle n="01" tag>
-                Vision & mission
+                {about.vision.sectionLabel}
               </Subtitle>
             </div>
             <div className="abv-values-content">
@@ -321,7 +299,7 @@ export default function AboutValues() {
                   data-split-toggle
                   style={{ "--base": ".1s" } as CSSProperties}
                 >
-                  Our vision
+                  {about.vision.label}
                 </p>
                 <p
                   className="abv-statement abv-txt"
@@ -329,8 +307,7 @@ export default function AboutValues() {
                   data-split-toggle
                   style={{ "--base": ".18s" } as CSSProperties}
                 >
-                  To be Cambodia’s most trusted partner for concrete, piling and
-                  construction.
+                  {about.vision.statement}
                 </p>
               </article>
               <article
@@ -345,7 +322,7 @@ export default function AboutValues() {
                   data-split-toggle
                   style={{ "--base": ".25s" } as CSSProperties}
                 >
-                  Our mission
+                  {about.mission.label}
                 </p>
                 <p
                   className="abv-statement abv-txt"
@@ -353,9 +330,7 @@ export default function AboutValues() {
                   data-split-toggle
                   style={{ "--base": ".33s" } as CSSProperties}
                 >
-                  To deliver quality-controlled concrete, foundations and
-                  construction on time and on spec, with our own plants, fleet
-                  and people.
+                  {about.mission.statement}
                 </p>
               </article>
             </div>
@@ -367,7 +342,7 @@ export default function AboutValues() {
           <div className="abv-vision-left">
             <h2 className="sr-only">Core values</h2>
             <Subtitle n="02" dark>
-              Core values
+              {about.values.sectionLabel}
             </Subtitle>
             <ol className="abv-cards">
               {values.map((v) => (

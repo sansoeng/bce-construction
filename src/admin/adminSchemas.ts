@@ -1,5 +1,7 @@
 import { DEFAULT_HOMEPAGE, HOMEPAGE_ICONS } from "../homepage";
 import { DEFAULT_QUALITY } from "../quality";
+import { DEFAULT_ABOUT } from "../about";
+import { DEFAULT_CAPABILITIES } from "../capabilities";
 
 export type FieldType =
   | "text"
@@ -83,6 +85,15 @@ const valueIcons = [
   "wrench",
   "pin",
 ];
+
+const capabilityPanels = [
+  ["qualityAssurance", "Quality assurance", false],
+  ["laboratory", "Laboratory", false],
+  ["mixDesigns", "Mix designs", false],
+  ["materials", "Materials", true],
+  ["equipment", "Equipment & fleet", true],
+  ["engineering", "Engineering", false],
+] as const;
 
 export const SCHEMAS: Record<string, ContentSchema> = {
   projects: {
@@ -485,6 +496,165 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "ctaLabel", label: "Button label", type: "text" },
         { key: "ctaHref", label: "Button link", type: "text", locale: false },
       ] },
+    ],
+  },
+
+  about: {
+    type: "about",
+    label: "About BCE",
+    singular: "About BCE",
+    description: "The heritage, Chairwoman’s message, vision, mission, core values and Explore tiles on the About page.",
+    icon: "◈",
+    titleKey: "title",
+    slugKey: "slug",
+    singleton: true,
+    tabs: true,
+    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_ABOUT)) as Record<string, unknown>), title: "About BCE", slug: "about" }),
+    skipKm: ["title", "slug"],
+    sections: [
+      { id: "cover", title: "Cover", hint: "The banner label, headline and photo.", keys: ["title", "slug", "cover"] },
+      { id: "intro", title: "Introduction", hint: "The opening statement and its two buttons.", keys: ["intro"] },
+      { id: "message", title: "Chairwoman’s message", hint: "The pull quote and its attribution.", keys: ["message"] },
+      { id: "story", title: "Our story", hint: "The history paragraph and the dated milestones.", keys: ["story"] },
+      { id: "vision", title: "Vision & mission", hint: "The two glass boxes over the photo.", keys: ["vision", "mission"] },
+      { id: "values", title: "Core values", hint: "The four pillars, each with its photo.", keys: ["values"] },
+      { id: "zoom", title: "Who we are", hint: "The two statements revealed over the photo grid.", keys: ["zoom"] },
+      { id: "explore", title: "Explore tiles", hint: "The two large tiles at the end of the page.", keys: ["explore"] },
+    ],
+    fields: [
+      { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
+      { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “about”.", locale: false },
+
+      { key: "cover", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "title", label: "Headline", type: "text", wide: true },
+        { key: "image", label: "Banner photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true, locale: false },
+      ] },
+
+      { key: "intro", label: "", type: "group", fields: [
+        { key: "text", label: "Statement", type: "textarea", rows: 4, wide: true },
+        { key: "primaryLabel", label: "Primary button label", type: "text" },
+        { key: "primaryHref", label: "Primary button link", type: "text", locale: false },
+        { key: "secondaryLabel", label: "Secondary button label", type: "text" },
+        { key: "secondaryHref", label: "Secondary button link", type: "text", locale: false },
+      ] },
+
+      { key: "message", label: "", type: "group", fields: [
+        { key: "quote", label: "Pull quote", type: "textarea", rows: 4, wide: true },
+        { key: "attribution", label: "Attribution", type: "text" },
+      ] },
+
+      { key: "story", label: "", type: "group", fields: [
+        { key: "title", label: "Heading", type: "text" },
+        { key: "text", label: "Paragraph", type: "textarea", rows: 4, wide: true },
+        { key: "milestones", label: "Milestones", type: "objectList", itemLabel: "Milestone", itemFields: [
+          { key: "year", label: "Year", type: "text", locale: false },
+          { key: "text", label: "What happened", type: "text" },
+        ] },
+      ] },
+
+      { key: "vision", label: "Vision", type: "group", fields: [
+        { key: "sectionLabel", label: "Section label", type: "text" },
+        { key: "label", label: "Label", type: "text" },
+        { key: "statement", label: "Statement", type: "textarea", rows: 3, wide: true },
+      ] },
+
+      { key: "mission", label: "Mission", type: "group", fields: [
+        { key: "label", label: "Label", type: "text" },
+        { key: "statement", label: "Statement", type: "textarea", rows: 3, wide: true },
+      ] },
+
+      { key: "values", label: "", type: "group", fields: [
+        { key: "sectionLabel", label: "Section label", type: "text" },
+        { key: "items", label: "Core values", type: "objectList", itemLabel: "Value", itemFields: [
+          { key: "title", label: "Title", type: "text" },
+          { key: "text", label: "Text", type: "textarea", rows: 3 },
+          { key: "image", label: "Photo", type: "image", aspect: "4 / 3" },
+          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+        ] },
+      ] },
+
+      { key: "zoom", label: "", type: "group", fields: [
+        { key: "statements", label: "Statements", type: "list", hint: "Two lines; the photo grid itself stays in code." },
+      ] },
+
+      { key: "explore", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "tiles", label: "Tiles", type: "objectList", itemLabel: "Tile", itemFields: [
+          { key: "label", label: "Kicker", type: "text" },
+          { key: "title", label: "Title", type: "text" },
+          { key: "href", label: "Link", type: "text", locale: false },
+          { key: "image", label: "Photo", type: "image", aspect: "16 / 9" },
+          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+        ] },
+      ] },
+    ],
+  },
+
+  capabilities: {
+    type: "capabilities",
+    label: "Capabilities",
+    singular: "Capabilities",
+    description: "The six capability panels on the Technical Capabilities page, with their figures and photos.",
+    icon: "◎",
+    titleKey: "title",
+    slugKey: "slug",
+    singleton: true,
+    tabs: true,
+    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_CAPABILITIES)) as Record<string, unknown>), title: "Technical Capabilities", slug: "capabilities" }),
+    skipKm: ["title", "slug"],
+    sections: [
+      { id: "cover", title: "Cover", hint: "The banner label, headline and photo.", keys: ["title", "slug", "cover"] },
+      { id: "overview", title: "Overview", hint: "The introduction above the on-page topic list.", keys: ["overview"] },
+      { id: "quality", title: "Quality assurance", hint: "The five-step process.", keys: ["qualityAssurance"] },
+      { id: "laboratory", title: "Laboratory", hint: "What the laboratory tests.", keys: ["laboratory"] },
+      { id: "mix", title: "Mix designs", hint: "The concrete grades.", keys: ["mixDesigns"] },
+      { id: "materials", title: "Materials", hint: "Certificates kept per material.", keys: ["materials"] },
+      { id: "fleet", title: "Equipment & fleet", hint: "The dark band with the fleet figures.", keys: ["equipment"] },
+      { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
+    ],
+    fields: [
+      { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
+      { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “capabilities”.", locale: false },
+
+      { key: "cover", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "title", label: "Headline", type: "text", wide: true },
+        { key: "image", label: "Banner photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true, locale: false },
+      ] },
+
+      { key: "overview", label: "", type: "group", fields: [
+        { key: "label", label: "Label", type: "text" },
+        { key: "text", label: "Statement", type: "textarea", rows: 4, wide: true },
+      ] },
+
+      ...capabilityPanels.map(([key, label, withCta]) => {
+        const panel: Field = {
+          key,
+          label,
+          type: "group",
+          fields: [
+            { key: "kicker", label: "Kicker", type: "text" },
+            { key: "title", label: "Heading", type: "text" },
+            { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
+            { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+            { key: "copy", label: "Copy", type: "list", hint: "One paragraph per row.", wide: true },
+            { key: "rows", label: "Figures", type: "objectList", itemLabel: "Row", itemFields: [
+              { key: "label", label: "Label", type: "text" },
+              { key: "value", label: "Value", type: "text" },
+            ] },
+          ],
+        };
+        if (withCta) {
+          panel.fields?.push(
+            { key: "ctaLabel", label: "Button label", type: "text" },
+            { key: "ctaHref", label: "Button link", type: "text", locale: false },
+          );
+        }
+        return panel;
+      }),
     ],
   },
 
