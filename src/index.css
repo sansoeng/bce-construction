@@ -524,160 +524,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 }
 .pl-view.is-list .pl-view-dot { transform: translateY(1.9rem); }
 
-/* Filter pill: black capsule docked to the bottom of the listing while it is in view. */
-.pl-filters {
-  position: absolute;
-  inset: 0;
-  z-index: 30;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: clamp(18px, 2vw, 28px);
-  pointer-events: none;
-}
-.pl-filter {
-  position: sticky;
-  bottom: clamp(18px, 2vw, 28px);
-  width: max-content;
-  max-width: calc(100vw - 32px);
-  background: #111;
-  color: #fff;
-  border-radius: var(--radius);
-  box-shadow: 0 18px 44px rgb(0 0 0 / .22), 0 2px 8px rgb(0 0 0 / .12);
-  pointer-events: auto;
-}
-.pl-filter.is-open { width: min(92vw, 560px); }
-.pl-filter-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  height: 56px;
-  padding: 0 10px 0 26px;
-  border-radius: var(--radius);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-}
-.pl-filter-title {
-  display: block;
-  min-width: 0;
-  max-width: 46vw;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.pl-filter-badge {
-  display: inline-grid;
-  place-items: center;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 6px;
-  border-radius: var(--radius);
-  background: #fff;
-  color: #111;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1;
-}
-.pl-filter-chev {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  flex: none;
-  margin-left: auto;
-  border-radius: 50%;
-  background: rgb(255 255 255 / .14);
-  color: #fff;
-  transition: background-color .35s ease, transform .5s cubic-bezier(.16, 1, .3, 1);
-}
-.pl-filter-chev svg { width: 14px; height: 14px; }
-.pl-filter.is-open .pl-filter-chev { transform: rotate(180deg); background: rgb(255 255 255 / .22); }
-
-.pl-filter-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  width: 0;
-  opacity: 0;
-  transition: grid-template-rows .5s cubic-bezier(.16, 1, .3, 1), opacity .25s ease;
-}
-.pl-filter-panel > div { overflow: hidden; min-height: 0; }
-.pl-filter.is-open .pl-filter-panel { grid-template-rows: 1fr; width: min(92vw, 560px); opacity: 1; }
-.pl-filter-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px 26px;
-  padding: 22px 26px 14px;
-}
-.pl-filter-group { min-width: 0; margin: 0; padding: 0; border: 0; }
-.pl-filter-group ul { margin: 0; padding: 0; list-style: none; }
-.pl-filter-label {
-  padding: 0 0 8px;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: rgb(255 255 255 / .42);
-}
-.pl-filter-opt {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.25;
-  color: #fff;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.pl-filter-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; transition: opacity .2s ease; }
-.pl-filter-opt:hover .pl-filter-name { opacity: .7; }
-.pl-filter-n { font-size: 11px; color: rgb(255 255 255 / .42); font-variant-numeric: tabular-nums; }
-.pl-filter-box {
-  display: grid;
-  place-items: center;
-  width: 16px;
-  height: 16px;
-  flex: none;
-  border: 1px solid rgb(255 255 255 / .38);
-  border-radius: 50%;
-  transition: background-color .25s ease, border-color .25s ease;
-}
-.pl-filter-box svg {
-  width: 9px;
-  height: 9px;
-  color: #111;
-  opacity: 0;
-  transform: scale(.5);
-  transition: opacity .2s ease, transform .3s cubic-bezier(.16, 1, .3, 1);
-}
-.pl-filter-opt input:checked + .pl-filter-box { background: #fff; border-color: #fff; }
-.pl-filter-opt input:checked + .pl-filter-box svg { opacity: 1; transform: none; }
-.pl-filter-opt input:focus-visible + .pl-filter-box { outline: 2px solid #fff; outline-offset: 2px; }
-.pl-filter-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 0 26px 18px;
-  font-size: 13px;
-  color: rgb(255 255 255 / .5);
-  font-variant-numeric: tabular-nums;
-}
-.pl-filter-clear {
-  color: #fff;
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-.pl-filter-clear:hover { opacity: .7; }
-
 /* List view: the same cards as ruled rows — thumbnail, name and location, then category, year and an arrow. */
 .kp-grid.pl-list { display: block; }
 .pl-list .kp-item {
@@ -718,31 +564,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 .pl-list .kp-arrow svg { width: 13px; height: 13px; }
 .pl-list .kp-item:hover .kp-arrow { background: #111; border-color: #111; color: #fff; transform: translate(2px, -2px); }
 
-.pl-empty { padding: 0 calc(15 * var(--u)) calc(190 * var(--u)); }
-.pl-empty-title {
-  padding: calc(70 * var(--u)) 20px;
-  text-align: center;
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #191C1F;
-  background: #f8f8f8;
-  border: 1px solid rgb(0 0 0 / .05);
-  border-radius: var(--radius);
-}
-.pl-empty-reset {
-  display: block;
-  margin: 16px auto 0;
-  padding: 12px 24px;
-  border-radius: var(--radius);
-  background: #191C1F;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color .3s ease;
-}
-.pl-empty-reset:hover { background: #000; }
-
 @media (max-width: 767.98px) {
   .pl-shell { --u: calc(100vw / 375); }
   .pl-hero {
@@ -759,11 +580,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 
   .kp-tag { padding: 8px 13px; font-size: 10.5px; }
   .kp-plus { left: 12px; bottom: 12px; }
-
-  .pl-filter-head { height: 52px; padding: 0 9px 0 20px; }
-  .pl-filter-title { max-width: 54vw; }
-  .pl-filter-body { grid-template-columns: 1fr; gap: 14px; max-height: 48vh; overflow-y: auto; padding: 18px 20px 10px; }
-  .pl-filter-foot { padding: 0 20px 16px; }
 
   .pl-list .kp-item {
     grid-template-columns: calc(84 * var(--u)) minmax(0, 1fr) auto;
@@ -4878,9 +4694,9 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
   border-radius: var(--radius) !important;
 }
 
-/* One control height across the public site: primary buttons, segmented controls, filters and CTA links
-   are 30px tall. Large clickable cards and square icon controls keep their own hit areas, and the admin
-   console keeps its Base sizing. */
+/* One control height across the public site: primary buttons, segmented controls and CTA links are 30px tall.
+   Large clickable cards and square icon controls keep their own hit areas, and the admin console keeps its
+   Base sizing. */
 :root {
   --button-h: 30px;
 }
@@ -4888,7 +4704,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
 :is(
   .fg-btn,
   .all-projects,
-  .pl-filter-head,
   button[class~="h-9"],
   button[class~="h-10"],
   button[class~="h-11"],
