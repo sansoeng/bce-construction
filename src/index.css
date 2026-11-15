@@ -1670,7 +1670,7 @@ html[lang="km"] .glance-num > span {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   pointer-events: auto;
-  transition: height .7s var(--ls-ease), background-color .45s ease, border-color .45s ease, box-shadow .45s ease, color .3s ease;
+  transition: width .7s var(--ls-ease), height .7s var(--ls-ease), background-color .45s ease, border-color .45s ease, box-shadow .45s ease, color .3s ease;
 }
 .ls-nav.is-scrolled .ls-nav-surface { box-shadow: 0 14px 36px rgb(0 0 0 / .12); }
 /* Over a dark cover the bar is part of the photograph. */
@@ -1682,16 +1682,9 @@ html[lang="km"] .glance-num > span {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
-/* With a panel open the bar turns solid light, as the reference's header does. */
-.ls-nav.has-panel .ls-nav-surface {
-  color: var(--ls-ink);
-  background: rgb(248 248 249 / .97);
-  border-color: var(--ls-hairline);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
-}
-/* Menu open: the surface becomes the menu, full height, at the bar's current width. */
+/* Menu open: the surface becomes the menu at the full viewport width, whatever the scroll state. */
 .ls-nav.is-menu-open .ls-nav-surface {
+  width: calc(100% - 16px);
   height: calc(100svh - 16px);
   color: var(--ls-ink);
   background: #d9dbd3;
@@ -1771,51 +1764,7 @@ html[lang="km"] .glance-num > span {
 
 .ls-quote { flex: none; }
 
-/* Hover panels: the expandable navigation, kept from the Apple header and widened with a lead card. */
-.ls-mega {
-  position: relative;
-  display: grid;
-  width: calc(100% - 16px - 2 * var(--ls-compact) * var(--ls-p, 0));
-  max-height: 0;
-  margin: 8px auto 0;
-  overflow: hidden;
-  opacity: 0;
-  border: 1px solid transparent;
-  border-radius: var(--radius);
-  background: rgb(248 248 249 / .96);
-  -webkit-backdrop-filter: saturate(180%) blur(24px);
-  backdrop-filter: saturate(180%) blur(24px);
-  pointer-events: auto;
-  transition: max-height .5s var(--ls-ease), opacity .35s ease, border-color .35s ease;
-}
-.ls-mega.is-open { max-height: 440px; opacity: 1; border-color: var(--ls-hairline); box-shadow: 0 28px 60px rgb(0 0 0 / .14); }
-.ls-mega-panel {
-  grid-area: 1 / 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 34px;
-  padding: 26px 28px 30px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .3s ease, visibility .3s;
-}
-.ls-mega-panel.is-active { opacity: 1; visibility: visible; }
-.ls-mega-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .55; }
-.ls-mega-blurb { max-width: 34rem; margin-top: 10px; font-size: 14px; line-height: 1.45; opacity: .62; }
-.ls-mega-links ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 30px; margin-top: 18px; }
-.ls-mega-link { display: grid; gap: 3px; padding: 8px 0; border-top: 1px solid var(--ls-hairline); color: inherit; }
-.ls-mega-link-label { font-size: 15px; transition: opacity .2s ease; }
-.ls-mega-link-desc { font-size: 12px; line-height: 1.35; opacity: .5; }
-.ls-mega-link:hover .ls-mega-link-label { opacity: .6; }
-.ls-mega-all { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
-.ls-mega-card { position: relative; display: flex; align-items: flex-end; min-height: 230px; overflow: hidden; border-radius: var(--radius); color: #fff; }
-.ls-mega-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.ls-mega-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(15 17 19 / 0) 30%, rgb(15 17 19 / .82) 100%); }
-.ls-mega-card-body { position: relative; z-index: 1; display: grid; gap: 4px; padding: 18px; }
-.ls-mega-card-title { font-size: 16px; }
-.ls-mega-card-text { font-size: 12px; line-height: 1.4; opacity: .82; }
-
-/* Dim the page under an open panel or menu, as the reference does. */
+/* Dim the page under the open menu, as the reference does. */
 .ls-scrim {
   position: fixed;
   inset: 0;
@@ -1943,24 +1892,6 @@ html[lang="km"] .glance-num > span {
 .ls-menu-sublink-desc { font-size: 11.5px; line-height: 1.35; opacity: .55; }
 .ls-menu-row-all { display: inline-block; padding: 9px 0 16px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
 
-.ls-menu-secondary {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2px 18px;
-  font-size: 14px;
-}
-.ls-menu-secondary li {
-  clip-path: inset(0 -2px);
-  transition: clip-path .9s var(--ls-ease), transform .9s var(--ls-ease);
-}
-.ls-nav:not(.is-menu-open) .ls-menu-secondary li { clip-path: inset(100% -2px 0); transform: translateY(-100%); }
-.ls-nav.is-menu-open .ls-menu-secondary li { transition-delay: calc(var(--i, 0) * 45ms + 420ms); }
-.ls-menu-secondary a { display: block; padding: 4px 0; color: inherit; opacity: .68; transition: opacity .2s ease; }
-.ls-menu-secondary a:hover { opacity: 1; }
-
-.ls-menu-contact-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .5; }
-.ls-menu-phones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; font-size: 15px; }
-.ls-menu-address { margin-top: 8px; font-size: 12.5px; line-height: 1.5; opacity: .6; }
 .ls-menu-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: auto; }
 .ls-menu .ls-lang-btn { opacity: .45; }
 .ls-menu .ls-lang-btn.is-current { opacity: 1; }
@@ -2009,7 +1940,6 @@ html[lang="km"] .glance-num > span {
 @media (max-width: 899px) {
   .ls-nav-links,
   .ls-nav-sep { display: none; }
-  .ls-mega { display: none; }
 }
 @media (max-width: 560px) {
   .ls-nav .ls-lang { display: none; }
@@ -2018,7 +1948,7 @@ html[lang="km"] .glance-num > span {
   .ls-menu-card-text { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ls-nav, .ls-nav-surface, .ls-mega, .ls-menu, .ls-menu-row-label, .ls-menu-secondary li,
+  .ls-nav, .ls-nav-surface, .ls-menu, .ls-menu-row-label,
   .ls-menu-card, .ls-menu-row-panel, .ls-link::after, .ls-burger span, .ls-menu-foot { transition: none !important; }
   .ls-menu-row::before, .ls-menu-main::after { transition: none !important; transform: scaleX(1) !important; }
 }
@@ -4280,7 +4210,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   .ol-lead-content { grid-column: 1 / -1; }
 }
 html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; }
-.ol-label { font-size: .95rem; font-weight: 400; line-height: 1.35; letter-spacing: -.01em; color: var(--ol-dim); }
+.ol-label { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.6; letter-spacing: .02em; text-transform: uppercase; color: #ff3c1e; }
 .ol-page-body { position: relative; z-index: 1; display: flow-root; background: var(--ol-bg); }
 
 /* Cover (ParallaxHero), after the careers page: a full-height photo under a dark scrim with the label and the oversized
@@ -4307,11 +4237,12 @@ html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; 
 @media (max-width: 519px) { .ol-hero-title { grid-column: 1 / -1; } }
 html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .ol-onboard-heading { line-height: 1.4; font-weight: 600 !important; }
 
-/* What we do */
+/* What we do — the recruitment page's label-with-copy: a 14px mono caps label in the site orange on the left, the
+   standfirst in 18px grey on the right. */
 .ol-lwc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); padding: 48px var(--olm) 0; }
-.ol-lwc-label { grid-column: 1 / 7; }
+.ol-lwc-label { grid-column: 1 / span 4; font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.6; letter-spacing: .02em; text-transform: uppercase; color: #ff3c1e; }
 .ol-lwc-content { grid-column: 8 / -1; }
-.ol-lwc-copy { font-size: clamp(1.35rem, 1.75vw, 1.9rem); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
+.ol-lwc-copy { max-width: 560px; font-size: 18px; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; color: rgb(30 34 38 / .7); }
 .ol-topics { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 40px; }
 .ol-topics a { display: inline-flex; gap: 8px; font-size: .95rem; line-height: 1.35; color: var(--ol-dim); transition: color .4s ease; }
 .ol-topics a span { color: rgb(17 17 17 / .3); }
@@ -4363,7 +4294,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .ol-dk-content { display: flex; flex: 0 0 50%; flex-direction: column; padding-block: 144px 215px; }
 .ol-dk--reverse .ol-dk-media { order: -1; margin-right: 0; margin-left: calc(var(--olm) * -1); }
 .ol-dk--reverse .ol-dk-content { padding-left: calc(var(--ol-col) + var(--olg) * 1.5); padding-block: 144px; }
-.ol-dk-label { margin-bottom: 24px; color: rgb(255 255 255 / .5); }
+.ol-dk-label { margin-bottom: 24px; }
 .ol-dk-title { color: #fff; }
 .ol-dk-copy { display: flex; flex-direction: column; gap: 1.2em; max-width: 26rem; margin-top: auto; padding-top: 48px; font-size: 1.1rem; line-height: 1.45; color: rgb(255 255 255 / .66); }
 @media (max-width: 1023px) {
@@ -4847,7 +4778,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 
 .ol-capacity { margin-top: 230px; padding: 120px var(--olm) 130px; background: var(--ol-dark); color: #fff; }
 .ol-capacity-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); align-items: start; }
-.ol-capacity-head .ol-label { grid-column: 1 / span 6; color: rgb(255 255 255 / .5); }
+.ol-capacity-head .ol-label { grid-column: 1 / span 6; }
 .ol-capacity-title { grid-column: 7 / -1; max-width: 34rem; font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 .ol-capacity-copy { grid-column: 7 / -1; max-width: 30rem; margin-top: 28px; font-size: 1.05rem; line-height: 1.4; color: rgb(255 255 255 / .6); }
 .ol-capacity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--olg); row-gap: 48px; margin-top: 100px; padding: 0; list-style: none; }
@@ -4872,7 +4803,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   border-top: 1px solid rgb(255 255 255 / .18);
   text-align: center;
 }
-.ol-capacity-contact .ol-label { color: rgb(255 255 255 / .65); font-size: .95rem; }
+.ol-capacity-contact .ol-label { color: #ff3c1e; }
 .ol-capacity-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 44px; font-size: clamp(1.25rem, 1.9vw, 1.85rem); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
 .ol-capacity-links a { color: #fff; padding-bottom: 3px; border-bottom: 1px solid rgb(255 255 255 / .35); transition: border-color .3s ease; }
 .ol-capacity-links a:hover { border-color: #fff; }

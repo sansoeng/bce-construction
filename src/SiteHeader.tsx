@@ -5,10 +5,9 @@ import { businessHref, offerings } from "./company";
 
 /**
  * Navigation after lightshiprv.com: a floating, inset bar — hamburger and primary links at the left, the BCE mark
- * centred, the remaining links and the quote button at the right. One clipped surface carries both the bar and the
- * menu: on scroll the surface narrows and slides up over the first 800px (eased like their clip), the mark scales
- * down, and the hamburger grows the same surface into the full-screen menu — a curtain from the bar rather than a
- * separate page. Labels, hairlines, links and cards arrive with the reference's clip-path stagger.
+ * centred, More and the quote button at the right. Every expandable entry (Businesses, Projects, Quality & Lab, More)
+ * opens the same full-viewport menu, already expanded on that section; the hamburger opens it at the top. The surface
+ * stays full-screen in compact/scrolled mode too, so the menu is always one clipped curtain across the viewport.
  */
 
 const revealListeners = new Set<() => void>();
@@ -73,69 +72,25 @@ const PROJECT_ITEMS: Item[] = [
   { label: "Foundation Piling Works", href: "/?projects#piling", desc: "Hydraulic static pressing & driven RC piles" },
 ];
 
-const MORE_ITEMS: Item[] = [
-  { label: "Contact", href: "/?contact", desc: "Head office, hotlines and site directions" },
-  { label: "Resources & Downloads", href: "/?resources", desc: "Company profile, certificates and tender documents" },
-  { label: "Careers & Recruitment", href: "/?recruitment", desc: "Open roles on site, in the plant and in the lab" },
-  { label: "Blog & Insights", href: "/?blog", desc: "Project notes, technical writing and company news" },
-  { label: "Technical Capabilities", href: "/?capabilities", desc: "4 plants, 41 mixers, 8 pumps and our own piling rigs" },
+const QUALITY_ITEMS: Item[] = [
+  { label: "Quality & HSE", href: "/?quality", desc: "Our quality management and safety commitments" },
+  { label: "Laboratory & quality assurance", href: "/?quality#laboratory", desc: "In-house DYE-2000 testing and 28-day validation" },
+  { label: "Raw material certificates", href: "/?quality#raw-materials", desc: "Cement, sand, aggregate, water and steel" },
+  { label: "Calibration certificates", href: "/?quality#calibration", desc: "Calibrated laboratory and batching equipment" },
+  { label: "Mix design documents", href: "/?quality#mix-design", desc: "Approved C15–C40 mix designs" },
 ];
 
-type Panel = { label: string; href: string; blurb: string; items: Item[]; card: { title: string; text: string; href: string; image: string } };
-
-const PANELS: Record<"businesses" | "projects" | "more", Panel> = {
-  businesses: {
-    label: "Our businesses",
-    href: "/?businesses",
-    blurb: "Concrete, piling, construction, slab works and fleet hire — delivered with our own plants, crews and laboratory.",
-    items: BUSINESS_ITEMS,
-    card: {
-      title: "Integrated from plant to pour",
-      text: "Four batching plants, 41 mixer trucks, 8 pumps and an accredited in-house laboratory.",
-      href: "/?businesses",
-      image: "/Image/bce/about-business-banner.webp",
-    },
-  },
-  projects: {
-    label: "Selected work",
-    href: "/?projects",
-    blurb: "Infrastructure, industrial and foundation works across 13 provinces and Phnom Penh.",
-    items: PROJECT_ITEMS,
-    card: {
-      title: "30+ landmark projects",
-      text: "Bridges, factories, warehouses, towers and residential developments since 1995.",
-      href: "/?projects",
-      image: "/Image/bce/core-business-construction.webp",
-    },
-  },
-  more: {
-    label: "The company",
-    href: "/?contact",
-    blurb: "The people, the paperwork and the ways to reach us.",
-    items: MORE_ITEMS,
-    card: {
-      title: "Talk to our engineers",
-      text: "Site, scope and schedule — we review it and come back with a clear, detailed quotation.",
-      href: "/?contact",
-      image: "/Image/bce/about-zoom-rebar-crew.webp",
-    },
-  },
-};
-
-const SECONDARY: Item[] = [
-  { label: "About BCE", href: "/?about" },
-  { label: "Quality & Lab", href: "/?quality" },
-  { label: "Technical capabilities", href: "/?capabilities" },
-  { label: "Resources & downloads", href: "/?resources" },
-  { label: "Careers & recruitment", href: "/?recruitment" },
-  { label: "Blog & insights", href: "/?blog" },
-  { label: "Contact", href: "/?contact" },
+const MORE_ITEMS: Item[] = [
+  { label: "Resources", href: "/?resources", desc: "Company profile, certificates and tender documents" },
+  { label: "Contact", href: "/?contact", desc: "Head office, hotlines and site directions" },
+  { label: "Careers", href: "/?recruitment", desc: "Open roles on site, in the plant and in the lab" },
+  { label: "Blog", href: "/?blog", desc: "Project notes, technical writing and company news" },
 ];
 
 const MENU_CARDS = [
   { title: "Our businesses", text: "Five core operations, one integrated company.", href: "/?businesses", image: "/Image/bce/about-business-banner.webp" },
+  { title: "About", text: "Thirty years of building across Cambodia.", href: "/?about", image: "/Image/bce/about-hero-banner.webp" },
   { title: "Projects", text: "Bridge foundations, factories and towers.", href: "/?projects", image: "/Image/bce/core-business-piling.webp" },
-  { title: "Careers", text: "Crews, engineers and laboratory staff.", href: "/?recruitment", image: "/Image/bce/about-zoom-rebar-crew.webp" },
 ];
 
 function Crest({ className = "" }: { className?: string }) {
@@ -169,14 +124,12 @@ interface SiteHeaderProps {
   base?: string;
 }
 
-export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) {
+export default function SiteHeader({ base = "" }: SiteHeaderProps) {
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
   const [scrolled, setScrolled] = useState(false);
   const [onCover, setOnCover] = useState(false);
-  const [activePanel, setActivePanel] = useState<"businesses" | "projects" | "more" | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState<SectionKey | null>(null);
-  const closeTimeout = useRef<number | null>(null);
   const navRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
@@ -225,7 +178,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMenuOpen(false);
-        setActivePanel(null);
+        setOpenSection(null);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -268,21 +221,12 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
     };
   }, [menuOpen]);
 
-  const openPanel = (key: "businesses" | "projects" | "more" | null) => {
-    if (closeTimeout.current) {
-      clearTimeout(closeTimeout.current);
-      closeTimeout.current = null;
-    }
-    if (menuOpen) return;
-    setActivePanel(key);
-  };
-
-  const leavePanel = () => {
-    closeTimeout.current = window.setTimeout(() => setActivePanel(null), 220);
+  const openMenuAt = (key: SectionKey) => {
+    setOpenSection(key);
+    setMenuOpen(true);
   };
 
   const closeAll = () => {
-    setActivePanel(null);
     setMenuOpen(false);
     setOpenSection(null);
   };
@@ -291,7 +235,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
 
   const toggleMenu = () => {
     setMenuOpen((open) => {
-      if (!open) setActivePanel(null);
+      if (!open) setOpenSection(null);
       return !open;
     });
   };
@@ -302,9 +246,8 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
         ref={navRef}
         data-nav
         className={`ls-nav ${isIn ? "is-in" : ""} ${scrolled ? "is-scrolled" : ""} ${onCover ? "is-on-cover" : ""} ${
-          activePanel ? "has-panel" : ""
-        } ${menuOpen ? "is-menu-open" : ""}`}
-        onMouseLeave={leavePanel}
+          menuOpen ? "is-menu-open" : ""
+        }`}
       >
         <div className="ls-nav-surface">
           <div className="ls-nav-bar">
@@ -324,23 +267,36 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                 <a href={linkHref("/?about")} className="ls-link" onClick={closeAll}>About</a>
                 <a
                   href={linkHref("/?businesses")}
-                  className={`ls-link ${activePanel === "businesses" ? "is-active" : ""}`}
-                  aria-expanded={activePanel === "businesses"}
-                  onMouseEnter={() => openPanel("businesses")}
-                  onFocus={() => openPanel("businesses")}
+                  className={`ls-link ${menuOpen && openSection === "businesses" ? "is-active" : ""}`}
+                  aria-haspopup="dialog"
+                  aria-expanded={menuOpen && openSection === "businesses"}
+                  onMouseEnter={() => openMenuAt("businesses")}
+                  onFocus={() => openMenuAt("businesses")}
                   onClick={closeAll}
                 >
                   Businesses
                 </a>
                 <a
                   href={linkHref("/?projects")}
-                  className={`ls-link ${activePanel === "projects" ? "is-active" : ""}`}
-                  aria-expanded={activePanel === "projects"}
-                  onMouseEnter={() => openPanel("projects")}
-                  onFocus={() => openPanel("projects")}
+                  className={`ls-link ${menuOpen && openSection === "projects" ? "is-active" : ""}`}
+                  aria-haspopup="dialog"
+                  aria-expanded={menuOpen && openSection === "projects"}
+                  onMouseEnter={() => openMenuAt("projects")}
+                  onFocus={() => openMenuAt("projects")}
                   onClick={closeAll}
                 >
                   Projects
+                </a>
+                <a
+                  href={linkHref("/?quality")}
+                  className={`ls-link ${menuOpen && openSection === "quality" ? "is-active" : ""}`}
+                  aria-haspopup="dialog"
+                  aria-expanded={menuOpen && openSection === "quality"}
+                  onMouseEnter={() => openMenuAt("quality")}
+                  onFocus={() => openMenuAt("quality")}
+                  onClick={closeAll}
+                >
+                  Quality &amp; Lab
                 </a>
               </nav>
             </div>
@@ -352,13 +308,13 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
 
             <div className="ls-nav-right">
               <nav className="ls-nav-links ls-nav-links-right" aria-label="Secondary">
-                <a href={linkHref("/?quality")} className="ls-link" onClick={closeAll}>Quality & Lab</a>
                 <a
                   href={linkHref("/?contact")}
-                  className={`ls-link ${activePanel === "more" ? "is-active" : ""}`}
-                  aria-expanded={activePanel === "more"}
-                  onMouseEnter={() => openPanel("more")}
-                  onFocus={() => openPanel("more")}
+                  className={`ls-link ${menuOpen && openSection === "more" ? "is-active" : ""}`}
+                  aria-haspopup="dialog"
+                  aria-expanded={menuOpen && openSection === "more"}
+                  onMouseEnter={() => openMenuAt("more")}
+                  onFocus={() => openMenuAt("more")}
                   onClick={closeAll}
                 >
                   More
@@ -400,7 +356,7 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                       { key: "about", label: "About", href: "/?about" },
                       { key: "businesses", label: "Businesses", href: "/?businesses", items: BUSINESS_ITEMS },
                       { key: "projects", label: "Projects", href: "/?projects", items: PROJECT_ITEMS },
-                      { key: "quality", label: "Quality & Lab", href: "/?quality" },
+                      { key: "quality", label: "Quality & Lab", href: "/?quality", items: QUALITY_ITEMS },
                       { key: "more", label: "More", href: "/?contact", items: MORE_ITEMS },
                     ] as { key: SectionKey; label: string; href: string; items?: Item[] }[]
                   ).map((row, i) => {
@@ -436,37 +392,17 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
                                   </li>
                                 ))}
                               </ul>
-                              <a href={linkHref(row.href)} className="ls-menu-row-all" onClick={closeAll}>
-                                View all <span aria-hidden>→</span>
-                              </a>
+                              {row.key !== "more" ? (
+                                <a href={linkHref(row.href)} className="ls-menu-row-all" onClick={closeAll}>
+                                  View all <span aria-hidden>→</span>
+                                </a>
+                              ) : null}
                             </div>
                           </div>
                         ) : null}
                       </div>
                     );
                   })}
-                </div>
-
-                <ul className="ls-menu-secondary">
-                  {SECONDARY.map((item, i) => (
-                    <li key={item.label} style={{ "--i": i } as CSSProperties}>
-                      <a href={linkHref(item.href)} onClick={closeAll}>{item.label}</a>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="ls-menu-contact">
-                  <p className="ls-menu-contact-label">Direct batching hotlines</p>
-                  <div className="ls-menu-phones">
-                    {phones.slice(0, 2).map((p) => (
-                      <a key={p} href={tel(p)}>{p}</a>
-                    ))}
-                  </div>
-                  <p className="ls-menu-address">
-                    Ang Village, Sangkat O’Char
-                    <br />
-                    Battambang City, Cambodia
-                  </p>
                 </div>
 
                 <div className="ls-menu-actions">
@@ -484,42 +420,10 @@ export default function SiteHeader({ phones, tel, base = "" }: SiteHeaderProps) 
           </div>
         </div>
 
-        {/* Hover panels: the expandable navigation, kept from the previous header and widened with a lead card. */}
-        <div className={`ls-mega ${activePanel ? "is-open" : ""}`}>
-          {(Object.keys(PANELS) as (keyof typeof PANELS)[]).map((key) => (
-            <div key={key} className={`ls-mega-panel ${activePanel === key ? "is-active" : ""}`}>
-              <div className="ls-mega-links">
-                <p className="ls-mega-label">{PANELS[key].label}</p>
-                <p className="ls-mega-blurb">{PANELS[key].blurb}</p>
-                <ul>
-                  {PANELS[key].items.map((item) => (
-                    <li key={item.label}>
-                      <a href={linkHref(item.href)} onClick={closeAll} className="ls-mega-link">
-                        <span className="ls-mega-link-label">{item.label}</span>
-                        {item.desc ? <span className="ls-mega-link-desc">{item.desc}</span> : null}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <a href={linkHref(PANELS[key].href)} onClick={closeAll} className="ls-mega-all">
-                  View all
-                  <span aria-hidden>→</span>
-                </a>
-              </div>
-              <a href={linkHref(PANELS[key].card.href)} onClick={closeAll} className="ls-mega-card">
-                <img src={PANELS[key].card.image} alt="" loading="lazy" />
-                <span className="ls-mega-card-body">
-                  <span className="ls-mega-card-title">{PANELS[key].card.title}</span>
-                  <span className="ls-mega-card-text">{PANELS[key].card.text}</span>
-                </span>
-              </a>
-            </div>
-          ))}
-        </div>
       </header>
 
       <div
-        className={`ls-scrim ${activePanel || menuOpen ? "is-active" : ""}`}
+        className={`ls-scrim ${menuOpen ? "is-active" : ""}`}
         onClick={closeAll}
         aria-hidden
       />
