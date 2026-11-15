@@ -143,7 +143,29 @@ export default function QualityPage() {
         {/* 04 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. */}
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} />
 
-        {/* 05 Documents: mix designs, licences and certificates merged into one set of cards, after
+        {/* 05 Concrete grades, after olympic.no/navigating-with-responsibility: the statement on the left, then the
+            grades as a ruled two-column grid — the code drawn as an outlined orange mark, the strength and the typical
+            use set beside it. */}
+        <section id="grades" data-header-title="Concrete grades" aria-labelledby="qs-grades" className="qg site-pad">
+          <h2 id="qs-grades" className="qg-label">Concrete grades</h2>
+          <p data-split className="qg-statement">{quality.documents.gradesText}</p>
+
+          <ul className="qg-grid">
+            {quality.documents.grades.map(({ grade, strength, use }) => (
+              <li key={grade} className="qg-cell">
+                <span className="qg-mark" aria-hidden>{grade}</span>
+                <div className="qg-body">
+                  <p className="qg-strength">{strength}</p>
+                  <p data-split="content" className="qg-use">{use}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <p data-split="content" className="qg-note">{quality.documents.note}</p>
+        </section>
+
+        {/* 06 Documents: mix designs, licences and certificates merged into one set of cards, after
             olympic.no/investor — a light band, the mono eyebrow and uppercase title, then near-black document cards
             with a hairline head, a date or status foot and their actions. */}
         <section id="documents" data-header-title={quality.documents.title} aria-labelledby="qs-documents" className="qd site-pad">
@@ -233,16 +255,6 @@ export default function QualityPage() {
               </li>
             ))}
           </ul>
-
-          <div className="qd-grades">
-            <p className="qd-grades-label">Concrete grades</p>
-            <ul className="qd-grade-list">
-              {quality.documents.grades.map(({ grade, strength }) => (
-                <li key={grade} className="qd-grade"><b>{grade}</b><span>{strength}</span></li>
-              ))}
-            </ul>
-            <p data-split="content" className="qd-note">{quality.documents.note}</p>
-          </div>
 
         </section>
       </div>

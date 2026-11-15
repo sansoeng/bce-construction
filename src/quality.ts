@@ -63,7 +63,8 @@ export type QualityContent = {
       size: string;
       file: string;
     }[];
-    grades: { grade: string; strength: string }[];
+    gradesText: string;
+    grades: { grade: string; strength: string; use: string }[];
     note: string;
     ctaLabel: string;
     ctaHref: string;
@@ -204,13 +205,14 @@ export const DEFAULT_QUALITY: QualityContent = {
         file: "",
       },
     ],
+    gradesText: "From blinding and mass fill to bridges and heavy structures, every grade is designed, trial-mixed and tested in our own laboratory before it reaches site.",
     grades: [
-      { grade: "C15", strength: "15 MPa" },
-      { grade: "C20", strength: "20 MPa" },
-      { grade: "C25", strength: "25 MPa" },
-      { grade: "C30", strength: "30 MPa" },
-      { grade: "C35", strength: "35 MPa" },
-      { grade: "C40", strength: "40 MPa" },
+      { grade: "C15", strength: "15 MPa", use: "Blinding and mass fill" },
+      { grade: "C20", strength: "20 MPa", use: "Ground slabs and paths" },
+      { grade: "C25", strength: "25 MPa", use: "Floor slabs and footings" },
+      { grade: "C30", strength: "30 MPa", use: "Columns, beams and suspended slabs" },
+      { grade: "C35", strength: "35 MPa", use: "Foundations and piles" },
+      { grade: "C40", strength: "40 MPa", use: "Bridges and heavy structures" },
     ],
     note: "Characteristic cube strength at 28 days. Other grades and special mixes designed on request.",
     ctaLabel: "Request documents",

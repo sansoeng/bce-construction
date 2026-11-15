@@ -4198,7 +4198,6 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
    title and the mix designs, licences and certificates as near-black cards — a hairline under the title, the date or
    status and its icon actions on the foot — then the concrete grades as a compact row of chips. */
 .qd {
-  margin-top: clamp(6rem, 11vw, 11rem);
   padding-block: clamp(5rem, 9vw, 9rem);
   background: #f2f3f4;
 }
@@ -4283,44 +4282,72 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qd-act:hover { background: #fff; color: #111; opacity: 1; }
 .qd-act:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .qd-act svg { width: 15px; height: 15px; }
-.qd-grades { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
-.qd-grades-label {
+/* 05 Concrete grades, after olympic.no/navigating-with-responsibility: the statement across the top, then the six
+   grades as a ruled two-column grid — the code drawn as an outlined orange mark, the strength and its typical use on
+   the right of the same cell. */
+.qg { margin-top: clamp(5rem, 9vw, 9rem); padding-bottom: clamp(5rem, 9vw, 8rem); }
+.qg-label {
   font-family: var(--font-ui-mono);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: .08em;
+  line-height: 1.6;
+  letter-spacing: .02em;
   text-transform: uppercase;
-  color: rgb(17 17 17 / .45);
+  color: #ff3c1e;
 }
-/* The grades read as one spec row: equal tiles, the grade large and the strength small beneath it, so the six can be
-   compared at a glance. */
-.qd-grade-list {
+.qg-statement {
+  max-width: 62rem;
+  margin-top: clamp(1.25rem, 2vw, 1.75rem);
+  font-size: clamp(1.5rem, 2.3vw, 2rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -.015em;
+  color: #1e2226;
+}
+.qg-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: .85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: clamp(3rem, 5vw, 5rem);
   padding: 0;
   list-style: none;
+  border-top: 1px solid rgb(17 17 17 / .14);
 }
-.qd-grade {
-  display: flex;
-  flex-direction: column;
-  gap: .15rem;
-  padding: .9rem 1rem;
-  border-radius: var(--radius);
-  background: #fff;
+.qg-cell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  min-height: clamp(12rem, 17vw, 16rem);
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  border-bottom: 1px solid rgb(17 17 17 / .14);
 }
-.qd-grade b { font-size: 1.3rem; font-weight: 500; line-height: 1.1; letter-spacing: -.02em; color: #111; }
-.qd-grade span { font-size: .8rem; line-height: 1.3; color: rgb(17 17 17 / .5); font-variant-numeric: tabular-nums; }
-.qd-note { margin-top: 1rem; max-width: 46rem; font-size: .85rem; line-height: 1.45; color: rgb(17 17 17 / .45); }
+.qg-cell:nth-child(even) { border-left: 1px solid rgb(17 17 17 / .14); }
+/* The code as the reference's outlined glyph, in the site orange. */
+.qg-mark {
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 500;
+  line-height: .9;
+  letter-spacing: -.045em;
+  color: #ff3c1e;
+}
+@supports (-webkit-text-stroke: 1px currentColor) {
+  .qg-mark { color: transparent; -webkit-text-stroke: 2px #ff3c1e; }
+}
+.qg-body { display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; height: 100%; }
+.qg-strength { font-size: 1.15rem; font-weight: 500; line-height: 1.2; letter-spacing: -.01em; color: #ff3c1e; }
+.qg-use { max-width: 22rem; font-size: .95rem; line-height: 1.5; color: rgb(17 17 17 / .55); }
+.qg-note { margin-top: 1.75rem; max-width: 46rem; font-size: .9rem; line-height: 1.45; color: rgb(17 17 17 / .45); }
 @media (max-width: 1023px) {
   .qd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-  .qd-grade-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 639px) {
   .qd-grid { grid-template-columns: 1fr; }
   .qd-card { min-height: 0; }
-  .qd-grade-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .qg-grid { grid-template-columns: 1fr; }
+  .qg-cell { min-height: 0; }
+  .qg-cell:nth-child(even) { border-left: 0; }
 }
 
 /* Request a Quote (src/QuotePage.tsx): ruled fields on the site's type, service tiles in the offer-panel colours,

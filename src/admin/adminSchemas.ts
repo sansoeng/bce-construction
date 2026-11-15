@@ -408,7 +408,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "materials", title: "Raw material certificates", hint: "The certified materials and the photo beside them.", keys: ["materials"] },
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
-      { id: "documents", title: "Documents", hint: "Mix designs, licences and certificates as one set of cards, with the concrete grades and the request button.", keys: ["documents"] },
+      { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section shown above them, and the request link.", keys: ["documents"] },
     ],
     fields: [
       { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
@@ -483,9 +483,11 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "size", label: "File size", type: "text", hint: "As shown on the card, e.g. 3.6 KB.", locale: false },
           { key: "status", label: "Status", type: "text", hint: "Shown instead of the date and size when there is no file, e.g. On request." },
         ] },
+        { key: "gradesText", label: "Grades statement", type: "textarea", rows: 3, wide: true, hint: "The lead line above the concrete grades grid, in its own section below." },
         { key: "grades", label: "Concrete grades", type: "objectList", itemLabel: "Grade", itemFields: [
           { key: "grade", label: "Grade", type: "text", locale: false },
           { key: "strength", label: "Strength", type: "text", locale: false },
+          { key: "use", label: "Typical use", type: "text" },
         ] },
         { key: "note", label: "Footnote", type: "text", wide: true },
         { key: "ctaLabel", label: "Request button label", type: "text" },

@@ -874,6 +874,7 @@ const KM: Record<string, string> = {
   "Floor slabs and footings": "កម្រាលអគារ និងជើងតាង",
   "C30  /  30 MPa": "C30 / 30 MPa",
   "Columns, beams, suspended slabs": "សសរ ធ្នឹម និងកម្រាលជាន់លើ",
+  "Columns, beams and suspended slabs": "សសរ ធ្នឹម និងកម្រាលជាន់លើ",
   "C35  /  35 MPa": "C35 / 35 MPa",
   "Foundations and piles": "គ្រឹះ និងសសរស្ដម្ភ",
   "C40  /  40 MPa": "C40 / 40 MPa",
@@ -959,6 +960,8 @@ const KM: Record<string, string> = {
   "Material proportions per m³": "សមាមាត្រវត្ថុធាតុដើមក្នុង ១ ម៉ែត្រគូប (m³)",
   "7- and 28-day strength records": "កំណត់ត្រាកម្លាំងសង្កត់អាយុ ៧ និង ២៨ ថ្ងៃ",
   "Concrete grades": "កម្រិតគុណភាពបេតុង",
+  "From blinding and mass fill to bridges and heavy structures, every grade is designed, trial-mixed and tested in our own laboratory before it reaches site.":
+    "ចាប់ពីបេតុងទ្រនាប់ និងការចាក់បំពេញម៉ាស រហូតដល់ស្ពាន និងសំណង់រចនាសម្ព័ន្ធធុនធ្ងន់ គ្រប់កម្រិតបេតុងត្រូវបានរចនា លាយសាកល្បង និងតេស្តក្នុងមន្ទីរពិសោធន៍របស់យើង មុនពេលដឹកជញ្ជូនទៅការដ្ឋាន។",
   "Characteristic cube strength at 28 days. Other grades and special mixes designed on request.":
     "កម្លាំងគំរូគូបស្តង់ដារនៅអាយុ ២៨ ថ្ងៃ។ កម្រិតផ្សេងទៀត និងរូបមន្តពិសេសអាចរៀបចំតាមការស្នើសុំ។",
   "Licences & certifications": "អាជ្ញាប័ណ្ណ និងវិញ្ញាបនបត្រផ្លូវការ",
