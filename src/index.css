@@ -1552,13 +1552,14 @@ html.ls-lock body { overflow: hidden; }
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
-/* A panel or the phone sheet needs a light surface underneath it, even over a dark cover. */
+/* A panel or the phone sheet needs a light surface underneath it, even over a dark cover; the bar takes the
+   reference's 70% white while a dropdown is open. */
 .ls-nav.is-solid .ls-nav-surface,
 .ls-nav.is-sheet-open .ls-nav-surface,
 .ls-nav.is-on-cover.is-solid .ls-nav-surface,
 .ls-nav.is-on-cover.is-sheet-open .ls-nav-surface {
   color: var(--ls-ink);
-  background: rgb(248 248 249 / .92);
+  background: hsl(0 0% 100% / .7);
   border-color: var(--ls-hairline);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
@@ -1581,39 +1582,18 @@ html.ls-lock body { overflow: hidden; }
 .ls-nav-links { display: flex; align-items: center; gap: 24px; }
 .ls-nav-item { position: relative; display: flex; }
 
+/* The reference's tab: plain text that turns brand orange, no underline and no caret. */
 .ls-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  display: inline-block;
   padding: 6px 0;
-  border: 0;
-  background: none;
   color: inherit;
   font-size: 15px;
-  line-height: 1.2;
+  line-height: 1;
   white-space: nowrap;
-  transition: color .25s ease;
-}
-.ls-link-label { position: relative; }
-.ls-link-label::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -4px;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform .5s var(--ls-ease-soft);
+  transition: color .3s ease;
 }
 .ls-link:hover,
 .ls-nav-item.is-active .ls-link { color: var(--brand); }
-.ls-nav-item:hover .ls-link-label::after,
-.ls-nav-item.is-active .ls-link-label::after { transform: scaleX(1); transform-origin: left; }
-.ls-link-chev { width: 9px; height: 9px; flex: none; opacity: .5; transition: transform .35s var(--ls-ease), opacity .25s ease; }
-.ls-nav-item.is-active .ls-link-chev { transform: rotate(180deg); opacity: 1; }
 
 /* The BCE lockup: crest in brand orange, wordmark, full name underneath. It scales down with the scroll, as the
    reference's wordmark does. */
@@ -1697,80 +1677,120 @@ html.ls-lock body { overflow: hidden; }
   margin: 0 auto;
 }
 
+/* The reference's dropdown: 78% white glass, 32px blur, a half-pixel #eee hairline, a 10px corner and no shadow.
+   It fades in while dropping 10px, over 350ms, and closes the same way. */
 .ls-panel {
   position: absolute;
   top: 0;
   visibility: hidden;
   opacity: 0;
-  padding: 24px;
-  border: 1px solid var(--ls-hairline);
-  border-radius: 12px;
-  background: rgb(255 255 255 / .95);
-  -webkit-backdrop-filter: saturate(180%) blur(24px);
-  backdrop-filter: saturate(180%) blur(24px);
-  box-shadow: 0 28px 70px rgb(0 0 0 / .12);
   color: var(--ls-ink);
+  background: hsl(0 0% 100% / .78);
+  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px);
+  border: .5px solid #eee;
+  border-radius: 10px;
+  box-shadow: none;
   pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity .26s ease, transform .4s var(--ls-ease), visibility .4s ease;
+  transform: translateY(-10px);
+  transition: opacity .35s ease, transform .35s ease, visibility .35s ease;
 }
 .ls-panel.is-open { z-index: 2; visibility: visible; opacity: 1; pointer-events: auto; }
-.ls-panel--cards { left: 0; right: 0; padding: 24px 24px 18px; }
-.ls-panel--list {
-  --pw: min(440px, calc(100vw - 2 * var(--page-gutter)));
+.ls-panel--default {
+  --pw: min(380px, calc(100vw - 2 * var(--page-gutter)));
   width: var(--pw);
   left: clamp(calc(var(--pw) / 2), var(--ls-panel-x, 50%), calc(100% - var(--pw) / 2));
-  transform: translateX(-50%) translateY(-8px);
+  transform: translateX(-50%) translateY(-10px);
 }
-.ls-panel--list.is-wide { --pw: min(700px, calc(100vw - 2 * var(--page-gutter))); padding: 18px; }
-.ls-panel.is-open,
-.ls-panel--list.is-open { transform: translateX(-50%) translateY(0); }
-.ls-panel--cards.is-open { transform: translateY(0); }
+.ls-panel--default.is-open { transform: translateX(-50%) translateY(0); }
+.ls-panel--mega,
+.ls-panel--columns { left: 0; right: 0; }
+.ls-panel--mega.is-open,
+.ls-panel--columns.is-open { transform: translateY(0); }
 
-.ls-list { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
-.ls-list.is-wide { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 10px; }
-.ls-list-link {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 10px 12px;
-  border-radius: var(--radius);
-  color: inherit;
-  transition: background-color .3s ease;
+/* Narrow list (About, Projects, More): 40/32/32 padding, 20px titles, 24px apart. */
+.ls-drop { padding: 40px 32px 32px; }
+.ls-drop-list { display: flex; flex-direction: column; gap: 24px; margin: 0; padding: 0; list-style: none; }
+.ls-drop-link {
+  display: block;
+  color: #191919;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.4px;
+  transition: color .3s ease;
 }
-.ls-list-link:hover { background: rgb(17 17 17 / .045); }
-.ls-list-link:hover .ls-list-title { color: var(--brand); }
-.ls-panel-icon { width: 22px; height: 22px; flex: none; margin-top: 1px; color: var(--ink-meta); transition: color .3s ease; }
-.ls-list-link:hover .ls-panel-icon { color: var(--brand); }
-.ls-list-text { display: block; min-width: 0; }
-.ls-list-title { display: block; font-size: 16px; font-weight: 500; line-height: 1.35; transition: color .3s ease; }
-.ls-list-desc { display: block; margin-top: 3px; font-size: 13px; line-height: 1.45; color: var(--ink-meta); }
+.ls-drop-link:hover { color: var(--brand); }
 
-/* Business panel: five photographs in a row, titles and one-line descriptions under each. */
-.ls-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
-.ls-card { display: block; color: inherit; }
-.ls-card-media { display: block; position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); background: var(--paper-media); }
-.ls-card-media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ls-ease); }
-.ls-card:hover .ls-card-media img { transform: scale(1.05); }
-.ls-card-title { display: block; margin-top: 12px; font-size: 16px; font-weight: 500; line-height: 1.3; transition: color .3s ease; }
-.ls-card:hover .ls-card-title { color: var(--brand); }
-.ls-card-desc { display: block; margin-top: 4px; font-size: 13px; line-height: 1.45; color: var(--ink-meta); }
-
-.ls-panel-foot { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
-.ls-panel-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: inherit;
-  transition: color .25s ease;
+/* Media panel (Business): a 309×279 photo on the left that cross-fades to the hovered title, and the titles in two
+   columns of three, as the reference's product menu. */
+.ls-mega { display: flex; gap: 50px; padding: 50px; }
+.ls-mega-media {
+  position: relative;
+  width: 309px;
+  height: 279px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--paper-media);
 }
-.ls-panel-more svg { width: 11px; height: 11px; transition: transform .4s var(--ls-ease); }
-.ls-panel-more:hover { color: var(--brand); }
-.ls-panel-more:hover svg { transform: translate(2px, -2px); }
+.ls-mega-media img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.ls-mega-media img.is-active { opacity: 1; }
+.ls-mega-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, auto);
+  align-content: start;
+  gap: 24px 167px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ls-mega-link {
+  display: block;
+  color: #191919;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.4px;
+  transition: color .3s ease;
+}
+.ls-mega-link:hover { color: var(--brand); }
+
+/* Group panel (Quality & Lab): three columns of titled link lists, as the reference's services menu. */
+.ls-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 50px;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 50px;
+}
+.ls-col-title {
+  display: block;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgb(25 25 25 / .2);
+  color: #191919;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.4px;
+  transition: color .3s ease;
+}
+.ls-col-title:hover { color: var(--brand); }
+.ls-col-list { display: flex; flex-direction: column; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.ls-col-link { color: #191919; font-size: 15px; line-height: 1.4; transition: color .3s ease; }
+.ls-col-link:hover { color: var(--brand); }
 
 /* --------------------------------------------------------------------------
    Phone sheet: the same tabs, accordion style, behind the burger.
@@ -1817,6 +1837,16 @@ html.ls-lock body { overflow: hidden; }
 .ls-sheet-item.is-open .ls-sheet-toggle svg { transform: rotate(45deg); }
 .ls-sheet-sub { display: flex; flex-direction: column; gap: 2px; padding: 0 0 14px; }
 .ls-sheet-sub[hidden] { display: none; }
+.ls-sheet-group { display: flex; flex-direction: column; }
+.ls-sheet-group + .ls-sheet-group { margin-top: 10px; }
+.ls-sheet-group-title {
+  padding: 6px 0 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-caption);
+}
 .ls-sheet-sublink { padding: 9px 0; font-size: 15px; color: var(--ink-meta); transition: color .25s ease; }
 .ls-sheet-sublink:hover { color: var(--brand); }
 .ls-sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; }
@@ -1826,9 +1856,10 @@ html.ls-lock body { overflow: hidden; }
   .ls-logo-sub { display: none; }
   .ls-nav-links { gap: 18px; }
   .ls-link { font-size: 14px; }
-  .ls-panel--cards { padding: 18px; }
-  .ls-card-title { font-size: 15px; }
-  .ls-card-desc { font-size: 12px; }
+  .ls-mega { gap: 32px; padding: 40px; }
+  .ls-mega-media { width: 240px; height: 217px; }
+  .ls-mega-list { gap: 24px 60px; }
+  .ls-columns { gap: 32px; padding: 40px; }
 }
 @media (max-width: 1099px) {
   .ls-nav-links { gap: 14px; }
@@ -1849,7 +1880,7 @@ html.ls-lock body { overflow: hidden; }
   .ls-sheet-link { font-size: 19px; padding: 14px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ls-nav, .ls-nav-surface, .ls-panel, .ls-sheet, .ls-link-label::after, .ls-card-media img, .ls-logo-crest, .ls-burger span { transition: none !important; }
+  .ls-nav, .ls-nav-surface, .ls-panel, .ls-sheet, .ls-mega-media img, .ls-logo-crest, .ls-burger span { transition: none !important; }
 }
 
 /* ==========================================================================
