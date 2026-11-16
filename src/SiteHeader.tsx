@@ -102,7 +102,6 @@ const NAV: NavItem[] = [
       items: [
         { label: "About BCE", href: "/?about" },
         { label: "Our story", href: "/?about#ab-story" },
-        { label: "Technical capabilities", href: "/?capabilities" },
         { label: "Coverage", href: "/#coverage" },
       ],
     },
@@ -141,7 +140,7 @@ const NAV: NavItem[] = [
   },
   {
     id: "quality",
-    label: "Quality & Lab",
+    label: "Quality & Capability",
     href: "/?quality",
     panel: {
       kind: "columns",
@@ -156,20 +155,21 @@ const NAV: NavItem[] = [
           ],
         },
         {
+          title: "Capacity",
+          href: "/?quality#equipment-fleet",
+          links: [
+            { label: "Equipment & fleet", href: "/?quality#equipment-fleet" },
+            { label: "Engineering capability", href: "/?quality#engineering" },
+            { label: "Coverage", href: "/#coverage" },
+          ],
+        },
+        {
           title: "Assurance",
           href: "/?quality#grades",
           links: [
             { label: "Concrete grades", href: "/?quality#grades" },
             { label: "Health, safety & environment", href: "/?quality#hse" },
-          ],
-        },
-        {
-          title: "Documents",
-          href: "/?quality#documents",
-          links: [
             { label: "Quality documents", href: "/?quality#documents" },
-            { label: "Certificates & method statements", href: "/?resources" },
-            { label: "All resources", href: "/?resources" },
           ],
         },
       ],

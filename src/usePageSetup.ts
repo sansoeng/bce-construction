@@ -24,13 +24,27 @@ export function usePageSetup(title: string) {
       raf = requestAnimationFrame(loop);
     };
     if (lenis) raf = requestAnimationFrame(loop);
-    // Arriving at a #section from another page: jump there once the page has laid out.
+    // Arriving at a #section from another page or a fresh link: jump there once the page has laid out. The first
+    // attempt can run before lazy photos and fonts settle (and before Lenis re-measures), which leaves the page at the
+    // top, so it is repeated on load and once more shortly after.
     const target = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
-    if (target) requestAnimationFrame(() => (lenis ? lenis.scrollTo(target, { immediate: true, force: true, offset: -90 }) : target.scrollIntoView()));
+    const jump = () => {
+      if (!target) return;
+      if (lenis) lenis.scrollTo(target, { immediate: true, force: true, offset: -90 });
+      else target.scrollIntoView();
+    };
+    let jumpTimer = 0;
+    if (target) {
+      requestAnimationFrame(jump);
+      jumpTimer = window.setTimeout(jump, 700);
+      addEventListener("load", jump, { once: true });
+    }
     return () => {
       cleanupSplit();
       observer.disconnect();
       cancelAnimationFrame(raf);
+      clearTimeout(jumpTimer);
+      removeEventListener("load", jump);
       lenis?.destroy();
     };
   }, [title]);

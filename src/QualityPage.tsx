@@ -1,29 +1,81 @@
 import { siteSettings } from "./siteSettings";
-import { useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import { useMediaReveal, usePageSetup } from "./usePageSetup";
-import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
+import { DarkMedia, LabelCopy, OlButton, ParallaxHero, TextMedia, useScrollParallax } from "./ServiceBlocks";
 import StickyValues, { type StickyItem } from "./StickyValues";
 import { quoteHref, unsplash } from "./company";
 import { quality } from "./quality";
+import { capabilities, type CapabilityRow } from "./capabilities";
 
-// Quality & HSE: for contractors, consultants and tender reviewers. The laboratory and its five-step process, raw
-// material and calibration certificates, the HSE commitment (a sticky sequence, as About's core values), mix design
-// documents, and BCE's licences and certifications. Same language as the rest of the site:
-// line reveals, hairlines drawing in and photo wipes.
-// Every string and photo comes from `src/quality.ts`, which the admin console edits through D1.
+// Quality, capability & HSE (/?quality), for contractors, consultants and tender reviewers. One page, one narrative:
+// how the concrete is tested (laboratory and the five-step process), what is designed (concrete grades), what goes in
+// (raw material and calibration certificates), what we own (equipment and fleet), who runs it (engineering), the HSE
+// commitment, and the documents procurement asks for.
+//
+// The former Technical Capabilities page (/?capabilities) is merged in: its quality-assurance, laboratory and
+// materials panels repeated this page's process, testing list and certificate rows, so only the fleet and engineering
+// panels survived (read from `src/capabilities.ts`, which the admin edits as "Capacity"). Old links still resolve —
+// /?capabilities rewrites to this page and its superseded anchors map to the surviving sections (see LEGACY_ANCHORS).
+//
+// Copy and photos come from `src/quality.ts` and `src/capabilities.ts`, which the admin console edits through D1.
 // Document lists are sample content until BCE confirms them and publishes the files.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 
+// Anchor ids, in the order the sections appear. The list doubles as the on-page index under the introduction.
+const TOPICS = [
+  ["laboratory", "laboratory"],
+  ["grades", "grades"],
+  ["raw-materials", "materials"],
+  ["calibration", "calibration"],
+  ["equipment-fleet", "equipment"],
+  ["engineering", "engineering"],
+  ["hse", "hse"],
+  ["documents", "documents"],
+] as const;
 
-export default function QualityPage() {
-  usePageSetup("Quality & HSE | BCE., Ltd.");
+// Anchors the retired Technical Capabilities page used, and where that content now lives.
+const LEGACY_ANCHORS: Record<string, string> = {
+  "quality-assurance": "laboratory",
+  "mix-designs": "grades",
+  "materials-certificates": "raw-materials",
+};
+
+function Rows({ rows, dark = false }: { rows: CapabilityRow[]; dark?: boolean }) {
+  return (
+    <ul className={`ol-rows ${dark ? "ol-rows--dk" : ""}`}>
+      {rows.map((row, i) => (
+        <li key={row.label} data-reveal className="ol-row" style={{ "--k": i } as CSSProperties}>
+          <span>{row.label}</span>
+          <span>{row.value}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default function QualityPage({ fromCapabilities = false }: { fromCapabilities?: boolean }) {
+  // /?capabilities rewrites to this page before usePageSetup reads the hash, so old inbound links (and the anchor
+  // that content moved to) still land on the right section. Guarded so React's double-run in development cannot
+  // rewrite the already canonical URL.
+  useEffect(() => {
+    if (!fromCapabilities) return;
+    const params = new URLSearchParams(location.search);
+    if (!params.has("capabilities")) return;
+    params.delete("capabilities");
+    const query = params.toString();
+    const raw = decodeURIComponent(location.hash.slice(1));
+    const anchor = LEGACY_ANCHORS[raw] || raw;
+    history.replaceState(history.state, "", `/?quality${query ? `&${query}` : ""}${anchor ? `#${anchor}` : ""}`);
+  }, [fromCapabilities]);
+
+  usePageSetup("Quality, Capability & HSE | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);
@@ -48,6 +100,20 @@ export default function QualityPage() {
     alt: imageAlt,
   }));
 
+  const { equipment, engineering } = capabilities;
+
+  // Topic labels for the on-page index, read from the content the sections render.
+  const topicLabel: Record<(typeof TOPICS)[number][1], string> = {
+    laboratory: quality.laboratory.title,
+    grades: "Concrete grades",
+    materials: quality.materials.title,
+    calibration: quality.calibration.title,
+    equipment: equipment.title,
+    engineering: engineering.title,
+    hse: quality.hse.label,
+    documents: quality.documents.title,
+  };
+
   return (
     <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip bg-white text-[#111]">
       <SiteHeader phones={phones} tel={tel} base="/" />
@@ -57,14 +123,25 @@ export default function QualityPage() {
       <ParallaxHero label={quality.cover.label} title={quality.cover.title} image={unsplash(quality.cover.image, 2400)} alt={quality.cover.imageAlt} />
 
       <div className="ol-page-body">
-        {/* Introduction as Our businesses' "What we do": a grey label on the left, the statement on the right. */}
-        <LabelCopy label={quality.intro.label} className="ol-head qx-intro">
+        {/* Introduction, with the index that replaces the retired capabilities page's topic list. */}
+        <LabelCopy
+          label={quality.intro.label}
+          className="ol-head qx-intro"
+          after={
+            <ul className="ol-topics" aria-label="On this page">
+              {TOPICS.map(([id, key], i) => (
+                <li key={id}><a href={`#${id}`}><span>{pad(i + 1)}</span>{topicLabel[key]}</a></li>
+              ))}
+            </ul>
+          }
+        >
           {quality.intro.text}
         </LabelCopy>
 
         {/* 01 Laboratory & quality assurance, after olympic.no/sustainability-safety-and-wellbeing's text block: the
             title, grey copy and the five-step process as a numbered, ruled list on the left; a photo on the right that
-            holds in place while the list scrolls past. */}
+            holds in place while the list scrolls past. The tests the laboratory runs follow the process, so the former
+            capabilities page's laboratory panel is not repeated. */}
         <section id="laboratory" data-header-title={quality.laboratory.title} aria-labelledby="qs-lab" className="qh-section qx-split">
           <div className="qx-lab-content">
             <div className="qx-lead">
@@ -85,13 +162,44 @@ export default function QualityPage() {
                 </li>
               ))}
             </ol>
+            <h3 data-split="content" className="qx-label qx-list-label">What we test</h3>
+            <ul className="qx-cells">
+              {quality.laboratory.tests.map(({ label, value }, i) => (
+                <li key={label} data-reveal className="qx-cell pd-rule" style={{ "--rd": `${(i % 2) * 0.08 + Math.floor(i / 2) * 0.1}s` } as CSSProperties}>
+                  <span data-split="content" className="qx-label">{label}</span>
+                  <span data-split="content" className="qx-cell-text">{value}</span>
+                </li>
+              ))}
+            </ul>
           </div>
           <div data-px="media" className="pp-media qx-photo qx-lab-photo">
             <div className="ol-px-media"><img src={unsplash(quality.laboratory.image, 1400)} alt={quality.laboratory.imageAlt} loading="lazy" /></div>
           </div>
         </section>
 
-        {/* 02 Raw material certificates, after olympic.no/sustainability-quality-safety-management-systems: a portrait
+        {/* 02 Concrete grades, after olympic.no/navigating-with-responsibility: the statement on the left, then the
+            grades as a ruled two-column grid — the code drawn as an outlined orange mark, the strength and the typical
+            use set beside it. This is the merged page's mix-design section; the grades are no longer listed twice. */}
+        <section id="grades" data-header-title="Concrete grades" aria-labelledby="qs-grades" className="qg site-pad">
+          <h2 id="qs-grades" className="qg-label">Concrete grades</h2>
+          <p data-split className="qg-statement">{quality.documents.gradesText}</p>
+
+          <ul className="qg-grid">
+            {quality.documents.grades.map(({ grade, strength, use }) => (
+              <li key={grade} className="qg-cell">
+                <span className="qg-mark" aria-hidden>{grade}</span>
+                <div className="qg-body">
+                  <p className="qg-strength">{strength}</p>
+                  <p data-split="content" className="qg-use">{use}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <p data-split="content" className="qg-note">{quality.documents.note}</p>
+        </section>
+
+        {/* 03 Raw material certificates, after olympic.no/sustainability-quality-safety-management-systems: a portrait
             photo on the left that holds in place, as 01's, while the materials (a two-column grid of ruled cells) scroll past on the right. */}
         <section id="raw-materials" data-header-title={quality.materials.title} aria-labelledby="qs-raw" className="qh-section qx-split qx-split--media">
           <div className="qx-body">
@@ -116,7 +224,7 @@ export default function QualityPage() {
           </div>
         </section>
 
-        {/* 03 Calibration certificates, after olympic.no/sustainability-eco-efficient-operations: title left, copy right,
+        {/* 04 Calibration certificates, after olympic.no/sustainability-eco-efficient-operations: title left, copy right,
             then a full-width rule opening the equipment list, its label on the left and the ruled items on the right. */}
         <section id="calibration" data-header-title={quality.calibration.title} aria-labelledby="qs-cal" className="qh-section">
           <div className="qx-split">
@@ -130,9 +238,9 @@ export default function QualityPage() {
           <div data-reveal className="qx-areas pd-rule">
             <h3 data-split="content" className="qx-label qx-areas-label">{quality.calibration.listLabel}</h3>
             <ul className="qx-areas-list">
-              {quality.calibration.items.map(({ equipment, scope }, i) => (
-                <li key={equipment} data-reveal className={`qx-area${i ? " pd-rule" : ""}`} style={{ "--rd": `${i * 0.08}s` } as CSSProperties}>
-                  <span data-split="content" className="qx-label">{equipment}</span>
+              {quality.calibration.items.map(({ equipment: item, scope }, i) => (
+                <li key={item} data-reveal className={`qx-area${i ? " pd-rule" : ""}`} style={{ "--rd": `${i * 0.08}s` } as CSSProperties}>
+                  <span data-split="content" className="qx-label">{item}</span>
                   <span data-split="content" className="qx-cell-text">{scope}</span>
                 </li>
               ))}
@@ -140,32 +248,28 @@ export default function QualityPage() {
           </div>
         </section>
 
-        {/* 04 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. */}
+        {/* 05 Equipment & fleet: the merged page's dark band (the capabilities page's one panel that had no counterpart
+            here), kept full-bleed so the figures have a change of ground between the certificates and HSE. */}
+        <DarkMedia id="equipment-fleet" kicker={equipment.kicker} title={equipment.title} image={unsplash(equipment.image, 1800)} alt={equipment.imageAlt}
+          copy={equipment.copy}>
+          <Rows dark rows={equipment.rows} />
+          <OlButton label={equipment.ctaLabel} href={equipment.ctaHref} dark className="ol-tm-button" />
+        </DarkMedia>
+
+        {/* 06 Engineering capability, the capabilities page's other surviving panel, with the coverage figure linking
+            to the map on the homepage rather than repeating it here. */}
+        <div className="ol-panels ol-panels--after-dark">
+          <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
+            copy={engineering.copy}>
+            <Rows rows={engineering.rows} />
+            <OlButton label="Coverage" href="/#coverage" className="ol-tm-button" />
+          </TextMedia>
+        </div>
+
+        {/* 07 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. */}
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} />
 
-        {/* 05 Concrete grades, after olympic.no/navigating-with-responsibility: the statement on the left, then the
-            grades as a ruled two-column grid — the code drawn as an outlined orange mark, the strength and the typical
-            use set beside it. */}
-        <section id="grades" data-header-title="Concrete grades" aria-labelledby="qs-grades" className="qg site-pad">
-          <h2 id="qs-grades" className="qg-label">Concrete grades</h2>
-          <p data-split className="qg-statement">{quality.documents.gradesText}</p>
-
-          <ul className="qg-grid">
-            {quality.documents.grades.map(({ grade, strength, use }) => (
-              <li key={grade} className="qg-cell">
-                <span className="qg-mark" aria-hidden>{grade}</span>
-                <div className="qg-body">
-                  <p className="qg-strength">{strength}</p>
-                  <p data-split="content" className="qg-use">{use}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <p data-split="content" className="qg-note">{quality.documents.note}</p>
-        </section>
-
-        {/* 06 Documents: mix designs, licences and certificates merged into one set of cards, after
+        {/* 08 Documents: mix designs, licences and certificates merged into one set of cards, after
             olympic.no/investor — a light band, the mono eyebrow and uppercase title, then near-black document cards
             with a hairline head, a date or status foot and their actions. */}
         <section id="documents" data-header-title={quality.documents.title} aria-labelledby="qs-documents" className="qd site-pad">

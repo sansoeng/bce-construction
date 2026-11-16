@@ -49,9 +49,8 @@ BCE/
 │   ├── homepage.ts              # Every editable home-page string, figure and photo (admin-backed)
 │   ├── quality.ts               # Every editable Quality & HSE string, certificate row and photo (admin-backed)
 │   ├── about.ts                 # Every editable About BCE string, milestone and photo (admin-backed)
-│   ├── capabilities.ts          # Every editable capability panel, figure and photo (admin-backed)
-│   ├── CapabilitiesPage.tsx     # Fleet specs (4 plants, 41 mixers, 8 pumps, 7 rigs)
-│   ├── QualityPage.tsx          # In-house lab, DYE-2000 compression testing, ACI 211.1
+│   ├── capabilities.ts          # Equipment & fleet and engineering panels ("Capacity"), read by the Quality page
+│   ├── QualityPage.tsx          # Quality, capability & HSE: lab, grades, certificates, fleet, engineering, HSE, documents
 │   ├── ProjectsPage.tsx         # 30-project portfolio database with category filtering
 │   ├── ProjectPage.tsx          # Single project detail view & lightbox gallery
 │   ├── Coverage.tsx             # Interactive Cambodia SVG map covering 14 provinces

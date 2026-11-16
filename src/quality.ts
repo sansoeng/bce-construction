@@ -1,10 +1,15 @@
 /**
- * Quality & HSE content.
+ * Quality, capability & HSE content.
  *
- * Every headline, paragraph, certificate row and photo on `/?quality` lives
- * here. The bundled defaults render first; Cloudflare D1 then replaces them at
- * runtime through `contentStore`, so the admin console edits the live page
- * without a deploy.
+ * Every headline, paragraph, certificate row, concrete grade and photo on
+ * `/?quality` lives here, apart from the two capacity panels (equipment and
+ * engineering) held in `src/capabilities.ts`. The bundled defaults render
+ * first; Cloudflare D1 then replaces them at runtime through `contentStore`,
+ * so the admin console edits the live page without a deploy.
+ *
+ * The retired Technical Capabilities page merged into this one, so its quality
+ * process, laboratory tests and material certificates are not duplicated: the
+ * laboratory's test list lives under `laboratory.tests`.
  *
  * The HSE commitments are held here rather than read from `company.ts`, so the
  * Quality page can be edited without changing the homepage's copy of the same
@@ -29,6 +34,8 @@ export type QualityContent = {
     copy: string;
     listLabel: string;
     steps: { title: string; text: string }[];
+    /** What the laboratory tests, as labelled figures under the process. */
+    tests: { label: string; value: string }[];
     image: string;
     imageAlt: string;
   };
@@ -73,14 +80,14 @@ export type QualityContent = {
 
 export const DEFAULT_QUALITY: QualityContent = {
   cover: {
-    label: "Quality & HSE",
+    label: "Quality, capability & HSE",
     title: "Tested at every stage, built safely",
     image: "/Image/bce/photos/road-crew.webp",
     imageAlt: "BCE site crew in protective equipment placing and finishing concrete",
   },
   intro: {
     label: "Our approach",
-    text: "Our operations are supported by strict quality control and a clear HSE commitment, from certified materials and calibrated equipment to documented mix designs and laboratory-verified results on every project.",
+    text: "Behind every BCE project is the capability to test, design and deliver concrete in-house: a quality process on every pour, our own laboratory, approved mix designs, certified materials, a fleet we own and maintain, and the engineers who bring it together.",
   },
   laboratory: {
     title: "Laboratory & quality assurance",
@@ -92,6 +99,13 @@ export const DEFAULT_QUALITY: QualityContent = {
       { title: "Slump test", text: "Tested on delivery, before placing." },
       { title: "Strength test", text: "Samples cured and tested in our lab." },
       { title: "Verification", text: "Results checked and recorded." },
+    ],
+    tests: [
+      { label: "Slump testing", value: "Every delivery" },
+      { label: "Compressive strength", value: "7- and 28-day cubes" },
+      { label: "Aggregate grading", value: "Sieve analysis" },
+      { label: "Silt and moisture content", value: "Fine and coarse aggregate" },
+      { label: "Trial mixes", value: "For every new design" },
     ],
     image: "/Image/bce/cert_mix_design.webp",
     imageAlt: "Concrete test specimens side by side",

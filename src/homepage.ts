@@ -272,10 +272,10 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
       {
         title: "Capabilities",
         links: [
-          { label: "Technical capabilities", href: "/?capabilities" },
-          { label: "Quality & HSE", href: "/?quality" },
+          { label: "Quality & capability", href: "/?quality" },
           { label: "Laboratory", href: "/?quality#laboratory" },
-          { label: "Equipment & fleet", href: "/?capabilities#equipment-fleet" },
+          { label: "Equipment & fleet", href: "/?quality#equipment-fleet" },
+          { label: "Coverage", href: "/#coverage" },
         ],
       },
       {

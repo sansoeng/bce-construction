@@ -8,7 +8,6 @@ import BusinessesPage from './BusinessesPage'
 import BusinessDetailPage from './BusinessDetailPage'
 import { findBusinessDetail } from './businessDetails'
 import QualityPage from './QualityPage'
-import CapabilitiesPage from './CapabilitiesPage'
 import QuotePage from './QuotePage'
 import RecruitmentPage from './RecruitmentPage'
 import ResourcesPage from './ResourcesPage'
@@ -24,7 +23,7 @@ import {
   onContentChange,
 } from './contentStore'
 
-// Pages: /?project=<slug> (project details), /?projects (project list), /?about (About BCE), /?businesses, /?quality (Quality & HSE), /?capabilities (Technical Capabilities), /?quote, everything else the homepage. Links between
+// Pages: /?project=<slug> (project details), /?projects (project list), /?about (About BCE), /?businesses, /?quality (Quality, capability & HSE), /?quote, everything else the homepage. Links between
 // them navigate in-app with the page transition (src/pageTransition.ts), so the shell re-renders on route changes.
 // Switching language remounts the page; in Khmer the translator runs after render and before the text reveals split it.
 const homeTitle = document.title
@@ -44,7 +43,9 @@ function Page() {
     return findBusinessDetail(slug) ? <BusinessDetailPage key={slug} slug={slug} /> : <BusinessesPage />
   }
   if (params.has('quality')) return <QualityPage />
-  if (params.has('capabilities')) return <CapabilitiesPage />
+  // The Technical Capabilities page merged into Quality, capability & HSE. Old links keep working: the page rewrites
+  // the URL to /?quality and maps the retired anchors to the sections that absorbed them.
+  if (params.has('capabilities')) return <QualityPage fromCapabilities />
   if (params.has('quote')) return <QuotePage />
   if (params.has('recruitment') || params.has('careers')) return <RecruitmentPage />
   if (params.has('resources')) return <ResourcesPage />

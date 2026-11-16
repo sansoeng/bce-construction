@@ -1,7 +1,7 @@
 import { DEFAULT_HOMEPAGE, HOMEPAGE_ICONS } from "../homepage";
 import { DEFAULT_QUALITY } from "../quality";
 import { DEFAULT_ABOUT } from "../about";
-import { DEFAULT_CAPABILITIES } from "../capabilities";
+import { DEFAULT_CAPACITY } from "../capabilities";
 
 export type FieldType =
   | "text"
@@ -87,10 +87,6 @@ const valueIcons = [
 ];
 
 const capabilityPanels = [
-  ["qualityAssurance", "Quality assurance", false],
-  ["laboratory", "Laboratory", false],
-  ["mixDesigns", "Mix designs", false],
-  ["materials", "Materials", true],
   ["equipment", "Equipment & fleet", true],
   ["engineering", "Engineering", false],
 ] as const;
@@ -391,24 +387,24 @@ export const SCHEMAS: Record<string, ContentSchema> = {
 
   quality: {
     type: "quality",
-    label: "Quality & Lab",
-    singular: "Quality & Lab",
-    description: "Every headline, certificate row, concrete grade and photo on the Quality & HSE page.",
+    label: "Quality & Capability",
+    singular: "Quality & Capability",
+    description: "Every headline, certificate row, concrete grade and photo on the Quality, capability & HSE page.",
     icon: "◉",
     titleKey: "title",
     slugKey: "slug",
     singleton: true,
     tabs: true,
-    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_QUALITY)) as Record<string, unknown>), title: "Quality & HSE", slug: "quality" }),
+    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_QUALITY)) as Record<string, unknown>), title: "Quality, capability & HSE", slug: "quality" }),
     skipKm: ["title", "slug"],
     sections: [
       { id: "cover", title: "Cover", hint: "The banner label, headline and photo at the top of the page.", keys: ["title", "slug", "cover"] },
-      { id: "intro", title: "Introduction", hint: "The grey label and the opening statement.", keys: ["intro"] },
-      { id: "laboratory", title: "Laboratory & QA", hint: "The laboratory copy, the five-step process and its photo.", keys: ["laboratory"] },
+      { id: "intro", title: "Introduction", hint: "The grey label, the opening statement and the on-page index.", keys: ["intro"] },
+      { id: "laboratory", title: "Laboratory & QA", hint: "The laboratory copy, the five-step process, what the lab tests and its photo.", keys: ["laboratory"] },
       { id: "materials", title: "Raw material certificates", hint: "The certified materials and the photo beside them.", keys: ["materials"] },
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
-      { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section shown above them, and the request link.", keys: ["documents"] },
+      { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section, and the request link.", keys: ["documents"] },
     ],
     fields: [
       { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
@@ -433,6 +429,10 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "steps", label: "Quality process", type: "objectList", itemLabel: "Step", itemFields: [
           { key: "title", label: "Step title", type: "text" },
           { key: "text", label: "Step text", type: "text" },
+        ] },
+        { key: "tests", label: "What the laboratory tests", type: "objectList", itemLabel: "Test", itemFields: [
+          { key: "label", label: "Test", type: "text" },
+          { key: "value", label: "How often / result", type: "text" },
         ] },
         { key: "image", label: "Photo", type: "image", wide: true, aspect: "4 / 3" },
         { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
@@ -591,41 +591,23 @@ export const SCHEMAS: Record<string, ContentSchema> = {
 
   capabilities: {
     type: "capabilities",
-    label: "Capabilities",
-    singular: "Capabilities",
-    description: "The six capability panels on the Technical Capabilities page, with their figures and photos.",
+    label: "Capacity",
+    singular: "Capacity",
+    description: "Equipment & fleet and engineering capability, shown on the Quality, capability & HSE page.",
     icon: "◎",
     titleKey: "title",
     slugKey: "slug",
     singleton: true,
     tabs: true,
-    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_CAPABILITIES)) as Record<string, unknown>), title: "Technical Capabilities", slug: "capabilities" }),
+    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_CAPACITY)) as Record<string, unknown>), title: "Capacity", slug: "capabilities" }),
     skipKm: ["title", "slug"],
     sections: [
-      { id: "cover", title: "Cover", hint: "The banner label, headline and photo.", keys: ["title", "slug", "cover"] },
-      { id: "overview", title: "Overview", hint: "The introduction above the on-page topic list.", keys: ["overview"] },
-      { id: "quality", title: "Quality assurance", hint: "The five-step process.", keys: ["qualityAssurance"] },
-      { id: "laboratory", title: "Laboratory", hint: "What the laboratory tests.", keys: ["laboratory"] },
-      { id: "mix", title: "Mix designs", hint: "The concrete grades.", keys: ["mixDesigns"] },
-      { id: "materials", title: "Materials", hint: "Certificates kept per material.", keys: ["materials"] },
       { id: "fleet", title: "Equipment & fleet", hint: "The dark band with the fleet figures.", keys: ["equipment"] },
       { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
     ],
     fields: [
       { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
       { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “capabilities”.", locale: false },
-
-      { key: "cover", label: "", type: "group", fields: [
-        { key: "label", label: "Section label", type: "text" },
-        { key: "title", label: "Headline", type: "text", wide: true },
-        { key: "image", label: "Banner photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true, locale: false },
-      ] },
-
-      { key: "overview", label: "", type: "group", fields: [
-        { key: "label", label: "Label", type: "text" },
-        { key: "text", label: "Statement", type: "textarea", rows: 4, wide: true },
-      ] },
 
       ...capabilityPanels.map(([key, label, withCta]) => {
         const panel: Field = {

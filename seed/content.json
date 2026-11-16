@@ -359,11 +359,7 @@
               "title": "Capabilities",
               "links": [
                 {
-                  "label": "Technical capabilities",
-                  "href": "/?capabilities"
-                },
-                {
-                  "label": "Quality & HSE",
+                  "label": "Quality & capability",
                   "href": "/?quality"
                 },
                 {
@@ -372,7 +368,11 @@
                 },
                 {
                   "label": "Equipment & fleet",
-                  "href": "/?capabilities#equipment-fleet"
+                  "href": "/?quality#equipment-fleet"
+                },
+                {
+                  "label": "Coverage",
+                  "href": "/#coverage"
                 }
               ]
             },
@@ -424,14 +424,14 @@
       "sort": 0,
       "data": {
         "cover": {
-          "label": "Quality & HSE",
+          "label": "Quality, capability & HSE",
           "title": "Tested at every stage, built safely",
           "image": "/Image/bce/photos/road-crew.webp",
           "imageAlt": "BCE site crew in protective equipment placing and finishing concrete"
         },
         "intro": {
           "label": "Our approach",
-          "text": "Our operations are supported by strict quality control and a clear HSE commitment, from certified materials and calibrated equipment to documented mix designs and laboratory-verified results on every project."
+          "text": "Behind every BCE project is the capability to test, design and deliver concrete in-house: a quality process on every pour, our own laboratory, approved mix designs, certified materials, a fleet we own and maintain, and the engineers who bring it together."
         },
         "laboratory": {
           "title": "Laboratory & quality assurance",
@@ -457,6 +457,28 @@
             {
               "title": "Verification",
               "text": "Results checked and recorded."
+            }
+          ],
+          "tests": [
+            {
+              "label": "Slump testing",
+              "value": "Every delivery"
+            },
+            {
+              "label": "Compressive strength",
+              "value": "7- and 28-day cubes"
+            },
+            {
+              "label": "Aggregate grading",
+              "value": "Sieve analysis"
+            },
+            {
+              "label": "Silt and moisture content",
+              "value": "Fine and coarse aggregate"
+            },
+            {
+              "label": "Trial mixes",
+              "value": "For every new design"
             }
           ],
           "image": "/Image/bce/cert_mix_design.webp",
@@ -772,150 +794,6 @@
       "slug": "capabilities",
       "sort": 0,
       "data": {
-        "cover": {
-          "label": "Technical capabilities",
-          "title": "Engineered and tested in-house",
-          "image": "/Image/bce/hero_batching_plant.webp",
-          "imageAlt": "Aerial view of a BCE batching plant and aggregate yard"
-        },
-        "overview": {
-          "label": "Overview",
-          "text": "Behind every BCE project is the capability to test, design and deliver concrete in-house: a quality process on every pour, our own laboratory, approved mix designs, certified materials, a fleet we own and maintain, and the engineers who bring it together."
-        },
-        "qualityAssurance": {
-          "kicker": "Tested at every stage",
-          "title": "Quality assurance",
-          "image": "/Image/bce/core_services.webp",
-          "imageAlt": "Engineers measuring a concrete wall",
-          "copy": [
-            "Strict quality control at every stage, from the materials that arrive at our plants to the strength of the concrete on site. Every result is recorded for the project."
-          ],
-          "rows": [
-            {
-              "label": "01  Material check",
-              "value": "Before production"
-            },
-            {
-              "label": "02  Production control",
-              "value": "Every batch weighed"
-            },
-            {
-              "label": "03  Fresh concrete test",
-              "value": "Slump on delivery"
-            },
-            {
-              "label": "04  Strength test",
-              "value": "Cured and crushed"
-            },
-            {
-              "label": "05  Quality verification",
-              "value": "Recorded per project"
-            }
-          ]
-        },
-        "laboratory": {
-          "kicker": "Our own laboratory",
-          "title": "Laboratory",
-          "image": "/Image/bce/laboratory_qa.webp",
-          "imageAlt": "An engineer at work in the laboratory",
-          "copy": [
-            "Our laboratory tests materials before they enter production and concrete after it leaves the plant, at the plant and on site."
-          ],
-          "rows": [
-            {
-              "label": "Slump testing",
-              "value": "Every delivery"
-            },
-            {
-              "label": "Compressive strength",
-              "value": "7- and 28-day cubes"
-            },
-            {
-              "label": "Aggregate grading",
-              "value": "Sieve analysis"
-            },
-            {
-              "label": "Silt and moisture content",
-              "value": "Fine and coarse aggregate"
-            },
-            {
-              "label": "Trial mixes",
-              "value": "For every new design"
-            }
-          ]
-        },
-        "mixDesigns": {
-          "kicker": "Designed for every pour",
-          "title": "Mix designs",
-          "image": "/Image/bce/cert_mix_design.webp",
-          "imageAlt": "An engineer measuring technical drawings",
-          "copy": [
-            "Each grade is designed, trial-mixed and tested before supply, then submitted with its results for consultant approval. Special mixes are designed on request."
-          ],
-          "rows": [
-            {
-              "label": "C15  /  15 MPa",
-              "value": "Blinding and mass fill"
-            },
-            {
-              "label": "C20  /  20 MPa",
-              "value": "Ground slabs and paths"
-            },
-            {
-              "label": "C25  /  25 MPa",
-              "value": "Floor slabs and footings"
-            },
-            {
-              "label": "C30  /  30 MPa",
-              "value": "Columns, beams, suspended slabs"
-            },
-            {
-              "label": "C35  /  35 MPa",
-              "value": "Foundations and piles"
-            },
-            {
-              "label": "C40  /  40 MPa",
-              "value": "Bridges and heavy structures"
-            }
-          ]
-        },
-        "materials": {
-          "kicker": "Certified at source",
-          "title": "Materials & certificates",
-          "image": "/Image/bce/project_page_14.webp",
-          "imageAlt": "A loader filling a truck with aggregate",
-          "copy": [
-            "Every material that goes into our concrete is certified at source and checked again before production. Certificates are available on request."
-          ],
-          "rows": [
-            {
-              "label": "Cement",
-              "value": "Mill test certificate"
-            },
-            {
-              "label": "Fine aggregate",
-              "value": "Grading and silt content"
-            },
-            {
-              "label": "Coarse aggregate",
-              "value": "Grading and crushing value"
-            },
-            {
-              "label": "Admixtures",
-              "value": "Product compliance certificate"
-            },
-            {
-              "label": "Mixing water",
-              "value": "Water quality results"
-            },
-            {
-              "label": "Calibration",
-              "value": "Scales, meters, test machine"
-            }
-          ],
-          "ctaLabel": "Quality & HSE documents",
-          "ctaHref": "/?quality#raw-materials"
-        },
         "equipment": {
           "kicker": "Our own fleet",
           "title": "Equipment & fleet",
@@ -972,7 +850,7 @@
             }
           ]
         },
-        "title": "Technical Capabilities",
+        "title": "Capacity",
         "slug": "capabilities"
       }
     },
