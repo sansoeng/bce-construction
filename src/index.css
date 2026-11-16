@@ -3005,7 +3005,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   z-index: 2;
   padding-block: clamp(7rem, 14vw, 15rem);
   padding-inline: var(--page-gutter);
-  background: #f4f3ef;
+  background: var(--paper);
   color: var(--ink);
 }
 .qc::before {
@@ -3025,23 +3025,14 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   margin-inline: auto;
   text-align: center;
 }
-.qc-label {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.58;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #fb290e;
-}
 .qc-copy {
   --split-window: .16;
   --split-step: calc((1 - var(--split-window)) / (var(--split-count) - 1));
   max-width: 62rem;
-  margin-top: 1.7rem;
-  font-size: clamp(1.5rem, 2.25vw, 2.55rem);
+  margin-top: 0;
+  font-size: 24px;
   font-weight: 450;
-  line-height: 1.22;
+  line-height: 1.35;
   letter-spacing: -.015em;
   color: var(--ink);
 }
@@ -3066,7 +3057,6 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 .qc-actions .fg-btn.is-outline::before { background: transparent; }
 @media (max-width: 767.98px) {
   .qc { padding-block: 5.5rem; }
-  .qc-copy { font-size: clamp(1.2rem, 5.4vw, 1.65rem); line-height: 1.3; }
   .qc-actions { width: 100%; flex-direction: column; align-items: stretch; }
   .qc-actions .fg-btn { width: 100%; }
 }

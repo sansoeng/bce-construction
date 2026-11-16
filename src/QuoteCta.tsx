@@ -47,7 +47,6 @@ export default function QuoteCta({ href }: { href?: string }) {
   return (
     <section id="quote" data-header-title="Request a quotation" aria-labelledby="quote-title" className="qc">
       <div className="qc-inner">
-        <p className="qc-label">{translate("Start a project")}</p>
         <p
           ref={copyRef}
           id="quote-title"

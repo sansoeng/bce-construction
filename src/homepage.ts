@@ -275,7 +275,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
   quote: {
     image: "/Image/bce/hero_batching_plant.webp",
     title: "Planning a project? Request a quotation.",
-    text: "Tell us your site, scope and schedule, whether it is ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet across Cambodia.",
+    text: "Tell us your site, scope and schedule for ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will send a clear quotation from our own plants and fleet.",
     ctaLabel: "Request a quotation",
     ctaHref: "/?quote",
   },
@@ -334,10 +334,17 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
 /** Live content. Read these values during render; the object is replaced on bootstrap. */
 export const homepage: HomepageContent = JSON.parse(JSON.stringify(DEFAULT_HOMEPAGE)) as HomepageContent;
 
+const LEGACY_QUOTE_TEXT =
+  "Tell us your site, scope and schedule, whether it is ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet across Cambodia.";
+const SUMMARY_QUOTE_TEXT =
+  "Tell us your site, scope and schedule for ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will send a clear quotation from our own plants and fleet.";
+
 registerContentType("homepage", (items) => {
   const first = items[0];
   if (!first || typeof first !== "object" || Array.isArray(first)) return;
   const merged = mergeDefaults(DEFAULT_HOMEPAGE, first);
+  // D1 still carries the original long quote paragraph; replace the exact legacy sentence with the shorter one.
+  if (merged.quote.text === LEGACY_QUOTE_TEXT) merged.quote.text = SUMMARY_QUOTE_TEXT;
   // Older D1 rows still carry the stand-in partner logos; show the approved names as wordmarks instead.
   for (const group of merged.glance.groups) {
     for (const item of group.items) {

@@ -317,7 +317,7 @@
         "quote": {
           "image": "/Image/bce/hero_batching_plant.webp",
           "title": "Planning a project? Request a quotation.",
-          "text": "Tell us your site, scope and schedule, whether it is ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet across Cambodia.",
+          "text": "Tell us your site, scope and schedule for ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will send a clear quotation from our own plants and fleet.",
           "ctaLabel": "Request a quotation",
           "ctaHref": "/?quote"
         },

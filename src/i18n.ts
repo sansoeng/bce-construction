@@ -740,6 +740,8 @@ const KM: Record<string, string> = {
   "Planning a project? Request a quotation.": "កំពុងរៀបចំគម្រោង? ស្នើសុំសម្រង់តម្លៃ",
   "Tell us your site, scope and schedule, whether it is ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet across Cambodia.":
     "ប្រាប់យើងអំពីទីតាំង វិសាលភាពការងារ និងកាលវិភាគរបស់អ្នក មិនថាជាបេតុងលាយស្រេច ការបោះសសរស្ដម្ភ សំណង់ ការងារចាក់កម្រាល ឬការជួលគ្រឿងចក្រ។ វិស្វកររបស់យើងនឹងពិនិត្យ និងផ្ដល់សម្រង់តម្លៃលម្អិត និងច្បាស់លាស់ ដោយផ្គត់ផ្គង់ពីរោងចក្រ និងគ្រឿងចក្រផ្ទាល់ខ្លួនរបស់យើងទូទាំងកម្ពុជា។",
+  "Tell us your site, scope and schedule for ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will send a clear quotation from our own plants and fleet.":
+    "ប្រាប់យើងអំពីទីតាំង វិសាលភាពការងារ និងកាលវិភាគរបស់អ្នក សម្រាប់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភ សំណង់ ការងារចាក់កម្រាល ឬការជួលគ្រឿងចក្រ។ វិស្វកររបស់យើងនឹងផ្ញើសម្រង់តម្លៃច្បាស់លាស់ពីរោងចក្រ និងគ្រឿងចក្រផ្ទាល់ខ្លួនរបស់យើង។",
 
   // About BCE Page & Values
   "Building Cambodia since 1995": "កសាងកម្ពុជាតាំងពីឆ្នាំ ១៩៩៥",
