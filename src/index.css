@@ -1534,21 +1534,20 @@ html.ls-lock body { overflow: hidden; }
   height: 54px;
   margin: 0 auto;
   overflow: hidden;
-  border: 1px solid var(--ls-hairline);
-  border-radius: var(--radius);
-  background: rgb(248 248 249 / .78);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  /* The reference's bar glass: 60% white, a half-pixel #eee hairline, a 10px corner, 32px blur and no shadow. */
+  border: .5px solid #eee;
+  border-radius: 10px;
+  background: hsl(0 0% 100% / .6);
+  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px);
   pointer-events: auto;
-  transition: width .7s var(--ls-ease), background-color .45s ease, border-color .45s ease, box-shadow .45s ease, color .3s ease;
+  transition: width .7s var(--ls-ease), background-color .4s ease, border-color .4s ease, color .3s ease;
 }
-.ls-nav.is-scrolled .ls-nav-surface { box-shadow: 0 14px 36px rgb(0 0 0 / .12); }
 /* Over a dark cover the bar is part of the photograph. */
 .ls-nav.is-on-cover .ls-nav-surface {
   color: var(--paper);
   background: transparent;
   border-color: var(--line-dark);
-  box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
@@ -1560,9 +1559,9 @@ html.ls-lock body { overflow: hidden; }
 .ls-nav.is-on-cover.is-sheet-open .ls-nav-surface {
   color: var(--ls-ink);
   background: hsl(0 0% 100% / .7);
-  border-color: var(--ls-hairline);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  border-color: #eee;
+  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px);
 }
 
 /* Lockup left · tabs centred · language and quote right. The two 1fr columns keep the tabs optically centred in the
@@ -1693,7 +1692,7 @@ html.ls-lock body { overflow: hidden; }
   box-shadow: none;
   pointer-events: none;
   transform: translateY(-10px);
-  transition: opacity .35s ease, transform .35s ease, visibility .35s ease;
+  transition: opacity .5s ease, transform .7s cubic-bezier(.4, 0, .2, 1), visibility .7s ease;
 }
 .ls-panel.is-open { z-index: 2; visibility: visible; opacity: 1; pointer-events: auto; }
 .ls-panel--default {
@@ -1742,7 +1741,7 @@ html.ls-lock body { overflow: hidden; }
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity .35s ease;
+  transition: opacity .45s ease;
 }
 .ls-mega-media img.is-active { opacity: 1; }
 .ls-mega-list {
@@ -1812,7 +1811,7 @@ html.ls-lock body { overflow: hidden; }
   visibility: hidden;
   pointer-events: none;
   transform: translateY(-6px);
-  transition: opacity .35s ease, transform .45s var(--ls-ease), visibility .35s ease;
+  transition: opacity .45s ease, transform .6s cubic-bezier(.4, 0, .2, 1), visibility .6s ease;
 }
 .ls-sheet.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
 .ls-sheet-inner { width: 100%; max-width: 720px; margin: 0 auto; }
