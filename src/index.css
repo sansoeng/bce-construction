@@ -4400,6 +4400,9 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qx-areas-list .qx-area:first-child { padding-top: 1.15rem; }
 /* 04: the HSE sticky sequence (src/StickyValues.tsx) on AboutValues' .abv-* styles. */
 #hse { margin-top: clamp(6rem, 11vw, 11rem); }
+/* The dark capacity band closes the capability story on the Quality page, so the HSE sequence follows its own
+   bottom margin (190px) rather than adding the section's full lead-in gap on top of it. */
+.ol-dk + #hse { margin-top: 0; }
 .abv--solo .abv-vision { padding-bottom: 1.25rem; }
 .abv-base { position: absolute; inset: 0; }
 .abv-base img { width: 100%; height: 100%; object-fit: cover; }

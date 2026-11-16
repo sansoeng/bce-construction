@@ -34,8 +34,8 @@ const TOPICS = [
   ["grades", "grades"],
   ["raw-materials", "materials"],
   ["calibration", "calibration"],
-  ["equipment-fleet", "equipment"],
   ["engineering", "engineering"],
+  ["equipment-fleet", "equipment"],
   ["hse", "hse"],
   ["documents", "documents"],
 ] as const;
@@ -248,23 +248,23 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           </div>
         </section>
 
-        {/* 05 Equipment & fleet: the merged page's dark band (the capabilities page's one panel that had no counterpart
-            here), kept full-bleed so the figures have a change of ground between the certificates and HSE. */}
-        <DarkMedia id="equipment-fleet" kicker={equipment.kicker} title={equipment.title} image={unsplash(equipment.image, 1800)} alt={equipment.imageAlt}
-          copy={equipment.copy}>
-          <Rows dark rows={equipment.rows} />
-          <OlButton label={equipment.ctaLabel} href={equipment.ctaHref} dark className="ol-tm-button" />
-        </DarkMedia>
-
-        {/* 06 Engineering capability, the capabilities page's other surviving panel, with the coverage figure linking
-            to the map on the homepage rather than repeating it here. */}
-        <div className="ol-panels ol-panels--after-dark">
+        {/* 05 Engineering capability, the capabilities page's first surviving panel: the people and figures behind the
+            mix designs, with the coverage figure linking to the map on the homepage rather than repeating it here. */}
+        <div className="ol-panels">
           <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
             copy={engineering.copy}>
             <Rows rows={engineering.rows} />
             <OlButton label="Coverage" href="/#coverage" className="ol-tm-button" />
           </TextMedia>
         </div>
+
+        {/* 06 Equipment & fleet: the dark band closes the capacity story, kept full-bleed so the figures have a change
+            of ground before the HSE sequence. */}
+        <DarkMedia id="equipment-fleet" kicker={equipment.kicker} title={equipment.title} image={unsplash(equipment.image, 1800)} alt={equipment.imageAlt}
+          copy={equipment.copy}>
+          <Rows dark rows={equipment.rows} />
+          <OlButton label={equipment.ctaLabel} href={equipment.ctaHref} dark className="ol-tm-button" />
+        </DarkMedia>
 
         {/* 07 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. */}
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} />
