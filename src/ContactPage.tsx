@@ -159,7 +159,7 @@ export default function ContactPage() {
         <section className="site-pad max-w-[1000px] w-full mx-auto pt-[280px] pb-20 sm:pb-28">
           {/* Centered hero */}
           <div className="text-center max-w-[760px] mx-auto mb-10 sm:mb-14">
-            <p className="mb-5 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#FF3C1E]">Get in touch</p>
+            <p className="mb-5 font-mono text-[16px] uppercase leading-[1.6] tracking-[0.02em] text-[#FF3C1E]">Get in touch</p>
             <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold uppercase text-[#191C1F] tracking-[-0.03em] leading-[1.12]">
               Contact us
             </h1>
@@ -208,7 +208,7 @@ export default function ContactPage() {
               </ChannelCard>
 
               <ChannelCard icon={<PinIcon />} label="Head office">
-                <address className="not-italic text-[14px] leading-[1.55] text-[#191C1F]/75">
+                <address className="not-italic text-[16px] leading-[1.55] text-[#191C1F]/75">
                   {addressLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -249,7 +249,7 @@ export default function ContactPage() {
                     <h2 className="text-[22px] sm:text-[26px] font-semibold tracking-[-0.02em] text-[#191C1F]">
                       Message sent
                     </h2>
-                    <p className="mt-2 text-[14px] text-[#191C1F]/55 max-w-[320px] mx-auto leading-[1.55]">
+                    <p className="mt-2 text-[16px] text-[#191C1F]/55 max-w-[320px] mx-auto leading-[1.55]">
                       Thank you. Our team will be in touch shortly.
                     </p>
                     <button
@@ -265,7 +265,7 @@ export default function ContactPage() {
                     <h2 className="text-[22px] sm:text-[26px] font-semibold tracking-[-0.02em] text-[#191C1F]">
                       Send us a message
                     </h2>
-                    <p className="mt-2 mb-6 text-[14px] text-[#191C1F]/55 leading-[1.55]">
+                    <p className="mt-2 mb-6 text-[16px] text-[#191C1F]/55 leading-[1.55]">
                       Tell us what you need and our team will come back to you.
                     </p>
 

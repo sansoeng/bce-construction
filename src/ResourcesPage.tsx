@@ -109,7 +109,7 @@ export default function ResourcesPage() {
                     setIsYearOpen(!isYearOpen);
                     setIsCategoryOpen(false);
                   }}
-                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors border-0"
+                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[16px] font-medium transition-colors border-0"
                   style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   aria-expanded={isYearOpen}
                 >
@@ -166,7 +166,7 @@ export default function ResourcesPage() {
                     setIsCategoryOpen(!isCategoryOpen);
                     setIsYearOpen(false);
                   }}
-                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[14px] font-medium transition-colors border-0"
+                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[16px] font-medium transition-colors border-0"
                   style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   aria-expanded={isCategoryOpen}
                 >

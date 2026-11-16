@@ -21,7 +21,7 @@ function Meta({ children, className = "", accent = false }: { children: ReactNod
   return (
     <span
       className={`font-mono uppercase leading-[1.6] tracking-[0.1em] ${
-        accent ? "text-[14px] text-[#FF3C1E]" : "text-[10px] md:text-[11px]"
+        accent ? "text-[16px] text-[#FF3C1E]" : "text-[14px]"
       } ${className}`}
     >
       {children}
@@ -53,7 +53,7 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
           }
         />
         <ul className="absolute left-4 top-4 flex flex-wrap gap-2 md:left-5 md:top-5">
-          <li className="rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[10px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px]">
+          <li className="rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[14px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px]">
             {journalKind(post)}
           </li>
         </ul>
@@ -198,7 +198,7 @@ export default function BlogPage() {
                   {currentPost.title}
                 </h1>
 
-                <div className="mt-8 flex w-full items-center justify-between gap-4 font-mono text-[10px] uppercase leading-[1.6] tracking-[0.02em] text-[#A5A7A8]">
+                <div className="mt-8 flex w-full items-center justify-between gap-4 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#A5A7A8]">
                   <span>{currentPost.category}</span>
                   <span className="text-right">
                     Scroll to read <span aria-hidden>•</span> {currentPost.readTime}
@@ -212,7 +212,7 @@ export default function BlogPage() {
                       event.preventDefault();
                       handleSelectPost(prevPost.slug);
                     }}
-                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[10px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
+                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[14px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
                   >
                     <span aria-hidden>←</span> Prev
                   </a>
@@ -222,7 +222,7 @@ export default function BlogPage() {
                       event.preventDefault();
                       handleSelectPost(nextPost.slug);
                     }}
-                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[10px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
+                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[14px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
                   >
                     Next <span aria-hidden>→</span>
                   </a>
@@ -369,7 +369,7 @@ export default function BlogPage() {
                         type="button"
                         aria-pressed={active}
                         onClick={() => setKindFilter(kind)}
-                        className={`h-9 rounded-[4px] px-4 font-mono text-[10px] uppercase leading-none tracking-[0.08em] transition-colors duration-200 md:text-[11px] ${
+                        className={`h-9 rounded-[4px] px-4 font-mono text-[14px] uppercase leading-none tracking-[0.08em] transition-colors duration-200 ${
                           active ? "bg-[#191C1F] text-white" : "text-[#191C1F]/60 hover:text-[#191C1F]"
                         }`}
                       >
@@ -383,7 +383,7 @@ export default function BlogPage() {
                   type="button"
                   onClick={clearFilters}
                   disabled={kindFilter === "All"}
-                  className="hidden font-mono text-[10px] uppercase tracking-[0.1em] text-[#191C1F]/50 transition-colors hover:text-[#191C1F] disabled:text-[#191C1F]/25 sm:inline-flex md:text-[11px]"
+                  className="hidden font-mono text-[14px] uppercase tracking-[0.1em] text-[#191C1F]/50 transition-colors hover:text-[#191C1F] disabled:text-[#191C1F]/25 sm:inline-flex"
                 >
                   Clear filters
                 </button>
@@ -397,7 +397,7 @@ export default function BlogPage() {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="mt-5 rounded-[4px] bg-[#191C1F] px-5 py-3 font-mono text-[10px] uppercase tracking-[0.08em] text-white"
+                    className="mt-5 rounded-[4px] bg-[#191C1F] px-5 py-3 font-mono text-[14px] uppercase tracking-[0.08em] text-white"
                   >
                     Reset filters
                   </button>

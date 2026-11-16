@@ -87,7 +87,7 @@ function HeroLatestNews() {
             {newsKicker}
           </span>
           <div className="flex items-end justify-between gap-3">
-            <span className="max-w-[78%] text-[14px] sm:text-[15px] font-bold text-white leading-tight">
+            <span className="max-w-[78%] text-[16px] font-bold text-white leading-tight">
               {newsTitle}
             </span>
             <span className="pb-1 text-white/80 transition-transform duration-300 ease-out group-hover:scale-125 group-hover:text-white shrink-0">

@@ -92,7 +92,7 @@ export function Turnstile({
   return (
     <div className="mt-8 flex flex-col gap-2">
       <div ref={container} />
-      {error && <p className="text-sm text-[#b3261e]">{error}</p>}
+      {error && <p className="text-base text-[#b3261e]">{error}</p>}
       <p className="text-[.8rem] text-black/40">
         Protected by Cloudflare Turnstile. We only store the details you submit.
       </p>
