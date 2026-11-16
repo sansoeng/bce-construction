@@ -429,8 +429,8 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   padding: 9px 15px;
   border-radius: var(--radius);
   background: var(--paper-page);
-  color: var(--ink);
-  font-size: 11px;
+  color: var(--brand-ink);
+  font-size: 14px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.08em;
@@ -588,7 +588,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 .pl-list .kp-info { display: contents; }
 .pl-list .kp-body { gap: 8px; }
 .pl-list .kp-plus { display: none; }
-.pl-list .kp-tag { padding: 6px 11px; font-size: 9.5px; }
+.pl-list .kp-tag { padding: 6px 11px; font-size: 14px; }
 .pl-list .kp-location { margin-top: 2px; font-size: .9rem; }
 .pl-list .kp-meta { padding: 0; font-size: .85rem; color: var(--ink-meta); text-align: right; }
 .pl-list .kp-arrow {
@@ -619,7 +619,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   .pl-hero-copy { grid-column: 1 / -1; }
   .pl-hero-copy { max-width: none; font-size: 1rem; line-height: 1.45; }
 
-  .kp-tag { padding: 8px 13px; font-size: 10.5px; }
+  .kp-tag { padding: 8px 13px; font-size: 14px; }
   .kp-plus { left: 12px; bottom: 12px; }
 
   .pl-list .kp-item {
@@ -1493,18 +1493,24 @@ html[lang="km"] .glance-num > span {
 }
 
 /* ==========================================================================
-   Navigation after lightshiprv.com: a floating inset bar with the hamburger
-   and primary links at the left, the BCE mark centred, the remaining links and
-   the quote button at the right. The bar is one clipped surface: on scroll it
-   narrows (eased over the first 800px), slides up and its mark scales down; the
-   hamburger grows the same surface into the full-screen menu, so the menu is a
-   curtain from the bar, not a separate page. Labels, hairlines, links and cards
-   arrive with the reference's clip-path stagger.
+/* ==========================================================================
+   Navigation after dalco.ch: one floating, inset glass bar. The BCE lockup
+   sits at the left, the five tabs are centred (About, Business, Projects,
+   Quality & Lab, More) and the language switch plus the quote button close the
+   right. A tab with children expands a panel under the bar — the narrow icon
+   list for About, Projects, Quality & Lab and More, a full-width card array for
+   Business — on hover, on focus or on the first click. On phones the tabs
+   collapse into a burger and the same items open as accordions in a sheet.
+   Over the first 800px of scroll the surface narrows and slides up.
    ========================================================================== */
 :root {
   --ls-ease: cubic-bezier(.16, 1, .3, 1);
   --ls-ease-soft: cubic-bezier(.22, 1, .36, 1);
 }
+
+/* A phone sheet owns the screen: the page underneath must not scroll with it. */
+html.ls-lock,
+html.ls-lock body { overflow: hidden; }
 
 .ls-nav {
   --ls-ink: var(--ink-editorial);
@@ -1549,7 +1555,20 @@ html[lang="km"] .glance-num > span {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+/* A panel or the phone sheet needs a light surface underneath it, even over a dark cover. */
+.ls-nav.is-solid .ls-nav-surface,
+.ls-nav.is-sheet-open .ls-nav-surface,
+.ls-nav.is-on-cover.is-solid .ls-nav-surface,
+.ls-nav.is-on-cover.is-sheet-open .ls-nav-surface {
+  color: var(--ls-ink);
+  background: rgb(248 248 249 / .92);
+  border-color: var(--ls-hairline);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
 
+/* Lockup left · tabs centred · language and quote right. The two 1fr columns keep the tabs optically centred in the
+   page, not centred between the lockup and the buttons, which is how the reference's bar reads. */
 .ls-nav-bar {
   position: relative;
   z-index: 2;
@@ -1557,88 +1576,283 @@ html[lang="km"] .glance-num > span {
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   height: 54px;
-  padding: 0 10px 0 12px;
+  padding: 0 10px 0 14px;
+  column-gap: 16px;
 }
 
-.ls-nav-left,
-.ls-nav-right { display: flex; align-items: center; gap: 14px; min-width: 0; }
-.ls-nav-right { justify-content: flex-end; }
-.ls-nav-links { display: flex; align-items: center; gap: 18px; }
+.ls-nav-center { display: flex; justify-content: center; min-width: 0; }
+.ls-nav-links { display: flex; align-items: center; gap: 24px; }
+.ls-nav-item { position: relative; display: flex; }
 
 .ls-link {
   position: relative;
-  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 0;
   border: 0;
   background: none;
   color: inherit;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.2;
-  opacity: .78;
-  transition: opacity .25s ease;
+  white-space: nowrap;
+  transition: color .25s ease;
 }
-.ls-link::after {
+.ls-link-label { position: relative; }
+.ls-link-label::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -4px;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform .5s var(--ls-ease-soft);
 }
-.ls-link:hover { opacity: 1; }
-.ls-link:hover::after { transform: scaleX(1); transform-origin: left; }
+.ls-link:hover,
+.ls-nav-item.is-active .ls-link { color: var(--brand); }
+.ls-nav-item:hover .ls-link-label::after,
+.ls-nav-item.is-active .ls-link-label::after { transform: scaleX(1); transform-origin: left; }
+.ls-link-chev { width: 9px; height: 9px; flex: none; opacity: .5; transition: transform .35s var(--ls-ease), opacity .25s ease; }
+.ls-nav-item.is-active .ls-link-chev { transform: rotate(180deg); opacity: 1; }
 
-/* The mark scales down with the scroll, as the reference's wordmark does. */
-.ls-logo { display: inline-flex; align-items: center; gap: 8px; justify-self: center; color: inherit; transform: scale(calc(1 - .18 * var(--ls-p, 0))); }
-.ls-logo-crest { width: 20px; height: 20px; transition: transform .5s var(--ls-ease); }
+/* The BCE lockup: crest in brand orange, wordmark, full name underneath. It scales down with the scroll, as the
+   reference's wordmark does. */
+.ls-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 10px;
+  color: inherit;
+  transform: scale(calc(1 - .06 * var(--ls-p, 0)));
+  transform-origin: left center;
+}
+.ls-logo-crest { width: 22px; height: 22px; flex: none; color: var(--brand); transition: transform .5s var(--ls-ease); }
 .ls-logo:hover .ls-logo-crest { transform: rotate(-8deg); }
-.ls-logo-text { font-size: 15px; font-weight: 600; letter-spacing: .16em; }
+.ls-logo-word { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ls-logo-text { font-size: 17px; font-weight: 600; letter-spacing: .14em; line-height: 1; }
+.ls-logo-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.2;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: .7;
+}
 
+.ls-nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 14px; min-width: 0; }
 .ls-nav-sep { width: 1px; height: 16px; background: currentColor; opacity: .18; }
 
-.ls-lang { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 14px; letter-spacing: .06em; }
+.ls-lang { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em; }
 .ls-lang-btn { padding: 2px 0; border: 0; background: none; color: inherit; opacity: .45; transition: opacity .25s ease; }
 .ls-lang-btn.is-current,
 .ls-lang-btn:hover { opacity: .95; }
 .ls-lang-divider { opacity: .3; }
 
-.ls-quote { flex: none; }
+/* The quote button keeps the site's BaseButton but a size that fits the 54px bar. */
+.ls-nav .ls-quote { flex: none; height: 38px; padding: 0 18px; font-size: 14px; }
 
-@media (max-width: 1180px) {
-  .ls-nav-links { gap: 14px; }
-  .ls-link { font-size: 13px; }
-  .ls-nav-left, .ls-nav-right { gap: 10px; }
-  /* Below this width the four utility links would crowd the mark. */
-  .ls-nav-links-right { display: none; }
+/* Burger: two hairlines that fold into a cross while the sheet is open. */
+.ls-burger {
+  position: relative;
+  display: none;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: none;
+  color: inherit;
 }
-/* Phones: two rows — mark and quote, then the four main links centred underneath. */
-@media (max-width: 899px) {
-  .ls-nav-surface { height: auto; }
-  .ls-nav-bar {
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    padding: 6px 10px 8px;
-    row-gap: 4px;
-  }
-  .ls-nav-left { order: 2; width: 100%; justify-content: center; }
-  .ls-logo { order: 1; }
-  .ls-nav-right { order: 1; margin-left: auto; }
-  .ls-nav-sep, .ls-nav-links-right { display: none; }
-  .ls-nav-links { gap: 14px; }
-  .ls-link { font-size: 13px; }
+.ls-burger span {
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform .4s var(--ls-ease);
 }
-@media (max-width: 560px) {
-  .ls-nav .ls-lang { display: none; }
-  .ls-nav-bar { padding: 6px 8px 8px; }
-  .ls-nav-links { gap: 12px; }
-  .ls-link { font-size: 12px; }
+.ls-burger span:first-child { top: 15px; }
+.ls-burger span:last-child { bottom: 14px; }
+.ls-nav.is-sheet-open .ls-burger span:first-child { transform: translateY(4px) rotate(45deg); }
+.ls-nav.is-sheet-open .ls-burger span:last-child { transform: translateY(-4.5px) rotate(-45deg); }
+
+/* --------------------------------------------------------------------------
+   Panels: outside the clipped surface so corners and shadows survive; the
+   layer spans the page gutter and the panels align inside it.
+   -------------------------------------------------------------------------- */
+.ls-panels {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding-top: 10px;
+  pointer-events: none;
+}
+.ls-panels-inner {
+  position: relative;
+  width: calc(100% - 2 * var(--page-gutter) - 2 * var(--ls-compact) * var(--ls-p, 0));
+  max-width: var(--page-max);
+  margin: 0 auto;
+}
+
+.ls-panel {
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  opacity: 0;
+  padding: 24px;
+  border: 1px solid var(--ls-hairline);
+  border-radius: 12px;
+  background: rgb(255 255 255 / .95);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
+  box-shadow: 0 28px 70px rgb(0 0 0 / .12);
+  color: var(--ls-ink);
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity .26s ease, transform .4s var(--ls-ease), visibility .4s ease;
+}
+.ls-panel.is-open { z-index: 2; visibility: visible; opacity: 1; pointer-events: auto; }
+.ls-panel--cards { left: 0; right: 0; padding: 24px 24px 18px; }
+.ls-panel--list {
+  --pw: min(440px, calc(100vw - 2 * var(--page-gutter)));
+  width: var(--pw);
+  left: clamp(calc(var(--pw) / 2), var(--ls-panel-x, 50%), calc(100% - var(--pw) / 2));
+  transform: translateX(-50%) translateY(-8px);
+}
+.ls-panel--list.is-wide { --pw: min(700px, calc(100vw - 2 * var(--page-gutter))); padding: 18px; }
+.ls-panel.is-open,
+.ls-panel--list.is-open { transform: translateX(-50%) translateY(0); }
+.ls-panel--cards.is-open { transform: translateY(0); }
+
+.ls-list { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.ls-list.is-wide { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 10px; }
+.ls-list-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  color: inherit;
+  transition: background-color .3s ease;
+}
+.ls-list-link:hover { background: rgb(17 17 17 / .045); }
+.ls-list-link:hover .ls-list-title { color: var(--brand); }
+.ls-panel-icon { width: 22px; height: 22px; flex: none; margin-top: 1px; color: var(--ink-meta); transition: color .3s ease; }
+.ls-list-link:hover .ls-panel-icon { color: var(--brand); }
+.ls-list-text { display: block; min-width: 0; }
+.ls-list-title { display: block; font-size: 16px; font-weight: 500; line-height: 1.35; transition: color .3s ease; }
+.ls-list-desc { display: block; margin-top: 3px; font-size: 13px; line-height: 1.45; color: var(--ink-meta); }
+
+/* Business panel: five photographs in a row, titles and one-line descriptions under each. */
+.ls-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.ls-card { display: block; color: inherit; }
+.ls-card-media { display: block; position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); background: var(--paper-media); }
+.ls-card-media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ls-ease); }
+.ls-card:hover .ls-card-media img { transform: scale(1.05); }
+.ls-card-title { display: block; margin-top: 12px; font-size: 16px; font-weight: 500; line-height: 1.3; transition: color .3s ease; }
+.ls-card:hover .ls-card-title { color: var(--brand); }
+.ls-card-desc { display: block; margin-top: 4px; font-size: 13px; line-height: 1.45; color: var(--ink-meta); }
+
+.ls-panel-foot { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.ls-panel-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: inherit;
+  transition: color .25s ease;
+}
+.ls-panel-more svg { width: 11px; height: 11px; transition: transform .4s var(--ls-ease); }
+.ls-panel-more:hover { color: var(--brand); }
+.ls-panel-more:hover svg { transform: translate(2px, -2px); }
+
+/* --------------------------------------------------------------------------
+   Phone sheet: the same tabs, accordion style, behind the burger.
+   -------------------------------------------------------------------------- */
+.ls-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  padding: calc(54px + 30px) var(--page-gutter) 32px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgb(248 248 249 / .97);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  color: var(--ls-ink);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity .35s ease, transform .45s var(--ls-ease), visibility .35s ease;
+}
+.ls-sheet.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+.ls-sheet-inner { width: 100%; max-width: 720px; margin: 0 auto; }
+.ls-sheet-item { border-bottom: 1px solid var(--line); }
+.ls-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ls-sheet-link { flex: 1; padding: 16px 0; font-size: 22px; font-weight: 500; line-height: 1.25; color: inherit; }
+.ls-sheet-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  padding: 0;
+  border: 1px solid var(--ls-hairline);
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+}
+.ls-sheet-toggle svg { width: 16px; height: 16px; transition: transform .35s var(--ls-ease); }
+.ls-sheet-item.is-open .ls-sheet-toggle { border-color: var(--brand); color: var(--brand); }
+.ls-sheet-item.is-open .ls-sheet-toggle svg { transform: rotate(45deg); }
+.ls-sheet-sub { display: flex; flex-direction: column; gap: 2px; padding: 0 0 14px; }
+.ls-sheet-sub[hidden] { display: none; }
+.ls-sheet-sublink { padding: 9px 0; font-size: 15px; color: var(--ink-meta); transition: color .25s ease; }
+.ls-sheet-sublink:hover { color: var(--brand); }
+.ls-sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; }
+.ls-sheet-quote { flex: none; }
+
+@media (max-width: 1279px) {
+  .ls-logo-sub { display: none; }
+  .ls-nav-links { gap: 18px; }
+  .ls-link { font-size: 14px; }
+  .ls-panel--cards { padding: 18px; }
+  .ls-card-title { font-size: 15px; }
+  .ls-card-desc { font-size: 12px; }
+}
+@media (max-width: 1099px) {
+  .ls-nav-links { gap: 14px; }
+  .ls-nav .ls-quote { padding: 0 14px; font-size: 13px; }
+}
+/* Below the tab breakpoint: lockup, language, quote and burger on one line; the sheet carries the tabs. */
+@media (max-width: 999px) {
+  .ls-nav-center { display: none; }
+  .ls-nav-bar { grid-template-columns: minmax(0, 1fr) auto; padding: 0 8px 0 12px; }
+  .ls-burger { display: inline-flex; }
+}
+@media (max-width: 639px) {
+  .ls-nav-right { gap: 8px; }
+  .ls-nav .ls-quote, .ls-nav-sep { display: none; }
+  .ls-lang { font-size: 12px; }
+  .ls-logo-text { font-size: 16px; }
+  .ls-sheet { padding-top: calc(54px + 22px); }
+  .ls-sheet-link { font-size: 19px; padding: 14px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ls-nav, .ls-nav-surface, .ls-link::after { transition: none !important; }
+  .ls-nav, .ls-nav-surface, .ls-panel, .ls-sheet, .ls-link-label::after, .ls-card-media img, .ls-logo-crest, .ls-burger span { transition: none !important; }
 }
 
 /* ==========================================================================
@@ -3692,7 +3906,7 @@ html[lang="km"] .pl-hero-title {
 }
 
 html[lang="km"] .kp-tag {
-  font-size: 11.5px;
+  font-size: 14px;
   line-height: 1.4;
   letter-spacing: 0;
 }
