@@ -28,7 +28,7 @@ This repository contains the official, high-performance bilingual corporate web 
 - **Build Tooling**: Vite 8 (`vite`, `@vitejs/plugin-react`)
 - **Styling**: Tailwind CSS v4 (`tailwindcss`, `@tailwindcss/vite`)
 - **TypeScript**: TypeScript 5.7
-- **Motion & Scrolling**: Lenis (`lenis`) smooth scrolling, custom split-reveal text animations, fluid cursor physics
+- **Motion & Scrolling**: Lenis (`lenis`) smooth scrolling, custom split-reveal text animations, fluid cursor physics, and a site-wide photo parallax (`src/imageParallax.ts`): every large `object-fit: cover` image inside a clipping frame drifts ±5% against the scroll (12% overscan), the same effect as olympic.no's `animation-timeline` parallax, written on `translate`/`scale` so existing `transform` animations still work.
 - **Bilingual System**: English and Khmer (ខ្មែរ) dictionary in `src/i18n.ts`
 - **Typography**: Self-hosted Aeonik font family in `public/fonts/`
 

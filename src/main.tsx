@@ -16,6 +16,7 @@ import ContactPage from './ContactPage'
 import BlogPage from './BlogPage'
 import './index.css'
 import { initPageTransitions, onRouteChange } from './pageTransition'
+import { initImageParallax } from './imageParallax'
 import { applyLanguage, getLang, onLangChange, translate } from './i18n'
 import {
   bootstrapContent,
@@ -128,6 +129,8 @@ if (isAdminRoute) {
       <Root />
     </React.StrictMode>,
   )
+  // Every photo on the site drifts against the scroll (src/imageParallax.ts), as on olympic.no.
+  initImageParallax()
   // Load live content from D1 in the background; the bundled content renders first.
   void bootstrapContent()
 }
