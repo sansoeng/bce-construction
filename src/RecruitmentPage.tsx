@@ -10,6 +10,7 @@ import StickyValues, { type StickyItem } from "./StickyValues";
 import { ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 import ArrowButton from "./ArrowButton";
 import { unsplash } from "./company";
+import { transitionView } from "./pageTransition";
 
 // Careers after olympic.no/career-crew: the shared ParallaxHero cover (a full-height photo whose title drifts on
 // scroll, as Our Businesses), a label-with-copy standfirst, a hairline-free board of open roles with an
@@ -52,7 +53,7 @@ const cultureItems: StickyItem[] = [
 const INK = "#111";
 const MUTED = "#737373";
 const PAPER = "#F8F8F9";
-const ACCENT = "#D42D12";
+const ACCENT = "#FB290E";
 
 const GROUPS = ["All roles", "Battambang", "On site"] as const;
 type Group = (typeof GROUPS)[number];
@@ -97,7 +98,7 @@ function Kicker({
   return (
     <span
       style={style}
-      className={`block font-mono text-[16px] uppercase leading-[1.6] tracking-[0.02em] ${className}`}
+      className={`block font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] ${className}`}
     >
       {children}
     </span>
@@ -179,21 +180,23 @@ export default function RecruitmentPage() {
     else window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const selectJob = (id: string) => {
-    setSelectedJobId(id);
-    const url = new URL(window.location.href);
-    url.searchParams.set("job", id);
-    window.history.pushState(null, "", url.toString());
-    scrollTop();
-  };
+  const selectJob = (id: string) =>
+    transitionView(() => {
+      setSelectedJobId(id);
+      const url = new URL(window.location.href);
+      url.searchParams.set("job", id);
+      window.history.pushState(null, "", url.toString());
+      scrollTop();
+    });
 
-  const backToList = () => {
-    setSelectedJobId(null);
-    const url = new URL(window.location.href);
-    url.searchParams.delete("job");
-    window.history.pushState(null, "", url.toString());
-    scrollTop();
-  };
+  const backToList = () =>
+    transitionView(() => {
+      setSelectedJobId(null);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("job");
+      window.history.pushState(null, "", url.toString());
+      scrollTop();
+    });
 
   const filtered = useMemo(() => VACANCIES.filter((v) => group === "All roles" || groupOf(v) === group), [group]);
 
@@ -289,17 +292,27 @@ export default function RecruitmentPage() {
                   </h2>
 
                   <dl className="mt-10 border-t border-[#111]/10">
-                    {[
-                      ["Department", currentJob.department],
-                      ["Employment type", currentJob.type],
-                      ["Workplace type", groupOf(currentJob) === "On site" ? "On site" : "Battambang"],
-                      ["Application deadline", currentJob.deadline],
-                    ].map(([label, value]) => (
+                    {([
+                      ["Department", currentJob.department, "department"],
+                      ["Employment type", currentJob.type, ""],
+                      ["Workplace type", groupOf(currentJob) === "On site" ? "On site" : "Battambang", ""],
+                      ["Application deadline", currentJob.deadline, "deadline"],
+                    ] as const).map(([label, value, variant]) => (
                       <div key={label} className="border-b border-[#111]/10 py-4">
                         <dt>
                           <Kicker style={{ color: ACCENT }}>{label}</Kicker>
                         </dt>
-                        <dd className="mt-2 text-[16px] leading-snug text-[#111]/80">{value}</dd>
+                        <dd
+                          className={
+                            variant === "department"
+                              ? "mt-2 inline-block text-[16px] font-medium uppercase leading-snug tracking-[0.02em] text-[#FB290E]"
+                              : variant === "deadline"
+                                ? "mt-2 inline-block rounded-[4px] bg-[#F1F1EF] px-3 py-1.5 text-[16px] font-medium leading-snug text-[#111]"
+                                : "mt-2 text-[16px] leading-snug text-[#111]/80"
+                          }
+                        >
+                          {value}
+                        </dd>
                       </div>
                     ))}
                   </dl>
@@ -416,10 +429,10 @@ export default function RecruitmentPage() {
             />
 
             {/* Label with copy */}
-            <section className="site-pad bg-[#F8F8F9] pb-2 pt-12 md:pt-14">
+            <section className="site-pad bg-white pb-2 pt-12 md:pt-14">
               <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
                 <span
-                  className="block font-mono text-[16px] uppercase leading-[1.6] tracking-[0.02em] md:col-span-3"
+                  className="block font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] md:col-span-3"
                   style={{ color: ACCENT }}
                 >
                   Open positions
@@ -438,7 +451,7 @@ export default function RecruitmentPage() {
             {/* Board */}
             <section
               id="open-positions"
-              className="site-pad scroll-mt-20 bg-[#F8F8F9] pb-16 pt-12 md:pb-24 md:pt-16"
+              className="site-pad scroll-mt-20 bg-white pb-16 pt-12 md:pb-24 md:pt-16"
             >
               <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:items-center md:gap-5">
                 <fieldset
@@ -501,9 +514,9 @@ export default function RecruitmentPage() {
                         <h3 className="text-[16px] font-normal leading-snug tracking-[-0.005em] transition-colors duration-500 group-hover:text-[#F8F8F9] md:col-span-5">
                           {v.title}
                         </h3>
-                        <span className="text-[13px] text-[#737373] md:col-span-4">{v.department}</span>
+                        <span className="text-[13px] font-medium uppercase tracking-[0.02em] text-[#FB290E] md:col-span-4">{v.department}</span>
                         <span className="flex items-center justify-between gap-3 md:col-span-2">
-                          <span className="text-[13px] text-[#737373]">{v.deadline}</span>
+                          <span className="rounded-[4px] bg-[#F1F1EF] px-2.5 py-1 text-[13px] text-[#111]">{v.deadline}</span>
                           <ArrowRight className="size-4 shrink-0 text-[#111] transition-colors duration-500 group-hover:text-[#F8F8F9]" />
                         </span>
                         <span className="sr-only">

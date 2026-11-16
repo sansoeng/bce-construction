@@ -45,8 +45,8 @@
   --ink-meta: #737373;
   --ink-caption: #929292;
   --ink-muted: #a5a7a8;
-  --brand: #ff3c1e;
-  --brand-ink: #d42d12;
+  --brand: #fb290e;
+  --brand-ink: #fb290e;
   --ink-hover: #333;
   --danger: #b3261e;
   --paper: #fff;
@@ -3811,7 +3811,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 }
 .abv-box.is-active { --abv-in: 1; transition: --abv-in 1.2s cubic-bezier(.16, 1, .3, 1) var(--abv-delay, 0s); }
 .abv.is-live .abv-box { will-change: transform, opacity; }
-.abv-label { margin-bottom: .9rem; font-family: var(--font-ui-mono); font-size: 16px; font-weight: 500; letter-spacing: .02em; line-height: 1.4; text-transform: uppercase; color: var(--brand); }
+.abv-label { margin-bottom: .9rem; font-family: var(--font-ui-mono); font-size: 14px; font-weight: 500; letter-spacing: .02em; line-height: 1.4; text-transform: uppercase; color: var(--brand); }
 .abv-statement { font-size: clamp(1.15rem, 1.45vw, 1.5rem); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .abv-box { background: rgb(17 17 17 / .55); } }
 .abv-vision { padding: 6rem var(--page-gutter) 0; }
@@ -3901,7 +3901,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
   .ol-lead-content { grid-column: 1 / -1; }
 }
 html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; }
-.ol-label { font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.6; letter-spacing: .02em; text-transform: uppercase; color: var(--brand-ink); }
+.ol-label { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.6; letter-spacing: .02em; text-transform: uppercase; color: var(--brand-ink); }
 .ol-page-body { position: relative; z-index: 1; display: flow-root; background: var(--ol-bg); }
 
 /* Cover (ParallaxHero), after the careers page: a full-height photo under a dark scrim with the label and the oversized
@@ -3921,7 +3921,7 @@ html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; 
   background: linear-gradient(180deg, rgb(15 17 19 / .55) 0%, rgb(15 17 19 / .10) 40%, rgb(15 17 19 / .62) 78%, rgb(15 17 19 / .86) 100%); }
 /* The copy sits on the bottom edge and fades over the last stretch, once the following section covers it. */
 .ol-hero-wrap { opacity: clamp(0, calc(1 - (var(--p, 0) - .75) * 4), 1); position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); align-content: end; height: 100vh; height: 100svh; padding-bottom: clamp(40px, 7vh, 72px); }
-.ol-hero-label { grid-column: 1 / -1; margin-bottom: 22px; font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
+.ol-hero-label { grid-column: 1 / -1; margin-bottom: 22px; font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ol-hero-title { grid-column: 1 / span 9; max-width: 22ch; font-size: clamp(34px, 4.6vw, 64px) !important; font-weight: 500; line-height: 1.02; letter-spacing: -.03em; color: var(--paper); }
 .ol-hero-line { display: block; }
 @media (max-width: 1023px) { .ol-hero-title { grid-column: 1 / span 10; } }
@@ -3931,7 +3931,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 /* What we do — the recruitment page's label-with-copy: a 14px mono caps label in the site orange on the left, the
    standfirst in 18px grey on the right. */
 .ol-lwc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); padding: 48px var(--olm) 0; }
-.ol-lwc-label { grid-column: 1 / span 4; font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.6; letter-spacing: .02em; text-transform: uppercase; color: var(--brand-ink); }
+.ol-lwc-label { grid-column: 1 / span 4; font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.6; letter-spacing: .02em; text-transform: uppercase; color: var(--brand-ink); }
 .ol-lwc-content { grid-column: 8 / -1; }
 .ol-lwc-copy { max-width: 560px; font-size: 18px; font-weight: 400; line-height: 1.5; letter-spacing: -.01em; color: rgb(30 34 38 / .7); }
 .ol-topics { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 40px; }
@@ -4153,7 +4153,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qx-head { grid-column: 1 / 7; align-self: start; }
 .qx-body { grid-column: 8 / span 4; align-self: start; }
 .qx-copy { display: flex; flex-direction: column; gap: 1.4em; font-size: 1.08rem; line-height: 1.45; color: rgb(17 17 17 / .64); }
-.qx-label { display: block; font-family: var(--font-ui-mono); font-size: 16px; font-weight: 500; letter-spacing: .06em; line-height: 1.5; text-transform: uppercase; color: var(--brand-ink); }
+.qx-label { display: block; font-family: var(--font-ui-mono); font-size: 14px; font-weight: 500; letter-spacing: .06em; line-height: 1.5; text-transform: uppercase; color: var(--brand-ink); }
 .qx-cell-text { display: block; font-size: 1.08rem; line-height: 1.45; color: rgb(17 17 17 / .64); }
 /* 01: numbered process list. */
 .qx-list-label { margin-top: clamp(3.5rem, 6vw, 5rem); }
@@ -4170,7 +4170,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qx-cell, .qx-area { display: flex; flex-direction: column; gap: .8rem; padding: 1.2rem 0 1.7rem; border-top: 1px solid transparent; }
 /* The material/equipment name and the certificate that backs it, set a step larger than the 13px section labels so the
    ruled cells read as the section's content. Applied to both lists on Quality & HSE (raw materials, calibration). */
-.qx-cell .qx-label, .qx-area .qx-label { font-size: 16px; }
+.qx-cell .qx-label, .qx-area .qx-label { font-size: 14px; }
 .qx-cell .qx-cell-text, .qx-area .qx-cell-text { font-size: 20px; }
 /* 03: a full-width rule (left margin to the screen edge) opening the label and the ruled equipment list. */
 .qx-areas { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 20px; margin: clamp(4.5rem, 8vw, 7.5rem) 0 0 var(--olm, var(--page-gutter)); padding-right: var(--olm, var(--page-gutter)); border-top: 1px solid transparent; }
@@ -4234,7 +4234,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qd-label {
   display: block;
   font-family: var(--font-ui-mono);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: .1em;
@@ -4480,7 +4480,7 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .ab-tile-media img { transition: transform 1.109s cubic-bezier(.17, .84, .44, 1); }
 @media (hover: hover) { .ab-tile:hover .ab-tile-media img { transform: scale(1.03); } }
 .ab-tile-content { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: flex-start; height: 100%; padding: 54px 45px; }
-.ab-tile-label { font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
+.ab-tile-label { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ab-tile-title { max-width: 26rem; margin-top: 24px; font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; text-shadow: 0 2px 28px rgb(0 0 0 / .42); }
 .ab-tile-btn { margin-top: auto; }
 /* Keep the tile buttons white on hover; only the label and arrow animate. */
@@ -4719,7 +4719,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   background: linear-gradient(180deg, rgb(0 0 0 / .45), rgb(0 0 0 / .08) 45%, rgb(0 0 0 / .42));
 }
 .ol-other-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; height: 100%; padding: 30px 28px; }
-.ol-other-label { font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
+.ol-other-label { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ol-other-name { max-width: 16rem; margin-top: 12px; font-size: clamp(1.35rem, 2vw, 1.9rem); font-weight: 500; line-height: 1.06; letter-spacing: -.025em; }
 .ol-other-btn { margin-top: auto; }
 @media (hover: hover) {

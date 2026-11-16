@@ -7,6 +7,7 @@ import QuoteCta from "./QuoteCta";
 import { usePageSetup } from "./usePageSetup";
 import { translate } from "./i18n";
 import { BLOG_POSTS, journalKind, type BlogPost, type JournalKind } from "./blogData";
+import { transitionView } from "./pageTransition";
 
 // Journal archive after olympic.no/journal: a small mono standfirst, a two-line display title, one segmented
 // News/Insight control, then every story as a square photographic tile in a three-column grid. The reader below keeps
@@ -21,7 +22,7 @@ function Meta({ children, className = "", accent = false }: { children: ReactNod
   return (
     <span
       className={`font-mono uppercase leading-[1.6] tracking-[0.1em] ${
-        accent ? "text-[16px] text-[#D42D12]" : "text-[16px]"
+        accent ? "text-[14px] text-[#FB290E]" : "text-[14px]"
       } ${className}`}
     >
       {children}
@@ -60,7 +61,7 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
       </div>
 
       <div className="pt-4 md:pt-5">
-        <Meta className="text-[#D42D12]">{post.category}</Meta>
+        <Meta className="text-[#FB290E]">{post.category}</Meta>
         <h3 className="mt-3 text-[18px] font-medium leading-[1.2] tracking-[-0.015em] text-[#111] sm:text-[19px] lg:text-[clamp(19px,1.55vw,26px)] lg:leading-[1.19]">
           <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
             {post.title}
@@ -128,11 +129,13 @@ export default function BlogPage() {
   };
 
   const handleSelectPost = (slug: string) => {
-    setSelectedSlug(slug);
-    const url = new URL(window.location.href);
-    url.searchParams.set("post", slug);
-    window.history.pushState(null, "", url.toString());
-    toTop();
+    transitionView(() => {
+      setSelectedSlug(slug);
+      const url = new URL(window.location.href);
+      url.searchParams.set("post", slug);
+      window.history.pushState(null, "", url.toString());
+      toTop();
+    });
   };
 
   // Filter posts

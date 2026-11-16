@@ -83,7 +83,7 @@ function HeroLatestNews() {
           />
         </div>
         <div className="flex flex-1 flex-col justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2">
-          <span className="text-[16px] font-mono tracking-[0.02em] uppercase text-[#FF3C1E]">
+          <span className="text-[14px] font-mono tracking-[0.02em] uppercase text-[#FB290E]">
             {newsKicker}
           </span>
           <div className="flex items-end justify-between gap-3">

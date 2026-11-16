@@ -54,13 +54,13 @@ function swap(href: string, push: boolean) {
   flushSync(() => listeners.forEach((fn) => fn()));
 }
 
-async function runNavigate(href: string, push: boolean) {
+async function runNavigate(href: string, push: boolean, doSwap: () => void = () => swap(href, push)) {
   const html = document.documentElement;
   const app = document.getElementById("root");
   lenis()?.stop();
 
   if (reduced()) {
-    swap(href, push);
+    doSwap();
     return;
   }
 
@@ -74,7 +74,7 @@ async function runNavigate(href: string, push: boolean) {
 
   if (mobile) {
     await wait(320);
-    swap(href, push);
+    doSwap();
     await frames(2);
     curtain.classList.remove("is-on");
     await wait(400);
@@ -94,7 +94,7 @@ async function runNavigate(href: string, push: boolean) {
 
   // Under the curtain: hide the page shell, swap, then let the new page lay itself out before it rises.
   html.classList.add("pt-enter");
-  swap(href, push);
+  doSwap();
   curtain.remove();
   await frames(2);
   await wait(60);
@@ -114,6 +114,26 @@ async function runNavigate(href: string, push: boolean) {
   setTimeout(() => html.classList.remove("pt-settle"), 600);
 }
 
+// Shared cleanup: a hidden window can pause rAF or a page can unload mid-flight, so a stuck curtain must never leave
+// the site unclickable. Runs for route navigations and for in-place view changes.
+function resetTransitionUi() {
+  const html = document.documentElement;
+  const app = document.getElementById("root");
+  document.querySelectorAll(".pt-curtain, .pt-mask").forEach((el) => el.remove());
+  app?.style.removeProperty("transform-origin");
+  app?.style.removeProperty("--pt-s");
+  html.classList.remove(
+    "pt-leave",
+    "pt-leave-shrink",
+    "pt-leave-mobile",
+    "pt-enter",
+    "pt-run",
+    "pt-enter-scrolled",
+    "pt-settle",
+  );
+  lenis()?.start();
+}
+
 // Every navigation goes through here: the cleanup runs even if the transition was interrupted (a hidden window pauses
 // rAF, a page unloads mid-flight), so a stuck curtain can never leave the site unclickable.
 async function navigate(href: string, push: boolean) {
@@ -130,18 +150,24 @@ async function navigate(href: string, push: boolean) {
   } finally {
     clearTimeout(guard);
     busy = false;
-    document.querySelectorAll(".pt-curtain, .pt-mask").forEach((el) => el.remove());
-    document.documentElement.classList.remove(
-      "pt-leave",
-      "pt-leave-shrink",
-      "pt-leave-mobile",
-      "pt-enter",
-      "pt-run",
-      "pt-enter-scrolled",
-      "pt-settle",
-    );
-    lenis()?.start();
+    resetTransitionUi();
     if (routeKey() !== targetKey) location.assign(target.href);
+  }
+}
+
+/** Run the page's own leave/enter motion around an in-place view change that keeps the route (a journal story, a job
+ *  detail). The callback updates state, URL and scroll position; the curtain hides the swap. */
+export async function transitionView(apply: () => void) {
+  if (busy) {
+    apply();
+    return;
+  }
+  busy = true;
+  try {
+    await runNavigate("", false, () => flushSync(apply));
+  } finally {
+    busy = false;
+    resetTransitionUi();
   }
 }
 
