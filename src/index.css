@@ -415,7 +415,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   flex-direction: column;
   min-width: 0;
 }
-/* Name, location and the category pill, the pill sitting under the title as on pda.archi. */
+/* Name, location and the category label, set under the title as on pda.archi. */
 .kp-body {
   display: flex;
   flex-direction: column;
@@ -426,21 +426,19 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 .kp-tag {
   display: inline-flex;
   align-items: center;
-  padding: 9px 15px;
-  border-radius: var(--radius);
-  background: var(--paper-page);
+  padding: 0;
+  border-radius: 0;
+  background: none;
   color: var(--brand-ink);
   font-size: 14px;
   font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.08em;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   text-align: center;
   white-space: normal;
   max-width: 100%;
-  transition: background-color 0.3s ease;
 }
-.kp-item:hover .kp-tag { background: var(--paper-media); }
 .kp-name {
   font-size: clamp(20px, 4vw, 24px);
   font-weight: 600;
@@ -588,7 +586,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 .pl-list .kp-info { display: contents; }
 .pl-list .kp-body { gap: 8px; }
 .pl-list .kp-plus { display: none; }
-.pl-list .kp-tag { padding: 6px 11px; font-size: 14px; }
+.pl-list .kp-tag { font-size: 14px; }
 .pl-list .kp-location { margin-top: 2px; font-size: .9rem; }
 .pl-list .kp-meta { padding: 0; font-size: .85rem; color: var(--ink-meta); text-align: right; }
 .pl-list .kp-arrow {
@@ -619,7 +617,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   .pl-hero-copy { grid-column: 1 / -1; }
   .pl-hero-copy { max-width: none; font-size: 1rem; line-height: 1.45; }
 
-  .kp-tag { padding: 8px 13px; font-size: 14px; }
   .kp-plus { left: 12px; bottom: 12px; }
 
   .pl-list .kp-item {
