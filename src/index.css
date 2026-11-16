@@ -3407,6 +3407,7 @@ html[lang="km"] :is(
   .glance-label-title, .glance-wordmark,
   .fg-btn, .fg-btn-label, .fg-btn-line, button, .qc-btn-label,
   .pd-tag, .pp-label, .ol-label, .abv-label, .qx-label,
+  .ol-hero-label, .ol-other-label, .qd-label, .ac-story-eyebrow,
   .apple-header, .apple-floating-nav, .apple-nav-link, .apple-floating-link,
   .box-24, .box-24 span,
   [class*="text-[10px]"], [class*="text-[11px]"], [class*="text-[12px]"],
@@ -3488,6 +3489,7 @@ html[lang="km"] :is(
   .ol-hero-title, .ol-tm-title, .ol-onboard-heading, .ac-title, .abz-title,
   .fg-btn, .fg-btn *, .qc-btn-label, button,
   .pd-tag, .pp-label, .ol-label, .abv-label, .qx-label,
+  .ol-hero-label, .ol-other-label, .qd-label, .ac-story-eyebrow,
   .ol-lead-copy, .ol-lead-copy *,
   .ol-lwc-copy, .ol-lwc-copy *,
   .ol-solutions-lead, .ol-solutions-lead *,
@@ -3809,7 +3811,7 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 }
 .abv-box.is-active { --abv-in: 1; transition: --abv-in 1.2s cubic-bezier(.16, 1, .3, 1) var(--abv-delay, 0s); }
 .abv.is-live .abv-box { will-change: transform, opacity; }
-.abv-label { margin-bottom: .9rem; font-family: var(--font-ui-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; color: rgb(255 255 255 / .7); }
+.abv-label { margin-bottom: .9rem; font-family: var(--font-ui-mono); font-size: 16px; font-weight: 500; letter-spacing: .02em; line-height: 1.4; text-transform: uppercase; color: var(--brand); }
 .abv-statement { font-size: clamp(1.15rem, 1.45vw, 1.5rem); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .abv-box { background: rgb(17 17 17 / .55); } }
 .abv-vision { padding: 6rem var(--page-gutter) 0; }
@@ -3919,7 +3921,7 @@ html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; 
   background: linear-gradient(180deg, rgb(15 17 19 / .55) 0%, rgb(15 17 19 / .10) 40%, rgb(15 17 19 / .62) 78%, rgb(15 17 19 / .86) 100%); }
 /* The copy sits on the bottom edge and fades over the last stretch, once the following section covers it. */
 .ol-hero-wrap { opacity: clamp(0, calc(1 - (var(--p, 0) - .75) * 4), 1); position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); align-content: end; height: 100vh; height: 100svh; padding-bottom: clamp(40px, 7vh, 72px); }
-.ol-hero-label { grid-column: 1 / -1; margin-bottom: 22px; font-size: .95rem; line-height: 1.35; letter-spacing: -.01em; color: rgb(255 255 255 / .72); }
+.ol-hero-label { grid-column: 1 / -1; margin-bottom: 22px; font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ol-hero-title { grid-column: 1 / span 9; max-width: 22ch; font-size: clamp(34px, 4.6vw, 64px) !important; font-weight: 500; line-height: 1.02; letter-spacing: -.03em; color: var(--paper); }
 .ol-hero-line { display: block; }
 @media (max-width: 1023px) { .ol-hero-title { grid-column: 1 / span 10; } }
@@ -4232,7 +4234,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qd-label {
   display: block;
   font-family: var(--font-ui-mono);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: .1em;
@@ -4478,7 +4480,7 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .ab-tile-media img { transition: transform 1.109s cubic-bezier(.17, .84, .44, 1); }
 @media (hover: hover) { .ab-tile:hover .ab-tile-media img { transform: scale(1.03); } }
 .ab-tile-content { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: flex-start; height: 100%; padding: 54px 45px; }
-.ab-tile-label { font-size: .95rem; line-height: 1.35; color: rgb(255 255 255 / .86); }
+.ab-tile-label { font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ab-tile-title { max-width: 26rem; margin-top: 24px; font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; text-shadow: 0 2px 28px rgb(0 0 0 / .42); }
 .ab-tile-btn { margin-top: auto; }
 /* Keep the tile buttons white on hover; only the label and arrow animate. */
@@ -4717,7 +4719,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   background: linear-gradient(180deg, rgb(0 0 0 / .45), rgb(0 0 0 / .08) 45%, rgb(0 0 0 / .42));
 }
 .ol-other-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; height: 100%; padding: 30px 28px; }
-.ol-other-label { font-size: .85rem; line-height: 1.35; color: rgb(255 255 255 / .78); }
+.ol-other-label { font-family: var(--font-mono); font-size: 16px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ol-other-name { max-width: 16rem; margin-top: 12px; font-size: clamp(1.35rem, 2vw, 1.9rem); font-weight: 500; line-height: 1.06; letter-spacing: -.025em; }
 .ol-other-btn { margin-top: auto; }
 @media (hover: hover) {

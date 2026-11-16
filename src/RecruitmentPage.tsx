@@ -309,7 +309,7 @@ export default function RecruitmentPage() {
                   </div>
 
                   <div className="mt-12">
-                    <Kicker style={{ color: MUTED }}>About the role</Kicker>
+                    <Kicker style={{ color: ACCENT }}>About the role</Kicker>
                     <h3 className="mt-2 text-[20px] font-medium leading-tight tracking-[-0.01em]">
                       What you&rsquo;ll be doing
                     </h3>
@@ -324,7 +324,7 @@ export default function RecruitmentPage() {
                   </div>
 
                   <div className="mt-12">
-                    <Kicker style={{ color: MUTED }}>Requirements</Kicker>
+                    <Kicker style={{ color: ACCENT }}>Requirements</Kicker>
                     <h3 className="mt-2 text-[20px] font-medium leading-tight tracking-[-0.01em]">
                       What you&rsquo;ll need
                     </h3>
@@ -368,7 +368,7 @@ export default function RecruitmentPage() {
                   </div>
 
                   <div className="mt-10 border-t border-[#111]/10 pt-6">
-                    <Kicker style={{ color: MUTED }}>Contact details</Kicker>
+                    <Kicker style={{ color: ACCENT }}>Contact details</Kicker>
                     <div className="mt-3 space-y-1 text-[16px] text-[#111]/70">
                       <p>
                         Email:{" "}

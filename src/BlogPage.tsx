@@ -21,7 +21,7 @@ function Meta({ children, className = "", accent = false }: { children: ReactNod
   return (
     <span
       className={`font-mono uppercase leading-[1.6] tracking-[0.1em] ${
-        accent ? "text-[16px] text-[#D42D12]" : "text-[14px]"
+        accent ? "text-[16px] text-[#D42D12]" : "text-[16px]"
       } ${className}`}
     >
       {children}
@@ -60,7 +60,7 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
       </div>
 
       <div className="pt-4 md:pt-5">
-        <Meta className="text-[#737373]">{post.category}</Meta>
+        <Meta className="text-[#D42D12]">{post.category}</Meta>
         <h3 className="mt-3 text-[18px] font-medium leading-[1.2] tracking-[-0.015em] text-[#111] sm:text-[19px] lg:text-[clamp(19px,1.55vw,26px)] lg:leading-[1.19]">
           <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
             {post.title}
