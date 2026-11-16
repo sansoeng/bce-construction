@@ -1,11 +1,10 @@
 /**
  * Quality, capability & HSE content.
  *
- * Every headline, paragraph, certificate row, concrete grade and photo on
- * `/?quality` lives here, apart from the two capacity panels (equipment and
- * engineering) held in `src/capabilities.ts`. The bundled defaults render
- * first; Cloudflare D1 then replaces them at runtime through `contentStore`,
- * so the admin console edits the live page without a deploy.
+ * Every headline, paragraph, certificate row, concrete grade, fleet figure and
+ * photo on `/?quality` lives here. The bundled defaults render first; Cloudflare
+ * D1 then replaces them at runtime through `contentStore`, so the admin console
+ * edits the live page without a deploy.
  *
  * The retired Technical Capabilities page merged into this one, so its quality
  * process, laboratory tests and material certificates are not duplicated: the
@@ -57,6 +56,24 @@ export type QualityContent = {
     label: string;
     heading: string;
     items: { lines: string[]; text: string; image: string; imageAlt: string }[];
+  };
+  engineering: {
+    kicker: string;
+    title: string;
+    image: string;
+    imageAlt: string;
+    copy: string[];
+    rows: { label: string; value: string }[];
+  };
+  fleet: {
+    kicker: string;
+    title: string;
+    image: string;
+    imageAlt: string;
+    copy: string[];
+    rows: { label: string; value: string }[];
+    ctaLabel: string;
+    ctaHref: string;
   };
   documents: {
     label: string;
@@ -172,6 +189,44 @@ export const DEFAULT_QUALITY: QualityContent = {
         imageAlt: "Construction engineering team collaborating on site",
       },
     ],
+  },
+  engineering: {
+    kicker: "People behind every project",
+    title: "Engineering capability",
+    image: "/Image/bce/stats_fleet.webp",
+    imageAlt: "An engineer inspecting reinforcement on site",
+    copy: [
+      "Our engineers plan, design and supervise every project, from mix design and piling programmes to site supervision and handover records.",
+    ],
+    rows: [
+      { label: "Engineers", value: "15" },
+      { label: "Team", value: "71" },
+      { label: "Building since", value: "1995" },
+      { label: "Coverage", value: "13 provinces + Phnom Penh" },
+    ],
+  },
+  // Everything BCE owns and runs, as listed in the Corporate Profile, less the laboratory equipment (which belongs to
+  // the laboratory section above). Counts are machines, not staff.
+  fleet: {
+    kicker: "Our own fleet",
+    title: "Equipment & fleet",
+    image: "/Image/bce/about-zoom-boom-pumps.webp",
+    imageAlt: "BCE pump trucks and mixer trucks placing concrete on site",
+    copy: [
+      "Our plants and fleet are owned, operated and maintained by our own team, so capacity is planned around your programme rather than a supplier's.",
+    ],
+    rows: [
+      { label: "Batching plants", value: "04  /  70 m³/hr each" },
+      { label: "Mixer trucks", value: "41" },
+      { label: "Pump trucks", value: "08" },
+      { label: "Wheel loaders", value: "07" },
+      { label: "Piling rigs", value: "07" },
+      { label: "Crane trucks", value: "06" },
+      { label: "Tower cranes", value: "08" },
+      { label: "Lifts", value: "05" },
+    ],
+    ctaLabel: "Hire our equipment",
+    ctaHref: "/?quote&service=equipment-rental",
   },
   documents: {
     label: "Quality documents",

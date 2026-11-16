@@ -4201,8 +4201,6 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 
 /* Dark band */
 .ol-dk { margin: 130px 0 190px; }
-/* When the HSE sequence continues the band on the same ink ground (Quality page), the two sit flush. */
-.ol-dk.ol-dk--flush { margin-bottom: 0; }
 .ol-dk-wrap { position: relative; display: flex; overflow: hidden; padding-inline: var(--olm); background: var(--ol-dark); color: var(--paper); }
 .ol-dk-media { position: relative; flex: 0 0 calc(50% + var(--olm)); margin-right: calc(var(--olm) * -1); overflow: hidden; aspect-ratio: 864 / 1192; background: var(--ink); }
 .ol-dk-content { display: flex; flex: 0 0 50%; flex-direction: column; padding-block: 144px 215px; }
@@ -4402,11 +4400,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qx-areas-list .qx-area:first-child { padding-top: 1.15rem; }
 /* 04: the HSE sticky sequence (src/StickyValues.tsx) on AboutValues' .abv-* styles. */
 #hse { margin-top: clamp(6rem, 11vw, 11rem); }
-/* The dark capacity band closes the capability story on the Quality page, so the HSE sequence follows its own
-   bottom margin (190px) rather than adding the section's full lead-in gap on top of it. */
-.ol-dk + #hse { margin-top: 0; }
-/* The same sequence on the ink ground (Quality page): the label, copy and photo wells flip to the paper palette so
-   it reads as one block with the dark band above it. */
+/* The same sequence on the ink ground (Quality page): the label, copy and photo wells flip to the paper palette. */
 .abv--dark { background: var(--ink); color: var(--paper); }
 .abv--dark .abv-subtitle.is-dark { color: rgb(255 255 255 / .5); }
 .abv--dark .abv-subtitle.is-dark .abv-subtitle-n { color: rgb(255 255 255 / .4); }

@@ -1,7 +1,6 @@
 import { DEFAULT_HOMEPAGE, HOMEPAGE_ICONS } from "../homepage";
 import { DEFAULT_QUALITY } from "../quality";
 import { DEFAULT_ABOUT } from "../about";
-import { DEFAULT_CAPACITY } from "../capabilities";
 
 export type FieldType =
   | "text"
@@ -85,11 +84,6 @@ const valueIcons = [
   "wrench",
   "pin",
 ];
-
-const capabilityPanels = [
-  ["equipment", "Equipment & fleet", true],
-  ["engineering", "Engineering", false],
-] as const;
 
 export const SCHEMAS: Record<string, ContentSchema> = {
   projects: {
@@ -403,6 +397,8 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "laboratory", title: "Laboratory & QA", hint: "The laboratory copy, the five-step process, what the lab tests and its photo.", keys: ["laboratory"] },
       { id: "materials", title: "Raw material certificates", hint: "The certified materials and the photo beside them.", keys: ["materials"] },
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
+      { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
+      { id: "fleet", title: "Equipment & fleet", hint: "The plant and equipment inventory (laboratory equipment stays under Laboratory).", keys: ["fleet"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
       { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section, and the request link.", keys: ["documents"] },
     ],
@@ -458,6 +454,32 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "equipment", label: "Equipment", type: "text" },
           { key: "scope", label: "What is calibrated", type: "text" },
         ] },
+      ] },
+
+      { key: "engineering", label: "", type: "group", fields: [
+        { key: "kicker", label: "Kicker", type: "text" },
+        { key: "title", label: "Heading", type: "text" },
+        { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "copy", label: "Copy", type: "list", hint: "One paragraph per row.", wide: true },
+        { key: "rows", label: "Figures", type: "objectList", itemLabel: "Row", itemFields: [
+          { key: "label", label: "Label", type: "text" },
+          { key: "value", label: "Value", type: "text" },
+        ] },
+      ] },
+
+      { key: "fleet", label: "", type: "group", fields: [
+        { key: "kicker", label: "Kicker", type: "text" },
+        { key: "title", label: "Heading", type: "text" },
+        { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "copy", label: "Copy", type: "list", hint: "One paragraph per row.", wide: true },
+        { key: "rows", label: "Equipment & fleet", type: "objectList", itemLabel: "Machine", itemFields: [
+          { key: "label", label: "Label", type: "text" },
+          { key: "value", label: "Count / capacity", type: "text" },
+        ] },
+        { key: "ctaLabel", label: "Button label", type: "text" },
+        { key: "ctaHref", label: "Button link", type: "text", locale: false },
       ] },
 
       { key: "hse", label: "", type: "group", fields: [
@@ -586,54 +608,6 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
         ] },
       ] },
-    ],
-  },
-
-  capabilities: {
-    type: "capabilities",
-    label: "Capacity",
-    singular: "Capacity",
-    description: "Equipment & fleet and engineering capability, shown on the Quality, capability & HSE page.",
-    icon: "◎",
-    titleKey: "title",
-    slugKey: "slug",
-    singleton: true,
-    tabs: true,
-    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_CAPACITY)) as Record<string, unknown>), title: "Capacity", slug: "capabilities" }),
-    skipKm: ["title", "slug"],
-    sections: [
-      { id: "fleet", title: "Equipment & fleet", hint: "The dark band with the fleet figures.", keys: ["equipment"] },
-      { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
-    ],
-    fields: [
-      { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
-      { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “capabilities”.", locale: false },
-
-      ...capabilityPanels.map(([key, label, withCta]) => {
-        const panel: Field = {
-          key,
-          label,
-          type: "group",
-          fields: [
-            { key: "kicker", label: "Kicker", type: "text" },
-            { key: "title", label: "Heading", type: "text" },
-            { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
-            { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
-            { key: "copy", label: "Copy", type: "list", hint: "One paragraph per row.", wide: true },
-            { key: "rows", label: "Figures", type: "objectList", itemLabel: "Row", itemFields: [
-              { key: "label", label: "Label", type: "text" },
-              { key: "value", label: "Value", type: "text" },
-            ] },
-          ],
-        };
-        if (withCta) {
-          panel.fields?.push(
-            { key: "ctaLabel", label: "Button label", type: "text" },
-            { key: "ctaHref", label: "Button link", type: "text", locale: false },
-          );
-        }
-        return panel;
-      }),
     ],
   },
 

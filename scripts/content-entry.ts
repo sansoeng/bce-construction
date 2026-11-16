@@ -6,7 +6,6 @@ import { offerings } from "../src/company";
 import { DEFAULT_HOMEPAGE } from "../src/homepage";
 import { DEFAULT_QUALITY } from "../src/quality";
 import { DEFAULT_ABOUT } from "../src/about";
-import { DEFAULT_CAPACITY } from "../src/capabilities";
 import { BLOG_POSTS } from "../src/blogData";
 import { VACANCIES } from "../src/careersData";
 import { DOCUMENTS } from "../src/resourcesData";
@@ -17,7 +16,6 @@ export function getContent() {
     { type: "homepage", slug: "home", sort: 0, data: { ...DEFAULT_HOMEPAGE, title: "Homepage", slug: "home" } },
     { type: "quality", slug: "quality", sort: 0, data: { ...DEFAULT_QUALITY, title: "Quality & HSE", slug: "quality" } },
     { type: "about", slug: "about", sort: 0, data: { ...DEFAULT_ABOUT, title: "About BCE", slug: "about" } },
-    { type: "capabilities", slug: "capabilities", sort: 0, data: { ...DEFAULT_CAPACITY, title: "Capacity", slug: "capabilities" } },
     ...projects.map((item, sort) => ({ type: "projects", slug: item.slug, sort, data: item })),
     ...BLOG_POSTS.map((item, sort) => ({ type: "posts", slug: item.slug, sort, data: item })),
     ...VACANCIES.map((item, sort) => ({ type: "vacancies", slug: item.id, sort, data: item })),

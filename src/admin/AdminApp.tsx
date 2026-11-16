@@ -8,7 +8,6 @@ import {
   FileText,
   FlaskConical,
   FolderOpen,
-  Gauge,
   Home,
   Image as ImageIcon,
   Landmark,
@@ -71,7 +70,6 @@ const ADMIN_HOST = "admin.bce-construction.com";
 const typeIcons = {
   homepage: Home,
   about: Landmark,
-  capabilities: Gauge,
   quality: FlaskConical,
   projects: FolderOpen,
   posts: Newspaper,

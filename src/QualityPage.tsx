@@ -5,23 +5,22 @@ import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import { useMediaReveal, usePageSetup } from "./usePageSetup";
-import { DarkMedia, LabelCopy, OlButton, ParallaxHero, TextMedia, useScrollParallax } from "./ServiceBlocks";
+import { LabelCopy, OlButton, ParallaxHero, TextMedia, useScrollParallax } from "./ServiceBlocks";
 import StickyValues, { type StickyItem } from "./StickyValues";
 import { quoteHref, unsplash } from "./company";
 import { quality } from "./quality";
-import { capabilities, type CapabilityRow } from "./capabilities";
 
 // Quality, capability & HSE (/?quality), for contractors, consultants and tender reviewers. One page, one narrative:
 // how the concrete is tested (laboratory and the five-step process), what is designed (concrete grades), what goes in
-// (raw material and calibration certificates), what we own (equipment and fleet), who runs it (engineering), the HSE
-// commitment, and the documents procurement asks for.
+// (raw material and calibration certificates), who runs it (engineering), the HSE commitment, the plant and fleet, and
+// the documents procurement asks for.
 //
 // The former Technical Capabilities page (/?capabilities) is merged in: its quality-assurance, laboratory and
-// materials panels repeated this page's process, testing list and certificate rows, so only the fleet and engineering
-// panels survived (read from `src/capabilities.ts`, which the admin edits as "Capacity"). Old links still resolve —
-// /?capabilities rewrites to this page and its superseded anchors map to the surviving sections (see LEGACY_ANCHORS).
+// materials panels repeated this page's process, testing list and certificate rows, so only the engineering and fleet
+// panels survived. Old links still resolve — /?capabilities rewrites to this page and its superseded anchors map to the
+// surviving sections (see LEGACY_ANCHORS).
 //
-// Copy and photos come from `src/quality.ts` and `src/capabilities.ts`, which the admin console edits through D1.
+// Copy and photos come from `src/quality.ts`, which the admin console edits through D1.
 // Document lists are sample content until BCE confirms them and publishes the files.
 
 const phones = siteSettings.contact.phones;
@@ -35,8 +34,8 @@ const TOPICS = [
   ["raw-materials", "materials"],
   ["calibration", "calibration"],
   ["engineering", "engineering"],
-  ["equipment-fleet", "equipment"],
   ["hse", "hse"],
+  ["equipment-fleet", "equipment"],
   ["documents", "documents"],
 ] as const;
 
@@ -47,7 +46,7 @@ const LEGACY_ANCHORS: Record<string, string> = {
   "materials-certificates": "raw-materials",
 };
 
-function Rows({ rows, dark = false }: { rows: CapabilityRow[]; dark?: boolean }) {
+function Rows({ rows, dark = false }: { rows: { label: string; value: string }[]; dark?: boolean }) {
   return (
     <ul className={`ol-rows ${dark ? "ol-rows--dk" : ""}`}>
       {rows.map((row, i) => (
@@ -100,7 +99,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
     alt: imageAlt,
   }));
 
-  const { equipment, engineering } = capabilities;
+  const { engineering, fleet } = quality;
 
   // Topic labels for the on-page index, read from the content the sections render.
   const topicLabel: Record<(typeof TOPICS)[number][1], string> = {
@@ -108,8 +107,8 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
     grades: "Concrete grades",
     materials: quality.materials.title,
     calibration: quality.calibration.title,
-    equipment: equipment.title,
     engineering: engineering.title,
+    equipment: fleet.title,
     hse: quality.hse.label,
     documents: quality.documents.title,
   };
@@ -248,8 +247,8 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           </div>
         </section>
 
-        {/* 05 Engineering capability, the capabilities page's first surviving panel: the people and figures behind the
-            mix designs, with the coverage figure linking to the map on the homepage rather than repeating it here. */}
+        {/* 05 Engineering capability: the people and figures behind the mix designs, with the coverage figure linking
+            to the map on the homepage rather than repeating it here. */}
         <div className="ol-panels">
           <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
             copy={engineering.copy}>
@@ -258,17 +257,19 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           </TextMedia>
         </div>
 
-        {/* 06 Equipment & fleet: the dark band closes the capacity story, kept full-bleed so the figures have a change
-            of ground before the HSE sequence. */}
-        <DarkMedia id="equipment-fleet" kicker={equipment.kicker} title={equipment.title} image={unsplash(equipment.image, 1800)} alt={equipment.imageAlt}
-          copy={equipment.copy} className="ol-dk--flush">
-          <Rows dark rows={equipment.rows} />
-          <OlButton label={equipment.ctaLabel} href={equipment.ctaHref} dark className="ol-tm-button" />
-        </DarkMedia>
-
-        {/* 07 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. It
-            keeps the ink ground of the capacity band above, so the two read as one dark block before the documents. */}
+        {/* 06 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. It
+            keeps its own ink ground, which gives the certificates a deliberate break before the fleet. */}
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} dark />
+
+        {/* 07 Equipment & fleet: the full inventory from the Corporate Profile (laboratory equipment excepted, as it
+            belongs to the laboratory section), on the page's light ground. */}
+        <div className="ol-panels">
+          <TextMedia id="equipment-fleet" kicker={fleet.kicker} title={fleet.title} image={unsplash(fleet.image, 1600)} alt={fleet.imageAlt}
+            copy={fleet.copy}>
+            <Rows rows={fleet.rows} />
+            <OlButton label={fleet.ctaLabel} href={fleet.ctaHref} className="ol-tm-button" />
+          </TextMedia>
+        </div>
 
         {/* 08 Documents: mix designs, licences and certificates merged into one set of cards, after
             olympic.no/investor — a light band, the mono eyebrow and uppercase title, then near-black document cards
