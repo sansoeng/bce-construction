@@ -264,7 +264,7 @@ export default function RecruitmentPage() {
                 </div>
               </section>
 
-              <section className="grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:gap-5 md:py-20">
+              <section className="grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:gap-6 md:py-20">
                 <div className="md:col-span-3">
                   <Kicker style={{ color: ACCENT }}>Share</Kicker>
                   <div className="mt-4 flex items-center gap-2">
@@ -283,7 +283,7 @@ export default function RecruitmentPage() {
                   </div>
                 </div>
 
-                <div className="md:col-span-8 md:col-start-5">
+                <div className="max-w-[560px] md:col-span-5 md:col-start-8">
                   <h2 className="text-[28px] font-medium uppercase leading-[1.05] tracking-[-0.02em] md:text-[40px]">
                     {currentJob.title}
                   </h2>
