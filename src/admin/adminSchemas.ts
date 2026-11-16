@@ -171,12 +171,14 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       excerpt: "",
       content: { intro: "", sections: [], takeaways: [] },
       author: { name: "", role: "" },
+      sample: false,
     }),
-    skipKm: ["slug", "category", "year", "date", "readTime"],
+    skipKm: ["slug", "category", "year", "date", "readTime", "sample"],
     sections: [
       { id: "article", title: "Article", hint: "Title, filing and display metadata.", keys: ["title", "slug", "category", "year", "date", "readTime"] },
       { id: "cover", title: "Cover image", hint: "The image and its alternative text.", keys: ["image", "alt"] },
       { id: "body", title: "Body", hint: "Excerpt, author and the structured article body.", keys: ["excerpt", "author", "content"] },
+      { id: "review", title: "Review", hint: "Clear this once BCE has approved the article.", keys: ["sample"] },
     ],
     fields: [
       { key: "title", label: "Title", type: "text", required: true, wide: true },
@@ -193,6 +195,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "role", label: "Role", type: "text" },
       ] },
       { key: "content", label: "Article body", type: "json", rows: 18, wide: true, hint: "intro, sections[{heading, body[], callout?}], takeaways[]" },
+      { key: "sample", label: "Sample content", type: "boolean", hint: "Shows the illustrative-draft notice on the public page." },
     ],
   },
 
@@ -633,7 +636,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "projects", title: "Selected projects", hint: "The portfolio heading and its call to action. Project cards come from Projects.", keys: ["projects"] },
       { id: "coverage", title: "Coverage", hint: "The map introduction and the story labels over the map.", keys: ["coverage"] },
       { id: "why", title: "Why choose BCE", hint: "The oversized belief words and their tags.", keys: ["why"] },
-      { id: "quote", title: "Request a quotation", hint: "The closing panel above the footer.", keys: ["quote"] },
+      { id: "quote", title: "Request a quotation", hint: "The closing statement above the footer: kicker, paragraph and primary action.", keys: ["quote"] },
       { id: "footer", title: "Footer", hint: "Navigation columns and the contact block. Phones and email come from Settings.", keys: ["footer"] },
     ],
     fields: [
@@ -695,9 +698,9 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "partnersTitle", label: "Partners heading", type: "text", wide: true },
         { key: "groups", label: "Partner groups", type: "objectList", itemLabel: "Group", itemFields: [
           { key: "label", label: "Group label", type: "text" },
-          { key: "items", label: "Logos", type: "objectList", itemLabel: "Partner", itemFields: [
+          { key: "items", label: "Partners", type: "objectList", itemLabel: "Partner", itemFields: [
             { key: "name", label: "Name", type: "text" },
-            { key: "logo", label: "Logo", type: "image", aspect: "16 / 9", locale: false },
+            { key: "logo", label: "Logo", type: "image", aspect: "16 / 9", locale: false, hint: "Optional; the name is shown as a wordmark when no logo is set." },
           ] },
         ] },
       ] },
@@ -722,6 +725,9 @@ export const SCHEMAS: Record<string, ContentSchema> = {
 
       { key: "coverage", label: "", type: "group", fields: [
         { key: "titleLines", label: "Map headline", type: "list" },
+        { key: "image", label: "Coverage page banner", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Coverage page banner alt text", type: "text", wide: true, locale: false },
+        { key: "intro", label: "Coverage page introduction", type: "textarea", rows: 4, wide: true },
         { key: "hint", label: "Click hint", type: "text" },
         { key: "story", label: "Story steps", type: "objectList", itemLabel: "Step", itemFields: [
           { key: "label", label: "Label", type: "text" },
@@ -740,8 +746,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       ] },
 
       { key: "quote", label: "", type: "group", fields: [
-        { key: "image", label: "Background photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "title", label: "Statement", type: "text", wide: true },
         { key: "text", label: "Paragraph", type: "textarea", rows: 4, wide: true },
         { key: "ctaLabel", label: "Button label", type: "text" },
         { key: "ctaHref", label: "Button link", type: "text", locale: false },

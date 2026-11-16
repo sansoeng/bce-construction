@@ -56,17 +56,21 @@ const staticPages = [
   ["/?businesses", "0.9"],
   ["/?projects", "0.9"],
   ["/?quality", "0.7"],
+  ["/?coverage", "0.7"],
   ["/?quote", "0.8"],
   ["/?recruitment", "0.6"],
   ["/?resources", "0.6"],
   ["/?contact", "0.7"],
   ["/?blog", "0.7"],
+  ["/?privacy", "0.3"],
+  ["/?terms", "0.3"],
 ];
 const sitemapUrls = [
   ...staticPages.map(([path, priority]) => ({ loc: `${base}${path}`, priority })),
   ...documents.filter((doc) => doc.type === "businesses").map((doc) => ({ loc: `${base}/?business=${encodeURIComponent(doc.slug)}`, priority: "0.7" })),
-  ...documents.filter((doc) => doc.type === "projects").map((doc) => ({ loc: `${base}/?project=${encodeURIComponent(doc.slug)}`, priority: "0.6" })),
-  ...documents.filter((doc) => doc.type === "posts").map((doc) => ({ loc: `${base}/?blog&post=${encodeURIComponent(doc.slug)}`, priority: "0.5" })),
+  // Sample portfolio and journal records stay out of the sitemap until BCE approves them.
+  ...documents.filter((doc) => doc.type === "projects" && !doc.data?.sample).map((doc) => ({ loc: `${base}/?project=${encodeURIComponent(doc.slug)}`, priority: "0.6" })),
+  ...documents.filter((doc) => doc.type === "posts" && !doc.data?.sample).map((doc) => ({ loc: `${base}/?blog&post=${encodeURIComponent(doc.slug)}`, priority: "0.5" })),
 ];
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',

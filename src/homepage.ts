@@ -71,7 +71,7 @@ export type HomepageContent = {
     title: string;
     stats: { value: number; suffix: string; label: string; note: string; icon: HomepageIcon }[];
     partnersTitle: string;
-    groups: { label: string; items: { name: string; logo: string }[] }[];
+    groups: { label: string; items: { name: string; logo?: string }[] }[];
   };
   commitments: {
     label: string;
@@ -88,6 +88,9 @@ export type HomepageContent = {
   };
   coverage: {
     titleLines: string[];
+    image: string;
+    imageAlt: string;
+    intro: string;
     hint: string;
     story: { label: string; lead: string }[];
     fleetNote: string;
@@ -98,6 +101,7 @@ export type HomepageContent = {
     beliefs: { word: string; tag: string }[];
   };
   quote: {
+    /** Legacy photo field from the old image band; the closing section is typographic now. Kept for older documents. */
     image: string;
     title: string;
     text: string;
@@ -133,10 +137,10 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
     image: "/assets/6ae3a.webp",
     imageAlt: "",
     titleLines: ["Building on Strength.", "Delivering with Trust."],
-    newsKicker: "latest news",
-    newsTitle: "Download company profile",
-    newsHref: "/assets/BCE_Corporate_Profile_2026.pdf",
-    newsDownload: "BCE_Corporate_Profile_2026.pdf",
+    newsKicker: "Company profile",
+    newsTitle: "Download the BCE Corporate Profile 2026",
+    newsHref: "/assets/BCE_Corporate_Profile_2026_web.pdf",
+    newsDownload: "BCE_Corporate_Profile_2026_web.pdf",
     newsImage: "/Image/bce/core_services.webp",
     newsAlt: "BCE Company Profile",
   },
@@ -179,16 +183,35 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
       {
         label: "Clients",
         items: [
-          { name: "Obayashi", logo: "/assets/partners/placeholder-1.svg" },
-          { name: "Hanshin E&C", logo: "/assets/partners/placeholder-2.svg" },
-          { name: "Thang Long JSC", logo: "/assets/partners/placeholder-3.svg" },
-          { name: "SUMEC", logo: "/assets/partners/placeholder-4.svg" },
-          { name: "SchneiTec", logo: "/assets/partners/placeholder-5.svg" },
-          { name: "Build Bright University", logo: "/assets/partners/placeholder-6.svg" },
+          { name: "Obayashi" },
+          { name: "Hanshin Engineering & Construction" },
+          { name: "Thang Long JSC" },
+          { name: "SUMEC International Technology" },
+          { name: "SchneiTec" },
+          { name: "Build Bright University" },
         ],
       },
-      { label: "Suppliers", items: [{ name: "Chip Mong Group", logo: "/assets/partners/placeholder-7.svg" }] },
-      { label: "Technical Partners", items: [{ name: "Sika Cambodia", logo: "/assets/partners/placeholder-8.svg" }] },
+      {
+        label: "Government & public sector",
+        items: [
+          { name: "Ministry of Public Works and Transport" },
+          { name: "Ministry of Land Management, Urban Planning and Construction" },
+          { name: "Ministry of Water Resources and Meteorology" },
+          { name: "Ministry of Rural Development" },
+          { name: "Ministry of Commerce" },
+          { name: "Battambang Provincial Administration" },
+        ],
+      },
+      {
+        label: "Suppliers & technical partners",
+        items: [
+          { name: "Chip Mong Group" },
+          { name: "SCG Distribution and Retail" },
+          { name: "Sika Cambodia" },
+          { name: "Battambang Conch Cement" },
+          { name: "Hong Huot Ly Co., Ltd." },
+        ],
+      },
     ],
   },
   commitments: {
@@ -227,10 +250,14 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
   },
   coverage: {
     titleLines: ["Everywhere You Build,", "We’ve Got You Covered."],
+    image: "/Image/bce/about-business-banner.webp",
+    imageAlt: "BCE engineers and crew on a concrete slab in Cambodia",
+    intro:
+      "We go where you build. With strong equipment capacity, experienced teams and reliable coordination, we support projects across 13 provinces and Phnom Penh.",
     hint: "Click on a province to see more details",
     story: [
       { label: "Operational coverage", lead: "Locations covered across Cambodia" },
-      { label: "Head office", lead: "Projects completed from Battambang" },
+      { label: "Years of experience", lead: "Building from Battambang since 1995" },
       { label: "Completed projects", lead: "Projects completed in 2025 across Cambodia" },
       { label: "Equipment fleet", lead: "Machines in our own fleet" },
     ],
@@ -261,7 +288,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
           { label: "About BCE", href: "/?about" },
           { label: "Projects", href: "/?projects" },
           { label: "Blog & Insights", href: "/?blog" },
-          { label: "Coverage", href: "#coverage" },
+          { label: "Coverage", href: "/?coverage" },
           { label: "Resources & Downloads", href: "/?resources" },
         ],
       },
@@ -275,7 +302,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
           { label: "Quality & capability", href: "/?quality" },
           { label: "Laboratory", href: "/?quality#laboratory" },
           { label: "Equipment & fleet", href: "/?quality#equipment-fleet" },
-          { label: "Coverage", href: "/#coverage" },
+          { label: "Coverage", href: "/?coverage" },
         ],
       },
       {
@@ -310,5 +337,12 @@ export const homepage: HomepageContent = JSON.parse(JSON.stringify(DEFAULT_HOMEP
 registerContentType("homepage", (items) => {
   const first = items[0];
   if (!first || typeof first !== "object" || Array.isArray(first)) return;
-  Object.assign(homepage, mergeDefaults(DEFAULT_HOMEPAGE, first));
+  const merged = mergeDefaults(DEFAULT_HOMEPAGE, first);
+  // Older D1 rows still carry the stand-in partner logos; show the approved names as wordmarks instead.
+  for (const group of merged.glance.groups) {
+    for (const item of group.items) {
+      if (item.logo?.includes("/assets/partners/placeholder-")) delete item.logo;
+    }
+  }
+  Object.assign(homepage, merged);
 });

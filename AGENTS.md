@@ -52,7 +52,8 @@ BCE/
 │   ├── QualityPage.tsx          # Quality, capability & HSE: lab, grades, certificates, HSE, fleet, engineering, documents
 │   ├── ProjectsPage.tsx         # 30-project portfolio database with category filtering
 │   ├── ProjectPage.tsx          # Single project detail view & lightbox gallery
-│   ├── Coverage.tsx             # Interactive Cambodia SVG map covering 14 provinces
+│   ├── Coverage.tsx             # Homepage's pinned Cambodia map (also the shared coverage data)
+│   ├── CoveragePage.tsx         # Coverage detail page (/?coverage): figures, explorable map, zones, register, fleet
 │   ├── cambodiaMap.ts           # Province paths and coordinates
 │   ├── QuotePage.tsx            # Concrete volume estimator with Telegram dispatch
 │   ├── i18n.ts                  # Bilingual translation dictionary (EN / KH)

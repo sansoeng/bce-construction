@@ -252,10 +252,11 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} dark />
 
         {/* 06 Equipment & fleet: the full inventory from the Corporate Profile (laboratory equipment excepted, as it
-            belongs to the laboratory section), on the page's light ground. */}
+            belongs to the laboratory section), on the page's light ground. The photo sits on the left (reverse), so the
+            inventory reads against the page gutter and the section alternates with Engineering below. */}
         <div className="ol-panels">
           <TextMedia id="equipment-fleet" kicker={fleet.kicker} title={fleet.title} image={unsplash(fleet.image, 1600)} alt={fleet.imageAlt}
-            copy={fleet.copy}>
+            copy={fleet.copy} reverse>
             <Rows rows={fleet.rows} />
             <OlButton label={fleet.ctaLabel} href={fleet.ctaHref} className="ol-tm-button" />
           </TextMedia>
@@ -267,7 +268,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
             copy={engineering.copy}>
             <Rows rows={engineering.rows} />
-            <OlButton label="Coverage" href="/#coverage" className="ol-tm-button" />
+            <OlButton label="Coverage" href="/?coverage" className="ol-tm-button" />
           </TextMedia>
         </div>
 

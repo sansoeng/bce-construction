@@ -238,8 +238,8 @@ export const DEFAULT_QUALITY: QualityContent = {
         subtitle: "BCE Corporate Profile 2026",
         status: "",
         date: "2026",
-        size: "3.6 KB",
-        file: "/assets/BCE_Corporate_Profile_2026.pdf",
+        size: "8.4 MB",
+        file: "/assets/BCE_Corporate_Profile_2026_web.pdf",
       },
       {
         title: "Mix design documents",
@@ -295,5 +295,12 @@ export const quality: QualityContent = JSON.parse(JSON.stringify(DEFAULT_QUALITY
 registerContentType("quality", (items) => {
   const first = items[0];
   if (!first || typeof first !== "object" || Array.isArray(first)) return;
-  Object.assign(quality, mergeDefaults(DEFAULT_QUALITY, first));
+  const merged = mergeDefaults(DEFAULT_QUALITY, first);
+  for (const item of merged.documents.items) {
+    if (item.file === "/assets/BCE_Corporate_Profile_2026.pdf") {
+      item.file = "/assets/BCE_Corporate_Profile_2026_web.pdf";
+      item.size = "8.4 MB";
+    }
+  }
+  Object.assign(quality, merged);
 });

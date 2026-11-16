@@ -341,6 +341,10 @@ export default function ContactPage() {
                         className="mt-2 self-start"
                         disabled={sending}
                       />
+                      <p className="max-w-[34rem] text-[13px] leading-[1.6] text-[#111]/45">
+                        By sending this message you agree to our{" "}
+                        <a href="/?privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>.
+                      </p>
                     </div>
                   </form>
                 )}

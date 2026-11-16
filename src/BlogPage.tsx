@@ -7,6 +7,7 @@ import QuoteCta from "./QuoteCta";
 import { usePageSetup } from "./usePageSetup";
 import { translate } from "./i18n";
 import { BLOG_POSTS, journalKind, type BlogPost, type JournalKind } from "./blogData";
+import { SAMPLE_JOURNAL } from "./contentFlags";
 import { transitionView } from "./pageTransition";
 
 // Journal archive after olympic.no/journal: a small mono standfirst, a two-line display title, one segmented
@@ -57,6 +58,11 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
           <li className="rounded-[4px] border border-white/40 bg-black/15 px-2.5 py-1.5 font-mono text-[14px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px]">
             {journalKind(post)}
           </li>
+          {(post.sample ?? SAMPLE_JOURNAL) && (
+            <li className="rounded-[4px] border border-white/40 bg-[#FB290E]/80 px-2.5 py-1.5 font-mono text-[14px] uppercase leading-none tracking-[0.08em] text-white backdrop-blur-[2px]">
+              Sample
+            </li>
+          )}
         </ul>
       </div>
 
@@ -200,6 +206,12 @@ export default function BlogPage() {
                 >
                   {currentPost.title}
                 </h1>
+
+                {(currentPost.sample ?? SAMPLE_JOURNAL) && (
+                  <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#FB290E]/25 bg-[#FB290E]/[0.06] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-[#FB290E]">
+                    Illustrative draft — pending BCE review
+                  </p>
+                )}
 
                 <div className="mt-8 flex w-full items-center justify-between gap-4 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#737373]">
                   <span>{currentPost.category}</span>
@@ -355,6 +367,12 @@ export default function BlogPage() {
                   <span className="block">{translate("Building with")}</span>{" "}
                   <span className="block">{translate("insight")}</span>
                 </h1>
+                {BLOG_POSTS.some((post) => post.sample ?? SAMPLE_JOURNAL) && (
+                  <p className="mt-6 max-w-[44rem] text-[14px] leading-[1.6] text-[#111]/50">
+                    The Journal is an editorial preview. Articles marked “Sample content” are illustrative drafts awaiting
+                    BCE technical review.
+                  </p>
+                )}
               </header>
 
               {/* All stories, listed as square photographic tiles */}

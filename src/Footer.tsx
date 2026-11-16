@@ -3,6 +3,7 @@ import ArrowButton from "./ArrowButton";
 import { offerings } from "./company";
 import { homepage } from "./homepage";
 import { siteSettings } from "./siteSettings";
+import { translate } from "./i18n";
 
 // Footer after olympic.no's: navigation columns with grey headings (accordions on phones), a ruled row with the
 // enquiry block and head office with contact and social channels, then a ruled legal row. As the footer scrolls into
@@ -227,6 +228,12 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
           <span className="ft-b4">{rightsLabel}</span>
           <small className="ft-copy">© {new Date().getFullYear()} {siteSettings.site.nameEn}</small>
         </div>
+
+        <nav aria-label="Legal" className="ft-legal">
+          <a href={href("/?privacy")}>{translate("Privacy policy")}</a>
+          <span aria-hidden>·</span>
+          <a href={href("/?terms")}>{translate("Terms of use")}</a>
+        </nav>
       </div>
     </footer>
   );

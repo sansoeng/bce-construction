@@ -579,12 +579,7 @@ function HomepagePreview({ data, section }: HomepagePreviewProps) {
             <h1>{text(quote.title) || "Request a quotation"}</h1>
             <p>{[text(quote.ctaLabel), text(quote.ctaHref)].filter(Boolean).join(" · ")}</p>
           </header>
-          {text(quote.image) ? (
-            <figure className="adm-prev-hero">
-              <img src={text(quote.image)} alt="" />
-            </figure>
-          ) : null}
-          <PreviewSection title="Closing panel">
+          <PreviewSection title="Closing statement">
             <p className="adm-prev-statement">{text(quote.text)}</p>
           </PreviewSection>
         </>

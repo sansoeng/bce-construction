@@ -296,6 +296,10 @@ export default function QuotePage() {
           )}
           <Turnstile onToken={setToken} resetKey={turnstileKey} action="quote" />
           <ArrowButton type="submit" label={sending ? "Sending…" : "Prepare my request"} disabled={sending} className="mt-6" />
+          <p className="mt-3 max-w-[34rem] text-[13px] leading-[1.6] text-black/45">
+            By sending this request you agree to our{" "}
+            <a href="/?privacy" className="underline underline-offset-4 hover:text-black">Privacy policy</a>.
+          </p>
 
           {sent && (
             <div className="qf-sent" role="status">

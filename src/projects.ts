@@ -36,6 +36,7 @@ export const projectHref = (slug: string) => `/?project=${slug}`;
 export const projects: Project[] = [
   {
     slug: "kampong-thom-bridge-foundations",
+    sample: true,
     name: "Bridge Foundation Piling",
     owner: "Provincial public works authority",
     location: "Stueng Saen, Kampong Thom",
@@ -65,6 +66,7 @@ export const projects: Project[] = [
   },
   {
     slug: "poipet-logistics-warehouse",
+    sample: true,
     name: "Logistics Warehouse Floor Slab",
     owner: "Private logistics developer",
     location: "Poipet, Banteay Meanchey",
@@ -94,6 +96,7 @@ export const projects: Project[] = [
   },
   {
     slug: "siem-reap-commercial-ready-mix",
+    sample: true,
     name: "Commercial Complex Ready-Mix Supply",
     owner: "Private commercial developer",
     location: "Siem Reap City",
@@ -121,6 +124,7 @@ export const projects: Project[] = [
   },
   {
     slug: "battambang-provincial-road",
+    sample: true,
     name: "Provincial Road Rehabilitation",
     owner: "Provincial administration",
     location: "Battambang Province",
@@ -142,6 +146,7 @@ export const projects: Project[] = [
   },
   {
     slug: "phnom-penh-tower-foundations",
+    sample: true,
     name: "Mixed-Use Tower Foundations",
     owner: "Private developer",
     location: "Chamkar Mon, Phnom Penh",
@@ -171,6 +176,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sihanoukville-fleet-hire",
+    sample: true,
     name: "Pump & Mixer Fleet Hire",
     owner: "Main contractor, hotel development",
     location: "Preah Sihanouk",

@@ -61,6 +61,12 @@ type Group = (typeof GROUPS)[number];
 const groupOf = (v: Vacancy): Exclude<Group, "All roles"> =>
   v.location.toLowerCase().includes("site deployment") ? "On site" : "Battambang";
 
+// Vacancies close automatically at the end of their deadline. The admin can extend or replace the date to reopen one.
+const isOpen = (v: Vacancy) => {
+  const deadline = Date.parse(v.deadline);
+  return Number.isNaN(deadline) || deadline + 86_400_000 > Date.now();
+};
+
 const DEPT_IMAGE: Record<string, string> = {
   "Operations & Batching": "/Image/bce/about-zoom-batching.webp",
   "Quality & Lab": "/Image/bce/about-hero-banner.webp",
@@ -166,7 +172,8 @@ export default function RecruitmentPage() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  const currentJob = useMemo(() => VACANCIES.find((v) => v.id === selectedJobId) ?? null, [selectedJobId]);
+  const openVacancies = useMemo(() => VACANCIES.filter(isOpen), []);
+  const currentJob = useMemo(() => openVacancies.find((v) => v.id === selectedJobId) ?? null, [selectedJobId, openVacancies]);
 
   useEffect(() => {
     document.title = currentJob ? `${currentJob.title} | BCE Careers` : translate("Careers & Recruitment | BCE., Ltd.");
@@ -198,7 +205,7 @@ export default function RecruitmentPage() {
       scrollTop();
     });
 
-  const filtered = useMemo(() => VACANCIES.filter((v) => group === "All roles" || groupOf(v) === group), [group]);
+  const filtered = useMemo(() => openVacancies.filter((v) => group === "All roles" || groupOf(v) === group), [group, openVacancies]);
 
   return (
     <>
@@ -369,7 +376,7 @@ export default function RecruitmentPage() {
                         ],
                         [
                           "Hands-on training",
-                          "Direct training on Sicoma computerized batching and ASTM / ACI laboratory protocols.",
+                          "Direct training on computerized batching and laboratory testing procedures.",
                         ],
                       ].map(([title, text]) => (
                         <div key={title}>
@@ -396,6 +403,11 @@ export default function RecruitmentPage() {
                         </a>
                       </p>
                     </div>
+                    <p className="mt-4 max-w-[34rem] text-[13px] leading-[1.6] text-[#111]/45">
+                      Applications are handled by BCE HR only. See our{" "}
+                      <a href="/?privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
+                      for how we use candidate information.
+                    </p>
                   </div>
 
                   <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -486,7 +498,23 @@ export default function RecruitmentPage() {
                 </Kicker>
               </div>
 
-              {filtered.length === 0 ? (
+              {openVacancies.length === 0 ? (
+                <div className="py-20">
+                  <p className="text-[17px] font-medium">{translate("There are currently no open positions.")}</p>
+                  <p className="mt-3 max-w-[34rem] text-[15px] leading-relaxed text-[#111]/55">
+                    We still welcome speculative applications. Send your CV and a short note to{" "}
+                    <a href={`mailto:${HR_EMAIL}`} className="underline underline-offset-4 hover:text-[#FB290E]">
+                      {HR_EMAIL}
+                    </a>
+                    .
+                  </p>
+                  <p className="mt-2 max-w-[34rem] text-[13px] leading-relaxed text-[#111]/45">
+                    See our{" "}
+                    <a href="/?privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
+                    for how we handle candidate information.
+                  </p>
+                </div>
+              ) : filtered.length === 0 ? (
                 <div className="py-20">
                   <p className="text-[17px] font-medium">{translate("There are currently no open positions.")}</p>
                   <button

@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import Lightbox from "./Lightbox";
 import FluidCursor from "./FluidCursor";
 import { findProject, projectHref, projects, type Project } from "./projects";
+import { SAMPLE_PORTFOLIO } from "./contentFlags";
 
 // Project details (Selected Project Experience), in the homepage's language: the floating header, line-by-line title
 // reveals, hairline-ruled fact rows, the "at a glance" figure grid for highlights, the Selected Projects staggered grid
@@ -208,7 +209,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
           <h1 key={project.slug} data-split data-split-type="words" className="pd-title mt-10 max-w-[72rem] md:mt-16">{project.name}</h1>
           <p className="mt-6 flex items-center gap-3 text-[.95rem] text-black/45">
             <span data-split="content">{project.category}</span>
-            {project.sample && <span className="pd-tag pd-fade">Sample content</span>}
+            {project.sample ?? SAMPLE_PORTFOLIO ? <span className="pd-tag pd-fade">Sample content</span> : null}
           </p>
         </header>
 

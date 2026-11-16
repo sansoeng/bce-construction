@@ -6,6 +6,7 @@ import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import { usePageSetup } from "./usePageSetup";
 import { projectHref, projects } from "./projects";
+import { SAMPLE_PORTFOLIO } from "./contentFlags";
 import { useScrollParallax } from "./ServiceBlocks";
 
 // Project list (/?projects), after pda.archi/en/projects: the statement set large over a full-width hairline, a
@@ -108,6 +109,12 @@ export default function ProjectsPage() {
             Selected projects across Cambodia, from bridge foundations and factory floors to mixed-use towers, each
             delivered with our own concrete, piling rigs, fleet and engineers.
           </p>
+          {projects.some((project) => project.sample ?? SAMPLE_PORTFOLIO) && (
+            <p className="mt-4 max-w-[42rem] text-[13px] leading-[1.6] text-[#111]/45">
+              Project records marked “Sample content” are illustrative drafts pending BCE approval. Client names,
+              quantities and dates will be confirmed before publication.
+            </p>
+          )}
         </header>
 
         {/* Projects Grid or List */}

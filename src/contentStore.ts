@@ -94,6 +94,26 @@ const renderContent = (lang: Lang) => {
   listeners.forEach((listener) => listener());
 };
 
+/**
+ * Files we have replaced under a new name to bust the one-year immutable cache on /assets/*.
+ * Live D1 rows can still carry the old path, so upgrade them as they arrive instead of
+ * requiring every content document to be re-saved in the admin console.
+ */
+const LEGACY_ASSETS: Record<string, string> = {
+  "/assets/BCE_Corporate_Profile_2026.pdf": "/assets/BCE_Corporate_Profile_2026_web.pdf",
+};
+
+const upgradeAssetUrls = (value: unknown): unknown => {
+  if (typeof value === "string") return LEGACY_ASSETS[value] ?? value;
+  if (Array.isArray(value)) return value.map(upgradeAssetUrls);
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [key, item] of Object.entries(value as Record<string, unknown>)) out[key] = upgradeAssetUrls(item);
+    return out;
+  }
+  return value;
+};
+
 export const applyContent = (content: Record<string, unknown[]>, settings?: Partial<SiteSettings>) => {
   if (settings) applySiteSettings(settings);
 
@@ -106,7 +126,10 @@ export const applyContent = (content: Record<string, unknown[]>, settings?: Part
       if (!item || typeof item !== "object" || Array.isArray(item)) return { en: {}, km: null };
       const { __km, _meta, ...en } = item as Record<string, unknown>;
       const km = __km && typeof __km === "object" && !Array.isArray(__km) ? (__km as Record<string, unknown>) : null;
-      return { en, km };
+      return {
+        en: upgradeAssetUrls(en) as Record<string, unknown>,
+        km: km ? (upgradeAssetUrls(km) as Record<string, unknown>) : null,
+      };
     });
     total += items.length;
   }

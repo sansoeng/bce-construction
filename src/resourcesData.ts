@@ -1,4 +1,8 @@
 // Downloadable documents shown on the Resources page (/?resources).
+//
+// Only documents BCE actually holds in a web-ready file are listed with a download link. Everything else is
+// "available on request": the card sends the visitor to Contact instead of pretending a file exists. Replace an
+// `onRequest` entry with a real URL once BCE supplies the approved PDF.
 
 import { registerContentType } from "./contentStore";
 
@@ -14,121 +18,161 @@ export interface ResourceDocument {
   revisionDate: string;
   year: string;
   downloadUrl: string;
+  /** No public file yet: the card asks the visitor to request a copy. */
+  onRequest?: boolean;
 }
 
+const PROFILE_URL = "/assets/BCE_Corporate_Profile_2026_web.pdf";
+
 export const DOCUMENTS: ResourceDocument[] = [
-  // 1. Company Profile
+  // 1. Company Profile — the only document with a public file today.
   {
     id: "bce-corporate-profile",
     title: "BCE Corporate Profile 2026",
     category: "profile",
     categoryLabel: "Company Profile",
-    description: "Official corporate publication covering 30+ years of operational heritage, Chairwoman's statement, computerized batching plants, fleet inventory, 14-province coverage, and completed project portfolio.",
+    description:
+      "BCE's official 55-page corporate profile: Chairwoman's message, company statistics, milestones, core business areas, fleet, operational coverage, laboratory and quality control, HSE, project experience, clients and partners, and the licence and certificate annex.",
     fileFormat: "PDF",
-    fileSize: "3.5 MB",
-    language: "Bilingual (EN / KM)",
-    revisionDate: "Jan 2026 · Rev 4.2",
+    fileSize: "8.4 MB",
+    language: "English",
+    revisionDate: "2026 edition",
     year: "2026",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    downloadUrl: PROFILE_URL,
   },
 
-  // 2. Brochures & Technical Documents
+  // 2. Brochures & Technical Documents — held by BCE, supplied on request.
   {
     id: "concrete-mix-specs",
-    title: "Concrete Mix Design Guide & Standard Formulations",
+    title: "Approved concrete mix designs",
     category: "technical",
     categoryLabel: "Brochures & Technical Documents",
-    description: "Standard mix designs for concrete grades 150 kg/cm² to 450 kg/cm² adhering to ACI 211.1 guidelines, water-cement ratios, slump specifications, aggregate grading, and high-performance admixture standards.",
+    description:
+      "The approved mix designs behind the concrete grades BCE supplies, from C15 to C40, including the design for a specific project. Copies are supplied with the quotation or on request.",
     fileFormat: "PDF",
-    fileSize: "1.8 MB",
-    language: "Bilingual (EN / KM)",
-    revisionDate: "Dec 2025 · Rev 2.1",
-    year: "2025",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    fileSize: "",
+    language: "English",
+    revisionDate: "Available on request",
+    year: "2026",
+    downloadUrl: "",
+    onRequest: true,
   },
   {
     id: "piling-rigs-catalog",
-    title: "Hydraulic Piling Fleet Technical Specifications",
+    title: "Piling rig capability sheet",
     category: "technical",
     categoryLabel: "Brochures & Technical Documents",
-    description: "Engineering data sheets for 7 hydraulic piling rigs: bore diameters from 300 mm to 1,200 mm, maximum drilling depths, hydraulic impact hammer ratings, and driven precast pile load tables.",
+    description:
+      "The pile sizes, installation methods and site requirements for BCE's own piling rigs. Issued on request for tender and method-statement reviews.",
     fileFormat: "PDF",
-    fileSize: "2.2 MB",
+    fileSize: "",
     language: "English",
-    revisionDate: "Nov 2025 · Rev 1.4",
-    year: "2025",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    revisionDate: "Available on request",
+    year: "2026",
+    downloadUrl: "",
+    onRequest: true,
   },
   {
     id: "concrete-pump-reach",
-    title: "Concrete Boom & Line Pump Deployment Matrix",
+    title: "Concrete pump deployment information",
     category: "technical",
     categoryLabel: "Brochures & Technical Documents",
-    description: "Operating ranges, vertical reach curves (28m to 48m boom lengths), maximum horizontal pumping distances, pipeline pressure ratings, and required outrigger site footprints.",
+    description:
+      "Boom and line pump reach, site footprint and pipeline requirements for the pump trucks in BCE's fleet. Issued on request to help plan a pour.",
     fileFormat: "PDF",
-    fileSize: "1.5 MB",
+    fileSize: "",
     language: "English",
-    revisionDate: "Oct 2025 · Rev 1.2",
-    year: "2025",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    revisionDate: "Available on request",
+    year: "2026",
+    downloadUrl: "",
+    onRequest: true,
   },
   {
     id: "aggregate-sieve-analysis",
-    title: "ASTM C33 Fine & Coarse Aggregate Sieve Analysis",
+    title: "Aggregate and material test reports",
     category: "technical",
     categoryLabel: "Brochures & Technical Documents",
-    description: "In-house quality laboratory gradation curves, fineness modulus reports for washed sand, and crushed basalt rock sizing ensuring high compressive density and pumpability.",
+    description:
+      "Sieve analysis and material test reports for the fine and coarse aggregates used in BCE concrete, produced by the in-house laboratory. Available on request.",
     fileFormat: "PDF",
-    fileSize: "1.3 MB",
-    language: "Bilingual (EN / KM)",
-    revisionDate: "Jan 2026 · Rev 1.1",
+    fileSize: "",
+    language: "English",
+    revisionDate: "Available on request",
     year: "2026",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    downloadUrl: "",
+    onRequest: true,
   },
 
-  // 3. Licenses & Certifications
+  // 3. Licenses & Certifications — copies released for tender and procurement reviews.
   {
     id: "ministry-registration",
-    title: "Commercial Registration & Contractor Classification",
+    title: "Business registration & contractor classification",
     category: "licenses",
     categoryLabel: "Licenses & Certifications",
-    description: "Official legal entity registration certificate from the Ministry of Commerce and construction contractor classification credentials under the Ministry of Land Management, Urban Planning and Construction.",
+    description:
+      "Business registration, tax registration and construction contractor classification documents. Copies are released to tender and procurement teams on request.",
     fileFormat: "PDF",
-    fileSize: "1.1 MB",
+    fileSize: "",
     language: "Khmer",
-    revisionDate: "2020 Incorporation",
+    revisionDate: "2020 incorporation",
     year: "2020",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    downloadUrl: "",
+    onRequest: true,
   },
   {
     id: "laboratory-calibration",
-    title: "In-House Quality Laboratory Calibration & Testing Standards",
+    title: "Laboratory & equipment calibration certificates",
     category: "licenses",
     categoryLabel: "Licenses & Certifications",
-    description: "Annual calibration certification of the DYE-2000 digital compressive testing machine, digital curing tank temperature controls, and verified compliance with ASTM C39 compressive testing procedures.",
+    description:
+      "Calibration certificates for the batching scales, compression testing machine and laboratory equipment used in production and quality control. Copies are available on request.",
     fileFormat: "PDF",
-    fileSize: "950 KB",
-    language: "Bilingual (EN / KM)",
-    revisionDate: "Dec 2025 · Annual",
-    year: "2025",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    fileSize: "",
+    language: "English / Khmer",
+    revisionDate: "Available on request",
+    year: "2026",
+    downloadUrl: "",
+    onRequest: true,
   },
   {
     id: "hse-policy",
-    title: "Occupational Health, Safety & Environment (HSE) Policy",
+    title: "Health, Safety & Environment (HSE) policy",
     category: "licenses",
     categoryLabel: "Licenses & Certifications",
-    description: "Statutory health and safety guidelines for ready-mix dispatch, high-pressure concrete boom operations, deep piling works, and mandatory personal protective equipment (PPE) protocols.",
+    description:
+      "BCE's health, safety and environment policy, covering PPE, site inspections, safe pumping procedures and environmental responsibilities. Copies are available on request.",
     fileFormat: "PDF",
-    fileSize: "1.4 MB",
-    language: "Bilingual (EN / KM)",
-    revisionDate: "Jan 2026 · Rev 3.0",
+    fileSize: "",
+    language: "English / Khmer",
+    revisionDate: "Available on request",
     year: "2026",
-    downloadUrl: "/assets/BCE_Corporate_Profile_2026.pdf",
+    downloadUrl: "",
+    onRequest: true,
   },
 ];
 
+const LEGACY_PROFILE_URL = "/assets/BCE_Corporate_Profile_2026.pdf";
+
 registerContentType("resources", (items) => {
+  // D1 can still hold the original rows, where every card pointed at the company profile and carried invented
+  // sizes/revisions. Upgrade those rows as they load so only the profile offers a file and the rest ask for a copy.
+  const docs = (items as ResourceDocument[]).map((doc) => {
+    const legacy = doc.downloadUrl === LEGACY_PROFILE_URL;
+    if (doc.id === "bce-corporate-profile" && (legacy || !doc.downloadUrl)) {
+      return {
+        ...doc,
+        downloadUrl: PROFILE_URL,
+        fileSize: "8.4 MB",
+        language: "English",
+        revisionDate: "2026 edition",
+        onRequest: false,
+      };
+    }
+    if (legacy || !doc.downloadUrl) {
+      return { ...doc, downloadUrl: "", onRequest: true, fileSize: "", revisionDate: "Available on request" };
+    }
+    return doc;
+  });
   DOCUMENTS.length = 0;
-  DOCUMENTS.push(...(items as ResourceDocument[]));
+  DOCUMENTS.push(...docs);
 });

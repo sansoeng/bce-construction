@@ -102,7 +102,7 @@ const NAV: NavItem[] = [
       items: [
         { label: "About BCE", href: "/?about" },
         { label: "Our story", href: "/?about#ab-story" },
-        { label: "Coverage", href: "/#coverage" },
+        { label: "Coverage", href: "/?coverage" },
       ],
     },
   },
@@ -160,7 +160,7 @@ const NAV: NavItem[] = [
           links: [
             { label: "Equipment & fleet", href: "/?quality#equipment-fleet" },
             { label: "Engineering capability", href: "/?quality#engineering" },
-            { label: "Coverage", href: "/#coverage" },
+            { label: "Coverage", href: "/?coverage" },
           ],
         },
         {
@@ -182,6 +182,7 @@ const NAV: NavItem[] = [
     panel: {
       kind: "default",
       items: [
+        { label: "Coverage", href: "/?coverage" },
         { label: "Resources", href: "/?resources" },
         { label: "Careers", href: "/?recruitment" },
         { label: "Blog", href: "/?blog" },

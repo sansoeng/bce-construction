@@ -67,7 +67,7 @@ export const DEFAULT_ABOUT: AboutContent = {
   intro: {
     text: "Battambang Construction and Engineering, Co., Ltd. (BCE) is a Battambang-based construction, concrete, piling and engineering company, supplying ready-mix concrete, reinforced concrete piling and civil construction to projects across Cambodia with its own plants, fleet and a team of 71.",
     primaryLabel: "Download Company Profile (PDF)",
-    primaryHref: "/assets/BCE_Corporate_Profile_2026.pdf",
+    primaryHref: "/assets/BCE_Corporate_Profile_2026_web.pdf",
     secondaryLabel: "View all resources",
     secondaryHref: "/?resources",
   },

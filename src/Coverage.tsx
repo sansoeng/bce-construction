@@ -14,7 +14,7 @@ type Pt = { x: number; y: number };
 type Box = { x: number; y: number; w: number; h: number };
 type View = { s: number; tx: number; ty: number };
 
-const HQ = "Battambang";
+export const HQ = "Battambang";
 // "Provinces we have served", BCE Corporate Profile 2026 (13 provinces + Phnom Penh), by geographic zone.
 export const regions = [
   { name: "Tonle Sap", places: ["Battambang", "Banteay Meanchey", "Siem Reap", "Pursat", "Kampong Chhnang", "Kampong Thom"] },
@@ -24,93 +24,65 @@ export const regions = [
 ];
 const regionOf = Object.fromEntries(regions.flatMap((r) => r.places.map((p) => [p, r.name])));
 const covered = new Set(regions.flatMap((r) => r.places));
-const provinceTotal = covered.size - 1; // Phnom Penh is the capital, not a province
+export const provinceTotal = covered.size - 1; // Phnom Penh is the capital, not a province
 const byName = Object.fromEntries(khmProvinces.map((p) => [p.name, p]));
 const hq = byName[HQ];
 
 // Completed project highlights and sector breakdown by province
-const provinceDetails: Record<string, { projects?: number; suffix?: string; highlight: string; scope: string; badge?: string }> = {
+export const provinceDetails: Record<string, { projects?: number; suffix?: string; highlight: string; scope: string; badge?: string }> = {
   Battambang: {
-    projects: 48,
-    suffix: "+",
     highlight: "Head Office & Central Plants",
     scope: "Heavy civil works, batching plants & foundation piling",
   },
   "Banteay Meanchey": {
-    projects: 18,
-    suffix: "+",
     highlight: "Border Infrastructure & Logistics",
     scope: "Warehouse slabs, road access & ready-mix supply",
   },
   "Siem Reap": {
-    projects: 26,
-    suffix: "+",
     highlight: "Hospitality & Heritage Civil Works",
     scope: "Resort structures, foundation piling & concrete supply",
   },
   Pursat: {
-    projects: 14,
-    suffix: "+",
     highlight: "Irrigation & Civil Infrastructure",
     scope: "Waterway infrastructure & reinforced concrete slabs",
   },
   "Kampong Chhnang": {
-    projects: 9,
-    suffix: "+",
     highlight: "River Port & Industrial Facilities",
     scope: "Logistics facilities, port slabs & concrete delivery",
   },
   "Kampong Thom": {
-    projects: 12,
-    suffix: "+",
     highlight: "Highway & Foundation Works",
     scope: "National road expansion & bridge foundation piling",
   },
   Pailin: {
-    projects: 10,
-    suffix: "+",
     highlight: "Commercial & Site Development",
     scope: "Commercial complexes, earthworks & foundation piling",
   },
   "Oddar Meanchey": {
-    projects: 8,
-    suffix: "+",
     highlight: "Public & Border Infrastructure",
     scope: "Civic access roads, public facilities & concrete supply",
   },
   "Preah Vihear": {
-    projects: 7,
-    suffix: "+",
     highlight: "Regional Access Infrastructure",
     scope: "Connecting roadways, civil works & concrete foundations",
   },
   "Stung Treng": {
-    projects: 6,
-    suffix: "+",
     highlight: "Energy & River Crossing Works",
     scope: "Substation civil structures & bridge foundation piling",
   },
   "Phnom Penh": {
-    projects: 36,
-    suffix: "+",
     highlight: "Commercial High-Rise & Slabs",
     scope: "Tower foundations, post-tensioned slabs & piling rigs",
   },
   Kandal: {
-    projects: 19,
-    suffix: "+",
     highlight: "Industrial Parks & SEZ Facilities",
     scope: "Factory slabs, logistics parks & foundation piling",
   },
   "Koh Kong": {
-    projects: 8,
-    suffix: "+",
     highlight: "Coastal Resorts & Marine Works",
     scope: "Coastal access roads, resort slabs & marine foundations",
   },
   "Preah Sihanouk": {
-    projects: 24,
-    suffix: "+",
     highlight: "Deep-Sea Port & High-Rise Works",
     scope: "Port logistics facilities, heavy civil works & piling",
   },
@@ -172,40 +144,24 @@ const provinceDetails: Record<string, { projects?: number; suffix?: string; high
   },
 };
 
-// Equipment based in each covered province, shown in the popup card. SAMPLE: the Corporate Profile gives fleet totals
-// only (4 batching plants, 41 mixer trucks, 8 pump trucks, own piling rigs); replace with BCE's real allocation.
+// The Corporate Profile gives fleet totals only (4 batching plants, 41 mixer trucks, 8 pump trucks, own piling
+// rigs); it does not allocate machines to provinces. No per-province allocation is published until BCE supplies the
+// real deployment. The map therefore says "Mobilised from Battambang on request" everywhere.
 type Equip = [count: number, label: string];
-const equipmentByProvince: Record<string, Equip[]> = {
-  Battambang: [[2, "Batching plants"], [14, "Mixer trucks"], [3, "Pump trucks"], [2, "Piling rigs"]],
-  "Banteay Meanchey": [[1, "Batching plant"], [6, "Mixer trucks"], [1, "Pump truck"]],
-  "Siem Reap": [[1, "Batching plant"], [8, "Mixer trucks"], [2, "Pump trucks"]],
-  "Phnom Penh": [[6, "Mixer trucks"], [2, "Pump trucks"], [1, "Piling rig"]],
-  Pursat: [[3, "Mixer trucks"], [1, "Piling rig"]],
-  Pailin: [[2, "Mixer trucks"], [1, "Pump truck"]],
-  "Kampong Thom": [[3, "Mixer trucks"], [1, "Piling rig"]],
-  "Kampong Chhnang": [[2, "Mixer trucks"], [1, "Pump truck"]],
-  "Oddar Meanchey": [[2, "Mixer trucks"]],
-  "Preah Vihear": [[2, "Mixer trucks"]],
-  "Koh Kong": [[2, "Mixer trucks"], [1, "Piling rig"]],
-  "Preah Sihanouk": [[3, "Mixer trucks"], [1, "Pump truck"], [1, "Piling rig"]],
-  Kandal: [[3, "Mixer trucks"], [1, "Pump truck"]],
-  "Stung Treng": [[2, "Mixer trucks"], [1, "Piling rig"]],
-};
+export const equipmentByProvince: Record<string, Equip[]> = {};
 
 // Fleet totals from the Corporate Profile (the story's equipment step); BCE also runs its own piling rigs.
-const FLEET: Equip[] = [[4, "Batching plants"], [41, "Mixer trucks"], [8, "Pump trucks"]];
-const fleetTotal = FLEET.reduce((n, [c]) => n + c, 0);
+export const FLEET: Equip[] = [[4, "Batching plants"], [41, "Mixer trucks"], [8, "Pump trucks"]];
+export const fleetTotal = FLEET.reduce((n, [c]) => n + c, 0);
 
 const KM_PER_UNIT = 0.5753;
 const NEAR_KM = 150;
 
-const coveredItems = [...covered]
+export const coveredItems = [...covered]
   .map((name) => {
     const p = byName[name];
     const km = Math.hypot(p.x - hq.x, p.y - hq.y) * KM_PER_UNIT;
     const details = provinceDetails[name] || {
-      projects: 10,
-      suffix: "+",
       highlight: "Civil Construction & Supply",
       scope: "Ready-mix supply & foundation works",
     };
@@ -226,7 +182,7 @@ const coveredItems = [...covered]
     return a.km - b.km;
   });
 
-const otherProvinces = khmProvinces
+export const otherProvinces = khmProvinces
   .filter((p) => !covered.has(p.name))
   .map((p) => {
     const km = Math.hypot(p.x - hq.x, p.y - hq.y) * KM_PER_UNIT;
@@ -248,8 +204,9 @@ const otherProvinces = khmProvinces
   })
   .sort((a, b) => a.km - b.km);
 
-const items = [...coveredItems, ...otherProvinces];
-const totalProjects = coveredItems.reduce((n, i) => n + (i.projects ?? 0), 0);
+export const items = [...coveredItems, ...otherProvinces];
+/** Projects completed in 2025 (BCE Corporate Profile 2026, p. 8); the profile does not break this down by province. */
+export const totalProjects = 128;
 const itemIndex = Object.fromEntries(items.map((it, idx) => [it.name, idx]));
 // Labels that would collide with a neighbour's sit above their marker instead.
 const labelTop = new Set(["Phnom Penh", "Oddar Meanchey"]);
@@ -915,7 +872,7 @@ export default function Coverage() {
                     }}
                     className={`ac-prov${isCovered && idx !== undefined && lit(idx) ? " is-covered" : ""}${isActive ? " is-active" : ""}`}
                   >
-                    <title>{p.name}{it?.projects ? ` (${it.projects}+ projects completed)` : " (Mobilization ready)"}</title>
+                    <title>{p.name}{isCovered ? " (served since 1995)" : " (Mobilization ready)"}</title>
                   </path>
                 );
               })}
@@ -949,7 +906,7 @@ export default function Coverage() {
             </div>
             <div className={`ac-story-step${!free && phase === "hq" ? " is-on" : ""}`}>
               <p className="ac-story-eyebrow">{step(1).label}</p>
-              <p className="ac-story-num"><CountUp to={items[0].projects ?? 0} run={!free && phase === "hq"} /><span>{items[0].suffix || "+"}</span></p>
+              <p className="ac-story-num"><CountUp to={30} run={!free && phase === "hq"} /><span>+</span></p>
               <p className="ac-story-lead">{step(1).lead}</p>
             </div>
             <div className={`ac-story-step ac-story-step--right${!free && phase === "projects" ? " is-on" : ""}`}>
@@ -984,7 +941,6 @@ export default function Coverage() {
                 style={{ cursor: "pointer", pointerEvents: "auto" }}
                 className={`ac-marker ac-marker--hq${showNums && shown !== i ? " show-num" : ""}`}
               >
-                <span className="ac-marker-num">{it.projects}{it.suffix || "+"}</span>
               </div>
             ) : (
               <div
@@ -1005,7 +961,6 @@ export default function Coverage() {
                 </svg>
                 <span className="ac-marker-label">{it.name}</span>
                 <span className="ac-marker-pill"><PinIcon />{it.name}</span>
-                {it.projects ? <span className="ac-marker-num" style={{ transitionDelay: showNums ? `${i * 45}ms` : "0ms" }}>{it.projects}{it.suffix || "+"}</span> : null}
               </div>
             ),
           )}
@@ -1028,14 +983,14 @@ export default function Coverage() {
                     {it.name === HQ && <span className="ac-tip-tag">Head office</span>}
                   </div>
                   <div>
-                    {it.projects ? (
-                      <p className="ac-tip-num"><CountUp to={it.projects} run={shown === i} /><span className="ac-tip-suffix">{it.suffix || "+"}</span></p>
+                    {it.isCovered ? (
+                      <p className="ac-tip-num ac-tip-num--word">Served</p>
                     ) : (
                       <p className="ac-tip-num ac-tip-num--word">Ready</p>
                     )}
-                    <p className="ac-tip-label">{it.projects ? "Projects completed in 2025" : "Available for deployment"}</p>
+                    <p className="ac-tip-label">{it.isCovered ? "Project experience since 1995" : "Available for deployment"}</p>
                   </div>
-                  {/* Equipment based in the province: the fleet that makes the coverage real. */}
+                  {/* Fleet totals are published by BCE; per-province allocation is not. */}
                   <div className="ac-tip-equip">
                     <p className="ac-tip-equip-title">{it.equipment.length ? "Equipment based here" : "Mobilised from Battambang on request"}</p>
                     {it.equipment.length > 0 && (
@@ -1062,9 +1017,9 @@ export default function Coverage() {
                 <div className="mt-4 flex items-end justify-between gap-4">
                   <div>
                     <span className="block text-[3rem] font-medium leading-[.85] tracking-[-.04em]">
-                      {sel.projects ? <><CountUp to={sel.projects} run />{sel.suffix || "+"}</> : "Ready"}
+                      {sel.isCovered ? "Served" : "Ready"}
                     </span>
-                    <span className="mt-2 block text-[13px] text-black/55">{sel.projects ? "Projects completed in 2025" : "Mobilization ready"}</span>
+                    <span className="mt-2 block text-[13px] text-black/55">{sel.isCovered ? "Project experience since 1995" : "Mobilization ready"}</span>
                   </div>
                   {sel.equipment.length > 0 && (
                     <ul className="ac-card-equip">

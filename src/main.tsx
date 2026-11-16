@@ -8,11 +8,13 @@ import BusinessesPage from './BusinessesPage'
 import BusinessDetailPage from './BusinessDetailPage'
 import { findBusinessDetail } from './businessDetails'
 import QualityPage from './QualityPage'
+import CoveragePage from './CoveragePage'
 import QuotePage from './QuotePage'
 import RecruitmentPage from './RecruitmentPage'
 import ResourcesPage from './ResourcesPage'
 import ContactPage from './ContactPage'
 import BlogPage from './BlogPage'
+import { PrivacyPage, TermsPage } from './LegalPage'
 import './index.css'
 import { initPageTransitions, onRouteChange } from './pageTransition'
 import { initImageParallax } from './imageParallax'
@@ -23,7 +25,7 @@ import {
   onContentChange,
 } from './contentStore'
 
-// Pages: /?project=<slug> (project details), /?projects (project list), /?about (About BCE), /?businesses, /?quality (Quality, capability & HSE), /?quote, everything else the homepage. Links between
+// Pages: /?project=<slug> (project details), /?projects (project list), /?about (About BCE), /?businesses, /?quality (Quality, capability & HSE), /?coverage (operational coverage), /?quote, everything else the homepage. Links between
 // them navigate in-app with the page transition (src/pageTransition.ts), so the shell re-renders on route changes.
 // Switching language remounts the page; in Khmer the translator runs after render and before the text reveals split it.
 const homeTitle = document.title
@@ -46,10 +48,13 @@ function Page() {
   // The Technical Capabilities page merged into Quality, capability & HSE. Old links keep working: the page rewrites
   // the URL to /?quality and maps the retired anchors to the sections that absorbed them.
   if (params.has('capabilities')) return <QualityPage fromCapabilities />
+  if (params.has('coverage')) return <CoveragePage />
   if (params.has('quote')) return <QuotePage />
   if (params.has('recruitment') || params.has('careers')) return <RecruitmentPage />
   if (params.has('resources')) return <ResourcesPage />
   if (params.has('contact')) return <ContactPage />
+  if (params.has('privacy')) return <PrivacyPage />
+  if (params.has('terms')) return <TermsPage />
   if (params.has('blog') || params.has('news')) return <BlogPage />
   document.title = translate(homeTitle)
   return <App />

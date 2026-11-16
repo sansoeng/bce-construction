@@ -16,6 +16,30 @@ export interface Vacancy {
 
 export const VACANCIES: Vacancy[] = [
   {
+    id: "sales-quotations-engineer",
+    title: "Sales & Quotations Engineer",
+    department: "Sales & Quotations",
+    location: "Battambang Head Office",
+    type: "Full-Time",
+    deadline: "31 December 2026",
+    overview:
+      "Prepare clear, accurate quotations for ready-mix concrete, piling, construction, slab works and equipment hire. Work with our batching, piling and dispatch teams to price enquiries from drawings, BOQs and site requirements, then follow each request through to order.",
+    duties: [
+      "Review enquiries, drawings and BOQs and prepare quotations for the five BCE services.",
+      "Coordinate with batching, piling and dispatch teams to confirm capacity, delivery windows and pump or rig requirements.",
+      "Visit sites in Battambang and nearby provinces to confirm access, scope and pour requirements.",
+      "Follow up quotations, answer technical questions and hand confirmed orders to the operations team.",
+      "Keep the enquiry and quotation records complete so nothing is lost between sales and delivery.",
+    ],
+    qualifications: [
+      "Bachelor's degree in Civil Engineering, Construction Management or a related field, or equivalent construction sales experience.",
+      "1–3 years in construction sales, estimating or quotations, preferably with ready-mix concrete or piling.",
+      "Able to read construction drawings and prepare a clear quantity take-off; AutoCAD is an advantage.",
+      "Fluent Khmer and good English, with confident written and spoken communication.",
+      "A valid driving licence and willingness to travel to project sites.",
+    ],
+  },
+  {
     id: "batching-plant-operator",
     title: "Concrete Batching Plant Operator",
     department: "Operations & Batching",

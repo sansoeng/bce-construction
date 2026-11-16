@@ -91,8 +91,11 @@ export default function ResourcesPage() {
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">
             <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold uppercase text-[#111] tracking-[-0.03em] leading-[1.12]">
-              Reports
+              Resources
             </h1>
+            <p className="mx-auto mt-5 max-w-[38rem] text-[15px] leading-relaxed text-[#111]/55 sm:text-[16px]">
+              Corporate publications, technical documents and credentials. Documents not yet published can be requested from our team.
+            </p>
           </div>
 
           {/* 2-Column Responsive Layout */}
@@ -260,10 +263,22 @@ export default function ResourcesPage() {
                     <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-6 py-5 sm:px-7">
                       <div className="flex flex-wrap items-center gap-2 text-[13px] text-[#737373]">
                         <span>{doc.revisionDate}</span>
-                        <span aria-hidden>•</span>
-                        <span>{doc.fileSize}</span>
+                        {doc.fileSize && (
+                          <>
+                            <span aria-hidden>•</span>
+                            <span>{doc.fileSize}</span>
+                          </>
+                        )}
                       </div>
 
+                      {doc.onRequest || !doc.downloadUrl ? (
+                        <a
+                          href="/?contact"
+                          className="inline-flex h-10 items-center justify-center rounded-[8px] bg-[#111] px-4 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
+                        >
+                          Request this document
+                        </a>
+                      ) : (
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
@@ -317,6 +332,7 @@ export default function ResourcesPage() {
                           </svg>
                         </a>
                       </div>
+                      )}
                       <span className="sr-only" aria-live="polite">
                         {copiedId === doc.id ? "Link copied" : ""}
                       </span>

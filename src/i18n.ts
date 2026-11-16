@@ -62,6 +62,13 @@ const KM: Record<string, string> = {
   "Coverage": "តំបន់សេវាកម្ម",
   "Quality & Lab": "គុណភាព & មន្ទីរពិសោធន៍",
   "Contact": "ទំនាក់ទំនង",
+  "Privacy policy": "គោលការណ៍ឯកជនភាព",
+  "Terms of use": "លក្ខខណ្ឌប្រើប្រាស់",
+  "Legal": "ច្បាប់",
+  "By sending this request you agree to our": "ដោយផ្ញើសំណើនេះ អ្នកយល់ព្រមនឹង",
+  "By sending this message you agree to our": "ដោយផ្ញើសារនេះ អ្នកយល់ព្រមនឹង",
+  "See our": "សូមមើល",
+  "for how we handle candidate information.": "សម្រាប់របៀបដែលយើងគ្រប់គ្រងព័ត៌មានអ្នកដាក់ពាក្យ។",
   "More": "បន្ថែម",
   "Recruitment": "ជ្រើសរើសបុគ្គលិក",
   "Details & Inquiries": "ព័ត៌មានលម្អិត & ទំនាក់ទំនង",
@@ -269,6 +276,7 @@ const KM: Record<string, string> = {
   "Fleet Logistics": "ភស្តុភារកម្មគ្រឿងចក្រ",
   "Full-Time": "ពេញម៉ោង",
   "There are currently no open positions.": "បច្ចុប្បន្នមិនមានមុខតំណែងទំនេរនោះទេ។",
+  "We still welcome speculative applications. Send your CV and a short note to": "យើងនៅតែស្វាគមន៍ពាក្យសុំដោយស្ម័គ្រចិត្ត។ សូមផ្ញើ CV និងសារខ្លីមកកាន់",
   "View Details": "មើលព័ត៌មានលម្អិត",
   "Hide Details": "លាក់ព័ត៌មានលម្អិត",
   "Main Duties & Responsibilities": "ភារកិច្ច & ការទទួលខុសត្រូវចម្បង",
@@ -638,6 +646,31 @@ const KM: Record<string, string> = {
   "Plus our own piling rigs.": "បូករួមទាំងម៉ាស៊ីនបុកគ្រឹះផ្ទាល់ខ្លួន",
   "Click on a province to see more details": "ចុចលើខេត្តមួយ ដើម្បីមើលព័ត៌មានលម្អិត",
   "Delivered province by province, from Pailin to Stung Treng.": "ប្រគល់ជូនពីខេត្តមួយទៅខេត្តមួយ ចាប់ពីប៉ៃលិនដល់ស្ទឹងត្រែង",
+  // Coverage page (/?coverage)
+  "Key figures": "តួលេខសំខាន់",
+  "Coverage map": "ផែនទីតំបន់សេវាកម្ម",
+  "Coverage by zone": "ការគ្របដណ្តប់តាមតំបន់",
+  "Province register": "បញ្ជីខេត្ត",
+  "From Battambang": "ពីបាត់ដំបង",
+  "Show on map": "បង្ហាញលើផែនទី",
+  "Region": "តំបន់",
+  "Provinces": "ខេត្ត",
+  "Map of Cambodia showing where BCE works": "ផែនទីកម្ពុជាបង្ហាញកន្លែងដែល BCE ធ្វើការ",
+  "Served": "បានបម្រើការងារ",
+  "Project experience since 1995": "បទពិសោធន៍គម្រោងតាំងពីឆ្នាំ ១៩៩៥",
+  "Served since 1995": "បម្រើតាំងពីឆ្នាំ ១៩៩៥",
+  "Building from Battambang since 1995": "កសាងពីបាត់ដំបងតាំងពីឆ្នាំ ១៩៩៥",
+  "Select a province to see the work delivered there and its distance from Battambang.":
+    "ជ្រើសរើសខេត្តមួយ ដើម្បីមើលការងារដែលបានអនុវត្ត និងចម្ងាយពីបាត់ដំបង។",
+  "Every location on the map, the work delivered there and the distance from our Battambang base.":
+    "គ្រប់ទីតាំងលើផែនទី ការងារដែលបានអនុវត្ត និងចម្ងាយពីមូលដ្ឋានបាត់ដំបងរបស់យើង។",
+  "Every location on the map, its completed projects, the work delivered there and the plant based on site.":
+    "គ្រប់ទីតាំងលើផែនទី គម្រោងដែលបានបញ្ចប់ ការងារដែលបានអនុវត្ត និងគ្រឿងចក្រដែលប្រចាំនៅទីនោះ។",
+  "Beyond the fourteen locations we serve today, BCE mobilises its fleet into additional provinces on request.":
+    "ក្រៅពី ១៤ ទីតាំងដែលយើងបម្រើនាពេលបច្ចុប្បន្ន BCE អាចដាក់ពង្រាយកងយានយន្តទៅខេត្តបន្ថែមតាមការស្នើសុំ។",
+  "Need us in a province not on this list?": "ត្រូវការយើងនៅខេត្តដែលមិនមានក្នុងបញ្ជីនេះ?",
+  "Our plants, fleet and crews are based in Battambang and mobilise across Cambodia. Tell us your site and programme and we will confirm what we can bring.":
+    "រោងចក្រ កងយានយន្ត និងក្រុមការងាររបស់យើងមានមូលដ្ឋាននៅបាត់ដំបង ហើយអាចដាក់ពង្រាយទូទាំងកម្ពុជា។ សូមប្រាប់យើងពីការដ្ឋាន និងកាលវិភាគរបស់អ្នក យើងនឹងបញ្ជាក់អ្វីដែលយើងអាចផ្តល់បាន។",
   "Slab works": "ការងារចាក់កម្រាលបេតុង",
 
   // Coverage Highlights & Scopes
@@ -1472,6 +1505,7 @@ const KM: Record<string, string> = {
 
   // Contact page
   "Contact us": "ទំនាក់ទំនងយើង",
+  "Start a project": "ចាប់ផ្តើមគម្រោង",
   "Get in touch": "ទាក់ទងមកយើង",
   "Ready-mix concrete, piling, civil works or fleet hire — our team answers every day from Battambang.":
     "បេតុងលាយរួច ការបោះសសរគ្រឹះ ការងារសំណង់ស៊ីវិល ឬការជួលគ្រឿងចក្រ — ក្រុមការងាររបស់យើងឆ្លើយតបជារៀងរាល់ថ្ងៃពីបាត់ដំបង។",
@@ -1514,6 +1548,7 @@ const PATTERNS: [RegExp, (...m: string[]) => string | null][] = [
   [/^(\d+) projects$/, (n) => `គម្រោង ${n}`],
   [/^(\d+)\+ projects completed$/, (n) => `គម្រោងបានបញ្ចប់ ${n}+`],
   [/^(\d+) projects completed$/, (n) => `គម្រោងបានបញ្ចប់ ${n}`],
+  [/^~(\d+) km from Battambang$/, (n) => `~${n} គ.ម. ពីបាត់ដំបង`],
   [/^(.+) \| BCE\., Ltd\.$/, (s) => `${tr(s)} | BCE., Ltd.`],
   [/^(.+) \| BCE Construction$/, (s) => `${tr(s)} | BCE., Ltd.`],
   [/^Map of Cambodia showing completed projects across (\d+) provinces and Phnom Penh where BCE operates$/, (n) => `ផែនទីកម្ពុជាបង្ហាញគម្រោងដែលបានបញ្ចប់នៅទូទាំង ${n} ខេត្ត និងរាជធានីភ្នំពេញ ដែល BCE ប្រតិបត្តិការ`],
