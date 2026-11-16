@@ -326,7 +326,7 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
   const others = businessDetails.filter((b) => b.slug !== business.slug);
 
   return (
-    <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip">
+    <main ref={rootRef} className="ol-page ol-biz relative z-[1] overflow-x-clip">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
       <ParallaxHero label="Core business" headerTitle={business.name} title={business.name} image={unsplash(business.heroImage, 2400)} alt={business.heroAlt} />

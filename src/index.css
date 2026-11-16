@@ -4560,6 +4560,14 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .ol-capacity-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); align-items: start; }
 .ol-capacity-head .ol-label { grid-column: 1 / span 6; }
 .ol-capacity-title { grid-column: 7 / -1; max-width: 34rem; font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
+
+/* Our Businesses (hub) and every business detail page: the section headings sit at the Quality & HSE page's
+   44px and stay in full caps at every width, instead of the 60px (3.75rem) they shared with the Capabilities
+   page. The hero and the capabilities slider heading are deliberately left at their own sizes. */
+.ol-biz :is(.ol-tm-title, .ol-values-title, .ol-solutions-title, .ol-capacity-title, .ol-work-title) {
+  font-size: clamp(2.1rem, 3.4vw, 44px);
+  text-transform: uppercase;
+}
 .ol-capacity-copy { grid-column: 7 / -1; max-width: 30rem; margin-top: 28px; font-size: 1.05rem; line-height: 1.4; color: rgb(255 255 255 / .6); }
 .ol-capacity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--olg); row-gap: 48px; margin-top: 100px; padding: 0; list-style: none; }
 .ol-figure {

@@ -86,7 +86,7 @@ export default function BusinessesPage() {
   useScrollParallax(rootRef);
 
   return (
-    <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip">
+    <main ref={rootRef} className="ol-page ol-biz relative z-[1] overflow-x-clip">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
       <ParallaxHero label="Our businesses" title="Building with expertise" image={unsplash("/Image/bce/hero_batching_plant.webp", 2400)} />
