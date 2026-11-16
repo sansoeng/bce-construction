@@ -20,12 +20,15 @@ export default function StickyValues({
   label,
   heading,
   items,
+  dark = false,
 }: {
   id: string
   n?: string
   label: string
   heading: string
   items: StickyItem[]
+  /** Paper text on the ink ground, for pages where the sequence continues a dark band. */
+  dark?: boolean
 }) {
   const rootRef = useRef<HTMLElement>(null)
 
@@ -145,7 +148,7 @@ export default function StickyValues({
 
   const headingId = `${id}-title`
   return (
-    <section ref={rootRef} id={id} data-header-title={label} aria-labelledby={headingId} className="abv abv--solo qh-section">
+    <section ref={rootRef} id={id} data-header-title={label} aria-labelledby={headingId} className={`abv abv--solo qh-section${dark ? " abv--dark" : ""}`}>
       <div className="abv-sticky">
         <div className="abv-vision">
           <div className="abv-vision-left">

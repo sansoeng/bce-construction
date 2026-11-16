@@ -261,13 +261,14 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
         {/* 06 Equipment & fleet: the dark band closes the capacity story, kept full-bleed so the figures have a change
             of ground before the HSE sequence. */}
         <DarkMedia id="equipment-fleet" kicker={equipment.kicker} title={equipment.title} image={unsplash(equipment.image, 1800)} alt={equipment.imageAlt}
-          copy={equipment.copy}>
+          copy={equipment.copy} className="ol-dk--flush">
           <Rows dark rows={equipment.rows} />
           <OlButton label={equipment.ctaLabel} href={equipment.ctaHref} dark className="ol-tm-button" />
         </DarkMedia>
 
-        {/* 07 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. */}
-        <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} />
+        {/* 07 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. It
+            keeps the ink ground of the capacity band above, so the two read as one dark block before the documents. */}
+        <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} dark />
 
         {/* 08 Documents: mix designs, licences and certificates merged into one set of cards, after
             olympic.no/investor — a light band, the mono eyebrow and uppercase title, then near-black document cards
