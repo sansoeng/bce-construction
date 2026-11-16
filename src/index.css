@@ -1595,9 +1595,9 @@ html.ls-lock body { overflow: hidden; }
   transform: scale(calc(1 - .06 * var(--ls-p, 0)));
   transform-origin: left center;
 }
-.ls-logo-mark { display: block; width: 27px; height: 27px; flex: none; color: var(--brand); }
+.ls-logo-mark { display: block; width: 30px; height: 30px; flex: none; color: var(--brand); }
 .ls-logo-mark svg { display: block; width: 100%; height: 100%; }
-.ls-logo-text { font-size: 22px; font-weight: 700; letter-spacing: .03em; line-height: 1; }
+.ls-logo-text { font-size: 24px; font-weight: 700; letter-spacing: .03em; line-height: 1; }
 .ls-logo:hover { color: var(--brand); }
 
 .ls-nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 14px; min-width: 0; }
@@ -1854,7 +1854,7 @@ html.ls-lock body { overflow: hidden; }
   .ls-nav-right { gap: 8px; }
   .ls-nav .ls-quote, .ls-nav-sep { display: none; }
   .ls-lang { font-size: 12px; }
-  .ls-logo-text { font-size: 20px; }
+  .ls-logo-text { font-size: 21px; }
   .ls-sheet { padding-top: calc(54px + 22px); }
   .ls-sheet-link { font-size: 19px; padding: 14px 0; }
 }

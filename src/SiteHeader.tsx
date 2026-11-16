@@ -451,13 +451,10 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
           {/* Lockup at the left: the red BCE monogram and the wordmark, at the reference's scale. */}
           <a href={base || "/"} className="ls-logo" aria-label="BCE., Ltd. — home">
             <span className="ls-logo-mark" aria-hidden>
-              <svg viewBox="0 0 24 24">
-                <rect width="24" height="24" rx="5.5" fill="currentColor" />
-                <path
-                  fill="#fff"
-                  fillRule="evenodd"
-                  d="M8 5.5h5.3c2.6 0 4.4 1.3 4.4 3.5 0 1.4-.9 2.5-2.2 3 1.7.4 2.7 1.6 2.7 3.3 0 2.5-1.9 4-4.8 4H8V5.5Zm2.6 2.6v3.2h2.6c1.3 0 2-.6 2-1.6s-.7-1.6-2-1.6h-2.6Zm0 5.8v3.4h2.8c1.4 0 2.2-.7 2.2-1.7s-.8-1.7-2.2-1.7h-2.8Z"
-                />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6.6 3.4v17.2" />
+                <path d="M6.6 5.1h6.1a4.15 4.15 0 0 1 0 8.3H6.6" />
+                <path d="M6.6 13.4h6.9a4.35 4.35 0 0 1 0 8.7H6.6" />
               </svg>
             </span>
             <span className="ls-logo-text">BCE</span>
