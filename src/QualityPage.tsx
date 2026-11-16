@@ -12,7 +12,7 @@ import { quality } from "./quality";
 
 // Quality, capability & HSE (/?quality), for contractors, consultants and tender reviewers. One page, one narrative:
 // how the concrete is tested (laboratory and the five-step process), what is designed (concrete grades), what goes in
-// (raw material and calibration certificates), who runs it (engineering), the HSE commitment, the plant and fleet, and
+// (raw material and calibration certificates), the HSE commitment, the plant and fleet, who runs it (engineering), and
 // the documents procurement asks for.
 //
 // The former Technical Capabilities page (/?capabilities) is merged in: its quality-assurance, laboratory and
@@ -33,9 +33,9 @@ const TOPICS = [
   ["grades", "grades"],
   ["raw-materials", "materials"],
   ["calibration", "calibration"],
-  ["engineering", "engineering"],
   ["hse", "hse"],
   ["equipment-fleet", "equipment"],
+  ["engineering", "engineering"],
   ["documents", "documents"],
 ] as const;
 
@@ -247,27 +247,27 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           </div>
         </section>
 
-        {/* 05 Engineering capability: the people and figures behind the mix designs, with the coverage figure linking
-            to the map on the homepage rather than repeating it here. */}
-        <div className="ol-panels">
-          <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
-            copy={engineering.copy}>
-            <Rows rows={engineering.rows} />
-            <OlButton label="Coverage" href="/#coverage" className="ol-tm-button" />
-          </TextMedia>
-        </div>
-
-        {/* 06 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. It
-            keeps its own ink ground, which gives the certificates a deliberate break before the fleet. */}
+        {/* 05 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. It
+            keeps its own ink ground, which gives the certificates above a deliberate break. */}
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} dark />
 
-        {/* 07 Equipment & fleet: the full inventory from the Corporate Profile (laboratory equipment excepted, as it
+        {/* 06 Equipment & fleet: the full inventory from the Corporate Profile (laboratory equipment excepted, as it
             belongs to the laboratory section), on the page's light ground. */}
         <div className="ol-panels">
           <TextMedia id="equipment-fleet" kicker={fleet.kicker} title={fleet.title} image={unsplash(fleet.image, 1600)} alt={fleet.imageAlt}
             copy={fleet.copy}>
             <Rows rows={fleet.rows} />
             <OlButton label={fleet.ctaLabel} href={fleet.ctaHref} className="ol-tm-button" />
+          </TextMedia>
+        </div>
+
+        {/* 07 Engineering capability: the people and figures behind the mix designs, with the coverage figure linking
+            to the map on the homepage rather than repeating it here. */}
+        <div className="ol-panels">
+          <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
+            copy={engineering.copy}>
+            <Rows rows={engineering.rows} />
+            <OlButton label="Coverage" href="/#coverage" className="ol-tm-button" />
           </TextMedia>
         </div>
 

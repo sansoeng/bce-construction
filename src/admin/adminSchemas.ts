@@ -397,9 +397,9 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "laboratory", title: "Laboratory & QA", hint: "The laboratory copy, the five-step process, what the lab tests and its photo.", keys: ["laboratory"] },
       { id: "materials", title: "Raw material certificates", hint: "The certified materials and the photo beside them.", keys: ["materials"] },
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
-      { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
-      { id: "fleet", title: "Equipment & fleet", hint: "The plant and equipment inventory (laboratory equipment stays under Laboratory).", keys: ["fleet"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
+      { id: "fleet", title: "Equipment & fleet", hint: "The plant and equipment inventory (laboratory equipment stays under Laboratory).", keys: ["fleet"] },
+      { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
       { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section, and the request link.", keys: ["documents"] },
     ],
     fields: [

@@ -49,7 +49,7 @@ BCE/
 │   ├── homepage.ts              # Every editable home-page string, figure and photo (admin-backed)
 │   ├── quality.ts               # Every editable Quality, capability & HSE string, figure, certificate row and photo (admin-backed)
 │   ├── about.ts                 # Every editable About BCE string, milestone and photo (admin-backed)
-│   ├── QualityPage.tsx          # Quality, capability & HSE: lab, grades, certificates, engineering, HSE, fleet, documents
+│   ├── QualityPage.tsx          # Quality, capability & HSE: lab, grades, certificates, HSE, fleet, engineering, documents
 │   ├── ProjectsPage.tsx         # 30-project portfolio database with category filtering
 │   ├── ProjectPage.tsx          # Single project detail view & lightbox gallery
 │   ├── Coverage.tsx             # Interactive Cambodia SVG map covering 14 provinces
