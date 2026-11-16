@@ -21,7 +21,7 @@ function Meta({ children, className = "", accent = false }: { children: ReactNod
   return (
     <span
       className={`font-mono uppercase leading-[1.6] tracking-[0.1em] ${
-        accent ? "text-[16px] text-[#FF3C1E]" : "text-[14px]"
+        accent ? "text-[16px] text-[#D42D12]" : "text-[14px]"
       } ${className}`}
     >
       {children}
@@ -39,7 +39,7 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
       }}
       className="group block hover:opacity-100"
     >
-      <div className="relative aspect-square overflow-hidden rounded-[6px] bg-[#F0F1F3]">
+      <div className="relative aspect-square overflow-hidden rounded-[6px] bg-[#EDEDED]">
         <img
           src={post.image}
           alt={post.alt}
@@ -60,8 +60,8 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
       </div>
 
       <div className="pt-4 md:pt-5">
-        <Meta className="text-[#A5A7A8]">{post.category}</Meta>
-        <h3 className="mt-3 text-[18px] font-medium leading-[1.2] tracking-[-0.015em] text-[#191C1F] sm:text-[19px] lg:text-[clamp(19px,1.55vw,26px)] lg:leading-[1.19]">
+        <Meta className="text-[#737373]">{post.category}</Meta>
+        <h3 className="mt-3 text-[18px] font-medium leading-[1.2] tracking-[-0.015em] text-[#111] sm:text-[19px] lg:text-[clamp(19px,1.55vw,26px)] lg:leading-[1.19]">
           <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
             {post.title}
           </span>
@@ -193,12 +193,12 @@ export default function BlogPage() {
                 <h1
                   data-split
                   data-split-type="words"
-                  className="mt-6 max-w-[670px] text-center text-[clamp(26px,2.31vw,44px)] font-medium uppercase leading-[1.1] tracking-[-0.01em] text-[#1E2226]"
+                  className="mt-6 max-w-[670px] text-center text-[clamp(26px,2.31vw,44px)] font-medium uppercase leading-[1.1] tracking-[-0.01em] text-[#111]"
                 >
                   {currentPost.title}
                 </h1>
 
-                <div className="mt-8 flex w-full items-center justify-between gap-4 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#A5A7A8]">
+                <div className="mt-8 flex w-full items-center justify-between gap-4 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#737373]">
                   <span>{currentPost.category}</span>
                   <span className="text-right">
                     Scroll to read <span aria-hidden>•</span> {currentPost.readTime}
@@ -212,7 +212,7 @@ export default function BlogPage() {
                       event.preventDefault();
                       handleSelectPost(prevPost.slug);
                     }}
-                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[14px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
+                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#111]/15 px-3 font-mono text-[14px] uppercase tracking-[0.02em] text-[#111] transition-colors hover:bg-[#111] hover:text-white hover:opacity-100"
                   >
                     <span aria-hidden>←</span> Prev
                   </a>
@@ -222,14 +222,14 @@ export default function BlogPage() {
                       event.preventDefault();
                       handleSelectPost(nextPost.slug);
                     }}
-                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#1E2226]/15 px-3 font-mono text-[14px] uppercase tracking-[0.02em] text-[#1E2226] transition-colors hover:bg-[#1E2226] hover:text-white hover:opacity-100"
+                    className="inline-flex h-[31px] items-center gap-2 rounded-[8px] border border-[#111]/15 px-3 font-mono text-[14px] uppercase tracking-[0.02em] text-[#111] transition-colors hover:bg-[#111] hover:text-white hover:opacity-100"
                   >
                     Next <span aria-hidden>→</span>
                   </a>
                 </div>
               </div>
 
-              <figure className="mx-auto mt-14 aspect-[4/3] w-full max-w-[1400px] overflow-hidden bg-[#F0F1F3] md:mt-16 md:aspect-[1400/1013]">
+              <figure className="mx-auto mt-14 aspect-[4/3] w-full max-w-[1400px] overflow-hidden bg-[#EDEDED] md:mt-16 md:aspect-[1400/1013]">
                 <img
                   src={currentPost.image}
                   alt={currentPost.alt}
@@ -247,7 +247,7 @@ export default function BlogPage() {
             <section className="site-pad mt-20 md:mt-[140px]">
               <div className="mx-auto grid w-full max-w-[1360px] grid-cols-1 gap-10 md:grid-cols-12 md:gap-5">
                 <aside className="order-2 md:order-1 md:col-span-4">
-                  <Meta className="text-[#1E2226]">Share</Meta>
+                  <Meta className="text-[#111]">Share</Meta>
                   <ul className="mt-4 flex items-center gap-2">
                     {shareLinks.map(({ key, label, href }) => (
                       <li key={key}>
@@ -256,7 +256,7 @@ export default function BlogPage() {
                           target="_blank"
                           rel="noreferrer"
                           aria-label={`Share on ${label}`}
-                          className="flex size-[31px] items-center justify-center rounded-[8px] border border-[#1E2226]/15 text-[#1E2226]/65 transition-colors hover:border-[#1E2226] hover:text-[#1E2226] hover:opacity-100"
+                          className="flex size-[31px] items-center justify-center rounded-[8px] border border-[#111]/15 text-[#111]/65 transition-colors hover:border-[#111] hover:text-[#111] hover:opacity-100"
                         >
                           <ShareIcon network={key} />
                         </a>
@@ -266,26 +266,26 @@ export default function BlogPage() {
                 </aside>
 
                 <div className="order-1 md:order-2 md:col-span-5 md:col-start-7">
-                  <p className="text-[17.5px] leading-[1.5] tracking-[-0.01em] text-[#1E2226]">
+                  <p className="text-[17.5px] leading-[1.5] tracking-[-0.01em] text-[#111]">
                     {currentPost.content.intro}
                   </p>
 
                   <div className="mt-11 space-y-[50px]">
                     {currentPost.content.sections?.map((sec, idx) => (
                       <section key={idx}>
-                        <h2 className="text-[21px] font-medium leading-[1.35] tracking-[-0.01em] text-[#1E2226]">
+                        <h2 className="text-[21px] font-medium leading-[1.35] tracking-[-0.01em] text-[#111]">
                           {sec.heading}
                         </h2>
-                        <div className="mt-6 space-y-[27px] text-[15.5px] leading-[1.7] text-[#787A7D]">
+                        <div className="mt-6 space-y-[27px] text-[15.5px] leading-[1.7] text-[#737373]">
                           {sec.body.map((paragraph, pIdx) => (
                             <p key={pIdx}>{paragraph}</p>
                           ))}
                         </div>
                         {sec.callout && (
-                          <blockquote className="relative mt-[50px] border-l border-[#1E2226]/20 pl-6 text-[clamp(20px,1.74vw,25px)] leading-[1.25] tracking-[-0.01em] text-[#1E2226]">
+                          <blockquote className="relative mt-[50px] border-l border-[#111]/20 pl-6 text-[clamp(20px,1.74vw,25px)] leading-[1.25] tracking-[-0.01em] text-[#111]">
                             <span
                               aria-hidden
-                              className="absolute left-5 -top-4 font-serif text-[44px] leading-none text-[#1E2226]/25"
+                              className="absolute left-5 -top-4 font-serif text-[44px] leading-none text-[#111]/25"
                             >
                               &ldquo;
                             </span>
@@ -296,14 +296,14 @@ export default function BlogPage() {
                     ))}
 
                     {currentPost.content.takeaways && (
-                      <section className="border-t border-[#1E2226]/10 pt-8">
-                        <h2 className="text-[21px] font-medium leading-[1.35] tracking-[-0.01em] text-[#1E2226]">
+                      <section className="border-t border-[#111]/10 pt-8">
+                        <h2 className="text-[21px] font-medium leading-[1.35] tracking-[-0.01em] text-[#111]">
                           Key takeaways
                         </h2>
-                        <ul className="mt-5 space-y-3 text-[15px] leading-[1.65] text-[#787A7D]">
+                        <ul className="mt-5 space-y-3 text-[15px] leading-[1.65] text-[#737373]">
                           {currentPost.content.takeaways.map((item, tIdx) => (
                             <li key={tIdx} className="flex gap-3">
-                              <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#1E2226]/50" aria-hidden />
+                              <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#111]/50" aria-hidden />
                               <span>{item}</span>
                             </li>
                           ))}
@@ -323,7 +323,7 @@ export default function BlogPage() {
                   <h2
                     data-split
                     data-split-type="words"
-                    className="mt-5 max-w-[670px] text-[clamp(26px,2.31vw,44px)] font-medium uppercase leading-[1.1] tracking-[-0.01em] text-[#1E2226]"
+                    className="mt-5 max-w-[670px] text-[clamp(26px,2.31vw,44px)] font-medium uppercase leading-[1.1] tracking-[-0.01em] text-[#111]"
                   >
                     {translate("Explore more of latest news & insights")}
                   </h2>
@@ -347,7 +347,7 @@ export default function BlogPage() {
                 <h1
                   data-split
                   data-split-type="words"
-                  className="mt-5 text-[clamp(42px,4.72vw,64px)] font-medium uppercase leading-[1.02] tracking-[-0.03em] text-[#191C1F] md:mt-7"
+                  className="mt-5 text-[clamp(42px,4.72vw,64px)] font-medium uppercase leading-[1.02] tracking-[-0.03em] text-[#111] md:mt-7"
                 >
                   <span className="block">{translate("Building with")}</span>{" "}
                   <span className="block">{translate("insight")}</span>
@@ -357,7 +357,7 @@ export default function BlogPage() {
               {/* All stories, listed as square photographic tiles */}
               <div className="mt-10 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 md:mt-14">
                 <div
-                  className="inline-flex items-center rounded-[6px] bg-[#191C1F]/10 p-[3px]"
+                  className="inline-flex items-center rounded-[6px] bg-[#111]/10 p-[3px]"
                   role="group"
                   aria-label="Journal sections"
                 >
@@ -370,7 +370,7 @@ export default function BlogPage() {
                         aria-pressed={active}
                         onClick={() => setKindFilter(kind)}
                         className={`h-9 rounded-[4px] px-4 font-mono text-[14px] uppercase leading-none tracking-[0.08em] transition-colors duration-200 ${
-                          active ? "bg-[#191C1F] text-white" : "text-[#191C1F]/60 hover:text-[#191C1F]"
+                          active ? "bg-[#111] text-white" : "text-[#111]/60 hover:text-[#111]"
                         }`}
                       >
                         {kind}
@@ -383,7 +383,7 @@ export default function BlogPage() {
                   type="button"
                   onClick={clearFilters}
                   disabled={kindFilter === "All"}
-                  className="hidden font-mono text-[14px] uppercase tracking-[0.1em] text-[#191C1F]/50 transition-colors hover:text-[#191C1F] disabled:text-[#191C1F]/25 sm:inline-flex"
+                  className="hidden font-mono text-[14px] uppercase tracking-[0.1em] text-[#111]/50 transition-colors hover:text-[#111] disabled:text-[#111]/25 sm:inline-flex"
                 >
                   Clear filters
                 </button>
@@ -391,13 +391,13 @@ export default function BlogPage() {
 
               {filteredPosts.length === 0 ? (
                 <div className="mt-16 border-t border-black/[0.08] pt-16 md:mt-20">
-                  <p className="text-[20px] font-medium tracking-[-0.01em] text-[#191C1F] md:text-[24px]">
+                  <p className="text-[20px] font-medium tracking-[-0.01em] text-[#111] md:text-[24px]">
                     No articles found for the selected filter.
                   </p>
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="mt-5 rounded-[4px] bg-[#191C1F] px-5 py-3 font-mono text-[14px] uppercase tracking-[0.08em] text-white"
+                    className="mt-5 rounded-[4px] bg-[#111] px-5 py-3 font-mono text-[14px] uppercase tracking-[0.08em] text-white"
                   >
                     Reset filters
                   </button>

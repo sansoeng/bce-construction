@@ -129,11 +129,11 @@
 /* Place markers (Aircenter's metro markers): grey ring and label, white once their place is chosen. */
 .ac-marker { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; }
 .ac-marker-pin { position: absolute; width: 30px; height: 35px; transform: translate(-50%, -100%); overflow: visible; filter: drop-shadow(0 4px 8px rgb(0 0 0 / .45)); transition: opacity .4s var(--ac-ease), transform .5s var(--ac-ease); }
-.ac-marker-pin path { fill: var(--ink); stroke: #5c5c5c; }
+.ac-marker-pin path { fill: var(--ink); stroke: var(--ink-meta); }
 .ac-marker-pin text { fill: var(--paper); font-size: 9.5px; font-weight: 500; letter-spacing: .02em; }
 .ac-marker:hover .ac-marker-pin { transform: translate(-50%, -100%) translateY(-2px); }
-.ac-marker:hover .ac-marker-pin path { stroke: #9a9a9a; }
-.ac-marker-label { position: absolute; left: 0; top: 6px; transform: translateX(-50%); white-space: nowrap; color: #8d8d8d; font-size: 12px; line-height: 16px; letter-spacing: .01em; transition: opacity .4s var(--ac-ease); }
+.ac-marker:hover .ac-marker-pin path { stroke: var(--ink-caption); }
+.ac-marker-label { position: absolute; left: 0; top: 6px; transform: translateX(-50%); white-space: nowrap; color: var(--ink-caption); font-size: 12px; line-height: 16px; letter-spacing: .01em; transition: opacity .4s var(--ac-ease); }
 .ac-marker.is-top .ac-marker-label { top: auto; bottom: 42px; }
 .ac-marker-pill { position: absolute; left: 0; bottom: 8px; display: flex; align-items: center; gap: 7px; padding: 9px 16px 9px 12px; border-radius: var(--radius); background: var(--paper-page); color: var(--ink); font-size: 16px; font-weight: 500; line-height: 1; white-space: nowrap; box-shadow: 0 8px 20px -6px rgb(0 0 0 / .5); opacity: 0; transform: translate(-50%, 6px) scale(.92); transform-origin: 50% 100%; transition: opacity .4s var(--ac-ease), transform .5s var(--ac-ease); }
 .ac-marker-pill::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; background: inherit; border-radius: 0 0 var(--radius) 0; transform: rotate(45deg); }
@@ -164,7 +164,7 @@
 .ac-tip-label { margin-top: 12px; font-size: 16px; line-height: 1.2; color: rgb(0 0 0 / .5); }
 
 /* Locations panel: blurred, rounded, list centred between the label and the bottom. */
-.ac-credit { position: absolute; z-index: 5; left: 20px; bottom: 20px; display: none; max-width: 40%; color: #606060; font-size: 11px; }
+.ac-credit { position: absolute; z-index: 5; left: 20px; bottom: 20px; display: none; max-width: 40%; color: var(--ink-meta); font-size: 11px; }
 /* Phones: the panel becomes a strip of snapping cards and the map cards stay hidden (as on Aircenter). */
 .ac-tip { display: none; }
 @media (min-width: 768px) {
@@ -246,7 +246,7 @@
   }
 }
 
-.ac-tip-equip { margin: 0 -28px; padding: 20px 28px 26px; background: #f4f4f2; }
+.ac-tip-equip { margin: 0 -28px; padding: 20px 28px 26px; background: var(--paper-page); }
 .ac-tip-equip-title { margin-bottom: 16px; font-size: 13px; color: rgb(17 17 17 / .55); }
 .ac-tip-equip:only-child, .ac-tip-equip-title:last-child { margin-bottom: 0; }
 .ac-tip-equip-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }

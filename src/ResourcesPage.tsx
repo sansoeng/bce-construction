@@ -83,14 +83,14 @@ export default function ResourcesPage() {
   return (
     <>
       <SiteHeader phones={phones} tel={tel} base="/" />
-      <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#191C1F]">
+      <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#111]">
 
         {/* Revolut Reports Document Listing Section */}
         <section className="site-pad max-w-[1000px] w-full mx-auto pt-[280px] pb-20 sm:pb-28">
 
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">
-            <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold uppercase text-[#191C1F] tracking-[-0.03em] leading-[1.12]">
+            <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold uppercase text-[#111] tracking-[-0.03em] leading-[1.12]">
               Reports
             </h1>
           </div>
@@ -109,14 +109,14 @@ export default function ResourcesPage() {
                     setIsYearOpen(!isYearOpen);
                     setIsCategoryOpen(false);
                   }}
-                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[16px] font-medium transition-colors border-0"
+                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EDEDED] text-[#111] text-[16px] font-medium transition-colors border-0"
                   style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   aria-expanded={isYearOpen}
                 >
                   <span>{YEARS.find((y) => y.id === activeYear)?.label || "All years"}</span>
                   <svg
                     viewBox="0 0 16 16"
-                    className={`size-4 text-[#191C1F]/60 transition-transform ${isYearOpen ? "rotate-180" : ""}`}
+                    className={`size-4 text-[#111]/60 transition-transform ${isYearOpen ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -142,8 +142,8 @@ export default function ResourcesPage() {
                         }}
                         className={`box-24 w-full text-left px-4 py-2.5 rounded-[20px] text-[13px] font-medium transition-colors flex items-center justify-between border-0 ${
                           activeYear === year.id
-                            ? "bg-[#191C1F] text-white"
-                            : "text-[#191C1F]/80 hover:bg-[#F4F4F5]"
+                            ? "bg-[#111] text-white"
+                            : "text-[#111]/80 hover:bg-[#F4F4F5]"
                         }`}
                       >
                         <span>{year.label}</span>
@@ -166,14 +166,14 @@ export default function ResourcesPage() {
                     setIsCategoryOpen(!isCategoryOpen);
                     setIsYearOpen(false);
                   }}
-                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EBECEF] text-[#191C1F] text-[16px] font-medium transition-colors border-0"
+                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EDEDED] text-[#111] text-[16px] font-medium transition-colors border-0"
                   style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   aria-expanded={isCategoryOpen}
                 >
                   <span className="truncate">{CATEGORIES.find((c) => c.id === activeCategory)?.label || "All categories"}</span>
                   <svg
                     viewBox="0 0 16 16"
-                    className={`size-4 shrink-0 ml-2 text-[#191C1F]/60 transition-transform ${isCategoryOpen ? "rotate-180" : ""}`}
+                    className={`size-4 shrink-0 ml-2 text-[#111]/60 transition-transform ${isCategoryOpen ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -199,8 +199,8 @@ export default function ResourcesPage() {
                         }}
                         className={`box-24 w-full text-left px-4 py-2.5 rounded-[20px] text-[13px] font-medium transition-colors flex items-center justify-between border-0 ${
                           activeCategory === cat.id
-                            ? "bg-[#191C1F] text-white"
-                            : "text-[#191C1F]/80 hover:bg-[#F4F4F5]"
+                            ? "bg-[#111] text-white"
+                            : "text-[#111]/80 hover:bg-[#F4F4F5]"
                         }`}
                       >
                         <span className="truncate">{cat.label}</span>
@@ -223,7 +223,7 @@ export default function ResourcesPage() {
                     setActiveCategory("all");
                     setActiveYear("all");
                   }}
-                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 text-[13px] font-medium text-[#191C1F]/60 hover:text-[#191C1F] transition-colors border-0"
+                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 text-[13px] font-medium text-[#111]/60 hover:text-[#111] transition-colors border-0"
                 >
                   <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2">
                     <path d="M12 4L4 12M4 4l8 8" strokeLinecap="round" strokeLinejoin="round" />
@@ -245,20 +245,20 @@ export default function ResourcesPage() {
                     {/* Only the panel zooms; the copy inside stays put and crisp. */}
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute inset-0 -z-10 rounded-[16px] bg-[#F8F9FA] transition-transform duration-300 ease-in-out group-hover:scale-[1.02]"
+                      className="pointer-events-none absolute inset-0 -z-10 rounded-[16px] bg-[#F8F8F9] transition-transform duration-300 ease-in-out group-hover:scale-[1.02]"
                       style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                     />
 
                     {/* Head: the document title above a hairline rule. */}
-                    <div className="border-b border-[#191C1F]/10 px-6 pb-5 pt-6 sm:px-7 sm:pb-6 sm:pt-7">
-                      <h3 className="max-w-[34rem] text-[18px] font-medium leading-[1.3] tracking-[-0.015em] text-[#191C1F] sm:text-[21px]">
+                    <div className="border-b border-[#111]/10 px-6 pb-5 pt-6 sm:px-7 sm:pb-6 sm:pt-7">
+                      <h3 className="max-w-[34rem] text-[18px] font-medium leading-[1.3] tracking-[-0.015em] text-[#111] sm:text-[21px]">
                         {doc.title}
                       </h3>
                     </div>
 
                     {/* Foot: date and size on the left, icon actions on the right. */}
                     <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-6 py-5 sm:px-7">
-                      <div className="flex flex-wrap items-center gap-2 text-[13px] text-[#A5A7A8]">
+                      <div className="flex flex-wrap items-center gap-2 text-[13px] text-[#737373]">
                         <span>{doc.revisionDate}</span>
                         <span aria-hidden>•</span>
                         <span>{doc.fileSize}</span>
@@ -272,8 +272,8 @@ export default function ResourcesPage() {
                           title={copiedId === doc.id ? "Link copied" : "Copy link"}
                           className={`resource-action inline-flex size-10 items-center justify-center rounded-[8px] transition-colors ${
                             copiedId === doc.id
-                              ? "bg-[#191C1F] text-white"
-                              : "bg-[#D9DBDE] text-[#191C1F] hover:bg-[#191C1F] hover:text-white"
+                              ? "bg-[#111] text-white"
+                              : "bg-[#D9DBDE] text-[#111] hover:bg-[#111] hover:text-white"
                           }`}
                         >
                           {copiedId === doc.id ? (
@@ -295,7 +295,7 @@ export default function ResourcesPage() {
                           rel="noopener"
                           aria-label="Preview"
                           title="Preview"
-                          className="inline-flex size-10 items-center justify-center rounded-[8px] bg-[#D9DBDE] text-[#191C1F] transition-colors hover:bg-[#191C1F] hover:text-white"
+                          className="inline-flex size-10 items-center justify-center rounded-[8px] bg-[#D9DBDE] text-[#111] transition-colors hover:bg-[#111] hover:text-white"
                         >
                           <svg width="16" height="9" viewBox="0 0 14 8" fill="none" aria-hidden>
                             <path d="M5.01064 6.73084L0.890625 3.92585L5.01064 1.11985C5.6049 0.715166 6.29648 0.5 7.00296 0.5C7.70944 0.5 8.40102 0.715166 8.99528 1.11985L13.1153 3.92585L8.99528 6.73084C8.40102 7.13553 7.70944 7.35069 7.00296 7.35069C6.29648 7.35069 5.6049 7.13553 5.01064 6.73084Z" stroke="currentColor" strokeMiterlimit="10" />
@@ -308,7 +308,7 @@ export default function ResourcesPage() {
                           download
                           aria-label="Download"
                           title="Download"
-                          className="inline-flex size-10 items-center justify-center rounded-[8px] bg-[#D9DBDE] text-[#191C1F] transition-colors hover:bg-[#191C1F] hover:text-white"
+                          className="inline-flex size-10 items-center justify-center rounded-[8px] bg-[#D9DBDE] text-[#111] transition-colors hover:bg-[#111] hover:text-white"
                         >
                           <svg width="10" height="12" viewBox="0 0 9 11" fill="none" aria-hidden>
                             <path d="M0 10H8.33333" stroke="currentColor" />
@@ -324,8 +324,8 @@ export default function ResourcesPage() {
                   </div>
                 ))
               ) : (
-                <div className="py-16 text-center rounded-[20px] bg-[#F8F9FA] border border-[rgba(0,0,0,0.02)]">
-                  <p className="text-[16px] text-[#191C1F]/60 mb-3">
+                <div className="py-16 text-center rounded-[20px] bg-[#F8F8F9] border border-[rgba(0,0,0,0.02)]">
+                  <p className="text-[16px] text-[#111]/60 mb-3">
                     No documents found matching your criteria
                   </p>
                   <button
@@ -334,7 +334,7 @@ export default function ResourcesPage() {
                       setActiveCategory("all");
                       setActiveYear("all");
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#191C1F] text-white text-xs font-medium hover:bg-black transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#111] text-white text-xs font-medium hover:bg-black transition-colors"
                   >
                     Reset filters
                   </button>

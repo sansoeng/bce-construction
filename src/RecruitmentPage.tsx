@@ -49,10 +49,10 @@ const cultureItems: StickyItem[] = [
   },
 ];
 
-const INK = "#1E2226";
-const MUTED = "#A5A7A8";
+const INK = "#111";
+const MUTED = "#737373";
 const PAPER = "#F8F8F9";
-const ACCENT = "#FF3C1E";
+const ACCENT = "#D42D12";
 
 const GROUPS = ["All roles", "Battambang", "On site"] as const;
 type Group = (typeof GROUPS)[number];
@@ -200,7 +200,7 @@ export default function RecruitmentPage() {
   return (
     <>
       <SiteHeader phones={phones} tel={tel} base="/" />
-      <main ref={rootRef} className="bg-white text-[#1E2226]">
+      <main ref={rootRef} className="bg-white text-[#111]">
         {currentJob ? (
           /* =====================================================================
               JOB VIEW
@@ -210,7 +210,7 @@ export default function RecruitmentPage() {
               <button
                 type="button"
                 onClick={backToList}
-                className="group inline-flex items-center gap-2.5 font-mono text-[14px] uppercase tracking-[0.02em] text-[#1E2226]/50 transition-colors hover:text-[#1E2226]"
+                className="group inline-flex items-center gap-2.5 font-mono text-[14px] uppercase tracking-[0.02em] text-[#111]/50 transition-colors hover:text-[#111]"
               >
                 <span className="transition-transform duration-300 group-hover:-translate-x-1" aria-hidden>
                   ←
@@ -229,7 +229,7 @@ export default function RecruitmentPage() {
                 <div className="flex flex-col justify-end gap-6 md:col-span-5 md:items-end">
                   <div className="md:text-right">
                     <Kicker style={{ color: MUTED }}>{currentJob.department}</Kicker>
-                    <p className="mt-2 font-mono text-[14px] uppercase tracking-[0.02em] text-[#1E2226]/45">
+                    <p className="mt-2 font-mono text-[14px] uppercase tracking-[0.02em] text-[#111]/45">
                       {groupOf(currentJob) === "On site" ? "On site across Cambodia" : "Battambang"}
                     </p>
                   </div>
@@ -237,7 +237,7 @@ export default function RecruitmentPage() {
                 </div>
               </div>
 
-              <div className="mt-10 aspect-[4/3] overflow-hidden bg-[#EDEEF0] md:mt-14 md:aspect-[16/7]">
+              <div className="mt-10 aspect-[4/3] overflow-hidden bg-[#EDEDED] md:mt-14 md:aspect-[16/7]">
                 <img
                   src={jobImage(currentJob)}
                   alt={`${currentJob.department} at BCE`}
@@ -245,11 +245,11 @@ export default function RecruitmentPage() {
                 />
               </div>
 
-              <section aria-label="We are BCE" className="grid grid-cols-1 gap-6 border-b border-[#1E2226]/10 py-14 md:grid-cols-12 md:gap-6 md:py-20">
+              <section aria-label="We are BCE" className="grid grid-cols-1 gap-6 border-b border-[#111]/10 py-14 md:grid-cols-12 md:gap-6 md:py-20">
                 <Kicker className="md:col-span-4" style={{ color: ACCENT }}>
                   We are BCE
                 </Kicker>
-                <div className="max-w-[560px] space-y-4 text-[18px] leading-[1.5] tracking-[-0.01em] text-[#1E2226]/70 md:col-span-5 md:col-start-8">
+                <div className="max-w-[560px] space-y-4 text-[18px] leading-[1.5] tracking-[-0.01em] text-[#111]/70 md:col-span-5 md:col-start-8">
                   <p>
                     Battambang Construction and Engineering, Co., Ltd. (BCE) is one of Western Cambodia&rsquo;s leading
                     construction, concrete and foundation engineering companies. Operating 4 computerized batching
@@ -275,7 +275,7 @@ export default function RecruitmentPage() {
                         target="_blank"
                         rel="noreferrer"
                         aria-label={`Share on ${network}`}
-                        className="flex size-8 items-center justify-center rounded-[3px] border border-[#1E2226]/15 text-[#1E2226]/60 transition-colors hover:border-[#1E2226] hover:text-[#1E2226] hover:opacity-100"
+                        className="flex size-8 items-center justify-center rounded-[3px] border border-[#111]/15 text-[#111]/60 transition-colors hover:border-[#111] hover:text-[#111] hover:opacity-100"
                       >
                         <ShareIcon network={network} />
                       </a>
@@ -288,23 +288,23 @@ export default function RecruitmentPage() {
                     {currentJob.title}
                   </h2>
 
-                  <dl className="mt-10 border-t border-[#1E2226]/10">
+                  <dl className="mt-10 border-t border-[#111]/10">
                     {[
                       ["Department", currentJob.department],
                       ["Employment type", currentJob.type],
                       ["Workplace type", groupOf(currentJob) === "On site" ? "On site" : "Battambang"],
                       ["Application deadline", currentJob.deadline],
                     ].map(([label, value]) => (
-                      <div key={label} className="border-b border-[#1E2226]/10 py-4">
+                      <div key={label} className="border-b border-[#111]/10 py-4">
                         <dt>
                           <Kicker style={{ color: ACCENT }}>{label}</Kicker>
                         </dt>
-                        <dd className="mt-2 text-[16px] leading-snug text-[#1E2226]/80">{value}</dd>
+                        <dd className="mt-2 text-[16px] leading-snug text-[#111]/80">{value}</dd>
                       </div>
                     ))}
                   </dl>
 
-                  <div className="mt-10 space-y-4 text-[15px] leading-[1.75] text-[#1E2226]/70 md:text-[16px]">
+                  <div className="mt-10 space-y-4 text-[15px] leading-[1.75] text-[#111]/70 md:text-[16px]">
                     <p>{currentJob.overview}</p>
                   </div>
 
@@ -313,10 +313,10 @@ export default function RecruitmentPage() {
                     <h3 className="mt-2 text-[20px] font-medium leading-tight tracking-[-0.01em]">
                       What you&rsquo;ll be doing
                     </h3>
-                    <ul className="mt-5 space-y-3 text-[14.5px] leading-[1.7] text-[#1E2226]/70">
+                    <ul className="mt-5 space-y-3 text-[14.5px] leading-[1.7] text-[#111]/70">
                       {currentJob.duties.map((duty) => (
                         <li key={duty} className="flex gap-3">
-                          <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#1E2226]/60" aria-hidden />
+                          <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
                           <span>{duty}</span>
                         </li>
                       ))}
@@ -328,10 +328,10 @@ export default function RecruitmentPage() {
                     <h3 className="mt-2 text-[20px] font-medium leading-tight tracking-[-0.01em]">
                       What you&rsquo;ll need
                     </h3>
-                    <ul className="mt-5 space-y-3 text-[14.5px] leading-[1.7] text-[#1E2226]/70">
+                    <ul className="mt-5 space-y-3 text-[14.5px] leading-[1.7] text-[#111]/70">
                       {currentJob.qualifications.map((qual) => (
                         <li key={qual} className="flex gap-3">
-                          <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#1E2226]/60" aria-hidden />
+                          <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
                           <span>{qual}</span>
                         </li>
                       ))}
@@ -361,15 +361,15 @@ export default function RecruitmentPage() {
                       ].map(([title, text]) => (
                         <div key={title}>
                           <h4 className="text-[16px] font-medium leading-snug">{title}</h4>
-                          <p className="mt-1 text-[16px] leading-[1.6] text-[#1E2226]/55">{text}</p>
+                          <p className="mt-1 text-[16px] leading-[1.6] text-[#111]/55">{text}</p>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="mt-10 border-t border-[#1E2226]/10 pt-6">
+                  <div className="mt-10 border-t border-[#111]/10 pt-6">
                     <Kicker style={{ color: MUTED }}>Contact details</Kicker>
-                    <div className="mt-3 space-y-1 text-[16px] text-[#1E2226]/70">
+                    <div className="mt-3 space-y-1 text-[16px] text-[#111]/70">
                       <p>
                         Email:{" "}
                         <a href={`mailto:${HR_EMAIL}`} className="underline underline-offset-4 hover:opacity-100">
@@ -394,7 +394,7 @@ export default function RecruitmentPage() {
 
               <section className="site-bleed site-pad flex flex-col items-center bg-[#F8F8F9] py-20 text-center md:py-28">
                 <Kicker style={{ color: ACCENT }}>Ready to build?</Kicker>
-                <p className="mt-5 max-w-[720px] text-[24px] font-medium leading-[1.25] tracking-[-0.02em] text-[#1E2226]/55 md:text-[34px]">
+                <p className="mt-5 max-w-[720px] text-[24px] font-medium leading-[1.25] tracking-[-0.02em] text-[#111]/55 md:text-[34px]">
                   Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience
                   behind your career.
                 </p>
@@ -426,7 +426,7 @@ export default function RecruitmentPage() {
                 </span>
                 <p
                   data-split
-                  className="max-w-[560px] text-[18px] leading-[1.5] tracking-[-0.01em] text-[#1E2226]/70 md:col-span-5 md:col-start-8"
+                  className="max-w-[560px] text-[18px] leading-[1.5] tracking-[-0.01em] text-[#111]/70 md:col-span-5 md:col-start-8"
                 >
                   Onshore or offshore — at BCE we move as one. Join a team shaped by Cambodia&rsquo;s hardest sites:
                   computerized batching plants, an accredited laboratory, hydraulic piling rigs and provincial pours,
@@ -442,7 +442,7 @@ export default function RecruitmentPage() {
             >
               <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:items-center md:gap-5">
                 <fieldset
-                  className="inline-flex w-fit items-center rounded-[4px] bg-[#1E2226]/10 p-[3px] md:col-span-5"
+                  className="inline-flex w-fit items-center rounded-[4px] bg-[#111]/10 p-[3px] md:col-span-5"
                   aria-label="Role groups"
                 >
                   <legend className="sr-only">Role groups</legend>
@@ -456,7 +456,7 @@ export default function RecruitmentPage() {
                         aria-pressed={active}
                         onClick={() => setGroup(item)}
                         className={`inline-flex h-[30px] items-center rounded-[3px] px-3 font-mono text-[14px] uppercase leading-none tracking-[0.02em] transition-colors ${
-                          active ? "bg-[#1E2226] text-white" : "text-[#1E2226]/35 hover:text-[#1E2226]/70"
+                          active ? "bg-[#111] text-white" : "text-[#111]/35 hover:text-[#111]/70"
                         }`}
                       >
                         {item}
@@ -480,13 +480,13 @@ export default function RecruitmentPage() {
                     type="button"
                     data-slot="career-reset"
                     onClick={() => setGroup("All roles")}
-                    className="mt-5 inline-flex h-10 items-center rounded-[3px] bg-[#1E2226] px-5 font-mono text-[14px] uppercase tracking-[0.02em] text-white"
+                    className="mt-5 inline-flex h-10 items-center rounded-[3px] bg-[#111] px-5 font-mono text-[14px] uppercase tracking-[0.02em] text-white"
                   >
                     Show all roles
                   </button>
                 </div>
               ) : (
-                <ul data-reveal className="reveal mt-4 border-t border-[#1E2226]/10">
+                <ul data-reveal className="reveal mt-4 border-t border-[#111]/10">
                   {filtered.map((v) => (
                     <li key={v.id}>
                       <a
@@ -495,16 +495,16 @@ export default function RecruitmentPage() {
                           event.preventDefault();
                           selectJob(v.id);
                         }}
-                        className="career-row site-bleed site-pad group relative isolate grid grid-cols-1 items-center gap-2 border-b border-[#1E2226]/10 py-5 text-[#1E2226] transition-colors hover:opacity-100 md:grid-cols-12 md:gap-5 md:py-[27px]"
+                        className="career-row site-bleed site-pad group relative isolate grid grid-cols-1 items-center gap-2 border-b border-[#111]/10 py-5 text-[#111] transition-colors hover:opacity-100 md:grid-cols-12 md:gap-5 md:py-[27px]"
                       >
                         <span className="career-row-wipe" aria-hidden />
                         <h3 className="text-[16px] font-normal leading-snug tracking-[-0.005em] transition-colors duration-500 group-hover:text-[#F8F8F9] md:col-span-5">
                           {v.title}
                         </h3>
-                        <span className="text-[13px] text-[#A5A7A8] md:col-span-4">{v.department}</span>
+                        <span className="text-[13px] text-[#737373] md:col-span-4">{v.department}</span>
                         <span className="flex items-center justify-between gap-3 md:col-span-2">
-                          <span className="text-[13px] text-[#A5A7A8]">{v.deadline}</span>
-                          <ArrowRight className="size-4 shrink-0 text-[#1E2226] transition-colors duration-500 group-hover:text-[#F8F8F9]" />
+                          <span className="text-[13px] text-[#737373]">{v.deadline}</span>
+                          <ArrowRight className="size-4 shrink-0 text-[#111] transition-colors duration-500 group-hover:text-[#F8F8F9]" />
                         </span>
                         <span className="sr-only">
                           {v.location} — {v.type}
