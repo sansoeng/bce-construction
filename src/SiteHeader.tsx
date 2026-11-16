@@ -279,16 +279,6 @@ function PanelBody({
   );
 }
 
-function Crest({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-      <path d="M12 2L2 7l10 5 10-5-10-5z" />
-      <path d="M2 17l10 5 10-5" />
-      <path d="M2 12l10 5 10-5" />
-    </svg>
-  );
-}
-
 function LangSwitch() {
   const lang = getLang();
   return (
@@ -312,8 +302,6 @@ interface SiteHeaderProps {
 
 export default function SiteHeader({ base = "" }: SiteHeaderProps) {
   const [isIn, setIsIn] = useState(() => globalRevealed || !document.documentElement.classList.contains("is-loading"));
-  const [scrolled, setScrolled] = useState(false);
-  const [onCover, setOnCover] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
   const [panelX, setPanelX] = useState<number | null>(null);
   const [mediaIndex, setMediaIndex] = useState(0);
@@ -351,10 +339,6 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
       const y = window.scrollY;
       const p = reduce ? 0 : easeScroll(Math.min(1, Math.max(0, y / SCROLL_DISTANCE)));
       navRef.current?.style.setProperty("--ls-p", p.toFixed(4));
-      setScrolled(y > 24);
-      const cover = document.querySelector<HTMLElement>("[data-nav-dark]");
-      const rect = cover?.getBoundingClientRect();
-      setOnCover(y < 24 && !!rect && rect.top <= 8 && rect.bottom > 96);
     };
     const request = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -458,19 +442,25 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
     <header
       ref={navRef}
       data-nav
-      className={`ls-nav ${isIn ? "is-in" : ""} ${scrolled ? "is-scrolled" : ""} ${onCover ? "is-on-cover" : ""} ${
-        solid ? "is-solid" : ""
-      } ${sheet ? "is-sheet-open" : ""}`}
+      className={`ls-nav ${isIn ? "is-in" : ""} ${solid ? "is-solid" : ""} ${
+        sheet ? "is-sheet-open" : ""
+      }`}
     >
       <div className="ls-nav-surface">
         <div className="ls-nav-bar">
-          {/* Lockup at the left, as DALCO's wordmark: crest, wordmark, and the full company name underneath. */}
+          {/* Lockup at the left: the red BCE monogram and the wordmark, at the reference's scale. */}
           <a href={base || "/"} className="ls-logo" aria-label="BCE., Ltd. — home">
-            <Crest className="ls-logo-crest" />
-            <span className="ls-logo-word">
-              <span className="ls-logo-text">BCE</span>
-              <span className="ls-logo-sub">Battambang Construction &amp; Engineering</span>
+            <span className="ls-logo-mark" aria-hidden>
+              <svg viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="5.5" fill="currentColor" />
+                <path
+                  fill="#fff"
+                  fillRule="evenodd"
+                  d="M8 5.5h5.3c2.6 0 4.4 1.3 4.4 3.5 0 1.4-.9 2.5-2.2 3 1.7.4 2.7 1.6 2.7 3.3 0 2.5-1.9 4-4.8 4H8V5.5Zm2.6 2.6v3.2h2.6c1.3 0 2-.6 2-1.6s-.7-1.6-2-1.6h-2.6Zm0 5.8v3.4h2.8c1.4 0 2.2-.7 2.2-1.7s-.8-1.7-2.2-1.7h-2.8Z"
+                />
+              </svg>
             </span>
+            <span className="ls-logo-text">BCE</span>
           </a>
 
           <div className="ls-nav-center">

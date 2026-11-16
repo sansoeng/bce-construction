@@ -1543,20 +1543,10 @@ html.ls-lock body { overflow: hidden; }
   pointer-events: auto;
   transition: width .7s var(--ls-ease), background-color .4s ease, border-color .4s ease, color .3s ease;
 }
-/* Over a dark cover the bar is part of the photograph. */
-.ls-nav.is-on-cover .ls-nav-surface {
-  color: var(--paper);
-  background: transparent;
-  border-color: var(--line-dark);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
 /* A panel or the phone sheet needs a light surface underneath it, even over a dark cover; the bar takes the
    reference's 70% white while a dropdown is open. */
 .ls-nav.is-solid .ls-nav-surface,
-.ls-nav.is-sheet-open .ls-nav-surface,
-.ls-nav.is-on-cover.is-solid .ls-nav-surface,
-.ls-nav.is-on-cover.is-sheet-open .ls-nav-surface {
+.ls-nav.is-sheet-open .ls-nav-surface {
   color: var(--ls-ink);
   background: hsl(0 0% 100% / .7);
   border-color: #eee;
@@ -1605,19 +1595,10 @@ html.ls-lock body { overflow: hidden; }
   transform: scale(calc(1 - .06 * var(--ls-p, 0)));
   transform-origin: left center;
 }
-.ls-logo-crest { width: 22px; height: 22px; flex: none; color: var(--brand); transition: transform .5s var(--ls-ease); }
-.ls-logo:hover .ls-logo-crest { transform: rotate(-8deg); }
-.ls-logo-word { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.ls-logo-text { font-size: 17px; font-weight: 600; letter-spacing: .14em; line-height: 1; }
-.ls-logo-sub {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  line-height: 1.2;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  opacity: .7;
-}
+.ls-logo-mark { display: block; width: 27px; height: 27px; flex: none; color: var(--brand); }
+.ls-logo-mark svg { display: block; width: 100%; height: 100%; }
+.ls-logo-text { font-size: 22px; font-weight: 700; letter-spacing: .03em; line-height: 1; }
+.ls-logo:hover { color: var(--brand); }
 
 .ls-nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 14px; min-width: 0; }
 .ls-nav-sep { width: 1px; height: 16px; background: currentColor; opacity: .18; }
@@ -1852,7 +1833,6 @@ html.ls-lock body { overflow: hidden; }
 .ls-sheet-quote { flex: none; }
 
 @media (max-width: 1279px) {
-  .ls-logo-sub { display: none; }
   .ls-nav-links { gap: 18px; }
   .ls-link { font-size: 14px; }
   .ls-mega { gap: 32px; padding: 40px; }
@@ -1874,12 +1854,12 @@ html.ls-lock body { overflow: hidden; }
   .ls-nav-right { gap: 8px; }
   .ls-nav .ls-quote, .ls-nav-sep { display: none; }
   .ls-lang { font-size: 12px; }
-  .ls-logo-text { font-size: 16px; }
+  .ls-logo-text { font-size: 20px; }
   .ls-sheet { padding-top: calc(54px + 22px); }
   .ls-sheet-link { font-size: 19px; padding: 14px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ls-nav, .ls-nav-surface, .ls-panel, .ls-sheet, .ls-mega-media img, .ls-logo-crest, .ls-burger span { transition: none !important; }
+  .ls-nav, .ls-nav-surface, .ls-panel, .ls-sheet, .ls-mega-media img, .ls-logo-mark, .ls-burger span { transition: none !important; }
 }
 
 /* ==========================================================================
