@@ -485,9 +485,9 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   .kp-detail { display: none; }
 }
 
-/* Projects list page (/?projects), after pda.archi/en/projects: the statement set large over a full-width hairline,
-   the Grid/List switch on the left and the standfirst on the right, then the staggered grid or a ruled list. The shell
-   carries the site gutter (the same one as the Blog page) and caps the column at 1680px. */
+/* Projects list page (/?projects): the statement set large with the standfirst on the right, the category filter
+   directly above the staggered grid. The shell carries the site gutter (the same one as the Blog page) and caps the
+   column at 1680px. */
 .pl-shell {
   --u: calc(100vw / 1920);
   position: relative;
@@ -503,7 +503,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   column-gap: calc(24 * var(--u));
   row-gap: calc(34 * var(--u));
   align-items: start;
-  padding: 280px 0 calc(92 * var(--u));
+  padding: 280px 0 calc(56 * var(--u));
 }
 .pl-hero-title {
   grid-column: 1 / 7;
@@ -512,14 +512,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   letter-spacing: -.045em;
   font-weight: 500;
   text-wrap: balance;
-}
-.pl-hero-rule {
-  grid-column: 1 / -1;
-  width: 100%;
-  height: 0;
-  margin: 0;
-  border: 0;
-  border-top: 1px solid rgb(17 17 17 / .16);
 }
 .pl-hero-copy {
   grid-column: 8 / -1;
@@ -530,79 +522,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   font-weight: 500;
 }
 
-/* Grid / List switch: a dot marks the current view and slides between the two. */
-.pl-view {
-  position: relative;
-  grid-column: 1 / 7;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.9rem;
-  color: var(--ink);
-}
-.pl-view-btn {
-  padding: 0 0 0 14px;
-  color: rgb(17 17 17 / .3);
-  text-align: left;
-  cursor: pointer;
-  transition: color .3s ease;
-}
-.pl-view-btn:hover,
-.pl-view-btn.is-active { color: var(--ink); }
-.pl-view-dot {
-  position: absolute;
-  top: calc(.95rem - 2.5px);
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: currentColor;
-  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
-}
-.pl-view.is-list .pl-view-dot { transform: translateY(1.9rem); }
-
-/* List view: the same cards as ruled rows — thumbnail, name and location, then category, year and an arrow. */
-.kp-grid.pl-list { display: block; }
-.pl-list .kp-item {
-  display: grid;
-  grid-template-columns: calc(172 * var(--u)) minmax(0, 1.7fr) minmax(0, .8fr) auto;
-  align-items: center;
-  column-gap: calc(28 * var(--u));
-  row-gap: 0;
-  padding: calc(22 * var(--u)) 0;
-  margin-top: 0 !important;
-  border-top: 1px solid rgb(17 17 17 / .14);
-}
-.pl-list .kp-item:last-child { border-bottom: 1px solid rgb(17 17 17 / .14); }
-.pl-list .kp-media,
-.pl-list .kp-item:nth-child(n) .kp-media {
-  width: calc(172 * var(--u));
-  height: calc(112 * var(--u));
-  border-radius: var(--radius);
-}
-.pl-list .kp-media img { border-radius: var(--radius); }
-.pl-list .kp-info { display: contents; }
-.pl-list .kp-body { gap: 8px; }
-.pl-list .kp-plus { display: none; }
-.pl-list .kp-tag { font-size: 14px; }
-.pl-list .kp-location { margin-top: 2px; font-size: .9rem; }
-.pl-list .kp-meta { padding: 0; font-size: .85rem; color: var(--ink-meta); text-align: right; }
-.pl-list .kp-arrow {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  flex: none;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  color: var(--ink);
-  transition: background-color .35s ease, color .35s ease, border-color .35s ease, transform .45s cubic-bezier(.16, 1, .3, 1);
-}
-.pl-list .kp-arrow svg { width: 13px; height: 13px; }
-.pl-list .kp-item:hover .kp-arrow { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: translate(2px, -2px); }
-
 @media (max-width: 767.98px) {
   .pl-shell { --u: calc(100vw / 375); }
   .pl-hero {
@@ -612,21 +531,9 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
     padding-bottom: calc(52 * var(--u));
   }
   .pl-hero-title { grid-column: 1 / -1; font-size: clamp(2.5rem, 11vw, 3.4rem); }
-  .pl-hero-rule,
-  .pl-view,
-  .pl-hero-copy { grid-column: 1 / -1; }
-  .pl-hero-copy { max-width: none; font-size: 1rem; line-height: 1.45; }
+  .pl-hero-copy { grid-column: 1 / -1; max-width: none; font-size: 1rem; line-height: 1.45; }
 
   .kp-plus { left: 12px; bottom: 12px; }
-
-  .pl-list .kp-item {
-    grid-template-columns: calc(84 * var(--u)) minmax(0, 1fr) auto;
-    column-gap: calc(14 * var(--u));
-    padding: calc(14 * var(--u)) 0;
-  }
-  .pl-list .kp-media,
-  .pl-list .kp-item:nth-child(n) .kp-media { width: calc(84 * var(--u)); height: calc(64 * var(--u)); }
-  .pl-list .kp-arrow { width: 30px; height: 30px; }
 }
 
 /* Telha-style Vision sequence (our commitment) */
@@ -5103,7 +5010,6 @@ img.no-radius { border-radius: 0 !important; }
 img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offers-image]):not(.lb-img):not(.sn-logo *):not(.glance-brand *),
 .media-frame, .media-frame img, .project-image, .project-image img,
 .kp-media, .kp-media img,
-.pl-list .kp-media, .pl-list .kp-media img,
 .about-image, .about-image img,
 .ab-photo, .ab-photo img, .ab-tile, .ab-tile-media,
 .abv-card-photo, .abv-card-photo img, .abv-vision-images,
