@@ -986,9 +986,7 @@ const KM: Record<string, string> = {
 
   // Equipment & fleet page (/fleet)
   "Fleet overview": "ទិដ្ឋភាពទូទៅនៃកងយានយន្ត",
-  "Fleet at a glance": "កងយានយន្តដោយសង្ខេប",
-  "Fleet & inventory": "កងយានយន្ត និងបញ្ជីឧបករណ៍",
-  "Inventory": "បញ្ជីឧបករណ៍",
+  "What we own": "អ្វីដែលយើងមាន",
   "Plant & machines": "រោងចក្រ និងគ្រឿងចក្រ",
   "Hire": "ការជួល",
   "Hire & dispatch": "ការជួល និងការបញ្ជូន",
@@ -999,11 +997,15 @@ const KM: Record<string, string> = {
     "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីបាត់ដំបង និងដាក់ពង្រាយទៅគម្រោងនៅ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។ តម្លៃជួលត្រូវបានវាយតម្លៃតាមគម្រោង៖ ប្រភេទគ្រឿងចក្រ រយៈពេល ការចូលដំណើរការការដ្ឋាន និងតើរួមបញ្ចូលអ្នកបញ្ជាឬអត់។",
   "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.":
     "រោងចក្រ រថយន្ត និងម៉ាស៊ីនបោះសសរសុទ្ធតែជាកម្មសិទ្ធិរបស់យើង ថែទាំដោយសិក្ខាសាលាផ្ទាល់ខ្លួន និងបញ្ជូនចេញពីមូលដ្ឋានតែមួយ។ ទាំងនេះជាគ្រឿងចក្រដែលកំពុងបម្រើការ មិនមែនជាបញ្ជីស្តុករបស់ឈ្មោះជួលឡើយ។",
-  "Counts are from BCE's own fleet records. Laboratory equipment is shown with the plant below; its testing programme lives on the Quality page.":
-    "ចំនួននេះមកពីកំណត់ត្រាកងយានយន្តផ្ទាល់ខ្លួនរបស់ BCE។ ឧបករណ៍មន្ទីរពិសោធន៍ត្រូវបានបង្ហាញជាមួយរោងចក្រខាងក្រោម។ កម្មវិធីតេស្តរបស់វាមាននៅទំព័រគុណភាព។",
-  "Machines in service": "គ្រឿងចក្រដែលកំពុងបម្រើការ",
   "Every machine below is part of the fleet we use on our own works, maintained to the same standard and available with its operators.":
     "រាល់គ្រឿងចក្រខាងក្រោមសុទ្ធតែជាផ្នែកនៃកងយានយន្តដែលយើងប្រើលើការងារផ្ទាល់ខ្លួន ថែទាំតាមស្តង់ដារដូចគ្នា និងអាចជួលបានជាមួយអ្នកបញ្ជារបស់វា។",
+  "Owned and maintained": "កម្មសិទ្ធិ និងថែទាំផ្ទាល់",
+  "Placing and boom pumps": "ការចាក់បេតុង និងរថយន្តបូម",
+  "Loading and material handling": "ការផ្ទុក និងការគ្រប់គ្រងវត្ថុធាតុ",
+  "Bore and hammer rigs": "ម៉ាស៊ីនខួង និងម៉ាស៊ីនបុក",
+  "Lifting on site": "ការលើកនៅការដ្ឋាន",
+  "High-rise construction": "សំណង់ខ្ពស់",
+  "Work at height": "ការងារខ្ពស់",
   "Capacity: 70 m³/hr per plant": "សមត្ថភាព៖ ៧០ m³/ម៉ោង ក្នុងមួយរោងចក្រ",
   "Advanced computerized control system": "ប្រព័ន្ធគ្រប់គ្រងកុំព្យូទ័រទំនើប",
   "Consistent, high-quality concrete": "បេតុងគុណភាពខ្ពស់ និងស្មើគ្នា",

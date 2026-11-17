@@ -4,7 +4,6 @@ import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
-import ArrowButton from "./ArrowButton";
 import { useMediaReveal, usePageSetup } from "./usePageSetup";
 import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 import { LineIcon } from "./LineIcon";
@@ -15,15 +14,15 @@ import { quality } from "./quality";
 // two pages cannot disagree. No rates and no per-machine availability are published — the quotation is per project.
 //
 // The page follows the same Olympic-style blocks as Quality & HSE and Coverage: the parallax cover, a labelled
-// introduction with an on-page index, one ink band carrying both the key figures and the full inventory, the plant as
-// a photo beside the corporate profile's numbered machine cards, and the maintenance points as value columns.
+// introduction with an on-page index, one ink band carrying the key figures in the project-highlights grid, the plant
+// as a photo beside the corporate profile's numbered machine cards, and the hire/dispatch contact.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 
 const TOPICS = [
-  ["fleet-inventory", "Fleet & inventory"],
+  ["fleet-inventory", "What we own"],
   ["fleet-machines", "Plant & machines"],
 ] as const;
 
@@ -149,45 +148,32 @@ export default function FleetPage() {
           {fleet.copy[0]}
         </LabelCopy>
 
-        {/* Key figures and the full inventory in one ink band: the totals count up, then the same ruled rows as the
-            Quality page sit beside the inventory note. */}
-        <section id="fleet-inventory" data-nav-dark data-header-title="Fleet & inventory" aria-labelledby="fl-figures" className="ol-capacity">
+        {/* Key figures in one ink band: the project-highlights grid, one bordered cell per machine type, with the
+            counts set large at the foot of each cell. */}
+        <section id="fleet-inventory" data-nav-dark data-header-title="What we own" aria-labelledby="fl-figures" className="ol-capacity">
           <div className="ol-capacity-head">
             <p data-split="content" className="ol-label">{fleet.figuresLabel}</p>
             <h2 id="fl-figures" data-split className="ol-capacity-title">{fleet.figuresTitle}</h2>
             <p data-split="content" className="ol-capacity-copy">{fleet.figuresCopy}</p>
           </div>
-          <ul className="ol-capacity-grid fl-figures">
-            <li data-reveal className="ol-figure">
+          <ul className="fl-figures">
+            <li data-reveal className="fl-stat" style={{ "--k": 0 } as CSSProperties}>
+              <div className="fl-stat-head">
+                <span className="fl-stat-label">Machines in our own fleet</span>
+                <span className="fl-stat-note">Owned and maintained</span>
+              </div>
               <CountUp value={String(fleetTotal)} />
-              <span className="ol-figure-label">Machines in our own fleet</span>
             </li>
             {rows.map((row, index) => (
-              <li key={row.label} data-reveal className="ol-figure">
+              <li key={row.label} data-reveal className="fl-stat" style={{ "--k": index + 1 } as CSSProperties}>
+                <div className="fl-stat-head">
+                  <span className="fl-stat-label">{row.label}</span>
+                  <span className="fl-stat-note">{row.note}</span>
+                </div>
                 <CountUp value={rowCount(index)} />
-                <span className="ol-figure-label">{row.label}</span>
               </li>
             ))}
           </ul>
-
-          <div className="fl-stock">
-            <div className="fl-stock-head">
-              <p data-split="content" className="ol-label">{fleet.inventoryLabel}</p>
-              <p data-split="content" className="fl-stock-copy">{fleet.inventoryCopy}</p>
-              <ArrowButton href="/quality#documents" label="Company profile" theme="white" className="mt-8" />
-            </div>
-            <div className="fl-stock-list">
-              <h4 data-split="content" className="ol-label">{fleet.inventoryListLabel}</h4>
-              <ul className="ol-rows ol-rows--dk fl-stock-rows">
-                {rows.map((row, index) => (
-                  <li key={row.label} data-reveal className="ol-row" style={{ "--k": index } as CSSProperties}>
-                    <span>{row.label}</span>
-                    <span>{row.value}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
 
           <div className="ol-capacity-contact">
             <p className="ol-label">Hire &amp; dispatch</p>

@@ -176,7 +176,7 @@ const NAV: NavItem[] = [
       kind: "default",
       items: [
         { label: "Fleet overview", href: "/fleet" },
-        { label: "Fleet & inventory", href: "/fleet#fleet-inventory" },
+        { label: "What we own", href: "/fleet#fleet-inventory" },
         { label: "Plant & machines", href: "/fleet#fleet-machines" },
         { label: "Hire our equipment", href: "/quote?service=equipment-rental" },
       ],

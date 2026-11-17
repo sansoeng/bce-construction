@@ -85,10 +85,6 @@ export type QualityContent = {
     figuresLabel: string;
     figuresTitle: string;
     figuresCopy: string;
-    /** The full inventory as published by the Corporate Profile. */
-    inventoryLabel: string;
-    inventoryCopy: string;
-    inventoryListLabel: string;
     /** The large photo beside the machine cards. */
     plantImage: string;
     plantImageAlt: string;
@@ -97,7 +93,7 @@ export type QualityContent = {
     machinesTitle: string;
     machinesCopy: string;
     machines: { title: string; icon: string; bullets: string[]; image: string; imageAlt: string; href?: string }[];
-    rows: { label: string; value: string }[];
+    rows: { label: string; value: string; note: string }[];
     ctaLabel: string;
     ctaHref: string;
   };
@@ -258,7 +254,7 @@ export const DEFAULT_QUALITY: QualityContent = {
       { label: "Coverage", value: "13 provinces + Phnom Penh" },
     ],
   },
-  // The fleet inventory from the Corporate Profile. `rows` feeds the Quality & HSE panel and the ink inventory band;
+  // The fleet inventory from the Corporate Profile. `rows` feeds the Quality & HSE panel and the key-figures grid;
   // `machines` follows the Corporate Profile's equipment page, with the laboratory equipment as a card that links back
   // to the Quality page. Counts are machines, not staff.
   fleet: {
@@ -274,10 +270,6 @@ export const DEFAULT_QUALITY: QualityContent = {
     figuresTitle: "Capacity you can plan around.",
     figuresCopy:
       "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
-    inventoryLabel: "Inventory",
-    inventoryCopy:
-      "Counts are from BCE's own fleet records. Laboratory equipment is shown with the plant below; its testing programme lives on the Quality page.",
-    inventoryListLabel: "Machines in service",
     plantImage: "/Image/bce/about-zoom-batching.webp",
     plantImageAlt: "Aerial view of BCE's batching plant, silos and aggregate yard",
     machinesLabel: "Plant & machines",
@@ -400,14 +392,14 @@ export const DEFAULT_QUALITY: QualityContent = {
       },
     ],
     rows: [
-      { label: "Batching plants", value: "04  /  70 m³/hr each" },
-      { label: "Mixer trucks", value: "41" },
-      { label: "Pump trucks", value: "08" },
-      { label: "Wheel loaders", value: "07" },
-      { label: "Piling rigs", value: "07" },
-      { label: "Crane trucks", value: "06" },
-      { label: "Tower cranes", value: "08" },
-      { label: "Lifts", value: "05" },
+      { label: "Batching plants", value: "04  /  70 m³/hr each", note: "70 m³/hr each" },
+      { label: "Mixer trucks", value: "41", note: "13 provinces + Phnom Penh" },
+      { label: "Pump trucks", value: "08", note: "Placing and boom pumps" },
+      { label: "Wheel loaders", value: "07", note: "Loading and material handling" },
+      { label: "Piling rigs", value: "07", note: "Bore and hammer rigs" },
+      { label: "Crane trucks", value: "06", note: "Lifting on site" },
+      { label: "Tower cranes", value: "08", note: "High-rise construction" },
+      { label: "Lifts", value: "05", note: "Work at height" },
     ],
     ctaLabel: "Hire our equipment",
     ctaHref: "/quote?service=equipment-rental",
