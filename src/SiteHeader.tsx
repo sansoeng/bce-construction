@@ -4,12 +4,13 @@ import { getLang, setLang } from "./i18n";
 import { pathFor } from "./routes";
 
 /**
- * Navigation after dalco.ch: one floating, inset glass bar. The BCE lockup sits at the left, the five tabs are
- * centred (About, Business, Projects, Quality & Lab, More) and the language switch plus the quote button close the
- * right. Tabs with children open the reference's own dropdown: a 78% white glass sheet, 32px blur, a half-pixel
- * hairline, a 10px corner, fading in as it drops 10px over 350ms. Panels come in the three shapes DALCO uses — the
- * narrow list (About, Projects, More), the media panel (Business: a 309×279 photo that cross-fades as you move down
- * the titles) and the three-column group panel (Quality & Lab) — with titles only, no descriptions and no arrows.
+ * Navigation after dalco.ch: one floating, inset glass bar. The BCE lockup sits at the left, the six tabs are
+ * centred (About, Business, Projects, Quality & Lab, Equipment & fleet, More) and the language switch plus the quote
+ * button close the right. Tabs with children open the reference's own dropdown: a 78% white glass sheet, 32px blur, a
+ * half-pixel hairline, a 10px corner, fading in as it drops 10px over 350ms. Panels come in the three shapes DALCO
+ * uses — the narrow list (About, Projects, Equipment & fleet, More), the media panel (Business: a 309×279 photo that
+ * cross-fades as you move down the titles) and the two-column group panel (Quality & Lab) — with titles only, no
+ * descriptions and no arrows.
  *
  * On phones the tabs collapse into a burger that opens a full-height sheet with the same items as accordions, so the
  * expand navigation survives without hover. Over the first 800px of scroll the surface narrows and slides up, as the
@@ -156,15 +157,6 @@ const NAV: NavItem[] = [
           ],
         },
         {
-          title: "Capacity",
-          href: "/fleet",
-          links: [
-            { label: "Equipment & fleet", href: "/fleet" },
-            { label: "Engineering capability", href: "/quality#engineering" },
-            { label: "Coverage", href: "/coverage" },
-          ],
-        },
-        {
           title: "Assurance",
           href: "/quality#grades",
           links: [
@@ -177,14 +169,26 @@ const NAV: NavItem[] = [
     },
   },
   {
+    id: "fleet",
+    label: "Equipment & fleet",
+    href: "/fleet",
+    panel: {
+      kind: "default",
+      items: [
+        { label: "Fleet overview", href: "/fleet" },
+        { label: "Inventory", href: "/fleet#fleet-inventory" },
+        { label: "Plant & machines", href: "/fleet#fleet-machines" },
+        { label: "Hire our equipment", href: "/fleet#fleet-hire" },
+      ],
+    },
+  },
+  {
     id: "more",
     label: "More",
     href: "/resources",
     panel: {
       kind: "default",
       items: [
-        { label: "Coverage", href: "/coverage" },
-        { label: "Equipment & fleet", href: "/fleet" },
         { label: "Resources", href: "/resources" },
         { label: "Careers", href: "/careers" },
         { label: "Blog", href: "/blog" },

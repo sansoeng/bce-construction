@@ -1652,12 +1652,13 @@ html.ls-lock body { overflow: hidden; }
 }
 .ls-mega-link:hover { color: var(--brand); }
 
-/* Group panel (Quality & Lab): three columns of titled link lists, as the reference's services menu. */
+/* Group panel (Quality & Lab): one column per titled link list, as the reference's services menu. It auto-fits so the
+   panel still balances when a group is added or removed. */
 .ls-columns {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: 50px;
-  max-width: 1300px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 50px;
 }
