@@ -13,9 +13,11 @@ import { DEFAULT_SETTINGS } from "../worker/src/content";
 
 export function getContent() {
   const documents = [
+    // Singleton pages use the admin's canonical slug ("home") so a re-seed updates the same row
+    // the editor saves, instead of creating a second document of the same type.
     { type: "homepage", slug: "home", sort: 0, data: { ...DEFAULT_HOMEPAGE, title: "Homepage", slug: "home" } },
-    { type: "quality", slug: "quality", sort: 0, data: { ...DEFAULT_QUALITY, title: "Quality & HSE", slug: "quality" } },
-    { type: "about", slug: "about", sort: 0, data: { ...DEFAULT_ABOUT, title: "About BCE", slug: "about" } },
+    { type: "quality", slug: "home", sort: 0, data: { ...DEFAULT_QUALITY, title: "Quality & HSE", slug: "home" } },
+    { type: "about", slug: "home", sort: 0, data: { ...DEFAULT_ABOUT, title: "About BCE", slug: "home" } },
     ...projects.map((item, sort) => ({ type: "projects", slug: item.slug, sort, data: item })),
     ...BLOG_POSTS.map((item, sort) => ({ type: "posts", slug: item.slug, sort, data: item })),
     ...VACANCIES.map((item, sort) => ({ type: "vacancies", slug: item.id, sort, data: item })),

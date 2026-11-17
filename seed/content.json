@@ -442,7 +442,7 @@
     },
     {
       "type": "quality",
-      "slug": "quality",
+      "slug": "home",
       "sort": 0,
       "data": {
         "cover": {
@@ -773,12 +773,12 @@
           "ctaHref": "#contact"
         },
         "title": "Quality & HSE",
-        "slug": "quality"
+        "slug": "home"
       }
     },
     {
       "type": "about",
-      "slug": "about",
+      "slug": "home",
       "sort": 0,
       "data": {
         "cover": {
@@ -880,7 +880,7 @@
           ]
         },
         "title": "About BCE",
-        "slug": "about"
+        "slug": "home"
       }
     },
     {

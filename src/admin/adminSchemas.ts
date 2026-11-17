@@ -392,7 +392,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
     slugKey: "slug",
     singleton: true,
     tabs: true,
-    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_QUALITY)) as Record<string, unknown>), title: "Quality, capability & HSE", slug: "quality" }),
+    defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_QUALITY)) as Record<string, unknown>), title: "Quality, capability & HSE", slug: "home" }),
     skipKm: ["title", "slug"],
     sections: [
       { id: "cover", title: "Cover", hint: "The banner label, headline and photo at the top of the page.", keys: ["title", "slug", "cover"] },
