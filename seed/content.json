@@ -416,10 +416,6 @@
                 {
                   "label": "Hire our equipment",
                   "href": "/?quote&service=equipment-rental"
-                },
-                {
-                  "label": "Get directions",
-                  "href": "MAPS"
                 }
               ]
             }
@@ -432,9 +428,7 @@
           "officeTitle": "Battambang · Head office",
           "hotlinesLabel": "Sales & Quotations Hotlines",
           "socialLabel": "Social & Direct Contact",
-          "directionsLabel": "Get directions",
-          "backToTopLabel": "Back to top",
-          "rightsLabel": "All rights reserved"
+          "creditLabel": "Design & concept by BCE"
         },
         "title": "Homepage",
         "slug": "home"

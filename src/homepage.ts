@@ -118,9 +118,8 @@ export type HomepageContent = {
     officeTitle: string;
     hotlinesLabel: string;
     socialLabel: string;
-    directionsLabel: string;
-    backToTopLabel: string;
-    rightsLabel: string;
+    /** The design credit in the legal bar. */
+    creditLabel: string;
   };
 };
 
@@ -312,7 +311,6 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
           { label: "Careers & Recruitment", href: "/?recruitment" },
           { label: "Contact us", href: "/?contact" },
           { label: "Hire our equipment", href: "/?quote&service=equipment-rental" },
-          { label: "Get directions", href: "MAPS" },
         ],
       },
     ],
@@ -325,9 +323,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
     officeTitle: "Battambang · Head office",
     hotlinesLabel: "Sales & Quotations Hotlines",
     socialLabel: "Social & Direct Contact",
-    directionsLabel: "Get directions",
-    backToTopLabel: "Back to top",
-    rightsLabel: "All rights reserved",
+    creditLabel: "Design & concept by BCE",
   },
 };
 

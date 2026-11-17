@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { siteSettings } from "./siteSettings";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
@@ -13,7 +14,7 @@ const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const UPDATED = "17 November 2026";
 
-type Section = { title: string; body?: string[]; items?: string[] };
+type Section = { title: string; id?: string; body?: string[]; items?: string[] };
 
 function LegalLayout({
   kind,
@@ -26,6 +27,14 @@ function LegalLayout({
   intro: string;
   sections: Section[];
 }) {
+  // Deep links from the footer's legal bar (/?privacy#cookies) land on the right section instead of the top.
+  useEffect(() => {
+    const id = location.hash.slice(1);
+    const target = id ? document.getElementById(decodeURIComponent(id)) : null;
+    if (!target) return;
+    requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+  }, []);
+
   return (
     <>
       <SiteHeader phones={phones} tel={tel} base="/" />
@@ -42,7 +51,7 @@ function LegalLayout({
 
           <div className="mt-14 border-t border-[#111]/10">
             {sections.map((section, index) => (
-              <section key={section.title} className="border-b border-[#111]/10 py-8">
+              <section key={section.title} id={section.id} className="scroll-mt-32 border-b border-[#111]/10 py-8">
                 <div className="grid gap-4 md:grid-cols-[64px_1fr] md:gap-8">
                   <span className="font-mono text-[12px] text-[#111]/35">{String(index + 1).padStart(2, "0")}</span>
                   <div>
@@ -177,6 +186,7 @@ const PRIVACY: Section[] = [
   },
   {
     title: "Cookies and local storage",
+    id: "cookies",
     body: [
       "The public site does not use advertising or profiling cookies. It stores your language choice in local storage and uses Cloudflare Turnstile, which is necessary for form security. If we add analytics in future, we will update this policy and, where required, ask for consent before setting non-essential cookies.",
     ],

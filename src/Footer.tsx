@@ -6,12 +6,12 @@ import { siteSettings } from "./siteSettings";
 import { translate } from "./i18n";
 
 // Footer after olympic.no's: navigation columns with grey headings (accordions on phones), a ruled row with the
-// enquiry block and head office with contact and social channels, then a ruled legal row. As the footer scrolls into
-// view its content settles from 25% above into place while a dark veil clears (their view-timeline "parallax-footer"
-// and "disappear"). Set in the site's TT Commons, with the homepage's ArrowButtons. Copy is editable in the admin console.
+// enquiry block and head office with contact and social channels, then a ruled mono bar with the heritage mark,
+// the cookie and privacy links, the design credit and the copyright. As the footer scrolls into view its content
+// settles from 25% above into place while a dark veil clears (their view-timeline "parallax-footer" and "disappear").
+// Set in the site's TT Commons, with the homepage's ArrowButtons. Copy is editable in the admin console.
 
 type Link = [string, string];
-const MAPS = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("O'Char, Battambang, Cambodia");
 
 const toTop = (e: React.MouseEvent) => {
   e.preventDefault();
@@ -60,24 +60,25 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
     officeTitle,
     hotlinesLabel,
     socialLabel,
-    directionsLabel,
-    backToTopLabel,
-    rightsLabel,
+    creditLabel,
   } = homepage.footer;
   const navColumns: [string, Link[]][] = columns.map((column) => [
     column.title,
-    column.links.map((link) => {
-      // Keep the "Our businesses" column in step with names edited under Home services.
-      const business = link.href.startsWith("/?business=")
-        ? offerings.find((item) => `/?business=${item.slug}` === link.href)
-        : undefined;
-      return [business?.name ?? link.label, link.href] as Link;
-    }),
+    column.links
+      // A "Get directions" link used to point at Google Maps; drop it wherever an older document still carries it.
+      .filter((link) => link.href !== "MAPS")
+      .map((link) => {
+        // Keep the "Our businesses" column in step with names edited under Home services.
+        const business = link.href.startsWith("/?business=")
+          ? offerings.find((item) => `/?business=${item.slug}` === link.href)
+          : undefined;
+        return [business?.name ?? link.label, link.href] as Link;
+      }),
   ]);
   const addressLines = siteSettings.contact.address.split(",").map((line) => line.trim()).filter(Boolean);
   const telegram = siteSettings.contact.telegram.replace(/^@/, "");
   const email = siteSettings.contact.email;
-  const href = (h: string) => (h === "MAPS" ? MAPS : h.startsWith("/") ? h : base ? (h === "#" ? base : base + h) : h);
+  const href = (h: string) => (h.startsWith("/") ? h : base ? base + (h === "#" ? "" : h) : h);
 
   // Their timeline, measured from the footer: the content slides from -25% to 0 between the footer's top entering the
   // viewport and the footer being fully in view; the veil (40% dark) clears over the same stretch, starting 40% in.
@@ -121,7 +122,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
               <ul className="ft-links">
                 {links.map(([label, h]) => (
                   <li key={label}>
-                    <a href={href(h)} onClick={!base && h === "#" ? toTop : undefined} {...(h === "MAPS" ? { target: "_blank", rel: "noopener" } : {})}>{label}</a>
+                    <a href={href(h)} onClick={!base && h === "#" ? toTop : undefined}>{label}</a>
                   </li>
                 ))}
               </ul>
@@ -140,33 +141,23 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
           </div>
 
           <div className="ft-office">
-            <h3 className="ft-label">{officeTitle}</h3>
-            <address className="ft-text not-italic">
+            <h3 className="ft-label ft-office-title">{officeTitle}</h3>
+            <address className="ft-text ft-address">
               {addressLines.map((l) => (
                 <span key={l} className="block">
                   {l}
                 </span>
               ))}
-              <a
-                href={MAPS}
-                target="_blank"
-                rel="noopener"
-                className="ft-ul ft-dir inline-block mt-3 text-white/90 hover:text-white"
-              >
-                <span>{directionsLabel}</span>
-              </a>
             </address>
+            <h3 className="ft-label ft-office-hotlines">{hotlinesLabel}</h3>
 
-            <div className="ft-text">
-              <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-1.5">
-                {hotlinesLabel}
-              </span>
-              <div className="flex flex-col gap-1 w-full">
+            <div className="ft-text ft-details">
+              <div className="ft-phones">
                 {phones.map((n) => (
                   <a
                     key={n}
                     href={tel(n)}
-                    className="ft-ul inline-block text-white/90 hover:text-white"
+                    className="ft-ul text-white/90 hover:text-white"
                   >
                     <span>{n}</span>
                   </a>
@@ -174,11 +165,11 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
               </div>
 
               {/* Social Media & Direct Contact */}
-              <div className="mt-4 pt-3.5 border-t border-white/10 w-full">
-                <span className="block text-[11px] font-mono uppercase tracking-[0.08em] text-white/50 mb-2">
+              <div className="ft-social">
+                <span className="ft-social-label">
                   {socialLabel}
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="ft-social-row">
                   <a
                     href={`https://t.me/${telegram}`}
                     target="_blank"
@@ -221,19 +212,15 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
           </div>
         </div>
 
-        <div className="ft-bottom">
-          <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-logo">{siteSettings.site.shortName}., Ltd.</a>
-          <a href={MAPS} target="_blank" rel="noopener" className="ft-b2">{directionsLabel}</a>
-          <a href="#" onClick={toTop} className="ft-b3">{backToTopLabel}</a>
-          <span className="ft-b4">{rightsLabel}</span>
-          <small className="ft-copy">© {new Date().getFullYear()} {siteSettings.site.nameEn}</small>
+        <div className="ft-bar">
+          <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-bar-logo" aria-label={`${siteSettings.site.shortName}, Ltd. — home`}>
+            <img src="/assets/bce-logo-lockup.svg" alt="" className="ft-bar-logo-img" width={150} height={40} />
+          </a>
+          <a href={href("/?privacy#cookies")} className="ft-bar-cookies">{translate("Cookie policy")}</a>
+          <a href={href("/?terms")} className="ft-bar-privacy">{translate("Terms & Privacy Policy")}</a>
+          <span className="ft-bar-credit">{creditLabel}</span>
+          <small className="ft-bar-copy">© {new Date().getFullYear()} {siteSettings.site.shortName}, Ltd.</small>
         </div>
-
-        <nav aria-label="Legal" className="ft-legal">
-          <a href={href("/?privacy")}>{translate("Privacy policy")}</a>
-          <span aria-hidden>·</span>
-          <a href={href("/?terms")}>{translate("Terms of use")}</a>
-        </nav>
       </div>
     </footer>
   );

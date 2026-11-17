@@ -618,9 +618,7 @@ function HomepagePreview({ data, section }: HomepagePreviewProps) {
                   {[
                     text(footer.hotlinesLabel),
                     text(footer.socialLabel),
-                    text(footer.directionsLabel),
-                    text(footer.backToTopLabel),
-                    text(footer.rightsLabel),
+                    text(footer.creditLabel),
                   ].filter(Boolean).join(" · ")}
                 </dd>
               </div>

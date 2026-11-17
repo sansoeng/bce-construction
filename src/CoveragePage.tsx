@@ -25,9 +25,8 @@ import {
 // Coverage (/?coverage), the homepage map's information as a page of its own: the same fourteen locations, the years
 // behind them, the completed-project and equipment figures, and the same province highlights, set out so each one can
 // be read rather than watched scroll past. The homepage keeps its pinned story (src/Coverage.tsx); this page reuses its
-// data so the two can never disagree, and adds an explorable map, the four geographic zones, a province register and
-// the fleet. Per-province project counts and machine allocations are deliberately absent: the Corporate Profile gives
-// national totals only.
+// data so the two can never disagree, and adds an explorable map, the four geographic zones and the fleet. Per-province
+// project counts and machine allocations are deliberately absent: the Corporate Profile gives national totals only.
 //
 // Design follows the Olympic-style blocks used by Quality, capability & HSE and Our Businesses: cover, labelled
 // introduction with an index, the figures on the ink ground, light bands separated by hairlines, the site's mono
@@ -52,7 +51,6 @@ const TOPICS = [
   ["figures", "Key figures"],
   ["map", "Coverage map"],
   ["zones", "Coverage by zone"],
-  ["provinces", "Province register"],
   ["ready", "Mobilization ready"],
   ["fleet", "Equipment fleet"],
 ] as const;
@@ -279,7 +277,8 @@ export default function CoveragePage() {
           </div>
         </section>
 
-        {/* 03 The four zones behind the province list, each with its places one tap from the map. */}
+        {/* 03 The four zones behind the province list, set as the concrete grades grid on Quality & HSE: the count
+            drawn as an orange mark, the zone and its places ruled beside it, each place one tap from the map. */}
         <section id="zones" data-header-title="Coverage by zone" aria-labelledby="cv-zones" className="cv-band">
           <div className="cv-head">
             <p data-split="content" className="ol-label">Coverage by zone</p>
@@ -288,77 +287,31 @@ export default function CoveragePage() {
           <ul className="cv-zones">
             {zoneStats.map((zone, i) => (
               <li key={zone.name} data-reveal className="cv-zone" style={{ "--k": i } as CSSProperties}>
-                <div className="cv-zone-top">
-                  <h3 className="cv-zone-name">{zone.name}</h3>
-                  <p className="cv-zone-figure">{zone.places.length}</p>
+                <span className="cv-zone-mark">{zone.places.length}</span>
+                <div className="cv-zone-body">
+                  <div>
+                    <h3 className="cv-zone-name">{zone.name}</h3>
+                    <p className="cv-zone-label">Locations covered</p>
+                  </div>
+                  <ul className="cv-zone-places">
+                    {zone.places.map((place) => (
+                      <li key={place.name}>
+                        <button type="button" onClick={() => showOnMap(itemIndex[place.name])}>
+                          {place.name}
+                          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                            <path d="M2.6 9.4 9.4 2.6M4.4 2.6h5v5" />
+                          </svg>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <p className="cv-zone-label">Locations covered</p>
-                <ul className="cv-zone-places">
-                  {zone.places.map((place) => (
-                    <li key={place.name}>
-                      <button type="button" onClick={() => showOnMap(itemIndex[place.name])}>
-                        {place.name}
-                        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                          <path d="M2.6 9.4 9.4 2.6M4.4 2.6h5v5" />
-                        </svg>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
               </li>
             ))}
           </ul>
         </section>
 
-        {/* 04 Province register: one card per covered province, the map card's information set out in full. */}
-        <section id="provinces" data-header-title="Province register" aria-labelledby="cv-provinces" className="cv-band">
-          <div className="cv-head">
-            <p data-split="content" className="ol-label">Province register</p>
-            <h2 id="cv-provinces" data-split className="cv-h2">Provinces served</h2>
-            <p data-split="content" className="cv-lead">Every location on the map, the work delivered there and the distance from our Battambang base.</p>
-          </div>
-
-          <ol className="cv-register">
-            {coveredItems.map((it, i) => (
-              <li key={it.name} data-reveal className="cv-reg" style={{ "--k": i % 2 } as CSSProperties}>
-                <div className="cv-reg-head">
-                  <span className="cv-reg-index">{pad(i + 1)}</span>
-                  <h3 className="cv-reg-name">{it.name}</h3>
-                  {it.name === HQ && <span className="cv-badge cv-badge--light">Head office</span>}
-                </div>
-
-                <div className="cv-reg-figures">
-                  <p className="cv-reg-label">Served since 1995</p>
-                </div>
-
-                <p className="cv-reg-highlight">{it.highlight}</p>
-                <p className="cv-reg-scope">{it.scope}</p>
-
-                <dl className="cv-reg-meta">
-                  <div><dt>Region</dt><dd>{it.region}</dd></div>
-                  <div><dt>From Battambang</dt><dd>~{it.km} km</dd></div>
-                </dl>
-
-                {it.equipment.length > 0 && (
-                  <ul className="cv-reg-equip">
-                    {it.equipment.map(([count, label]) => (
-                      <li key={label}><span>{pad(count)}</span>{label}</li>
-                    ))}
-                  </ul>
-                )}
-
-                <button type="button" className="cv-reg-link" onClick={() => showOnMap(itemIndex[it.name])}>
-                  Show on map
-                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d="M2.6 9.4 9.4 2.6M4.4 2.6h5v5" />
-                  </svg>
-                </button>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        {/* 05 The rest of the country: provinces BCE can mobilise into, with the work it would take on. */}
+        {/* 04 The rest of the country: provinces BCE can mobilise into, with the work it would take on. */}
         <section id="ready" data-header-title="Mobilization ready" aria-labelledby="cv-ready" className="cv-band cv-band--soft">
           <div className="cv-head">
             <p data-split="content" className="ol-label">Mobilization ready</p>
@@ -380,7 +333,7 @@ export default function CoveragePage() {
           </ul>
         </section>
 
-        {/* 06 Equipment & fleet, the same inventory block as Quality & HSE, so the fleet behind the coverage reads
+        {/* 05 Equipment & fleet, the same inventory block as Quality & HSE, so the fleet behind the coverage reads
             on this page too. */}
         <div className="ol-panels">
           <TextMedia
