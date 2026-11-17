@@ -5141,11 +5141,11 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
 .site-shell .kp,
 .pl-shell .kp { padding-inline: 0; }
 
-/* One control height across the public site: primary buttons, segmented controls and CTA links are 30px tall.
+/* One control height across the public site: primary buttons, segmented controls and CTA links are 32px tall.
    Large clickable cards and square icon controls keep their own hit areas, and the admin console keeps its
    Base sizing. */
 :root {
-  --button-h: 30px;
+  --button-h: 32px;
 }
 
 :is(
@@ -5166,6 +5166,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
 ):not(.bce-admin *):not([data-keep-height]) {
   height: var(--button-h) !important;
   min-height: var(--button-h) !important;
+  border-radius: 2px !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   line-height: var(--button-h) !important;
@@ -5200,10 +5201,10 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
   --btn-bg-hover: var(--ink-editorial);
   --btn-fg: var(--ink-editorial);
   --btn-fg-hover: #caccc4;
-  height: 30px !important;
+  height: 32px !important;
   padding: 0 16px;
   border: 0;
-  border-radius: var(--radius) !important;
+  border-radius: 2px !important;
   background: transparent !important;
   color: var(--btn-fg) !important;
   font-family: var(--font-mono);
