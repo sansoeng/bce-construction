@@ -3021,14 +3021,14 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(100%, 960px);
+  width: min(100%, 900px);
   margin-inline: auto;
   text-align: center;
 }
 .qc-copy {
   --split-window: .16;
   --split-step: calc((1 - var(--split-window)) / (var(--split-count) - 1));
-  max-width: 62rem;
+  max-width: 900px;
   margin-top: 0;
   font-size: 24px;
   font-weight: 450;
