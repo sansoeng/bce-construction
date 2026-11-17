@@ -1290,6 +1290,8 @@ html[lang="km"] .glance-num > span {
 /* Glance icons: strokes trace in with their cell, then the blue accent fades in and loops quietly. */
 .gi .gd { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s cubic-bezier(.65, 0, .35, 1) calc(.35s + var(--d)); }
 .glance.is-in .gi .gd { stroke-dashoffset: 0; }
+/* The grid's marks read in the brand orange throughout — no ink with an orange accent. */
+.glance .gi { color: var(--brand); }
 .gi-acc { opacity: 0; transition: opacity .6s ease calc(1.3s + var(--d)); }
 .glance.is-in .gi-acc { opacity: 1; }
 .gi-cable, .gi-hook, .gi-nod, .gi-drop, .gi-ripple, .gi-bob { transform-box: fill-box; }
@@ -4726,7 +4728,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
    in ink. The drawing is 1.5 on a 49-unit grid (src/LineIcon.tsx), so it reads as a single pen weight at any size. */
 .ol-value-icon { display: block; width: 40px; height: 40px; color: var(--brand); }
 .ol-value-icon svg { display: block; width: 100%; height: 100%; }
-.ol-value-title { margin-top: 30px; font-size: 1.15rem; font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.ol-value-title { margin-top: 30px; font-size: 1.15rem; font-weight: 500; line-height: 1.25; letter-spacing: -.015em; color: var(--brand-ink); }
 .ol-value-text { max-width: 20rem; margin-top: 10px; font-size: .95rem; line-height: 1.45; color: rgb(17 17 17 / .7); }
 @media (min-width: 768px) {
   .ol-value-icon { width: 48px; height: 48px; }
