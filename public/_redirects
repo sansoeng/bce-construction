@@ -1,21 +1,22 @@
 # Old company-profile link (bookmarks, search results, cached admin content) → the compressed web edition.
 /assets/BCE_Corporate_Profile_2026.pdf /assets/BCE_Corporate_Profile_2026_web.pdf 301
 
-# Clean URLs: every page has a real path (src/routes.ts). Pages must answer those paths with the app shell; the site
-# then renders the matching page. Unknown paths are left alone so public/404.html still handles them.
+# Clean URLs: every page has a real path (src/routes.ts). Pages answers those paths with the app shell, which renders
+# the matching page. The rewrite target is "/" because "/index.html" is itself 308-redirected by Pages.
+# Unknown paths are left alone, so public/404.html still handles them.
 
-/about /index.html 200
-/businesses /index.html 200
-/projects /index.html 200
-/quality /index.html 200
-/capabilities /index.html 200
-/coverage /index.html 200
-/quote /index.html 200
-/careers /index.html 200
-/resources /index.html 200
-/contact /index.html 200
-/privacy /index.html 200
-/terms /index.html 200
-/blog /index.html 200
-/business/* /index.html 200
-/project/* /index.html 200
+/about / 200
+/businesses / 200
+/projects / 200
+/quality / 200
+/capabilities / 200
+/coverage / 200
+/quote / 200
+/careers / 200
+/resources / 200
+/contact / 200
+/privacy / 200
+/terms / 200
+/blog / 200
+/business/* / 200
+/project/* / 200
