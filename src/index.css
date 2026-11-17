@@ -4923,11 +4923,169 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .ol-rail-btn:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
 .ol-rail-btn:disabled { opacity: .28; cursor: default; }
 
-/* Equipment & fleet (/fleet). The machine cards keep the solution-card styling but sit two by two, because a
-   machine is a larger object than a service tile and the count reads better beside a wider photo. The ruled
-   inventory and hire blocks borrow the Quality page's split spacing. */
-.fl-section { margin-top: clamp(6rem, 10vw, 10rem); }
-.fl-machines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Equipment & fleet (/fleet). The ink band carries both the key figures and the inventory; below it, the Plant &
+   machines block follows the Corporate Profile's equipment page — one large plant photo beside nine numbered cards,
+   each with a badge, a line mark, a thumbnail and its on-site points. */
+.fl-stock {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--olg);
+  margin-top: clamp(4.5rem, 7vw, 7rem);
+  padding-top: clamp(2.5rem, 4vw, 4rem);
+  border-top: 1px solid var(--line-dark);
+}
+.fl-stock-head { grid-column: 1 / span 5; }
+.fl-stock-title {
+  max-width: 22rem;
+  margin-top: 18px;
+  font-size: clamp(1.75rem, 2.6vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -.025em;
+  color: var(--paper);
+}
+.fl-stock-copy {
+  max-width: 27rem;
+  margin-top: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / .6);
+}
+.fl-stock-list { grid-column: 7 / -1; }
+.fl-stock-rows { max-width: none; margin-top: 18px; }
+
+.fl-plant {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--olg);
+  align-items: stretch;
+  margin-top: clamp(3rem, 5vw, 5rem);
+}
+.fl-plant-media {
+  position: relative;
+  grid-column: 1 / span 6;
+  min-height: 34rem;
+  overflow: hidden;
+  border-radius: var(--radius) !important;
+  -webkit-corner-smoothing: 60% !important;
+  corner-smoothing: 60% !important;
+  background: var(--paper-media);
+}
+.fl-plant-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fl-plant-grid {
+  display: grid;
+  grid-column: 7 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fl-machine-card {
+  min-width: 0;
+  border: 1px solid rgb(17 17 17 / .14);
+  border-radius: 16px;
+  background: var(--paper);
+  transition: border-color .3s ease, transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+@media (hover: hover) {
+  .fl-machine-card:hover { border-color: rgb(17 17 17 / .3); transform: translateY(-2px); }
+}
+.fl-machine-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px 12px 14px;
+  color: inherit;
+}
+.fl-machine-top { position: relative; display: grid; place-items: center; height: 42px; }
+.fl-machine-num {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #d9a13c;
+  color: #111;
+  font-family: var(--font-ui-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.fl-machine-num.is-navy { background: #1b2e5c; color: var(--paper); }
+.fl-machine-icon { width: 42px; height: 42px; color: var(--brand); }
+.fl-machine-icon svg { display: block; width: 100%; height: 100%; }
+.fl-machine-name {
+  margin-top: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: .02em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #1b2e5c;
+}
+.fl-machine-body {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+  margin-top: 10px;
+}
+.fl-machine-body > img {
+  width: 78px;
+  height: 72px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--paper-media);
+}
+.fl-machine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.35;
+  color: rgb(17 17 17 / .7);
+}
+.fl-machine-list li { position: relative; padding-left: 9px; }
+.fl-machine-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .48em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d9a13c;
+}
+
+@media (max-width: 1439px) {
+  .fl-stock-head,
+  .fl-stock-list { grid-column: 1 / -1; }
+  .fl-stock-list { margin-top: 42px; }
+  .fl-plant { grid-template-columns: 1fr; }
+  .fl-plant-media { grid-column: 1 / -1; min-height: 0; aspect-ratio: 16 / 9; }
+  .fl-plant-grid { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
+}
+@media (max-width: 767px) {
+  .fl-plant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 479px) {
+  .fl-plant-grid { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 1023px) {
   .ol-values { padding-top: 130px; }

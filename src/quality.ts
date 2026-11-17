@@ -90,22 +90,19 @@ export type QualityContent = {
     inventoryTitle: string;
     inventoryCopy: string;
     inventoryListLabel: string;
+    /** The large photo beside the machine cards. */
+    plantImage: string;
+    plantImageAlt: string;
     /** The machines themselves, one card each. */
     machinesLabel: string;
     machinesTitle: string;
     machinesCopy: string;
-    machines: { title: string; value: string; note: string; text: string; image: string; imageAlt: string }[];
+    machines: { title: string; icon: string; bullets: string[]; image: string; imageAlt: string; href?: string }[];
     /** Maintenance, operators and mobilisation. */
     supportLabel: string;
     supportTitle: string;
     supportCopy: string;
     support: { icon: string; title: string; text: string }[];
-    /** How hire works; rates are quoted per project. */
-    hireLabel: string;
-    hireTitle: string;
-    hireCopy: string;
-    hireNote: string;
-    hireSteps: string[];
     rows: { label: string; value: string }[];
     ctaLabel: string;
     ctaHref: string;
@@ -267,8 +264,9 @@ export const DEFAULT_QUALITY: QualityContent = {
       { label: "Coverage", value: "13 provinces + Phnom Penh" },
     ],
   },
-  // Everything BCE owns and runs, as listed in the Corporate Profile, less the laboratory equipment (which belongs to
-  // the laboratory section above). Counts are machines, not staff.
+  // The fleet inventory from the Corporate Profile. `rows` feeds the Quality & HSE panel and the ink inventory band;
+  // `machines` follows the Corporate Profile's equipment page, with the laboratory equipment as a card that links back
+  // to the Quality page. Counts are machines, not staff.
   fleet: {
     kicker: "Our own fleet",
     title: "Equipment & fleet",
@@ -285,44 +283,127 @@ export const DEFAULT_QUALITY: QualityContent = {
     inventoryLabel: "Inventory",
     inventoryTitle: "What we own, in numbers.",
     inventoryCopy:
-      "Counts are from BCE's own fleet records. The laboratory's testing equipment is listed on the Quality page, not here.",
+      "Counts are from BCE's own fleet records. Laboratory equipment is shown with the plant below; its testing programme lives on the Quality page.",
     inventoryListLabel: "Machines in service",
+    plantImage: "/Image/bce/about-zoom-batching.webp",
+    plantImageAlt: "Aerial view of BCE's batching plant, silos and aggregate yard",
     machinesLabel: "Plant & machines",
     machinesTitle: "Plant and machines, maintained in-house.",
     machinesCopy:
       "Every machine below is part of the fleet we use on our own works, maintained to the same standard and available with its operators.",
     machines: [
       {
-        title: "Batching plants",
-        value: "04",
-        note: "70 m³/hr each",
-        text: "Computerized batching with calibrated weigh scales for cement, aggregate, water and admixture, checked before every pour.",
-        image: "/Image/bce/about-zoom-batching.webp",
-        imageAlt: "Aggregate stockpiles and batching plant at the BCE yard",
-      },
-      {
-        title: "Mixer trucks",
-        value: "41",
-        note: "Delivering across 13 provinces + Phnom Penh",
-        text: "Owned and maintained by BCE crews, dispatched from Battambang on a planned schedule rather than a broker's availability.",
-        image: "/Image/bce/machinery_fleet.webp",
-        imageAlt: "BCE mixer trucks lined up at the plant",
+        title: "Batching plant",
+        icon: "plant",
+        bullets: [
+          "4 batching plants",
+          "Capacity: 70 m³/hr per plant",
+          "Advanced computerized control system",
+          "Consistent, high-quality concrete",
+        ],
+        image: "/Image/bce/fleet/01-batching.jpg",
+        imageAlt: "BCE batching plant loading a mixer truck",
       },
       {
         title: "Pump trucks",
-        value: "08",
-        note: "Boom reach up to 48 m",
-        text: "Placing concrete where the mixer cannot reach, with operators who work to the pour sequence.",
-        image: "/Image/bce/about-zoom-boom-pumps.webp",
-        imageAlt: "Boom pump placing concrete on a BCE site",
+        icon: "pump",
+        bullets: [
+          "8 trucks",
+          "Efficient concrete placing",
+          "Boom sizes for every project",
+          "Well-maintained and reliable",
+        ],
+        image: "/Image/bce/fleet/02-pump.jpg",
+        imageAlt: "BCE pump truck with its boom folded",
+      },
+      {
+        title: "Concrete mixer trucks",
+        icon: "truck",
+        bullets: [
+          "41 trucks",
+          "7–10 m³ capacity",
+          "Timely delivery",
+          "GPS tracking for dispatch",
+        ],
+        image: "/Image/bce/fleet/03-mixer.jpg",
+        imageAlt: "BCE concrete mixer trucks lined up at the plant",
+      },
+      {
+        title: "Wheel loaders",
+        icon: "loader",
+        bullets: [
+          "7 units",
+          "Multiple bucket capacities",
+          "High productivity",
+          "Ideal for loading and material handling",
+          "Operator-friendly",
+        ],
+        image: "/Image/bce/fleet/04-loader.jpg",
+        imageAlt: "Wheel loader working at a BCE batching plant",
       },
       {
         title: "Piling rigs",
-        value: "07",
-        note: "Bore and hammer rigs",
-        text: "Reinforced concrete piles installed and tested by our own rigs and crews, from the platform to the pile cap.",
-        image: "/Image/bce/about-zoom-piling-rig.webp",
-        imageAlt: "BCE piling rig working on site",
+        icon: "rig",
+        bullets: [
+          "7 units",
+          "Hydraulic piling rigs",
+          "Strong and stable performance",
+          "For varied soil conditions",
+          "Efficient piling operations",
+        ],
+        image: "/Image/bce/fleet/05-piling.jpg",
+        imageAlt: "BCE piling rig working on a foundation site",
+      },
+      {
+        title: "Crane trucks",
+        icon: "crane",
+        bullets: [
+          "6 trucks",
+          "Various lifting capacities",
+          "Telescopic boom",
+          "Safe, efficient lifting",
+          "Skilled operators",
+        ],
+        image: "/Image/bce/fleet/06-crane-truck.jpg",
+        imageAlt: "Crane truck lifting on a BCE site",
+      },
+      {
+        title: "Tower cranes",
+        icon: "tower",
+        bullets: [
+          "8 units",
+          "High lifting capacity",
+          "Wide working radius",
+          "Stable and reliable",
+          "Ideal for high-rise construction",
+        ],
+        image: "/Image/bce/fleet/07-tower-crane.jpg",
+        imageAlt: "Tower cranes on a BCE high-rise project",
+      },
+      {
+        title: "Laboratory equipment",
+        icon: "lab",
+        bullets: [
+          "Concrete testing machines",
+          "Compression, slump and strength tests",
+          "Calibrated and certified",
+          "Quality standards verified",
+        ],
+        image: "/Image/bce/fleet/08-lab.jpg",
+        imageAlt: "BCE laboratory technician testing concrete",
+        href: "/quality#laboratory",
+      },
+      {
+        title: "Lifts",
+        icon: "lift",
+        bullets: [
+          "5 units",
+          "Safe elevation for work at height",
+          "Ideal for construction works",
+          "Regular inspection and maintenance",
+        ],
+        image: "/Image/bce/fleet/09-lift.jpg",
+        imageAlt: "Lift equipment on a BCE construction site",
       },
     ],
     supportLabel: "Maintenance & crew",
@@ -350,17 +431,6 @@ export const DEFAULT_QUALITY: QualityContent = {
         title: "Mobilised from Battambang",
         text: "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.",
       },
-    ],
-    hireLabel: "Hire",
-    hireTitle: "Mobilised to your site.",
-    hireCopy:
-      "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.",
-    hireNote: "Rates depend on the machine, the duration, site access and whether an operator, fuel and maintenance are included.",
-    hireSteps: [
-      "Tell us the machine, the duration and the site location.",
-      "We confirm availability, mobilisation from Battambang and the delivery date.",
-      "Operator, fuel and maintenance are agreed up front, in writing.",
-      "The machine arrives with our own crew and is supported by our workshop.",
     ],
     rows: [
       { label: "Batching plants", value: "04  /  70 m³/hr each" },

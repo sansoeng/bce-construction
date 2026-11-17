@@ -12,23 +12,20 @@ import { quality } from "./quality";
 
 // Equipment & fleet (/fleet), the standalone page the Recommendation's sitemap asks for: what BCE owns, how many, what
 // each machine is for, and how to hire it. Every figure comes from quality.ts (the Quality page's own document) so the
-// two pages cannot disagree. No rates and no per-machine availability are published — both are quoted per project.
+// two pages cannot disagree. No rates and no per-machine availability are published — the quotation is per project.
 //
 // The page follows the same Olympic-style blocks as Quality & HSE and Coverage: the parallax cover, a labelled
-// introduction with an on-page index, the key figures on the ink ground, ruled inventory rows, machine cards, the
-// maintenance points as value columns, and the hire steps as a numbered list. Only the machine grid (2 × 2 instead of
-// the three-column solution grid) is a page-local rule; everything else is the shared `.ol-*`, `.qx-*` and `.pd-*` set.
+// introduction with an on-page index, one ink band carrying both the key figures and the full inventory, the plant as
+// a photo beside the corporate profile's numbered machine cards, and the maintenance points as value columns.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const pad = (n: number) => String(n).padStart(2, "0");
 
 const TOPICS = [
-  ["fleet-figures", "Fleet at a glance"],
-  ["fleet-inventory", "Inventory"],
+  ["fleet-inventory", "Fleet & inventory"],
   ["fleet-machines", "Plant & machines"],
   ["fleet-support", "Maintenance & crew"],
-  ["fleet-hire", "Hire"],
 ] as const;
 
 const KHMER_DIGITS = "០១២៣៤៥៦៧៨៩";
@@ -114,6 +111,7 @@ export default function FleetPage() {
   const fleet = quality.fleet;
   const rows = fleet.rows;
   const fleetTotal = rows.reduce((total, row) => total + firstNumber(row.value), 0);
+  const rowCount = (index: number) => rows[index]?.value.split("/")[0].trim() || "00";
   const machines = fleet.machines;
 
   return (
@@ -152,8 +150,9 @@ export default function FleetPage() {
           {fleet.copy[0]}
         </LabelCopy>
 
-        {/* Key figures on the ink ground, as the business pages: the totals behind the inventory, counted up. */}
-        <section id="fleet-figures" data-nav-dark data-header-title="Fleet at a glance" aria-labelledby="fl-figures" className="ol-capacity">
+        {/* Key figures and the full inventory in one ink band: the totals count up, then the same ruled rows as the
+            Quality page sit beside the inventory note. */}
+        <section id="fleet-inventory" data-nav-dark data-header-title="Fleet & inventory" aria-labelledby="fl-figures" className="ol-capacity">
           <div className="ol-capacity-head">
             <p data-split="content" className="ol-label">{fleet.figuresLabel}</p>
             <h2 id="fl-figures" data-split className="ol-capacity-title">{fleet.figuresTitle}</h2>
@@ -165,18 +164,39 @@ export default function FleetPage() {
               <span className="ol-figure-label">Machines in our own fleet</span>
             </li>
             <li data-reveal className="ol-figure">
-              <CountUp value={machines[0]?.value ?? "00"} />
+              <CountUp value={rowCount(0)} />
               <span className="ol-figure-label">Batching plants</span>
             </li>
             <li data-reveal className="ol-figure">
-              <CountUp value={machines[1]?.value ?? "00"} />
+              <CountUp value={rowCount(1)} />
               <span className="ol-figure-label">Mixer trucks</span>
             </li>
             <li data-reveal className="ol-figure">
-              <CountUp value={machines[2]?.value ?? "00"} />
+              <CountUp value={rowCount(2)} />
               <span className="ol-figure-label">Pump trucks</span>
             </li>
           </ul>
+
+          <div className="fl-stock">
+            <div className="fl-stock-head">
+              <p data-split="content" className="ol-label">{fleet.inventoryLabel}</p>
+              <h3 data-split className="fl-stock-title">{fleet.inventoryTitle}</h3>
+              <p data-split="content" className="fl-stock-copy">{fleet.inventoryCopy}</p>
+              <ArrowButton href="/quality#documents" label="Company profile" theme="white" className="mt-8" />
+            </div>
+            <div className="fl-stock-list">
+              <h4 data-split="content" className="ol-label">{fleet.inventoryListLabel}</h4>
+              <ul className="ol-rows ol-rows--dk fl-stock-rows">
+                {rows.map((row, index) => (
+                  <li key={row.label} data-reveal className="ol-row" style={{ "--k": index } as CSSProperties}>
+                    <span>{row.label}</span>
+                    <span>{row.value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           <div className="ol-capacity-contact">
             <p className="ol-label">Hire &amp; dispatch</p>
             <div className="ol-capacity-links">
@@ -189,51 +209,51 @@ export default function FleetPage() {
           </div>
         </section>
 
-        {/* The inventory, exactly as the Quality page publishes it: the same ruled rows, read as a list. */}
-        <section id="fleet-inventory" data-header-title={fleet.inventoryTitle} aria-labelledby="fl-inventory" className="qh-section qx-split fl-section">
-          <div className="qx-head">
-            <p data-split="content" className="ol-label">{fleet.inventoryLabel}</p>
-            <h2 id="fl-inventory" data-split className="pd-h2">{fleet.inventoryTitle}</h2>
-            <div className="qx-copy mt-10 w-[520px] max-w-full">
-              <p data-split="content">{fleet.inventoryCopy}</p>
-            </div>
-            <ArrowButton href="/quality#documents" label="Company profile" theme="outline" className="mt-8" />
-          </div>
-          <div className="qx-body">
-            <h3 data-split="content" className="qx-label">{fleet.inventoryListLabel}</h3>
-            <ul className="ol-rows">
-              {rows.map((row, index) => (
-                <li key={row.label} data-reveal className="ol-row" style={{ "--k": index } as CSSProperties}>
-                  <span>{row.label}</span>
-                  <span>{row.value}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* The machines themselves, with the count and what each one is for. */}
+        {/* Plant & machines, after the Corporate Profile's equipment page: one large plant photo beside the nine
+            numbered machine cards — badge, line mark, name, thumbnail and the points that matter on site. */}
         <section id="fleet-machines" data-header-title={fleet.machinesTitle} aria-labelledby="fl-machines" className="ol-solutions">
           <div className="ol-solutions-head">
             <p data-split="content" className="ol-label">{fleet.machinesLabel}</p>
             <h2 id="fl-machines" data-split className="ol-solutions-title">{fleet.machinesTitle}</h2>
             <p data-split="content" className="ol-solutions-lead">{fleet.machinesCopy}</p>
           </div>
-          <ul className="ol-solutions-grid fl-machines">
-            {machines.map((machine) => (
-              <li key={machine.title} data-reveal className="ol-solution">
-                <div className="ol-solution-media">
-                  <img src={machine.image} alt={machine.imageAlt} loading="lazy" />
-                </div>
-                <h3 className="ol-solution-title flex items-baseline justify-between gap-4">
-                  <span>{machine.title}</span>
-                  <span className="font-mono text-[22px] leading-none tabular-nums text-[#111]/70">{machine.value}</span>
-                </h3>
-                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.06em] text-[#111]/45">{machine.note}</p>
-                <p className="ol-solution-text">{machine.text}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="fl-plant">
+            <div className="fl-plant-media">
+              <img src={fleet.plantImage} alt={fleet.plantImageAlt} loading="lazy" />
+            </div>
+            <ul className="fl-plant-grid">
+              {machines.map((machine, index) => {
+                const body = (
+                  <>
+                    <div className="fl-machine-top">
+                      <span className={`fl-machine-num${index % 2 ? " is-navy" : ""}`}>{pad(index + 1)}</span>
+                      <span className="fl-machine-icon" aria-hidden>
+                        <LineIcon name={machine.icon} className="size-full" strokeWidth={1.3} />
+                      </span>
+                    </div>
+                    <h3 className="fl-machine-name">{machine.title}</h3>
+                    <div className="fl-machine-body">
+                      <img src={machine.image} alt={machine.imageAlt} loading="lazy" />
+                      <ul className="fl-machine-list">
+                        {machine.bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </>
+                );
+                return (
+                  <li key={machine.title} data-reveal className="fl-machine-card">
+                    {machine.href ? (
+                      <a href={machine.href} className="fl-machine-inner">{body}</a>
+                    ) : (
+                      <div className="fl-machine-inner">{body}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </section>
 
         {/* Maintenance, operators and mobilisation, as the business pages' value columns. */}
@@ -254,35 +274,6 @@ export default function FleetPage() {
               </li>
             ))}
           </ul>
-        </section>
-
-        {/* How hiring works, without rates: the steps on the right, the actions on the left. */}
-        <section id="fleet-hire" data-header-title={fleet.hireTitle} aria-labelledby="fl-hire" className="qh-section qx-split fl-section">
-          <div className="qx-head">
-            <p data-split="content" className="ol-label">{fleet.hireLabel}</p>
-            <h2 id="fl-hire" data-split className="pd-h2">{fleet.hireTitle}</h2>
-            <div className="qx-copy mt-10 w-[520px] max-w-full">
-              <p data-split="content">{fleet.hireCopy}</p>
-              <p data-split="content" className="text-[15px] text-[#111]/45">{fleet.hireNote}</p>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ArrowButton href={fleet.ctaHref} label={fleet.ctaLabel} />
-              <ArrowButton href={tel(phones[0])} label={`Call ${phones[0]}`} theme="outline" />
-            </div>
-          </div>
-          <div className="qx-body">
-            <h3 data-split="content" className="qx-label">How hire works</h3>
-            <ol className="qx-list">
-              {fleet.hireSteps.map((step, index) => (
-                <li key={step} data-reveal className="qx-step pd-rule" style={{ "--rd": `${index * 0.08}s` } as CSSProperties}>
-                  <span data-split="content" className="qx-n">{pad(index + 1)}.</span>
-                  <div>
-                    <p data-split="content" className="qx-step-text">{step}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
         </section>
       </div>
 

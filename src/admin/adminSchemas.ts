@@ -85,6 +85,9 @@ const valueIcons = [
   "pin",
 ];
 
+// The Plant & machines card marks: the seven fleet categories, the laboratory and the lifts.
+const machineIcons = ["plant", "pump", "truck", "loader", "rig", "crane", "tower", "lab", "lift"];
+
 export const SCHEMAS: Record<string, ContentSchema> = {
   projects: {
     type: "projects",
@@ -404,7 +407,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
       { id: "hse-practice", title: "HSE in practice", hint: "Methods and standards, PPE and inspections shown beneath the commitments.", keys: ["hsePractice"] },
-      { id: "fleet", title: "Equipment & fleet", hint: "The inventory on Quality & HSE, plus every /fleet section: key figures, machine cards, maintenance, hire and dispatch.", keys: ["fleet"] },
+      { id: "fleet", title: "Equipment & fleet", hint: "The inventory on Quality & HSE, plus every /fleet section: key figures, machine cards, maintenance and dispatch.", keys: ["fleet"] },
       { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
       { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section, and the request link.", keys: ["documents"] },
     ],
@@ -492,16 +495,18 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "inventoryTitle", label: "Inventory heading", type: "text", wide: true },
         { key: "inventoryCopy", label: "Inventory copy", type: "textarea", rows: 3, wide: true },
         { key: "inventoryListLabel", label: "Inventory list label", type: "text" },
+        { key: "plantImage", label: "Plant photo", type: "image", wide: true, aspect: "4 / 3", hint: "The large photo beside the machine cards." },
+        { key: "plantImageAlt", label: "Plant photo alt text", type: "text", wide: true, locale: false },
         { key: "machinesLabel", label: "Machines label", type: "text" },
         { key: "machinesTitle", label: "Machines heading", type: "text", wide: true },
         { key: "machinesCopy", label: "Machines copy", type: "textarea", rows: 3, wide: true },
         { key: "machines", label: "Machine cards", type: "objectList", itemLabel: "Machine", itemFields: [
           { key: "title", label: "Name", type: "text" },
-          { key: "value", label: "Count", type: "text" },
-          { key: "note", label: "Capacity / note", type: "text" },
-          { key: "text", label: "Description", type: "text" },
+          { key: "icon", label: "Icon", type: "select", options: machineIcons },
+          { key: "bullets", label: "Card points", type: "list", hint: "One point per row." },
           { key: "image", label: "Photo", type: "image" },
           { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+          { key: "href", label: "Link (optional)", type: "text", locale: false },
         ] },
         { key: "supportLabel", label: "Support label", type: "text" },
         { key: "supportTitle", label: "Support heading", type: "text", wide: true },
@@ -511,11 +516,6 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "title", label: "Title", type: "text" },
           { key: "text", label: "Text", type: "text" },
         ] },
-        { key: "hireLabel", label: "Hire label", type: "text" },
-        { key: "hireTitle", label: "Hire heading", type: "text", wide: true },
-        { key: "hireCopy", label: "Hire copy", type: "textarea", rows: 3, wide: true },
-        { key: "hireNote", label: "Hire note", type: "textarea", rows: 2, wide: true },
-        { key: "hireSteps", label: "How hire works", type: "list", hint: "One step per row.", wide: true },
         { key: "ctaLabel", label: "Button label", type: "text" },
         { key: "ctaHref", label: "Button link", type: "text", locale: false },
       ] },

@@ -19,7 +19,12 @@ export type LineIconName =
   | "layers"
   | "grid"
   | "wrench"
-  | "pin";
+  | "pin"
+  | "pump"
+  | "loader"
+  | "crane"
+  | "tower"
+  | "lift";
 
 const shapes: Record<LineIconName, ReactNode> = {
   // Batching plant: mixing hall beside a silo.
@@ -122,6 +127,58 @@ const shapes: Record<LineIconName, ReactNode> = {
     <>
       <path d="M24.5 41.5S12 29 12 21a12.5 12.5 0 0 1 25 0c0 8-12.5 20.5-12.5 20.5z" />
       <circle cx="24.5" cy="21" r="4.5" />
+    </>
+  ),
+  // Pump truck: chassis with the placing boom folded over the cab.
+  pump: (
+    <>
+      <path d="M5 32V23h16v9" />
+      <path d="M21 27h7l5 5" />
+      <path d="M26 23 40 9" />
+      <path d="M40 9v6" />
+      <circle cx="12" cy="35" r="3.2" />
+      <circle cx="29" cy="35" r="3.2" />
+    </>
+  ),
+  // Wheel loader: cab, front arm and bucket.
+  loader: (
+    <>
+      <path d="M6 34V22h13v12" />
+      <path d="M19 26h13l6-6" />
+      <path d="M38 20v9h5v7h-5" />
+      <circle cx="12" cy="36" r="3.4" />
+      <circle cx="30" cy="36" r="3.4" />
+    </>
+  ),
+  // Crane truck: truck bed, telescopic boom and hook.
+  crane: (
+    <>
+      <path d="M4 34V26h20v8" />
+      <path d="M24 30h6" />
+      <path d="M30 28 42 12" />
+      <path d="M42 12v8" />
+      <path d="M39 20h6" />
+      <circle cx="11" cy="36" r="3.2" />
+      <circle cx="28" cy="36" r="3.2" />
+    </>
+  ),
+  // Tower crane: mast, jib and suspended load.
+  tower: (
+    <>
+      <path d="M20 41V10h4v31" />
+      <path d="M8 12h32" />
+      <path d="M22 12V7h6v5" />
+      <path d="M35 12v7" />
+      <path d="M32 19h6" />
+    </>
+  ),
+  // Scissor lift: crossed legs, platform and rail.
+  lift: (
+    <>
+      <path d="M9 41h31" />
+      <path d="M13 41l9-8M32 41l-9-8" />
+      <path d="M14 33h21v-5H14z" />
+      <path d="M16 28v-4h17v4" />
     </>
   ),
 };
