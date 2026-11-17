@@ -3829,6 +3829,17 @@ html[lang="km"] .fg-btn-line {
   height: 22px;
   line-height: 22px;
 }
+/* Rolling labels: the Latin windows (14px on the primary skin, 20px glass, 22px raw) are shorter than a Khmer line
+   box, so the clusters were cut above and below. Size the window in em instead, which suits every skin and font
+   size, and keeps the twin line rolling exactly one window. */
+html[lang="km"] .fg-btn :is(.fg-btn-label, .fg-btn-line) {
+  height: 1.75em !important;
+  line-height: 1.75em !important;
+}
+/* The bar's tabs and the sheet's links take a roomier line box too: Khmer stacks above and below the baseline. */
+html[lang="km"] .ls-link {
+  line-height: 1.5;
+}
 html[lang="km"] .qc-btn-label {
   height: 22px;
   line-height: 22px;
@@ -4662,6 +4673,10 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .qf-input:focus { border-bottom-color: var(--ink); }
 .qf-input::placeholder { color: rgb(17 17 17 / .3); }
 .qf-textarea { resize: vertical; min-height: 5.5rem; }
+.qf-file { width: 100%; padding: .55rem 0 .6rem; border-bottom: 1px solid var(--line-strong); font-size: .95rem; color: var(--ink); cursor: pointer; }
+.qf-file::file-selector-button { margin-right: .75rem; padding: .4rem .8rem; border: 1px solid var(--line-strong); border-radius: 4px; background: transparent; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+.qf-file-note { font-size: .8rem; line-height: 1.55; color: rgb(17 17 17 / .42); overflow-wrap: anywhere; }
+.qf-file-error { font-size: .85rem; color: #b3261e; }
 .qf-result { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid rgb(17 17 17 / .14); }
 .qf-result-num { margin-top: .25rem; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 500; line-height: .95; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
 .qf-use:disabled { opacity: .35; cursor: not-allowed; }
