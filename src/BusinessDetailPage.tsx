@@ -290,30 +290,30 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
           </section>
         )}
 
-        {/* What to send us, after the calibration block on Quality & HSE: the uppercase section heading and grey
-            copy on the twelve-column split, then a full-width rule opening the brief label and its ruled rows. */}
-        <section id="prepare" data-header-title="What to send us" aria-labelledby="biz-prepare" className="qh-section biz-prepare">
-          <div className="qx-split">
-            <div className="qx-head">
-              <h2 id="biz-prepare" data-split className="pd-h2">
-                What to send us
-              </h2>
+        {/* What to send us, after the calibration block on Quality & HSE, on the fleet page's "Mobilisation & hire"
+            split: the label, uppercase title, grey copy and the quotation call to action in the left column, and the
+            brief as a numbered list of hairline rows in the right one, so neither column is left empty. */}
+        <section id="prepare" data-header-title="What to send us" aria-labelledby="biz-prepare" className="qh-section qx-split biz-prepare">
+          <div className="qx-head">
+            <p data-split="content" className="ol-label">Quotation</p>
+            <h2 id="biz-prepare" data-split className="pd-h2">
+              What to send us
+            </h2>
+            <div className="qx-copy mt-10 w-[520px] max-w-full">
+              <p data-split="content">The more of this we have, the faster and firmer your quotation.</p>
             </div>
-            <div className="qx-body">
-              <div className="qx-copy w-[520px] max-w-full">
-                <p data-split="content">The more of this we have, the faster and firmer your quotation.</p>
-              </div>
-              <ArrowButton href={quoteHref(business.slug)} label="Request a quotation" className="mt-8" />
-            </div>
+            <ArrowButton href={quoteHref(business.slug)} label="Request a quotation" className="mt-8" />
           </div>
           {business.prepare?.length ? (
-            <div data-reveal className="qx-areas pd-rule">
-              <h3 data-split="content" className="qx-label qx-areas-label">Before we quote</h3>
-              <ol className="qx-areas-list">
+            <div className="qx-body">
+              <h3 data-split="content" className="qx-label">Before we quote</h3>
+              <ol className="qx-list">
                 {business.prepare.map((item, index) => (
-                  <li key={item} data-reveal className={`qx-area${index ? " pd-rule" : ""}`} style={{ "--rd": `${index * 0.08}s` } as CSSProperties}>
-                    <span data-split="content" className="qx-label">{String(index + 1).padStart(2, "0")}</span>
-                    <span data-split="content" className="qx-cell-text">{item}</span>
+                  <li key={item} data-reveal className="qx-step pd-rule" style={{ "--rd": `${index * 0.08}s` } as CSSProperties}>
+                    <span data-split="content" className="qx-n">{String(index + 1).padStart(2, "0")}.</span>
+                    <div>
+                      <p data-split="content" className="qx-step-text">{item}</p>
+                    </div>
                   </li>
                 ))}
               </ol>
