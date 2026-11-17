@@ -256,7 +256,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
         {/* 05b HSE in practice: the methods, the PPE and the inspections behind the commitments above. */}
         <section id="hse-practice" data-header-title="HSE in practice" aria-labelledby="q-hse-practice" className="site-pad border-t border-[#111]/10 py-20 md:py-28">
           <div className="mx-auto max-w-[1200px]">
-            <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-[#FB290E]">{hsePractice.label}</p>
+            <p className="ol-label">{hsePractice.label}</p>
             <h2 id="q-hse-practice" data-split className="mt-4 max-w-[20ch] text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-[1.05] tracking-[-.03em]">
               {hsePractice.title}
             </h2>

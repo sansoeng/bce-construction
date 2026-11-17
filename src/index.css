@@ -5504,20 +5504,8 @@ html[lang="km"] .fg-btn.is-outline-white {
    Layout follows the reference; type, colour and spacing use BCE's own system.
    --------------------------------------------------------------------------- */
 
-.ab-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #fb290e; }
-
 /* Leadership: label, statement on the left, a ruled list on the right whose open row shows portrait + text. */
 .ab-lead { padding: clamp(4rem, 7vw, 7rem) var(--page-gutter); border-top: 1px solid var(--line); }
-.ab-lead-label {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgb(17 17 17 / .55);
-}
 .ab-lead-inner { display: grid; grid-template-columns: 388fr 1132fr; margin-top: 44px; }
 .ab-lead-aside h2 {
   max-width: 317px;
@@ -5594,6 +5582,7 @@ html[lang="km"] .fg-btn.is-outline-white {
 
 /* Milestones: an axis through a horizontal strip, cards alternating above and below their year. */
 .ab-miles { overflow: hidden; background: #191919; color: #fff; padding: 94px 0 70px; }
+.ab-miles .ol-label { color: var(--brand); }
 .ab-miles-head {
   display: flex;
   flex-wrap: wrap;
@@ -5601,16 +5590,6 @@ html[lang="km"] .fg-btn.is-outline-white {
   justify-content: space-between;
   gap: 1rem;
   padding: 0 var(--page-gutter);
-}
-.ab-miles-label {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgb(255 255 255 / .55);
 }
 .ab-miles-controls { display: flex; align-items: center; gap: .5rem; }
 .ab-miles-drag {

@@ -92,7 +92,7 @@ export default function FleetPage() {
           <section aria-labelledby="fleet-inventory" className="site-pad border-t border-[#111]/10 py-16 md:py-24">
             <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12">
               <div className="md:col-span-4">
-                <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-[#111]/45">Inventory</p>
+                <p className="ol-label">Inventory</p>
                 <h2 id="fleet-inventory" data-split className="mt-4 max-w-[16ch] text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-[1.05] tracking-[-.03em]">
                   What we own, in numbers.
                 </h2>
@@ -140,7 +140,7 @@ export default function FleetPage() {
           <section aria-labelledby="fleet-hire" className="site-pad border-t border-[#111]/10 bg-[#F8F8F9] py-16 md:py-24">
             <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12">
               <div className="md:col-span-4">
-                <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-[#111]/45">Hire</p>
+                <p className="ol-label">Hire</p>
                 <h2 id="fleet-hire" data-split className="mt-4 max-w-[14ch] text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-[1.05] tracking-[-.03em]">
                   Mobilised to your site.
                 </h2>

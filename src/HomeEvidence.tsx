@@ -6,8 +6,6 @@ import { quality } from "./quality";
 //   · the fleet, so capacity is visible without scrolling the Quality page.
 // Both read src/quality.ts, so the numbers cannot drift from the Quality page. Labels reuse existing translations.
 
-const LABEL = "font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#FB290E]";
-
 export function QualityBand() {
   const laboratory = quality.laboratory;
   const tests = laboratory.tests.slice(0, 4);
@@ -20,7 +18,7 @@ export function QualityBand() {
     >
       <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12 md:gap-6">
         <div className="md:col-span-4">
-          <p className={LABEL}>Quality assurance</p>
+          <p className="ol-label">Quality assurance</p>
           <h2
             id="home-quality-title"
             className="mt-4 max-w-[14ch] text-[clamp(30px,3.4vw,48px)] font-medium leading-[1.04] tracking-[-.03em]"
@@ -67,7 +65,7 @@ export function FleetBand() {
     >
       <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12 md:gap-6">
         <div className="md:col-span-4">
-          <p className={LABEL}>{fleet.kicker}</p>
+          <p className="ol-label">{fleet.kicker}</p>
           <h2
             id="home-fleet-title"
             className="mt-4 max-w-[14ch] text-[clamp(30px,3.4vw,48px)] font-medium leading-[1.04] tracking-[-.03em]"

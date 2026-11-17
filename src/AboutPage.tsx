@@ -48,10 +48,7 @@ function Leadership() {
   const [open, setOpen] = useState(true)
   return (
     <section data-header-title="Leadership" aria-labelledby="ab-lead" className="ab-lead">
-      <div className="ab-lead-label">
-        <span className="ab-dot" aria-hidden />
-        <span>{leader.label}</span>
-      </div>
+      <p className="ol-label">{leader.label}</p>
       <div className="ab-lead-inner">
         <div className="ab-lead-aside">
           <h2 id="ab-lead">{leader.title}</h2>
@@ -67,7 +64,7 @@ function Leadership() {
               <div className="ab-lead-panel-inner">
                 <figure className="ab-lead-figure">
                   {leader.image ? (
-                    <img src={leader.image} alt={leader.imageAlt} loading="lazy" />
+                    <img src={leader.image} alt={leader.imageAlt} />
                   ) : (
                     <span className="ab-lead-initials" aria-hidden>
                       {leader.name.replace(/^Ms\.?\s*/i, "").split(" ").map((part) => part[0]).join("").slice(0, 2)}
@@ -136,10 +133,7 @@ function Milestones() {
   return (
     <section id="milestones" data-nav-dark data-header-title="Milestones" aria-labelledby="ab-miles" className="ab-miles">
       <div className="ab-miles-head">
-        <div className="ab-miles-label">
-          <span className="ab-dot" aria-hidden />
-          <span>Milestones</span>
-        </div>
+        <p className="ol-label">Milestones</p>
         <div className="ab-miles-controls">
           <span className="ab-miles-drag" aria-hidden>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
