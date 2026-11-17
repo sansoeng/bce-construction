@@ -992,6 +992,52 @@ const KM: Record<string, string> = {
   "Hire & dispatch": "ការជួល និងការបញ្ជូន",
   "Capacity you can plan around.": "សមត្ថភាពដែលអ្នកអាចរៀបចំតាមផែនការ។",
   "What we own, in numbers.": "អ្វីដែលយើងមាន ជាតួលេខ។",
+  "Fleet by job": "កងយានយន្តតាមការងារ",
+  "One fleet, four ways to build.": "កងយានយន្តតែមួយ ជាមួយវិធីសាងសង់បួនប្រភេទ។",
+  "The same owned fleet carries BCE's concrete, piling, lifting and site-support work. Counts are above; here is what each group is for.":
+    "កងយានយន្តផ្ទាល់ខ្លួនតែមួយនេះ គាំទ្រការងារបេតុង បោះសសរស្ដម្ភ លើក និងគាំទ្រការដ្ឋានរបស់ BCE។ ចំនួនមាននៅខាងលើ; ខាងក្រោមជាអ្វីដែលក្រុមនីមួយៗធ្វើ។",
+  "Concrete production & delivery": "ផលិតកម្ម និងដឹកជញ្ជូនបេតុង",
+  "Ready-mix from our own batching plants": "បេតុងលាយស្រេចពីរោងចក្រផ្ទាល់ខ្លួន",
+  "Mixer trucks on a planned dispatch": "រថយន្តលាយបេតុងតាមកាលវិភាគបញ្ជូនដែលបានរៀបចំ",
+  "Laboratory-tested on every pour": "តេស្តក្នុងមន្ទីរពិសោធន៍លើរាល់ការចាក់",
+  "Concrete placing": "ការចាក់បេតុង",
+  "Boom pumps for high-reach pours": "រថយន្តបូមសម្រាប់ការចាក់កម្ពស់ខ្ពស់",
+  "Placement where mixers cannot reach": "ចាក់នៅកន្លែងដែលរថយន្តលាយមិនអាចទៅដល់",
+  "Operators work to the pour sequence": "អ្នកបញ្ជាធ្វើការតាមលំដាប់នៃការចាក់",
+  "Pump lines checked at every setup": "ពិនិត្យបន្ទាត់បូមរាល់ពេលរៀបចំ",
+  "Lifting & site support": "ការលើក និងការគាំទ្រការដ្ឋាន",
+  "Crane trucks and tower cranes": "ឡានស្ទូច និងស្ទូចប៉ម",
+  "Wheel loaders for material handling": "ម៉ាស៊ីនផ្ទុកកង់សម្រាប់ការគ្រប់គ្រងវត្ថុធាតុ",
+  "Lifts for work at height": "ឧបករណ៍លើកសម្រាប់ការងារខ្ពស់",
+  "Operators and inspection records": "អ្នកបញ្ជា និងកំណត់ត្រាត្រួតពិនិត្យ",
+  "Bridge, road and building foundations": "គ្រឹះស្ពាន ផ្លូវ និងអគារ",
+  "Own rigs and installation crews": "ម៉ាស៊ីន និងក្រុមការងារបោះសសរផ្ទាល់ខ្លួន",
+  "Pile records handed over": "ប្រគល់កំណត់ត្រាសសរស្ដម្ភ",
+  "Maintenance & operators": "ការថែទាំ និងអ្នកបញ្ជា",
+  "Ready when it reaches site.": "ត្រៀមរួចរាល់ពេលដល់ការដ្ឋាន។",
+  "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.":
+    "ការកាន់កាប់កងយានយន្តមានន័យថាយើងកាន់កាប់សិក្ខាសាលា អ្នកបញ្ជា និងកំណត់ត្រាត្រួតពិនិត្យផងដែរ។ គ្រឿងចក្រចេញពីបាត់ដំបងដោយបានថែទាំ ហើយមកដល់ជាមួយក្រុមការងារដែលយល់ច្បាស់ពីវា។",
+  "Serviced in our workshop": "ថែទាំនៅសិក្ខាសាលាផ្ទាល់ខ្លួន",
+  "Trucks, pumps and rigs are maintained by our own team between projects, not sent to a third-party yard.":
+    "រថយន្ត ម៉ាស៊ីនបូម និងម៉ាស៊ីនបោះសសរត្រូវបានថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួនរវាងគម្រោង មិនមែនបញ្ជូនទៅអាងខាងក្រៅឡើយ។",
+  "Checked before dispatch": "ពិនិត្យមុនការបញ្ជូន",
+  "Pre-start checks, lifting gear and pump lines are inspected and recorded before the machine leaves.":
+    "ការពិនិត្យមុនចាប់ផ្តើម ខ្សែស្ទូច និងបន្ទាត់បូមត្រូវបានពិនិត្យ និងកត់ត្រាមុនពេលគ្រឿងចក្រចេញ។",
+  "Mobilised from Battambang": "ដាក់ពង្រាយពីបាត់ដំបង",
+  "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.":
+    "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីមូលដ្ឋានរបស់យើងទៅ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ ដោយការដាក់ពង្រាយត្រូវវាយតម្លៃតាមគម្រោង។",
+  "Mobilisation & hire": "ការដាក់ពង្រាយ និងការជួល",
+  "From Battambang to your site.": "ពីបាត់ដំបងទៅការដ្ឋានរបស់អ្នក។",
+  "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.":
+    "ការជួលគ្រឿងចក្រត្រូវវាយតម្លៃតាមគម្រោង។ ប្រាប់យើងពីប្រភេទគ្រឿងចក្រ រយៈពេល និងទីតាំងការដ្ឋាន ហើយយើងនឹងបញ្ជាក់ពីភាពអាចរកបាន និងការដាក់ពង្រាយពីបាត់ដំបង។",
+  "Operator, fuel and maintenance are agreed up front, in writing.":
+    "អ្នកបញ្ជា ប្រេងឥន្ធនៈ និងការថែទាំត្រូវព្រមព្រៀងជាមុន ជាលាយលក្ខណ៍អក្សរ។",
+  "How it works": "របៀបដំណើរការ",
+  "Tell us the machine, the duration and the site location.": "ប្រាប់យើងពីប្រភេទគ្រឿងចក្រ រយៈពេល និងទីតាំងការដ្ឋាន។",
+  "We confirm availability, mobilisation from Battambang and the delivery date.":
+    "យើងបញ្ជាក់ពីភាពអាចរកបាន ការដាក់ពង្រាយពីបាត់ដំបង និងកាលបរិច្ឆេទដឹកជញ្ជូន។",
+  "The machine arrives with our own crew and is supported by our workshop.":
+    "គ្រឿងចក្រមកដល់ជាមួយក្រុមការងារផ្ទាល់ខ្លួន និងទទួលការគាំទ្រពីសិក្ខាសាលារបស់យើង។",
   "Plant and machines, maintained in-house.": "រោងចក្រ និងគ្រឿងចក្រ ថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួន។",
   "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.":
     "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីបាត់ដំបង និងដាក់ពង្រាយទៅគម្រោងនៅ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។ តម្លៃជួលត្រូវបានវាយតម្លៃតាមគម្រោង៖ ប្រភេទគ្រឿងចក្រ រយៈពេល ការចូលដំណើរការការដ្ឋាន និងតើរួមបញ្ចូលអ្នកបញ្ជាឬអត់។",
@@ -1626,11 +1672,15 @@ const KM: Record<string, string> = {
     "ម៉ាស៊ីនបោះសសរស្ដម្ភ និងក្រុមការងារ សម្រាប់ការងារគ្រឹះ គាំទ្រដោយក្រុមថែទាំផ្ទាល់ខ្លួន។",
   "Fleet and coverage": "កងយានយន្ត និងតំបន់សេវា",
   "Our fleet, ready to mobilise": "កងយានយន្តរបស់យើង រួចរាល់ដាក់ពង្រាយ",
-  "Trucks, pumps and rigs are maintained by our own team and dispatched from Battambang, with operators available for every machine.":
-    "រថយន្ត រថយន្តបូម និងម៉ាស៊ីន ត្រូវបានថែទាំដោយក្រុមផ្ទាល់ខ្លួន និងបញ្ជូនចេញពីបាត់ដំបង ជាមួយអ្នកបើកបរសម្រាប់គ្រប់ម៉ាស៊ីន។",
+  "Mixers, pumps, rigs and lifting plant are all ours, serviced by our own team and dispatched from Battambang, with operators available for every machine. Counts match the fleet on our Equipment & fleet page, not a broker's availability list.":
+    "រថយន្តលាយបេតុង រថយន្តបូម ម៉ាស៊ីនបោះសសរស្ដម្ភ និងគ្រឿងលើកទាំងអស់សុទ្ធតែជាកម្មសិទ្ធិរបស់យើង ថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួន និងបញ្ជូនចេញពីបាត់ដំបង ជាមួយអ្នកបើកបរសម្រាប់គ្រប់ម៉ាស៊ីន។ ចំនួនទាំងនេះត្រូវគ្នានឹងកងយានយន្តនៅទំព័រ គ្រឿងចក្រ និងកងយានយន្ត មិនមែនបញ្ជីឈ្មោះអ្នកកណ្តាលឡើយ។",
   "Mixer trucks for hire": "រថយន្តលាយបេតុងសម្រាប់ជួល",
   "Pump trucks for hire": "រថយន្តបូមបេតុងសម្រាប់ជួល",
   "Piling rigs for hire": "ម៉ាស៊ីនបោះសសរស្ដម្ភសម្រាប់ជួល",
+  "Wheel loaders for hire": "ម៉ាស៊ីនផ្ទុកកង់សម្រាប់ជួល",
+  "Crane trucks for hire": "ឡានស្ទូចសម្រាប់ជួល",
+  "Tower cranes for hire": "ស្ទូចប៉មសម្រាប់ជួល",
+  "Lifts for hire": "ឧបករណ៍លើកកម្ពស់សម្រាប់ជួល",
 
   // Contact page
   "Contact us": "ទំនាក់ទំនងយើង",

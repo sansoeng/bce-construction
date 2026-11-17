@@ -85,7 +85,7 @@ const valueIcons = [
   "pin",
 ];
 
-// The Plant & machines card marks: the seven fleet categories, the laboratory and the lifts.
+// The Fleet by job card marks: production, placing, foundations and lifting/site support.
 const machineIcons = ["plant", "pump", "truck", "loader", "rig", "crane", "tower", "lab", "lift"];
 
 export const SCHEMAS: Record<string, ContentSchema> = {
@@ -407,7 +407,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
       { id: "hse-practice", title: "HSE in practice", hint: "Methods and standards, PPE and inspections shown beneath the commitments.", keys: ["hsePractice"] },
-      { id: "fleet", title: "Equipment & fleet", hint: "Every /fleet section: key figures, machine cards and dispatch.", keys: ["fleet"] },
+      { id: "fleet", title: "Equipment & fleet", hint: "Every /fleet section: key figures, fleet by job, maintenance and mobilisation.", keys: ["fleet"] },
       { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
       { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section, and the request link.", keys: ["documents"] },
     ],
@@ -492,19 +492,31 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "figuresLabel", label: "Figures label", type: "text" },
         { key: "figuresTitle", label: "Figures heading", type: "text", wide: true },
         { key: "figuresCopy", label: "Figures copy", type: "textarea", rows: 3, wide: true },
-        { key: "plantImage", label: "Plant photo", type: "image", wide: true, aspect: "4 / 3", hint: "The large photo beside the machine cards." },
+        { key: "plantImage", label: "Plant photo", type: "image", wide: true, aspect: "4 / 3", hint: "The large photo beside the job cards." },
         { key: "plantImageAlt", label: "Plant photo alt text", type: "text", wide: true, locale: false },
-        { key: "machinesLabel", label: "Machines label", type: "text" },
-        { key: "machinesTitle", label: "Machines heading", type: "text", wide: true },
-        { key: "machinesCopy", label: "Machines copy", type: "textarea", rows: 3, wide: true },
-        { key: "machines", label: "Machine cards", type: "objectList", itemLabel: "Machine", itemFields: [
+        { key: "jobsLabel", label: "Jobs label", type: "text" },
+        { key: "jobsTitle", label: "Jobs heading", type: "text", wide: true },
+        { key: "jobsCopy", label: "Jobs copy", type: "textarea", rows: 3, wide: true },
+        { key: "jobs", label: "Fleet by job", type: "objectList", itemLabel: "Job", itemFields: [
           { key: "title", label: "Name", type: "text" },
           { key: "icon", label: "Icon", type: "select", options: machineIcons },
           { key: "bullets", label: "Card points", type: "list", hint: "One point per row." },
           { key: "image", label: "Photo", type: "image" },
           { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
-          { key: "href", label: "Link (optional)", type: "text", locale: false },
         ] },
+        { key: "maintenanceLabel", label: "Maintenance label", type: "text" },
+        { key: "maintenanceTitle", label: "Maintenance heading", type: "text", wide: true },
+        { key: "maintenanceCopy", label: "Maintenance copy", type: "textarea", rows: 3, wide: true },
+        { key: "maintenance", label: "Maintenance & operators", type: "objectList", itemLabel: "Point", itemFields: [
+          { key: "icon", label: "Icon", type: "select", options: valueIcons },
+          { key: "title", label: "Title", type: "text" },
+          { key: "text", label: "Text", type: "text" },
+        ] },
+        { key: "mobilisationLabel", label: "Mobilisation label", type: "text" },
+        { key: "mobilisationTitle", label: "Mobilisation heading", type: "text", wide: true },
+        { key: "mobilisationCopy", label: "Mobilisation copy", type: "textarea", rows: 3, wide: true },
+        { key: "mobilisationNote", label: "Mobilisation note", type: "textarea", rows: 2, wide: true },
+        { key: "mobilisationSteps", label: "Mobilisation steps", type: "list", hint: "One step per row.", wide: true },
         { key: "ctaLabel", label: "Button label", type: "text" },
         { key: "ctaHref", label: "Button link", type: "text", locale: false },
       ] },

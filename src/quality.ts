@@ -85,14 +85,25 @@ export type QualityContent = {
     figuresLabel: string;
     figuresTitle: string;
     figuresCopy: string;
-    /** The large photo beside the machine cards. */
+    /** The large photo beside the job cards. */
     plantImage: string;
     plantImageAlt: string;
-    /** The machines themselves, one card each. */
-    machinesLabel: string;
-    machinesTitle: string;
-    machinesCopy: string;
-    machines: { title: string; icon: string; bullets: string[]; image: string; imageAlt: string; href?: string }[];
+    /** The jobs the fleet supports, not a second inventory. */
+    jobsLabel: string;
+    jobsTitle: string;
+    jobsCopy: string;
+    jobs: { title: string; icon: string; bullets: string[]; image: string; imageAlt: string }[];
+    /** Workshop, operators and dispatch. */
+    maintenanceLabel: string;
+    maintenanceTitle: string;
+    maintenanceCopy: string;
+    maintenance: { icon: string; title: string; text: string }[];
+    /** Mobilisation and hire. */
+    mobilisationLabel: string;
+    mobilisationTitle: string;
+    mobilisationCopy: string;
+    mobilisationNote: string;
+    mobilisationSteps: string[];
     rows: { label: string; value: string; note: string }[];
     ctaLabel: string;
     ctaHref: string;
@@ -254,9 +265,9 @@ export const DEFAULT_QUALITY: QualityContent = {
       { label: "Coverage", value: "13 provinces + Phnom Penh" },
     ],
   },
-  // The fleet inventory from the Corporate Profile. `rows` feeds the Quality & HSE panel and the key-figures grid;
-  // `machines` follows the Corporate Profile's equipment page, with the laboratory equipment as a card that links back
-  // to the Quality page. Counts are machines, not staff.
+  // The fleet inventory from the Corporate Profile. `rows` feeds the key-figures grid; `jobs` turns the equipment page
+  // into four kinds of work rather than a second inventory, and `maintenance`/`mobilisation` carry the workshop,
+  // operators, dispatch and hire. Counts are machines, not staff.
   fleet: {
     kicker: "Our own fleet",
     title: "Equipment & fleet",
@@ -272,124 +283,96 @@ export const DEFAULT_QUALITY: QualityContent = {
       "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
     plantImage: "/Image/bce/about-zoom-batching.webp",
     plantImageAlt: "Aerial view of BCE's batching plant, silos and aggregate yard",
-    machinesLabel: "Plant & machines",
-    machinesTitle: "Plant and machines, maintained in-house.",
-    machinesCopy:
-      "Every machine below is part of the fleet we use on our own works, maintained to the same standard and available with its operators.",
-    machines: [
+    jobsLabel: "Fleet by job",
+    jobsTitle: "One fleet, four ways to build.",
+    jobsCopy:
+      "The same owned fleet carries BCE's concrete, piling, lifting and site-support work. Counts are above; here is what each group is for.",
+    jobs: [
       {
-        title: "Batching plant",
+        title: "Concrete production & delivery",
         icon: "plant",
         bullets: [
-          "4 batching plants",
-          "Capacity: 70 m³/hr per plant",
-          "Advanced computerized control system",
-          "Consistent, high-quality concrete",
+          "Ready-mix from our own batching plants",
+          "Mixer trucks on a planned dispatch",
+          "Laboratory-tested on every pour",
+          "Delivery across 13 provinces + Phnom Penh",
         ],
-        image: "/Image/bce/fleet/01-batching.jpg",
-        imageAlt: "BCE batching plant loading a mixer truck",
+        image: "/Image/bce/fleet/03-mixer.jpg",
+        imageAlt: "BCE concrete mixer truck at the plant",
       },
       {
-        title: "Pump trucks",
+        title: "Concrete placing",
         icon: "pump",
         bullets: [
-          "8 trucks",
-          "Efficient concrete placing",
-          "Boom sizes for every project",
-          "Well-maintained and reliable",
+          "Boom pumps for high-reach pours",
+          "Placement where mixers cannot reach",
+          "Operators work to the pour sequence",
+          "Pump lines checked at every setup",
         ],
         image: "/Image/bce/fleet/02-pump.jpg",
         imageAlt: "BCE pump truck with its boom folded",
       },
       {
-        title: "Concrete mixer trucks",
-        icon: "truck",
-        bullets: [
-          "41 trucks",
-          "7–10 m³ capacity",
-          "Timely delivery",
-          "GPS tracking for dispatch",
-        ],
-        image: "/Image/bce/fleet/03-mixer.jpg",
-        imageAlt: "BCE concrete mixer trucks lined up at the plant",
-      },
-      {
-        title: "Wheel loaders",
-        icon: "loader",
-        bullets: [
-          "7 units",
-          "Multiple bucket capacities",
-          "High productivity",
-          "Ideal for loading and material handling",
-          "Operator-friendly",
-        ],
-        image: "/Image/bce/fleet/04-loader.jpg",
-        imageAlt: "Wheel loader working at a BCE batching plant",
-      },
-      {
-        title: "Piling rigs",
+        title: "Foundations",
         icon: "rig",
         bullets: [
-          "7 units",
-          "Hydraulic piling rigs",
-          "Strong and stable performance",
-          "For varied soil conditions",
-          "Efficient piling operations",
+          "Reinforced concrete piles",
+          "Bridge, road and building foundations",
+          "Own rigs and installation crews",
+          "Pile records handed over",
         ],
         image: "/Image/bce/fleet/05-piling.jpg",
         imageAlt: "BCE piling rig working on a foundation site",
       },
       {
-        title: "Crane trucks",
+        title: "Lifting & site support",
         icon: "crane",
         bullets: [
-          "6 trucks",
-          "Various lifting capacities",
-          "Telescopic boom",
-          "Safe, efficient lifting",
-          "Skilled operators",
+          "Crane trucks and tower cranes",
+          "Wheel loaders for material handling",
+          "Lifts for work at height",
+          "Operators and inspection records",
         ],
         image: "/Image/bce/fleet/06-crane-truck.jpg",
         imageAlt: "Crane truck lifting on a BCE site",
       },
+    ],
+    maintenanceLabel: "Maintenance & operators",
+    maintenanceTitle: "Ready when it reaches site.",
+    maintenanceCopy:
+      "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.",
+    maintenance: [
       {
-        title: "Tower cranes",
-        icon: "tower",
-        bullets: [
-          "8 units",
-          "High lifting capacity",
-          "Wide working radius",
-          "Stable and reliable",
-          "Ideal for high-rise construction",
-        ],
-        image: "/Image/bce/fleet/07-tower-crane.jpg",
-        imageAlt: "Tower cranes on a BCE high-rise project",
+        icon: "wrench",
+        title: "Serviced in our workshop",
+        text: "Trucks, pumps and rigs are maintained by our own team between projects, not sent to a third-party yard.",
       },
       {
-        title: "Laboratory equipment",
-        icon: "lab",
-        bullets: [
-          "Concrete testing machines",
-          "Compression, slump and strength tests",
-          "Calibrated and certified",
-          "Quality standards verified",
-        ],
-        image: "/Image/bce/fleet/08-lab.jpg",
-        imageAlt: "BCE laboratory technician testing concrete",
-        href: "/quality#laboratory",
+        icon: "helmet",
+        title: "Operators included",
+        text: "Experienced drivers and operators come with the machine and work to your pour or piling sequence.",
       },
       {
-        title: "Lifts",
-        icon: "lift",
-        bullets: [
-          "5 units",
-          "Safe elevation for work at height",
-          "Ideal for construction works",
-          "Regular inspection and maintenance",
-        ],
-        image: "/Image/bce/fleet/09-lift.jpg",
-        imageAlt: "Lift equipment on a BCE construction site",
+        icon: "shield",
+        title: "Checked before dispatch",
+        text: "Pre-start checks, lifting gear and pump lines are inspected and recorded before the machine leaves.",
       },
+      {
+        icon: "pin",
+        title: "Mobilised from Battambang",
+        text: "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.",
+      },
+    ],
+    mobilisationLabel: "Mobilisation & hire",
+    mobilisationTitle: "From Battambang to your site.",
+    mobilisationCopy:
+      "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.",
+    mobilisationNote: "Operator, fuel and maintenance are agreed up front, in writing.",
+    mobilisationSteps: [
+      "Tell us the machine, the duration and the site location.",
+      "We confirm availability, mobilisation from Battambang and the delivery date.",
+      "Operator, fuel and maintenance are agreed up front, in writing.",
+      "The machine arrives with our own crew and is supported by our workshop.",
     ],
     rows: [
       { label: "Batching plants", value: "04  /  70 m³/hr each", note: "70 m³/hr each" },
