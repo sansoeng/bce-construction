@@ -4923,45 +4923,37 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .ol-rail-btn:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
 .ol-rail-btn:disabled { opacity: .28; cursor: default; }
 
-/* Equipment & fleet (/fleet). The ink band carries the key figures in the project-highlights grid — a bordered
-   cell per machine type, with the count set large at the cell's foot. Below it, the Plant & machines block follows the
-   Corporate Profile's equipment page: one large plant photo beside nine numbered cards. */
-.fl-figures {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: clamp(4rem, 6vw, 6rem);
-  border-top: 1px solid var(--line-dark);
-  border-left: 1px solid var(--line-dark);
+/* Equipment & fleet (/fleet). The introduction and the key figures share one #1D2226 ground, so the page runs from the
+   cover into the figures without a white break; the figures sit on the right of their title in the project-highlights
+   grid — a bordered cell per machine type, with the count set large at the cell's foot. Below it, the Plant & machines
+   block follows the Corporate Profile's equipment page: one large plant photo beside nine numbered cards. */
+.fl-dark { background: #1D2226; color: var(--paper); }
+.fl-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); border-bottom: 0; }
+.fl-dark .ol-lwc-copy { color: rgb(255 255 255 / .72); }
+.fl-dark .ol-lwc-label { color: var(--brand); }
+.fl-dark .ol-topics a { color: rgb(255 255 255 / .5); }
+.fl-dark .ol-topics a span { color: rgb(255 255 255 / .3); }
+.fl-dark .ol-topics a:hover { color: var(--paper); }
+.fl-intro-note {
+  max-width: 560px;
+  margin-top: 2rem;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgb(255 255 255 / .55);
 }
-.fl-stat {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 3rem;
-  min-height: clamp(11rem, 15vw, 15rem);
-  padding: clamp(1.25rem, 2vw, 1.75rem);
-  border-right: 1px solid var(--line-dark);
-  border-bottom: 1px solid var(--line-dark);
-  opacity: 0;
-  translate: 0 10px;
-  transition: opacity .8s cubic-bezier(.16, 1, .3, 1), translate .8s cubic-bezier(.16, 1, .3, 1);
-  transition-delay: calc(var(--k, 0) * .05s);
+.fl-figures-band {
+  margin-top: 0;
+  padding-top: clamp(2rem, 4vw, 4rem);
+  background: #1D2226;
 }
-.fl-stat.is-visible { opacity: 1; translate: none; }
-.fl-stat-head { display: flex; flex-direction: column; gap: 6px; }
-.fl-stat-label {
-  font-size: clamp(1.05rem, 1.35vw, 1.3rem);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -.01em;
-  color: var(--paper);
-}
-.fl-stat-note { font-size: .85rem; line-height: 1.4; color: rgb(255 255 255 / .5); }
-.fl-stat .ol-figure-value {
-  align-self: flex-end;
-  text-align: right;
-  font-size: clamp(2.8rem, 4.4vw, 4.5rem);
-}
+/* The project-highlights "at a glance" grid, on the fleet's ink band. */
+.fl-glance-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fl-figures-band .glance-cell { --rule: var(--line-dark); }
+.fl-figures-band .glance-grid::before,
+.fl-figures-band .glance-grid::after { background: var(--line-dark); }
+.fl-figures-band .glance-label-title { color: var(--paper); white-space: normal; }
+.fl-figures-band .glance-label-note { color: rgb(255 255 255 / .5); white-space: normal; }
+.fl-figures-band .glance-num { color: var(--paper); }
 
 .fl-plant {
   display: grid;
@@ -5087,13 +5079,13 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   .fl-plant-grid { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
 }
 @media (max-width: 1023px) {
-  .fl-figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fl-glance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
-  .fl-figures { grid-template-columns: 1fr; }
   .fl-plant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 479px) {
+  .fl-glance-grid { grid-template-columns: 1fr; }
   .fl-plant-grid { grid-template-columns: 1fr; }
 }
 

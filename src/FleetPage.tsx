@@ -38,6 +38,25 @@ function firstNumber(value: string) {
   return Number.isFinite(number) ? number : 0;
 }
 
+// The key figures use the same "at a glance" grid as the project highlights: the title holds on the left while the
+// bordered cells count up on the right. This is the project page's in-view trigger, kept local to the fleet page.
+function useInView<T extends Element>(threshold = 0.2) {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setInView(true);
+      io.disconnect();
+    }, { threshold });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [threshold]);
+  return [ref, inView] as const;
+}
+
 // The key figures count up as the dark band scrolls in, as on the business pages. Reduced motion shows the value.
 function CountUp({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -105,6 +124,7 @@ export default function FleetPage() {
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);
+  const [glanceRef, glanceIn] = useInView<HTMLDivElement>();
 
   const fleet = quality.fleet;
   const rows = fleet.rows;
@@ -125,67 +145,75 @@ export default function FleetPage() {
       />
 
       <div className="ol-page-body">
-        {/* Introduction as the other inner pages: the labelled statement, the dispatch note and the page index. */}
-        <LabelCopy
-          label="Fleet overview"
-          className="ol-head qx-intro"
-          after={
-            <>
-              <p className="mt-8 max-w-[560px] text-[16px] leading-[1.6] text-[#111]/55">{fleet.note}</p>
-              <ul className="ol-topics" aria-label="On this page">
-                {TOPICS.map(([id, label], i) => (
-                  <li key={id}>
-                    <a href={`#${id}`}>
-                      <span>{pad(i + 1)}</span>
-                      {label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </>
-          }
-        >
-          {fleet.copy[0]}
-        </LabelCopy>
+        <div className="fl-dark">
+          {/* Fleet overview as the other inner pages, on the ink ground so it runs straight into the figures band. */}
+          <LabelCopy
+            label="Fleet overview"
+            className="ol-head qx-intro fl-intro"
+            after={
+              <>
+                <p className="fl-intro-note">{fleet.note}</p>
+                <ul className="ol-topics" aria-label="On this page">
+                  {TOPICS.map(([id, label], i) => (
+                    <li key={id}>
+                      <a href={`#${id}`}>
+                        <span>{pad(i + 1)}</span>
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            }
+          >
+            {fleet.copy[0]}
+          </LabelCopy>
 
-        {/* Key figures in one ink band: the project-highlights grid, one bordered cell per machine type, with the
-            counts set large at the foot of each cell. */}
-        <section id="fleet-inventory" data-nav-dark data-header-title="What we own" aria-labelledby="fl-figures" className="ol-capacity">
-          <div className="ol-capacity-head">
-            <p data-split="content" className="ol-label">{fleet.figuresLabel}</p>
-            <h2 id="fl-figures" data-split className="ol-capacity-title">{fleet.figuresTitle}</h2>
-            <p data-split="content" className="ol-capacity-copy">{fleet.figuresCopy}</p>
-          </div>
-          <ul className="fl-figures">
-            <li data-reveal className="fl-stat" style={{ "--k": 0 } as CSSProperties}>
-              <div className="fl-stat-head">
-                <span className="fl-stat-label">Machines in our own fleet</span>
-                <span className="fl-stat-note">Owned and maintained</span>
-              </div>
-              <CountUp value={String(fleetTotal)} />
-            </li>
-            {rows.map((row, index) => (
-              <li key={row.label} data-reveal className="fl-stat" style={{ "--k": index + 1 } as CSSProperties}>
-                <div className="fl-stat-head">
-                  <span className="fl-stat-label">{row.label}</span>
-                  <span className="fl-stat-note">{row.note}</span>
+          {/* What we own, in numbers: the title and copy on the left, every count in the project-highlights grid on
+              the right. One ink ground for both this band and the introduction above. */}
+          <section id="fleet-inventory" data-nav-dark data-header-title="What we own" aria-labelledby="fl-figures" className="ol-capacity fl-figures-band">
+            <div className="glance-layout">
+              <div className="glance-title-col">
+                <div className="glance-title-sticky">
+                  <p data-split="content" className="ol-label">{fleet.figuresLabel}</p>
+                  <h2 id="fl-figures" data-split className="ol-capacity-title">{fleet.figuresTitle}</h2>
+                  <p data-split="content" className="ol-capacity-copy">{fleet.figuresCopy}</p>
                 </div>
-                <CountUp value={rowCount(index)} />
-              </li>
-            ))}
-          </ul>
-
-          <div className="ol-capacity-contact">
-            <p className="ol-label">Hire &amp; dispatch</p>
-            <div className="ol-capacity-links">
-              {phones.slice(0, 2).map((phone) => (
-                <a key={phone} href={tel(phone)}>{phone}</a>
-              ))}
-              <a href={`mailto:${siteSettings.contact.email}`}>{siteSettings.contact.email}</a>
-              <a href={`https://t.me/${siteSettings.contact.telegram.replace(/^@/, "")}`} target="_blank" rel="noreferrer">Telegram</a>
+              </div>
+              <div ref={glanceRef} className={`glance ${glanceIn ? "is-in" : ""}`}>
+                <dl className="glance-grid fl-glance-grid">
+                  <div className="glance-cell" style={{ "--i": 0 } as CSSProperties}>
+                    <dt className="glance-label">
+                      <span className="glance-label-title">Machines in our own fleet</span>
+                      <span className="glance-label-note">Owned and maintained</span>
+                    </dt>
+                    <dd className="glance-num"><span><CountUp value={String(fleetTotal)} /></span></dd>
+                  </div>
+                  {rows.map((row, index) => (
+                    <div key={row.label} className="glance-cell" style={{ "--i": index + 1 } as CSSProperties}>
+                      <dt className="glance-label">
+                        <span className="glance-label-title">{row.label}</span>
+                        <span className="glance-label-note">{row.note}</span>
+                      </dt>
+                      <dd className="glance-num"><span><CountUp value={rowCount(index)} /></span></dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
             </div>
-          </div>
-        </section>
+
+            <div className="ol-capacity-contact">
+              <p className="ol-label">Hire &amp; dispatch</p>
+              <div className="ol-capacity-links">
+                {phones.slice(0, 2).map((phone) => (
+                  <a key={phone} href={tel(phone)}>{phone}</a>
+                ))}
+                <a href={`mailto:${siteSettings.contact.email}`}>{siteSettings.contact.email}</a>
+                <a href={`https://t.me/${siteSettings.contact.telegram.replace(/^@/, "")}`} target="_blank" rel="noreferrer">Telegram</a>
+              </div>
+            </div>
+          </section>
+        </div>
 
         {/* Plant & machines, after the Corporate Profile's equipment page: one large plant photo beside the nine
             numbered machine cards — badge, line mark, name, thumbnail and the points that matter on site. */}
