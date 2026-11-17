@@ -5,7 +5,7 @@
 // Figures reuse facts stated across the site: 4 batching plants at 70 m³/hr, 41 mixer trucks, 8 pump trucks, 7 piling
 // rigs, 15 engineers in a team of 71, building since 1995, 13 provinces and Phnom Penh, grades C15–C40.
 
-import { registerContentType } from "./contentStore";
+import { mergeDefaults, registerContentType } from "./contentStore";
 
 export type BusinessValue = { title: string; text: string; icon: string };
 export type BusinessSolution = { title: string; text: string; image: string; alt: string };
@@ -398,6 +398,13 @@ export const findBusinessDetail = (slug: string) => businessDetails.find((b) => 
 export const businessDetailHref = (slug: string) => `/?business=${slug}`;
 
 registerContentType("businesses", (items) => {
+  // Merge each stored document over its bundled default so a field added in code (a new section, a new checklist)
+  // still renders for rows that predate it. The admin's staged overlay is applied before this point.
+  const defaults = new Map(businessDetails.map((business) => [business.slug, business]));
+  const incoming = (items as BusinessDetail[]).map((item) => {
+    const fallback = defaults.get(item.slug);
+    return fallback ? mergeDefaults(fallback, item) : item;
+  });
   businessDetails.length = 0;
-  businessDetails.push(...(items as BusinessDetail[]));
+  businessDetails.push(...incoming);
 });

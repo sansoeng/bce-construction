@@ -407,14 +407,16 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
               </p>
               <ArrowButton href={quoteHref(business.slug)} label="Request a quotation" className="mt-6" />
             </div>
-            <ol className="divide-y divide-[#111]/10 md:col-span-7 md:col-start-6">
-              {business.prepare.map((item, index) => (
-                <li key={item} data-reveal className="flex gap-5 py-4">
-                  <span className="font-mono text-[12px] leading-[1.9] text-[#111]/35">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="text-[16px] leading-[1.55] text-[#111]/75">{item}</span>
-                </li>
-              ))}
-            </ol>
+              {business.prepare?.length ? (
+                <ol className="divide-y divide-[#111]/10 md:col-span-7 md:col-start-6">
+                  {business.prepare.map((item, index) => (
+                    <li key={item} data-reveal className="flex gap-5 py-4">
+                      <span className="font-mono text-[12px] leading-[1.9] text-[#111]/35">{String(index + 1).padStart(2, "0")}</span>
+                      <span className="text-[16px] leading-[1.55] text-[#111]/75">{item}</span>
+                    </li>
+                  ))}
+                </ol>
+              ) : null}
           </div>
         </section>
 
