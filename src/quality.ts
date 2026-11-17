@@ -79,6 +79,33 @@ export type QualityContent = {
     image: string;
     imageAlt: string;
     copy: string[];
+    /** Dispatch note set under the introduction (where the fleet is mobilised from). */
+    note: string;
+    /** The dark key-figures band. */
+    figuresLabel: string;
+    figuresTitle: string;
+    figuresCopy: string;
+    /** The full inventory as published by the Corporate Profile. */
+    inventoryLabel: string;
+    inventoryTitle: string;
+    inventoryCopy: string;
+    inventoryListLabel: string;
+    /** The machines themselves, one card each. */
+    machinesLabel: string;
+    machinesTitle: string;
+    machinesCopy: string;
+    machines: { title: string; value: string; note: string; text: string; image: string; imageAlt: string }[];
+    /** Maintenance, operators and mobilisation. */
+    supportLabel: string;
+    supportTitle: string;
+    supportCopy: string;
+    support: { icon: string; title: string; text: string }[];
+    /** How hire works; rates are quoted per project. */
+    hireLabel: string;
+    hireTitle: string;
+    hireCopy: string;
+    hireNote: string;
+    hireSteps: string[];
     rows: { label: string; value: string }[];
     ctaLabel: string;
     ctaHref: string;
@@ -249,6 +276,91 @@ export const DEFAULT_QUALITY: QualityContent = {
     imageAlt: "BCE pump trucks and mixer trucks placing concrete on site",
     copy: [
       "Our plants and fleet are owned, operated and maintained by our own team, so capacity is planned around your programme rather than a supplier's.",
+    ],
+    note: "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.",
+    figuresLabel: "Fleet at a glance",
+    figuresTitle: "Capacity you can plan around.",
+    figuresCopy:
+      "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
+    inventoryLabel: "Inventory",
+    inventoryTitle: "What we own, in numbers.",
+    inventoryCopy:
+      "Counts are from BCE's own fleet records. The laboratory's testing equipment is listed on the Quality page, not here.",
+    inventoryListLabel: "Machines in service",
+    machinesLabel: "Plant & machines",
+    machinesTitle: "Plant and machines, maintained in-house.",
+    machinesCopy:
+      "Every machine below is part of the fleet we use on our own works, maintained to the same standard and available with its operators.",
+    machines: [
+      {
+        title: "Batching plants",
+        value: "04",
+        note: "70 m³/hr each",
+        text: "Computerized batching with calibrated weigh scales for cement, aggregate, water and admixture, checked before every pour.",
+        image: "/Image/bce/about-zoom-batching.webp",
+        imageAlt: "Aggregate stockpiles and batching plant at the BCE yard",
+      },
+      {
+        title: "Mixer trucks",
+        value: "41",
+        note: "Delivering across 13 provinces + Phnom Penh",
+        text: "Owned and maintained by BCE crews, dispatched from Battambang on a planned schedule rather than a broker's availability.",
+        image: "/Image/bce/machinery_fleet.webp",
+        imageAlt: "BCE mixer trucks lined up at the plant",
+      },
+      {
+        title: "Pump trucks",
+        value: "08",
+        note: "Boom reach up to 48 m",
+        text: "Placing concrete where the mixer cannot reach, with operators who work to the pour sequence.",
+        image: "/Image/bce/about-zoom-boom-pumps.webp",
+        imageAlt: "Boom pump placing concrete on a BCE site",
+      },
+      {
+        title: "Piling rigs",
+        value: "07",
+        note: "Bore and hammer rigs",
+        text: "Reinforced concrete piles installed and tested by our own rigs and crews, from the platform to the pile cap.",
+        image: "/Image/bce/about-zoom-piling-rig.webp",
+        imageAlt: "BCE piling rig working on site",
+      },
+    ],
+    supportLabel: "Maintenance & crew",
+    supportTitle: "Ready when it reaches site.",
+    supportCopy:
+      "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.",
+    support: [
+      {
+        icon: "wrench",
+        title: "Serviced in our workshop",
+        text: "Trucks, pumps and rigs are maintained by our own team between projects, not sent to a third-party yard.",
+      },
+      {
+        icon: "helmet",
+        title: "Operators included",
+        text: "Experienced drivers and operators come with the machine and work to your pour or piling sequence.",
+      },
+      {
+        icon: "shield",
+        title: "Checked before dispatch",
+        text: "Pre-start checks, lifting gear and pump lines are inspected and recorded before the machine leaves.",
+      },
+      {
+        icon: "pin",
+        title: "Mobilised from Battambang",
+        text: "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.",
+      },
+    ],
+    hireLabel: "Hire",
+    hireTitle: "Mobilised to your site.",
+    hireCopy:
+      "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.",
+    hireNote: "Rates depend on the machine, the duration, site access and whether an operator, fuel and maintenance are included.",
+    hireSteps: [
+      "Tell us the machine, the duration and the site location.",
+      "We confirm availability, mobilisation from Battambang and the delivery date.",
+      "Operator, fuel and maintenance are agreed up front, in writing.",
+      "The machine arrives with our own crew and is supported by our workshop.",
     ],
     rows: [
       { label: "Batching plants", value: "04  /  70 m³/hr each" },

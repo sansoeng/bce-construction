@@ -1,177 +1,294 @@
 import { siteSettings } from "./siteSettings";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import ArrowButton from "./ArrowButton";
-import { usePageSetup } from "./usePageSetup";
-import { useScrollParallax, ParallaxHero } from "./ServiceBlocks";
+import { useMediaReveal, usePageSetup } from "./usePageSetup";
+import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
+import { LineIcon } from "./LineIcon";
 import { quality } from "./quality";
 
 // Equipment & fleet (/fleet), the standalone page the Recommendation's sitemap asks for: what BCE owns, how many, what
 // each machine is for, and how to hire it. Every figure comes from quality.ts (the Quality page's own document) so the
 // two pages cannot disagree. No rates and no per-machine availability are published — both are quoted per project.
+//
+// The page follows the same Olympic-style blocks as Quality & HSE and Coverage: the parallax cover, a labelled
+// introduction with an on-page index, the key figures on the ink ground, ruled inventory rows, machine cards, the
+// maintenance points as value columns, and the hire steps as a numbered list. Only the machine grid (2 × 2 instead of
+// the three-column solution grid) is a page-local rule; everything else is the shared `.ol-*`, `.qx-*` and `.pd-*` set.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
+const pad = (n: number) => String(n).padStart(2, "0");
 
-const MACHINES = [
-  {
-    title: "Batching plants",
-    value: "4",
-    note: "70 m³/hr each",
-    text: "Computerized batching with calibrated weigh scales for cement, aggregate, water and admixture, checked before every pour.",
-    image: "/Image/bce/about-zoom-batching.webp",
-    alt: "Aggregate stockpiles and batching plant at the BCE yard",
-  },
-  {
-    title: "Mixer trucks",
-    value: "41",
-    note: "Delivering across 13 provinces + Phnom Penh",
-    text: "Owned and maintained by BCE crews, dispatched from Battambang on a planned schedule rather than a broker's availability.",
-    image: "/Image/bce/machinery_fleet.webp",
-    alt: "BCE mixer trucks lined up at the plant",
-  },
-  {
-    title: "Pump trucks",
-    value: "8",
-    note: "Boom reach up to 48 m",
-    text: "Placing concrete where the mixer cannot reach, with operators who work to the pour sequence.",
-    image: "/Image/bce/about-zoom-boom-pumps.webp",
-    alt: "Boom pump placing concrete on a BCE site",
-  },
-  {
-    title: "Piling rigs",
-    value: "7",
-    note: "Bore and hammer rigs",
-    text: "Reinforced concrete piles installed and tested by our own rigs and crews, from the platform to the pile cap.",
-    image: "/Image/bce/about-zoom-piling-rig.webp",
-    alt: "BCE piling rig working on site",
-  },
-];
+const TOPICS = [
+  ["fleet-figures", "Fleet at a glance"],
+  ["fleet-inventory", "Inventory"],
+  ["fleet-machines", "Plant & machines"],
+  ["fleet-support", "Maintenance & crew"],
+  ["fleet-hire", "Hire"],
+] as const;
 
-export default function FleetPage() {
-  usePageSetup("Equipment & fleet | BCE., Ltd.");
+const KHMER_DIGITS = "០១២៣៤៥៦៧៨៩";
 
-  const rows = quality.fleet.rows;
+// Fleet counts arrive as content ("04  /  70 m³/hr each"), and Khmer content can use Khmer numerals. Read the first
+// number either way, so the headline total survives a language switch.
+function firstNumber(value: string) {
+  const normalized = value.replace(/[០-៩]/g, (digit) => String(KHMER_DIGITS.indexOf(digit)));
+  const match = normalized.match(/\d[\d.,]*/);
+  if (!match) return 0;
+  const number = Number(match[0].replace(/,/g, ""));
+  return Number.isFinite(number) ? number : 0;
+}
+
+// The key figures count up as the dark band scrolls in, as on the business pages. Reduced motion shows the value.
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    const el = ref.current;
+    const target = firstNumber(value);
+    if (!el || !target) {
+      setText(value);
+      return;
+    }
+    const zeros = value.length > 1 && value.startsWith("0") ? value.length : 0;
+    const format = (n: number) => {
+      let out = String(Math.round(n));
+      if (zeros) out = out.padStart(zeros, "0");
+      return out;
+    };
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setText(value);
+      return;
+    }
+
+    setText(format(0));
+    let raf = 0;
+    let started = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || started) return;
+          started = true;
+          io.disconnect();
+          const t0 = performance.now();
+          const duration = 1500;
+          const tick = (now: number) => {
+            const p = Math.min(1, (now - t0) / duration);
+            const eased = 1 - (1 - p) ** 3;
+            setText(p < 1 ? format(target * eased) : value);
+            if (p < 1) raf = requestAnimationFrame(tick);
+          };
+          raf = requestAnimationFrame(tick);
+        });
+      },
+      { threshold: 0.45 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [value]);
 
   return (
-    <>
+    <span ref={ref} className="ol-figure-value" aria-label={value}>
+      {text}
+    </span>
+  );
+}
+
+export default function FleetPage() {
+  usePageSetup(
+    "Equipment & fleet | BCE., Ltd.",
+    "BCE's own plant and fleet: batching plants, mixer trucks, pump trucks and piling rigs, maintained in-house and mobilised from Battambang for hire across Cambodia.",
+  );
+  const rootRef = useRef<HTMLElement>(null);
+  useMediaReveal(rootRef);
+  useScrollParallax(rootRef);
+
+  const fleet = quality.fleet;
+  const rows = fleet.rows;
+  const fleetTotal = rows.reduce((total, row) => total + firstNumber(row.value), 0);
+  const machines = fleet.machines;
+
+  return (
+    <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip bg-white text-[#111]">
       <SiteHeader phones={phones} tel={tel} base="/" />
-      <main className="ol-page relative z-[1] overflow-x-clip bg-white text-[#111]">
-        <ParallaxHero
-          label={quality.fleet.kicker}
-          title={quality.fleet.title}
-          image={quality.fleet.image}
-          alt={quality.fleet.imageAlt}
-        />
 
-        <div className="ol-page-body">
-          <section aria-labelledby="fleet-intro" className="site-pad pb-16 pt-4 md:pb-24">
-            <div className="mx-auto grid max-w-[1200px] gap-8 md:grid-cols-12">
-              <h1 id="fleet-intro" className="sr-only">
-                Equipment &amp; fleet
-              </h1>
-              <p data-split="content" className="text-[clamp(1.25rem,1.9vw,1.8rem)] font-medium leading-[1.35] tracking-[-.02em] md:col-span-7">
-                {quality.fleet.copy[0]}
-              </p>
-              <div className="flex flex-col gap-5 md:col-span-4 md:col-start-9">
-                <p className="text-[15px] leading-[1.65] text-[#111]/55">
-                  Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh.
-                  Hire is quoted per project: machine, duration, site access and operator included or not.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <ArrowButton href="/quote?service=equipment-rental" label="Hire our equipment" />
-                  <ArrowButton href="/quality#equipment-fleet" label="Quality & HSE" theme="outline" />
-                </div>
-              </div>
+      <ParallaxHero
+        label={fleet.kicker}
+        headerTitle="Equipment & fleet"
+        title={fleet.title}
+        image={fleet.image}
+        alt={fleet.imageAlt}
+      />
+
+      <div className="ol-page-body">
+        {/* Introduction as the other inner pages: the labelled statement, the dispatch note and the page index. */}
+        <LabelCopy
+          label="Fleet overview"
+          className="ol-head qx-intro"
+          after={
+            <>
+              <p className="mt-8 max-w-[560px] text-[16px] leading-[1.6] text-[#111]/55">{fleet.note}</p>
+              <ul className="ol-topics" aria-label="On this page">
+                {TOPICS.map(([id, label], i) => (
+                  <li key={id}>
+                    <a href={`#${id}`}>
+                      <span>{pad(i + 1)}</span>
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          }
+        >
+          {fleet.copy[0]}
+        </LabelCopy>
+
+        {/* Key figures on the ink ground, as the business pages: the totals behind the inventory, counted up. */}
+        <section id="fleet-figures" data-nav-dark data-header-title="Fleet at a glance" aria-labelledby="fl-figures" className="ol-capacity">
+          <div className="ol-capacity-head">
+            <p data-split="content" className="ol-label">{fleet.figuresLabel}</p>
+            <h2 id="fl-figures" data-split className="ol-capacity-title">{fleet.figuresTitle}</h2>
+            <p data-split="content" className="ol-capacity-copy">{fleet.figuresCopy}</p>
+          </div>
+          <ul className="ol-capacity-grid">
+            <li data-reveal className="ol-figure">
+              <CountUp value={String(fleetTotal)} />
+              <span className="ol-figure-label">Machines in our own fleet</span>
+            </li>
+            <li data-reveal className="ol-figure">
+              <CountUp value={machines[0]?.value ?? "00"} />
+              <span className="ol-figure-label">Batching plants</span>
+            </li>
+            <li data-reveal className="ol-figure">
+              <CountUp value={machines[1]?.value ?? "00"} />
+              <span className="ol-figure-label">Mixer trucks</span>
+            </li>
+            <li data-reveal className="ol-figure">
+              <CountUp value={machines[2]?.value ?? "00"} />
+              <span className="ol-figure-label">Pump trucks</span>
+            </li>
+          </ul>
+          <div className="ol-capacity-contact">
+            <p className="ol-label">Hire &amp; dispatch</p>
+            <div className="ol-capacity-links">
+              {phones.slice(0, 2).map((phone) => (
+                <a key={phone} href={tel(phone)}>{phone}</a>
+              ))}
+              <a href={`mailto:${siteSettings.contact.email}`}>{siteSettings.contact.email}</a>
+              <a href={`https://t.me/${siteSettings.contact.telegram.replace(/^@/, "")}`} target="_blank" rel="noreferrer">Telegram</a>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* The inventory, exactly as the Quality page publishes it. */}
-          <section aria-labelledby="fleet-inventory" className="site-pad border-t border-[#111]/10 py-16 md:py-24">
-            <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12">
-              <div className="md:col-span-4">
-                <p className="ol-label">Inventory</p>
-                <h2 id="fleet-inventory" data-split className="mt-4 max-w-[16ch] text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-[1.05] tracking-[-.03em]">
-                  What we own, in numbers.
-                </h2>
-                <p className="mt-4 max-w-[34ch] text-[15px] leading-[1.6] text-[#111]/55">
-                  Counts are from BCE's own fleet records. The laboratory's testing equipment is listed on the Quality
-                  page, not here.
-                </p>
-              </div>
-              <dl className="divide-y divide-[#111]/10 md:col-span-7 md:col-start-6">
-                {rows.map((row) => (
-                  <div key={row.label} className="flex flex-wrap items-baseline justify-between gap-3 py-4">
-                    <dt className="text-[16px] font-medium leading-snug">{row.label}</dt>
-                    <dd className="font-mono text-[13px] text-[#111]/55">{row.value}</dd>
+        {/* The inventory, exactly as the Quality page publishes it: the same ruled rows, read as a list. */}
+        <section id="fleet-inventory" data-header-title={fleet.inventoryTitle} aria-labelledby="fl-inventory" className="qh-section qx-split fl-section">
+          <div className="qx-head">
+            <p data-split="content" className="ol-label">{fleet.inventoryLabel}</p>
+            <h2 id="fl-inventory" data-split className="pd-h2">{fleet.inventoryTitle}</h2>
+            <div className="qx-copy mt-10 w-[520px] max-w-full">
+              <p data-split="content">{fleet.inventoryCopy}</p>
+            </div>
+            <ArrowButton href="/quality#documents" label="Company profile" theme="outline" className="mt-8" />
+          </div>
+          <div className="qx-body">
+            <h3 data-split="content" className="qx-label">{fleet.inventoryListLabel}</h3>
+            <ul className="ol-rows">
+              {rows.map((row, index) => (
+                <li key={row.label} data-reveal className="ol-row" style={{ "--k": index } as CSSProperties}>
+                  <span>{row.label}</span>
+                  <span>{row.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* The machines themselves, with the count and what each one is for. */}
+        <section id="fleet-machines" data-header-title={fleet.machinesTitle} aria-labelledby="fl-machines" className="ol-solutions">
+          <div className="ol-solutions-head">
+            <p data-split="content" className="ol-label">{fleet.machinesLabel}</p>
+            <h2 id="fl-machines" data-split className="ol-solutions-title">{fleet.machinesTitle}</h2>
+            <p data-split="content" className="ol-solutions-lead">{fleet.machinesCopy}</p>
+          </div>
+          <ul className="ol-solutions-grid fl-machines">
+            {machines.map((machine) => (
+              <li key={machine.title} data-reveal className="ol-solution">
+                <div className="ol-solution-media">
+                  <img src={machine.image} alt={machine.imageAlt} loading="lazy" />
+                </div>
+                <h3 className="ol-solution-title flex items-baseline justify-between gap-4">
+                  <span>{machine.title}</span>
+                  <span className="font-mono text-[22px] leading-none tabular-nums text-[#111]/70">{machine.value}</span>
+                </h3>
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.06em] text-[#111]/45">{machine.note}</p>
+                <p className="ol-solution-text">{machine.text}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Maintenance, operators and mobilisation, as the business pages' value columns. */}
+        <section id="fleet-support" data-header-title={fleet.supportTitle} aria-labelledby="fl-support" className="ol-values">
+          <div className="ol-values-head">
+            <p data-split="content" className="ol-label">{fleet.supportLabel}</p>
+            <h2 id="fl-support" data-split className="ol-values-title">{fleet.supportTitle}</h2>
+            <p data-split="content" className="max-w-[40rem] text-[16px] leading-[1.6] text-[#111]/55">{fleet.supportCopy}</p>
+          </div>
+          <ul className="ol-values-grid">
+            {fleet.support.map((item) => (
+              <li key={item.title} data-reveal className="ol-value">
+                <span className="ol-value-icon" aria-hidden>
+                  <LineIcon name={item.icon} className="size-full" />
+                </span>
+                <h3 className="ol-value-title">{item.title}</h3>
+                <p className="ol-value-text">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* How hiring works, without rates: the steps on the right, the actions on the left. */}
+        <section id="fleet-hire" data-header-title={fleet.hireTitle} aria-labelledby="fl-hire" className="qh-section qx-split fl-section">
+          <div className="qx-head">
+            <p data-split="content" className="ol-label">{fleet.hireLabel}</p>
+            <h2 id="fl-hire" data-split className="pd-h2">{fleet.hireTitle}</h2>
+            <div className="qx-copy mt-10 w-[520px] max-w-full">
+              <p data-split="content">{fleet.hireCopy}</p>
+              <p data-split="content" className="text-[15px] text-[#111]/45">{fleet.hireNote}</p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ArrowButton href={fleet.ctaHref} label={fleet.ctaLabel} />
+              <ArrowButton href={tel(phones[0])} label={`Call ${phones[0]}`} theme="outline" />
+            </div>
+          </div>
+          <div className="qx-body">
+            <h3 data-split="content" className="qx-label">How hire works</h3>
+            <ol className="qx-list">
+              {fleet.hireSteps.map((step, index) => (
+                <li key={step} data-reveal className="qx-step pd-rule" style={{ "--rd": `${index * 0.08}s` } as CSSProperties}>
+                  <span data-split="content" className="qx-n">{pad(index + 1)}.</span>
+                  <div>
+                    <p data-split="content" className="qx-step-text">{step}</p>
                   </div>
-                ))}
-              </dl>
-            </div>
-          </section>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      </div>
 
-          {/* The machines themselves, with what each one is for. */}
-          <section aria-labelledby="fleet-machines" className="site-pad border-t border-[#111]/10 py-16 md:py-24">
-            <div className="mx-auto max-w-[1200px]">
-              <h2 id="fleet-machines" data-split className="max-w-[20ch] text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-[1.05] tracking-[-.03em]">
-                Plant and machines, maintained in-house.
-              </h2>
-              <div className="mt-10 grid gap-8 sm:grid-cols-2">
-                {MACHINES.map((machine) => (
-                  <article key={machine.title} className="flex flex-col">
-                    <div className="aspect-[16/10] overflow-hidden bg-[#EDEDED]">
-                      <img src={machine.image} alt={machine.alt} loading="lazy" className="h-full w-full object-cover" />
-                    </div>
-                    <div className="mt-5 flex items-baseline justify-between gap-4">
-                      <h3 className="text-[19px] font-medium leading-snug">{machine.title}</h3>
-                      <span className="font-mono text-[22px] leading-none tabular-nums">{machine.value}</span>
-                    </div>
-                    <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.06em] text-[#111]/45">{machine.note}</p>
-                    <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.6] text-[#111]/60">{machine.text}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* How hiring works, without rates. */}
-          <section aria-labelledby="fleet-hire" className="site-pad border-t border-[#111]/10 bg-[#F8F8F9] py-16 md:py-24">
-            <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12">
-              <div className="md:col-span-4">
-                <p className="ol-label">Hire</p>
-                <h2 id="fleet-hire" data-split className="mt-4 max-w-[14ch] text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-[1.05] tracking-[-.03em]">
-                  Mobilised to your site.
-                </h2>
-              </div>
-              <div className="md:col-span-7 md:col-start-6">
-                <ol className="divide-y divide-[#111]/10">
-                  {[
-                    "Tell us the machine, the duration and the site location.",
-                    "We confirm availability, mobilisation from Battambang and the delivery date.",
-                    "Operator, fuel and maintenance are agreed up front, in writing.",
-                    "The machine arrives with our own crew and is supported by our workshop.",
-                  ].map((step, index) => (
-                    <li key={step} className="flex gap-5 py-4">
-                      <span className="font-mono text-[12px] leading-[1.9] text-[#111]/35">{String(index + 1).padStart(2, "0")}</span>
-                      <span className="text-[16px] leading-[1.55] text-[#111]/75">{step}</span>
-                    </li>
-                  ))}
-                </ol>
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <ArrowButton href="/quote?service=equipment-rental" label="Request equipment" />
-                  <ArrowButton href={tel(phones[0])} label={`Call ${phones[0]}`} theme="outline" />
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        <QuoteCta href="/quote?service=equipment-rental" />
-      </main>
+      <QuoteCta href={fleet.ctaHref} />
       <Footer phones={phones} tel={tel} base="/" />
       <FluidCursor />
-    </>
+    </main>
   );
 }

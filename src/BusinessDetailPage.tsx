@@ -1,5 +1,5 @@
 import { siteSettings } from "./siteSettings";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
@@ -275,29 +275,35 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
           </div>
         </section>
 
-        <section id="prepare" data-header-title="What to send us" aria-labelledby="biz-prepare" className="site-pad site-bleed border-t border-[#111]/10 py-20 md:py-28">
-          <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12">
-            <div className="md:col-span-4">
-              <p data-split="content" className="ol-label">Before we quote</p>
-              <h2 id="biz-prepare" data-split className="mt-4 text-[clamp(28px,3.2vw,44px)] font-medium leading-[1.05] tracking-[-.03em]">
+        {/* What to send us, after the calibration block on Quality & HSE: the uppercase section heading and grey
+            copy on the twelve-column split, then a full-width rule opening the brief label and its ruled rows. */}
+        <section id="prepare" data-header-title="What to send us" aria-labelledby="biz-prepare" className="qh-section biz-prepare">
+          <div className="qx-split">
+            <div className="qx-head">
+              <h2 id="biz-prepare" data-split className="pd-h2">
                 What to send us
               </h2>
-              <p className="mt-4 max-w-[32ch] text-[15px] leading-[1.6] text-[#111]/55">
-                The more of this we have, the faster and firmer your quotation.
-              </p>
-              <ArrowButton href={quoteHref(business.slug)} label="Request a quotation" className="mt-6" />
             </div>
-              {business.prepare?.length ? (
-                <ol className="divide-y divide-[#111]/10 md:col-span-7 md:col-start-6">
-                  {business.prepare.map((item, index) => (
-                    <li key={item} data-reveal className="flex gap-5 py-4">
-                      <span className="font-mono text-[12px] leading-[1.9] text-[#111]/35">{String(index + 1).padStart(2, "0")}</span>
-                      <span className="text-[16px] leading-[1.55] text-[#111]/75">{item}</span>
-                    </li>
-                  ))}
-                </ol>
-              ) : null}
+            <div className="qx-body">
+              <div className="qx-copy w-[520px] max-w-full">
+                <p data-split="content">The more of this we have, the faster and firmer your quotation.</p>
+              </div>
+              <ArrowButton href={quoteHref(business.slug)} label="Request a quotation" className="mt-8" />
+            </div>
           </div>
+          {business.prepare?.length ? (
+            <div data-reveal className="qx-areas pd-rule">
+              <h3 data-split="content" className="qx-label qx-areas-label">Before we quote</h3>
+              <ol className="qx-areas-list">
+                {business.prepare.map((item, index) => (
+                  <li key={item} data-reveal className={`qx-area${index ? " pd-rule" : ""}`} style={{ "--rd": `${index * 0.08}s` } as CSSProperties}>
+                    <span data-split="content" className="qx-label">{String(index + 1).padStart(2, "0")}</span>
+                    <span data-split="content" className="qx-cell-text">{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
         </section>
 
         <section id="projects" data-header-title="Project highlights" aria-labelledby="biz-projects" className="ol-work">

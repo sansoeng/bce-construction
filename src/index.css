@@ -4771,6 +4771,9 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   font-size: clamp(2.1rem, 3.4vw, 44px);
   text-transform: uppercase;
 }
+/* "What to send us" on the business pages, after the calibration block on Quality & HSE: the section opens on
+   white after the ink band, so it carries the gap itself instead of a top border. */
+.biz-prepare { padding-top: clamp(5rem, 9vw, 9rem); }
 .ol-capacity-copy { grid-column: 7 / -1; max-width: 30rem; margin-top: 28px; font-size: 1.05rem; line-height: 1.4; color: rgb(255 255 255 / .6); }
 .ol-capacity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--olg); row-gap: 48px; margin-top: 100px; padding: 0; list-style: none; }
 .ol-figure {
@@ -4919,6 +4922,12 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 }
 .ol-rail-btn:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
 .ol-rail-btn:disabled { opacity: .28; cursor: default; }
+
+/* Equipment & fleet (/fleet). The machine cards keep the solution-card styling but sit two by two, because a
+   machine is a larger object than a service tile and the count reads better beside a wider photo. The ruled
+   inventory and hire blocks borrow the Quality page's split spacing. */
+.fl-section { margin-top: clamp(6rem, 10vw, 10rem); }
+.fl-machines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 @media (max-width: 1023px) {
   .ol-values { padding-top: 130px; }

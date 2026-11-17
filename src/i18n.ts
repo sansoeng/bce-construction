@@ -984,6 +984,99 @@ const KM: Record<string, string> = {
     "វិស្វកររបស់យើងរៀបចំផែនការ គណនារចនាសម្ព័ន្ធ និងត្រួតពិនិត្យគ្រប់គម្រោង ចាប់ពីរូបមន្តលាយ និងកម្មវិធីបោះសសរ រហូតដល់ការត្រួតពិនិត្យការដ្ឋាន និងកំណត់ត្រាប្រគល់ការងារ។",
   "Building since": "សាងសង់តាំងពីឆ្នាំ",
 
+  // Equipment & fleet page (/fleet)
+  "Fleet overview": "ទិដ្ឋភាពទូទៅនៃកងយានយន្ត",
+  "Fleet at a glance": "កងយានយន្តដោយសង្ខេប",
+  "Inventory": "បញ្ជីឧបករណ៍",
+  "Plant & machines": "រោងចក្រ និងគ្រឿងចក្រ",
+  "Maintenance & crew": "ការថែទាំ និងក្រុមការងារ",
+  "Hire": "ការជួល",
+  "Hire & dispatch": "ការជួល និងការបញ្ជូន",
+  "How hire works": "របៀបនៃការជួល",
+  "Capacity you can plan around.": "សមត្ថភាពដែលអ្នកអាចរៀបចំតាមផែនការ។",
+  "What we own, in numbers.": "អ្វីដែលយើងមាន ជាតួលេខ។",
+  "Plant and machines, maintained in-house.": "រោងចក្រ និងគ្រឿងចក្រ ថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួន។",
+  "Ready when it reaches site.": "ត្រៀមរួចរាល់ពេលដល់ការដ្ឋាន។",
+  "Mobilised to your site.": "ដាក់ពង្រាយទៅការដ្ឋានរបស់អ្នក។",
+  "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.":
+    "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីបាត់ដំបង និងដាក់ពង្រាយទៅគម្រោងនៅ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។ តម្លៃជួលត្រូវបានវាយតម្លៃតាមគម្រោង៖ ប្រភេទគ្រឿងចក្រ រយៈពេល ការចូលដំណើរការការដ្ឋាន និងតើរួមបញ្ចូលអ្នកបញ្ជាឬអត់។",
+  "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.":
+    "រោងចក្រ រថយន្ត និងម៉ាស៊ីនបោះសសរសុទ្ធតែជាកម្មសិទ្ធិរបស់យើង ថែទាំដោយសិក្ខាសាលាផ្ទាល់ខ្លួន និងបញ្ជូនចេញពីមូលដ្ឋានតែមួយ។ ទាំងនេះជាគ្រឿងចក្រដែលកំពុងបម្រើការ មិនមែនជាបញ្ជីស្តុករបស់ឈ្មោះជួលឡើយ។",
+  "Counts are from BCE's own fleet records. The laboratory's testing equipment is listed on the Quality page, not here.":
+    "ចំនួននេះមកពីកំណត់ត្រាកងយានយន្តផ្ទាល់ខ្លួនរបស់ BCE។ ឧបករណ៍តេស្តរបស់មន្ទីរពិសោធន៍មាននៅទំព័រគុណភាព មិនមែននៅទីនេះទេ។",
+  "Machines in service": "គ្រឿងចក្រដែលកំពុងបម្រើការ",
+  "Every machine below is part of the fleet we use on our own works, maintained to the same standard and available with its operators.":
+    "រាល់គ្រឿងចក្រខាងក្រោមសុទ្ធតែជាផ្នែកនៃកងយានយន្តដែលយើងប្រើលើការងារផ្ទាល់ខ្លួន ថែទាំតាមស្តង់ដារដូចគ្នា និងអាចជួលបានជាមួយអ្នកបញ្ជារបស់វា។",
+  "Computerized batching with calibrated weigh scales for cement, aggregate, water and admixture, checked before every pour.":
+    "ការលាយបេតុងដោយប្រព័ន្ធកុំព្យូទ័រ ជាមួយជញ្ជីងដែលបានក្រិតសម្រាប់ស៊ីម៉ងត៍ ថ្ម ទឹក និងសារធាតុបន្ថែម ពិនិត្យមុនរាល់ការចាក់។",
+  "Owned and maintained by BCE crews, dispatched from Battambang on a planned schedule rather than a broker's availability.":
+    "ជាកម្មសិទ្ធិ និងថែទាំដោយក្រុមការងារ BCE បញ្ជូនចេញពីបាត់ដំបងតាមកាលវិភាគដែលបានរៀបចំ មិនមែនតាមស្តុករបស់ឈ្មោះជួលឡើយ។",
+  "Placing concrete where the mixer cannot reach, with operators who work to the pour sequence.":
+    "ចាក់បេតុងនៅកន្លែងដែលរថយន្តលាយមិនអាចទៅដល់ ជាមួយអ្នកបញ្ជាដែលធ្វើការតាមលំដាប់នៃការចាក់។",
+  "Reinforced concrete piles installed and tested by our own rigs and crews, from the platform to the pile cap.":
+    "សសរស្ដម្ភបេតុងពង្រឹងត្រូវបានបោះ និងតេស្តដោយម៉ាស៊ីន និងក្រុមការងារផ្ទាល់ខ្លួន ចាប់ពីវេទិការហូតដល់ក្បាលសសរ។",
+  "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.":
+    "ការកាន់កាប់កងយានយន្តមានន័យថាយើងកាន់កាប់សិក្ខាសាលា អ្នកបញ្ជា និងកំណត់ត្រាត្រួតពិនិត្យផងដែរ។ គ្រឿងចក្រចេញពីបាត់ដំបងដោយបានថែទាំ ហើយមកដល់ជាមួយក្រុមការងារដែលយល់ច្បាស់ពីវា។",
+  "Serviced in our workshop": "ថែទាំនៅសិក្ខាសាលាផ្ទាល់ខ្លួន",
+  "Trucks, pumps and rigs are maintained by our own team between projects, not sent to a third-party yard.":
+    "រថយន្ត ម៉ាស៊ីនបូម និងម៉ាស៊ីនបោះសសរត្រូវបានថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួនរវាងគម្រោង មិនមែនបញ្ជូនទៅអាងខាងក្រៅឡើយ។",
+  "Checked before dispatch": "ពិនិត្យមុនការបញ្ជូន",
+  "Pre-start checks, lifting gear and pump lines are inspected and recorded before the machine leaves.":
+    "ការពិនិត្យមុនចាប់ផ្តើម ខ្សែស្ទូច និងបន្ទាត់បូមត្រូវបានពិនិត្យ និងកត់ត្រាមុនពេលគ្រឿងចក្រចេញ។",
+  "Mobilised from Battambang": "ដាក់ពង្រាយពីបាត់ដំបង",
+  "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.":
+    "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីមូលដ្ឋានរបស់យើងទៅ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ ដោយការដាក់ពង្រាយត្រូវវាយតម្លៃតាមគម្រោង។",
+  "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.":
+    "ការជួលគ្រឿងចក្រត្រូវវាយតម្លៃតាមគម្រោង។ ប្រាប់យើងពីប្រភេទគ្រឿងចក្រ រយៈពេល និងទីតាំងការដ្ឋាន ហើយយើងនឹងបញ្ជាក់ពីភាពអាចរកបាន និងការដាក់ពង្រាយពីបាត់ដំបង។",
+  "Rates depend on the machine, the duration, site access and whether an operator, fuel and maintenance are included.":
+    "តម្លៃអាស្រ័យលើប្រភេទគ្រឿងចក្រ រយៈពេល ការចូលដំណើរការការដ្ឋាន និងតើរួមបញ្ចូលអ្នកបញ្ជា ប្រេងឥន្ធនៈ និងការថែទាំឬអត់។",
+  "Tell us the machine, the duration and the site location.": "ប្រាប់យើងពីប្រភេទគ្រឿងចក្រ រយៈពេល និងទីតាំងការដ្ឋាន។",
+  "We confirm availability, mobilisation from Battambang and the delivery date.":
+    "យើងបញ្ជាក់ពីភាពអាចរកបាន ការដាក់ពង្រាយពីបាត់ដំបង និងកាលបរិច្ឆេទដឹកជញ្ជូន។",
+  "Operator, fuel and maintenance are agreed up front, in writing.":
+    "អ្នកបញ្ជា ប្រេងឥន្ធនៈ និងការថែទាំត្រូវព្រមព្រៀងជាមុន ជាលាយលក្ខណ៍អក្សរ។",
+  "The machine arrives with our own crew and is supported by our workshop.":
+    "គ្រឿងចក្រមកដល់ជាមួយក្រុមការងារផ្ទាល់ខ្លួន និងទទួលការគាំទ្រពីសិក្ខាសាលារបស់យើង។",
+
+  // Business detail pages: "What to send us" checklists
+  "Site location and access — where the trucks will discharge, and any height, gate or road limits.":
+    "ទីតាំង និងការចូលដំណើរការការដ្ឋាន — កន្លែងដែលរថយន្តនឹងចាក់បេតុង និងដែនកំណត់កម្ពស់ ច្រកចូល ឬផ្លូវ។",
+  "Volume per pour and the concrete grade (C15–C40), or the drawings and BOQ if you have them.":
+    "បរិមាណបេតុងក្នុងមួយការចាក់ និងកម្រិតបេតុង (C15–C40) ឬគំនូរសំណង់ និងបញ្ជីបរិមាណ (BOQ) ប្រសិនបើមាន។",
+  "Pour dates and sequence, including any night or weekend pours.":
+    "កាលបរិច្ឆេទ និងលំដាប់នៃការចាក់ រួមទាំងការចាក់ពេលយប់ ឬចុងសប្តាហ៍។",
+  "Whether you need a pump truck, and the distance from the pump position to the pour.":
+    "តើអ្នកត្រូវការរថយន្តបូមបេតុងឬអត់ និងចម្ងាយពីកន្លែងបូមទៅកន្លែងចាក់។",
+  "Pile type, diameter and depth, and the number of piles.":
+    "ប្រភេទសសរស្ដម្ភ អង្កត់ផ្ចិត និងជម្រៅ និងចំនួនសសរ។",
+  "Ground information or the soil report, if one is available.":
+    "ព័ត៌មានដី ឬរបាយការណ៍ស្រាវជ្រាវដី ប្រសិនបើមាន។",
+  "Site access and the working platform the rig will stand on.":
+    "ការចូលដំណើរការការដ្ឋាន និងវេទិកាធ្វើការដែលម៉ាស៊ីនបោះសសរនឹងឈរ។",
+  "Programme: start date and the sequence of pile groups.":
+    "កាលវិភាគ៖ កាលបរិច្ឆេទចាប់ផ្តើម និងលំដាប់នៃក្រុមសសរ។",
+  "Scope of works with the drawings and BOQ you have.":
+    "វិសាលភាពការងារ ជាមួយគំនូរសំណង់ និងបញ្ជីបរិមាណ (BOQ) ដែលអ្នកមាន។",
+  "Site location, access, and any phasing or occupied-area constraints.":
+    "ទីតាំងការដ្ឋាន ការចូលដំណើរការ និងដែនកំណត់នៃការធ្វើការជាដំណាក់កាល ឬតំបន់ដែលកំពុងប្រើប្រាស់។",
+  "Programme and the required completion date.": "កាលវិភាគ និងកាលបរិច្ឆេទបញ្ចប់ដែលត្រូវការ។",
+  "Approvals already in place, and the consultant or engineer of record.":
+    "ការអនុម័តដែលមានរួចហើយ និងទីប្រឹក្សា ឬវិស្វករទទួលបន្ទុកគម្រោង។",
+  "Slab area, thickness and the specified finish (power float, laser screed or brushed).":
+    "ផ្ទៃក្រឡាកម្រាល កម្រាស់ និងការរលោងដែលបានកំណត់ (ម៉ាស៊ីនរលោង Power float ឡាស៊ែរ ឬស្នាមច្រាស)។",
+  "Joint layout or drawings, and the pour sequence.":
+    "ប្លង់សន្លាក់ ឬគំនូរសំណង់ និងលំដាប់នៃការចាក់។",
+  "Access for the pump and mixers, plus water and power on site.":
+    "ការចូលដំណើរការសម្រាប់រថយន្តបូម និងរថយន្តលាយ ព្រមទាំងទឹក និងអគ្គិសនីនៅការដ្ឋាន។",
+  "Required flatness or tolerance, and the handover date.":
+    "កម្រិតរាបស្មើ ឬភាពអនុញ្ញាតដែលត្រូវការ និងកាលបរិច្ឆេទប្រគល់ការងារ។",
+  "Equipment and the hire period, with dates.": "ប្រភេទគ្រឿងចក្រ និងរយៈពេលជួល ជាមួយកាលបរិច្ឆេទ។",
+  "Site location and access for mobilisation.": "ទីតាំងការដ្ឋាន និងការចូលដំណើរការសម្រាប់ការដាក់ពង្រាយ។",
+  "Whether you need an operator, fuel and maintenance included.":
+    "តើអ្នកត្រូវការអ្នកបញ្ជា ប្រេងឥន្ធនៈ និងការថែទាំរួមបញ្ចូលឬអត់។",
+  "The lifting or capacity requirement, and the work the machine will do.":
+    "តម្រូវការលើក ឬសមត្ថភាព និងការងារដែលគ្រឿងចក្រនឹងធ្វើ។",
+
   // Quality & HSE Page
   "Tested at every stage, built safely": "ត្រួតពិនិត្យគ្រប់ដំណាក់កាល សាងសង់ប្រកបដោយសុវត្ថិភាព",
   "Our approach": "វិធីសាស្ត្ររបស់យើង",
