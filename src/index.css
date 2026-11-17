@@ -1584,21 +1584,17 @@ html.ls-lock body { overflow: hidden; }
 .ls-link:hover,
 .ls-nav-item.is-active .ls-link { color: var(--brand); }
 
-/* The BCE lockup: crest in brand orange, wordmark, full name underneath. It scales down with the scroll, as the
-   reference's wordmark does. */
+/* The BCE lockup: the mark and wordmark artwork, which scales down with the scroll, as the reference's wordmark
+   does. The navigation takes the ink variant of the file because its bar is light; the footer uses the white one. */
 .ls-logo {
   display: inline-flex;
   align-items: center;
   justify-self: start;
-  gap: 10px;
   color: inherit;
   transform: scale(calc(1 - .06 * var(--ls-p, 0)));
   transform-origin: left center;
 }
-.ls-logo-mark { display: block; width: 30px; height: 30px; flex: none; color: var(--brand); }
-.ls-logo-mark svg { display: block; width: 100%; height: 100%; }
-.ls-logo-text { font-size: 24px; font-weight: 700; letter-spacing: .03em; line-height: 1; }
-.ls-logo:hover { color: var(--brand); }
+.ls-logo-img { display: block; width: auto; height: 34px; max-width: none; }
 
 .ls-nav-right { display: flex; align-items: center; justify-content: flex-end; gap: 14px; min-width: 0; }
 .ls-nav-sep { width: 1px; height: 16px; background: currentColor; opacity: .18; }
@@ -1854,12 +1850,12 @@ html.ls-lock body { overflow: hidden; }
   .ls-nav-right { gap: 8px; }
   .ls-nav .ls-quote, .ls-nav-sep { display: none; }
   .ls-lang { font-size: 12px; }
-  .ls-logo-text { font-size: 21px; }
+  .ls-logo-img { height: 30px; }
   .ls-sheet { padding-top: calc(54px + 22px); }
   .ls-sheet-link { font-size: 19px; padding: 14px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ls-nav, .ls-nav-surface, .ls-panel, .ls-sheet, .ls-mega-media img, .ls-logo-mark, .ls-burger span { transition: none !important; }
+  .ls-nav, .ls-nav-surface, .ls-panel, .ls-sheet, .ls-mega-media img, .ls-burger span { transition: none !important; }
 }
 
 /* ==========================================================================

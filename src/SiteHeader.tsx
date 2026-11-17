@@ -449,16 +449,9 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
     >
       <div className="ls-nav-surface">
         <div className="ls-nav-bar">
-          {/* Lockup at the left: the red BCE monogram and the wordmark, at the reference's scale. */}
+          {/* Lockup at the left: the BCE mark and wordmark, at the reference's scale. */}
           <a href={base || "/"} className="ls-logo" aria-label="BCE., Ltd. — home">
-            <span className="ls-logo-mark" aria-hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6.6 3.4v17.2" />
-                <path d="M6.6 5.1h6.1a4.15 4.15 0 0 1 0 8.3H6.6" />
-                <path d="M6.6 13.4h6.9a4.35 4.35 0 0 1 0 8.7H6.6" />
-              </svg>
-            </span>
-            <span className="ls-logo-text">BCE</span>
+            <img src="/assets/bce-logo-lockup-ink.svg" alt="" className="ls-logo-img" width={127} height={34} />
           </a>
 
           <div className="ls-nav-center">
