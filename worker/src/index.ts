@@ -26,6 +26,7 @@ import {
   deleteMedia,
   listMedia,
   patchMedia,
+  serveLeadFile,
   serveMedia,
   uploadMedia,
 } from "./routes/media";
@@ -143,6 +144,9 @@ const route = async (request: Request, env: Env, ctx: ExecutionContext): Promise
       if (method === "DELETE") return deleteContent(request, env, tail[1], tail[2]);
     }
 
+    if (tail[0] === "leads" && tail[1] === "file" && tail[2] && method === "GET") {
+      return serveLeadFile(request, env, tail.slice(2).join("/"));
+    }
     if (tail[0] === "leads" && !tail[1] && method === "GET") return listLeads(request, env);
     if (tail[0] === "leads" && tail[1]) {
       if (method === "GET") return getLead(request, env, tail[1]);

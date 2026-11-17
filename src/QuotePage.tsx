@@ -7,7 +7,7 @@ import ArrowButton from "./ArrowButton";
 import { usePageSetup } from "./usePageSetup";
 import { offerings } from "./company";
 import { Turnstile } from "./turnstile";
-import { submitLead } from "./leads";
+import { submitLead, LEAD_FILE_ACCEPT, LEAD_FILE_LIMIT, describeFileProblem, formatFileSize } from "./leads";
 
 // Request a Quote (website brief, sections 8 and 9): choose a BCE service first, estimate the concrete with the
 // volume calculator (its result fills the request), then service-specific project details and contact.
@@ -77,6 +77,8 @@ export default function QuotePage() {
   const [turnstileKey, setTurnstileKey] = useState(0);
   const [sending, setSending] = useState(false);
   const [serverNote, setServerNote] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState("");
   const detailsRef = useRef<HTMLDivElement>(null);
   const quoteEmail = siteSettings.contact.email;
   const quoteTelegram = siteSettings.contact.telegram.replace(/^@/, "");
@@ -131,6 +133,8 @@ export default function QuotePage() {
     if (!service) return setError("Please choose a service.");
     if (!form.contact?.trim() || !form.phone?.trim()) return setError("Please add a contact person and a phone or Telegram number.");
     if (!token) return setError("Please complete the security check before sending.");
+    const problem = describeFileProblem(files);
+    if (problem) return setError(problem);
     setError("");
     setCopied(false);
     setSending(true);
@@ -151,9 +155,12 @@ export default function QuotePage() {
         turnstileToken: token,
         ...Object.fromEntries(specific.map(([key]) => [key, form[key]])),
         volume: form.volume ?? total.toFixed(1),
+        files,
       });
       setSent(message);
-      setServerNote("Received by BCE. Our team will contact you shortly.");
+      setServerNote(
+        files.length ? "Received by BCE with your files. Our team will contact you shortly." : "Received by BCE. Our team will contact you shortly.",
+      );
     } catch (err) {
       setSent(message);
       setServerNote(
@@ -274,6 +281,25 @@ export default function QuotePage() {
               </Field>
             ))}
             <Field label="Notes" wide><textarea className="qf-input qf-textarea" rows={3} value={form.notes ?? ""} onChange={set("notes")} placeholder="Scope, access, drawings or BOQ you can share" /></Field>
+            <Field label="Drawings or BOQ (optional)" wide>
+              <input
+                type="file"
+                multiple
+                accept={LEAD_FILE_ACCEPT}
+                className="qf-file"
+                onChange={(event) => {
+                  const picked = Array.from(event.target.files ?? []);
+                  const problem = describeFileProblem(picked);
+                  setFileError(problem);
+                  setFiles(problem ? [] : picked);
+                }}
+              />
+              <p className="qf-file-note">
+                PDF, image, drawing, Excel or Word · up to {LEAD_FILE_LIMIT.maxFiles} files, 8 MB each.
+                {files.length > 0 && ` ${files.map((file) => `${file.name} (${formatFileSize(file.size)})`).join(", ")}`}
+              </p>
+              {fileError && <p className="qf-file-error">{fileError}</p>}
+            </Field>
           </div>
         </Step>
 

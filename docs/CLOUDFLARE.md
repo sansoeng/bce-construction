@@ -152,6 +152,19 @@ R2 is **on**: bucket `bce-media` (Standard storage, free tier: 10 GB-month, 1M C
 ops per month, no egress fees). The `MEDIA` binding is live in both Workers, so `/api/admin/media`
 uploads and `/api/media/<key>` reads work.
 
+The same bucket holds two different kinds of object:
+
+| Prefix | Written by | Read by |
+| --- | --- | --- |
+| `media/YYYY/MM/…` | the admin media library (`/api/admin/media`) | anyone through `/api/media/<key>` |
+| `leads/YYYY/MM/…` | website visitors, attached to a lead (`POST /api/leads`, multipart) | only `GET /api/admin/leads/file/<key>`, which requires Cloudflare Access |
+
+Lead attachments are quotes' drawings/BOQs and candidates' CVs, so they are deliberately **not** under `media/`:
+that prefix is public. Limits: 4 files per request, 8 MB each, 16 MB total; PDF, JPG/PNG/WebP, DWG/DXF,
+XLS/XLSX and DOC/DOCX only. The lead row's `payload.files[]` carries `{ key, name, size, type }`, and the admin
+lead modal links each one for download.
+
+
 Enabling R2 is a per-account dashboard checkout — the API returns `10042 Please enable R2 through the
 Cloudflare Dashboard` until an account owner completes it, so it cannot be scripted. For a new account:
 

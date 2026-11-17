@@ -52,6 +52,23 @@ export const serveMedia = async (request: Request, env: Env, key: string) => {
   return new Response(object.body, { headers });
 };
 
+export const serveLeadFile = async (request: Request, env: Env, key: string) => {
+  await requireAdmin(request, env);
+  if (!env.MEDIA) throw new HttpError(503, "R2 media storage is not enabled yet", "r2_not_enabled");
+  if (!/^leads\/\d{4}\/\d{2}\/[a-z0-9][a-z0-9._-]{1,180}$/i.test(key)) {
+    throw new HttpError(400, "Invalid file key", "invalid_key");
+  }
+  const object = await env.MEDIA.get(key);
+  if (!object) throw new HttpError(404, "File not found", "not_found");
+  const name = (object.customMetadata?.name ?? key.split("/").pop() ?? "file").replace(/["\\]/g, "");
+  const headers = new Headers();
+  headers.set("content-type", object.httpMetadata?.contentType ?? "application/octet-stream");
+  headers.set("content-disposition", `attachment; filename="${name}"`);
+  headers.set("cache-control", "private, no-store");
+  headers.set("x-content-type-options", "nosniff");
+  return new Response(object.body, { headers });
+};
+
 export const listMedia = async (request: Request, env: Env) => {
   await requireAdmin(request, env);
   const { limit, offset } = pageParams(new URL(request.url));

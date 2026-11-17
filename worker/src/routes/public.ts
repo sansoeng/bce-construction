@@ -57,6 +57,7 @@ const leadLines = (lead: Record<string, unknown>) =>
     lead.service ? `Service: ${lead.service}` : "",
     lead.location ? `Location: ${lead.location}` : "",
     lead.message ? `Message: ${String(lead.message).slice(0, 900)}` : "",
+    Array.isArray(lead.attachments) && lead.attachments.length ? `Files: ${lead.attachments.join(", ")}` : "",
     `ID: ${lead.id}`,
   ].filter(Boolean);
 
@@ -107,6 +108,140 @@ export const notifyChannels = (env: Env) => {
   if (env.RESEND_API_KEY && env.LEADS_EMAIL_TO) channels.push("email");
   return channels.length ? channels.join("+") : "none";
 };
+
+// ---------------------------------------------------------------------------
+// Attachments: drawings, BOQs and CVs sent with a lead.
+//
+// They live under `leads/…` in R2, not `media/…`, because /api/media/* is public while a CV or a client's drawing is
+// not. Only the admin download route can read these keys. Limits are deliberately small (free tier, phone uploads).
+// ---------------------------------------------------------------------------
+const LEAD_FILE_MAX_BYTES = 8 * 1024 * 1024;
+const LEAD_FILE_TOTAL_BYTES = 16 * 1024 * 1024;
+const LEAD_FILE_MAX_COUNT = 4;
+
+const FILE_BY_MIME: Record<string, string> = {
+  "application/pdf": "pdf",
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "application/acad": "dwg",
+  "image/vnd.dwg": "dwg",
+  "application/dxf": "dxf",
+  "image/vnd.dxf": "dxf",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+  "application/vnd.ms-excel": "xls",
+  "application/msword": "doc",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+};
+const FILE_BY_EXTENSION: Record<string, string> = {
+  pdf: "pdf",
+  jpg: "jpg",
+  jpeg: "jpg",
+  png: "png",
+  webp: "webp",
+  dwg: "dwg",
+  dxf: "dxf",
+  xlsx: "xlsx",
+  xls: "xls",
+  doc: "doc",
+  docx: "docx",
+};
+
+const attachmentExtension = (file: File) => {
+  const byMime = FILE_BY_MIME[file.type.toLowerCase()];
+  if (byMime) return byMime;
+  // Browsers often send an empty or generic type for DWG/DXF, so fall back to the name.
+  const extension = (file.name.split(".").pop() ?? "").toLowerCase();
+  return FILE_BY_EXTENSION[extension] ?? "";
+};
+
+const attachmentKey = (leadId: string, index: number, file: File, extension: string) => {
+  const now = new Date();
+  const folder = `leads/${now.getUTCFullYear()}/${String(now.getUTCMonth() + 1).padStart(2, "0")}`;
+  const base =
+    (file.name || "file")
+      .replace(/\.[^.]+$/, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 60) || "file";
+  return `${folder}/${leadId}-${index}-${base}.${extension}`;
+};
+
+const readLeadBody = async (request: Request) => {
+  const contentType = request.headers.get("content-type") ?? "";
+  if (!contentType.includes("multipart/form-data")) {
+    return { body: await jsonBody(request), files: [] as File[] };
+  }
+  const form = await request.formData();
+  const body: Record<string, unknown> = {};
+  const files: File[] = [];
+  for (const [key, value] of form.entries()) {
+    if (value instanceof File) {
+      if (value.size > 0) files.push(value);
+      continue;
+    }
+    body[key] = value;
+  }
+  return { body, files };
+};
+
+const validateAttachments = (files: File[]) => {
+  if (files.length > LEAD_FILE_MAX_COUNT) {
+    throw new HttpError(413, `Please attach at most ${LEAD_FILE_MAX_COUNT} files`, "too_many_files");
+  }
+  let total = 0;
+  for (const file of files) {
+    if (file.size > LEAD_FILE_MAX_BYTES) {
+      throw new HttpError(413, `“${file.name}” is larger than 8 MB`, "file_too_large");
+    }
+    total += file.size;
+    if (!attachmentExtension(file)) {
+      throw new HttpError(415, `Unsupported file type: ${file.name}`, "unsupported_file_type");
+    }
+  }
+  if (total > LEAD_FILE_TOTAL_BYTES) {
+    throw new HttpError(413, "Attachments are larger than 16 MB in total", "files_too_large");
+  }
+  return total;
+};
+
+type LeadAttachment = { key: string; name: string; size: number; type: string };
+
+const storeAttachments = async (env: Env, leadId: string, kind: string, files: File[]): Promise<LeadAttachment[]> => {
+  if (!files.length) return [];
+  if (!env.MEDIA) throw new HttpError(503, "File uploads are not enabled yet", "r2_not_enabled");
+  const saved: LeadAttachment[] = [];
+  for (const [index, file] of files.entries()) {
+    const extension = attachmentExtension(file);
+    const key = attachmentKey(leadId, index, file, extension);
+    await env.MEDIA.put(key, file.stream(), {
+      httpMetadata: {
+        contentType: file.type || `application/${extension}`,
+        contentDisposition: `attachment; filename="${file.name.replace(/["\\]/g, "")}"`,
+      },
+      customMetadata: { name: file.name, leadId, kind },
+    });
+    saved.push({ key, name: file.name, size: file.size, type: file.type || extension });
+  }
+  return saved;
+};
+
+/** Careers applications get a courtesy reply when email is configured; the on-screen confirmation is the fallback. */
+const acknowledgeApplicant = async (env: Env, name: string, to: string, role: string) => {
+  if (!env.RESEND_API_KEY || !env.LEADS_EMAIL_FROM) return;
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, "content-type": "application/json" },
+    body: JSON.stringify({
+      from: env.LEADS_EMAIL_FROM,
+      to: [to],
+      subject: `BCE received your application${role ? ` — ${role}` : ""}`,
+      text: `Dear ${name || "applicant"},\n\nThank you for applying to BCE., Ltd.${role ? ` for the ${role} role` : ""}. Our HR team has received your application and will contact you if your experience matches the role.\n\nBCE., Ltd.\nAng Village, Sangkat O'Char, Battambang\n012 932 700`,
+    }),
+  }).catch(() => undefined);
+};
+
 
 export const health = async (env: Env) => {
   const checks: Record<string, string> = {};
@@ -206,7 +341,7 @@ export const publicSettings = async (request: Request, env: Env) => {
 };
 
 export const createLead = async (request: Request, env: Env, ctx: ExecutionContext) => {
-  const body = await jsonBody(request);
+  const { body, files } = await readLeadBody(request);
   const website = cleanString(body.website, 200);
   if (website) return json({ ok: true, id: "ignored" }, { status: 202 }); // honeypot
 
@@ -215,10 +350,12 @@ export const createLead = async (request: Request, env: Env, ctx: ExecutionConte
   const phone = cleanString(body.phone, 80);
   const email = cleanString(body.email, 200);
   const message = cleanString(body.message ?? body.notes ?? body.summary, 4000);
+  const role = cleanString(body.role ?? body.project, 160);
 
   if (!name && !phone && !email) throw new HttpError(400, "Add a name, phone or email", "missing_contact");
   if (phone && !/^[+0-9 ().-]{6,40}$/.test(phone)) throw new HttpError(400, "Phone number looks invalid", "invalid_phone");
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new HttpError(400, "Email looks invalid", "invalid_email");
+  validateAttachments(files);
 
   const ip = requestIp(request);
   const ipHash = await hashIp(ip);
@@ -232,7 +369,11 @@ export const createLead = async (request: Request, env: Env, ctx: ExecutionConte
 
   const id = randomId("lead_");
   const now = nowIso();
-  const payload = JSON.stringify(body).slice(0, 24_000);
+  const attachments = await storeAttachments(env, id, kind, files);
+  const payload = JSON.stringify({
+    ...body,
+    files: attachments.map(({ key, name: fileName, size, type }) => ({ key, name: fileName, size, type })),
+  }).slice(0, 24_000);
   await env.DB.prepare(
     `INSERT INTO leads
       (id, kind, status, name, phone, email, company, service, project, location, message, payload, source, ip_hash, user_agent, created_at, updated_at)
@@ -269,10 +410,12 @@ export const createLead = async (request: Request, env: Env, ctx: ExecutionConte
       service: body.service,
       location: body.location,
       message: message ?? body.summary,
+      attachments: attachments.map((file) => `${file.name} (${Math.round(file.size / 1024)} KB)`),
     }),
   );
+  if (kind === "careers" && email) ctx.waitUntil(acknowledgeApplicant(env, name ?? "", email, role ?? ""));
 
-  return json({ ok: true, id }, { status: 201 });
+  return json({ ok: true, id, attachments: attachments.map(({ name: fileName, size }) => ({ name: fileName, size })) }, { status: 201 });
 };
 
 const jsonBody = async (request: Request): Promise<Record<string, unknown>> => {

@@ -12,6 +12,7 @@ import { ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 import ArrowButton from "./ArrowButton";
 import { unsplash } from "./company";
 import { transitionView } from "./pageTransition";
+import ApplyForm from "./ApplyForm";
 
 // Careers after olympic.no/career-crew: the shared ParallaxHero cover (a full-height photo whose title drifts on
 // scroll, as Our Businesses), a label-with-copy standfirst, a hairline-free board of open roles with an
@@ -409,6 +410,10 @@ export default function RecruitmentPage() {
                       <a href="/?privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
                       for how we use candidate information.
                     </p>
+                  </div>
+
+                  <div className="mt-8">
+                    <ApplyForm role={currentJob.title} />
                   </div>
 
                   <div className="mt-8 flex flex-wrap items-center gap-3">

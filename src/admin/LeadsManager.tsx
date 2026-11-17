@@ -299,6 +299,41 @@ export default function LeadsManager() {
                   {selected.message || "—"}
                 </p>
               </div>
+              {(() => {
+                let files: { key?: string; name?: string; size?: number }[] = [];
+                try {
+                  const parsed = JSON.parse(selected.payload ?? "{}") as { files?: unknown };
+                  if (Array.isArray(parsed.files)) files = parsed.files as typeof files;
+                } catch {
+                  files = [];
+                }
+                files = files.filter((file) => typeof file.key === "string");
+                if (!files.length) return null;
+                return (
+                  <div>
+                    <p className="adm-label">Attachments ({files.length})</p>
+                    <ul className="mt-1 flex flex-col gap-1.5">
+                      {files.map((file) => (
+                        <li key={file.key}>
+                          <a
+                            className="text-[13px] text-[color:var(--adm-ink)] underline underline-offset-4"
+                            href={`/api/admin/leads/file/${file.key!.split("/").map(encodeURIComponent).join("/")}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {file.name ?? "download"}
+                          </a>
+                          {typeof file.size === "number" && (
+                            <span className="ml-2 text-[12px] text-[color:var(--adm-ink)]/50">
+                              {file.size >= 1024 * 1024 ? `${(file.size / (1024 * 1024)).toFixed(1)} MB` : `${Math.max(Math.round(file.size / 1024), 1)} KB`}
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })()}
               <Separator />
               <div>
                 <p className="adm-label">Original payload</p>
