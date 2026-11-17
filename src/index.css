@@ -3930,8 +3930,10 @@ html[lang="km"] .ab-msg-text { line-height: 1.45; letter-spacing: 0; }
 .abv-subtitle { display: flex; gap: .75rem; font-family: var(--font-ui-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; color: var(--paper); opacity: 0; transition: opacity .3s ease-out; }
 .abv-subtitle.is-active { opacity: 1; transition-duration: .4s; }
 .abv-subtitle-n { color: rgb(255 255 255 / .55); }
-.abv-subtitle.is-dark { font-family: inherit; font-size: .95rem; font-weight: 400; letter-spacing: -.01em; line-height: 1.35; text-transform: none; color: rgb(17 17 17 / .45); }
-.abv-subtitle.is-dark .abv-subtitle-n { color: rgb(17 17 17 / .4); }
+/* On paper the tag keeps the site's orange eyebrow rather than turning into grey sentence-case copy: the same 14px
+   uppercase mono as .abv-label and .qx-label, with the step number a step quieter. */
+.abv-subtitle.is-dark { font-family: var(--font-ui-mono); font-size: 14px; font-weight: 500; letter-spacing: .06em; line-height: 1.4; text-transform: uppercase; color: var(--brand-ink); }
+.abv-subtitle.is-dark .abv-subtitle-n { color: inherit; opacity: .55; }
 /* Outgoing copy fades out whole; incoming copy rises line by line (expo.out). */
 .abv-txt { opacity: 0; transition: opacity .25s ease-out; }
 .abv-txt.is-active { opacity: 1; transition-duration: 0s; }
@@ -4338,8 +4340,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 #hse { margin-top: clamp(6rem, 11vw, 11rem); }
 /* The same sequence on the ink ground (Quality page): the label, copy and photo wells flip to the paper palette. */
 .abv--dark { background: var(--ink); color: var(--paper); }
-.abv--dark .abv-subtitle.is-dark { color: rgb(255 255 255 / .5); }
-.abv--dark .abv-subtitle.is-dark .abv-subtitle-n { color: rgb(255 255 255 / .4); }
+.abv--dark .abv-subtitle.is-dark { color: var(--brand); }
 .abv--dark .abv-card-text { color: rgb(255 255 255 / .68); }
 .abv--dark .abv-card-photo { background: rgb(255 255 255 / .06); }
 .abv--solo .abv-vision { padding-bottom: 1.25rem; }
@@ -4610,7 +4611,8 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .ab-chip { padding: .45rem 1.1rem; border-radius: var(--radius) !important; background: var(--paper-page); font-size: .95rem; line-height: 1.2; animation: pd-fade-up 1s cubic-bezier(.16, 1, .3, 1) calc(.3s + var(--i, 0) * .06s) backwards; }
 /* About "Explore more": olympic.no's media link tiles. Two 828:765 tiles 24px from the edges, a black gradient over
    the top half, label and title at the top, the Explore button at the foot; the photo slides -15% to 0 as the tile
-   crosses the viewport (--p from useScrollParallax). Type and button follow the homepage. */
+   crosses the viewport (--p from useScrollParallax). Type and button follow the homepage. The gradient alone carries
+   the legibility: a backdrop blur here made both photos read as broken, so the images stay sharp. */
 .ab-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: clamp(6rem, 12vw, 12rem) 0; padding-inline: 24px; }
 .ab-tile {
   position: relative;
@@ -4639,16 +4641,12 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   height: 62%;
   pointer-events: none;
   background: linear-gradient(180deg, rgb(0 0 0 / .62) 0%, rgb(0 0 0 / .34) 44%, rgb(0 0 0 / 0) 100%);
-  -webkit-backdrop-filter: blur(16px) saturate(.9);
-  backdrop-filter: blur(16px) saturate(.9);
-  -webkit-mask-image: linear-gradient(180deg, var(--ink-pure) 0%, var(--ink-pure) 56%, transparent 100%);
-  mask-image: linear-gradient(180deg, var(--ink-pure) 0%, var(--ink-pure) 56%, transparent 100%);
 }
 .ab-tile-media img { transition: transform 1.109s cubic-bezier(.17, .84, .44, 1); }
 @media (hover: hover) { .ab-tile:hover .ab-tile-media img { transform: scale(1.03); } }
 .ab-tile-content { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: flex-start; height: 100%; padding: 54px 45px; }
 .ab-tile-label { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
-.ab-tile-title { max-width: 26rem; margin-top: 24px; font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; text-shadow: 0 2px 28px rgb(0 0 0 / .42); }
+.ab-tile-title { max-width: 26rem; margin-top: 24px; font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; text-shadow: 0 2px 28px rgb(0 0 0 / .42); }
 .ab-tile-btn { margin-top: auto; }
 /* Keep the tile buttons white on hover; only the label and arrow animate. */
 .ab-tile .fg-btn.is-white:hover {
@@ -4771,8 +4769,8 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   font-size: clamp(2.1rem, 3.4vw, 44px);
   text-transform: uppercase;
 }
-/* "What to send us" on the business pages, after the calibration block on Quality & HSE: the section opens on
-   white after the ink band, so it carries the gap itself instead of a top border. */
+/* "What to send us" on the business pages, after the calibration block on Quality & HSE: the section itself is the
+   split grid, so it carries the gap above the eyebrow instead of a top border. */
 .biz-prepare { padding-top: clamp(5rem, 9vw, 9rem); }
 .ol-capacity-copy { grid-column: 7 / -1; max-width: 30rem; margin-top: 28px; font-size: 1.05rem; line-height: 1.4; color: rgb(255 255 255 / .6); }
 .ol-capacity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--olg); row-gap: 48px; margin-top: 100px; padding: 0; list-style: none; }
@@ -4957,67 +4955,42 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .fl-figures-band .glance-num { color: var(--paper); }
 .fl-figures-band .pd-unit { color: rgb(255 255 255 / .5); }
 
-.fl-plant {
+.fl-jobs {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--olg);
-  align-items: stretch;
-  margin-top: clamp(3rem, 5vw, 5rem);
-}
-.fl-plant-media {
-  position: relative;
-  grid-column: 1 / span 6;
-  min-height: 34rem;
-  overflow: hidden;
-  border-radius: var(--radius) !important;
-  -webkit-corner-smoothing: 60% !important;
-  corner-smoothing: 60% !important;
-  background: var(--paper-media);
-}
-.fl-plant-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.fl-plant-grid {
-  display: grid;
-  grid-column: 7 / -1;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: clamp(3rem, 5vw, 5rem) 0 0;
   padding: 0;
   list-style: none;
 }
-.fl-job-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.fl-section { margin-top: clamp(6rem, 10vw, 10rem); }
-.fl-machine-card {
+.fl-job-card {
+  display: flex;
   min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
   border: 1px solid rgb(17 17 17 / .14);
-  border-radius: 16px;
+  border-radius: var(--radius);
   background: var(--paper);
   transition: border-color .3s ease, transform .5s cubic-bezier(.16, 1, .3, 1);
 }
 @media (hover: hover) {
-  .fl-machine-card:hover { border-color: rgb(17 17 17 / .3); transform: translateY(-2px); }
+  .fl-job-card:hover { border-color: rgb(17 17 17 / .3); transform: translateY(-2px); }
 }
-.fl-machine-inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 12px 12px 14px;
-  color: inherit;
+.fl-job-top {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 46px;
+  margin: 18px 18px 0;
 }
-.fl-machine-top { position: relative; display: grid; place-items: center; height: 42px; }
-.fl-machine-num {
+.fl-job-num {
   position: absolute;
   left: 0;
   top: 50%;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   transform: translateY(-50%);
   border-radius: 50%;
   background: #d9a13c;
@@ -5027,74 +5000,83 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   font-weight: 600;
   letter-spacing: .02em;
 }
-.fl-machine-num.is-navy { background: #1b2e5c; color: var(--paper); }
-.fl-machine-icon { width: 42px; height: 42px; color: var(--brand); }
-.fl-machine-icon svg { display: block; width: 100%; height: 100%; }
-.fl-machine-name {
-  margin-top: 7px;
+.fl-job-card.is-navy .fl-job-num { background: #1b2e5c; color: var(--paper); }
+.fl-job-icon { width: 46px; height: 46px; color: var(--brand); }
+.fl-job-icon svg { display: block; width: 100%; height: 100%; }
+.fl-job-title {
+  margin: 10px 18px 0;
   font-size: 12px;
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: .02em;
+  line-height: 1.3;
+  letter-spacing: .04em;
   text-align: center;
   text-transform: uppercase;
   color: #1b2e5c;
 }
-.fl-machine-body {
-  display: grid;
-  grid-template-columns: 78px minmax(0, 1fr);
-  gap: 9px;
-  align-items: start;
-  margin-top: 10px;
+.fl-job-text {
+  margin: 10px 18px 16px;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: rgb(17 17 17 / .6);
 }
-.fl-machine-body > img {
-  width: 78px;
-  height: 72px;
-  border-radius: 6px;
-  object-fit: cover;
+.fl-job-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
   background: var(--paper-media);
 }
-.fl-machine-list {
+.fl-job-media img { width: 100%; height: 100%; object-fit: cover; }
+.fl-job-services { margin-top: auto; border-top: 1px solid rgb(17 17 17 / .12); }
+.fl-job-services-head {
+  padding: 10px 18px;
+  background: #d9a13c;
+  color: #111;
+  font-family: var(--font-ui-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.fl-job-card.is-navy .fl-job-services-head { background: #1b2e5c; color: var(--paper); }
+.fl-job-services ul {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   margin: 0;
-  padding: 0;
+  padding: 14px 18px 18px;
   list-style: none;
-  font-size: 11px;
-  line-height: 1.35;
-  color: rgb(17 17 17 / .7);
 }
-.fl-machine-list li { position: relative; padding-left: 9px; }
-.fl-machine-list li::before {
-  content: "";
+.fl-job-services li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: rgb(17 17 17 / .72);
+}
+.fl-job-services li::before {
+  content: "✓";
   position: absolute;
   left: 0;
-  top: .48em;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #d9a13c;
+  top: 0;
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 600;
 }
+.fl-section { margin-top: clamp(6rem, 10vw, 10rem); }
 
-@media (max-width: 1439px) {
-  .fl-plant { grid-template-columns: 1fr; }
-  .fl-plant-media { grid-column: 1 / -1; min-height: 0; aspect-ratio: 16 / 9; }
-  .fl-plant-grid { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
+@media (max-width: 1279px) {
+  .fl-jobs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 1023px) {
   .fl-glance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (min-width: 768px) {
-  .fl-job-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 767px) {
-  .fl-plant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .fl-job-grid { grid-template-columns: 1fr; }
+@media (max-width: 639px) {
+  .fl-jobs { grid-template-columns: 1fr; }
 }
 @media (max-width: 479px) {
   .fl-glance-grid { grid-template-columns: 1fr; }
-  .fl-plant-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 1023px) {

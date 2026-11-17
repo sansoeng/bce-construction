@@ -99,34 +99,31 @@ export default function FleetPage() {
             <h2 id="fl-jobs" data-split className="ol-solutions-title">{fleet.jobsTitle}</h2>
             <p data-split="content" className="ol-solutions-lead">{fleet.jobsCopy}</p>
           </div>
-          <div className="fl-plant">
-            <div className="fl-plant-media">
-              <img src={fleet.plantImage} alt={fleet.plantImageAlt} loading="lazy" />
-            </div>
-            <ul className="fl-plant-grid fl-job-grid">
-              {jobs.map((job, index) => (
-                <li key={job.title} data-reveal className="fl-machine-card">
-                  <div className="fl-machine-inner">
-                    <div className="fl-machine-top">
-                      <span className={`fl-machine-num${index % 2 ? " is-navy" : ""}`}>{pad(index + 1)}</span>
-                      <span className="fl-machine-icon" aria-hidden>
-                        <LineIcon name={job.icon} className="size-full" strokeWidth={1.3} />
-                      </span>
-                    </div>
-                    <h3 className="fl-machine-name">{job.title}</h3>
-                    <div className="fl-machine-body">
-                      <img src={job.image} alt={job.imageAlt} loading="lazy" />
-                      <ul className="fl-machine-list">
-                        {job.bullets.map((bullet) => (
-                          <li key={bullet}>{bullet}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="fl-jobs">
+            {jobs.map((job, index) => (
+              <li key={job.title} data-reveal className={`fl-job-card${index % 2 ? " is-navy" : ""}`}>
+                <div className="fl-job-top">
+                  <span className="fl-job-num">{pad(index + 1)}</span>
+                  <span className="fl-job-icon" aria-hidden>
+                    <LineIcon name={job.icon} className="size-full" strokeWidth={1.3} />
+                  </span>
+                </div>
+                <h3 className="fl-job-title">{job.title}</h3>
+                <p className="fl-job-text">{job.text}</p>
+                <div className="fl-job-media">
+                  <img src={job.image} alt={job.imageAlt} loading="lazy" />
+                </div>
+                <div className="fl-job-services">
+                  <p className="fl-job-services-head">Key services</p>
+                  <ul>
+                    {job.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Maintenance, operators and mobilisation, using the business pages' value columns. */}

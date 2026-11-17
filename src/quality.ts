@@ -85,14 +85,11 @@ export type QualityContent = {
     figuresLabel: string;
     figuresTitle: string;
     figuresCopy: string;
-    /** The large photo beside the job cards. */
-    plantImage: string;
-    plantImageAlt: string;
     /** The jobs the fleet supports, not a second inventory. */
     jobsLabel: string;
     jobsTitle: string;
     jobsCopy: string;
-    jobs: { title: string; icon: string; bullets: string[]; image: string; imageAlt: string }[];
+    jobs: { title: string; text: string; icon: string; bullets: string[]; image: string; imageAlt: string }[];
     /** Workshop, operators and dispatch. */
     maintenanceLabel: string;
     maintenanceTitle: string;
@@ -281,8 +278,6 @@ export const DEFAULT_QUALITY: QualityContent = {
     figuresTitle: "Capacity you can plan around.",
     figuresCopy:
       "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
-    plantImage: "/Image/bce/about-zoom-batching.webp",
-    plantImageAlt: "Aerial view of BCE's batching plant, silos and aggregate yard",
     jobsLabel: "Fleet by job",
     jobsTitle: "One fleet, four ways to build.",
     jobsCopy:
@@ -290,6 +285,7 @@ export const DEFAULT_QUALITY: QualityContent = {
     jobs: [
       {
         title: "Concrete production & delivery",
+        text: "Ready-mix from our own batching plants, tested before it leaves and delivered by our own mixer fleet.",
         icon: "plant",
         bullets: [
           "Ready-mix from our own batching plants",
@@ -302,6 +298,7 @@ export const DEFAULT_QUALITY: QualityContent = {
       },
       {
         title: "Concrete placing",
+        text: "Boom pumps and operators place concrete where mixers cannot reach, working to the pour sequence.",
         icon: "pump",
         bullets: [
           "Boom pumps for high-reach pours",
@@ -314,6 +311,7 @@ export const DEFAULT_QUALITY: QualityContent = {
       },
       {
         title: "Foundations",
+        text: "Reinforced concrete piles installed and tested by our own rigs and crews, from platform to pile cap.",
         icon: "rig",
         bullets: [
           "Reinforced concrete piles",
@@ -326,6 +324,7 @@ export const DEFAULT_QUALITY: QualityContent = {
       },
       {
         title: "Lifting & site support",
+        text: "Crane trucks, tower cranes, lifts and wheel loaders keep the site moving, with operators and inspection records.",
         icon: "crane",
         bullets: [
           "Crane trucks and tower cranes",

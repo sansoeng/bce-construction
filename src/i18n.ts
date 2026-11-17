@@ -119,6 +119,7 @@ const KM: Record<string, string> = {
   "Request a quote": "ស្នើសុំសម្រង់តម្លៃ",
   "Request a quotation": "ស្នើសុំសម្រង់តម្លៃ",
   "Before we quote": "មុននឹងផ្តល់តម្លៃ",
+  "Quotation": "សម្រង់តម្លៃ",
   "What to send us": "អ្វីដែលត្រូវផ្ញើមកយើង",
   "The more of this we have, the faster and firmer your quotation.": "ព័ត៌មានកាន់តែច្រើន តម្លៃកាន់តែលឿន និងច្បាស់លាស់។",
   "Call": "ហៅទូរសព្ទ",
@@ -992,6 +993,15 @@ const KM: Record<string, string> = {
   "Hire & dispatch": "ការជួល និងការបញ្ជូន",
   "Capacity you can plan around.": "សមត្ថភាពដែលអ្នកអាចរៀបចំតាមផែនការ។",
   "What we own, in numbers.": "អ្វីដែលយើងមាន ជាតួលេខ។",
+  "Key services": "សេវាកម្មសំខាន់",
+  "Ready-mix from our own batching plants, tested before it leaves and delivered by our own mixer fleet.":
+    "បេតុងលាយស្រេចពីរោងចក្រផ្ទាល់ខ្លួន ត្រូវបានតេស្តមុនពេលចេញ និងដឹកជញ្ជូនដោយកងរថយន្តលាយបេតុងផ្ទាល់ខ្លួន។",
+  "Boom pumps and operators place concrete where mixers cannot reach, working to the pour sequence.":
+    "រថយន្តបូម និងអ្នកបញ្ជាចាក់បេតុងនៅកន្លែងដែលរថយន្តលាយមិនអាចទៅដល់ ដោយធ្វើការតាមលំដាប់នៃការចាក់។",
+  "Reinforced concrete piles installed and tested by our own rigs and crews, from platform to pile cap.":
+    "សសរស្ដម្ភបេតុងពង្រឹងត្រូវបានបោះ និងតេស្តដោយម៉ាស៊ីន និងក្រុមការងារផ្ទាល់ខ្លួន ចាប់ពីវេទិការហូតដល់ក្បាលសសរ។",
+  "Crane trucks, tower cranes, lifts and wheel loaders keep the site moving, with operators and inspection records.":
+    "ឡានស្ទូច ស្ទូចប៉ម ឧបករណ៍លើក និងម៉ាស៊ីនផ្ទុកកង់ ជួយឱ្យការដ្ឋានដំណើរការ ជាមួយអ្នកបញ្ជា និងកំណត់ត្រាត្រួតពិនិត្យ។",
   "Fleet by job": "កងយានយន្តតាមការងារ",
   "One fleet, four ways to build.": "កងយានយន្តតែមួយ ជាមួយវិធីសាងសង់បួនប្រភេទ។",
   "The same owned fleet carries BCE's concrete, piling, lifting and site-support work. Counts are above; here is what each group is for.":
