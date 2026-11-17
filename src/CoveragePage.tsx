@@ -1,5 +1,5 @@
 import { siteSettings } from "./siteSettings";
-import { useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
@@ -54,6 +54,25 @@ const TOPICS = [
   ["ready", "Mobilization ready"],
   ["fleet", "Equipment fleet"],
 ] as const;
+
+// The key figures use the project-highlights "at a glance" grid: the title holds on the left while the bordered cells
+// animate in on the right. Same trigger as the project and fleet pages.
+function useInView<T extends Element>(threshold = 0.2) {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setInView(true);
+      io.disconnect();
+    }, { threshold });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [threshold]);
+  return [ref, inView] as const;
+}
 
 function Rows({ rows }: { rows: [number, string][] }) {
   return (
@@ -132,6 +151,7 @@ export default function CoveragePage() {
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);
+  const [glanceRef, glanceIn] = useInView<HTMLDivElement>();
 
   // The chosen province, starting with the head office; the map, the chips and the register all drive it.
   const [active, setActive] = useState(0);
@@ -172,33 +192,50 @@ export default function CoveragePage() {
             {copy.intro}
           </LabelCopy>
 
-          {/* 01 Key figures, after olympic.no's dark capacity band: the numbers behind the map — the locations, the
-              years since 1995, the 2025 project total and the fleet, with the piling-rig note the count leaves out. */}
+          {/* 01 Key figures in the project-highlights "at a glance" layout: the title on the left, four bordered cells
+              on the right — the locations, the years since 1995, the 2025 project total and the fleet. */}
           <section id="figures" data-nav-dark data-header-title="Key figures" aria-labelledby="cv-figures" className="ol-capacity cv-figures">
-            <div className="ol-capacity-head">
-              <p data-split="content" className="ol-label">Key figures</p>
-              <h2 id="cv-figures" data-split className="ol-capacity-title">{copy.story[0].lead}</h2>
-              <p data-split="content" className="ol-capacity-copy">13 provinces + Phnom Penh, all served from one base.</p>
+            <div className="glance-layout">
+              <div className="glance-title-col">
+                <div className="glance-title-sticky">
+                  <p data-split="content" className="ol-label">Key figures</p>
+                  <h2 id="cv-figures" data-split className="ol-capacity-title">{copy.story[0].lead}</h2>
+                  <p data-split="content" className="ol-capacity-copy">13 provinces + Phnom Penh, all served from one base.</p>
+                </div>
+              </div>
+              <div ref={glanceRef} className={`glance ${glanceIn ? "is-in" : ""}`}>
+                <dl className="glance-grid">
+                  <div className="glance-cell" style={{ "--i": 0 } as CSSProperties}>
+                    <dt className="glance-label">
+                      <span className="glance-label-title">Locations covered</span>
+                      <span className="glance-label-note">13 provinces + Phnom Penh</span>
+                    </dt>
+                    <dd className="glance-num"><span>{provinceTotal + 1}</span></dd>
+                  </div>
+                  <div className="glance-cell" style={{ "--i": 1 } as CSSProperties}>
+                    <dt className="glance-label">
+                      <span className="glance-label-title">{copy.story[1].label}</span>
+                      <span className="glance-label-note">{copy.story[1].lead}</span>
+                    </dt>
+                    <dd className="glance-num"><span>30+</span></dd>
+                  </div>
+                  <div className="glance-cell" style={{ "--i": 2 } as CSSProperties}>
+                    <dt className="glance-label">
+                      <span className="glance-label-title">{copy.story[2].label}</span>
+                      <span className="glance-label-note">{copy.story[2].lead}</span>
+                    </dt>
+                    <dd className="glance-num"><span>{totalProjects}</span></dd>
+                  </div>
+                  <div className="glance-cell" style={{ "--i": 3 } as CSSProperties}>
+                    <dt className="glance-label">
+                      <span className="glance-label-title">{copy.story[3].lead}</span>
+                      <span className="glance-label-note">{copy.fleetNote}</span>
+                    </dt>
+                    <dd className="glance-num"><span>{fleetTotal}</span></dd>
+                  </div>
+                </dl>
+              </div>
             </div>
-            <ul className="ol-capacity-grid">
-              <li data-reveal className="ol-figure">
-                <span className="ol-figure-value">{provinceTotal + 1}</span>
-                <span className="ol-figure-label">Locations covered</span>
-              </li>
-              <li data-reveal className="ol-figure">
-                <span className="ol-figure-value">30<span>+</span></span>
-                <span className="ol-figure-label">{copy.story[1].lead}</span>
-              </li>
-              <li data-reveal className="ol-figure">
-                <span className="ol-figure-value">{totalProjects}</span>
-                <span className="ol-figure-label">{copy.story[2].lead}</span>
-              </li>
-              <li data-reveal className="ol-figure">
-                <span className="ol-figure-value">{fleetTotal}</span>
-                <span className="ol-figure-label">{copy.story[3].lead}</span>
-              </li>
-            </ul>
-            <p data-reveal className="cv-fleet-note">{copy.fleetNote}</p>
           </section>
         </div>
 

@@ -5498,7 +5498,12 @@ html[lang="km"] .fg-btn.is-outline-white {
   padding-top: clamp(2rem, 4vw, 4rem);
   background: #1D2226;
 }
-.cv-fleet-note { margin-top: 2.5rem; font-family: var(--font-ui-mono); font-size: 12px; letter-spacing: .04em; color: rgb(255 255 255 / .5); }
+.cv-figures .glance-cell { --rule: var(--line-dark); }
+.cv-figures .glance-grid::before,
+.cv-figures .glance-grid::after { background: var(--line-dark); }
+.cv-figures .glance-label-title { color: var(--paper); white-space: normal; }
+.cv-figures .glance-label-note { color: rgb(255 255 255 / .5); white-space: normal; }
+.cv-figures .glance-num { color: var(--paper); }
 
 .cv-band { padding: clamp(5rem, 9vw, 9rem) var(--olm, var(--page-gutter)); border-top: 1px solid var(--line); }
 .cv-band--soft { background: var(--paper-soft); }
