@@ -18,6 +18,10 @@ export interface Env {
   TURNSTILE_SECRET?: string;
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHAT_ID?: string;
+  /** Resend API key and recipients for lead email alerts (see docs/CLOUDFLARE.md). */
+  RESEND_API_KEY?: string;
+  LEADS_EMAIL_TO?: string;
+  LEADS_EMAIL_FROM?: string;
   DEV_ADMIN_EMAIL?: string;
 }
 

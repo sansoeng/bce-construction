@@ -4,12 +4,14 @@ import "lenis/dist/lenis.css";
 import { initSplitReveal } from "./splitReveal";
 import { LENIS_OPTIONS } from "./smoothScroll";
 import { translate } from "./i18n";
+import { applyPageSeo } from "./seo";
 
 // Shared setup for the inner pages: line-by-line text reveals, [data-reveal] fade-ups, and Kononenko-style smooth
-// scrolling (exposed on window.__lenis for the footer's back-to-top and the page transition).
-export function usePageSetup(title: string) {
+// scrolling (exposed on window.__lenis for the footer's back-to-top and the page transition). The page title is set
+// with its description, canonical and social tags (src/seo.ts), not on its own.
+export function usePageSetup(title: string, description?: string) {
   useEffect(() => {
-    document.title = translate(title);
+    applyPageSeo(translate(title), description && translate(description));
     const cleanupSplit = initSplitReveal();
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("is-visible")),

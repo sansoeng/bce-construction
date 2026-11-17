@@ -19,6 +19,7 @@ import './index.css'
 import { initPageTransitions, onRouteChange } from './pageTransition'
 import { initImageParallax } from './imageParallax'
 import { applyLanguage, getLang, onLangChange, translate } from './i18n'
+import { applyPageSeo, applyStructuredData } from './seo'
 import {
   bootstrapContent,
   getRuntimeContentVersion,
@@ -56,7 +57,7 @@ function Page() {
   if (params.has('privacy')) return <PrivacyPage />
   if (params.has('terms')) return <TermsPage />
   if (params.has('blog') || params.has('news')) return <BlogPage />
-  document.title = translate(homeTitle)
+  applyPageSeo(translate(homeTitle))
   return <App />
 }
 
@@ -130,6 +131,7 @@ if (isAdminRoute) {
   )
 } else {
   initPageTransitions()
+  applyStructuredData()
   root.render(
     <React.StrictMode>
       <Root />

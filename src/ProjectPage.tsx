@@ -5,6 +5,7 @@ import "lenis/dist/lenis.css";
 import { LENIS_OPTIONS } from "./smoothScroll";
 import { initSplitReveal } from "./splitReveal";
 import { translate } from "./i18n";
+import { applyPageSeo } from "./seo";
 import SiteHeader from "./SiteHeader";
 import QuoteCta from "./QuoteCta";
 import Footer from "./Footer";
@@ -135,7 +136,11 @@ export default function ProjectPage({ slug }: { slug: string }) {
   const [viewing, setViewing] = useState<number | null>(null);
 
   useEffect(() => {
-    document.title = translate(project ? `${project.name} | BCE., Ltd.` : "Project not found | BCE., Ltd.");
+    const title = translate(project ? `${project.name} | BCE., Ltd.` : "Project not found | BCE., Ltd.");
+    applyPageSeo(
+      title,
+      project ? `${project.name}, ${project.location}. ${project.summary}` : undefined,
+    );
     const cleanupSplit = initSplitReveal();
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("is-visible")),

@@ -197,6 +197,26 @@ Sending email from the Worker needs an `send_email` binding and a verified desti
 
 New leads then send a short Telegram message via `ctx.waitUntil`, after the HTTP response.
 
+## Lead email alerts (optional, Resend)
+
+Telegram is the primary channel; email is a second one for whoever watches the inbox. Both run from the same
+`notifyLead()` call and both are skipped silently when unconfigured, so check `services.notifications` in
+`/api/health` to see which channels are live (`telegram`, `email`, `telegram+email` or `none`).
+
+1. Create a Resend account and verify `bce-construction.com` (DNS records in the Cloudflare zone).
+2. Store the key and recipients as Worker secrets (per environment, as above):
+
+   ```bash
+   npx wrangler secret put RESEND_API_KEY          # --env production for the live Worker
+   npx wrangler secret put LEADS_EMAIL_TO          # comma-separated inboxes
+   npx wrangler secret put LEADS_EMAIL_FROM        # optional, e.g. "BCE Website <leads@bce-construction.com>"
+   ```
+
+`LEADS_EMAIL_FROM` defaults to Resend's `onboarding@resend.dev`, which only delivers to the account owner — set it
+once the domain is verified. Without a Resend key the Telegram path is the only alert, and with neither configured
+new enquiries are stored in D1 and visible in the admin Leads screen, but nobody is notified.
+
+
 ## Local development
 
 ```bash

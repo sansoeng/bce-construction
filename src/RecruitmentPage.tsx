@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import { usePageSetup } from "./usePageSetup";
 import { translate } from "./i18n";
+import { applyPageSeo } from "./seo";
 import { VACANCIES, type Vacancy } from "./careersData";
 import StickyValues, { type StickyItem } from "./StickyValues";
 import { ParallaxHero, useScrollParallax } from "./ServiceBlocks";
@@ -176,7 +177,7 @@ export default function RecruitmentPage() {
   const currentJob = useMemo(() => openVacancies.find((v) => v.id === selectedJobId) ?? null, [selectedJobId, openVacancies]);
 
   useEffect(() => {
-    document.title = currentJob ? `${currentJob.title} | BCE Careers` : translate("Careers & Recruitment | BCE., Ltd.");
+    applyPageSeo(currentJob ? `${currentJob.title} | BCE Careers` : translate("Careers & Recruitment | BCE., Ltd."));
   }, [currentJob]);
 
   const scrollTop = () => {

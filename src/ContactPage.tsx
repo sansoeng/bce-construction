@@ -171,7 +171,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 md:gap-4 lg:gap-6 items-start">
             {/* Direct channels */}
             <div className="md:col-span-5 flex flex-col gap-3.5 md:gap-4">
-              <ChannelCard icon={<PhoneIcon />} label="Hotlines">
+              <ChannelCard icon={<PhoneIcon />} label="Sales & Quotations hotlines">
                 <div className="flex flex-col gap-1.5">
                   {phones.map((number) => (
                     <a
@@ -184,6 +184,13 @@ export default function ContactPage() {
                   ))}
                 </div>
                 <p className="mt-3 text-[12.5px] text-[#111]/45">24/7 site pouring dispatch upon schedule</p>
+                <p className="mt-2 text-[12.5px] leading-[1.55] text-[#111]/45">
+                  Looking for a job? Applications go through{" "}
+                  <a href="/?recruitment" className="text-[#111] underline underline-offset-4 hover:text-[#FB290E]">
+                    Careers &amp; Recruitment
+                  </a>
+                  .
+                </p>
               </ChannelCard>
 
               <ChannelCard icon={<MailIcon />} label="Email">

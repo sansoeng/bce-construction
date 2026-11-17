@@ -49,7 +49,7 @@ export const siteSettings: SiteSettings = {
   seo: {
     title: "BCE — Battambang Construction and Engineering Co., Ltd.",
     description:
-      "Ready-mix concrete, piling, civil construction, concrete slab works and fleet hire across 14 Cambodian provinces since 1995.",
+      "Ready-mix concrete, piling, civil construction, concrete slab works and fleet hire across Cambodia, building from Battambang since 1995 — 13 provinces and Phnom Penh.",
     ogImage: "/Image/bce/hero_batching_plant.webp",
   },
   features: {

@@ -63,6 +63,8 @@ const KM: Record<string, string> = {
   "Quality & Lab": "គុណភាព & មន្ទីរពិសោធន៍",
   "Contact": "ទំនាក់ទំនង",
   "Privacy policy": "គោលការណ៍ឯកជនភាព",
+  "Cookie policy": "គោលការណ៍ខូគី",
+  "Terms & Privacy Policy": "លក្ខខណ្ឌ & គោលការណ៍ឯកជនភាព",
   "Terms of use": "លក្ខខណ្ឌប្រើប្រាស់",
   "Legal": "ច្បាប់",
   "By sending this request you agree to our": "ដោយផ្ញើសំណើនេះ អ្នកយល់ព្រមនឹង",
@@ -804,6 +806,7 @@ const KM: Record<string, string> = {
   "Engineers": "វិស្វករ",
   "Chairwoman": "ប្រធានក្រុមប្រឹក្សា",
   "Since 1995": "តាំងពីឆ្នាំ ១៩៩៥",
+  "Design & concept by BCE": "រចនាប័ទ្ម & គំនិតដោយ BCE",
   "BCE is a Battambang-based construction, concrete, piling and engineering company.": "BCE ជាក្រុមហ៊ុនសំណង់ បេតុង ការបោះសសរស្ដម្ភ និងវិស្វកម្ម ដែលមានមូលដ្ឋាននៅខេត្តបាត់ដំបង",
   "With our own batching plants, mixer trucks, pump trucks and piling rigs, and a team of 71 including 15 engineers, we keep every project on schedule and on spec.":
     "ជាមួយរោងចក្រលាយបេតុង រថយន្តលាយបេតុង រថយន្តបូមបេតុង និងម៉ាស៊ីនបោះសសរស្ដម្ភផ្ទាល់ខ្លួន និងក្រុមការងារ ៧១ នាក់ រួមទាំងវិស្វករ ១៥ នាក់ យើងធានាថារាល់គម្រោងដំណើរការទាន់ពេលវេលា និងត្រឹមត្រូវតាមលក្ខណៈបច្ចេកទេស។",
@@ -1516,6 +1519,8 @@ const KM: Record<string, string> = {
   "Email address": "អាសយដ្ឋានអ៊ីមែល",
   "Direct chat & quotations": "ជជែកផ្ទាល់ & ស្នើសុំតម្លៃ",
   "24/7 site pouring dispatch upon schedule": "ការបញ្ជូនបេតុងចាក់នៅការដ្ឋាន ២៤/៧ តាមកាលវិភាគ",
+  "Sales & Quotations hotlines": "ខ្សែទូរស័ព្ទលក់ និងសម្រង់តម្លៃ",
+  "Looking for a job? Applications go through": "កំពុងស្វែងរកការងារ? ពាក្យសុំត្រូវផ្ញើតាមរយៈ",
   "Send us a message": "ផ្ញើសារមកយើង",
   "Tell us what you need and our team will come back to you.":
     "ប្រាប់យើងពីតម្រូវការរបស់អ្នក ហើយក្រុមការងារនឹងតបមកវិញ។",

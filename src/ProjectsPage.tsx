@@ -8,6 +8,7 @@ import { usePageSetup } from "./usePageSetup";
 import { projectHref, projects } from "./projects";
 import { SAMPLE_PORTFOLIO } from "./contentFlags";
 import { useScrollParallax } from "./ServiceBlocks";
+import "./projects.css";
 
 // Project list (/?projects), after pda.archi/en/projects: the statement set large over a full-width hairline, a
 // Grid/List switch on the left and the standfirst on the right. The work below is either the staggered grid or a
@@ -18,6 +19,10 @@ const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
 type View = "grid" | "list";
+
+// Category filter, from the portfolio itself so a new project category appears without touching this list.
+const ALL = "All projects";
+const CATEGORIES = [ALL, ...Array.from(new Set(projects.map((p) => p.category)))];
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -35,6 +40,8 @@ export default function ProjectsPage() {
   usePageSetup("Projects | BCE., Ltd.");
 
   const [view, setView] = useState<View>("grid");
+  const [category, setCategory] = useState<string>(ALL);
+  const visible = category === ALL ? projects : projects.filter((p) => p.category === category);
 
   const listRef = useRef<HTMLElement>(null);
   const rootRef = useRef<HTMLElement>(null);
@@ -70,7 +77,7 @@ export default function ProjectsPage() {
     );
     root.querySelectorAll<HTMLElement>(".kp-media:not(.is-revealed)").forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [view]);
+  }, [view, category]);
 
   return (
     <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#111]">
@@ -85,24 +92,43 @@ export default function ProjectsPage() {
 
           <hr className="pl-hero-rule" />
 
-          <div className={`pl-view${view === "list" ? " is-list" : ""}`} role="group" aria-label="Layout">
-            <span className="pl-view-dot" aria-hidden />
-            <button
-              type="button"
-              className={`pl-view-btn${view === "grid" ? " is-active" : ""}`}
-              aria-pressed={view === "grid"}
-              onClick={() => setView("grid")}
-            >
-              Grid
-            </button>
-            <button
-              type="button"
-              className={`pl-view-btn${view === "list" ? " is-active" : ""}`}
-              aria-pressed={view === "list"}
-              onClick={() => setView("list")}
-            >
-              List
-            </button>
+          <div className="pl-tools">
+            <div className="pl-filters" role="group" aria-label="Filter projects by category">
+              {CATEGORIES.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={`pl-chip${category === item ? " is-active" : ""}`}
+                  aria-pressed={category === item}
+                  onClick={() => setCategory(item)}
+                >
+                  {item}
+                  <span className="pl-chip-count">
+                    {item === ALL ? projects.length : projects.filter((p) => p.category === item).length}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            <div className={`pl-view${view === "list" ? " is-list" : ""}`} role="group" aria-label="Layout">
+              <span className="pl-view-dot" aria-hidden />
+              <button
+                type="button"
+                className={`pl-view-btn${view === "grid" ? " is-active" : ""}`}
+                aria-pressed={view === "grid"}
+                onClick={() => setView("grid")}
+              >
+                Grid
+              </button>
+              <button
+                type="button"
+                className={`pl-view-btn${view === "list" ? " is-active" : ""}`}
+                aria-pressed={view === "list"}
+                onClick={() => setView("list")}
+              >
+                List
+              </button>
+            </div>
           </div>
 
           <p data-split className="pl-hero-copy">
@@ -119,8 +145,8 @@ export default function ProjectsPage() {
 
         {/* Projects Grid or List */}
         <section ref={listRef} aria-label="Projects" data-reveal-ready className="kp !pt-0">
-          <div key={view} className={`kp-grid${view === "list" ? " pl-list" : ""}`}>
-            {projects.map((p) => (
+          <div key={`${view}-${category}`} className={`kp-grid${view === "list" ? " pl-list" : ""}`}>
+            {visible.map((p) => (
               <a key={p.slug} href={projectHref(p.slug)} className="kp-item group">
                 <div
                   className="kp-media rounded-[10px]"

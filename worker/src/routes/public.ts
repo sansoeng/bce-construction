@@ -45,17 +45,23 @@ const bumpRateLimit = async (env: Env, key: string, windowMs: number) => {
   return row?.count ?? 1;
 };
 
-const notifyTelegram = async (env: Env, lead: Record<string, unknown>) => {
-  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
-  const lines = [
+// Lead alerts: Telegram first (a bot token and chat id), then email through Resend. Both are optional and silent
+// when unconfigured, so a missing secret must show up in /api/health rather than losing an enquiry quietly.
+const leadLines = (lead: Record<string, unknown>) =>
+  [
     `New BCE ${lead.kind ?? "quote"} request`,
     lead.name ? `Name: ${lead.name}` : "",
     lead.phone ? `Phone: ${lead.phone}` : "",
     lead.email ? `Email: ${lead.email}` : "",
+    lead.company ? `Company: ${lead.company}` : "",
     lead.service ? `Service: ${lead.service}` : "",
+    lead.location ? `Location: ${lead.location}` : "",
     lead.message ? `Message: ${String(lead.message).slice(0, 900)}` : "",
     `ID: ${lead.id}`,
   ].filter(Boolean);
+
+const notifyTelegram = async (env: Env, lines: string[]) => {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
   await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -65,6 +71,41 @@ const notifyTelegram = async (env: Env, lead: Record<string, unknown>) => {
       disable_web_page_preview: true,
     }),
   }).catch(() => undefined);
+};
+
+const escapeHtml = (value: string) =>
+  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const notifyEmail = async (env: Env, lead: Record<string, unknown>, lines: string[]) => {
+  if (!env.RESEND_API_KEY || !env.LEADS_EMAIL_TO) return;
+  const to = env.LEADS_EMAIL_TO.split(",").map((value) => value.trim()).filter(Boolean);
+  if (!to.length) return;
+  const who = String(lead.name ?? lead.phone ?? lead.email ?? "website visitor");
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, "content-type": "application/json" },
+    body: JSON.stringify({
+      from: env.LEADS_EMAIL_FROM || "BCE Website <onboarding@resend.dev>",
+      to,
+      subject: `New BCE ${String(lead.kind ?? "quote")} request — ${who}`,
+      text: lines.join("\n"),
+      html: `<pre style="font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap">${escapeHtml(lines.join("\n"))}</pre>`,
+      ...(lead.email ? { reply_to: String(lead.email) } : {}),
+    }),
+  }).catch(() => undefined);
+};
+
+export const notifyLead = async (env: Env, lead: Record<string, unknown>) => {
+  const lines = leadLines(lead);
+  await Promise.all([notifyTelegram(env, lines), notifyEmail(env, lead, lines)]);
+};
+
+/** Which alert channels are configured in this environment; shown by /api/health. */
+export const notifyChannels = (env: Env) => {
+  const channels: string[] = [];
+  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) channels.push("telegram");
+  if (env.RESEND_API_KEY && env.LEADS_EMAIL_TO) channels.push("email");
+  return channels.length ? channels.join("+") : "none";
 };
 
 export const health = async (env: Env) => {
@@ -83,6 +124,7 @@ export const health = async (env: Env) => {
   }
   checks.r2 = env.MEDIA ? "bound" : "not_enabled";
   checks.ai = env.AI ? "bound" : "not_bound";
+  checks.notifications = notifyChannels(env);
   return json({
     ok: checks.d1 === "ok" && checks.kv === "ok",
     environment: env.ENVIRONMENT,
@@ -217,13 +259,15 @@ export const createLead = async (request: Request, env: Env, ctx: ExecutionConte
     .run();
 
   ctx.waitUntil(
-    notifyTelegram(env, {
+    notifyLead(env, {
       id,
       kind,
       name,
       phone,
       email,
+      company: body.company,
       service: body.service,
+      location: body.location,
       message: message ?? body.summary,
     }),
   );
