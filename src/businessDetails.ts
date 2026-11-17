@@ -377,7 +377,10 @@ export const businessDetails: BusinessDetail[] = [
     ],
     capacityKicker: "Fleet and coverage",
     capacityTitle: "Our fleet, ready to mobilise",
-    capacityCopy: "Trucks, pumps and rigs are maintained by our own team and dispatched from Battambang, with operators available for every machine.",
+    capacityCopy:
+      "Mixers, pumps, rigs and lifting plant are all ours, serviced by our own team and dispatched from Battambang, with operators available for every machine. Counts match the fleet on our Equipment & fleet page, not a broker's availability list.",
+    // The band on this page reads quality.fleet.rows (see FleetFigures), so it lists every machine we own. These four
+    // stay for the admin preview and as a short fallback summary for anyone reading the content document alone.
     figures: [
       { value: "41", label: "Mixer trucks for hire" },
       { value: "08", label: "Pump trucks for hire" },

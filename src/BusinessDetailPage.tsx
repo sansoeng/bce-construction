@@ -11,6 +11,7 @@ import { offerings, quoteHref, unsplash } from "./company";
 import { findProject, projectHref } from "./projects";
 import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 import { LineIcon } from "./LineIcon";
+import FleetFigures from "./FleetFigures";
 
 // One page per core business (/business/<slug>), after Skanska's service pages: full-screen cover, overview with
 // links into the page, the reasons to work with BCE, the solutions we deliver, capacity figures in the dark band and
@@ -251,29 +252,43 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
           </ul>
         </section>
 
-        <section id="capacity" data-nav-dark data-header-title={business.capacityTitle} aria-labelledby="biz-capacity" className="ol-capacity">
-          <div className="ol-capacity-head">
-            <p data-split="content" className="ol-label">{business.capacityKicker}</p>
-            <h2 id="biz-capacity" data-split className="ol-capacity-title">{business.capacityTitle}</h2>
-            <p data-split="content" className="ol-capacity-copy">{business.capacityCopy}</p>
-          </div>
-          <ul className="ol-capacity-grid">
-            {business.figures.map((f) => (
-              <li key={f.label} data-reveal className="ol-figure">
-                <CountUp value={f.value} />
-                <span className="ol-figure-label">{f.label}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="ol-capacity-contact">
-            <p className="ol-label">Talk to our team</p>
-            <div className="ol-capacity-links">
-              {phones.slice(0, 2).map((p) => <a key={p} href={tel(p)}>{p}</a>)}
-              <a href={`mailto:${siteSettings.contact.email}`}>{siteSettings.contact.email}</a>
-              <a href={`https://t.me/${siteSettings.contact.telegram.replace(/^@/, "")}`} target="_blank" rel="noreferrer">Telegram</a>
+        {/* Fleet hire shows the Equipment & fleet page's own figures band (shared component): the title holds on the
+            left while every owned machine counts up on the right. Other businesses keep the four-figure summary. */}
+        {business.slug === "equipment-rental" ? (
+          <FleetFigures
+            id="capacity"
+            headingId="biz-capacity"
+            headerTitle={business.capacityTitle}
+            label={business.capacityKicker}
+            title={business.capacityTitle}
+            copy={business.capacityCopy}
+            contactLabel="Talk to our team"
+          />
+        ) : (
+          <section id="capacity" data-nav-dark data-header-title={business.capacityTitle} aria-labelledby="biz-capacity" className="ol-capacity">
+            <div className="ol-capacity-head">
+              <p data-split="content" className="ol-label">{business.capacityKicker}</p>
+              <h2 id="biz-capacity" data-split className="ol-capacity-title">{business.capacityTitle}</h2>
+              <p data-split="content" className="ol-capacity-copy">{business.capacityCopy}</p>
             </div>
-          </div>
-        </section>
+            <ul className="ol-capacity-grid">
+              {business.figures.map((f) => (
+                <li key={f.label} data-reveal className="ol-figure">
+                  <CountUp value={f.value} />
+                  <span className="ol-figure-label">{f.label}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="ol-capacity-contact">
+              <p className="ol-label">Talk to our team</p>
+              <div className="ol-capacity-links">
+                {phones.slice(0, 2).map((p) => <a key={p} href={tel(p)}>{p}</a>)}
+                <a href={`mailto:${siteSettings.contact.email}`}>{siteSettings.contact.email}</a>
+                <a href={`https://t.me/${siteSettings.contact.telegram.replace(/^@/, "")}`} target="_blank" rel="noreferrer">Telegram</a>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* What to send us, after the calibration block on Quality & HSE: the uppercase section heading and grey
             copy on the twelve-column split, then a full-width rule opening the brief label and its ruled rows. */}

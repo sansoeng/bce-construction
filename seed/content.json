@@ -390,7 +390,7 @@
                 },
                 {
                   "label": "Equipment & fleet",
-                  "href": "/quality#equipment-fleet"
+                  "href": "/fleet"
                 },
                 {
                   "label": "Coverage",
@@ -691,38 +691,140 @@
           "copy": [
             "Our plants and fleet are owned, operated and maintained by our own team, so capacity is planned around your programme rather than a supplier's."
           ],
+          "note": "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.",
+          "figuresLabel": "What we own, in numbers.",
+          "figuresTitle": "Capacity you can plan around.",
+          "figuresCopy": "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
+          "plantImage": "/Image/bce/about-zoom-batching.webp",
+          "plantImageAlt": "Aerial view of BCE's batching plant, silos and aggregate yard",
+          "jobsLabel": "Fleet by job",
+          "jobsTitle": "One fleet, four ways to build.",
+          "jobsCopy": "The same owned fleet carries BCE's concrete, piling, lifting and site-support work. Counts are above; here is what each group is for.",
+          "jobs": [
+            {
+              "title": "Concrete production & delivery",
+              "icon": "plant",
+              "bullets": [
+                "Ready-mix from our own batching plants",
+                "Mixer trucks on a planned dispatch",
+                "Laboratory-tested on every pour",
+                "Delivery across 13 provinces + Phnom Penh"
+              ],
+              "image": "/Image/bce/fleet/03-mixer.jpg",
+              "imageAlt": "BCE concrete mixer truck at the plant"
+            },
+            {
+              "title": "Concrete placing",
+              "icon": "pump",
+              "bullets": [
+                "Boom pumps for high-reach pours",
+                "Placement where mixers cannot reach",
+                "Operators work to the pour sequence",
+                "Pump lines checked at every setup"
+              ],
+              "image": "/Image/bce/fleet/02-pump.jpg",
+              "imageAlt": "BCE pump truck with its boom folded"
+            },
+            {
+              "title": "Foundations",
+              "icon": "rig",
+              "bullets": [
+                "Reinforced concrete piles",
+                "Bridge, road and building foundations",
+                "Own rigs and installation crews",
+                "Pile records handed over"
+              ],
+              "image": "/Image/bce/fleet/05-piling.jpg",
+              "imageAlt": "BCE piling rig working on a foundation site"
+            },
+            {
+              "title": "Lifting & site support",
+              "icon": "crane",
+              "bullets": [
+                "Crane trucks and tower cranes",
+                "Wheel loaders for material handling",
+                "Lifts for work at height",
+                "Operators and inspection records"
+              ],
+              "image": "/Image/bce/fleet/06-crane-truck.jpg",
+              "imageAlt": "Crane truck lifting on a BCE site"
+            }
+          ],
+          "maintenanceLabel": "Maintenance & operators",
+          "maintenanceTitle": "Ready when it reaches site.",
+          "maintenanceCopy": "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.",
+          "maintenance": [
+            {
+              "icon": "wrench",
+              "title": "Serviced in our workshop",
+              "text": "Trucks, pumps and rigs are maintained by our own team between projects, not sent to a third-party yard."
+            },
+            {
+              "icon": "helmet",
+              "title": "Operators included",
+              "text": "Experienced drivers and operators come with the machine and work to your pour or piling sequence."
+            },
+            {
+              "icon": "shield",
+              "title": "Checked before dispatch",
+              "text": "Pre-start checks, lifting gear and pump lines are inspected and recorded before the machine leaves."
+            },
+            {
+              "icon": "pin",
+              "title": "Mobilised from Battambang",
+              "text": "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project."
+            }
+          ],
+          "mobilisationLabel": "Mobilisation & hire",
+          "mobilisationTitle": "From Battambang to your site.",
+          "mobilisationCopy": "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.",
+          "mobilisationNote": "Operator, fuel and maintenance are agreed up front, in writing.",
+          "mobilisationSteps": [
+            "Tell us the machine, the duration and the site location.",
+            "We confirm availability, mobilisation from Battambang and the delivery date.",
+            "Operator, fuel and maintenance are agreed up front, in writing.",
+            "The machine arrives with our own crew and is supported by our workshop."
+          ],
           "rows": [
             {
               "label": "Batching plants",
-              "value": "04  /  70 m³/hr each"
+              "value": "04  /  70 m³/hr each",
+              "note": "70 m³/hr each"
             },
             {
               "label": "Mixer trucks",
-              "value": "41"
+              "value": "41",
+              "note": "13 provinces + Phnom Penh"
             },
             {
               "label": "Pump trucks",
-              "value": "08"
+              "value": "08",
+              "note": "Placing and boom pumps"
             },
             {
               "label": "Wheel loaders",
-              "value": "07"
+              "value": "07",
+              "note": "Loading and material handling"
             },
             {
               "label": "Piling rigs",
-              "value": "07"
+              "value": "07",
+              "note": "Bore and hammer rigs"
             },
             {
               "label": "Crane trucks",
-              "value": "06"
+              "value": "06",
+              "note": "Lifting on site"
             },
             {
               "label": "Tower cranes",
-              "value": "08"
+              "value": "08",
+              "note": "High-rise construction"
             },
             {
               "label": "Lifts",
-              "value": "05"
+              "value": "05",
+              "note": "Work at height"
             }
           ],
           "ctaLabel": "Hire our equipment",
@@ -2564,7 +2666,7 @@
         ],
         "capacityKicker": "Fleet and coverage",
         "capacityTitle": "Our fleet, ready to mobilise",
-        "capacityCopy": "Trucks, pumps and rigs are maintained by our own team and dispatched from Battambang, with operators available for every machine.",
+        "capacityCopy": "Mixers, pumps, rigs and lifting plant are all ours, serviced by our own team and dispatched from Battambang, with operators available for every machine. Counts match the fleet on our Equipment & fleet page, not a broker's availability list.",
         "figures": [
           {
             "value": "41",
