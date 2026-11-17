@@ -87,42 +87,65 @@ function Leadership() {
 
 // Milestones, after dalco.ch/meet-dalco: a horizontal strip with an axis through it, cards alternating above and
 // below the year, grayscale photos, drag or arrows to move. Type and colour follow BCE's system.
+//
+// Scroll is read with requestAnimationFrame and written straight to the progress bar's ref: no React state changes on
+// scroll, so dragging and scrolling never re-render the eight cards. `data-lenis-prevent` hands wheel events to the
+// rail instead of the page's smooth scroller, and snap is only applied when the pointer is not dragging.
 function Milestones() {
   const railRef = useRef<HTMLDivElement>(null)
-  const [progress, setProgress] = useState(0)
+  const progressRef = useRef<HTMLSpanElement>(null)
+  const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false, frame: 0 })
 
   useEffect(() => {
     const rail = railRef.current
     if (!rail) return
-    const update = () => {
+    let frame = 0
+    const paint = () => {
+      frame = 0
       const max = rail.scrollWidth - rail.clientWidth
-      setProgress(max > 0 ? rail.scrollLeft / max : 0)
+      const progress = max > 0 ? rail.scrollLeft / max : 0
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${0.12 + progress * 0.88})`
     }
-    update()
-    rail.addEventListener("scroll", update, { passive: true })
-    addEventListener("resize", update)
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(paint)
+    }
+    paint()
+    rail.addEventListener("scroll", onScroll, { passive: true })
+    addEventListener("resize", onScroll)
     return () => {
-      rail.removeEventListener("scroll", update)
-      removeEventListener("resize", update)
+      rail.removeEventListener("scroll", onScroll)
+      removeEventListener("resize", onScroll)
+      cancelAnimationFrame(frame)
+      cancelAnimationFrame(drag.current.frame)
     }
   }, [])
 
-  const drag = useRef({ active: false, startX: 0, startLeft: 0 })
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     const rail = railRef.current
-    if (!rail || event.pointerType === "touch") return
-    drag.current = { active: true, startX: event.clientX, startLeft: rail.scrollLeft }
-    rail.setPointerCapture(event.pointerId)
+    if (!rail || event.pointerType === "touch" || event.button !== 0) return
+    drag.current = { active: true, startX: event.clientX, startLeft: rail.scrollLeft, moved: false, frame: 0 }
+    rail.classList.add("is-dragging")
+    try {
+      rail.setPointerCapture(event.pointerId)
+    } catch {
+      /* synthetic or stale pointer: dragging still works through the element itself */
+    }
   }
   const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     const rail = railRef.current
     if (!rail || !drag.current.active) return
-    rail.scrollLeft = drag.current.startLeft - (event.clientX - drag.current.startX)
+    const dx = event.clientX - drag.current.startX
+    if (Math.abs(dx) > 3) drag.current.moved = true
+    // Written straight to scrollLeft: the position must follow the pointer even if frames are throttled, and no React
+    // state changes here, so the eight cards are never re-rendered during a drag.
+    rail.scrollLeft = drag.current.startLeft - dx
   }
   const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     const rail = railRef.current
-    if (rail?.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId)
+    if (!rail) return
+    if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId)
     drag.current.active = false
+    rail.classList.remove("is-dragging")
   }
   const nudge = (direction: 1 | -1) => {
     const rail = railRef.current
@@ -133,7 +156,9 @@ function Milestones() {
   return (
     <section id="milestones" data-nav-dark data-header-title="Milestones" aria-labelledby="ab-miles" className="ab-miles">
       <div className="ab-miles-head">
-        <p className="ol-label">Milestones</p>
+        <p id="ab-miles" className="ol-label">
+          Milestones
+        </p>
         <div className="ab-miles-controls">
           <span className="ab-miles-drag" aria-hidden>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
@@ -157,10 +182,12 @@ function Milestones() {
       <div
         ref={railRef}
         className="ab-miles-rail"
+        data-lenis-prevent
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
+        onPointerLeave={endDrag}
         tabIndex={0}
         role="region"
         aria-label="BCE milestones, horizontally scrollable"
@@ -174,7 +201,7 @@ function Milestones() {
             <div className="ab-miles-card">
               <p className="ab-miles-text">{milestone.text}</p>
               <div className="ab-miles-media">
-                <img src={milestone.image} alt={milestone.imageAlt} loading="lazy" draggable={false} />
+                <img src={milestone.image} alt={milestone.imageAlt} loading="lazy" decoding="async" draggable={false} />
               </div>
               <h3 id={`ab-miles-${index}`} className="ab-miles-title">
                 {milestone.title}
@@ -189,7 +216,7 @@ function Milestones() {
         ))}
       </div>
       <div className="ab-miles-progress" aria-hidden>
-        <span style={{ transform: `scaleX(${0.12 + progress * 0.88})` }} />
+        <span ref={progressRef} />
       </div>
     </section>
   )

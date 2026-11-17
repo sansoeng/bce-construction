@@ -5624,10 +5624,15 @@ html[lang="km"] .fg-btn.is-outline-white {
   padding: 0 var(--page-gutter) 0 40px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: none;
+  scroll-padding-left: 40px;
   cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
   scrollbar-width: none;
 }
+.ab-miles-rail.is-dragging { cursor: grabbing; }
+.ab-miles-rail.is-dragging .ab-miles-media img { pointer-events: none; }
 .ab-miles-rail::-webkit-scrollbar { display: none; }
 .ab-miles-rail:active { cursor: grabbing; }
 .ab-miles-rail:focus-visible { outline: 1px solid rgb(255 255 255 / .4); outline-offset: 4px; }
@@ -5661,7 +5666,7 @@ html[lang="km"] .fg-btn.is-outline-white {
 .ab-miles-line { flex: 1; height: 1px; background: rgb(255 255 255 / .2); }
 
 .ab-miles-progress { height: 2px; margin: 1.4rem var(--page-gutter) 0; background: rgb(255 255 255 / .12); }
-.ab-miles-progress span { display: block; height: 100%; background: #fb290e; transform-origin: left; transition: transform .2s linear; }
+.ab-miles-progress span { display: block; height: 100%; background: #fb290e; transform: scaleX(0.12); transform-origin: left; transition: transform .2s linear; will-change: transform; }
 
 @media (max-width: 987.98px) {
   .ab-lead-inner { grid-template-columns: 1fr; margin-top: 28px; }
