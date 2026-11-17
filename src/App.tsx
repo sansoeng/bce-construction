@@ -12,13 +12,13 @@ import Footer from "./Footer";
 import QuoteCta from "./QuoteCta";
 import { FleetBand, QualityBand } from "./HomeEvidence";
 import Glance, { GlanceIcon, type IconKind } from "./Glance";
-import { HeroVideo } from "./HeroSlides";
+import { HeroBanner } from "./HeroSlides";
 import SiteHeader from "./SiteHeader";
 import ArrowButton from "./ArrowButton";
 import FluidCursor from "./FluidCursor";
 import { projectHref, projects } from "./projects";
 import { offerings, businessHref } from "./company";
-import { homepage } from "./homepage";
+import { homepage, DEFAULT_HOMEPAGE } from "./homepage";
 
 // The scroll choreography in App is imperative DOM setup. A new value on every live update of this module makes it
 // tear down and set up again, so edits never leave it driving elements React has since replaced.
@@ -64,7 +64,8 @@ const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
-function HeroLatestNews() {
+// The banner's secondary card is the compact one: a small photo beside the kicker and title, over the rail.
+function HeroLatestNews({ compact = false }: { compact?: boolean }) {
   const { newsKicker, newsTitle, newsHref, newsDownload, newsImage, newsAlt } = homepage.hero;
   // The hero card shows the newest journal post (the Recommendation's "latest news" on the homepage) and falls back to
   // the company-profile download while there are no posts. Sorting by date keeps it correct whichever order D1 serves.
@@ -76,26 +77,33 @@ function HeroLatestNews() {
       <a
         href={href}
         {...(external ? { target: "_blank", rel: "noopener noreferrer", download: newsDownload || undefined } : {})}
-        className="c-hero-card group flex w-full flex-row gap-3 rounded-lg p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
+        className={
+          compact
+            ? "c-hero-card group flex w-full flex-row items-stretch gap-2.5 rounded-[12px] p-2 transition-all duration-300"
+            : "c-hero-card group flex w-full flex-row gap-3 rounded-lg p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
+        }
         data-hero-home="card"
       >
-        <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[10px] shrink-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
+        <div
+          className={compact ? "aspect-square w-[68px] shrink-0 overflow-hidden rounded-[8px]" : "aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[10px] shrink-0"}
+          style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
+        >
           <img
             src={latest?.image ?? newsImage}
             alt={latest?.alt ?? newsAlt}
-            className="w-full h-full object-cover rounded-[10px] transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover rounded-[8px] transition-transform duration-700 ease-out group-hover:scale-105"
             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
           />
         </div>
-        <div className="flex flex-1 flex-col justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2">
-          <span className="text-[14px] font-mono tracking-[0.02em] uppercase text-[#FB290E]">
+        <div className={`flex flex-1 flex-col ${compact ? "justify-center gap-1.5 pr-1" : "justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2"}`}>
+          <span className={`${compact ? "text-[10px]" : "text-[14px]"} font-mono tracking-[0.02em] uppercase text-[#FB290E]`}>
             {latest ? latest.category : newsKicker}
           </span>
           <div className="flex items-end justify-between gap-3">
-            <span className="max-w-[78%] text-[16px] font-bold text-white leading-tight">
+            <span className={`${compact ? "text-[13px] leading-[1.3]" : "text-[16px]"} font-bold text-white leading-tight`}>
               {latest ? latest.title : newsTitle}
             </span>
-            <span className="pb-1 text-white/80 transition-transform duration-300 ease-out group-hover:scale-125 group-hover:text-white shrink-0">
+            <span className={`${compact ? "hidden" : ""} pb-1 text-white/80 transition-transform duration-300 ease-out group-hover:scale-125 group-hover:text-white shrink-0`}>
               <svg
                 viewBox="0 0 16 16"
                 className="size-4 stroke-current fill-none stroke-[2] stroke-linecap-round stroke-linejoin-round"
@@ -113,6 +121,10 @@ function HeroLatestNews() {
 
 function App() {
   const [showLoader] = useState(() => document.documentElement.classList.contains("is-loading"));
+  // Read on every render, not once at import: the content bridge replaces the hero when D1 answers. A saved document
+  // from before the banner slider carries no panels, so the bundled set keeps the hero whole.
+  const savedSlides = (homepage.hero.slides ?? []).filter((slide) => slide?.titleLines?.length && (slide.image || slide.video));
+  const heroSlides = savedSlides.length ? savedSlides : DEFAULT_HOMEPAGE.hero.slides;
 
   useEffect(() => {
     const cleanupSplit = initSplitReveal();
@@ -420,32 +432,9 @@ function App() {
 
       {/* Fixed banner frame; JS morphs its rect from the viewport into the About image slot. */}
       <div data-fly className="pointer-events-none fixed left-0 top-0 z-20 h-[100svh] w-full overflow-hidden bg-black will-change-[top,left,width,height]">
-        <div className="hero-media absolute inset-0">
-          <HeroVideo video={homepage.hero.video} poster={homepage.hero.poster} />
-          <img data-fly-about className="absolute inset-0 h-full w-full object-cover opacity-0" src={homepage.about.image} alt={homepage.about.imageAlt} />
-        </div>
-        <div data-hero-copy className="hero-scrim absolute inset-0" />
-      </div>
-      {/* Hero Banner Bottom Section: Left has Title, Right has the latest news card */}
-      <div
-        data-hero-copy
-        className="hero-copy-wrap fixed bottom-8 inset-x-0 px-[20px] z-30 pointer-events-none md:bottom-10"
-      >
-        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12 pointer-events-auto">
-          {/* Left: Slogan Title */}
-          <div className="w-full md:max-w-[660px] text-left">
-            <h1 data-split data-split-manual="0" className="hero-title font-medium text-[clamp(2.3rem,4.8vw,4rem)] leading-[1.04] tracking-[-.025em] text-white">
-              {homepage.hero.titleLines.map((line, index) => (
-                <span className="block" key={index}>{line}</span>
-              ))}
-            </h1>
-          </div>
-
-          {/* Right: Latest news card */}
-          <div className="w-full md:w-auto flex md:justify-end">
-            <HeroLatestNews />
-          </div>
-        </div>
+        <HeroBanner slides={heroSlides} aside={<HeroLatestNews compact />} />
+        {/* The About photo fades in over the banner as it lands in the About image frame. */}
+        <img data-fly-about className="pointer-events-none absolute inset-0 z-[3] h-full w-full object-cover opacity-0" src={homepage.about.image} alt={homepage.about.imageAlt} />
       </div>
 
       <div className="relative">

@@ -21,14 +21,66 @@
           ]
         },
         "hero": {
-          "video": "/video/hero_highlight.mp4",
-          "poster": "/Image/bce/hero_batching_plant.webp",
+          "slides": [
+            {
+              "label": "BCE in brief",
+              "titleLines": [
+                "Building on strength.",
+                "Delivering with trust."
+              ],
+              "ctaLabel": "Explore our business",
+              "ctaHref": "/businesses",
+              "image": "/Image/bce/hero/slide-01.webp",
+              "alt": "Aerial view of BCE's batching plant in Battambang",
+              "video": "/video/hero_highlight.mp4",
+              "poster": "/Image/bce/hero/slide-01.webp",
+              "position": "50% 45%"
+            },
+            {
+              "label": "Ready-mix concrete",
+              "titleLines": [
+                "Concrete batched",
+                "to specification."
+              ],
+              "ctaLabel": "Ready-mix concrete",
+              "ctaHref": "/business/ready-mix-concrete",
+              "image": "/Image/bce/hero/slide-02.webp",
+              "alt": "BCE batching plant silos seen from above",
+              "video": "",
+              "poster": "",
+              "position": "50% 50%"
+            },
+            {
+              "label": "Foundation piling",
+              "titleLines": [
+                "Foundations built",
+                "to hold."
+              ],
+              "ctaLabel": "Foundation piling",
+              "ctaHref": "/business/piling",
+              "image": "/Image/bce/hero/slide-03.webp",
+              "alt": "Hydraulic piling rig working beside a concrete mixer",
+              "video": "",
+              "poster": "",
+              "position": "50% 55%"
+            },
+            {
+              "label": "Project delivery",
+              "titleLines": [
+                "Delivered across",
+                "Cambodia."
+              ],
+              "ctaLabel": "See our projects",
+              "ctaHref": "/projects",
+              "image": "/Image/bce/hero/slide-04.webp",
+              "alt": "BCE engineers standing on a reinforced concrete deck",
+              "video": "",
+              "poster": "",
+              "position": "50% 50%"
+            }
+          ],
           "image": "/assets/6ae3a.webp",
           "imageAlt": "",
-          "titleLines": [
-            "Building on Strength.",
-            "Delivering with Trust."
-          ],
           "newsKicker": "Company profile",
           "newsTitle": "Download the BCE Corporate Profile 2026",
           "newsHref": "/assets/BCE_Corporate_Profile_2026_web.pdf",
@@ -695,14 +747,13 @@
           "figuresLabel": "What we own, in numbers.",
           "figuresTitle": "Capacity you can plan around.",
           "figuresCopy": "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
-          "plantImage": "/Image/bce/about-zoom-batching.webp",
-          "plantImageAlt": "Aerial view of BCE's batching plant, silos and aggregate yard",
           "jobsLabel": "Fleet by job",
           "jobsTitle": "One fleet, four ways to build.",
           "jobsCopy": "The same owned fleet carries BCE's concrete, piling, lifting and site-support work. Counts are above; here is what each group is for.",
           "jobs": [
             {
               "title": "Concrete production & delivery",
+              "text": "Ready-mix from our own batching plants, tested before it leaves and delivered by our own mixer fleet.",
               "icon": "plant",
               "bullets": [
                 "Ready-mix from our own batching plants",
@@ -715,6 +766,7 @@
             },
             {
               "title": "Concrete placing",
+              "text": "Boom pumps and operators place concrete where mixers cannot reach, working to the pour sequence.",
               "icon": "pump",
               "bullets": [
                 "Boom pumps for high-reach pours",
@@ -727,6 +779,7 @@
             },
             {
               "title": "Foundations",
+              "text": "Reinforced concrete piles installed and tested by our own rigs and crews, from platform to pile cap.",
               "icon": "rig",
               "bullets": [
                 "Reinforced concrete piles",
@@ -739,6 +792,7 @@
             },
             {
               "title": "Lifting & site support",
+              "text": "Crane trucks, tower cranes, lifts and wheel loaders keep the site moving, with operators and inspection records.",
               "icon": "crane",
               "bullets": [
                 "Crane trucks and tower cranes",

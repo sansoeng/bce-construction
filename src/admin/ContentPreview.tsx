@@ -367,18 +367,22 @@ function HomepagePreview({ data, section }: HomepagePreviewProps) {
       {show("hero") ? (
         <>
           <header className="adm-prev-head">
-            <h1>{linesOf(hero.titleLines).join(" ") || "Homepage"}</h1>
+            <h1>{linesOf(record(list(hero.slides)[0]).titleLines).join(" ") || "Homepage"}</h1>
             {text(hero.newsKicker) ? <p>{text(hero.newsKicker)}</p> : null}
           </header>
-          {text(hero.poster) ? (
-            <figure className="adm-prev-hero">
-              <img src={text(hero.poster)} alt={text(hero.imageAlt)} />
-              <figcaption>
-                <span>Hero banner</span>
-                <span>{text(hero.video)}</span>
-              </figcaption>
-            </figure>
-          ) : null}
+          {list(hero.slides).map((slide, index) => {
+            const panel = record(slide);
+            const still = text(panel.poster) || text(panel.image);
+            return still ? (
+              <figure className="adm-prev-hero" key={index}>
+                <img src={still} alt={text(panel.alt)} />
+                <figcaption>
+                  <span>{text(panel.label) || `Slide ${index + 1}`}</span>
+                  <span>{text(panel.video)}</span>
+                </figcaption>
+              </figure>
+            ) : null;
+          })}
           <PreviewSection title="Latest news card">
             <div className="adm-prev-cards">
               <div>

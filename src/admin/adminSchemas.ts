@@ -687,7 +687,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
     defaults: () => ({ ...(JSON.parse(JSON.stringify(DEFAULT_HOMEPAGE)) as Record<string, unknown>), title: "Homepage", slug: "home" }),
     skipKm: ["title", "slug"],
     sections: [
-      { id: "hero", title: "Hero banner", hint: "The opening video, headline and the latest-news card.", keys: ["title", "slug", "hero"] },
+      { id: "hero", title: "Hero banner", hint: "The opening slide deck, the About reveal photo and the latest-news card.", keys: ["title", "slug", "hero"] },
       { id: "loader", title: "Loading screen", hint: "The intro shown while the home page loads.", keys: ["loader"] },
       { id: "about", title: "About introduction", hint: "The photo, opening paragraph and the core-business sentence.", keys: ["about"] },
       { id: "expertise", title: "Core business intro", hint: "The opening screen before the five service panels slide in.", keys: ["expertise"] },
@@ -704,11 +704,19 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “home”.", locale: false },
 
       { key: "hero", label: "", type: "group", fields: [
-        { key: "video", label: "Hero video", type: "text", hint: "MP4 path, e.g. /video/hero_highlight.mp4", locale: false, wide: true },
-        { key: "poster", label: "Hero poster", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "slides", label: "Banner slides", type: "objectList", itemLabel: "Slide", hint: "The panels of the opening banner, in order. Each holds for its own film or about 6.5 seconds; the rail at the foot of the banner advances them.", itemFields: [
+          { key: "label", label: "Label", type: "text", hint: "Mono label above the headline, repeated on the slide rail." },
+          { key: "titleLines", label: "Headline", type: "list", hint: "One line per row." },
+          { key: "ctaLabel", label: "Button label", type: "text" },
+          { key: "ctaHref", label: "Button link", type: "text", locale: false },
+          { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
+          { key: "alt", label: "Photo alt text", type: "text", wide: true, locale: false },
+          { key: "video", label: "Film", type: "text", hint: "Optional MP4 path; it plays while the panel is on screen and sets how long the panel holds.", locale: false, wide: true },
+          { key: "poster", label: "Film poster", type: "image", wide: true, aspect: "16 / 9" },
+          { key: "position", label: "Photo focus", type: "text", hint: "object-position, e.g. 50% 45%.", locale: false },
+        ] },
         { key: "image", label: "About reveal image", type: "image", wide: true, aspect: "5 / 6" },
         { key: "imageAlt", label: "About reveal alt text", type: "text", wide: true, locale: false },
-        { key: "titleLines", label: "Hero headline", type: "list", hint: "One line per row." },
         { key: "newsKicker", label: "News kicker", type: "text" },
         { key: "newsTitle", label: "News card title", type: "text" },
         { key: "newsHref", label: "News card link", type: "text", locale: false },

@@ -32,6 +32,25 @@ export const HOMEPAGE_ICONS: HomepageIcon[] = [
   "piling",
 ];
 
+/** One panel of the home banner: the photo (or film) behind it and the copy that rides over it. */
+export type HeroSlide = {
+  /** Mono label above the headline, also printed on the banner's slide rail. */
+  label: string;
+  /** Display headline, one entry per line. */
+  titleLines: string[];
+  ctaLabel: string;
+  ctaHref: string;
+  /** Still shown when the panel has no film. */
+  image: string;
+  alt: string;
+  /** Optional background film; it plays while its panel is on screen and sets how long the panel holds. */
+  video: string;
+  /** First frame of the film, shown until it can play. */
+  poster: string;
+  /** object-position for the photo, e.g. "50% 40%". */
+  position: string;
+};
+
 export type HomepageContent = {
   loader: {
     word: string;
@@ -40,11 +59,10 @@ export type HomepageContent = {
     statusLines: string[];
   };
   hero: {
-    video: string;
-    poster: string;
+    /** Vertical banner slider, after olympic.no: one message per panel, advanced by its own film or a timer. */
+    slides: HeroSlide[];
     image: string;
     imageAlt: string;
-    titleLines: string[];
     newsKicker: string;
     newsTitle: string;
     newsHref: string;
@@ -131,11 +149,54 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
     statusLines: ["Loading", "0%"],
   },
   hero: {
-    video: "/video/hero_highlight.mp4",
-    poster: "/Image/bce/hero_batching_plant.webp",
+    slides: [
+      {
+        label: "BCE in brief",
+        titleLines: ["Building on strength.", "Delivering with trust."],
+        ctaLabel: "Explore our business",
+        ctaHref: "/businesses",
+        image: "/Image/bce/hero/slide-01.webp",
+        alt: "Aerial view of BCE's batching plant in Battambang",
+        video: "/video/hero_highlight.mp4",
+        poster: "/Image/bce/hero/slide-01.webp",
+        position: "50% 45%",
+      },
+      {
+        label: "Ready-mix concrete",
+        titleLines: ["Concrete batched", "to specification."],
+        ctaLabel: "Ready-mix concrete",
+        ctaHref: "/business/ready-mix-concrete",
+        image: "/Image/bce/hero/slide-02.webp",
+        alt: "BCE batching plant silos seen from above",
+        video: "",
+        poster: "",
+        position: "50% 50%",
+      },
+      {
+        label: "Foundation piling",
+        titleLines: ["Foundations built", "to hold."],
+        ctaLabel: "Foundation piling",
+        ctaHref: "/business/piling",
+        image: "/Image/bce/hero/slide-03.webp",
+        alt: "Hydraulic piling rig working beside a concrete mixer",
+        video: "",
+        poster: "",
+        position: "50% 55%",
+      },
+      {
+        label: "Project delivery",
+        titleLines: ["Delivered across", "Cambodia."],
+        ctaLabel: "See our projects",
+        ctaHref: "/projects",
+        image: "/Image/bce/hero/slide-04.webp",
+        alt: "BCE engineers standing on a reinforced concrete deck",
+        video: "",
+        poster: "",
+        position: "50% 50%",
+      },
+    ],
     image: "/assets/6ae3a.webp",
     imageAlt: "",
-    titleLines: ["Building on Strength.", "Delivering with Trust."],
     newsKicker: "Company profile",
     newsTitle: "Download the BCE Corporate Profile 2026",
     newsHref: "/assets/BCE_Corporate_Profile_2026_web.pdf",

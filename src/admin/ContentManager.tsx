@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { api, ApiError, type ContentDoc, type ContentItem } from "./adminApi";
-import { mergeTranslation } from "../contentStore";
+import { mergeDefaults, mergeTranslation } from "../contentStore";
 import { SCHEMAS, slugifyTitle, type ContentSchema, type ContentSection, type Field } from "./adminSchemas";
 import { previewSiteUrl } from "./adminUrls";
 import { setLeaveGuard } from "./leaveGuard";
@@ -238,7 +238,10 @@ export default function ContentManager({ type }: { type: string }) {
     setError("");
     try {
       const doc = (await api.getContent(type, item.slug)) as ContentDoc;
-      const data = doc.stageData ?? doc.data ?? {};
+      const stored = doc.stageData ?? doc.data ?? {};
+      // The homepage is a singleton whose document can predate a field (the banner's slide deck, say). Filling the
+      // bundled defaults into the gaps means the editor always shows — and can save — the shape the site renders.
+      const data = schema?.singleton ? mergeDefaults(schema.defaults(), stored) : stored;
       const km = fillTranslation(blankTranslation(data), doc.stageKm ?? doc.km ?? {}) as Record<string, unknown>;
       const opened: EditorState = {
         data,
