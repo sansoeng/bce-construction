@@ -89,8 +89,9 @@ function Leadership() {
 // below the year, grayscale photos, drag or arrows to move. Type and colour follow BCE's system.
 //
 // Scroll is read with requestAnimationFrame and written straight to the progress bar's ref: no React state changes on
-// scroll, so dragging and scrolling never re-render the eight cards. `data-lenis-prevent` hands wheel events to the
-// rail instead of the page's smooth scroller, and snap is only applied when the pointer is not dragging.
+// scroll, so dragging and scrolling never re-render the eight cards. The wheel is split by intent: vertical stays with
+// Lenis and the page, a horizontal gesture moves the rail (see the wheel effect below). Snap is only applied when the
+// pointer is not dragging.
 function Milestones() {
   const railRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLSpanElement>(null)
@@ -118,6 +119,32 @@ function Milestones() {
       cancelAnimationFrame(frame)
       cancelAnimationFrame(drag.current.frame)
     }
+  }, [])
+
+  // The rail scrolls sideways, but it spans the full width of the page, so it must never swallow the vertical wheel.
+  // `data-lenis-prevent` looked like the way to hand wheel events to the rail, yet lenis.css also applies
+  // `overscroll-behavior: contain` to that attribute, so a wheel over the rail scrolled neither the rail nor the page
+  // and the About page appeared stuck in this section. The wheel is split by intent here instead: vertical is left to
+  // Lenis and the page, and only a horizontal gesture (trackpad swipe, shift+wheel) is spent on the rail.
+  useEffect(() => {
+    const rail = railRef.current
+    if (!rail) return
+    const onWheel = (event: WheelEvent) => {
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? rail.clientWidth : 1
+      const dx = event.deltaX * unit
+      const dy = event.deltaY * unit
+      const horizontal = event.shiftKey || Math.abs(dx) > Math.abs(dy)
+      if (!horizontal) return
+      const step = event.shiftKey && Math.abs(dy) > Math.abs(dx) ? dy : dx
+      if (!step) return
+      // Native listener with `passive: false` (React's own wheel handlers are passive): the rail moves by hand so the
+      // event is not also read by Lenis as a page scroll.
+      event.preventDefault()
+      event.stopPropagation()
+      rail.scrollLeft += step
+    }
+    rail.addEventListener("wheel", onWheel, { passive: false })
+    return () => rail.removeEventListener("wheel", onWheel)
   }, [])
 
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -182,7 +209,6 @@ function Milestones() {
       <div
         ref={railRef}
         className="ab-miles-rail"
-        data-lenis-prevent
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
