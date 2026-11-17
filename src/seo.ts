@@ -21,6 +21,8 @@ const DESCRIPTIONS: Record<string, string> = {
     "Quality, capability and HSE at BCE: our own laboratory, approved mix designs, certified raw materials, calibrated equipment, our fleet and the engineers behind every pour.",
   coverage:
     "Where BCE builds: 13 provinces and Phnom Penh, our four batching plants, the fleet that reaches site and the projects completed in 2025.",
+  fleet:
+    "BCE's own plant and fleet: four batching plants, 41 mixer trucks, eight pump trucks, seven piling rigs and the loaders, cranes and lifts behind every project — available to hire across Cambodia.",
   quote:
     "Request a concrete, piling, construction, slab works or equipment hire quotation. Send your scope, location and schedule and our engineers will reply with a clear price.",
   recruitment:

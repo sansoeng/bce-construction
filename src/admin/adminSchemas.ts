@@ -403,6 +403,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "materials", title: "Raw material certificates", hint: "The certified materials and the photo beside them.", keys: ["materials"] },
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
+      { id: "hse-practice", title: "HSE in practice", hint: "Methods and standards, PPE and inspections shown beneath the commitments.", keys: ["hsePractice"] },
       { id: "fleet", title: "Equipment & fleet", hint: "The plant and equipment inventory (laboratory equipment stays under Laboratory).", keys: ["fleet"] },
       { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
       { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section, and the request link.", keys: ["documents"] },
@@ -498,6 +499,18 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         ] },
       ] },
 
+      { key: "hsePractice", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "copy", label: "Paragraph", type: "textarea", rows: 3, wide: true },
+        { key: "standards", label: "Methods & standards", type: "objectList", itemLabel: "Method", itemFields: [
+          { key: "method", label: "Standard (e.g. ASTM C39)", type: "text", locale: false },
+          { key: "use", label: "What it covers", type: "text" },
+        ] },
+        { key: "ppe", label: "PPE (one item per line)", type: "list" },
+        { key: "inspections", label: "Inspections (one item per line)", type: "list" },
+      ] },
+
       { key: "documents", label: "", type: "group", fields: [
         { key: "label", label: "Section label", type: "text" },
         { key: "title", label: "Heading", type: "text", wide: true },
@@ -538,8 +551,9 @@ export const SCHEMAS: Record<string, ContentSchema> = {
     sections: [
       { id: "cover", title: "Cover", hint: "The banner label, headline and photo.", keys: ["title", "slug", "cover"] },
       { id: "intro", title: "Introduction", hint: "The opening statement and its two buttons.", keys: ["intro"] },
+      { id: "leadership", title: "Leadership", hint: "The Chairwoman's profile: name, role, portrait and statement.", keys: ["leadership"] },
       { id: "message", title: "Chairwoman’s message", hint: "The pull quote and its attribution.", keys: ["message"] },
-      { id: "story", title: "Our story", hint: "The history paragraph and the dated milestones.", keys: ["story"] },
+      { id: "story", title: "Our story & milestones", hint: "The history paragraph and the horizontal milestones rail (year, title, text, photo).", keys: ["story"] },
       { id: "vision", title: "Vision & mission", hint: "The two glass boxes over the photo.", keys: ["vision", "mission"] },
       { id: "values", title: "Core values", hint: "The four pillars, each with its photo.", keys: ["values"] },
       { id: "zoom", title: "Who we are", hint: "The two statements revealed over the photo grid.", keys: ["zoom"] },
@@ -564,6 +578,16 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "secondaryHref", label: "Secondary button link", type: "text", locale: false },
       ] },
 
+      { key: "leadership", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "name", label: "Name", type: "text" },
+        { key: "role", label: "Role", type: "text" },
+        { key: "image", label: "Portrait", type: "image", aspect: "4 / 5" },
+        { key: "imageAlt", label: "Portrait alt text", type: "text", locale: false },
+        { key: "bio", label: "Statement (one paragraph per line)", type: "list" },
+      ] },
+
       { key: "message", label: "", type: "group", fields: [
         { key: "quote", label: "Pull quote", type: "textarea", rows: 4, wide: true },
         { key: "attribution", label: "Attribution", type: "text" },
@@ -572,9 +596,12 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "story", label: "", type: "group", fields: [
         { key: "title", label: "Heading", type: "text" },
         { key: "text", label: "Paragraph", type: "textarea", rows: 4, wide: true },
-        { key: "milestones", label: "Milestones", type: "objectList", itemLabel: "Milestone", itemFields: [
+        { key: "milestones", label: "Milestones (the rail)", type: "objectList", itemLabel: "Milestone", itemFields: [
           { key: "year", label: "Year", type: "text", locale: false },
-          { key: "text", label: "What happened", type: "text" },
+          { key: "title", label: "Title", type: "text" },
+          { key: "text", label: "What happened", type: "textarea", rows: 3 },
+          { key: "image", label: "Photo", type: "image", aspect: "16 / 10" },
+          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
         ] },
       ] },
 

@@ -157,9 +157,9 @@ const NAV: NavItem[] = [
         },
         {
           title: "Capacity",
-          href: "/quality#equipment-fleet",
+          href: "/fleet",
           links: [
-            { label: "Equipment & fleet", href: "/quality#equipment-fleet" },
+            { label: "Equipment & fleet", href: "/fleet" },
             { label: "Engineering capability", href: "/quality#engineering" },
             { label: "Coverage", href: "/coverage" },
           ],
@@ -184,6 +184,7 @@ const NAV: NavItem[] = [
       kind: "default",
       items: [
         { label: "Coverage", href: "/coverage" },
+        { label: "Equipment & fleet", href: "/fleet" },
         { label: "Resources", href: "/resources" },
         { label: "Careers", href: "/careers" },
         { label: "Blog", href: "/blog" },

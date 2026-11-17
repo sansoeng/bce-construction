@@ -9,6 +9,7 @@ import BusinessDetailPage from './BusinessDetailPage'
 import { findBusinessDetail } from './businessDetails'
 import QualityPage from './QualityPage'
 import CoveragePage from './CoveragePage'
+import FleetPage from './FleetPage'
 import QuotePage from './QuotePage'
 import RecruitmentPage from './RecruitmentPage'
 import ResourcesPage from './ResourcesPage'
@@ -97,6 +98,8 @@ function Page() {
       return <QualityPage fromCapabilities />
     case 'coverage':
       return <CoveragePage />
+    case 'fleet':
+      return <FleetPage />
     case 'quote':
       return <QuotePage />
     case 'careers':

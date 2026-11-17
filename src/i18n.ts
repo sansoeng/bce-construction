@@ -16,7 +16,9 @@ let lang: Lang = (() => {
     }
     const saved = localStorage.getItem(KEY);
     if (saved === "en" || saved === "km") return saved;
-    return "km";
+    // English first: the audience the Comment names is procurement, tenders and international clients; the Khmer
+    // edition is one click away and remembered once chosen.
+    return "en";
   } catch {
     return "km";
   }
@@ -128,6 +130,16 @@ const KM: Record<string, string> = {
   "Download Company Profile (PDF)": "ទាញយកប្រវត្តិរូបក្រុមហ៊ុន (PDF)",
   "View all resources": "មើលឯកសារ និងធនធានទាំងអស់",
   "Careers & Recruitment": "ឱកាសការងារ & ជ្រើសរើសបុគ្គលិក",
+  "Milestones": "ចំណុចសំខាន់ៗ",
+  "Thirty years, built one pour at a time.": "បីទសវត្សរ៍ សាងសង់មួយជំហានម្តងៗ។",
+  "Meet the people behind every pour.": "ស្គាល់អ្នកដែលនៅពីក្រោយរាល់ការចាក់បេតុង។",
+  "Drag": "អូស",
+  "Jump to": "ទៅកាន់",
+  "HSE in practice": "HSE ក្នុងការអនុវត្ត",
+  "Standards, PPE and inspections": "ស្តង់ដារ ឧបករណ៍ការពារ និងការត្រួតពិនិត្យ",
+  "Methods & standards": "វិធីសាស្ត្រ និងស្តង់ដារ",
+  "PPE on every site": "ឧបករណ៍ការពារនៅគ្រប់ការដ្ឋាន",
+  "Inspections & reporting": "ការត្រួតពិនិត្យ និងរបាយការណ៍",
   "Application received": "បានទទួលពាក្យសុំ",
   "Thank you — HR has your application.": "សូមអរគុណ — ផ្នែកធនធានមនុស្សបានទទួលពាក្យសុំរបស់អ្នក។",
   "CV / résumé": "ប្រវត្តិរូប / CV",

@@ -34,6 +34,7 @@ const TOPICS = [
   ["raw-materials", "materials"],
   ["calibration", "calibration"],
   ["hse", "hse"],
+  ["hse-practice", "hse-practice"],
   ["equipment-fleet", "equipment"],
   ["engineering", "engineering"],
   ["documents", "documents"],
@@ -91,6 +92,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
   };
 
   // Built during render so edits made in the admin replace the defaults on the next bootstrap.
+  const hsePractice = quality.hsePractice;
   const hseItems: StickyItem[] = quality.hse.items.map(({ lines, text, image, imageAlt }) => ({
     title: lines.join(" "),
     text,
@@ -109,6 +111,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
     engineering: engineering.title,
     equipment: fleet.title,
     hse: quality.hse.label,
+    "hse-practice": quality.hsePractice.label,
     documents: quality.documents.title,
   };
 
@@ -249,6 +252,49 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
         {/* 05 HSE commitment, as the core values on About: one commitment at a time beside a sticky photo column. It
             keeps its own ink ground, which gives the certificates above a deliberate break. */}
         <StickyValues id="hse" label={quality.hse.label} heading={quality.hse.heading} items={hseItems} dark />
+
+        {/* 05b HSE in practice: the methods, the PPE and the inspections behind the commitments above. */}
+        <section id="hse-practice" data-header-title="HSE in practice" aria-labelledby="q-hse-practice" className="site-pad border-t border-[#111]/10 py-20 md:py-28">
+          <div className="mx-auto max-w-[1200px]">
+            <p className="font-mono text-[12px] uppercase tracking-[0.08em] text-[#FB290E]">{hsePractice.label}</p>
+            <h2 id="q-hse-practice" data-split className="mt-4 max-w-[20ch] text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-[1.05] tracking-[-.03em]">
+              {hsePractice.title}
+            </h2>
+            <p data-split="content" className="mt-4 max-w-[56ch] text-[16px] leading-[1.6] text-[#111]/55">
+              {hsePractice.copy}
+            </p>
+
+            <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+              <div>
+                <h3 className="font-mono text-[12px] uppercase tracking-[0.08em] text-[#111]/45">Methods & standards</h3>
+                <dl className="mt-4 divide-y divide-[#111]/10">
+                  {hsePractice.standards.map((item) => (
+                    <div key={item.method} className="py-3">
+                      <dt className="text-[15px] font-medium leading-snug">{item.method}</dt>
+                      <dd className="mt-1 text-[14px] leading-[1.55] text-[#111]/55">{item.use}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <div>
+                <h3 className="font-mono text-[12px] uppercase tracking-[0.08em] text-[#111]/45">PPE on every site</h3>
+                <ul className="mt-4 divide-y divide-[#111]/10">
+                  {hsePractice.ppe.map((item) => (
+                    <li key={item} className="py-3 text-[14px] leading-[1.55] text-[#111]/70">{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-mono text-[12px] uppercase tracking-[0.08em] text-[#111]/45">Inspections & reporting</h3>
+                <ul className="mt-4 divide-y divide-[#111]/10">
+                  {hsePractice.inspections.map((item) => (
+                    <li key={item} className="py-3 text-[14px] leading-[1.55] text-[#111]/70">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* 06 Equipment & fleet: the full inventory from the Corporate Profile (laboratory equipment excepted, as it
             belongs to the laboratory section), on the page's light ground. The photo sits on the left (reverse), so the

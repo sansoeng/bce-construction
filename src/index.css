@@ -1327,7 +1327,7 @@ html[lang="km"] .glance-num > span {
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  color: #1f367e;
+  color: var(--brand);
   position: relative;
   top: -0.05em;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
@@ -1336,7 +1336,7 @@ html[lang="km"] .glance-num > span {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  color: #122154;
+  color: #ce220c;
   transform: translateY(-2px) scale(1.15);
 }
 .about-core-badge svg {
@@ -1355,8 +1355,8 @@ html[lang="km"] .glance-num > span {
   opacity: 1;
 }
 .about-core-badge:hover .gi-acc {
-  fill: #122154 !important;
-  stroke: #122154 !important;
+  fill: #ce220c !important;
+  stroke: #ce220c !important;
 }
 .about-core-badge .gi-cable {
   vector-effect: none !important;
@@ -4722,10 +4722,16 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .8s cubic-bezier(.16, 1, .3, 1);
 }
 .ol-value.is-visible { opacity: 1; transform: none; }
-.ol-value-icon { display: block; width: 26px; height: 26px; color: rgb(17 17 17 / .55); }
+/* Value column icons, after dalco.ch/meet-dalco: one hairline mark set large in the brand orange, the title beneath
+   in ink. The drawing is 1.5 on a 49-unit grid (src/LineIcon.tsx), so it reads as a single pen weight at any size. */
+.ol-value-icon { display: block; width: 40px; height: 40px; color: var(--brand); }
 .ol-value-icon svg { display: block; width: 100%; height: 100%; }
-.ol-value-title { margin-top: 36px; font-size: 1.15rem; font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.ol-value-title { margin-top: 30px; font-size: 1.15rem; font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
 .ol-value-text { max-width: 20rem; margin-top: 10px; font-size: .95rem; line-height: 1.45; color: rgb(17 17 17 / .7); }
+@media (min-width: 768px) {
+  .ol-value-icon { width: 48px; height: 48px; }
+  .ol-value-title { margin-top: 36px; }
+}
 
 .ol-solutions { padding: 220px var(--olm) 0; }
 .ol-solutions-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); row-gap: 24px; align-items: start; }
@@ -5488,4 +5494,207 @@ html[lang="km"] .fg-btn.is-outline-white {
   transform: translateY(0) !important;
   outline: 2px solid #fff;
   outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   About: leadership and milestones, after dalco.ch/meet-dalco
+   --------------------------------------------------------------------------- */
+
+.ab-lead { padding: clamp(4rem, 7vw, 7rem) var(--page-gutter); border-top: 1px solid var(--line); }
+.ab-lead-head { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.ab-lead-label {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgb(17 17 17 / .55);
+}
+.ab-lead-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fb290e; }
+.ab-lead-title {
+  margin-top: 1.1rem;
+  max-width: 20ch;
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+}
+.ab-lead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+.ab-lead-photo {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #ededed;
+}
+.ab-lead-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.ab-lead-initials {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 7vw, 6rem);
+  letter-spacing: .04em;
+  color: rgb(17 17 17 / .25);
+}
+.ab-lead-name { font-size: clamp(1.4rem, 2vw, 2rem); font-weight: 500; letter-spacing: -.02em; }
+.ab-lead-role {
+  margin-top: .35rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgb(17 17 17 / .45);
+}
+.ab-lead-bio {
+  margin-top: 1.1rem;
+  max-width: 46ch;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgb(17 17 17 / .62);
+}
+
+/* Milestones: horizontal, draggable, snap-aligned, on the ink ground. */
+.ab-miles { background: #111; color: #fff; padding: clamp(3.5rem, 6vw, 6rem) 0 clamp(4rem, 7vw, 6.5rem); }
+.ab-miles-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  padding: 0 var(--page-gutter) clamp(2rem, 3.5vw, 3rem);
+}
+.ab-miles-label {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / .55);
+}
+.ab-miles-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fb290e; }
+.ab-miles-title {
+  margin-top: 1.1rem;
+  max-width: 18ch;
+  font-size: clamp(2rem, 3.6vw, 3.6rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+}
+.ab-miles-controls { display: flex; align-items: center; gap: .5rem; }
+.ab-miles-drag {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-right: .75rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / .45);
+}
+.ab-miles-drag svg { width: 16px; height: 16px; }
+.ab-miles-btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgb(255 255 255 / .25);
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color .25s ease, border-color .25s ease;
+}
+.ab-miles-btn:hover { background: rgb(255 255 255 / .08); border-color: rgb(255 255 255 / .45); }
+.ab-miles-btn svg { width: 14px; height: 14px; }
+.ab-miles-rail {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: 0 var(--page-gutter) 1rem;
+  cursor: grab;
+  scrollbar-width: none;
+}
+.ab-miles-rail::-webkit-scrollbar { display: none; }
+.ab-miles-rail:active { cursor: grabbing; }
+.ab-miles-rail:focus-visible { outline: 1px solid rgb(255 255 255 / .4); outline-offset: 4px; }
+.ab-miles-item {
+  position: relative;
+  flex: 0 0 min(78vw, 540px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  padding-bottom: 1.4rem;
+  scroll-snap-align: start;
+}
+.ab-miles-text { font-size: clamp(.95rem, 1.05vw, 1.05rem); line-height: 1.55; color: rgb(255 255 255 / .66); }
+.ab-miles-media { aspect-ratio: 16 / 10; overflow: hidden; background: #222; }
+.ab-miles-media img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.ab-miles-item-title { margin-top: auto; font-size: 1.05rem; font-weight: 500; line-height: 1.3; }
+.ab-miles-year {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: #fff;
+}
+.ab-miles-dot { width: 9px; height: 9px; border-radius: 50%; background: #fb290e; box-shadow: 0 0 0 4px rgb(251 41 14 / .18); }
+.ab-miles-line { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgb(255 255 255 / .18); }
+.ab-miles-progress { height: 2px; margin: 1.4rem var(--page-gutter) 0; background: rgb(255 255 255 / .12); }
+.ab-miles-progress span { display: block; height: 100%; background: #fb290e; transform-origin: left; transition: transform .2s linear; }
+
+@media (max-width: 767.98px) {
+  .ab-lead-grid { grid-template-columns: 1fr; }
+  .ab-lead-photo { max-width: 320px; }
+  .ab-miles-item { flex-basis: 82vw; }
+}
+
+/* Homepage jump bar: straight to the evidence, past the scrollytelling. */
+.home-jump {
+  position: relative;
+  z-index: 21;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  padding: .9rem var(--page-gutter) 1rem;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+.home-jump-label {
+  margin-right: .35rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgb(17 17 17 / .4);
+}
+.home-jump-link {
+  padding: .42rem .8rem;
+  border: 1px solid rgb(17 17 17 / .16);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgb(17 17 17 / .6);
+  transition: color .25s ease, border-color .25s ease;
+}
+.home-jump-link:hover { color: #111; border-color: #111; }
+@media (max-width: 519px) {
+  .home-jump { gap: .4rem; }
+  .home-jump-label { width: 100%; }
 }

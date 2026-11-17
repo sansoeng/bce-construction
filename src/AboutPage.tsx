@@ -1,7 +1,9 @@
 import { siteSettings } from "./siteSettings";
 import {
+  useEffect,
   useLayoutEffect,
   useRef,
+  useState,
   type CSSProperties,
   type RefObject,
 } from "react"
@@ -78,6 +80,164 @@ function useWordReveal(ref: RefObject<HTMLElement | null>) {
 const QUOTE =
   "For more than thirty years we have built on four pillars: quality, safety, reliability and partnership. They guide every pour, every pile and every project."
 
+// Leadership, after dalco.ch/meet-dalco: the person named with their role, a portrait, and the statement they stand
+// behind. Editable in the admin (About BCE → Leadership) so BCE can replace the portrait and the copy.
+function Leadership() {
+  const leader = about.leadership
+  const initials = leader.name
+    .replace(/^Ms\.?\s*/i, "")
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+  return (
+    <section data-header-title="Leadership" aria-labelledby="ab-lead" className="ab-lead">
+      <div className="ab-lead-head">
+        <p data-split="content" className="ab-lead-label">
+          {leader.label}
+        </p>
+        <h2 id="ab-lead" data-split className="ab-lead-title">
+          {leader.title}
+        </h2>
+      </div>
+      <div className="ab-lead-grid">
+        <figure className="ab-lead-photo">
+          {leader.image ? (
+            <img src={leader.image} alt={leader.imageAlt} loading="lazy" />
+          ) : (
+            <span className="ab-lead-initials" aria-hidden>
+              {initials}
+            </span>
+          )}
+        </figure>
+        <div className="ab-lead-copy">
+          <p className="ab-lead-name">{leader.name}</p>
+          <p className="ab-lead-role">{leader.role}</p>
+          {leader.bio.map((paragraph) => (
+            <p key={paragraph} className="ab-lead-bio">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Milestones, after dalco.ch/meet-dalco: a horizontal strip you can drag (or scroll, or tab through), each card a
+// photo, a paragraph, a title and its year on a ruled axis. Data from about.story.milestones.
+function Milestones() {
+  const railRef = useRef<HTMLDivElement>(null)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const rail = railRef.current
+    if (!rail) return
+    const update = () => {
+      const max = rail.scrollWidth - rail.clientWidth
+      setProgress(max > 0 ? rail.scrollLeft / max : 0)
+    }
+    update()
+    rail.addEventListener("scroll", update, { passive: true })
+    addEventListener("resize", update)
+    return () => {
+      rail.removeEventListener("scroll", update)
+      removeEventListener("resize", update)
+    }
+  }, [])
+
+  // Drag to scroll: pointer capture, so a flick keeps moving like the reference page.
+  const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: false })
+  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current
+    if (!rail || event.pointerType === "touch") return
+    drag.current = { active: true, startX: event.clientX, startLeft: rail.scrollLeft, moved: false }
+    rail.setPointerCapture(event.pointerId)
+  }
+  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current
+    if (!rail || !drag.current.active) return
+    const dx = event.clientX - drag.current.startX
+    if (Math.abs(dx) > 4) drag.current.moved = true
+    rail.scrollLeft = drag.current.startLeft - dx
+  }
+  const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current
+    if (rail?.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId)
+    drag.current.active = false
+  }
+  const nudge = (direction: 1 | -1) => {
+    const rail = railRef.current
+    if (!rail) return
+    rail.scrollBy({ left: direction * Math.min(rail.clientWidth * 0.8, 720), behavior: "smooth" })
+  }
+
+  return (
+    <section id="milestones" data-nav-dark data-header-title="Milestones" aria-labelledby="ab-miles" className="ab-miles">
+      <div className="ab-miles-head">
+        <div>
+          <p data-split="content" className="ab-miles-label">
+            Milestones
+          </p>
+          <h2 id="ab-miles" data-split className="ab-miles-title">
+            Thirty years, built one pour at a time.
+          </h2>
+        </div>
+        <div className="ab-miles-controls">
+          <span className="ab-miles-drag" aria-hidden>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
+              <path d="M3 8h10M5 5 2 8l3 3M11 5l3 3-3 3" />
+            </svg>
+            Drag
+          </span>
+          <button type="button" className="ab-miles-btn" onClick={() => nudge(-1)} aria-label="Previous milestones">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden>
+              <path d="M10 3 5 8l5 5" />
+            </svg>
+          </button>
+          <button type="button" className="ab-miles-btn" onClick={() => nudge(1)} aria-label="Next milestones">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden>
+              <path d="m6 3 5 5-5 5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={railRef}
+        className="ab-miles-rail"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        tabIndex={0}
+        role="region"
+        aria-label="BCE milestones, horizontally scrollable"
+      >
+        {about.story.milestones.map((milestone, index) => (
+          <article key={milestone.year} className="ab-miles-item" aria-labelledby={`ab-miles-${index}`}>
+            <p className="ab-miles-text">{milestone.text}</p>
+            <div className="ab-miles-media">
+              <img src={milestone.image} alt={milestone.imageAlt} loading="lazy" draggable={false} />
+            </div>
+            <h3 id={`ab-miles-${index}`} className="ab-miles-item-title">
+              {milestone.title}
+            </h3>
+            <p className="ab-miles-year">
+              <span className="ab-miles-dot" aria-hidden />
+              {milestone.year}
+            </p>
+            <span className="ab-miles-line" aria-hidden/>
+          </article>
+        ))}
+      </div>
+      <div className="ab-miles-progress" aria-hidden>
+        <span style={{ transform: `scaleX(${0.12 + progress * 0.88})` }} />
+      </div>
+    </section>
+  )
+}
+
 // Chairwoman's message, after olympic.no/heritage's split content: the quote in the first four columns behind a
 // hairline rule, its opening mark hung in the indent, with the attribution beneath; the message in grey paragraphs in
 // columns 8 to 11, continuing into Our story (history and milestones).
@@ -86,7 +246,6 @@ function ChairwomanMessage() {
   useWordReveal(quoteRef)
   const quoteText = translate(about.message.quote)
   const words = quoteText.split(" ")
-  const milestones = about.story.milestones
   return (
     <section
       data-header-title="Chairwoman’s message"
@@ -127,23 +286,6 @@ function ChairwomanMessage() {
           <p data-split="content" className="mt-5">
             {about.story.text}
           </p>
-          <ol className="pd-list mt-10">
-            {milestones.map(({ year, text }, i) => (
-              <li
-                key={year}
-                data-reveal
-                className="ab-milestone pd-rule"
-                style={{ "--rd": `${i * 0.1}s` } as CSSProperties}
-              >
-                <span data-split="content" className="pd-count">
-                  {year}
-                </span>
-                <span data-split="content" className="ab-milestone-text">
-                  {text}
-                </span>
-              </li>
-            ))}
-          </ol>
         </div>
       </div>
       {/* Two staggered photos beneath the message and Our story: a tall portrait under the quote, set lower, and a
@@ -207,9 +349,15 @@ export default function AboutPage() {
         {/* 1. Who we are, as a scroll-driven zoom-out. */}
         <AboutZoom />
 
+        {/* 1b. Leadership, after dalco.ch/meet-dalco. */}
+        <Leadership />
+
         {/* 2. The Chairwoman's message, then the vision, mission and the four core values it names. */}
         <ChairwomanMessage />
         <AboutValues />
+
+        {/* 2b. The milestones, as a horizontal draggable rail on the ink ground. */}
+        <Milestones />
 
         {/* 4. Explore more: two media link tiles (olympic.no), the photos drifting in their frames as they cross the screen. */}
         <section

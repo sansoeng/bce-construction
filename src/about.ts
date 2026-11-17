@@ -33,7 +33,16 @@ export type AboutContent = {
   story: {
     title: string;
     text: string;
-    milestones: { year: string; text: string }[];
+    milestones: { year: string; title: string; text: string; image: string; imageAlt: string }[];
+  };
+  leadership: {
+    label: string;
+    title: string;
+    name: string;
+    role: string;
+    image: string;
+    imageAlt: string;
+    bio: string[];
   };
   vision: {
     sectionLabel: string;
@@ -80,9 +89,75 @@ export const DEFAULT_ABOUT: AboutContent = {
     title: "Our story",
     text: "Founded in Battambang in 1995, BCE has grown into an integrated operation, delivering concrete, piling, construction, slab works and equipment rental with its own plants and fleet.",
     milestones: [
-      { year: "1995", text: "BCE is established in Battambang as an engineering and construction company." },
-      { year: "2025", text: "128 projects completed and 1,564 clients served in a single year." },
-      { year: "2026", text: "Operating across 13 provinces and Phnom Penh with 4 batching plants, 41 mixer trucks and 8 pump trucks." },
+      {
+        year: "1995",
+        title: "Foundation",
+        text: "BCE begins in Battambang as Hong Huot Ly Co., Ltd., supplying concrete and construction services to projects across the province.",
+        image: "/Image/bce/about-hero-banner.webp",
+        imageAlt: "Aerial view of the batching plant and aggregate yard BCE started from",
+      },
+      {
+        year: "2015",
+        title: "Restructured for growth",
+        text: "The company is restructured into its current organisation, bringing batching, piling and civil works under one management team.",
+        image: "/Image/bce/about-zoom-batching.webp",
+        imageAlt: "Batching plant and aggregate stockpiles",
+      },
+      {
+        year: "2018",
+        title: "Modern plant and fleet",
+        text: "Computerized batching and a larger mixer and pump fleet expand capacity beyond Battambang.",
+        image: "/Image/bce/machinery_fleet.webp",
+        imageAlt: "BCE mixer and pump trucks lined up at the plant",
+      },
+      {
+        year: "2020",
+        title: "Incorporated as BCE",
+        text: "The business is incorporated as Battambang Construction and Engineering Co., Ltd. (BCE).",
+        image: "/Image/bce/about-business-banner.webp",
+        imageAlt: "BCE engineers and crew on site in Battambang",
+      },
+      {
+        year: "2023",
+        title: "Laboratory and quality system",
+        text: "An in-house materials laboratory and formal mix-design records bring testing and quality control under one roof.",
+        image: "/Image/bce/laboratory_qa.webp",
+        imageAlt: "Concrete test specimens in the BCE laboratory",
+      },
+      {
+        year: "2024",
+        title: "Partnerships and coverage",
+        text: "Long-term supply and technical partnerships extend deliveries across 13 provinces and Phnom Penh.",
+        image: "/Image/bce/core_services.webp",
+        imageAlt: "Concrete discharge on a BCE project site",
+      },
+      {
+        year: "2025",
+        title: "128 projects in one year",
+        text: "128 projects completed and 1,564 clients served in a single year.",
+        image: "/Image/bce/stats_fleet.webp",
+        imageAlt: "BCE fleet and equipment on site",
+      },
+      {
+        year: "2026",
+        title: "Today",
+        text: "Four batching plants, 41 mixer trucks, 8 pump trucks, 7 piling rigs and a team of 71, still building from Battambang.",
+        image: "/Image/bce/hero_batching_plant.webp",
+        imageAlt: "BCE batching plant at dusk",
+      },
+    ],
+  },
+  leadership: {
+    label: "Leadership",
+    title: "Meet the people behind every pour.",
+    name: "Ms. Loeung Chan",
+    role: "Chairwoman",
+    image: "/Image/bce/chairwoman.webp",
+    imageAlt: "Ms. Loeung Chan, Chairwoman of BCE",
+    bio: [
+      "Ms. Loeung Chan is Chairwoman of Battambang Construction and Engineering Co., Ltd. She has guided the company through its restructuring in 2015 and its incorporation as BCE in 2020, and still sets the standard the business is run to.",
+      "Her direction is simple and does not change with the size of the project: quality controlled at every stage, safety on every site, and long-term partnerships with the clients, suppliers and crews who build Cambodia with us.",
+      "Thirty years on, the company she chairs runs four batching plants, its own piling rigs and a fleet of 41 mixer trucks — and still answers the phone from Battambang.",
     ],
   },
   vision: {

@@ -57,6 +57,14 @@ export type QualityContent = {
     heading: string;
     items: { lines: string[]; text: string; image: string; imageAlt: string }[];
   };
+  hsePractice: {
+    label: string;
+    title: string;
+    copy: string;
+    standards: { method: string; use: string }[];
+    ppe: string[];
+    inspections: string[];
+  };
   engineering: {
     kicker: string;
     title: string;
@@ -188,6 +196,33 @@ export const DEFAULT_QUALITY: QualityContent = {
         image: "/Image/bce/project_page_17.webp",
         imageAlt: "Construction engineering team collaborating on site",
       },
+    ],
+  },
+  hsePractice: {
+    label: "HSE in practice",
+    title: "Standards, PPE and inspections",
+    copy: "Safety and quality on a BCE site are routines, not posters: the methods our laboratory tests to, the equipment every crew wears, and the checks that run before and during every shift.",
+    standards: [
+      { method: "ASTM C143", use: "Slump of hydraulic-cement concrete, tested on delivery" },
+      { method: "ASTM C31 / C39", use: "Making, curing and compressive testing of specimens" },
+      { method: "ACI 211.1", use: "Proportioning normal, heavyweight and mass concrete" },
+      { method: "BS EN 206", use: "Specification, performance, production and conformity" },
+      { method: "BS EN 12390", use: "Testing hardened concrete" },
+      { method: "ISO 9001 principles", use: "Documented procedures, records and corrective action" },
+    ],
+    ppe: [
+      "Hard hat and high-visibility vest on every site, without exception",
+      "Safety boots, eye protection and gloves for handling and placing",
+      "Fall protection and harnesses for work at height and on rigs",
+      "Hearing and dust protection around batching, cutting and coring",
+      "Life jackets and edge control for works over water",
+    ],
+    inspections: [
+      "Daily pre-start checks on plant, mixers, pumps and rigs, recorded before work begins",
+      "Lifting gear, rigging and scaffolding inspected and tagged on schedule",
+      "Pump lines, booms and outriggers checked at every setup",
+      "Toolbox talks before each pour and each shift change",
+      "Incidents and near misses reported, investigated and closed out",
     ],
   },
   engineering: {

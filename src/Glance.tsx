@@ -7,8 +7,8 @@ export type IconKind = "years" | "projects" | "clients" | "plants" | "mixer" | "
 
 
 // Line icons on a 48-unit grid, one stroke weight throughout. Strokes marked `draw` trace themselves in when the grid
-// reveals; the brand-blue part of each then keeps a small loop going (sand, hook, nod, drip, drum, pin).
-const ACCENT = "#293e8a";
+// reveals; the brand-orange part of each then keeps a small loop going (sand, hook, nod, drip, drum, pin).
+const ACCENT = "#fb290e";
 const draw = { pathLength: 1, className: "gd" } as const;
 
 export function GlanceIcon({

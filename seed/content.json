@@ -611,6 +611,51 @@
             }
           ]
         },
+        "hsePractice": {
+          "label": "HSE in practice",
+          "title": "Standards, PPE and inspections",
+          "copy": "Safety and quality on a BCE site are routines, not posters: the methods our laboratory tests to, the equipment every crew wears, and the checks that run before and during every shift.",
+          "standards": [
+            {
+              "method": "ASTM C143",
+              "use": "Slump of hydraulic-cement concrete, tested on delivery"
+            },
+            {
+              "method": "ASTM C31 / C39",
+              "use": "Making, curing and compressive testing of specimens"
+            },
+            {
+              "method": "ACI 211.1",
+              "use": "Proportioning normal, heavyweight and mass concrete"
+            },
+            {
+              "method": "BS EN 206",
+              "use": "Specification, performance, production and conformity"
+            },
+            {
+              "method": "BS EN 12390",
+              "use": "Testing hardened concrete"
+            },
+            {
+              "method": "ISO 9001 principles",
+              "use": "Documented procedures, records and corrective action"
+            }
+          ],
+          "ppe": [
+            "Hard hat and high-visibility vest on every site, without exception",
+            "Safety boots, eye protection and gloves for handling and placing",
+            "Fall protection and harnesses for work at height and on rigs",
+            "Hearing and dust protection around batching, cutting and coring",
+            "Life jackets and edge control for works over water"
+          ],
+          "inspections": [
+            "Daily pre-start checks on plant, mixers, pumps and rigs, recorded before work begins",
+            "Lifting gear, rigging and scaffolding inspected and tagged on schedule",
+            "Pump lines, booms and outriggers checked at every setup",
+            "Toolbox talks before each pour and each shift change",
+            "Incidents and near misses reported, investigated and closed out"
+          ]
+        },
         "engineering": {
           "kicker": "People behind every project",
           "title": "Engineering capability",
@@ -798,16 +843,73 @@
           "milestones": [
             {
               "year": "1995",
-              "text": "BCE is established in Battambang as an engineering and construction company."
+              "title": "Foundation",
+              "text": "BCE begins in Battambang as Hong Huot Ly Co., Ltd., supplying concrete and construction services to projects across the province.",
+              "image": "/Image/bce/about-hero-banner.webp",
+              "imageAlt": "Aerial view of the batching plant and aggregate yard BCE started from"
+            },
+            {
+              "year": "2015",
+              "title": "Restructured for growth",
+              "text": "The company is restructured into its current organisation, bringing batching, piling and civil works under one management team.",
+              "image": "/Image/bce/about-zoom-batching.webp",
+              "imageAlt": "Batching plant and aggregate stockpiles"
+            },
+            {
+              "year": "2018",
+              "title": "Modern plant and fleet",
+              "text": "Computerized batching and a larger mixer and pump fleet expand capacity beyond Battambang.",
+              "image": "/Image/bce/machinery_fleet.webp",
+              "imageAlt": "BCE mixer and pump trucks lined up at the plant"
+            },
+            {
+              "year": "2020",
+              "title": "Incorporated as BCE",
+              "text": "The business is incorporated as Battambang Construction and Engineering Co., Ltd. (BCE).",
+              "image": "/Image/bce/about-business-banner.webp",
+              "imageAlt": "BCE engineers and crew on site in Battambang"
+            },
+            {
+              "year": "2023",
+              "title": "Laboratory and quality system",
+              "text": "An in-house materials laboratory and formal mix-design records bring testing and quality control under one roof.",
+              "image": "/Image/bce/laboratory_qa.webp",
+              "imageAlt": "Concrete test specimens in the BCE laboratory"
+            },
+            {
+              "year": "2024",
+              "title": "Partnerships and coverage",
+              "text": "Long-term supply and technical partnerships extend deliveries across 13 provinces and Phnom Penh.",
+              "image": "/Image/bce/core_services.webp",
+              "imageAlt": "Concrete discharge on a BCE project site"
             },
             {
               "year": "2025",
-              "text": "128 projects completed and 1,564 clients served in a single year."
+              "title": "128 projects in one year",
+              "text": "128 projects completed and 1,564 clients served in a single year.",
+              "image": "/Image/bce/stats_fleet.webp",
+              "imageAlt": "BCE fleet and equipment on site"
             },
             {
               "year": "2026",
-              "text": "Operating across 13 provinces and Phnom Penh with 4 batching plants, 41 mixer trucks and 8 pump trucks."
+              "title": "Today",
+              "text": "Four batching plants, 41 mixer trucks, 8 pump trucks, 7 piling rigs and a team of 71, still building from Battambang.",
+              "image": "/Image/bce/hero_batching_plant.webp",
+              "imageAlt": "BCE batching plant at dusk"
             }
+          ]
+        },
+        "leadership": {
+          "label": "Leadership",
+          "title": "Meet the people behind every pour.",
+          "name": "Ms. Loeung Chan",
+          "role": "Chairwoman",
+          "image": "/Image/bce/chairwoman.webp",
+          "imageAlt": "Ms. Loeung Chan, Chairwoman of BCE",
+          "bio": [
+            "Ms. Loeung Chan is Chairwoman of Battambang Construction and Engineering Co., Ltd. She has guided the company through its restructuring in 2015 and its incorporation as BCE in 2020, and still sets the standard the business is run to.",
+            "Her direction is simple and does not change with the size of the project: quality controlled at every stage, safety on every site, and long-term partnerships with the clients, suppliers and crews who build Cambodia with us.",
+            "Thirty years on, the company she chairs runs four batching plants, its own piling rigs and a fleet of 41 mixer trucks — and still answers the phone from Battambang."
           ]
         },
         "vision": {

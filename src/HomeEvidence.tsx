@@ -76,7 +76,7 @@ export function FleetBand() {
           </h2>
           <p className="mt-5 max-w-[36ch] text-[15px] leading-[1.65] text-[#111]/55">{fleet.copy[0]}</p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <ArrowButton href="/quality#equipment-fleet" label="Equipment & fleet" theme="outline" />
+            <ArrowButton href="/fleet" label="Equipment & fleet" theme="outline" />
             <ArrowButton href={fleet.ctaHref} label={fleet.ctaLabel} />
           </div>
         </div>

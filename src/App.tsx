@@ -451,6 +451,22 @@ function App() {
       <div className="relative">
       <div data-hero-spacer data-nav-dark data-header-title="Home" className="hero h-[100svh] min-h-[600px]" aria-hidden />
 
+      {/* Jump bar: the Comment asks for the evidence to be reachable without scrolling four screens of motion. */}
+      <nav aria-label="Skip to a section" className="home-jump">
+        <span className="home-jump-label">Jump to</span>
+        {[
+          ["About", "#about"],
+          ["Businesses", "#expertise"],
+          ["Quality", "#quality-evidence"],
+          ["Fleet", "#fleet-evidence"],
+          ["Projects", "#projects"],
+          ["Coverage", "#coverage"],
+          ["Contact", "/contact"],
+        ].map(([label, href]) => (
+          <a key={label} href={href} className="home-jump-link">{label}</a>
+        ))}
+      </nav>
+
       <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white px-5 pb-24 pt-6">
         <div className="relative">
         <div data-about-track className="pointer-events-none absolute left-0 top-0 z-[1] w-full max-w-[15.5rem]">
@@ -488,7 +504,7 @@ function App() {
       </div>
 
       {/* After lpas.com: a full-screen opening holds while the five full-height panels slide in over it from the right. */}
-      <section id="expertise" data-offers data-header-title="Core business" aria-labelledby="offers-title" className="relative h-[400vh] bg-white">
+      <section id="expertise" data-offers data-header-title="Core business" aria-labelledby="offers-title" className="relative h-[320vh] bg-white">
         <div data-offers-sticky className="sticky top-0 h-[100svh] overflow-hidden">
           <div data-offers-head className="pointer-events-none absolute inset-0 text-[#111]">
             <div className="absolute inset-x-5 top-[44%] grid grid-cols-2 items-start gap-5 text-[.95rem] md:grid-cols-12">
@@ -538,7 +554,7 @@ function App() {
 
       <Glance />
 
-      <section data-vision data-nav-dark data-header-title={homepage.commitments.label} aria-label={homepage.commitments.label} className="relative h-[560vh] bg-white text-white">
+      <section data-vision data-nav-dark data-header-title={homepage.commitments.label} aria-label={homepage.commitments.label} className="relative h-[440vh] bg-white text-white">
         <div className="sticky top-0 h-[100svh] overflow-hidden">
           <div data-vision-frame className="absolute inset-0 overflow-hidden bg-[#111]">
           <div data-vision-image-scroll className="vision-img-scroll">
