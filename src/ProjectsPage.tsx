@@ -23,6 +23,11 @@ type View = "grid" | "list";
 // Category filter, from the portfolio itself so a new project category appears without touching this list.
 const ALL = "All projects";
 const CATEGORIES = [ALL, ...Array.from(new Set(projects.map((p) => p.category)))];
+const categorySlug = (category: string) => category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const initialCategory = () => {
+  const wanted = new URLSearchParams(location.search).get("category");
+  return CATEGORIES.find((c) => categorySlug(c) === wanted) ?? ALL;
+};
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -40,8 +45,20 @@ export default function ProjectsPage() {
   usePageSetup("Projects | BCE., Ltd.");
 
   const [view, setView] = useState<View>("grid");
-  const [category, setCategory] = useState<string>(ALL);
+  const [category, setCategory] = useState<string>(initialCategory);
   const visible = category === ALL ? projects : projects.filter((p) => p.category === category);
+
+  // The filter lives in the URL: a shared link keeps it, and the content bridge's remount (which happens moments after
+  // first paint) no longer resets it to All.
+  const selectCategory = (next: string) => {
+    setCategory(next);
+    const params = new URLSearchParams(location.search);
+    if (next === ALL) params.delete("category");
+    else params.set("category", categorySlug(next));
+    // Drop the "=" on valueless flags so the address stays "?projects&category=piling".
+    const query = params.toString().replace(/=(?=&|$)/g, "");
+    history.replaceState(null, "", `${location.pathname}?${query}`);
+  };
 
   const listRef = useRef<HTMLElement>(null);
   const rootRef = useRef<HTMLElement>(null);
@@ -100,7 +117,7 @@ export default function ProjectsPage() {
                   type="button"
                   className={`pl-chip${category === item ? " is-active" : ""}`}
                   aria-pressed={category === item}
-                  onClick={() => setCategory(item)}
+                  onClick={() => selectCategory(item)}
                 >
                   {item}
                   <span className="pl-chip-count">
