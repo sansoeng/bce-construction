@@ -24,6 +24,8 @@ export const DEFAULT_SETTINGS: Record<string, unknown> = {
     phones: ["012 932 700", "017 222 205", "012 867 475", "070 867 475"],
     email: "bcebtb999@gmail.com",
     telegram: "@thendLP",
+    facebook: "",
+    youtube: "",
     address: "Ang Village, Sangkat O'Char, Battambang City, Battambang Province, Kingdom of Cambodia",
     hours: "Monday – Sunday, 6:30 AM – 5:30 PM",
   },

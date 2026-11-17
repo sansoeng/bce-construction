@@ -5465,3 +5465,27 @@ html[lang="km"] .fg-btn.is-outline-white {
 @media (max-width: 519px) {
   .cv-facts { grid-template-columns: 1fr; }
 }
+
+/* Keyboard users get a jump past the header and hero, as the Comment's accessibility note asks. */
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 200;
+  transform: translateY(-160%);
+  padding: 10px 16px;
+  border-radius: 4px;
+  background: #111;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform .2s ease;
+}
+.skip-link:focus {
+  transform: translateY(0) !important;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}

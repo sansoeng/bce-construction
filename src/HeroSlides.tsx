@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Rotating banner shots kept as historical reference / fallback
 export const heroSlides = [
@@ -26,15 +26,24 @@ export function HeroVideo({
   poster?: string;
 } = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  // The reel is 3.7 MB: on Save-Data or a 2G/3G connection, and under reduced-motion, the still poster is served
+  // instead of downloading and decoding it. Checked once, before the <video> exists, so nothing is fetched.
+  const [allowVideo] = useState(() => {
+    try {
+      const connection = (navigator as unknown as {
+        connection?: { saveData?: boolean; effectiveType?: string };
+      }).connection;
+      if (connection?.saveData) return false;
+      if (/(^|-)2g$/.test(connection?.effectiveType ?? "")) return false;
+      return !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch {
+      return true;
+    }
+  });
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      video.pause();
-      return;
-    }
 
     video.muted = true;
     const playPromise = video.play();
@@ -66,23 +75,27 @@ export function HeroVideo({
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [allowVideo]);
 
   return (
     <div data-hero-image className="absolute inset-0 h-full w-full overflow-hidden will-change-transform">
-      <video
-        ref={videoRef}
-        key={`${video}|${poster}`}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster={poster}
-        className="h-full w-full object-cover"
-      >
-        <source src={video} type="video/mp4" />
-      </video>
+      {allowVideo ? (
+        <video
+          ref={videoRef}
+          key={`${video}|${poster}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={poster}
+          className="h-full w-full object-cover"
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+      ) : (
+        <img src={poster} alt="" className="h-full w-full object-cover" />
+      )}
     </div>
   );
 }

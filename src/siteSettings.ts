@@ -16,6 +16,9 @@ export type SiteSettings = {
     phones: string[];
     email: string;
     telegram: string;
+    /** Optional verified channels; the footer hides an icon until its address is set in the admin. */
+    facebook: string;
+    youtube: string;
     address: string;
     hours: string;
   };
@@ -43,6 +46,8 @@ export const siteSettings: SiteSettings = {
     phones: ["012 932 700", "017 222 205", "012 867 475", "070 867 475"],
     email: "bcebtb999@gmail.com",
     telegram: "@thendLP",
+    facebook: "",
+    youtube: "",
     address: "Ang Village, Sangkat O'Char, Battambang City, Battambang Province, Kingdom of Cambodia",
     hours: "Monday – Sunday, 6:30 AM – 5:30 PM",
   },
@@ -76,6 +81,8 @@ export const applySiteSettings = (patch: Partial<SiteSettings>) => {
     }
     if (nonEmpty(contact.email)) siteSettings.contact.email = contact.email;
     if (nonEmpty(contact.telegram)) siteSettings.contact.telegram = contact.telegram;
+    if (nonEmpty(contact.facebook)) siteSettings.contact.facebook = contact.facebook;
+    if (nonEmpty(contact.youtube)) siteSettings.contact.youtube = contact.youtube;
     if (nonEmpty(contact.address)) siteSettings.contact.address = contact.address;
     if (nonEmpty(contact.hours)) siteSettings.contact.hours = contact.hours;
   }

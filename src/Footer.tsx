@@ -196,16 +196,32 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
                   >
                     <MailIcon className="size-3.5" />
                   </a>
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Facebook"
-                    title="Facebook"
-                    className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white transition-all duration-200"
-                  >
-                    <FacebookIcon className="size-3.5" />
-                  </a>
+                  {siteSettings.contact.facebook && (
+                    <a
+                      href={siteSettings.contact.facebook}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="Facebook"
+                      title="Facebook"
+                      className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white transition-all duration-200"
+                    >
+                      <FacebookIcon className="size-3.5" />
+                    </a>
+                  )}
+                  {siteSettings.contact.youtube && (
+                    <a
+                      href={siteSettings.contact.youtube}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label="YouTube"
+                      title="YouTube"
+                      className="flex items-center justify-center size-8 rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white transition-all duration-200"
+                    >
+                      <svg viewBox="0 0 24 24" className="size-3.5" fill="currentColor" aria-hidden>
+                        <path d="M23.5 6.9a3 3 0 0 0-2.1-2.1C19.5 4.3 12 4.3 12 4.3s-7.5 0-9.4.5A3 3 0 0 0 .5 6.9C0 8.8 0 12 0 12s0 3.2.5 5.1a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.2 24 12 24 12s0-3.2-.5-5.1ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

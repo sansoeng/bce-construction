@@ -119,6 +119,8 @@ export default function SettingsManager() {
               </FieldShell>
               <FieldShell label="Email"><TextInput type="email" value={contact.email ?? ""} onChange={(event) => update("contact", "email", event.target.value)} /></FieldShell>
               <FieldShell label="Telegram"><TextInput value={contact.telegram ?? ""} onChange={(event) => update("contact", "telegram", event.target.value)} /></FieldShell>
+              <FieldShell label="Facebook page URL (optional)"><TextInput value={contact.facebook ?? ""} placeholder="https://www.facebook.com/…" onChange={(event) => update("contact", "facebook", event.target.value)} /></FieldShell>
+              <FieldShell label="YouTube channel URL (optional)"><TextInput value={contact.youtube ?? ""} placeholder="https://www.youtube.com/@…" onChange={(event) => update("contact", "youtube", event.target.value)} /></FieldShell>
               <FieldShell label="Address"><TextArea rows={3} value={contact.address ?? ""} onChange={(event) => update("contact", "address", event.target.value)} /></FieldShell>
               <FieldShell label="Operating hours"><TextInput value={contact.hours ?? ""} onChange={(event) => update("contact", "hours", event.target.value)} /></FieldShell>
             </div>
