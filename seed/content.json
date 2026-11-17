@@ -2120,6 +2120,12 @@
             "label": "Provinces and Phnom Penh"
           }
         ],
+        "prepare": [
+          "Site location and access — where the trucks will discharge, and any height, gate or road limits.",
+          "Volume per pour and the concrete grade (C15–C40), or the drawings and BOQ if you have them.",
+          "Pour dates and sequence, including any night or weekend pours.",
+          "Whether you need a pump truck, and the distance from the pump position to the pour."
+        ],
         "projects": [
           "siem-reap-commercial-ready-mix"
         ]
@@ -2203,6 +2209,12 @@
             "value": "13+",
             "label": "Provinces and Phnom Penh"
           }
+        ],
+        "prepare": [
+          "Pile type, diameter and depth, and the number of piles.",
+          "Ground information or the soil report, if one is available.",
+          "Site access and the working platform the rig will stand on.",
+          "Programme: start date and the sequence of pile groups."
         ],
         "projects": [
           "kampong-thom-bridge-foundations",
@@ -2289,6 +2301,12 @@
             "label": "Provinces and Phnom Penh"
           }
         ],
+        "prepare": [
+          "Scope of works with the drawings and BOQ you have.",
+          "Site location, access, and any phasing or occupied-area constraints.",
+          "Programme and the required completion date.",
+          "Approvals already in place, and the consultant or engineer of record."
+        ],
         "projects": [
           "battambang-provincial-road"
         ]
@@ -2373,6 +2391,12 @@
             "label": "Slab concrete from our plants"
           }
         ],
+        "prepare": [
+          "Slab area, thickness and the specified finish (power float, laser screed or brushed).",
+          "Joint layout or drawings, and the pour sequence.",
+          "Access for the pump and mixers, plus water and power on site.",
+          "Required flatness or tolerance, and the handover date."
+        ],
         "projects": [
           "poipet-logistics-warehouse"
         ]
@@ -2456,6 +2480,12 @@
             "value": "13+",
             "label": "Provinces and Phnom Penh"
           }
+        ],
+        "prepare": [
+          "Equipment and the hire period, with dates.",
+          "Site location and access for mobilisation.",
+          "Whether you need an operator, fuel and maintenance included.",
+          "The lifting or capacity requirement, and the work the machine will do."
         ],
         "projects": [
           "sihanoukville-fleet-hire"
@@ -2585,7 +2615,7 @@
     },
     "seo": {
       "title": "BCE — Battambang Construction and Engineering Co., Ltd.",
-      "description": "Ready-mix concrete, piling, civil construction, concrete slab works and fleet hire across 14 Cambodian provinces since 1995.",
+      "description": "Ready-mix concrete, piling, civil construction, concrete slab works and fleet hire across Cambodia, building from Battambang since 1995 — 13 provinces and Phnom Penh.",
       "ogImage": "/Image/bce/hero_batching_plant.webp"
     },
     "features": {

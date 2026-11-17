@@ -395,6 +395,29 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
           </div>
         </section>
 
+        <section id="prepare" data-header-title="What to send us" aria-labelledby="biz-prepare" className="site-pad site-bleed border-t border-[#111]/10 py-20 md:py-28">
+          <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12">
+            <div className="md:col-span-4">
+              <p data-split="content" className="ol-label">Before we quote</p>
+              <h2 id="biz-prepare" data-split className="mt-4 text-[clamp(28px,3.2vw,44px)] font-medium leading-[1.05] tracking-[-.03em]">
+                What to send us
+              </h2>
+              <p className="mt-4 max-w-[32ch] text-[15px] leading-[1.6] text-[#111]/55">
+                The more of this we have, the faster and firmer your quotation.
+              </p>
+              <ArrowButton href={quoteHref(business.slug)} label="Request a quotation" className="mt-6" />
+            </div>
+            <ol className="divide-y divide-[#111]/10 md:col-span-7 md:col-start-6">
+              {business.prepare.map((item, index) => (
+                <li key={item} data-reveal className="flex gap-5 py-4">
+                  <span className="font-mono text-[12px] leading-[1.9] text-[#111]/35">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="text-[16px] leading-[1.55] text-[#111]/75">{item}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         <section id="projects" data-header-title="Project highlights" aria-labelledby="biz-projects" className="ol-work">
           <div className="ol-work-head">
             <div className="ol-work-head-copy">

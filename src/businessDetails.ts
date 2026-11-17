@@ -30,6 +30,8 @@ export type BusinessDetail = {
   capacityTitle: string;
   capacityCopy: string;
   figures: BusinessFigure[];
+  /** What the client should send with a quotation request; shown above the closing call to action. */
+  prepare: string[];
   /** Project slugs shown under "Project highlights". */
   projects: string[];
 };
@@ -98,6 +100,12 @@ export const businessDetails: BusinessDetail[] = [
       { value: "41", label: "Mixer trucks" },
       { value: "13+", label: "Provinces and Phnom Penh" },
     ],
+    prepare: [
+      "Site location and access — where the trucks will discharge, and any height, gate or road limits.",
+      "Volume per pour and the concrete grade (C15–C40), or the drawings and BOQ if you have them.",
+      "Pour dates and sequence, including any night or weekend pours.",
+      "Whether you need a pump truck, and the distance from the pump position to the pour.",
+    ],
     projects: ["siem-reap-commercial-ready-mix"],
   },
   {
@@ -162,6 +170,12 @@ export const businessDetails: BusinessDetail[] = [
       { value: "15", label: "Engineers in our team" },
       { value: "C35–C40", label: "Pile concrete from our plants" },
       { value: "13+", label: "Provinces and Phnom Penh" },
+    ],
+    prepare: [
+      "Pile type, diameter and depth, and the number of piles.",
+      "Ground information or the soil report, if one is available.",
+      "Site access and the working platform the rig will stand on.",
+      "Programme: start date and the sequence of pile groups.",
     ],
     projects: ["kampong-thom-bridge-foundations", "phnom-penh-tower-foundations"],
   },
@@ -228,6 +242,12 @@ export const businessDetails: BusinessDetail[] = [
       { value: "15", label: "Engineers on staff" },
       { value: "13+", label: "Provinces and Phnom Penh" },
     ],
+    prepare: [
+      "Scope of works with the drawings and BOQ you have.",
+      "Site location, access, and any phasing or occupied-area constraints.",
+      "Programme and the required completion date.",
+      "Approvals already in place, and the consultant or engineer of record.",
+    ],
     projects: ["battambang-provincial-road"],
   },
   {
@@ -293,6 +313,12 @@ export const businessDetails: BusinessDetail[] = [
       { value: "70 m³", label: "Per hour, each plant" },
       { value: "C25–C35", label: "Slab concrete from our plants" },
     ],
+    prepare: [
+      "Slab area, thickness and the specified finish (power float, laser screed or brushed).",
+      "Joint layout or drawings, and the pour sequence.",
+      "Access for the pump and mixers, plus water and power on site.",
+      "Required flatness or tolerance, and the handover date.",
+    ],
     projects: ["poipet-logistics-warehouse"],
   },
   {
@@ -357,6 +383,12 @@ export const businessDetails: BusinessDetail[] = [
       { value: "08", label: "Pump trucks for hire" },
       { value: "07", label: "Piling rigs for hire" },
       { value: "13+", label: "Provinces and Phnom Penh" },
+    ],
+    prepare: [
+      "Equipment and the hire period, with dates.",
+      "Site location and access for mobilisation.",
+      "Whether you need an operator, fuel and maintenance included.",
+      "The lifting or capacity requirement, and the work the machine will do.",
     ],
     projects: ["sihanoukville-fleet-hire"],
   },

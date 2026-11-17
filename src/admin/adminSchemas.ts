@@ -303,6 +303,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       capacityTitle: "",
       capacityCopy: "",
       figures: [],
+      prepare: [],
       projects: [],
     }),
     skipKm: ["slug", "projects"],
@@ -311,6 +312,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "values", title: "Why BCE", hint: "The value cards that follow the introduction.", keys: ["valuesKicker", "valuesTitle", "values"] },
       { id: "solutions", title: "Solutions", hint: "The solution list with its photos.", keys: ["solutionsKicker", "solutionsTitle", "solutionsLead", "solutions"] },
       { id: "capacity", title: "Capacity", hint: "The figures shown beneath the solutions.", keys: ["capacityKicker", "capacityTitle", "capacityCopy", "figures"] },
+      { id: "prepare", title: "What to send us", hint: "The checklist shown before the quotation call to action; translate it in the ខ្មែរ tab.", keys: ["prepare"] },
       { id: "projects", title: "Related projects", hint: "Project slugs cross-sold at the end of the page.", keys: ["projects"] },
     ],
     fields: [
@@ -343,10 +345,10 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "value", label: "Value", type: "text" },
         { key: "label", label: "Label", type: "text" },
       ] },
+      { key: "prepare", label: "What to send us (one item per line)", type: "list" },
       { key: "projects", label: "Related project slugs", type: "list" },
     ],
   },
-
   offerings: {
     type: "offerings",
     label: "Home services",
