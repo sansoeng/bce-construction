@@ -492,7 +492,6 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "figuresTitle", label: "Figures heading", type: "text", wide: true },
         { key: "figuresCopy", label: "Figures copy", type: "textarea", rows: 3, wide: true },
         { key: "inventoryLabel", label: "Inventory label", type: "text" },
-        { key: "inventoryTitle", label: "Inventory heading", type: "text", wide: true },
         { key: "inventoryCopy", label: "Inventory copy", type: "textarea", rows: 3, wide: true },
         { key: "inventoryListLabel", label: "Inventory list label", type: "text" },
         { key: "plantImage", label: "Plant photo", type: "image", wide: true, aspect: "4 / 3", hint: "The large photo beside the machine cards." },

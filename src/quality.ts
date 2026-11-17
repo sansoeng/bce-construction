@@ -87,7 +87,6 @@ export type QualityContent = {
     figuresCopy: string;
     /** The full inventory as published by the Corporate Profile. */
     inventoryLabel: string;
-    inventoryTitle: string;
     inventoryCopy: string;
     inventoryListLabel: string;
     /** The large photo beside the machine cards. */
@@ -271,12 +270,11 @@ export const DEFAULT_QUALITY: QualityContent = {
       "Our plants and fleet are owned, operated and maintained by our own team, so capacity is planned around your programme rather than a supplier's.",
     ],
     note: "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.",
-    figuresLabel: "Fleet at a glance",
+    figuresLabel: "What we own, in numbers.",
     figuresTitle: "Capacity you can plan around.",
     figuresCopy:
       "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
     inventoryLabel: "Inventory",
-    inventoryTitle: "What we own, in numbers.",
     inventoryCopy:
       "Counts are from BCE's own fleet records. Laboratory equipment is shown with the plant below; its testing programme lives on the Quality page.",
     inventoryListLabel: "Machines in service",

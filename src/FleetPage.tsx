@@ -157,29 +157,22 @@ export default function FleetPage() {
             <h2 id="fl-figures" data-split className="ol-capacity-title">{fleet.figuresTitle}</h2>
             <p data-split="content" className="ol-capacity-copy">{fleet.figuresCopy}</p>
           </div>
-          <ul className="ol-capacity-grid">
+          <ul className="ol-capacity-grid fl-figures">
             <li data-reveal className="ol-figure">
               <CountUp value={String(fleetTotal)} />
               <span className="ol-figure-label">Machines in our own fleet</span>
             </li>
-            <li data-reveal className="ol-figure">
-              <CountUp value={rowCount(0)} />
-              <span className="ol-figure-label">Batching plants</span>
-            </li>
-            <li data-reveal className="ol-figure">
-              <CountUp value={rowCount(1)} />
-              <span className="ol-figure-label">Mixer trucks</span>
-            </li>
-            <li data-reveal className="ol-figure">
-              <CountUp value={rowCount(2)} />
-              <span className="ol-figure-label">Pump trucks</span>
-            </li>
+            {rows.map((row, index) => (
+              <li key={row.label} data-reveal className="ol-figure">
+                <CountUp value={rowCount(index)} />
+                <span className="ol-figure-label">{row.label}</span>
+              </li>
+            ))}
           </ul>
 
           <div className="fl-stock">
             <div className="fl-stock-head">
               <p data-split="content" className="ol-label">{fleet.inventoryLabel}</p>
-              <h3 data-split className="fl-stock-title">{fleet.inventoryTitle}</h3>
               <p data-split="content" className="fl-stock-copy">{fleet.inventoryCopy}</p>
               <ArrowButton href="/quality#documents" label="Company profile" theme="white" className="mt-8" />
             </div>

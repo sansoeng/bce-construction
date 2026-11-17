@@ -4935,15 +4935,6 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   border-top: 1px solid var(--line-dark);
 }
 .fl-stock-head { grid-column: 1 / span 5; }
-.fl-stock-title {
-  max-width: 22rem;
-  margin-top: 18px;
-  font-size: clamp(1.75rem, 2.6vw, 2.6rem);
-  font-weight: 500;
-  line-height: 1.06;
-  letter-spacing: -.025em;
-  color: var(--paper);
-}
 .fl-stock-copy {
   max-width: 27rem;
   margin-top: 20px;
@@ -4953,6 +4944,8 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 }
 .fl-stock-list { grid-column: 7 / -1; }
 .fl-stock-rows { max-width: none; margin-top: 18px; }
+/* All eight inventory counts sit beside the fleet total: three columns, then two on tablets and one on phones. */
+.fl-figures { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .fl-plant {
   display: grid;
