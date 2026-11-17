@@ -1000,6 +1000,8 @@ const KM: Record<string, string> = {
   "Every machine below is part of the fleet we use on our own works, maintained to the same standard and available with its operators.":
     "រាល់គ្រឿងចក្រខាងក្រោមសុទ្ធតែជាផ្នែកនៃកងយានយន្តដែលយើងប្រើលើការងារផ្ទាល់ខ្លួន ថែទាំតាមស្តង់ដារដូចគ្នា និងអាចជួលបានជាមួយអ្នកបញ្ជារបស់វា។",
   "Owned and maintained": "កម្មសិទ្ធិ និងថែទាំផ្ទាល់",
+  "Concrete capacity": "សមត្ថភាពផលិតបេតុង",
+  "Per batching plant": "ក្នុងមួយរោងចក្រលាយបេតុង",
   "Placing and boom pumps": "ការចាក់បេតុង និងរថយន្តបូម",
   "Loading and material handling": "ការផ្ទុក និងការគ្រប់គ្រងវត្ថុធាតុ",
   "Bore and hammer rigs": "ម៉ាស៊ីនខួង និងម៉ាស៊ីនបុក",

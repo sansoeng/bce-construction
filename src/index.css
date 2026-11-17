@@ -4946,14 +4946,16 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   padding-top: clamp(2rem, 4vw, 4rem);
   background: #1D2226;
 }
-/* The project-highlights "at a glance" grid, on the fleet's ink band. */
-.fl-glance-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* The project-highlights "at a glance" grid, on the fleet's ink band: two counts per row like the homepage — the
+   fleet total, the eight machine categories and the concrete capacity. */
+.fl-glance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .fl-figures-band .glance-cell { --rule: var(--line-dark); }
 .fl-figures-band .glance-grid::before,
 .fl-figures-band .glance-grid::after { background: var(--line-dark); }
 .fl-figures-band .glance-label-title { color: var(--paper); white-space: normal; }
 .fl-figures-band .glance-label-note { color: rgb(255 255 255 / .5); white-space: normal; }
 .fl-figures-band .glance-num { color: var(--paper); }
+.fl-figures-band .pd-unit { color: rgb(255 255 255 / .5); }
 
 .fl-plant {
   display: grid;

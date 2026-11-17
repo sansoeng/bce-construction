@@ -116,6 +116,32 @@ function CountUp({ value }: { value: string }) {
   );
 }
 
+// One glance cell, the same markup as the project highlights and the homepage: label and note at the top, the figure
+// set large at the foot. Counts animate; the concrete capacity is a fixed figure with its unit.
+function Stat({ label, note, value, index, unit, count = true }: {
+  label: string;
+  note: string;
+  value: string;
+  index: number;
+  unit?: string;
+  count?: boolean;
+}) {
+  return (
+    <div className="glance-cell" style={{ "--i": index } as CSSProperties}>
+      <dt className="glance-label">
+        <span className="glance-label-title">{label}</span>
+        <span className="glance-label-note">{note}</span>
+      </dt>
+      <dd className="glance-num">
+        <span>
+          {count ? <CountUp value={value} /> : value}
+          {unit ? <span className="pd-unit">{unit}</span> : null}
+        </span>
+      </dd>
+    </div>
+  );
+}
+
 export default function FleetPage() {
   usePageSetup(
     "Equipment & fleet | BCE., Ltd.",
@@ -131,6 +157,13 @@ export default function FleetPage() {
   const fleetTotal = rows.reduce((total, row) => total + firstNumber(row.value), 0);
   const rowCount = (index: number) => rows[index]?.value.split("/")[0].trim() || "00";
   const machines = fleet.machines;
+  const concreteCapacity = rows[0]?.note.match(/\d+/)?.[0] ?? "70";
+  const stats: { label: string; note: string; value: string; unit?: string; count?: boolean }[] = [
+    { label: "Machines in our own fleet", note: "Owned and maintained", value: String(fleetTotal) },
+    ...(rows[0] ? [{ label: rows[0].label, note: rows[0].note, value: rowCount(0) }] : []),
+    { label: "Concrete capacity", note: "Per batching plant", value: concreteCapacity, unit: "m³/hr", count: false },
+    ...rows.slice(1).map((row, index) => ({ label: row.label, note: row.note, value: rowCount(index + 1) })),
+  ];
 
   return (
     <main ref={rootRef} className="ol-page relative z-[1] overflow-x-clip bg-white text-[#111]">
@@ -182,21 +215,8 @@ export default function FleetPage() {
               </div>
               <div ref={glanceRef} className={`glance ${glanceIn ? "is-in" : ""}`}>
                 <dl className="glance-grid fl-glance-grid">
-                  <div className="glance-cell" style={{ "--i": 0 } as CSSProperties}>
-                    <dt className="glance-label">
-                      <span className="glance-label-title">Machines in our own fleet</span>
-                      <span className="glance-label-note">Owned and maintained</span>
-                    </dt>
-                    <dd className="glance-num"><span><CountUp value={String(fleetTotal)} /></span></dd>
-                  </div>
-                  {rows.map((row, index) => (
-                    <div key={row.label} className="glance-cell" style={{ "--i": index + 1 } as CSSProperties}>
-                      <dt className="glance-label">
-                        <span className="glance-label-title">{row.label}</span>
-                        <span className="glance-label-note">{row.note}</span>
-                      </dt>
-                      <dd className="glance-num"><span><CountUp value={rowCount(index)} /></span></dd>
-                    </div>
+                  {stats.map((stat, index) => (
+                    <Stat key={stat.label} {...stat} index={index} />
                   ))}
                 </dl>
               </div>
