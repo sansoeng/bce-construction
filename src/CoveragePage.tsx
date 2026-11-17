@@ -348,7 +348,7 @@ export default function CoveragePage() {
             reverse
           >
             <Rows rows={FLEET} />
-            <OlButton label="Equipment & fleet" href="/quality#equipment-fleet" className="ol-tm-button" />
+            <OlButton label="Equipment & fleet" href="/fleet" className="ol-tm-button" />
           </TextMedia>
         </div>
 

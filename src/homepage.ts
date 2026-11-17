@@ -300,7 +300,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
         links: [
           { label: "Quality & capability", href: "/quality" },
           { label: "Laboratory", href: "/quality#laboratory" },
-          { label: "Equipment & fleet", href: "/quality#equipment-fleet" },
+          { label: "Equipment & fleet", href: "/fleet" },
           { label: "Coverage", href: "/coverage" },
         ],
       },

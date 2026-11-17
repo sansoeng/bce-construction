@@ -35,7 +35,6 @@ const TOPICS = [
   ["calibration", "calibration"],
   ["hse", "hse"],
   ["hse-practice", "hse-practice"],
-  ["equipment-fleet", "equipment"],
   ["engineering", "engineering"],
   ["documents", "documents"],
 ] as const;
@@ -100,7 +99,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
     alt: imageAlt,
   }));
 
-  const { engineering, fleet } = quality;
+  const { engineering } = quality;
 
   // Topic labels for the on-page index, read from the content the sections render.
   const topicLabel: Record<(typeof TOPICS)[number][1], string> = {
@@ -109,7 +108,6 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
     materials: quality.materials.title,
     calibration: quality.calibration.title,
     engineering: engineering.title,
-    equipment: fleet.title,
     hse: quality.hse.label,
     "hse-practice": quality.hsePractice.label,
     documents: quality.documents.title,
@@ -296,18 +294,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           </div>
         </section>
 
-        {/* 06 Equipment & fleet: the full inventory from the Corporate Profile (laboratory equipment excepted, as it
-            belongs to the laboratory section), on the page's light ground. The photo sits on the left (reverse), so the
-            inventory reads against the page gutter and the section alternates with Engineering below. */}
-        <div className="ol-panels">
-          <TextMedia id="equipment-fleet" kicker={fleet.kicker} title={fleet.title} image={unsplash(fleet.image, 1600)} alt={fleet.imageAlt}
-            copy={fleet.copy} reverse>
-            <Rows rows={fleet.rows} />
-            <OlButton label={fleet.ctaLabel} href={fleet.ctaHref} className="ol-tm-button" />
-          </TextMedia>
-        </div>
-
-        {/* 07 Engineering capability: the people and figures behind the mix designs, with the coverage figure linking
+        {/* 06 Engineering capability: the people and figures behind the mix designs, with the coverage figure linking
             to the map on the homepage rather than repeating it here. */}
         <div className="ol-panels">
           <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
@@ -317,7 +304,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           </TextMedia>
         </div>
 
-        {/* 08 Documents: mix designs, licences and certificates merged into one set of cards, after
+        {/* 07 Documents: mix designs, licences and certificates merged into one set of cards, after
             olympic.no/investor — a light band, the mono eyebrow and uppercase title, then near-black document cards
             with a hairline head, a date or status foot and their actions. */}
         <section id="documents" data-header-title={quality.documents.title} aria-labelledby="qs-documents" className="qd site-pad">

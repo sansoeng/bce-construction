@@ -407,7 +407,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "calibration", title: "Calibration", hint: "The calibrated equipment list.", keys: ["calibration"] },
       { id: "hse", title: "HSE commitment", hint: "The statements and the pinned photo shown with each one.", keys: ["hse"] },
       { id: "hse-practice", title: "HSE in practice", hint: "Methods and standards, PPE and inspections shown beneath the commitments.", keys: ["hsePractice"] },
-      { id: "fleet", title: "Equipment & fleet", hint: "The inventory on Quality & HSE, plus every /fleet section: key figures, machine cards and dispatch.", keys: ["fleet"] },
+      { id: "fleet", title: "Equipment & fleet", hint: "Every /fleet section: key figures, machine cards and dispatch.", keys: ["fleet"] },
       { id: "engineering", title: "Engineering", hint: "Team size, engineers and coverage.", keys: ["engineering"] },
       { id: "documents", title: "Documents & grades", hint: "The mix design, licence and certificate cards, the concrete grades section, and the request link.", keys: ["documents"] },
     ],
