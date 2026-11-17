@@ -5484,7 +5484,20 @@ html[lang="km"] .fg-btn.is-outline-white {
    explorable province map with its card, the four zones and the fleet. It borrows the Olympic blocks and tokens used
    by Quality, capability & HSE (ol-capacity, ol-panels, TextMedia) and adds only what the map needs: hairline-ruled
    cells, mono captions and the province shapes on ink. */
-.cv-figures { margin-top: clamp(4rem, 7vw, 7rem); }
+/* The Operational coverage introduction and the Key figures band share one #1D2226 ground, so the page runs from the
+   cover into the figures without a white break. */
+.cv-dark { background: #1D2226; color: var(--paper); }
+.cv-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); border-bottom: 0; }
+.cv-dark .ol-lwc-copy { color: rgb(255 255 255 / .72); }
+.cv-dark .ol-lwc-label { color: var(--brand); }
+.cv-dark .ol-topics a { color: rgb(255 255 255 / .5); }
+.cv-dark .ol-topics a span { color: rgb(255 255 255 / .3); }
+.cv-dark .ol-topics a:hover { color: var(--paper); }
+.cv-figures {
+  margin-top: 0;
+  padding-top: clamp(2rem, 4vw, 4rem);
+  background: #1D2226;
+}
 .cv-fleet-note { margin-top: 2.5rem; font-family: var(--font-ui-mono); font-size: 12px; letter-spacing: .04em; color: rgb(255 255 255 / .5); }
 
 .cv-band { padding: clamp(5rem, 9vw, 9rem) var(--olm, var(--page-gutter)); border-top: 1px solid var(--line); }

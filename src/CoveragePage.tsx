@@ -156,49 +156,51 @@ export default function CoveragePage() {
       <ParallaxHero label={copy.story[0].label} title={copy.titleLines} image={copy.image} alt={copy.imageAlt} />
 
       <div className="ol-page-body">
-        {/* Introduction: the cover headline in one sentence, then the page index. */}
-        <LabelCopy
-          label={copy.story[0].label}
-          className="ol-head qx-intro"
-          after={
-            <ul className="ol-topics" aria-label="On this page">
-              {TOPICS.map(([id, label], i) => (
-                <li key={id}><a href={`#${id}`}><span>{pad(i + 1)}</span>{label}</a></li>
-              ))}
-            </ul>
-          }
-        >
-          {copy.intro}
-        </LabelCopy>
+        <div className="cv-dark">
+          {/* Introduction: the cover headline in one sentence, then the page index on the ink ground. */}
+          <LabelCopy
+            label={copy.story[0].label}
+            className="ol-head qx-intro cv-intro"
+            after={
+              <ul className="ol-topics" aria-label="On this page">
+                {TOPICS.map(([id, label], i) => (
+                  <li key={id}><a href={`#${id}`}><span>{pad(i + 1)}</span>{label}</a></li>
+                ))}
+              </ul>
+            }
+          >
+            {copy.intro}
+          </LabelCopy>
 
-        {/* 01 Key figures, after olympic.no's dark capacity band: the numbers behind the map — the locations, the
-            years since 1995, the 2025 project total and the fleet, with the piling-rig note the count leaves out. */}
-        <section id="figures" data-nav-dark data-header-title="Key figures" aria-labelledby="cv-figures" className="ol-capacity cv-figures">
-          <div className="ol-capacity-head">
-            <p data-split="content" className="ol-label">Key figures</p>
-            <h2 id="cv-figures" data-split className="ol-capacity-title">{copy.story[0].lead}</h2>
-            <p data-split="content" className="ol-capacity-copy">13 provinces + Phnom Penh, all served from one base.</p>
-          </div>
-          <ul className="ol-capacity-grid">
-            <li data-reveal className="ol-figure">
-              <span className="ol-figure-value">{provinceTotal + 1}</span>
-              <span className="ol-figure-label">Locations covered</span>
-            </li>
-            <li data-reveal className="ol-figure">
-              <span className="ol-figure-value">30<span>+</span></span>
-              <span className="ol-figure-label">{copy.story[1].lead}</span>
-            </li>
-            <li data-reveal className="ol-figure">
-              <span className="ol-figure-value">{totalProjects}</span>
-              <span className="ol-figure-label">{copy.story[2].lead}</span>
-            </li>
-            <li data-reveal className="ol-figure">
-              <span className="ol-figure-value">{fleetTotal}</span>
-              <span className="ol-figure-label">{copy.story[3].lead}</span>
-            </li>
-          </ul>
-          <p data-reveal className="cv-fleet-note">{copy.fleetNote}</p>
-        </section>
+          {/* 01 Key figures, after olympic.no's dark capacity band: the numbers behind the map — the locations, the
+              years since 1995, the 2025 project total and the fleet, with the piling-rig note the count leaves out. */}
+          <section id="figures" data-nav-dark data-header-title="Key figures" aria-labelledby="cv-figures" className="ol-capacity cv-figures">
+            <div className="ol-capacity-head">
+              <p data-split="content" className="ol-label">Key figures</p>
+              <h2 id="cv-figures" data-split className="ol-capacity-title">{copy.story[0].lead}</h2>
+              <p data-split="content" className="ol-capacity-copy">13 provinces + Phnom Penh, all served from one base.</p>
+            </div>
+            <ul className="ol-capacity-grid">
+              <li data-reveal className="ol-figure">
+                <span className="ol-figure-value">{provinceTotal + 1}</span>
+                <span className="ol-figure-label">Locations covered</span>
+              </li>
+              <li data-reveal className="ol-figure">
+                <span className="ol-figure-value">30<span>+</span></span>
+                <span className="ol-figure-label">{copy.story[1].lead}</span>
+              </li>
+              <li data-reveal className="ol-figure">
+                <span className="ol-figure-value">{totalProjects}</span>
+                <span className="ol-figure-label">{copy.story[2].lead}</span>
+              </li>
+              <li data-reveal className="ol-figure">
+                <span className="ol-figure-value">{fleetTotal}</span>
+                <span className="ol-figure-label">{copy.story[3].lead}</span>
+              </li>
+            </ul>
+            <p data-reveal className="cv-fleet-note">{copy.fleetNote}</p>
+          </section>
+        </div>
 
         {/* 02 The map: the homepage's pinned story as one explorable still. Pick a province by its shape or its pin,
             then read the work delivered there and its distance from the Battambang base. */}
