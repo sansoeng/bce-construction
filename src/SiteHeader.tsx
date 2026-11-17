@@ -178,7 +178,6 @@ const NAV: NavItem[] = [
         { label: "Fleet overview", href: "/fleet" },
         { label: "Fleet & inventory", href: "/fleet#fleet-inventory" },
         { label: "Plant & machines", href: "/fleet#fleet-machines" },
-        { label: "Maintenance & crew", href: "/fleet#fleet-support" },
         { label: "Hire our equipment", href: "/quote?service=equipment-rental" },
       ],
     },

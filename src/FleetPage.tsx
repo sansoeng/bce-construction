@@ -25,7 +25,6 @@ const pad = (n: number) => String(n).padStart(2, "0");
 const TOPICS = [
   ["fleet-inventory", "Fleet & inventory"],
   ["fleet-machines", "Plant & machines"],
-  ["fleet-support", "Maintenance & crew"],
 ] as const;
 
 const KHMER_DIGITS = "០១២៣៤៥៦៧៨៩";
@@ -254,26 +253,6 @@ export default function FleetPage() {
               })}
             </ul>
           </div>
-        </section>
-
-        {/* Maintenance, operators and mobilisation, as the business pages' value columns. */}
-        <section id="fleet-support" data-header-title={fleet.supportTitle} aria-labelledby="fl-support" className="ol-values">
-          <div className="ol-values-head">
-            <p data-split="content" className="ol-label">{fleet.supportLabel}</p>
-            <h2 id="fl-support" data-split className="ol-values-title">{fleet.supportTitle}</h2>
-            <p data-split="content" className="max-w-[40rem] text-[16px] leading-[1.6] text-[#111]/55">{fleet.supportCopy}</p>
-          </div>
-          <ul className="ol-values-grid">
-            {fleet.support.map((item) => (
-              <li key={item.title} data-reveal className="ol-value">
-                <span className="ol-value-icon" aria-hidden>
-                  <LineIcon name={item.icon} className="size-full" />
-                </span>
-                <h3 className="ol-value-title">{item.title}</h3>
-                <p className="ol-value-text">{item.text}</p>
-              </li>
-            ))}
-          </ul>
         </section>
       </div>
 

@@ -98,11 +98,6 @@ export type QualityContent = {
     machinesTitle: string;
     machinesCopy: string;
     machines: { title: string; icon: string; bullets: string[]; image: string; imageAlt: string; href?: string }[];
-    /** Maintenance, operators and mobilisation. */
-    supportLabel: string;
-    supportTitle: string;
-    supportCopy: string;
-    support: { icon: string; title: string; text: string }[];
     rows: { label: string; value: string }[];
     ctaLabel: string;
     ctaHref: string;
@@ -404,32 +399,6 @@ export const DEFAULT_QUALITY: QualityContent = {
         ],
         image: "/Image/bce/fleet/09-lift.jpg",
         imageAlt: "Lift equipment on a BCE construction site",
-      },
-    ],
-    supportLabel: "Maintenance & crew",
-    supportTitle: "Ready when it reaches site.",
-    supportCopy:
-      "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.",
-    support: [
-      {
-        icon: "wrench",
-        title: "Serviced in our workshop",
-        text: "Trucks, pumps and rigs are maintained by our own team between projects, not sent to a third-party yard.",
-      },
-      {
-        icon: "helmet",
-        title: "Operators included",
-        text: "Experienced drivers and operators come with the machine and work to your pour or piling sequence.",
-      },
-      {
-        icon: "shield",
-        title: "Checked before dispatch",
-        text: "Pre-start checks, lifting gear and pump lines are inspected and recorded before the machine leaves.",
-      },
-      {
-        icon: "pin",
-        title: "Mobilised from Battambang",
-        text: "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.",
       },
     ],
     rows: [

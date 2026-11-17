@@ -990,13 +990,11 @@ const KM: Record<string, string> = {
   "Fleet & inventory": "កងយានយន្ត និងបញ្ជីឧបករណ៍",
   "Inventory": "បញ្ជីឧបករណ៍",
   "Plant & machines": "រោងចក្រ និងគ្រឿងចក្រ",
-  "Maintenance & crew": "ការថែទាំ និងក្រុមការងារ",
   "Hire": "ការជួល",
   "Hire & dispatch": "ការជួល និងការបញ្ជូន",
   "Capacity you can plan around.": "សមត្ថភាពដែលអ្នកអាចរៀបចំតាមផែនការ។",
   "What we own, in numbers.": "អ្វីដែលយើងមាន ជាតួលេខ។",
   "Plant and machines, maintained in-house.": "រោងចក្រ និងគ្រឿងចក្រ ថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួន។",
-  "Ready when it reaches site.": "ត្រៀមរួចរាល់ពេលដល់ការដ្ឋាន។",
   "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.":
     "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីបាត់ដំបង និងដាក់ពង្រាយទៅគម្រោងនៅ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។ តម្លៃជួលត្រូវបានវាយតម្លៃតាមគម្រោង៖ ប្រភេទគ្រឿងចក្រ រយៈពេល ការចូលដំណើរការការដ្ឋាន និងតើរួមបញ្ចូលអ្នកបញ្ជាឬអត់។",
   "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.":
@@ -1043,17 +1041,6 @@ const KM: Record<string, string> = {
   "Safe elevation for work at height": "ការលើកកម្ពស់ប្រកបដោយសុវត្ថិភាពសម្រាប់ការងារខ្ពស់",
   "Ideal for construction works": "សមស្របសម្រាប់ការងារសំណង់",
   "Regular inspection and maintenance": "ពិនិត្យ និងថែទាំជាប្រចាំ",
-  "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.":
-    "ការកាន់កាប់កងយានយន្តមានន័យថាយើងកាន់កាប់សិក្ខាសាលា អ្នកបញ្ជា និងកំណត់ត្រាត្រួតពិនិត្យផងដែរ។ គ្រឿងចក្រចេញពីបាត់ដំបងដោយបានថែទាំ ហើយមកដល់ជាមួយក្រុមការងារដែលយល់ច្បាស់ពីវា។",
-  "Serviced in our workshop": "ថែទាំនៅសិក្ខាសាលាផ្ទាល់ខ្លួន",
-  "Trucks, pumps and rigs are maintained by our own team between projects, not sent to a third-party yard.":
-    "រថយន្ត ម៉ាស៊ីនបូម និងម៉ាស៊ីនបោះសសរត្រូវបានថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួនរវាងគម្រោង មិនមែនបញ្ជូនទៅអាងខាងក្រៅឡើយ។",
-  "Checked before dispatch": "ពិនិត្យមុនការបញ្ជូន",
-  "Pre-start checks, lifting gear and pump lines are inspected and recorded before the machine leaves.":
-    "ការពិនិត្យមុនចាប់ផ្តើម ខ្សែស្ទូច និងបន្ទាត់បូមត្រូវបានពិនិត្យ និងកត់ត្រាមុនពេលគ្រឿងចក្រចេញ។",
-  "Mobilised from Battambang": "ដាក់ពង្រាយពីបាត់ដំបង",
-  "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.":
-    "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីមូលដ្ឋានរបស់យើងទៅ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ ដោយការដាក់ពង្រាយត្រូវវាយតម្លៃតាមគម្រោង។",
 
   // Business detail pages: "What to send us" checklists
   "Site location and access — where the trucks will discharge, and any height, gate or road limits.":
