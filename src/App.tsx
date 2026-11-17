@@ -7,8 +7,10 @@ import { initSplitReveal, playSplit } from "./splitReveal";
 import { runLoader } from "./loader";
 import Coverage from "./Coverage";
 import WhyBCE from "./WhyBCE";
+import { BLOG_POSTS } from "./blogData";
 import Footer from "./Footer";
 import QuoteCta from "./QuoteCta";
+import { FleetBand, QualityBand } from "./HomeEvidence";
 import Glance, { GlanceIcon, type IconKind } from "./Glance";
 import { HeroVideo } from "./HeroSlides";
 import SiteHeader from "./SiteHeader";
@@ -64,31 +66,34 @@ const year = (period: string) => (period.match(/\d{4}/g) ?? []).pop() ?? "";
 
 function HeroLatestNews() {
   const { newsKicker, newsTitle, newsHref, newsDownload, newsImage, newsAlt } = homepage.hero;
+  // The hero card shows the newest journal post (the Recommendation's "latest news" on the homepage) and falls back to
+  // the company-profile download while there are no posts. Sorting by date keeps it correct whichever order D1 serves.
+  const latest = [...BLOG_POSTS].sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
+  const href = latest ? `/?blog&post=${encodeURIComponent(latest.slug)}` : newsHref;
+  const external = !latest;
   return (
     <div className="relative select-none">
       <a
-        href={newsHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        download={newsDownload || undefined}
+        href={href}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer", download: newsDownload || undefined } : {})}
         className="c-hero-card group flex w-full flex-row gap-3 rounded-lg p-1 sm:w-70 sm:flex-col sm:gap-1 transition-all duration-300"
         data-hero-home="card"
       >
         <div className="aspect-[1.6] w-28 sm:w-full overflow-hidden rounded-[10px] shrink-0" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
           <img
-            src={newsImage}
-            alt={newsAlt}
+            src={latest?.image ?? newsImage}
+            alt={latest?.alt ?? newsAlt}
             className="w-full h-full object-cover rounded-[10px] transition-transform duration-700 ease-out group-hover:scale-105"
             style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
           />
         </div>
         <div className="flex flex-1 flex-col justify-between py-1 px-1 sm:w-full sm:gap-8 sm:p-2">
           <span className="text-[14px] font-mono tracking-[0.02em] uppercase text-[#FB290E]">
-            {newsKicker}
+            {latest ? latest.category : newsKicker}
           </span>
           <div className="flex items-end justify-between gap-3">
             <span className="max-w-[78%] text-[16px] font-bold text-white leading-tight">
-              {newsTitle}
+              {latest ? latest.title : newsTitle}
             </span>
             <span className="pb-1 text-white/80 transition-transform duration-300 ease-out group-hover:scale-125 group-hover:text-white shrink-0">
               <svg
@@ -608,6 +613,9 @@ function App() {
       <Coverage />
 
       <WhyBCE />
+
+      <QualityBand />
+      <FleetBand />
 
       <QuoteCta href={homepage.quote.ctaHref} />
 

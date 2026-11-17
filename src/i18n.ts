@@ -887,6 +887,8 @@ const KM: Record<string, string> = {
   "With slump testing on delivery, compressive strength testing and documented mix designs, every structure we supply is built on verified results.": "ជាមួយការតេស្តកម្រិតស្រុតពេលដឹកជញ្ជូន ការតេស្តកម្លាំងសង្កត់ និងរូបមន្តលាយដែលមានឯកសារបញ្ជាក់ រាល់សំណង់ដែលយើងផ្គត់ផ្គង់ត្រូវបានកសាងឡើងលើលទ្ធផលដែលបានផ្ទៀងផ្ទាត់ច្បាស់លាស់។",
   "Plants, fleet, laboratory and people": "រោងចក្រ កងគ្រឿងចក្រ មន្ទីរពិសោធន៍ និងធនធានមនុស្ស",
   "Quality assurance": "ការធានាគុណភាព",
+  "Every pour is checked at the plant and on site, with cube results recorded against the approved mix design.":
+    "រាល់ការចាក់បេតុងត្រូវបានពិនិត្យនៅរោងចក្រ និងនៅការដ្ឋាន ដោយលទ្ធផលគូបត្រូវបានកត់ត្រាធៀបនឹងការរចនាលាយដែលបានអនុម័ត។",
   "Five checks on every project, from raw material to verified strength.": "ការត្រួតពិនិត្យ ៥ ដំណាក់កាលលើគ្រប់គម្រោង ចាប់ពីវត្ថុធាតុដើម រហូតដល់កម្លាំងរឹងមាំដែលបានផ្ទៀងផ្ទាត់។",
   "Slump, compressive strength and material testing in our own laboratory.": "ការតេស្តកម្រិតស្រុត កម្លាំងសង្កត់ និងការតេស្តសម្ភារ នៅក្នុងមន្ទីរពិសោធន៍ផ្ទាល់ខ្លួន។",
   "Mix designs": "រូបមន្តលាយបេតុង",
