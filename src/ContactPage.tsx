@@ -186,7 +186,7 @@ export default function ContactPage() {
                 <p className="mt-3 text-[12.5px] text-[#111]/45">24/7 site pouring dispatch upon schedule</p>
                 <p className="mt-2 text-[12.5px] leading-[1.55] text-[#111]/45">
                   Looking for a job? Applications go through{" "}
-                  <a href="/?recruitment" className="text-[#111] underline underline-offset-4 hover:text-[#FB290E]">
+                  <a href="/careers" className="text-[#111] underline underline-offset-4 hover:text-[#FB290E]">
                     Careers &amp; Recruitment
                   </a>
                   .
@@ -350,7 +350,7 @@ export default function ContactPage() {
                       />
                       <p className="max-w-[34rem] text-[13px] leading-[1.6] text-[#111]/45">
                         By sending this message you agree to our{" "}
-                        <a href="/?privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>.
+                        <a href="/privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>.
                       </p>
                     </div>
                   </form>
@@ -360,7 +360,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <QuoteCta href="/?quote" />
+        <QuoteCta href="/quote" />
         <Footer phones={phones} tel={tel} base="/" />
         <FluidCursor />
       </main>

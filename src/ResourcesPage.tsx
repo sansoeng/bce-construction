@@ -273,7 +273,7 @@ export default function ResourcesPage() {
 
                       {doc.onRequest || !doc.downloadUrl ? (
                         <a
-                          href="/?contact"
+                          href="/contact"
                           className="inline-flex h-10 items-center justify-center rounded-[8px] bg-[#111] px-4 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
                         >
                           Request this document
@@ -362,7 +362,7 @@ export default function ResourcesPage() {
 
         </section>
 
-        <QuoteCta href="/?quote" />
+        <QuoteCta href="/quote" />
         <Footer phones={phones} tel={tel} base="/" />
         <FluidCursor />
       </main>

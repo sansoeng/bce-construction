@@ -11,7 +11,7 @@ import { offerings, quoteHref, unsplash } from "./company";
 import { findProject, projectHref } from "./projects";
 import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks";
 
-// One page per core business (/?business=<slug>), after Skanska's service pages: full-screen cover, overview with
+// One page per core business (/business/<slug>), after Skanska's service pages: full-screen cover, overview with
 // links into the page, the reasons to work with BCE, the solutions we deliver, capacity figures in the dark band and
 // related project highlights. Everything is built from the site's existing Olympic-style blocks and tokens
 // (ServiceBlocks.tsx, index.css) so the pages match Our Businesses and Technical Capabilities.
@@ -426,7 +426,7 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
               <p data-split="content" className="ol-label">Project highlights</p>
               <h2 id="biz-projects" data-split className="ol-work-title">Selected work</h2>
             </div>
-            <ArrowButton href="/?projects" label="All projects" theme="outline" />
+            <ArrowButton href="/projects" label="All projects" theme="outline" />
           </div>
           <div className="ol-work-grid">
             {related.map((p) => (
@@ -445,7 +445,7 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
         <section className="ol-others" aria-labelledby="biz-others">
           <div className="ol-others-head">
             <p id="biz-others" data-split="content" className="ol-label">Other businesses</p>
-            <ArrowButton href="/?businesses" label="All businesses" theme="outline" />
+            <ArrowButton href="/businesses" label="All businesses" theme="outline" />
           </div>
           <OtherBusinessesRail items={others} />
         </section>

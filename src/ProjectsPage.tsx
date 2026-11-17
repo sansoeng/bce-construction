@@ -9,7 +9,7 @@ import { projectHref, projects } from "./projects";
 import { useScrollParallax } from "./ServiceBlocks";
 import "./projects.css";
 
-// Project list (/?projects): the statement set large with the standfirst on the right, then the category filter
+// Project list (/projects): the statement set large with the standfirst on the right, then the category filter
 // directly above the staggered grid.
 
 const phones = siteSettings.contact.phones;
@@ -156,7 +156,7 @@ export default function ProjectsPage() {
         </section>
       </div>
 
-      <QuoteCta href="/?quote" />
+      <QuoteCta href="/quote" />
       <Footer phones={phones} tel={tel} base="/" />
       <FluidCursor />
     </main>

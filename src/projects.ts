@@ -31,7 +31,7 @@ export type Project = {
 
 export const photo = (id: string, w = 1600) =>
   id.startsWith("/") ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`;
-export const projectHref = (slug: string) => `/?project=${slug}`;
+export const projectHref = (slug: string) => `/project/${slug}`;
 
 export const projects: Project[] = [
   {

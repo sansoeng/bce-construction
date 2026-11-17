@@ -759,7 +759,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "title", label: "Column title", type: "text" },
           { key: "links", label: "Links", type: "objectList", itemLabel: "Link", itemFields: [
             { key: "label", label: "Label", type: "text" },
-            { key: "href", label: "Link", type: "text", locale: false, hint: "A page path such as /?about, or # for the top of the page." },
+            { key: "href", label: "Link", type: "text", locale: false, hint: "A page path such as /about, or # for the top of the page." },
           ] },
         ] },
         { key: "enquiryTitle", label: "Enquiry title", type: "text" },

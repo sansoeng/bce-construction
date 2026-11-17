@@ -4,6 +4,7 @@ import { offerings } from "./company";
 import { homepage } from "./homepage";
 import { siteSettings } from "./siteSettings";
 import { translate } from "./i18n";
+import { pathFor } from "./routes";
 
 // Footer after olympic.no's: navigation columns with grey headings (accordions on phones), a ruled row with the
 // enquiry block and head office with contact and social channels, then a ruled mono bar with the heritage mark,
@@ -69,8 +70,9 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
       .filter((link) => link.href !== "MAPS")
       .map((link) => {
         // Keep the "Our businesses" column in step with names edited under Home services.
-        const business = link.href.startsWith("/?business=")
-          ? offerings.find((item) => `/?business=${item.slug}` === link.href)
+        const target = pathFor(link.href);
+        const business = target.startsWith("/business/")
+          ? offerings.find((item) => `/business/${item.slug}` === target)
           : undefined;
         return [business?.name ?? link.label, link.href] as Link;
       }),
@@ -78,7 +80,11 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
   const addressLines = siteSettings.contact.address.split(",").map((line) => line.trim()).filter(Boolean);
   const telegram = siteSettings.contact.telegram.replace(/^@/, "");
   const email = siteSettings.contact.email;
-  const href = (h: string) => (h.startsWith("/") ? h : base ? base + (h === "#" ? "" : h) : h);
+  // Links are editable in the admin, so a stored document may still carry an old `/?page` address.
+  const href = (h: string) => {
+    const clean = pathFor(h);
+    return clean.startsWith("/") ? clean : base ? base + (clean === "#" ? "" : clean) : clean;
+  };
 
   // Their timeline, measured from the footer: the content slides from -25% to 0 between the footer's top entering the
   // viewport and the footer being fully in view; the veil (40% dark) clears over the same stretch, starting 40% in.
@@ -232,8 +238,8 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
           <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-bar-logo" aria-label={`${siteSettings.site.shortName}, Ltd. — home`}>
             <img src="/assets/bce-logo-lockup.svg" alt="" className="ft-bar-logo-img" width={150} height={40} />
           </a>
-          <a href={href("/?privacy#cookies")} className="ft-bar-cookies">{translate("Cookie policy")}</a>
-          <a href={href("/?terms")} className="ft-bar-privacy">{translate("Terms & Privacy Policy")}</a>
+          <a href={href("/privacy#cookies")} className="ft-bar-cookies">{translate("Cookie policy")}</a>
+          <a href={href("/terms")} className="ft-bar-privacy">{translate("Terms & Privacy Policy")}</a>
           <span className="ft-bar-credit">{creditLabel}</span>
           <small className="ft-bar-copy">© {new Date().getFullYear()} {siteSettings.site.shortName}, Ltd.</small>
         </div>

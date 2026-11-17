@@ -244,7 +244,7 @@ export default function AboutPage() {
         </section>
       </div>
 
-      <QuoteCta href="/?quote" />
+      <QuoteCta href="/quote" />
       <Footer phones={phones} tel={tel} base="/" />
       <FluidCursor />
     </main>

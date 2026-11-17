@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import ArrowButton from "./ArrowButton";
 import { getLang, setLang } from "./i18n";
+import { pathFor } from "./routes";
 
 /**
  * Navigation after dalco.ch: one floating, inset glass bar. The BCE lockup sits at the left, the five tabs are
@@ -96,80 +97,80 @@ const NAV: NavItem[] = [
   {
     id: "about",
     label: "About",
-    href: "/?about",
+    href: "/about",
     panel: {
       kind: "default",
       items: [
-        { label: "About BCE", href: "/?about" },
-        { label: "Our story", href: "/?about#ab-story" },
-        { label: "Coverage", href: "/?coverage" },
+        { label: "About BCE", href: "/about" },
+        { label: "Our story", href: "/about#ab-story" },
+        { label: "Coverage", href: "/coverage" },
       ],
     },
   },
   {
     id: "business",
     label: "Business",
-    href: "/?businesses",
+    href: "/businesses",
     panel: {
       kind: "mega",
       items: [
-        { label: "Ready-Mix Concrete", href: "/?business=ready-mix-concrete", image: "/Image/bce/photos/concrete-discharge.webp" },
-        { label: "Piling", href: "/?business=piling", image: "/Image/bce/photos/pile-reinforcement.webp" },
-        { label: "Construction", href: "/?business=construction", image: "/Image/bce/photos/road-crew.webp" },
-        { label: "Concrete Slab Works", href: "/?business=concrete-slab-works", image: "/Image/bce/photos/slab-pour.webp" },
-        { label: "Truck & Equipment Rental", href: "/?business=equipment-rental", image: "/Image/bce/photos/mixer-pour.webp" },
-        { label: "All businesses", href: "/?businesses", image: "/Image/bce/hero_batching_plant.webp" },
+        { label: "Ready-Mix Concrete", href: "/business/ready-mix-concrete", image: "/Image/bce/photos/concrete-discharge.webp" },
+        { label: "Piling", href: "/business/piling", image: "/Image/bce/photos/pile-reinforcement.webp" },
+        { label: "Construction", href: "/business/construction", image: "/Image/bce/photos/road-crew.webp" },
+        { label: "Concrete Slab Works", href: "/business/concrete-slab-works", image: "/Image/bce/photos/slab-pour.webp" },
+        { label: "Truck & Equipment Rental", href: "/business/equipment-rental", image: "/Image/bce/photos/mixer-pour.webp" },
+        { label: "All businesses", href: "/businesses", image: "/Image/bce/hero_batching_plant.webp" },
       ],
     },
   },
   {
     id: "projects",
     label: "Projects",
-    href: "/?projects",
+    href: "/projects",
     panel: {
       kind: "default",
       items: [
-        { label: "All projects", href: "/?projects" },
-        { label: "Bridge Foundation Piling", href: "/?project=kampong-thom-bridge-foundations" },
-        { label: "Logistics Warehouse Floor Slab", href: "/?project=poipet-logistics-warehouse" },
-        { label: "Commercial Complex Ready-Mix Supply", href: "/?project=siem-reap-commercial-ready-mix" },
-        { label: "Provincial Road Rehabilitation", href: "/?project=battambang-provincial-road" },
-        { label: "Mixed-Use Tower Foundations", href: "/?project=phnom-penh-tower-foundations" },
+        { label: "All projects", href: "/projects" },
+        { label: "Bridge Foundation Piling", href: "/project/kampong-thom-bridge-foundations" },
+        { label: "Logistics Warehouse Floor Slab", href: "/project/poipet-logistics-warehouse" },
+        { label: "Commercial Complex Ready-Mix Supply", href: "/project/siem-reap-commercial-ready-mix" },
+        { label: "Provincial Road Rehabilitation", href: "/project/battambang-provincial-road" },
+        { label: "Mixed-Use Tower Foundations", href: "/project/phnom-penh-tower-foundations" },
       ],
     },
   },
   {
     id: "quality",
     label: "Quality & Capability",
-    href: "/?quality",
+    href: "/quality",
     panel: {
       kind: "columns",
       groups: [
         {
           title: "Laboratory",
-          href: "/?quality#laboratory",
+          href: "/quality#laboratory",
           links: [
-            { label: "In-house laboratory", href: "/?quality#laboratory" },
-            { label: "Raw materials", href: "/?quality#raw-materials" },
-            { label: "Calibration", href: "/?quality#calibration" },
+            { label: "In-house laboratory", href: "/quality#laboratory" },
+            { label: "Raw materials", href: "/quality#raw-materials" },
+            { label: "Calibration", href: "/quality#calibration" },
           ],
         },
         {
           title: "Capacity",
-          href: "/?quality#equipment-fleet",
+          href: "/quality#equipment-fleet",
           links: [
-            { label: "Equipment & fleet", href: "/?quality#equipment-fleet" },
-            { label: "Engineering capability", href: "/?quality#engineering" },
-            { label: "Coverage", href: "/?coverage" },
+            { label: "Equipment & fleet", href: "/quality#equipment-fleet" },
+            { label: "Engineering capability", href: "/quality#engineering" },
+            { label: "Coverage", href: "/coverage" },
           ],
         },
         {
           title: "Assurance",
-          href: "/?quality#grades",
+          href: "/quality#grades",
           links: [
-            { label: "Concrete grades", href: "/?quality#grades" },
-            { label: "Health, safety & environment", href: "/?quality#hse" },
-            { label: "Quality documents", href: "/?quality#documents" },
+            { label: "Concrete grades", href: "/quality#grades" },
+            { label: "Health, safety & environment", href: "/quality#hse" },
+            { label: "Quality documents", href: "/quality#documents" },
           ],
         },
       ],
@@ -178,15 +179,15 @@ const NAV: NavItem[] = [
   {
     id: "more",
     label: "More",
-    href: "/?resources",
+    href: "/resources",
     panel: {
       kind: "default",
       items: [
-        { label: "Coverage", href: "/?coverage" },
-        { label: "Resources", href: "/?resources" },
-        { label: "Careers", href: "/?recruitment" },
-        { label: "Blog", href: "/?blog" },
-        { label: "Contact", href: "/?contact" },
+        { label: "Coverage", href: "/coverage" },
+        { label: "Resources", href: "/resources" },
+        { label: "Careers", href: "/careers" },
+        { label: "Blog", href: "/blog" },
+        { label: "Contact", href: "/contact" },
       ],
     },
   },
@@ -436,7 +437,10 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
     return () => removeEventListener("resize", onResize);
   }, [close]);
 
-  const linkHref = (path: string) => (path.startsWith("#") && base ? `${base}${path}` : path);
+  const linkHref = (path: string) => {
+    const clean = pathFor(path);
+    return clean.startsWith("#") && base ? `${base}${clean}` : clean;
+  };
   const solid = open !== null;
 
   return (
@@ -492,7 +496,7 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
           <div className="ls-nav-right">
             <LangSwitch />
             <span className="ls-nav-sep" aria-hidden />
-            <ArrowButton href={linkHref("/?quote")} label="Get a quote" className="ls-quote" />
+            <ArrowButton href={linkHref("/quote")} label="Get a quote" className="ls-quote" />
             <button
               type="button"
               className="ls-burger"
@@ -577,7 +581,7 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
           })}
 
           <div className="ls-sheet-foot">
-            <ArrowButton href={linkHref("/?quote")} label="Get a quote" className="ls-sheet-quote" onClick={() => setSheet(false)} />
+            <ArrowButton href={linkHref("/quote")} label="Get a quote" className="ls-sheet-quote" onClick={() => setSheet(false)} />
             <LangSwitch />
           </div>
         </div>

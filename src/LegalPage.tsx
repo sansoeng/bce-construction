@@ -27,7 +27,7 @@ function LegalLayout({
   intro: string;
   sections: Section[];
 }) {
-  // Deep links from the footer's legal bar (/?privacy#cookies) land on the right section instead of the top.
+  // Deep links from the footer's legal bar (/privacy#cookies) land on the right section instead of the top.
   useEffect(() => {
     const id = location.hash.slice(1);
     const target = id ? document.getElementById(decodeURIComponent(id)) : null;
@@ -83,9 +83,9 @@ function LegalLayout({
           </p>
 
           <nav aria-label="Legal" className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-[14px]">
-            <a href="/?privacy" className="underline underline-offset-4 hover:text-[#FB290E]">Privacy policy</a>
-            <a href="/?terms" className="underline underline-offset-4 hover:text-[#FB290E]">Terms of use</a>
-            <a href="/?contact" className="underline underline-offset-4 hover:text-[#FB290E]">Contact BCE</a>
+            <a href="/privacy" className="underline underline-offset-4 hover:text-[#FB290E]">Privacy policy</a>
+            <a href="/terms" className="underline underline-offset-4 hover:text-[#FB290E]">Terms of use</a>
+            <a href="/contact" className="underline underline-offset-4 hover:text-[#FB290E]">Contact BCE</a>
           </nav>
         </article>
       </main>

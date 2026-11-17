@@ -1,4 +1,4 @@
-// Downloadable documents shown on the Resources page (/?resources).
+// Downloadable documents shown on the Resources page (/resources).
 //
 // Only documents BCE actually holds in a web-ready file are listed with a download link. Everything else is
 // "available on request": the card sends the visitor to Contact instead of pretending a file exists. Replace an

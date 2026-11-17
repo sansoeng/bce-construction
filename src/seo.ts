@@ -36,32 +36,18 @@ const DESCRIPTIONS: Record<string, string> = {
   news: "Engineering insight from BCE: concrete technology, piling practice, quality control and the projects behind them.",
 };
 
-const ROUTE_FLAGS = [
-  "project",
-  "projects",
-  "about",
-  "businesses",
-  "business",
-  "quality",
-  "capabilities",
-  "coverage",
-  "quote",
-  "recruitment",
-  "careers",
-  "resources",
-  "contact",
-  "privacy",
-  "terms",
-  "blog",
-  "news",
-];
-
-export const routeKey = (search = typeof location === "undefined" ? "" : location.search) => {
-  const params = new URLSearchParams(search);
-  return ROUTE_FLAGS.find((flag) => params.has(flag)) ?? "";
+/** Clean-path pages described above; detail pages fall back to their section's description. */
+export const routeKey = (pathname = typeof location === "undefined" ? "/" : location.pathname) => {
+  const section = pathname.split("/").filter(Boolean)[0] ?? "";
+  if (section === "project") return "projects";
+  if (section === "business") return "businesses";
+  if (section === "capabilities") return "quality";
+  if (section === "careers" || section === "recruitment") return "recruitment";
+  if (section === "news") return "blog";
+  return section;
 };
 
-export const routeDescription = (search?: string) => DESCRIPTIONS[routeKey(search)] ?? "";
+export const routeDescription = (pathname?: string) => DESCRIPTIONS[routeKey(pathname)] ?? "";
 
 const upsertMeta = (selector: string, attrs: Record<string, string>) => {
   if (typeof document === "undefined") return;

@@ -50,27 +50,28 @@ await writeFile(path.join(root, "public", "content-seed.json"), JSON.stringify({
 
 const base = "https://bce-construction.com";
 const escapeXml = (value) => String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// Clean paths, matching src/routes.ts. Old `/?flag` addresses still resolve on the client.
 const staticPages = [
   ["", "1.0"],
-  ["/?about", "0.8"],
-  ["/?businesses", "0.9"],
-  ["/?projects", "0.9"],
-  ["/?quality", "0.7"],
-  ["/?coverage", "0.7"],
-  ["/?quote", "0.8"],
-  ["/?recruitment", "0.6"],
-  ["/?resources", "0.6"],
-  ["/?contact", "0.7"],
-  ["/?blog", "0.7"],
-  ["/?privacy", "0.3"],
-  ["/?terms", "0.3"],
+  ["/about", "0.8"],
+  ["/businesses", "0.9"],
+  ["/projects", "0.9"],
+  ["/quality", "0.7"],
+  ["/coverage", "0.7"],
+  ["/quote", "0.8"],
+  ["/careers", "0.6"],
+  ["/resources", "0.6"],
+  ["/contact", "0.7"],
+  ["/blog", "0.7"],
+  ["/privacy", "0.3"],
+  ["/terms", "0.3"],
 ];
 const sitemapUrls = [
   ...staticPages.map(([path, priority]) => ({ loc: `${base}${path}`, priority })),
-  ...documents.filter((doc) => doc.type === "businesses").map((doc) => ({ loc: `${base}/?business=${encodeURIComponent(doc.slug)}`, priority: "0.7" })),
+  ...documents.filter((doc) => doc.type === "businesses").map((doc) => ({ loc: `${base}/business/${encodeURIComponent(doc.slug)}`, priority: "0.7" })),
   // Sample portfolio and journal records stay out of the sitemap until BCE approves them.
-  ...documents.filter((doc) => doc.type === "projects" && !doc.data?.sample).map((doc) => ({ loc: `${base}/?project=${encodeURIComponent(doc.slug)}`, priority: "0.6" })),
-  ...documents.filter((doc) => doc.type === "posts" && !doc.data?.sample).map((doc) => ({ loc: `${base}/?blog&post=${encodeURIComponent(doc.slug)}`, priority: "0.5" })),
+  ...documents.filter((doc) => doc.type === "projects" && !doc.data?.sample).map((doc) => ({ loc: `${base}/project/${encodeURIComponent(doc.slug)}`, priority: "0.6" })),
+  ...documents.filter((doc) => doc.type === "posts" && !doc.data?.sample).map((doc) => ({ loc: `${base}/blog?post=${encodeURIComponent(doc.slug)}`, priority: "0.5" })),
 ];
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',

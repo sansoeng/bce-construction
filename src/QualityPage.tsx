@@ -10,14 +10,14 @@ import StickyValues, { type StickyItem } from "./StickyValues";
 import { quoteHref, unsplash } from "./company";
 import { quality } from "./quality";
 
-// Quality, capability & HSE (/?quality), for contractors, consultants and tender reviewers. One page, one narrative:
+// Quality, capability & HSE (/quality), for contractors, consultants and tender reviewers. One page, one narrative:
 // how the concrete is tested (laboratory and the five-step process), what is designed (concrete grades), what goes in
 // (raw material and calibration certificates), the HSE commitment, the plant and fleet, who runs it (engineering), and
 // the documents procurement asks for.
 //
-// The former Technical Capabilities page (/?capabilities) is merged in: its quality-assurance, laboratory and
+// The former Technical Capabilities page (/capabilities) is merged in: its quality-assurance, laboratory and
 // materials panels repeated this page's process, testing list and certificate rows, so only the engineering and fleet
-// panels survived. Old links still resolve — /?capabilities rewrites to this page and its superseded anchors map to the
+// panels survived. Old links still resolve — /capabilities rewrites to this page and its superseded anchors map to the
 // surviving sections (see LEGACY_ANCHORS).
 //
 // Copy and photos come from `src/quality.ts`, which the admin console edits through D1.
@@ -60,18 +60,17 @@ function Rows({ rows, dark = false }: { rows: { label: string; value: string }[]
 }
 
 export default function QualityPage({ fromCapabilities = false }: { fromCapabilities?: boolean }) {
-  // /?capabilities rewrites to this page before usePageSetup reads the hash, so old inbound links (and the anchor
+  // /capabilities rewrites to this page before usePageSetup reads the hash, so old inbound links (and the anchor
   // that content moved to) still land on the right section. Guarded so React's double-run in development cannot
   // rewrite the already canonical URL.
   useEffect(() => {
     if (!fromCapabilities) return;
-    const params = new URLSearchParams(location.search);
-    if (!params.has("capabilities")) return;
-    params.delete("capabilities");
-    const query = params.toString();
+    if (location.pathname.replace(/\/+$/, "") !== "/capabilities") return;
     const raw = decodeURIComponent(location.hash.slice(1));
     const anchor = LEGACY_ANCHORS[raw] || raw;
-    history.replaceState(history.state, "", `/?quality${query ? `&${query}` : ""}${anchor ? `#${anchor}` : ""}`);
+    const params = new URLSearchParams(location.search);
+    const query = params.toString();
+    history.replaceState(history.state, "", `/quality${query ? `?${query}` : ""}${anchor ? `#${anchor}` : ""}`);
   }, [fromCapabilities]);
 
   usePageSetup("Quality, Capability & HSE | BCE., Ltd.");
@@ -268,7 +267,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
           <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
             copy={engineering.copy}>
             <Rows rows={engineering.rows} />
-            <OlButton label="Coverage" href="/?coverage" className="ol-tm-button" />
+            <OlButton label="Coverage" href="/coverage" className="ol-tm-button" />
           </TextMedia>
         </div>
 

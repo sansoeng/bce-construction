@@ -61,7 +61,7 @@ export default function QuoteCta({ href }: { href?: string }) {
           ))}
         </p>
         <div className="qc-actions">
-          <ArrowButton href="/?contact" label={translate("Contact us")} theme="outline" />
+          <ArrowButton href="/contact" label={translate("Contact us")} theme="outline" />
           <ArrowButton href={target} label={translate(ctaLabel)} theme="black" />
         </div>
       </div>

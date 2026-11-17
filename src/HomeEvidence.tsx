@@ -2,7 +2,7 @@ import ArrowButton from "./ArrowButton";
 import { quality } from "./quality";
 
 // Two homepage evidence bands, after "Why BCE" and before the closing quotation block:
-//   · the quality process the Recommendation asks to show on the homepage (it currently only lives on /?quality)
+//   · the quality process the Recommendation asks to show on the homepage (it currently only lives on /quality)
 //   · the fleet, so capacity is visible without scrolling the Quality page.
 // Both read src/quality.ts, so the numbers cannot drift from the Quality page. Labels reuse existing translations.
 
@@ -28,7 +28,7 @@ export function QualityBand() {
             Tested at every stage
           </h2>
           <p className="mt-5 max-w-[36ch] text-[15px] leading-[1.65] text-[#111]/55">{laboratory.copy}</p>
-          <ArrowButton href="/?quality#laboratory" label="Explore Quality & HSE" className="mt-7" />
+          <ArrowButton href="/quality#laboratory" label="Explore Quality & HSE" className="mt-7" />
         </div>
 
         <div className="md:col-span-7 md:col-start-6">
@@ -76,7 +76,7 @@ export function FleetBand() {
           </h2>
           <p className="mt-5 max-w-[36ch] text-[15px] leading-[1.65] text-[#111]/55">{fleet.copy[0]}</p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <ArrowButton href="/?quality#equipment-fleet" label="Equipment & fleet" theme="outline" />
+            <ArrowButton href="/quality#equipment-fleet" label="Equipment & fleet" theme="outline" />
             <ArrowButton href={fleet.ctaHref} label={fleet.ctaLabel} />
           </div>
         </div>

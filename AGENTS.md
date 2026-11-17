@@ -39,7 +39,8 @@ This repository contains the official, high-performance bilingual corporate web 
 ```
 BCE/
 ├── src/
-│   ├── main.tsx                 # React entrypoint & routing controller
+│   ├── main.tsx                 # React entrypoint & routing controller (clean paths: /about, /projects, /project/<slug>)
+│   ├── routes.ts                # Path routing helpers; rewrites legacy /?flag addresses
 │   ├── App.tsx                  # Homepage component & section orchestration
 │   ├── AboutPage.tsx            # Corporate heritage (founded 1995, Ms. Loeung Chan)
 │   ├── AboutValues.tsx          # Interactive core values & principles

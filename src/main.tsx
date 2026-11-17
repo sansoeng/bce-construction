@@ -20,50 +20,110 @@ import { initPageTransitions, onRouteChange } from './pageTransition'
 import { initImageParallax } from './imageParallax'
 import { applyLanguage, getLang, onLangChange, translate } from './i18n'
 import { applyPageSeo, applyStructuredData } from './seo'
+import { isLegacyAddress, legacyPath } from './routes'
+import ArrowButton from './ArrowButton'
 import {
   bootstrapContent,
   getRuntimeContentVersion,
   onContentChange,
 } from './contentStore'
 
-// Pages: /?project=<slug> (project details), /?projects (project list), /?about (About BCE), /?businesses, /?quality (Quality, capability & HSE), /?coverage (operational coverage), /?quote, everything else the homepage. Links between
-// them navigate in-app with the page transition (src/pageTransition.ts), so the shell re-renders on route changes.
-// Switching language remounts the page; in Khmer the translator runs after render and before the text reveals split it.
+// Clean paths (src/routes.ts): /projects, /about, /quality, /coverage, /quote, /careers, /resources, /contact,
+// /privacy, /terms, /blog, /project/<slug>, /business/<slug>. Old query addresses are rewritten to these on load.
+// Links between pages navigate in-app with the page transition (src/pageTransition.ts), so the shell re-renders on
+// route changes. Switching language remounts the page; in Khmer the translator runs after render and before the text
+// reveals split it.
 const homeTitle = document.title
 
 // The admin console is a separate chunk so public visitors never download it.
 const AdminApp = lazy(() => import('./admin/AdminApp'))
 
+/** Rewrite an old `/projects`-style address to its clean path before anything renders or a crawler reads it. */
+function normaliseAddress() {
+  if (!isLegacyAddress(location.search)) return
+  const next = legacyPath(location.search)
+  if (next) history.replaceState(null, '', next + location.hash)
+}
+
+function NotFoundPage() {
+  useEffect(() => {
+    applyPageSeo('Page not found | BCE., Ltd.')
+  }, [])
+  return (
+    <main className="site-pad flex min-h-[70vh] max-w-[900px] flex-col justify-center">
+      <p className="font-mono text-[13px] uppercase tracking-[0.06em] text-[#FB290E]">Error 404</p>
+      <h1 className="mt-5 text-[clamp(34px,6vw,64px)] font-medium leading-[1.05] tracking-[-.03em]">This page isn’t here.</h1>
+      <p className="mt-4 max-w-[46ch] text-[16px] leading-[1.6] text-[#111]/55">
+        The address may be old or mistyped. Start from the home page, or call 012 932 700.
+      </p>
+      <div className="mt-8 flex flex-wrap gap-3">
+        <ArrowButton href="/" label="Home" />
+        <ArrowButton href="/projects" label="Projects" theme="outline" />
+        <ArrowButton href="/contact" label="Contact us" theme="outline" />
+      </div>
+    </main>
+  )
+}
+
 function Page() {
-  const params = new URLSearchParams(location.search)
-  const slug = params.get('project')
-  if (slug !== null) return <ProjectPage key={slug} slug={slug} />
-  if (params.has('projects')) return <ProjectsPage />
-  if (params.has('about')) return <AboutPage />
-  if (params.has('businesses')) return <BusinessesPage />
-  if (params.has('business')) {
-    const slug = params.get('business')!
-    return findBusinessDetail(slug) ? <BusinessDetailPage key={slug} slug={slug} /> : <BusinessesPage />
+  const path = location.pathname.replace(/\/+$/, '') || '/'
+  const [, section, slug] = path.split('/')
+
+  if (path === '/') {
+    applyPageSeo(translate(homeTitle))
+    return <App />
   }
-  if (params.has('quality')) return <QualityPage />
-  // The Technical Capabilities page merged into Quality, capability & HSE. Old links keep working: the page rewrites
-  // the URL to /?quality and maps the retired anchors to the sections that absorbed them.
-  if (params.has('capabilities')) return <QualityPage fromCapabilities />
-  if (params.has('coverage')) return <CoveragePage />
-  if (params.has('quote')) return <QuotePage />
-  if (params.has('recruitment') || params.has('careers')) return <RecruitmentPage />
-  if (params.has('resources')) return <ResourcesPage />
-  if (params.has('contact')) return <ContactPage />
-  if (params.has('privacy')) return <PrivacyPage />
-  if (params.has('terms')) return <TermsPage />
-  if (params.has('blog') || params.has('news')) return <BlogPage />
-  applyPageSeo(translate(homeTitle))
-  return <App />
+
+  switch (section) {
+    case 'about':
+      return <AboutPage />
+    case 'businesses':
+      return <BusinessesPage />
+    case 'business':
+      return slug && findBusinessDetail(decodeURIComponent(slug)) ? (
+        <BusinessDetailPage key={slug} slug={decodeURIComponent(slug)} />
+      ) : (
+        <BusinessesPage />
+      )
+    case 'projects':
+      return <ProjectsPage />
+    case 'project':
+      return slug ? <ProjectPage key={slug} slug={decodeURIComponent(slug)} /> : <ProjectsPage />
+    case 'quality':
+      return <QualityPage />
+    // The Technical Capabilities page merged into Quality, capability & HSE; its anchors map to the sections that
+    // absorbed them, so /capabilities lands on /quality with the hash preserved.
+    case 'capabilities':
+      return <QualityPage fromCapabilities />
+    case 'coverage':
+      return <CoveragePage />
+    case 'quote':
+      return <QuotePage />
+    case 'careers':
+    case 'recruitment':
+      return <RecruitmentPage />
+    case 'resources':
+      return <ResourcesPage />
+    case 'contact':
+      return <ContactPage />
+    case 'privacy':
+      return <PrivacyPage />
+    case 'terms':
+      return <TermsPage />
+    case 'blog':
+    case 'news':
+      return <BlogPage />
+    default:
+      return <NotFoundPage />
+  }
 }
 
 function Root() {
   const [, rerender] = useReducer((n: number) => n + 1, 0)
-  useEffect(() => onRouteChange(rerender), [])
+  useEffect(() => onRouteChange(() => {
+    normaliseAddress()
+    rerender()
+  }), [])
   useEffect(() => onLangChange(rerender), [])
   useEffect(() => {
     // Live content arrives moments after first paint and remounts the page. If the homepage intro is playing, hold
@@ -107,7 +167,7 @@ function Root() {
   // Child layout effects have run (DOM in place), child effects (text reveals) have not: translate now.
   useLayoutEffect(() => applyLanguage(document.getElementById('root')!))
   const lang = getLang()
-  return <Page key={`${lang}-${location.search}-${getRuntimeContentVersion()}`} />
+  return <Page key={`${lang}-${location.pathname}-${location.search}-${getRuntimeContentVersion()}`} />
 }
 
 const isAdminRoute =
@@ -130,6 +190,7 @@ if (isAdminRoute) {
     </React.StrictMode>,
   )
 } else {
+  normaliseAddress()
   initPageTransitions()
   applyStructuredData()
   root.render(

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://bce-construction.com</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://bce-construction.com/?about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://bce-construction.com/?businesses</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://bce-construction.com/?projects</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://bce-construction.com/?quality</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?coverage</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?quote</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://bce-construction.com/?recruitment</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://bce-construction.com/?resources</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://bce-construction.com/?contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?blog</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?privacy</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://bce-construction.com/?terms</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://bce-construction.com/?business=ready-mix-concrete</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?business=piling</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?business=construction</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?business=concrete-slab-works</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bce-construction.com/?business=equipment-rental</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://bce-construction.com/businesses</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://bce-construction.com/projects</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://bce-construction.com/quality</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/coverage</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/quote</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://bce-construction.com/careers</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://bce-construction.com/resources</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://bce-construction.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/blog</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/privacy</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://bce-construction.com/terms</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://bce-construction.com/business/ready-mix-concrete</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/business/piling</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/business/construction</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/business/concrete-slab-works</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bce-construction.com/business/equipment-rental</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

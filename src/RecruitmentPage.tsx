@@ -407,7 +407,7 @@ export default function RecruitmentPage() {
                     </div>
                     <p className="mt-4 max-w-[34rem] text-[13px] leading-[1.6] text-[#111]/45">
                       Applications are handled by BCE HR only. See our{" "}
-                      <a href="/?privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
+                      <a href="/privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
                       for how we use candidate information.
                     </p>
                   </div>
@@ -516,7 +516,7 @@ export default function RecruitmentPage() {
                   </p>
                   <p className="mt-2 max-w-[34rem] text-[13px] leading-relaxed text-[#111]/45">
                     See our{" "}
-                    <a href="/?privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
+                    <a href="/privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
                     for how we handle candidate information.
                   </p>
                 </div>
@@ -537,7 +537,7 @@ export default function RecruitmentPage() {
                   {filtered.map((v) => (
                     <li key={v.id}>
                       <a
-                        href={`/?recruitment&job=${v.id}`}
+                        href={`/careers?job=${v.id}`}
                         onClick={(event) => {
                           event.preventDefault();
                           selectJob(v.id);

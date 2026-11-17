@@ -2,7 +2,7 @@
  * About BCE content.
  *
  * The heritage, Chairwoman's message, vision, mission, core values and the two
- * Explore tiles on `/?about` live here. The bundled defaults render first;
+ * Explore tiles on `/about` live here. The bundled defaults render first;
  * Cloudflare D1 then replaces them at runtime through `contentStore`, so the
  * admin console edits the live page without a deploy.
  *
@@ -69,7 +69,7 @@ export const DEFAULT_ABOUT: AboutContent = {
     primaryLabel: "Download Company Profile (PDF)",
     primaryHref: "/assets/BCE_Corporate_Profile_2026_web.pdf",
     secondaryLabel: "View all resources",
-    secondaryHref: "/?resources",
+    secondaryHref: "/resources",
   },
   message: {
     quote:
@@ -135,14 +135,14 @@ export const DEFAULT_ABOUT: AboutContent = {
       {
         label: "What we do",
         title: "Our businesses",
-        href: "/?businesses",
+        href: "/businesses",
         image: "/Image/bce/about-business-banner.webp",
         imageAlt: "BCE site team reviewing a reinforced concrete slab",
       },
       {
         label: "Tested at every stage",
         title: "Quality & HSE",
-        href: "/?quality",
+        href: "/quality",
         image: "/Image/bce/about-hse-banner.webp",
         imageAlt: "Concrete cylinder under compression testing in the BCE laboratory",
       },

@@ -2,7 +2,7 @@
  * Quality, capability & HSE content.
  *
  * Every headline, paragraph, certificate row, concrete grade, fleet figure and
- * photo on `/?quality` lives here. The bundled defaults render first; Cloudflare
+ * photo on `/quality` lives here. The bundled defaults render first; Cloudflare
  * D1 then replaces them at runtime through `contentStore`, so the admin console
  * edits the live page without a deploy.
  *
@@ -226,7 +226,7 @@ export const DEFAULT_QUALITY: QualityContent = {
       { label: "Lifts", value: "05" },
     ],
     ctaLabel: "Hire our equipment",
-    ctaHref: "/?quote&service=equipment-rental",
+    ctaHref: "/quote?service=equipment-rental",
   },
   documents: {
     label: "Quality documents",

@@ -13,7 +13,7 @@ import { CardSlider, DarkMedia, LabelCopy, OlButton, ParallaxHero, TextMedia, us
 // Our Businesses, after olympic.no/what-we-do-services: the parallax cover, "What we do", one full-screen text and
 // media panel per business (alternating sides), Laboratory & Quality Assurance as the dark band, then Technical
 // Capabilities as the looping card slider with "Explore more" to the merged Quality page.
-// Each panel's primary button is "See more details", which opens the business's own page (/?business=<slug>), and that
+// Each panel's primary button is "See more details", which opens the business's own page (/business/<slug>), and that
 // page links back to this overview.
 // Photos: stand-ins from Unsplash (incl. Ray Donnelly, ThisisEngineering, uve sanchez, Toni Reed, Daniel Miksha).
 
@@ -112,7 +112,7 @@ export default function BusinessesPage() {
             "Concrete is only as reliable as the testing behind it. Our own laboratory checks every material before production and every pour after it.",
             "With slump testing on delivery, compressive strength testing and documented mix designs, every structure we supply is built on verified results.",
           ]}>
-          <OlButton label="Explore the laboratory" href="/?quality#laboratory" dark className="ol-tm-button" />
+          <OlButton label="Explore the laboratory" href="/quality#laboratory" dark className="ol-tm-button" />
         </DarkMedia>
 
         <section id="capabilities" data-header-title="Technical capabilities" aria-labelledby="ol-caps" className="ol-onboard">
@@ -122,7 +122,7 @@ export default function BusinessesPage() {
           </div>
           <CardSlider items={capabilities} label="Technical capabilities" />
           <div className="ol-onboard-more">
-            <OlButton label="Explore more" href="/?quality#grades" />
+            <OlButton label="Explore more" href="/quality#grades" />
           </div>
         </section>
       </div>

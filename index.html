@@ -13,12 +13,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@100;300;400;500;600;700;800;900&family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&family=Noto+Sans+Khmer:wght@300;400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600&display=swap" rel="stylesheet" />
     <script>
+      // Cloudflare Web Analytics (site created for bce-construction.com). Production hosts only, so staging previews
+      // never mix their traffic into the live numbers. The token is public page data, not a secret.
+      try {
+        var host = location.hostname;
+        if (host === "bce-construction.com" || host === "www.bce-construction.com") {
+          var beacon = document.createElement("script");
+          beacon.defer = true;
+          beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+          beacon.setAttribute("data-cf-beacon", JSON.stringify({ token: "7f2f74c944fd47df94d580179c657431" }));
+          document.head.appendChild(beacon);
+        }
+      } catch (e) {}
+    </script>
+    <script>
       // Like telhaclarke.com.au, the loader plays on every fresh page load; hide the page before paint so it can reveal it.
       // Skipped on the inner pages (projects, About, Our Businesses, Quality, Technical Capabilities, Request a Quote), and when arriving at a homepage #section from another site page.
       try {
         var params = new URLSearchParams(location.search);
         var isAdmin = location.hostname.indexOf("admin.") === 0 || params.has("admin");
-        var isInner = isAdmin || ["project", "projects", "about", "businesses", "business", "quality", "capabilities", "coverage", "quote", "resources", "recruitment", "careers", "contact", "blog", "news", "privacy", "terms"].some(function (k) { return params.has(k); });
+        var path = location.pathname.replace(/\/+$/, "");
+        var legacy = ["project", "projects", "about", "businesses", "business", "quality", "capabilities", "coverage", "quote", "resources", "recruitment", "careers", "contact", "blog", "news", "privacy", "terms"].some(function (k) { return params.has(k); });
+        var isInner = isAdmin || legacy || (path !== "" && path !== "/");
         var fromSite = !!location.hash && !!document.referrer && new URL(document.referrer).origin === location.origin;
         if (!isInner && !fromSite && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
           document.documentElement.classList.add("is-loading", "has-loader");

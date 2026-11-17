@@ -1,4 +1,4 @@
-// Core business detail pages (/?business=<slug>), reached from the homepage's "Our core business offering" panels,
+// Core business detail pages (/business/<slug>), reached from the homepage's "Our core business offering" panels,
 // the footer and the header's business menu. Structure follows the Skanska service pages: a full-screen cover, an
 // overview with links into the page, the reasons to choose us, the solutions we deliver, capacity figures and related
 // project highlights, all built from the site's existing Olympic-style blocks (src/ServiceBlocks.tsx).
@@ -395,7 +395,7 @@ export const businessDetails: BusinessDetail[] = [
 ];
 
 export const findBusinessDetail = (slug: string) => businessDetails.find((b) => b.slug === slug);
-export const businessDetailHref = (slug: string) => `/?business=${slug}`;
+export const businessDetailHref = (slug: string) => `/business/${slug}`;
 
 registerContentType("businesses", (items) => {
   // Merge each stored document over its bundled default so a field added in code (a new section, a new checklist)

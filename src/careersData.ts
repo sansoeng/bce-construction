@@ -1,4 +1,4 @@
-// Open vacancies shown on the Careers page (/?recruitment).
+// Open vacancies shown on the Careers page (/careers).
 
 import { registerContentType } from "./contentStore";
 

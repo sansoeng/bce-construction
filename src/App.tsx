@@ -69,7 +69,7 @@ function HeroLatestNews() {
   // The hero card shows the newest journal post (the Recommendation's "latest news" on the homepage) and falls back to
   // the company-profile download while there are no posts. Sorting by date keeps it correct whichever order D1 serves.
   const latest = [...BLOG_POSTS].sort((a, b) => Date.parse(b.date) - Date.parse(a.date))[0];
-  const href = latest ? `/?blog&post=${encodeURIComponent(latest.slug)}` : newsHref;
+  const href = latest ? `/blog?post=${encodeURIComponent(latest.slug)}` : newsHref;
   const external = !latest;
   return (
     <div className="relative select-none">

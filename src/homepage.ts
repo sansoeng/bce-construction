@@ -149,13 +149,13 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
     intro:
       "BCE is a Battambang-based engineering and construction company, building across Cambodia since 1995 with modern equipment and a skilled team.",
     ctaLabel: "See more about us",
-    ctaHref: "/?about",
+    ctaHref: "/about",
     titleSegments: [
-      { text: "We supply ready-mix concrete", label: "Ready-Mix Concrete", icon: "plants", href: "/?business=ready-mix-concrete" },
-      { text: "foundation piling", label: "Foundation Piling", icon: "piling", href: "/?business=piling" },
-      { text: "civil construction", label: "Civil Construction", icon: "projects", href: "/?business=construction" },
-      { text: "slab works", label: "Concrete Slab Works", icon: "pump", href: "/?business=concrete-slab-works" },
-      { text: "and equipment rental", label: "Equipment Rental", icon: "mixer", href: "/?business=equipment-rental" },
+      { text: "We supply ready-mix concrete", label: "Ready-Mix Concrete", icon: "plants", href: "/business/ready-mix-concrete" },
+      { text: "foundation piling", label: "Foundation Piling", icon: "piling", href: "/business/piling" },
+      { text: "civil construction", label: "Civil Construction", icon: "projects", href: "/business/construction" },
+      { text: "slab works", label: "Concrete Slab Works", icon: "pump", href: "/business/concrete-slab-works" },
+      { text: "and equipment rental", label: "Equipment Rental", icon: "mixer", href: "/business/equipment-rental" },
     ],
     titleClosing: "across Cambodia.",
   },
@@ -218,7 +218,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
     image: "/assets/slider-3@xxxl.webp",
     imageAlt: "BCE HSE and operational commitments",
     ctaLabel: "Explore Quality & HSE",
-    ctaHref: "/?quality",
+    ctaHref: "/quality",
     items: [
       {
         lines: ["Protecting", "people"],
@@ -245,7 +245,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
   projects: {
     titleLines: ["Selected", "Projects"],
     ctaLabel: "See all projects",
-    ctaHref: "/?projects",
+    ctaHref: "/projects",
   },
   coverage: {
     titleLines: ["Everywhere You Build,", "We’ve Got You Covered."],
@@ -276,7 +276,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
     title: "Planning a project? Request a quotation.",
     text: "Tell us your site, scope and schedule for ready-mix concrete, piling, construction, slab works or equipment rental. Our engineers will send a clear quotation from our own plants and fleet.",
     ctaLabel: "Request a quotation",
-    ctaHref: "/?quote",
+    ctaHref: "/quote",
   },
   footer: {
     columns: [
@@ -284,33 +284,33 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
         title: "Company",
         links: [
           { label: "Home", href: "#" },
-          { label: "About BCE", href: "/?about" },
-          { label: "Projects", href: "/?projects" },
-          { label: "Blog & Insights", href: "/?blog" },
-          { label: "Coverage", href: "/?coverage" },
-          { label: "Resources & Downloads", href: "/?resources" },
+          { label: "About BCE", href: "/about" },
+          { label: "Projects", href: "/projects" },
+          { label: "Blog & Insights", href: "/blog" },
+          { label: "Coverage", href: "/coverage" },
+          { label: "Resources & Downloads", href: "/resources" },
         ],
       },
       {
         title: "Our businesses",
-        links: offerings.map((business) => ({ label: business.name, href: `/?business=${business.slug}` })),
+        links: offerings.map((business) => ({ label: business.name, href: `/business/${business.slug}` })),
       },
       {
         title: "Capabilities",
         links: [
-          { label: "Quality & capability", href: "/?quality" },
-          { label: "Laboratory", href: "/?quality#laboratory" },
-          { label: "Equipment & fleet", href: "/?quality#equipment-fleet" },
-          { label: "Coverage", href: "/?coverage" },
+          { label: "Quality & capability", href: "/quality" },
+          { label: "Laboratory", href: "/quality#laboratory" },
+          { label: "Equipment & fleet", href: "/quality#equipment-fleet" },
+          { label: "Coverage", href: "/coverage" },
         ],
       },
       {
         title: "Work with us",
         links: [
-          { label: "Request a quote", href: "/?quote" },
-          { label: "Careers & Recruitment", href: "/?recruitment" },
-          { label: "Contact us", href: "/?contact" },
-          { label: "Hire our equipment", href: "/?quote&service=equipment-rental" },
+          { label: "Request a quote", href: "/quote" },
+          { label: "Careers & Recruitment", href: "/careers" },
+          { label: "Contact us", href: "/contact" },
+          { label: "Hire our equipment", href: "/quote?service=equipment-rental" },
         ],
       },
     ],
@@ -318,7 +318,7 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
     enquiryText:
       "Tell us your site, scope and schedule. Our engineers will review it and come back with a clear, detailed quotation, supplied from our own plants and fleet.",
     primaryLabel: "Request a quote",
-    primaryHref: "/?quote",
+    primaryHref: "/quote",
     callLabel: "Call for a Quotation",
     officeTitle: "Battambang · Head office",
     hotlinesLabel: "Sales & Quotations Hotlines",

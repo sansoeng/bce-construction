@@ -22,7 +22,7 @@ import {
   totalProjects,
 } from "./Coverage";
 
-// Coverage (/?coverage), the homepage map's information as a page of its own: the same fourteen locations, the years
+// Coverage (/coverage), the homepage map's information as a page of its own: the same fourteen locations, the years
 // behind them, the completed-project and equipment figures, and the same province highlights, set out so each one can
 // be read rather than watched scroll past. The homepage keeps its pinned story (src/Coverage.tsx); this page reuses its
 // data so the two can never disagree, and adds an explorable map, the four geographic zones and the fleet. Per-province
@@ -346,7 +346,7 @@ export default function CoveragePage() {
             reverse
           >
             <Rows rows={FLEET} />
-            <OlButton label="Equipment & fleet" href="/?quality#equipment-fleet" className="ol-tm-button" />
+            <OlButton label="Equipment & fleet" href="/quality#equipment-fleet" className="ol-tm-button" />
           </TextMedia>
         </div>
 
@@ -357,7 +357,7 @@ export default function CoveragePage() {
           <p data-split="content" className="cv-outro-copy">Our plants, fleet and crews are based in Battambang and mobilise across Cambodia. Tell us your site and programme and we will confirm what we can bring.</p>
           <div className="cv-outro-actions">
             <ArrowButton href={quoteHref()} label="Request a quotation" />
-            <ArrowButton href="/?contact" label="Contact us" theme="outline" />
+            <ArrowButton href="/contact" label="Contact us" theme="outline" />
           </div>
         </section>
       </div>

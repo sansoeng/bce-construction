@@ -34,7 +34,7 @@ function Meta({ children, className = "", accent = false }: { children: ReactNod
 function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string) => void }) {
   return (
     <a
-      href={`/?blog&post=${post.slug}`}
+      href={`/blog?post=${post.slug}`}
       onClick={(event) => {
         event.preventDefault();
         onSelect(post.slug);
@@ -103,7 +103,7 @@ function ShareIcon({ network }: { network: "linkedin" | "facebook" | "telegram" 
 export default function BlogPage() {
   usePageSetup("Blog & Engineering Insights | BCE., Ltd.");
 
-  // Read post slug from URL query if present (e.g. ?blog&post=...)
+  // Read the post slug from the URL (e.g. /blog?post=...)
   const [selectedSlug, setSelectedSlug] = useState<string | null>(() => {
     if (typeof window === "undefined") return null;
     const params = new URLSearchParams(window.location.search);
@@ -222,7 +222,7 @@ export default function BlogPage() {
 
                 <div className="mt-8 flex w-full items-center justify-between md:mt-10">
                   <a
-                    href={`/?blog&post=${prevPost.slug}`}
+                    href={`/blog?post=${prevPost.slug}`}
                     onClick={(event) => {
                       event.preventDefault();
                       handleSelectPost(prevPost.slug);
@@ -232,7 +232,7 @@ export default function BlogPage() {
                     <span aria-hidden>←</span> Prev
                   </a>
                   <a
-                    href={`/?blog&post=${nextPost.slug}`}
+                    href={`/blog?post=${nextPost.slug}`}
                     onClick={(event) => {
                       event.preventDefault();
                       handleSelectPost(nextPost.slug);
@@ -434,7 +434,7 @@ export default function BlogPage() {
           </section>
         )}
 
-        {currentPost ? null : <QuoteCta href="/?quote" />}
+        {currentPost ? null : <QuoteCta href="/quote" />}
         <Footer phones={phones} tel={tel} base="/" />
         <FluidCursor />
       </main>

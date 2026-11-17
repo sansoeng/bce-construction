@@ -54,13 +54,13 @@ const PAGE_SIZE = 50;
 const previewUrl = (type: string, slug: string) => {
   switch (type) {
     case "projects":
-      return `/?project=${encodeURIComponent(slug)}`;
+      return `/project/${encodeURIComponent(slug)}`;
     case "posts":
-      return `/?blog&post=${encodeURIComponent(slug)}`;
+      return `/blog?post=${encodeURIComponent(slug)}`;
     case "vacancies":
-      return `/?recruitment&job=${encodeURIComponent(slug)}`;
+      return `/careers?job=${encodeURIComponent(slug)}`;
     case "businesses":
-      return `/?business=${encodeURIComponent(slug)}`;
+      return `/business/${encodeURIComponent(slug)}`;
     default:
       return "/";
   }

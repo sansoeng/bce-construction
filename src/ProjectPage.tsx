@@ -123,7 +123,7 @@ function NotFound() {
     <section data-header-title="Projects" className="site-shell flex min-h-[100svh] flex-col justify-end gap-8 pb-16">
       <p className="text-[.95rem] text-black/45">Project not found</p>
       <h1 className="pd-title">This project is not available.</h1>
-      <a href="/?projects" className="pd-back self-start">All projects</a>
+      <a href="/projects" className="pd-back self-start">All projects</a>
     </section>
   );
 }
@@ -317,7 +317,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
         </section>
       </article>
 
-      <QuoteCta href="/?quote" />
+      <QuoteCta href="/quote" />
       <Footer phones={phones} tel={tel} base="/" />
       <Lightbox items={project.gallery} index={viewing} onIndex={setViewing} onClose={() => setViewing(null)} />
       <FluidCursor />

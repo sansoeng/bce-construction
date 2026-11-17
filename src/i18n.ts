@@ -657,7 +657,7 @@ const KM: Record<string, string> = {
   "Plus our own piling rigs.": "បូករួមទាំងម៉ាស៊ីនបុកគ្រឹះផ្ទាល់ខ្លួន",
   "Click on a province to see more details": "ចុចលើខេត្តមួយ ដើម្បីមើលព័ត៌មានលម្អិត",
   "Delivered province by province, from Pailin to Stung Treng.": "ប្រគល់ជូនពីខេត្តមួយទៅខេត្តមួយ ចាប់ពីប៉ៃលិនដល់ស្ទឹងត្រែង",
-  // Coverage page (/?coverage)
+  // Coverage page (/coverage)
   "Key figures": "តួលេខសំខាន់",
   "Coverage map": "ផែនទីតំបន់សេវាកម្ម",
   "Coverage by zone": "ការគ្របដណ្តប់តាមតំបន់",
