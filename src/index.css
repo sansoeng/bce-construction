@@ -3795,6 +3795,12 @@ html[lang="km"] .pd-title {
   }
 }
 
+/* The project page's "Project gallery" heading is a section title: 44px in Khmer too, not the homepage's 54px scale. */
+html[lang="km"] .kp-title.pd-h2 {
+  font-size: 44px !important;
+  line-height: 1.35 !important;
+}
+
 html[lang="km"] .kp-name {
   font-size: 24px !important;
   font-weight: 600 !important;
