@@ -564,7 +564,7 @@ function App() {
               ))}
             </div>
             <div className="mt-8 pt-2">
-              <ArrowButton href={homepage.commitments.ctaHref} label={homepage.commitments.ctaLabel} theme="black" tile />
+              <ArrowButton href={homepage.commitments.ctaHref} label={homepage.commitments.ctaLabel} theme="outline-white" tile />
             </div>
           </div>
           </div>

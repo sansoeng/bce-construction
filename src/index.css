@@ -5448,6 +5448,19 @@ html[lang="km"] .fg-btn.is-outline-white {
 .fg-btn.is-tile .fg-btn-arrow { width: 20px; height: 16px; margin: 0; }
 /* Phones keep the shape but a shorter card. */
 @media (max-width: 767px) { .fg-btn.is-tile { height: 104px !important; } }
+/* The HSE action sits on the dark commitments photo, so its card is the outline form of harkcap's button:
+   hairline rule, no fill, white label; hover floods it white. */
+.fg-btn.is-tile.is-outline-white {
+  --btn-bg: transparent;
+  --btn-fg: var(--paper);
+  --btn-bg-hover: var(--paper);
+  --btn-fg-hover: var(--ink);
+  border: 1px solid rgb(255 255 255 / .45);
+}
+/* Keep the hairline while the white flood rises, instead of the shared hover's transparent border. */
+@media (hover: hover) {
+  .fg-btn.is-tile.is-outline-white:hover { border-color: rgb(255 255 255 / .45) !important; }
+}
 
 /* Coverage page (/?coverage): the homepage map's information as a detail page — the figures on the ink ground, an
    explorable province map with its card, the four zones and the fleet. It borrows the Olympic blocks and tokens used
