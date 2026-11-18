@@ -42,10 +42,13 @@ const QUOTE =
   "For more than thirty years we have built on four pillars: quality, safety, reliability and partnership. They guide every pour, every pile and every project."
 
 // Leadership, after dalco.ch/meet-dalco: a label, the statement beside a ruled list of people, each row expanding
-// to a portrait and their statement. Type, colour and spacing come from BCE's own system.
+// to a portrait and their statement. One row stays open at a time; the first opens on load. Type, colour and spacing
+// come from BCE's own system.
 function Leadership() {
   const leader = about.leadership
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState<number | null>(0)
+  const initials = (name: string) =>
+    name.replace(/^(Mr|Mrs|Ms|Dr)\.?\s+/i, "").split(/\s+/).filter(Boolean).map((part) => part[0]).join("").slice(0, 2)
   return (
     <section data-header-title="Leadership" aria-labelledby="ab-lead" className="ab-lead">
       <p className="ol-label">{leader.label}</p>
@@ -54,31 +57,42 @@ function Leadership() {
           <h2 id="ab-lead">{leader.title}</h2>
         </div>
         <div className="ab-lead-list">
-          <div className={`ab-lead-item${open ? " is-open" : ""}`}>
-            <button type="button" className="ab-lead-head" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-              <span className="ab-lead-name">{leader.name}</span>
-              <span className="ab-lead-role">{leader.role}</span>
-              <span className="ab-lead-toggle" aria-hidden />
-            </button>
-            <div className="ab-lead-panel">
-              <div className="ab-lead-panel-inner">
-                <figure className="ab-lead-figure">
-                  {leader.image ? (
-                    <img src={leader.image} alt={leader.imageAlt} />
-                  ) : (
-                    <span className="ab-lead-initials" aria-hidden>
-                      {leader.name.replace(/^Ms\.?\s*/i, "").split(" ").map((part) => part[0]).join("").slice(0, 2)}
-                    </span>
-                  )}
-                </figure>
-                <div className="ab-lead-text">
-                  {leader.bio.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
+          {leader.people.map((person, index) => {
+            const isOpen = open === index
+            return (
+              <div key={`${person.name}-${index}`} className={`ab-lead-item${isOpen ? " is-open" : ""}`}>
+                <button
+                  type="button"
+                  className="ab-lead-head"
+                  aria-expanded={isOpen}
+                  aria-controls={`ab-lead-panel-${index}`}
+                  onClick={() => setOpen(isOpen ? null : index)}
+                >
+                  <span className="ab-lead-name">{person.name}</span>
+                  <span className="ab-lead-role">{person.role}</span>
+                  <span className="ab-lead-toggle" aria-hidden />
+                </button>
+                <div className="ab-lead-panel" id={`ab-lead-panel-${index}`} aria-hidden={!isOpen}>
+                  <div className="ab-lead-panel-inner">
+                    <figure className="ab-lead-figure">
+                      {person.image ? (
+                        <img src={person.image} alt={person.imageAlt} />
+                      ) : (
+                        <span className="ab-lead-initials" aria-hidden>
+                          {initials(person.name)}
+                        </span>
+                      )}
+                    </figure>
+                    <div className="ab-lead-text">
+                      {person.bio.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            )
+          })}
         </div>
       </div>
     </section>

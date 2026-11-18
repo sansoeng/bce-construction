@@ -261,7 +261,6 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
             headerTitle={business.capacityTitle}
             label={business.capacityKicker}
             title={business.capacityTitle}
-            copy={business.capacityCopy}
             contactLabel="Talk to our team"
           />
         ) : (
@@ -290,9 +289,9 @@ export default function BusinessDetailPage({ slug }: { slug: string }) {
           </section>
         )}
 
-        {/* What to send us, after the calibration block on Quality & HSE, on the fleet page's "Mobilisation & hire"
-            split: the label, uppercase title, grey copy and the quotation call to action in the left column, and the
-            brief as a numbered list of hairline rows in the right one, so neither column is left empty. */}
+        {/* What to send us, after the calibration block on Quality & HSE: the label, uppercase title, grey copy and the
+            quotation call to action in the left column, and the brief as a numbered list of hairline rows in the right
+            one, so neither column is left empty. */}
         <section id="prepare" data-header-title="What to send us" aria-labelledby="biz-prepare" className="qh-section qx-split biz-prepare">
           <div className="qx-head">
             <p data-split="content" className="ol-label">Quotation</p>

@@ -84,7 +84,6 @@ export type QualityContent = {
     /** The dark key-figures band. */
     figuresLabel: string;
     figuresTitle: string;
-    figuresCopy: string;
     /** The jobs the fleet supports, not a second inventory. */
     jobsLabel: string;
     jobsTitle: string;
@@ -93,14 +92,7 @@ export type QualityContent = {
     /** Workshop, operators and dispatch. */
     maintenanceLabel: string;
     maintenanceTitle: string;
-    maintenanceCopy: string;
     maintenance: { icon: string; title: string; text: string }[];
-    /** Mobilisation and hire. */
-    mobilisationLabel: string;
-    mobilisationTitle: string;
-    mobilisationCopy: string;
-    mobilisationNote: string;
-    mobilisationSteps: string[];
     rows: { label: string; value: string; note: string }[];
     ctaLabel: string;
     ctaHref: string;
@@ -276,8 +268,6 @@ export const DEFAULT_QUALITY: QualityContent = {
     note: "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.",
     figuresLabel: "What we own, in numbers.",
     figuresTitle: "Capacity you can plan around.",
-    figuresCopy:
-      "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
     jobsLabel: "Fleet by job",
     jobsTitle: "One fleet, four ways to build.",
     jobsCopy:
@@ -338,8 +328,6 @@ export const DEFAULT_QUALITY: QualityContent = {
     ],
     maintenanceLabel: "Maintenance & operators",
     maintenanceTitle: "Ready when it reaches site.",
-    maintenanceCopy:
-      "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.",
     maintenance: [
       {
         icon: "wrench",
@@ -361,17 +349,6 @@ export const DEFAULT_QUALITY: QualityContent = {
         title: "Mobilised from Battambang",
         text: "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project.",
       },
-    ],
-    mobilisationLabel: "Mobilisation & hire",
-    mobilisationTitle: "From Battambang to your site.",
-    mobilisationCopy:
-      "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.",
-    mobilisationNote: "Operator, fuel and maintenance are agreed up front, in writing.",
-    mobilisationSteps: [
-      "Tell us the machine, the duration and the site location.",
-      "We confirm availability, mobilisation from Battambang and the delivery date.",
-      "Operator, fuel and maintenance are agreed up front, in writing.",
-      "The machine arrives with our own crew and is supported by our workshop.",
     ],
     rows: [
       { label: "Batching plants", value: "04  /  70 m³/hr each", note: "70 m³/hr each" },

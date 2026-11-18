@@ -2983,11 +2983,12 @@ html[lang="km"] .flb-text { line-height: 1.75; }
   gap: 12px;
   margin-top: clamp(2.2rem, 4vw, 3.4rem);
 }
+/* The secondary action on the paper band is text-only: no frame and no fill, so it sits quietly beside the primary
+   action. The shared sweep still floods it ink on hover. */
 .qc-actions .fg-btn.is-outline {
   --btn-bg: transparent;
   --btn-fg: var(--ink);
   --btn-fg-hover: var(--paper);
-  border: 1px solid var(--ink) !important;
 }
 .qc-actions .fg-btn.is-outline::before { background: transparent; }
 @media (max-width: 767.98px) {
@@ -4393,9 +4394,9 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
    match. Nothing else uses .abv-card-services, so this size is the fleet's. */
 .abv-card-services li { position: relative; padding-left: 1.35rem; font-size: 16px; line-height: 1.45; color: rgb(17 17 17 / .82); }
 .abv-card-services li::before { content: "✓"; position: absolute; left: 0; top: 0; font-size: 1rem; font-weight: 600; color: var(--brand); }
-/* A job card with only the checklist (the fleet's): the list follows the title instead of being pinned to the foot of
-   the column, which would leave the headline alone at the top of a full screen. */
-.abv.is-live .abv-card-body--solo { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+/* A job card with only the checklist (the fleet's) pins the list to the foot of the text column, as the HSE cards pin
+   their copy, so "Key services" ends at the bottom of the pinned screen instead of leaving the foot empty. */
+.abv.is-live .abv-card-body--solo { margin-top: auto; }
 .abv--dark .abv-card-services-head { color: var(--brand); }
 .abv--dark .abv-card-services li { color: rgb(255 255 255 / .82); }
 @media (prefers-reduced-motion: reduce) { .abv-intro, .abv-intro.is-active { transition: none; } }
@@ -4662,11 +4663,12 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 /* About: business chips. */
 .ab-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
 .ab-chip { padding: .45rem 1.1rem; border-radius: var(--radius) !important; background: var(--paper-page); font-size: .95rem; line-height: 1.2; animation: pd-fade-up 1s cubic-bezier(.16, 1, .3, 1) calc(.3s + var(--i, 0) * .06s) backwards; }
-/* About "Explore more": olympic.no's media link tiles. Two 828:765 tiles 24px from the edges, a black gradient over
-   the top half, label and title at the top, the Explore button at the foot; the photo slides -15% to 0 as the tile
-   crosses the viewport (--p from useScrollParallax). Type and button follow the homepage. The gradient alone carries
-   the legibility: a backdrop blur here made both photos read as broken, so the images stay sharp. */
-.ab-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: clamp(6rem, 12vw, 12rem) 0; padding-inline: 24px; }
+/* About "Explore more": olympic.no's media link tiles. Two 828:765 tiles inset by the page's own left/right gutter
+   (the 24px gap between the pair stays fixed), a black gradient over the top half, label and title at the top, the
+   Explore button at the foot; the photo slides -15% to 0 as the tile crosses the viewport (--p from useScrollParallax).
+   Type and button follow the homepage. The gradient alone carries the legibility: a backdrop blur here made both photos
+   read as broken, so the images stay sharp. */
+.ab-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: clamp(6rem, 12vw, 12rem) 0; padding-inline: var(--olm, var(--page-gutter)); }
 .ab-tile {
   position: relative;
   display: flex;
@@ -4710,7 +4712,7 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
   box-shadow: none;
 }
 @media (max-width: 767px) {
-  .ab-tiles { grid-template-columns: 1fr; gap: 16px; padding-inline: 16px; }
+  .ab-tiles { grid-template-columns: 1fr; gap: 16px; }
   .ab-tile { aspect-ratio: 343 / 489; }
   .ab-tile-content { padding: 34px 22px; }
 }
@@ -4997,6 +4999,9 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
   padding-top: clamp(2rem, 4vw, 4rem);
   background: #1D2226;
 }
+/* The band's tag/title rhythm matches the pinned "Fleet by job" sequence below it, instead of the heading sitting
+   flush against the label. */
+.fl-figures-band .glance-title-sticky .ol-capacity-title { margin-top: 24px; }
 /* The project-highlights "at a glance" grid, on the fleet's ink band: two counts per row like the homepage — the
    fleet total, the eight machine categories and the concrete capacity. */
 .fl-glance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -5011,7 +5016,12 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 /* Fleet by job runs as the HSE sticky sequence (src/StickyValues.tsx), so it only needs the break from the ink band
    above; its label, copy and photos come from the shared .abv-* styles. */
 #fleet-jobs { margin-top: clamp(4rem, 8vw, 8rem); }
-.fl-section { margin-top: clamp(6rem, 10vw, 10rem); }
+/* The maintenance grid closes the page now that mobilisation is gone, so it carries the gap down to the quotation
+   band's top hairline (the band's own padding starts below it). */
+.ol-values.fl-maintenance { padding-bottom: clamp(6rem, 10vw, 10rem); }
+/* The maintenance heading takes the page's all-caps display case, like the figures and pinned job titles; its old
+   sentence case made it the odd one out. */
+.ol-values.fl-maintenance .ol-values-title { text-transform: uppercase; }
 
 @media (max-width: 1023px) {
   .fl-glance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -5449,6 +5459,9 @@ html[lang="km"] .fg-btn.is-outline-white {
 .fg-btn.is-tile .fg-btn-arrow { width: 20px; height: 16px; margin: 0; }
 /* Phones keep the shape but a shorter card. */
 @media (max-width: 767px) { .fg-btn.is-tile { height: 104px !important; } }
+/* The homepage About tile is exactly as tall as the intro paragraph above it, so the copy and its action read as one
+   block. App.tsx writes the measured paragraph height to --tile-h and keeps it in step on re-wrap. */
+.about-panel .fg-btn.is-tile { height: var(--tile-h, 66px) !important; }
 /* The HSE action sits on the dark commitments photo, so its card is the outline form of harkcap's button:
    hairline rule, no fill, white label; hover floods it white. */
 .fg-btn.is-tile.is-outline-white {

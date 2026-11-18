@@ -8,9 +8,9 @@ import { pathFor } from "./routes";
  * centred (About, Business, Projects, Quality & Lab, Equipment & fleet, More) and the language switch plus the quote
  * button close the right. Tabs with children open the reference's own dropdown: a 78% white glass sheet, 32px blur, a
  * half-pixel hairline, a 10px corner, fading in as it drops 10px over 350ms. Panels come in the three shapes DALCO
- * uses — the narrow list (About, Projects, Equipment & fleet, More), the media panel (Business: a 309×279 photo that
- * cross-fades as you move down the titles) and the two-column group panel (Quality & Lab) — with titles only, no
- * descriptions and no arrows.
+ * uses — the narrow list (About, Projects, More), the media panel (Business: a 309×279 photo that cross-fades as you
+ * move down the titles) and the two-column group panel (Quality & Lab) — with titles only, no descriptions and no
+ * arrows. Equipment & fleet has no panel: it links straight to /fleet.
  *
  * On phones the tabs collapse into a burger that opens a full-height sheet with the same items as accordions, so the
  * expand navigation survives without hover. Over the first 800px of scroll the surface narrows and slides up, as the
@@ -91,7 +91,8 @@ type NavItem = {
   id: string
   label: string
   href: string
-  panel: Panel
+  /** Items without a panel (Equipment & fleet) are plain links. */
+  panel?: Panel
 }
 
 const NAV: NavItem[] = [
@@ -172,17 +173,6 @@ const NAV: NavItem[] = [
     id: "fleet",
     label: "Equipment & fleet",
     href: "/fleet",
-    panel: {
-      kind: "default",
-      items: [
-        { label: "Fleet overview", href: "/fleet" },
-        { label: "What we own", href: "/fleet#fleet-inventory" },
-        { label: "Fleet by job", href: "/fleet#fleet-jobs" },
-        { label: "Maintenance & operators", href: "/fleet#fleet-maintenance" },
-        { label: "Mobilisation & hire", href: "/fleet#fleet-mobilisation" },
-        { label: "Hire our equipment", href: "/quote?service=equipment-rental" },
-      ],
-    },
   },
   {
     id: "more",
@@ -468,6 +458,15 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
           <div className="ls-nav-center">
             <nav className="ls-nav-links" aria-label="Primary">
               {NAV.map((item) => {
+                if (!item.panel) {
+                  return (
+                    <div key={item.id} className="ls-nav-item">
+                      <a href={linkHref(item.href)} className="ls-link" data-tab={item.id}>
+                        {item.label}
+                      </a>
+                    </div>
+                  );
+                }
                 const isOpen = open === item.id;
                 return (
                   <div
@@ -526,18 +525,20 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
         style={{ "--ls-panel-x": panelX === null ? "50%" : `${panelX}px` } as CSSProperties}
       >
         <div className="ls-panels-inner" ref={innerRef}>
-          {NAV.map((item) => (
-            <div
-              key={item.id}
-              id={`ls-panel-${item.id}`}
-              className={`ls-panel ls-panel--${item.panel.kind}${open === item.id ? " is-open" : ""}`}
-              onMouseEnter={() => window.clearTimeout(closeTimer.current)}
-              onMouseLeave={() => canHover && hide(120)}
-              aria-hidden={open !== item.id}
-            >
-              <PanelBody panel={item.panel} mediaIndex={mediaIndex} onMedia={setMediaIndex} onNavigate={close} />
-            </div>
-          ))}
+          {NAV.map((item) =>
+            item.panel ? (
+              <div
+                key={item.id}
+                id={`ls-panel-${item.id}`}
+                className={`ls-panel ls-panel--${item.panel.kind}${open === item.id ? " is-open" : ""}`}
+                onMouseEnter={() => window.clearTimeout(closeTimer.current)}
+                onMouseLeave={() => canHover && hide(120)}
+                aria-hidden={open !== item.id}
+              >
+                <PanelBody panel={item.panel} mediaIndex={mediaIndex} onMedia={setMediaIndex} onNavigate={close} />
+              </div>
+            ) : null,
+          )}
         </div>
       </div>
 
@@ -552,37 +553,41 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
                   <a href={linkHref(item.href)} className="ls-sheet-link" onClick={() => setSheet(false)}>
                     {item.label}
                   </a>
-                  <button
-                    type="button"
-                    className="ls-sheet-toggle"
-                    aria-label={`${expanded ? "Hide" : "Show"} ${item.label}`}
-                    aria-expanded={expanded}
-                    aria-controls={`ls-sheet-${item.id}`}
-                    onClick={() => setOpenGroup(expanded ? null : item.id)}
-                  >
-                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" aria-hidden>
-                      <path d="M8 2.5v11M2.5 8h11" />
-                    </svg>
-                  </button>
+                  {item.panel ? (
+                    <button
+                      type="button"
+                      className="ls-sheet-toggle"
+                      aria-label={`${expanded ? "Hide" : "Show"} ${item.label}`}
+                      aria-expanded={expanded}
+                      aria-controls={`ls-sheet-${item.id}`}
+                      onClick={() => setOpenGroup(expanded ? null : item.id)}
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" aria-hidden>
+                        <path d="M8 2.5v11M2.5 8h11" />
+                      </svg>
+                    </button>
+                  ) : null}
                 </div>
-                <div className="ls-sheet-sub" id={`ls-sheet-${item.id}`} hidden={!expanded}>
-                  {item.panel.kind === "columns"
-                    ? item.panel.groups.map((group) => (
-                        <div key={group.title} className="ls-sheet-group">
-                          <span className="ls-sheet-group-title">{group.title}</span>
-                          {group.links.map((link) => (
-                            <a key={link.label} href={link.href} className="ls-sheet-sublink" onClick={() => setSheet(false)}>
-                              {link.label}
-                            </a>
-                          ))}
-                        </div>
-                      ))
-                    : panelLinks(item.panel).map((link) => (
-                        <a key={link.label} href={link.href} className="ls-sheet-sublink" onClick={() => setSheet(false)}>
-                          {link.label}
-                        </a>
-                      ))}
-                </div>
+                {item.panel ? (
+                  <div className="ls-sheet-sub" id={`ls-sheet-${item.id}`} hidden={!expanded}>
+                    {item.panel.kind === "columns"
+                      ? item.panel.groups.map((group) => (
+                          <div key={group.title} className="ls-sheet-group">
+                            <span className="ls-sheet-group-title">{group.title}</span>
+                            {group.links.map((link) => (
+                              <a key={link.label} href={link.href} className="ls-sheet-sublink" onClick={() => setSheet(false)}>
+                                {link.label}
+                              </a>
+                            ))}
+                          </div>
+                        ))
+                      : panelLinks(item.panel).map((link) => (
+                          <a key={link.label} href={link.href} className="ls-sheet-sublink" onClick={() => setSheet(false)}>
+                            {link.label}
+                          </a>
+                        ))}
+                  </div>
+                ) : null}
               </div>
             );
           })}

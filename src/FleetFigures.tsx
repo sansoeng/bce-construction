@@ -7,8 +7,8 @@ import { quality } from "./quality";
 // pages cannot disagree: quality.fleet.rows is the fleet inventory (plants, trucks, rigs, lifting plant), and the band
 // reads the first number in each value, so Khmer numerals work too.
 //
-// Layout: the label, title and copy hold on the left while the bordered glance cells count up on the right, the same
-// grid the project highlights and the homepage use.
+// Layout: the label and title hold on the left while the bordered glance cells count up on the right, the same grid
+// the project highlights and the homepage use.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
@@ -157,7 +157,6 @@ export default function FleetFigures({
   headerTitle,
   label,
   title,
-  copy,
   contactLabel = "Hire & dispatch",
 }: {
   /** Section id, for the page's on-page index. */
@@ -168,7 +167,6 @@ export default function FleetFigures({
   headerTitle?: string;
   label: string;
   title: string;
-  copy: string;
   contactLabel?: string;
 }) {
   const [glanceRef, glanceIn] = useInView<HTMLDivElement>();
@@ -187,7 +185,6 @@ export default function FleetFigures({
           <div className="glance-title-sticky">
             <p data-split="content" className="ol-label">{label}</p>
             <h2 id={headingId} data-split className="ol-capacity-title">{title}</h2>
-            <p data-split="content" className="ol-capacity-copy">{copy}</p>
           </div>
         </div>
         <div ref={glanceRef} className={`glance ${glanceIn ? "is-in" : ""}`}>

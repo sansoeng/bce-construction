@@ -38,11 +38,13 @@ export type AboutContent = {
   leadership: {
     label: string;
     title: string;
-    name: string;
-    role: string;
-    image: string;
-    imageAlt: string;
-    bio: string[];
+    people: {
+      name: string;
+      role: string;
+      image: string;
+      imageAlt: string;
+      bio: string[];
+    }[];
   };
   vision: {
     sectionLabel: string;
@@ -150,14 +152,48 @@ export const DEFAULT_ABOUT: AboutContent = {
   leadership: {
     label: "Leadership",
     title: "Meet the people behind every pour.",
-    name: "Ms. Loeung Chan",
-    role: "Chairwoman",
-    image: "/Image/bce/chairwoman.webp",
-    imageAlt: "Ms. Loeung Chan, Chairwoman of BCE",
-    bio: [
-      "Ms. Loeung Chan is Chairwoman of Battambang Construction and Engineering Co., Ltd. She has guided the company through its restructuring in 2015 and its incorporation as BCE in 2020, and still sets the standard the business is run to.",
-      "Her direction is simple and does not change with the size of the project: quality controlled at every stage, safety on every site, and long-term partnerships with the clients, suppliers and crews who build Cambodia with us.",
-      "Thirty years on, the company she chairs runs four batching plants, its own piling rigs and a fleet of 41 mixer trucks — and still answers the phone from Battambang.",
+    people: [
+      {
+        name: "Ms. Loeung Chan",
+        role: "Chairwoman",
+        image: "/Image/bce/chairwoman.webp",
+        imageAlt: "Ms. Loeung Chan, Chairwoman of BCE",
+        bio: [
+          "Ms. Loeung Chan is Chairwoman of Battambang Construction and Engineering Co., Ltd. She has guided the company through its restructuring in 2015 and its incorporation as BCE in 2020, and still sets the standard the business is run to.",
+          "Her direction is simple and does not change with the size of the project: quality controlled at every stage, safety on every site, and long-term partnerships with the clients, suppliers and crews who build Cambodia with us.",
+          "Thirty years on, the company she chairs runs four batching plants, its own piling rigs and a fleet of 41 mixer trucks — and still answers the phone from Battambang.",
+        ],
+      },
+      {
+        name: "Mr. Sokha Vann",
+        role: "Managing Director",
+        image: "",
+        imageAlt: "",
+        bio: [
+          "Mr. Sokha Vann runs BCE's day-to-day business, coordinating the batching plants, piling crews and civil works teams so every project is delivered on schedule and to specification.",
+          "He works alongside the Chairwoman on company strategy, fleet investment and the long-term partnerships that keep BCE building across Cambodia.",
+        ],
+      },
+      {
+        name: "Ms. Sreyleak Chhun",
+        role: "Finance & Administration Director",
+        image: "",
+        imageAlt: "",
+        bio: [
+          "Ms. Sreyleak Chhun leads finance, procurement and administration, keeping plant, fleet and project spending under one budget and one set of controls.",
+          "Her team looks after payroll, supplier accounts and the paperwork behind every tender, so the site teams can concentrate on the work.",
+        ],
+      },
+      {
+        name: "Mr. Dara Pich",
+        role: "Operations Director",
+        image: "",
+        imageAlt: "",
+        bio: [
+          "Mr. Dara Pich oversees production and site operations, from aggregate intake and batching to the mixers, pumps and piling rigs on the road.",
+          "He sets the daily dispatch plan with the plant and keeps quality, safety and delivery on the same schedule.",
+        ],
+      },
     ],
   },
   vision: {

@@ -1,10 +1,9 @@
 import { siteSettings } from "./siteSettings"
-import { useRef, type CSSProperties } from "react"
+import { useRef } from "react"
 import SiteHeader from "./SiteHeader"
 import Footer from "./Footer"
 import FluidCursor from "./FluidCursor"
 import QuoteCta from "./QuoteCta"
-import ArrowButton from "./ArrowButton"
 import { useMediaReveal, usePageSetup } from "./usePageSetup"
 import { LabelCopy, ParallaxHero, useScrollParallax } from "./ServiceBlocks"
 import { LineIcon } from "./LineIcon"
@@ -18,7 +17,7 @@ import StickyValues from "./StickyValues"
 //
 // The page follows the same Olympic-style blocks as Quality & HSE and Coverage: the parallax cover, a labelled
 // introduction with an on-page index, one ink band carrying the key figures in the project-highlights grid, the plant
-// as a photo beside the corporate profile's numbered machine cards, and the hire/dispatch contact.
+// as a photo beside the corporate profile's numbered machine cards, and the closing quotation band.
 
 const phones = siteSettings.contact.phones
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`
@@ -28,7 +27,6 @@ const TOPICS = [
   ["fleet-inventory", "What we own"],
   ["fleet-jobs", "Fleet by job"],
   ["fleet-maintenance", "Maintenance & operators"],
-  ["fleet-mobilisation", "Mobilisation & hire"],
 ] as const
 
 export default function FleetPage() {
@@ -91,7 +89,6 @@ export default function FleetPage() {
             headerTitle="What we own"
             label={fleet.figuresLabel}
             title={fleet.figuresTitle}
-            copy={fleet.figuresCopy}
           />
         </div>
 
@@ -117,7 +114,7 @@ export default function FleetPage() {
           id="fleet-maintenance"
           data-header-title={fleet.maintenanceTitle}
           aria-labelledby="fl-maintenance"
-          className="ol-values"
+          className="ol-values fl-maintenance"
         >
           <div className="ol-values-head">
             <p data-split="content" className="ol-label">
@@ -126,12 +123,6 @@ export default function FleetPage() {
             <h2 id="fl-maintenance" data-split className="ol-values-title">
               {fleet.maintenanceTitle}
             </h2>
-            <p
-              data-split="content"
-              className="max-w-[40rem] text-[16px] leading-[1.6] text-[#111]/55"
-            >
-              {fleet.maintenanceCopy}
-            </p>
           </div>
           <ul className="ol-values-grid">
             {fleet.maintenance.map((item) => (
@@ -144,58 +135,6 @@ export default function FleetPage() {
               </li>
             ))}
           </ul>
-        </section>
-
-        {/* Mobilisation and hire, using the Quality page's split block and numbered list. */}
-        <section
-          id="fleet-mobilisation"
-          data-header-title={fleet.mobilisationTitle}
-          aria-labelledby="fl-mobilisation"
-          className="qh-section qx-split fl-section"
-        >
-          <div className="qx-head">
-            <p data-split="content" className="ol-label">
-              {fleet.mobilisationLabel}
-            </p>
-            <h2 id="fl-mobilisation" data-split className="pd-h2">
-              {fleet.mobilisationTitle}
-            </h2>
-            <div className="qx-copy mt-10 w-[520px] max-w-full">
-              <p data-split="content">{fleet.mobilisationCopy}</p>
-              <p data-split="content" className="text-[15px] text-[#111]/45">
-                {fleet.mobilisationNote}
-              </p>
-            </div>
-            <ArrowButton
-              href={fleet.ctaHref}
-              label={fleet.ctaLabel}
-              className="mt-8"
-            />
-          </div>
-          <div className="qx-body">
-            <h3 data-split="content" className="qx-label">
-              How it works
-            </h3>
-            <ol className="qx-list">
-              {fleet.mobilisationSteps.map((step, index) => (
-                <li
-                  key={step}
-                  data-reveal
-                  className="qx-step pd-rule"
-                  style={{ "--rd": `${index * 0.08}s` } as CSSProperties}
-                >
-                  <span data-split="content" className="qx-n">
-                    {pad(index + 1)}.
-                  </span>
-                  <div>
-                    <p data-split="content" className="qx-step-text">
-                      {step}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
         </section>
       </div>
 
