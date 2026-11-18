@@ -96,16 +96,15 @@ export default function FleetPage() {
         </div>
 
         {/* Fleet by job, as the HSE commitment on Quality & HSE (src/StickyValues.tsx): the screen sticks, one kind of
-            work at a time beside a photo column, each job's photo wiping up over the last as its title, copy and key
-            services rise in. The counts stay in the ink band above. */}
+            work at a time beside a photo column, each job's photo wiping up over the last as its title and key services
+            rise in. The label carries only the tag, the job title and its key services — no standing introduction or
+            per-job copy, so the checklist is the content of the card. The counts stay in the ink band above. */}
         <StickyValues
           id="fleet-jobs"
           label={fleet.jobsLabel}
           heading={fleet.jobsTitle}
-          intro={fleet.jobsCopy}
           items={jobs.map((job) => ({
             title: job.title,
-            text: job.text,
             image: job.image,
             alt: job.imageAlt,
             bullets: job.bullets,

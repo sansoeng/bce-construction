@@ -4329,12 +4329,17 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .abv-intro.is-active { opacity: 1; transition-duration: .4s; }
 .abv-card-body { margin-top: auto; }
 .abv-card-services { margin-top: 1.5rem; }
-.abv-card-services-head { margin-bottom: .55rem; font-family: var(--font-ui-mono); font-size: 11px; font-weight: 600; letter-spacing: .08em; line-height: 1.2; text-transform: uppercase; color: var(--brand-ink); }
-.abv-card-services ul { display: flex; flex-direction: column; gap: .4rem; margin: 0; padding: 0; list-style: none; }
-.abv-card-services li { position: relative; padding-left: 1rem; font-size: .82rem; line-height: 1.4; color: rgb(17 17 17 / .62); }
-.abv-card-services li::before { content: "✓"; position: absolute; left: 0; top: 0; font-size: .75rem; font-weight: 600; color: var(--brand); }
+.abv-card-services-head { margin-bottom: .75rem; font-family: var(--font-ui-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; line-height: 1.2; text-transform: uppercase; color: var(--brand-ink); }
+.abv-card-services ul { display: flex; flex-direction: column; gap: .55rem; margin: 0; padding: 0; list-style: none; }
+/* The checklist is the content of the fleet's job cards, not a footnote under them: 16px in ink, with the tick set to
+   match. Nothing else uses .abv-card-services, so this size is the fleet's. */
+.abv-card-services li { position: relative; padding-left: 1.35rem; font-size: 16px; line-height: 1.45; color: rgb(17 17 17 / .82); }
+.abv-card-services li::before { content: "✓"; position: absolute; left: 0; top: 0; font-size: 1rem; font-weight: 600; color: var(--brand); }
+/* A job card with only the checklist (the fleet's): the list follows the title instead of being pinned to the foot of
+   the column, which would leave the headline alone at the top of a full screen. */
+.abv.is-live .abv-card-body--solo { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
 .abv--dark .abv-card-services-head { color: var(--brand); }
-.abv--dark .abv-card-services li { color: rgb(255 255 255 / .68); }
+.abv--dark .abv-card-services li { color: rgb(255 255 255 / .82); }
 @media (prefers-reduced-motion: reduce) { .abv-intro, .abv-intro.is-active { transition: none; } }
 /* 01 and 02 photos at the HSE sequence's image size on desktop: five columns wide and the screen's height less the
    header band (6.25rem above, 1.25rem below), as .abv-vision-images. */

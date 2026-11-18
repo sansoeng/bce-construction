@@ -9,7 +9,8 @@ import { useLayoutEffect, useRef, type CSSProperties } from "react"
 
 export type StickyItem = {
   title: string
-  text: string
+  /** Optional line under the title; the fleet's jobs carry only their key services, so theirs is left out. */
+  text?: string
   image: string
   alt: string
   /** Optional "Key services" checklist under the copy (the fleet jobs carry one). */
@@ -205,15 +206,21 @@ export default function StickyValues({
                   >
                     {v.title}
                   </h3>
-                  <div className="abv-card-body">
-                    <p
-                      className="abv-card-text abv-txt"
-                      data-split="content"
-                      data-split-toggle
-                      style={{ "--base": ".3s" } as CSSProperties}
-                    >
-                      {v.text}
-                    </p>
+                  <div
+                    className={`abv-card-body${
+                      v.text ? "" : " abv-card-body--solo"
+                    }`}
+                  >
+                    {v.text && (
+                      <p
+                        className="abv-card-text abv-txt"
+                        data-split="content"
+                        data-split-toggle
+                        style={{ "--base": ".3s" } as CSSProperties}
+                      >
+                        {v.text}
+                      </p>
+                    )}
                     {v.bullets?.length ? (
                       <div
                         className="abv-card-services abv-txt"
