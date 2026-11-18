@@ -1,10 +1,11 @@
 /**
  * About BCE content.
  *
- * The heritage, Chairwoman's message, vision, mission, core values and the two
- * Explore tiles on `/about` live here. The bundled defaults render first;
- * Cloudflare D1 then replaces them at runtime through `contentStore`, so the
- * admin console edits the live page without a deploy.
+ * The heritage, Chairwoman's message, vision, mission, core values, future
+ * development strategy and the two Explore tiles on `/about` live here. The
+ * bundled defaults render first; Cloudflare D1 then replaces them at runtime
+ * through `contentStore`, so the admin console edits the live page without a
+ * deploy.
  *
  * The "Who we are" photo grid in `AboutZoom` stays in code: its seven tiles are
  * tied to fixed grid positions, so only its two statements are editable.
@@ -58,6 +59,17 @@ export type AboutContent = {
   values: {
     sectionLabel: string;
     items: { title: string; text: string; image: string; imageAlt: string }[];
+  };
+  strategy: {
+    label: string;
+    title: string;
+    intro: string;
+    pillars: { title: string; text: string }[];
+    focusLabel: string;
+    focus: string[];
+    visionLabel: string;
+    vision: string;
+    stakeholders: { label: string; text: string }[];
   };
   zoom: {
     statements: string[];
@@ -231,6 +243,59 @@ export const DEFAULT_ABOUT: AboutContent = {
         text: "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success.",
         image: "/Image/bce/value-partnership.webp",
         imageAlt: "Two steel fixers working together on reinforcement",
+      },
+    ],
+  },
+  strategy: {
+    label: "Future development strategy",
+    title: "Building today. Leading tomorrow.",
+    intro:
+      "BCE is committed to sustainable growth, operational excellence and long-term value creation for our clients, investors, partners and the communities we serve. Our future strategy is built on innovation, people, quality and responsible growth, supporting Cambodia’s development and regional competitiveness.",
+    pillars: [
+      {
+        title: "Growth & expansion",
+        text: "Expand our footprint across Cambodia and pursue selected regional opportunities through new facilities, partnerships and strategic investments.",
+      },
+      {
+        title: "Innovation & technology",
+        text: "Invest in advanced technology, digital systems and data-driven operations to improve efficiency, product quality and customer experience.",
+      },
+      {
+        title: "Quality & reliability",
+        text: "Strengthen our quality management, laboratory capability and process control to deliver products and services that exceed industry standards.",
+      },
+      {
+        title: "People & culture",
+        text: "Develop our people, promote a strong safety culture and foster a performance-driven environment built on integrity and accountability.",
+      },
+      {
+        title: "Sustainability & responsibility",
+        text: "Operate responsibly with care for the environment, support communities and contribute to Cambodia’s sustainable development.",
+      },
+    ],
+    focusLabel: "Our focus for the future",
+    focus: [
+      "Increase production and service capacity to meet growing demand",
+      "Strengthen the supply chain and strategic partnerships",
+      "Enhance digital transformation and operational integration",
+      "Maintain strong financial discipline and governance",
+      "Deliver long-term value for stakeholders and communities",
+    ],
+    visionLabel: "Our vision",
+    vision:
+      "To be Cambodia’s most trusted civil construction and engineering company, delivering quality concrete works, reliable piling services and professional project execution.",
+    stakeholders: [
+      {
+        label: "For our clients",
+        text: "Reliable products, consistent quality and responsive service that build trust and long-term relationships.",
+      },
+      {
+        label: "For our partners",
+        text: "Transparent collaboration, shared growth and mutual success.",
+      },
+      {
+        label: "For government & society",
+        text: "Supporting national infrastructure, creating jobs, paying taxes and contributing to community development.",
       },
     ],
   },

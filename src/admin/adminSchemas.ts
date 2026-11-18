@@ -565,7 +565,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
     type: "about",
     label: "About BCE",
     singular: "About BCE",
-    description: "The heritage, Chairwoman’s message, vision, mission, core values and Explore tiles on the About page.",
+    description: "The heritage, Chairwoman’s message, vision, mission, core values, future strategy and Explore tiles on the About page.",
     icon: "◈",
     titleKey: "title",
     slugKey: "slug",
@@ -580,6 +580,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "story", title: "Milestones", hint: "The horizontal milestones rail shown under Leadership: year, title, text and photo. The old history paragraph is no longer printed.", keys: ["story"] },
       { id: "vision", title: "Vision & mission", hint: "The two glass boxes over the photo.", keys: ["vision", "mission"] },
       { id: "values", title: "Core values", hint: "The four pillars, each with its photo.", keys: ["values"] },
+      { id: "strategy", title: "Future strategy", hint: "The five strategic pillars, the focus list, the promise to each audience and the vision.", keys: ["strategy"] },
       { id: "zoom", title: "Who we are", hint: "The two statements revealed over the photo grid.", keys: ["zoom"] },
       { id: "explore", title: "Explore tiles", hint: "The two large tiles at the end of the page.", keys: ["explore"] },
     ],
@@ -649,6 +650,24 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "text", label: "Text", type: "textarea", rows: 3 },
           { key: "image", label: "Photo", type: "image", aspect: "4 / 3" },
           { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+        ] },
+      ] },
+
+      { key: "strategy", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "title", label: "Heading", type: "text", wide: true },
+        { key: "intro", label: "Introduction", type: "textarea", rows: 3, wide: true },
+        { key: "pillars", label: "Strategic pillars", type: "objectList", itemLabel: "Pillar", itemFields: [
+          { key: "title", label: "Title", type: "text" },
+          { key: "text", label: "Text", type: "textarea", rows: 3 },
+        ] },
+        { key: "focusLabel", label: "Focus label", type: "text" },
+        { key: "focus", label: "Focus points", type: "list", hint: "One point per row." },
+        { key: "visionLabel", label: "Vision label", type: "text" },
+        { key: "vision", label: "Vision statement", type: "textarea", rows: 3, wide: true },
+        { key: "stakeholders", label: "Promises", type: "objectList", itemLabel: "Promise", itemFields: [
+          { key: "label", label: "Audience", type: "text" },
+          { key: "text", label: "Text", type: "textarea", rows: 2 },
         ] },
       ] },
 

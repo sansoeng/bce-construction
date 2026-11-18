@@ -4663,6 +4663,42 @@ select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 /* About: business chips. */
 .ab-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
 .ab-chip { padding: .45rem 1.1rem; border-radius: var(--radius) !important; background: var(--paper-page); font-size: .95rem; line-height: 1.2; animation: pd-fade-up 1s cubic-bezier(.16, 1, .3, 1) calc(.3s + var(--i, 0) * .06s) backwards; }
+/* Future development strategy, from the Corporate Profile 2026 (p. 36): the five pillars over the focus list, the
+   vision and the promise to each audience. Paper ground, hairlines and the mono labels of the site's other sections. */
+.ab-strategy { padding: clamp(5rem, 8vw, 8rem) var(--olm, var(--page-gutter)); border-top: 1px solid var(--line); }
+.ab-strategy-head { max-width: 62rem; }
+.ab-strategy-title { max-width: 26ch; margin-top: 24px; font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
+.ab-strategy-intro { max-width: 46rem; margin-top: 24px; font-size: 1.05rem; line-height: 1.5; color: rgb(17 17 17 / .6); }
+.ab-strategy-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; margin-top: clamp(2.5rem, 4vw, 4rem); padding: 0; list-style: none; }
+.ab-strategy-pillar { padding-top: 18px; border-top: 1px solid var(--line); }
+.ab-strategy-n { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; color: var(--brand-ink); }
+.ab-strategy-pillar-title { margin-top: 12px; font-size: 19px; font-weight: 600; line-height: 1.25; letter-spacing: -.01em; }
+.ab-strategy-pillar-text { margin-top: 10px; font-size: 15px; line-height: 1.55; color: rgb(17 17 17 / .6); }
+.ab-strategy-foot { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: clamp(3rem, 5vw, 5rem); padding-top: clamp(2rem, 3vw, 3rem); border-top: 1px solid var(--line); }
+.ab-strategy-focus { grid-column: 1 / span 6; }
+.ab-strategy-vision { grid-column: 8 / -1; }
+.ab-strategy-subhead { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; line-height: 1.2; text-transform: uppercase; color: var(--brand-ink); }
+.ab-strategy-focus ul { display: flex; flex-direction: column; gap: .6rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.ab-strategy-focus li { position: relative; padding-left: 1.5rem; font-size: 16px; line-height: 1.5; color: rgb(17 17 17 / .75); }
+.ab-strategy-focus li::before { content: "✓"; position: absolute; left: 0; top: 0; font-size: 1rem; font-weight: 600; color: var(--brand); }
+.ab-strategy-statement { max-width: 30rem; margin-top: 1.25rem; font-size: clamp(1.35rem, 1.8vw, 1.6rem); font-weight: 500; line-height: 1.3; letter-spacing: -.015em; }
+.ab-strategy-promises { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(2.5rem, 4vw, 4rem); padding: 0; list-style: none; }
+.ab-strategy-promises li { padding-top: 18px; border-top: 1px solid var(--line); }
+.ab-strategy-promise-label { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--brand-ink); }
+.ab-strategy-promise-text { margin-top: 10px; font-size: 15px; line-height: 1.55; color: rgb(17 17 17 / .6); }
+@media (max-width: 1199px) {
+  .ab-strategy-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) {
+  .ab-strategy-focus, .ab-strategy-vision { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+  .ab-strategy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .ab-strategy-promises { grid-template-columns: 1fr; gap: 16px; }
+}
+@media (max-width: 519px) {
+  .ab-strategy-grid { grid-template-columns: 1fr; }
+}
 /* About "Explore more": olympic.no's media link tiles. Two 828:765 tiles inset by the page's own left/right gutter
    (the 24px gap between the pair stays fixed), a black gradient over the top half, label and title at the top, the
    Explore button at the foot; the photo slides -15% to 0 as the tile crosses the viewport (--p from useScrollParallax).

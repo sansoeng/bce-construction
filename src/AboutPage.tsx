@@ -13,7 +13,8 @@ import { about } from "./about"
 
 // About BCE, after the website brief ("10. About BCE"): the olympic.no-style header (title, banner, introduction), who
 // we are (a TopTier-style zoom-out), leadership and the milestones rail after dalco.ch/meet-dalco, vision, mission and
-// core values (Telha Clarke's studio values/vision scroll sequence, src/AboutValues.tsx), then two Explore tiles.
+// core values (Telha Clarke's studio values/vision scroll sequence, src/AboutValues.tsx), the future development
+// strategy from the Corporate Profile 2026, then two Explore tiles.
 // Facts are from the BCE Corporate Profile 2026 as already used across the site; blocks the profile does not yet supply
 // in full are tagged "Sample content" on the page until BCE provides the final copy.
 // It speaks the site's language: line-by-line title reveals, hairline rows drawing in, and photos wiping in from the
@@ -262,6 +263,66 @@ function Milestones() {
   )
 }
 
+// Future development strategy, from the Corporate Profile 2026 (p. 36): five pillars, the focus list, the promise to
+// each audience and the vision they aim at. Read from `about.strategy` so the admin can edit it.
+function Strategy() {
+  const strategy = about.strategy
+  return (
+    <section
+      id="strategy"
+      data-header-title="Future strategy"
+      aria-labelledby="ab-strategy"
+      className="ab-strategy"
+    >
+      <div className="ab-strategy-head">
+        <p data-split="content" className="ol-label">
+          {strategy.label}
+        </p>
+        <h2 id="ab-strategy" data-split className="ab-strategy-title">
+          {strategy.title}
+        </h2>
+        <p data-split="content" className="ab-strategy-intro">
+          {strategy.intro}
+        </p>
+      </div>
+
+      <ol className="ab-strategy-grid">
+        {strategy.pillars.map((pillar, index) => (
+          <li key={pillar.title} data-reveal className="ab-strategy-pillar">
+            <span className="ab-strategy-n">{String(index + 1).padStart(2, "0")}</span>
+            <h3 className="ab-strategy-pillar-title">{pillar.title}</h3>
+            <p className="ab-strategy-pillar-text">{pillar.text}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div className="ab-strategy-foot">
+        <div className="ab-strategy-focus">
+          <p className="ab-strategy-subhead">{strategy.focusLabel}</p>
+          <ul>
+            {strategy.focus.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="ab-strategy-vision">
+          <p className="ab-strategy-subhead">{strategy.visionLabel}</p>
+          <p className="ab-strategy-statement">{strategy.vision}</p>
+        </div>
+      </div>
+
+      <ul className="ab-strategy-promises">
+        {strategy.stakeholders.map((item) => (
+          <li key={item.label}>
+            <p className="ab-strategy-promise-label">{item.label}</p>
+            <p className="ab-strategy-promise-text">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
 export default function AboutPage() {
   usePageSetup("About BCE | BCE., Ltd.")
   const rootRef = useRef<HTMLElement>(null)
@@ -313,6 +374,9 @@ export default function AboutPage() {
 
         {/* 2. Vision, mission and the four core values. */}
         <AboutValues />
+
+        {/* 2b. Future development strategy, from the Corporate Profile 2026 (p. 36). */}
+        <Strategy />
 
         {/* 4. Explore more: two media link tiles (olympic.no), the photos drifting in their frames as they cross the screen. */}
         <section
