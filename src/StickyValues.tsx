@@ -32,15 +32,15 @@ export default function StickyValues({
   intro,
   items,
   dark = false,
-  /** Optional line under the label, held at the top of the text column for the whole sequence. */
-  /** Paper text on the ink ground, for pages where the sequence continues a dark band. */
 }: {
   id: string
   n?: string
   label: string
   heading: string
+  /** Optional line under the label, held at the top of the text column for the whole sequence. */
   intro?: string
   items: StickyItem[]
+  /** Paper text on the ink ground, for pages where the sequence continues a dark band. */
   dark?: boolean
 }) {
   const rootRef = useRef<HTMLElement>(null)
