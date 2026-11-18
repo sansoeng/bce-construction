@@ -440,22 +440,6 @@ function App() {
       <div className="relative">
       <div data-hero-spacer data-nav-dark data-header-title="Home" className="hero h-[100svh] min-h-[600px]" aria-hidden />
 
-      {/* Jump bar: the Comment asks for the evidence to be reachable without scrolling four screens of motion. */}
-      <nav aria-label="Skip to a section" className="home-jump">
-        <span className="home-jump-label">Jump to</span>
-        {[
-          ["About", "#about"],
-          ["Businesses", "#expertise"],
-          ["Quality", "#quality-evidence"],
-          ["Fleet", "#fleet-evidence"],
-          ["Projects", "#projects"],
-          ["Coverage", "#coverage"],
-          ["Contact", "/contact"],
-        ].map(([label, href]) => (
-          <a key={label} href={href} className="home-jump-link">{label}</a>
-        ))}
-      </nav>
-
       <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white px-5 pb-24 pt-6">
         <div className="relative">
         <div data-about-track className="pointer-events-none absolute left-0 top-0 z-[1] w-full max-w-[15.5rem]">

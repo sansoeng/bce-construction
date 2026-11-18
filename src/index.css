@@ -344,6 +344,7 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   -webkit-corner-smoothing: 60%;
   corner-smoothing: 60%;
   background-color: var(--paper-media); /* placeholder tone the photo is revealed over */
+  transition: border-radius .8s cubic-bezier(.77, 0, .18, 1);
 }
 .kp-item:nth-child(6n+3) .kp-media, .kp-item:nth-child(6n) .kp-media { height: calc(700 * var(--u)); }
 
@@ -356,11 +357,24 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   corner-smoothing: 60%;
   display: block;
   opacity: 1 !important;
-  transition: transform 1.109s var(--ease-k);
+  transition: transform 1.109s var(--ease-k), border-radius .8s cubic-bezier(.77, 0, .18, 1);
 }
-.kp-item:hover .kp-media img {
+
+/* Tile hover after olympic.no: the frame rounds out while the photo pushes in, and the name takes the accent. */
+a.kp-item:hover .kp-media,
+a.kp-item:focus-visible .kp-media,
+a.kp-item:hover .kp-media img,
+a.kp-item:focus-visible .kp-media img {
+  border-radius: calc(var(--radius) + 16px);
+}
+a.kp-item:hover .kp-media img,
+a.kp-item:focus-visible .kp-media img {
   opacity: 1 !important;
-  transform: scale(1.035);
+  transform: scale(1.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  a.kp-item:hover .kp-media img,
+  a.kp-item:focus-visible .kp-media img { transform: none; }
 }
 
 /* Hover affordance after pda.archi: a black disc with a plus rides up over the photo, turning as it comes in. */
@@ -445,10 +459,11 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   line-height: 1.25;
   letter-spacing: -0.015em;
   color: var(--ink);
-  transition: color 0.2s ease;
+  transition: color 0.4s ease;
 }
-.kp-item:hover .kp-name {
-  color: var(--ink-pure);
+a.kp-item:hover .kp-name,
+a.kp-item:focus-visible .kp-name {
+  color: var(--brand-ink);
 }
 @media (min-width: 768px) {
   .kp-name {
@@ -842,9 +857,35 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
   opacity: 0;
   scale: 0.85;
   transform: translate3d(-200px, -200px, 0);
-  transition: opacity 0.2s linear, scale 0.25s var(--p3-out);
+  transition:
+    opacity 0.2s linear,
+    scale 0.25s var(--p3-out),
+    width 0.35s var(--p3-out),
+    height 0.35s var(--p3-out),
+    margin 0.35s var(--p3-out),
+    border-radius 0.35s var(--p3-out),
+    background-color 0.25s ease,
+    border-color 0.25s ease;
   will-change: transform;
 }
+
+/* olympic.no tile hover: a solid accent square with a white arrow, tucked just below-right of the pointer. */
+.fg-cursor.is-arrow {
+  width: 46px;
+  height: 46px;
+  margin: 15px 0 0 13px;
+  background: var(--brand);
+  background-image: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: transparent;
+  border-radius: 9px;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.18);
+}
+.fg-cursor.is-arrow .fg-cursor-label { display: none; }
+.fg-cursor-icon { display: none; color: var(--paper); }
+.fg-cursor.is-arrow .fg-cursor-icon { display: block; }
+.fg-cursor-icon svg { display: block; width: 17px; height: 17px; }
 
 @media (max-width: 600px) {
   .fg-cursor {
