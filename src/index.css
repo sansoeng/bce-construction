@@ -2884,18 +2884,17 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 .flb-intro { max-width: 920px; margin: 0 auto clamp(3rem, 6vw, 6rem); text-align: center; }
 .flb-title { max-width: 24ch; margin: 16px auto 0; font-size: clamp(34px, 6vw, 54px); font-weight: 500; line-height: 1.02; letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance; }
 .flb-spacer { position: relative; height: 140vh; height: calc(100svh + 40svh); }
-.flb-frame { position: sticky; top: 0; display: grid; place-items: center; height: 100vh; height: 100svh; padding-inline: var(--page-gutter); overflow: clip; }
+.flb-frame { position: sticky; top: 0; display: grid; place-items: center; height: 100vh; height: 100svh; overflow: clip; }
 .flb-panel {
   position: relative;
   display: grid;
   place-items: center;
   width: 100%;
-  max-width: var(--page-max);
-  height: min(84vh, 880px);
+  height: 100%;
   overflow: hidden;
-  border-radius: var(--radius) !important;
   background: var(--ink);
   color: var(--paper);
+  /* The component animates this to a full-bleed screen with square corners. */
   clip-path: inset(0 24% 0 24% round var(--radius));
   will-change: clip-path;
 }
@@ -2920,14 +2919,13 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 .flb-corner-bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
 .flb-corner-br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
 @media (max-width: 767px) {
-  .flb-panel { height: min(78vh, 620px); }
   .flb-corner { display: none; }
   .flb-actions { width: 100%; }
   .flb-actions .fg-btn { flex: 1 1 auto; justify-content: center; }
 }
-/* Reduced motion, no JavaScript and the pre-hydration frame: the panel is simply open. */
+/* Reduced motion and the pre-hydration frame: the panel simply sits open at screen size, once. */
 .flb.is-static .flb-spacer { height: auto; }
-.flb.is-static .flb-frame { position: static; height: auto; padding-block: 0; }
+.flb.is-static .flb-frame { position: static; height: 100vh; height: 100svh; }
 .flb.is-static .flb-panel { clip-path: none; }
 .flb.is-static .flb-media img { transform: none; }
 .flb.is-static .flb-copy { opacity: 1; transform: none; }

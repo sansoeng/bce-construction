@@ -33,6 +33,8 @@ export function FleetBand() {
     }
 
     let frameId = 0;
+    // The panel opens out of a rounded window into a square full-bleed screen; follow the shared corner token.
+    const radius = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--radius")) || 8;
     const update = () => {
       frameId = 0;
       const viewport = innerHeight || 1;
@@ -40,9 +42,9 @@ export function FleetBand() {
       // 0 when the panel's frame touches the bottom of the screen, 1 once its top reaches the top of the screen.
       const p = clamp01((viewport - rect.top) / viewport);
       const e = easeInOut(p);
-      // Olympic's inset: a centred half-width window that opens to the full page width.
+      // Olympic's inset: a centred half-width window that opens to the full screen.
       const inset = (24 * (1 - e)).toFixed(2);
-      panel.style.clipPath = `inset(0 ${inset}% 0 ${inset}% round var(--radius))`;
+      panel.style.clipPath = `inset(0 ${inset}% 0 ${inset}% round ${(radius * (1 - e)).toFixed(2)}px)`;
       // The photo starts tighter in the frame and pulls back as it opens: the zoom-out.
       photo.style.transform = `scale(${(1.16 - 0.16 * e).toFixed(4)})`;
       // The copy arrives once the panel is mostly open, so it never reads through a narrow slice.
