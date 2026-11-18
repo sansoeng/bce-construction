@@ -5,8 +5,7 @@ import { quality } from "./quality";
 // Equipment & fleet on the homepage, after olympic.no's "FLEET FOCUS" (fullscreen-media) section: a centred mono label
 // and headline, then a sticky screen holding one photographic panel. As the panel enters, its frame opens from a
 // centred half-width window to the full page width (their clip-path inset 25% → 0) while the photo itself pulls back
-// from 1.16 to 1, so the shot zooms out rather than sliding. The fleet's four key figures follow underneath, so the
-// capacity numbers stay on the homepage.
+// from 1.16 to 1, so the shot zooms out rather than sliding.
 //
 // Olympic drives this with a CSS view timeline; scroll timelines are not in every browser yet, so the same curve is
 // written on one rAF per scroll, like AboutZoom and useScrollParallax. Type, colours and the CTA stay BCE's: the
@@ -19,11 +18,6 @@ export function FleetBand() {
   const sectionRef = useRef<HTMLElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const fleet = quality.fleet;
-
-  // The four figures a procurement reader looks for; fall back to the first four when the labels change.
-  const wanted = ["Batching plants", "Mixer trucks", "Pump trucks", "Piling rigs"];
-  const picked = wanted.map((label) => fleet.rows.find((row) => row.label === label)).filter(Boolean) as typeof fleet.rows;
-  const rows = picked.length === 4 ? picked : fleet.rows.slice(0, 4);
 
   useLayoutEffect(() => {
     const section = sectionRef.current, frame = frameRef.current;
@@ -104,22 +98,6 @@ export function FleetBand() {
             <span className="flb-corner flb-corner-br" aria-hidden />
           </div>
         </div>
-      </div>
-
-      <div className="site-pad">
-        <ul className="flb-figures">
-          {rows.map((row) => {
-            // "04  /  70 m³/hr each" reads badly as a headline number: the count leads, the capacity becomes a note.
-            const [head, ...rest] = row.value.split("/").map((part) => part.trim());
-            return (
-              <li key={row.label}>
-                <span className="flb-figure">{head}</span>
-                <span className="flb-figure-label">{row.label}</span>
-                {rest.length > 0 && <span className="flb-figure-note">{rest.join(" / ")}</span>}
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </section>
   );
