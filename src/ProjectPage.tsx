@@ -254,7 +254,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
               {rest.map((g, i) => (
                 <figure className="kp-item" key={g.image}>
                   <button type="button" className="kp-media pd-zoom" data-cursor="View" aria-label={`View photo: ${g.caption}`} onClick={() => setViewing(i + 1)}>
-                    <img src={g.image} alt={g.caption} loading="lazy" />
+                    <img className="no-radius" src={g.image} alt={g.caption} loading="lazy" />
                   </button>
                   <figcaption className="kp-info"><span data-split="content">{g.caption}</span><span data-split="content" className="kp-detail">{pad(i + 2)}</span></figcaption>
                 </figure>

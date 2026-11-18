@@ -130,7 +130,7 @@ export default function ProjectsPage() {
                   style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                 >
                   <img
-                    className="rounded-[10px]"
+                    className="no-radius rounded-[10px]"
                     src={p.gallery[0].image}
                     alt={`${p.name}, ${p.location}`}
                     loading="lazy"

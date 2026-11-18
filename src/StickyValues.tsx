@@ -1,12 +1,22 @@
 import { useLayoutEffect, useRef, type CSSProperties } from "react"
 
 // A sticky one-at-a-time sequence, the core values part of src/AboutValues.tsx on its own (used for the HSE
-// commitment on Quality & HSE). The screen sticks; each item takes three quarters of a screen of scroll, its title
-// and text rising in as the previous one fades, while its photo wipes up over the last one in the right-hand column
-// (image up from 100%, its mask down from -100%, the photo easing from 1.15 to 1) and darkens the one beneath.
-// It shares AboutValues' .abv-* styles. Below 1024px, or with reduced motion, it becomes a plain stacked layout.
+// commitment on Quality & HSE and for the fleet's jobs on Equipment & fleet). The screen sticks; each item takes three
+// quarters of a screen of scroll, its title and text rising in as the previous one fades, while its photo wipes up over
+// the last one in the right-hand column (image up from 100%, its mask down from -100%, the photo easing from 1.15 to 1)
+// and darkens the one beneath. It shares AboutValues' .abv-* styles. Below 1024px, or with reduced motion, it becomes a
+// plain stacked layout.
 
-export type StickyItem = { title: string; text: string; image: string; alt: string }
+export type StickyItem = {
+  title: string
+  text: string
+  image: string
+  alt: string
+  /** Optional "Key services" checklist under the copy (the fleet jobs carry one). */
+  bullets?: string[]
+  /** Optional head over the checklist; skipped when there are no bullets. */
+  bulletsLabel?: string
+}
 
 const CARD = 0.75 // screens of scroll per item
 const SCRUB = 0.6 // seconds the photo wipes take to catch up with the scroll
@@ -19,15 +29,18 @@ export default function StickyValues({
   n,
   label,
   heading,
+  intro,
   items,
   dark = false,
+  /** Optional line under the label, held at the top of the text column for the whole sequence. */
+  /** Paper text on the ink ground, for pages where the sequence continues a dark band. */
 }: {
   id: string
   n?: string
   label: string
   heading: string
+  intro?: string
   items: StickyItem[]
-  /** Paper text on the ink ground, for pages where the sequence continues a dark band. */
   dark?: boolean
 }) {
   const rootRef = useRef<HTMLElement>(null)
@@ -36,12 +49,16 @@ export default function StickyValues({
     const root = rootRef.current
     if (!root) return
     const sub = root.querySelector<HTMLElement>(".abv-subtitle")!
+    const introEl = root.querySelector<HTMLElement>(".abv-intro")
     const cards = [...root.querySelectorAll<HTMLElement>(".abv-card")]
     const cardsWrap = root.querySelector<HTMLElement>(".abv-cards")!
     const groups = [...root.querySelectorAll<HTMLElement>(".abv-group")]
-    const cardTxt = cards.map((c) => [...c.querySelectorAll<HTMLElement>(".abv-txt")])
-    const all = [sub, ...cardTxt.flat()]
-    const setOn = (els: HTMLElement[], on: boolean) => els.forEach((el) => el.classList.toggle("is-active", on))
+    const cardTxt = cards.map((c) => [
+      ...c.querySelectorAll<HTMLElement>(".abv-txt"),
+    ])
+    const all = [sub, ...(introEl ? [introEl] : []), ...cardTxt.flat()]
+    const setOn = (els: HTMLElement[], on: boolean) =>
+      els.forEach((el) => el.classList.toggle("is-active", on))
 
     const desktop = matchMedia("(min-width: 1024px)")
     const reduced = matchMedia("(prefers-reduced-motion: reduce)")
@@ -83,14 +100,20 @@ export default function StickyValues({
         const u = -r.top / vh // screens scrolled past the section top
         const dt = last ? Math.min(0.1, (now - last) / 1000) : 1
         last = now
-        smooth = Number.isNaN(smooth) ? u : lerp(smooth, u, 1 - Math.exp((-dt * 4) / SCRUB))
+        smooth = Number.isNaN(smooth)
+          ? u
+          : lerp(smooth, u, 1 - Math.exp((-dt * 4) / SCRUB))
         if (Math.abs(smooth - u) < 0.0005) smooth = u
 
         // The first item rises in as the section arrives, then one item per three quarters of a screen.
-        const k = u < -0.35 ? -1 : Math.min(items.length - 1, Math.floor(Math.max(0, u) / CARD))
+        const k =
+          u < -0.35
+            ? -1
+            : Math.min(items.length - 1, Math.floor(Math.max(0, u) / CARD))
         if (k !== current) {
           current = k
           sub.classList.toggle("is-active", k >= 0)
+          introEl?.classList.toggle("is-active", k >= 0)
           cardTxt.forEach((els, i) => setOn(els, i === k))
         }
 
@@ -101,7 +124,9 @@ export default function StickyValues({
           const image = g.children[1] as HTMLElement,
             mask = image.firstElementChild as HTMLElement,
             img = mask.firstElementChild as HTMLElement
-          ;(g.firstElementChild as HTMLElement).style.opacity = (0.9 * q).toFixed(3)
+          ;(g.firstElementChild as HTMLElement).style.opacity = (
+            0.9 * q
+          ).toFixed(3)
           image.style.transform = `translate3d(0, ${(100 * (1 - q)).toFixed(3)}%, 0)`
           mask.style.transform = `translate3d(0, ${(-100 * (1 - q)).toFixed(3)}%, 0)`
           img.style.transform = `scale(${(1.15 - 0.15 * q).toFixed(4)})`
@@ -125,16 +150,19 @@ export default function StickyValues({
         removeEventListener("resize", onResize)
         root.style.height = ""
         cardsWrap.style.height = ""
-        root.querySelectorAll<HTMLElement>(".abv-group, .abv-group *").forEach((el) => {
-          el.style.transform = ""
-          el.style.opacity = ""
-        })
+        root
+          .querySelectorAll<HTMLElement>(".abv-group, .abv-group *")
+          .forEach((el) => {
+            el.style.transform = ""
+            el.style.opacity = ""
+          })
       }
     }
 
     const setup = () => {
       teardown()
-      teardown = desktop.matches && !reduced.matches ? setupLive() : setupStatic()
+      teardown =
+        desktop.matches && !reduced.matches ? setupLive() : setupStatic()
     }
     setup()
     desktop.addEventListener("change", setup)
@@ -148,7 +176,13 @@ export default function StickyValues({
 
   const headingId = `${id}-title`
   return (
-    <section ref={rootRef} id={id} data-header-title={label} aria-labelledby={headingId} className={`abv abv--solo qh-section${dark ? " abv--dark" : ""}`}>
+    <section
+      ref={rootRef}
+      id={id}
+      data-header-title={label}
+      aria-labelledby={headingId}
+      className={`abv abv--solo qh-section${dark ? " abv--dark" : ""}`}
+    >
       <div className="abv-sticky">
         <div className="abv-vision">
           <div className="abv-vision-left">
@@ -159,17 +193,52 @@ export default function StickyValues({
               {n && <span className="abv-subtitle-n">{n}</span>}
               <span>{label}</span>
             </p>
+            {intro && <p className="abv-intro">{intro}</p>}
             <ol className="abv-cards">
               {items.map((v) => (
                 <li key={v.title} className="abv-card">
-                  <h3 className="abv-card-title abv-txt" data-split data-split-toggle style={{ "--base": ".12s" } as CSSProperties}>
+                  <h3
+                    className="abv-card-title abv-txt"
+                    data-split
+                    data-split-toggle
+                    style={{ "--base": ".12s" } as CSSProperties}
+                  >
                     {v.title}
                   </h3>
-                  <p className="abv-card-text abv-txt" data-split="content" data-split-toggle style={{ "--base": ".3s" } as CSSProperties}>
-                    {v.text}
-                  </p>
+                  <div className="abv-card-body">
+                    <p
+                      className="abv-card-text abv-txt"
+                      data-split="content"
+                      data-split-toggle
+                      style={{ "--base": ".3s" } as CSSProperties}
+                    >
+                      {v.text}
+                    </p>
+                    {v.bullets?.length ? (
+                      <div
+                        className="abv-card-services abv-txt"
+                        style={{ "--base": ".42s" } as CSSProperties}
+                      >
+                        {v.bulletsLabel && (
+                          <p className="abv-card-services-head">
+                            {v.bulletsLabel}
+                          </p>
+                        )}
+                        <ul>
+                          {v.bullets.map((bullet) => (
+                            <li key={bullet}>{bullet}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
                   <figure className="abv-card-photo">
-                    <img src={v.image} alt={v.alt} loading="lazy" decoding="async" />
+                    <img
+                      src={v.image}
+                      alt={v.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </figure>
                 </li>
               ))}
@@ -177,7 +246,12 @@ export default function StickyValues({
           </div>
           <div className="abv-vision-images" aria-hidden>
             <div className="abv-base">
-              <img src={items[0].image} alt="" loading="lazy" decoding="async" />
+              <img
+                src={items[0].image}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             {items.slice(1).map((v) => (
               <div key={v.image} className="abv-group">

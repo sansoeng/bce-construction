@@ -361,12 +361,6 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger):not(.apple-hambu
 }
 
 /* Tile hover after olympic.no: the frame rounds out while the photo pushes in, and the name takes the accent. */
-a.kp-item:hover .kp-media,
-a.kp-item:focus-visible .kp-media,
-a.kp-item:hover .kp-media img,
-a.kp-item:focus-visible .kp-media img {
-  border-radius: calc(var(--radius) + 16px);
-}
 a.kp-item:hover .kp-media img,
 a.kp-item:focus-visible .kp-media img {
   opacity: 1 !important;
@@ -2773,7 +2767,7 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 /* Why Choose BCE (after fluid.glass/about: "The beliefs that shape us"), in the site's type and colours.
    1 --u = 1px of fluid.glass's 1600px-wide layout. */
 .wb { --u: calc(100vw / 1600); --wb-line: var(--line); isolation: isolate; overflow: hidden; background: var(--paper-soft); color: var(--ink); padding: calc(120 * var(--u)) 0 0; }
-.wb-eyebrow { font-size: 1rem; line-height: 1.4; color: rgb(0 0 0 / .45); }
+.wb-eyebrow { font-size: 1rem; line-height: 1.4; color: var(--brand-ink); text-transform: uppercase; }
 .wb-head { margin: 0 calc(40 * var(--u)); }
 .wb-container { position: relative; display: flex; flex-direction: column; margin: 0 calc(40 * var(--u)); padding: calc(140 * var(--u)) 0 calc(180 * var(--u)); overflow: hidden; }
 .wb-block { display: inline-flex; align-items: flex-end; margin: calc(5 * var(--u)) 0; }
@@ -4351,6 +4345,19 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .abv--solo .abv-vision { padding-bottom: 1.25rem; }
 .abv-base { position: absolute; inset: 0; }
 .abv-base img { width: 100%; height: 100%; object-fit: cover; }
+/* The optional line under the label (a sequence carrying a section lead) and the optional services checklist under an
+   item's copy. Both fade with the rest of the text. */
+.abv-intro { max-width: 26rem; margin-top: 1rem; font-size: 1rem; line-height: 1.45; color: rgb(17 17 17 / .62); opacity: 0; transition: opacity .3s ease-out; }
+.abv-intro.is-active { opacity: 1; transition-duration: .4s; }
+.abv-card-body { margin-top: auto; }
+.abv-card-services { margin-top: 1.5rem; }
+.abv-card-services-head { margin-bottom: .55rem; font-family: var(--font-ui-mono); font-size: 11px; font-weight: 600; letter-spacing: .08em; line-height: 1.2; text-transform: uppercase; color: var(--brand-ink); }
+.abv-card-services ul { display: flex; flex-direction: column; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.abv-card-services li { position: relative; padding-left: 1rem; font-size: .82rem; line-height: 1.4; color: rgb(17 17 17 / .62); }
+.abv-card-services li::before { content: "✓"; position: absolute; left: 0; top: 0; font-size: .75rem; font-weight: 600; color: var(--brand); }
+.abv--dark .abv-card-services-head { color: var(--brand); }
+.abv--dark .abv-card-services li { color: rgb(255 255 255 / .68); }
+@media (prefers-reduced-motion: reduce) { .abv-intro, .abv-intro.is-active { transition: none; } }
 /* 01 and 02 photos at the HSE sequence's image size on desktop: five columns wide and the screen's height less the
    header band (6.25rem above, 1.25rem below), as .abv-vision-images. */
 @media (min-width: 1024px) {
@@ -4960,125 +4967,13 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .fl-figures-band .glance-num { color: var(--paper); }
 .fl-figures-band .pd-unit { color: rgb(255 255 255 / .5); }
 
-.fl-jobs {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  margin: clamp(3rem, 5vw, 5rem) 0 0;
-  padding: 0;
-  list-style: none;
-}
-.fl-job-card {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid rgb(17 17 17 / .14);
-  border-radius: var(--radius);
-  background: var(--paper);
-  transition: border-color .3s ease, transform .5s cubic-bezier(.16, 1, .3, 1);
-}
-@media (hover: hover) {
-  .fl-job-card:hover { border-color: rgb(17 17 17 / .3); transform: translateY(-2px); }
-}
-.fl-job-top {
-  position: relative;
-  display: grid;
-  place-items: center;
-  height: 46px;
-  margin: 18px 18px 0;
-}
-.fl-job-num {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: #d9a13c;
-  color: #111;
-  font-family: var(--font-ui-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .02em;
-}
-.fl-job-card.is-navy .fl-job-num { background: #1b2e5c; color: var(--paper); }
-.fl-job-icon { width: 46px; height: 46px; color: var(--brand); }
-.fl-job-icon svg { display: block; width: 100%; height: 100%; }
-.fl-job-title {
-  margin: 10px 18px 0;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: .04em;
-  text-align: center;
-  text-transform: uppercase;
-  color: #1b2e5c;
-}
-.fl-job-text {
-  margin: 10px 18px 16px;
-  text-align: center;
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: rgb(17 17 17 / .6);
-}
-.fl-job-media {
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: var(--paper-media);
-}
-.fl-job-media img { width: 100%; height: 100%; object-fit: cover; }
-.fl-job-services { margin-top: auto; border-top: 1px solid rgb(17 17 17 / .12); }
-.fl-job-services-head {
-  padding: 10px 18px;
-  background: #d9a13c;
-  color: #111;
-  font-family: var(--font-ui-mono);
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: .06em;
-  text-align: center;
-  text-transform: uppercase;
-}
-.fl-job-card.is-navy .fl-job-services-head { background: #1b2e5c; color: var(--paper); }
-.fl-job-services ul {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 0;
-  padding: 14px 18px 18px;
-  list-style: none;
-}
-.fl-job-services li {
-  position: relative;
-  padding-left: 16px;
-  font-size: 11.5px;
-  line-height: 1.4;
-  color: rgb(17 17 17 / .72);
-}
-.fl-job-services li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--brand);
-  font-size: 11px;
-  font-weight: 600;
-}
+/* Fleet by job runs as the HSE sticky sequence (src/StickyValues.tsx), so it only needs the break from the ink band
+   above; its label, copy and photos come from the shared .abv-* styles. */
+#fleet-jobs { margin-top: clamp(4rem, 8vw, 8rem); }
 .fl-section { margin-top: clamp(6rem, 10vw, 10rem); }
 
-@media (max-width: 1279px) {
-  .fl-jobs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 @media (max-width: 1023px) {
   .fl-glance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 639px) {
-  .fl-jobs { grid-template-columns: 1fr; }
 }
 @media (max-width: 479px) {
   .fl-glance-grid { grid-template-columns: 1fr; }
@@ -5182,7 +5077,7 @@ img.no-radius { border-radius: 0 !important; }
    component sets, so images keep one radius across the homepage, inner pages, lightbox and cards. */
 img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offers-image]):not(.lb-img):not(.sn-logo *):not(.glance-brand *),
 .media-frame, .media-frame img, .project-image, .project-image img,
-.kp-media, .kp-media img,
+.kp-media, .kp-media img:not(.no-radius),
 .about-image, .about-image img,
 .ab-photo, .ab-photo img, .ab-tile, .ab-tile-media,
 .abv-card-photo, .abv-card-photo img, .abv-vision-images,
@@ -5194,6 +5089,29 @@ img:not(.no-radius):not(.apple-logo-icon):not(.apple-hamburger *):not([data-offe
 .qx-lab-photo, .qx-photo, .qx-split--media .qx-photo,
 [data-fly], [data-fly-about] {
   border-radius: var(--radius) !important;
+}
+
+/* Journal tiles reuse the olympic.no hover language (the portfolio grid's rule below is the other half of it). */
+.post-tile__thumbnail {
+  border-radius: var(--radius) !important;
+  transition: border-radius .8s cubic-bezier(.77, 0, .18, 1);
+}
+.post-tile__image { transition: transform .8s cubic-bezier(.77, 0, .18, 1); }
+
+/* olympic.no tile hover is the one deliberate exception to the single photo radius: the frame rounds out as the
+   pointer or keyboard focus enters a portfolio or journal tile. The photo stays square inside the clipping frame, so
+   the corners never draw a second, offset curve. */
+a.kp-item:hover .kp-media,
+a.kp-item:focus-visible .kp-media,
+a.post-tile:hover .post-tile__thumbnail,
+a.post-tile:focus-visible .post-tile__thumbnail {
+  border-radius: calc(var(--radius) + 16px) !important;
+}
+a.post-tile:hover .post-tile__image,
+a.post-tile:focus-visible .post-tile__image { transform: scale(1.06); }
+@media (prefers-reduced-motion: reduce) {
+  a.post-tile:hover .post-tile__image,
+  a.post-tile:focus-visible .post-tile__image { transform: none; }
 }
 
 

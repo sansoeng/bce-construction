@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react";
 
 // Floating glass hover button cursor modelled after fluid.glass:
 // Smoothly tracks the mouse cursor via lerp and reveals when hovering over interactive cards (projects & core offerings).
+// Portfolio and journal tiles switch it to olympic.no's solid arrow bubble (an accent square with a white arrow).
 export default function FluidCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [label, setLabel] = useState("View");
+  const [arrow, setArrow] = useState(false);
   const targetPos = useRef([-200, -200]);
   const currentPos = useRef([-200, -200]);
 
@@ -26,11 +28,17 @@ export default function FluidCursor() {
       if (!target) return;
 
       const projectCard = target.closest<HTMLElement>("a.kp-item");
+      // Journal tiles opt in with data-cursor-icon="arrow" (see BlogPage's PostTile).
+      const tile = target.closest<HTMLElement>('[data-cursor-icon="arrow"]');
       // Any element can name its own label, e.g. data-cursor="View" on gallery photos, "Prev"/"Next" in the viewer.
       const custom = target.closest<HTMLElement>("[data-cursor]");
 
-      if (custom || projectCard) {
-        setLabel(custom?.dataset.cursor ?? "View");
+      if (custom) {
+        setLabel(custom.dataset.cursor ?? "View");
+        setArrow(false);
+        setVisible(true);
+      } else if (projectCard || tile) {
+        setArrow(true);
         setVisible(true);
       } else {
         setVisible(false);
@@ -72,9 +80,14 @@ export default function FluidCursor() {
     <div
       ref={cursorRef}
       aria-hidden="true"
-      className={`fg-cursor ${visible ? "is-visible" : ""}`}
+      className={`fg-cursor ${visible ? "is-visible" : ""} ${arrow ? "is-arrow" : ""}`}
     >
       <div className="fg-cursor-label">{label}</div>
+      <span className="fg-cursor-icon">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2.5 8h10M9 4.5 12.5 8 9 11.5" />
+        </svg>
+      </span>
     </div>
   );
 }

@@ -584,7 +584,7 @@ function App() {
           {projects.map((p) => (
             <a href={projectHref(p.slug)} className="kp-item group" key={p.slug}>
               <div className="kp-media rounded-[10px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}>
-                <img className="rounded-[10px]" src={p.gallery[0].image} alt={`${p.name}, ${p.location}`} loading="lazy" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />
+                <img className="no-radius rounded-[10px]" src={p.gallery[0].image} alt={`${p.name}, ${p.location}`} loading="lazy" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} />
               </div>
               <div className="kp-info">
                 <div className="kp-text">

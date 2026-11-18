@@ -39,14 +39,15 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
         event.preventDefault();
         onSelect(post.slug);
       }}
-      className="group block hover:opacity-100"
+      data-cursor-icon="arrow"
+      className="post-tile group block hover:opacity-100"
     >
-      <div className="relative aspect-square overflow-hidden rounded-[6px] bg-[#EDEDED]">
+      <div className="post-tile__thumbnail relative aspect-square overflow-hidden bg-[#EDEDED]">
         <img
           src={post.image}
           alt={post.alt}
           loading="lazy"
-          className="size-full object-cover transition-transform duration-[1100ms] ease-out group-hover:scale-[1.04]"
+          className="post-tile__image no-radius size-full object-cover"
           style={
             {
               WebkitCornerSmoothing: "60%",
@@ -68,7 +69,7 @@ function PostTile({ post, onSelect }: { post: BlogPost; onSelect: (slug: string)
 
       <div className="pt-4 md:pt-5">
         <Meta className="text-[#FB290E]">{post.category}</Meta>
-        <h3 className="mt-3 text-[18px] font-medium leading-[1.2] tracking-[-0.015em] text-[#111] sm:text-[19px] lg:text-[clamp(19px,1.55vw,26px)] lg:leading-[1.19]">
+        <h3 className="mt-3 text-[18px] font-medium leading-[1.2] tracking-[-0.015em] text-[#111] transition-colors duration-[600ms] ease-out group-hover:text-[#FB290E] group-focus-visible:text-[#FB290E] sm:text-[19px] lg:text-[clamp(19px,1.55vw,26px)] lg:leading-[1.19]">
           <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
             {post.title}
           </span>
