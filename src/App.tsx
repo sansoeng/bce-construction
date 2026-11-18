@@ -450,7 +450,7 @@ function App() {
           <div className="flex flex-col justify-between gap-12 md:min-h-[18.5rem]">
             <p data-split="content" data-split-hold data-about-intro className="max-w-[440px] text-[1.1rem] font-medium leading-[22px]">{homepage.about.intro}</p>
             <div>
-              <ArrowButton href={homepage.about.ctaHref} label={homepage.about.ctaLabel} theme="black" />
+              <ArrowButton href={homepage.about.ctaHref} label={homepage.about.ctaLabel} theme="black" tile />
             </div>
           </div>
         </div>
@@ -564,7 +564,7 @@ function App() {
               ))}
             </div>
             <div className="mt-8 pt-2">
-              <ArrowButton href={homepage.commitments.ctaHref} label={homepage.commitments.ctaLabel} theme="black" />
+              <ArrowButton href={homepage.commitments.ctaHref} label={homepage.commitments.ctaLabel} theme="black" tile />
             </div>
           </div>
           </div>

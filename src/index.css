@@ -5431,6 +5431,24 @@ html[lang="km"] .fg-btn.is-outline-white {
   font-size: 13px;
 }
 
+/* Wide CTA card (harkcap.com's "Our Story" / "Explore Our Solutions" buttons), used only by the homepage's
+   "See more about us" and "Explore Quality & HSE" actions: 120px tall, full column width, 16px padding, the label
+   bottom-left and the arrow bottom-right. It keeps the site's button skin, so hover is the same sweep. */
+.fg-btn.is-tile {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  height: 120px !important;
+  padding: 16px !important;
+  text-align: left;
+}
+/* Label first on the line, arrow last: bottom-left and bottom-right. */
+.fg-btn.is-tile .fg-btn-label { order: -1; }
+.fg-btn.is-tile .fg-btn-arrow { width: 20px; height: 16px; margin: 0; }
+/* Phones keep the shape but a shorter card. */
+@media (max-width: 767px) { .fg-btn.is-tile { height: 104px !important; } }
+
 /* Coverage page (/?coverage): the homepage map's information as a detail page — the figures on the ink ground, an
    explorable province map with its card, the four zones and the fleet. It borrows the Olympic blocks and tokens used
    by Quality, capability & HSE (ol-capacity, ol-panels, TextMedia) and adds only what the map needs: hairline-ruled

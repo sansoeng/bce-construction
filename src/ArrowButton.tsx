@@ -4,7 +4,9 @@
 type Theme = "black" | "white" | "alpha" | "outline" | "outline-white" | "glass" | "raw";
 
 // Without `href` it renders a <button> (`type` defaults to "button"), e.g. a form's submit.
-export default function ArrowButton({ href, label, theme = "black", className = "", onClick, tabIndex, type = "button", disabled }: {
+// `tile` turns it into the homepage's wide CTA card (after harkcap.com): 120px tall, full width, label bottom-left,
+// arrow bottom-right. Only the About and Quality & HSE actions on the homepage use it.
+export default function ArrowButton({ href, label, theme = "black", className = "", onClick, tabIndex, type = "button", disabled, tile = false }: {
   href?: string;
   label: string;
   theme?: Theme;
@@ -13,6 +15,7 @@ export default function ArrowButton({ href, label, theme = "black", className = 
   tabIndex?: number;
   type?: "button" | "submit";
   disabled?: boolean;
+  tile?: boolean;
 }) {
   const inner = (
     <>
@@ -28,10 +31,10 @@ export default function ArrowButton({ href, label, theme = "black", className = 
   );
   if (!href) {
     return (
-      <button type={type} className={`fg-btn is-${theme} ${className}`} onClick={onClick} tabIndex={tabIndex} disabled={disabled}>{inner}</button>
+      <button type={type} data-keep-height={tile ? "" : undefined} className={`fg-btn is-${theme}${tile ? " is-tile" : ""} ${className}`} onClick={onClick} tabIndex={tabIndex} disabled={disabled}>{inner}</button>
     );
   }
   return (
-    <a href={href} className={`fg-btn is-${theme} ${className}`} onClick={onClick} tabIndex={tabIndex}>{inner}</a>
+    <a href={href} data-keep-height={tile ? "" : undefined} className={`fg-btn is-${theme}${tile ? " is-tile" : ""} ${className}`} onClick={onClick} tabIndex={tabIndex}>{inner}</a>
   );
 }
