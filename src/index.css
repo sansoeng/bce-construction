@@ -5235,19 +5235,19 @@ a.post-tile:focus-visible .post-tile__image { transform: scale(1.06); }
   clip-path: inset(0);
 }
 
-/* Primary button, after olympic.no: sage fill, TT Commons Pro Mono caps, and the two-layer sweep hover
-   (the current fill contracts while the hover fill rises from the bottom, then the label flips colour).
-   The secondary outline themes take the same skin, so the site has one button style; raw and glass keep their
-   own behaviour. */
+/* Primary button, after olympic.no: light-grey fill (#f3f3f3, as harkcap.com's cards), TT Commons Pro Mono caps, and
+   the two-layer sweep hover (the current fill contracts while the hover fill rises from the bottom, then the label
+   flips colour). The secondary outline themes take the same skin, so the site has one button style; raw and glass keep
+   their own behaviour. */
 .fg-btn.is-black,
 .fg-btn.is-white,
 .fg-btn.is-outline,
 .fg-btn.is-alpha,
 .fg-btn.is-outline-white {
-  --btn-bg: #caccc4;
+  --btn-bg: #f3f3f3;
   --btn-bg-hover: var(--ink-editorial);
   --btn-fg: var(--ink-editorial);
-  --btn-fg-hover: #caccc4;
+  --btn-fg-hover: #f3f3f3;
   height: 32px !important;
   padding: 0 16px;
   border: 0;
