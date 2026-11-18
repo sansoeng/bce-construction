@@ -5942,32 +5942,23 @@ html[lang="km"] .fg-btn.is-outline-white {
   letter-spacing: -.025em;
   line-height: 1.04;
 }
+/* One size for both languages from desktop up: 54px, not the 64px every other cover uses. */
+@media (min-width: 1024px) {
+  .hb-title, .hero-title.hb-title { font-size: 54px !important; }
+}
 .hb-line { display: block; }
 /* Masks reach .24em below the line box so descenders are never clipped. */
 .hb-word { display: inline-block; clip-path: inset(-40% -8% -.24em -8%); vertical-align: top; }
 .hb-word-i { display: inline-block; transform: translate3d(0, 112%, 0); }
 
-.hb-cta-wrap { margin-top: 2.6rem; }
-.hb-cta {
-  display: inline-flex;
-  align-items: center;
-  height: 44px;
-  padding: 0 22px;
-  border-radius: var(--radius);
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  text-decoration: none;
-  pointer-events: auto;
+/* The button itself is ArrowButton (.fg-btn) with the site's primary skin; only its entrance is owned here. */
+.hb-cta-wrap {
+  margin-top: 2.6rem;
   opacity: 0;
   transform: translate3d(0, 12px, 0);
-  transition: background-color .3s ease, color .3s ease, opacity .3s ease;
+  pointer-events: none;
 }
-.hb-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.hb-cta-wrap .fg-btn { pointer-events: auto; }
 
 /* --- rail ----------------------------------------------------------------------------------------- */
 .hb-rail {
@@ -6023,7 +6014,6 @@ html[lang="km"] .fg-btn.is-outline-white {
 }
 @media (hover: hover) and (pointer: fine) {
   .hb-rail-item:hover { --o: 1; }
-  .hb-cta:hover { background: var(--brand); color: #fff; opacity: 1; }
 }
 
 /* --- latest news, kept above the rail --------------------------------------------------------- */
@@ -6042,7 +6032,7 @@ html[lang="km"] .fg-btn.is-outline-white {
 .hb[data-ready="true"] .hb-copy.is-live .hb-word-i {
   animation: hb-word-in 1.05s cubic-bezier(.17, .84, .44, 1) calc(.5s + var(--d) * .055s) both;
 }
-.hb[data-ready="true"] .hb-copy.is-live .hb-cta {
+.hb[data-ready="true"] .hb-copy.is-live .hb-cta-wrap {
   animation: hb-cta-in .9s cubic-bezier(.17, .84, .44, 1) .8s both;
 }
 @keyframes hb-char-in { to { opacity: 1; transform: none; } }
@@ -6069,7 +6059,6 @@ html[lang="km"] .fg-btn.is-outline-white {
   }
   .hb-title { max-width: 100%; }
   .hb-cta-wrap { margin-top: 2.125rem; }
-  .hb-cta { height: 42px; padding: 0 18px; font-size: 12px; }
   .hb-rail { bottom: 6.15svh; gap: 14px; }
   .hb-rail-item { gap: 5px; }
   .hb-rail-index { font-size: 11px; }
@@ -6078,7 +6067,6 @@ html[lang="km"] .fg-btn.is-outline-white {
 /* Short desktop windows: keep the copy and the rail apart. */
 @media (min-width: 768px) and (max-height: 800px) {
   .hb-copy-inner { top: 46vh; }
-  .hb-title, .hero-title.hb-title { font-size: 52px !important; }
   .hb-cta-wrap { margin-top: 2rem; }
   .hb-rail { bottom: 2rem; }
   .hb-aside { display: none; }
@@ -6089,7 +6077,7 @@ html[lang="km"] .fg-btn.is-outline-white {
   .hb-slide.is-leaving { transform: none; }
   .hb-slide:not(.is-active) { opacity: 0; }
   .hb-img { transition: none; transform: none; scale: 1; opacity: 1; }
-  .hb-char, .hb-word-i, .hb-cta { opacity: 1; transform: none; animation: none !important; }
+  .hb-char, .hb-word-i, .hb-cta-wrap { opacity: 1; transform: none; animation: none !important; }
   .hb-word { clip-path: none; }
   .hb-rail-item.is-active .hb-rail-fill { transform: scaleX(1) !important; }
 }

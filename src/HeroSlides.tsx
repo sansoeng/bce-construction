@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import ArrowButton from "./ArrowButton";
 import type { HeroSlide } from "./homepage";
 
 /**
@@ -222,9 +223,7 @@ export function HeroBanner({ slides, aside }: { slides: HeroSlide[]; aside?: Rea
                 </Title>
 
                 <div className="hb-cta-wrap">
-                  <a className="hb-cta" href={slide.ctaHref} tabIndex={live ? undefined : -1}>
-                    {slide.ctaLabel}
-                  </a>
+                  <ArrowButton href={slide.ctaHref} label={slide.ctaLabel} theme="white" tabIndex={live ? undefined : -1} />
                 </div>
               </div>
             </div>
