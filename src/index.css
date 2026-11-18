@@ -140,9 +140,9 @@ html:not([lang="km"]) .apple-mega-big-link {
   }
 }
 
-/* Hero banner titles are 64px from desktop up; below that they keep the fluid clamp so they fit phones.
-   This is the one display size shared by every page cover (home, About, Businesses, Projects, Quality & HSE,
-   Capabilities, Resources, Contact, Journal, quote and project stories). */
+/* Photo banner titles are 64px from desktop up; below that they keep the fluid clamp so they fit phones. This is the
+   one display size the covers keep — every other inner-page display title (section headings, project and quote page
+   titles, the next-project name) caps at 44px, the same size as .pd-h2. */
 @media (min-width: 1024px) {
   .hero-title,
   .ol-hero-title,
@@ -153,7 +153,8 @@ html:not([lang="km"]) .apple-mega-big-link {
 
 /* Home page section titles inside the content (core-business panels, At a glance, the HSE statement, Selected
    projects, Request a quotation) share one desktop size: 54px from 1024px up. Below that each keeps its own fluid
-   clamp, so they still fit phones and tablets in portrait. */
+   clamp, so they still fit phones and tablets in portrait. Inner pages use the 44px display size instead, whatever the
+   viewport (the fluid clamps on their section titles cap at 44px). */
 @media (min-width: 1024px) {
   :is(.offer-title, .glance-title, .vision-track, .kp-title, .qc-title) {
     font-size: 54px !important;
@@ -371,31 +372,6 @@ a.kp-item:focus-visible .kp-media img {
   a.kp-item:focus-visible .kp-media img { transform: none; }
 }
 
-/* Hover affordance after pda.archi: a black disc with a plus rides up over the photo, turning as it comes in. */
-.kp-plus {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  display: grid;
-  place-items: center;
-  width: clamp(40px, 3vw, 54px);
-  height: clamp(40px, 3vw, 54px);
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--paper);
-  box-shadow: 0 8px 20px rgb(0 0 0 / .18);
-  opacity: 0;
-  transform: translateY(70%) scale(0.6) rotate(-90deg);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-  pointer-events: none;
-}
-.kp-plus svg { width: 38%; height: 38%; }
-.kp-item:hover .kp-plus,
-.kp-item:focus-visible .kp-plus {
-  opacity: 1;
-  transform: none;
-}
-
 /* Scroll reveal (after eladiodieste.com). Images stay hidden only once JS has armed the section. */
 .kp[data-reveal-ready] .kp-media:not(.is-revealed) img { opacity: 0 !important; }
 .kp-media.is-revealed img {
@@ -541,8 +517,6 @@ a.kp-item:focus-visible .kp-name {
   }
   .pl-hero-title { grid-column: 1 / -1; font-size: clamp(2.5rem, 11vw, 3.4rem); }
   .pl-hero-copy { grid-column: 1 / -1; max-width: none; font-size: 1rem; line-height: 1.45; }
-
-  .kp-plus { left: 12px; bottom: 12px; }
 }
 
 /* Telha-style Vision sequence (our commitment) */
@@ -2970,7 +2944,6 @@ html[lang="km"] .qc-copy { font-weight: 500; line-height: 1.55; letter-spacing: 
 
 /* Project details (src/ProjectPage.tsx): the homepage's type scale, greys, hairlines and 4px corners. */
 .pd-title { font-size: clamp(34px, 4.5vw, 44px) !important; font-weight: 600; line-height: 1.08; letter-spacing: -.03em; }
-@media (min-width: 1024px) { .pd-title { font-size: 64px !important; } }
 .pd-h2 { font-size: 44px; font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
 .pd-h3 { font-size: clamp(1.9rem, 2.6vw, 3rem); font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
 .pd-statement { font-size: clamp(1.35rem, 1.75vw, 1.9rem); font-weight: 500; line-height: 1.2; letter-spacing: -.02em; }
@@ -3044,7 +3017,7 @@ html[lang="km"] .qc-copy { font-weight: 500; line-height: 1.55; letter-spacing: 
 .pd-next { display: block; border-top: 1px solid var(--line); padding-top: 1.1rem; }
 .pd-next-meta { display: flex; justify-content: space-between; gap: 1rem; font-size: .95rem; }
 .pd-next-body { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-top: clamp(3rem, 8vw, 7rem); }
-.pd-next-name { max-width: 60rem; font-size: clamp(2.5rem, 6.2vw, 6.5rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; transition: transform .9s cubic-bezier(.17, .84, .44, 1); }
+.pd-next-name { max-width: 60rem; font-size: clamp(2.5rem, 6.2vw, 44px); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; transition: transform .9s cubic-bezier(.17, .84, .44, 1); }
 .pd-next-media {
   flex: none;
   width: clamp(9rem, 22vw, 22rem);
@@ -3817,8 +3790,7 @@ html[lang="km"] .pd-title {
 }
 @media (min-width: 1024px) {
   html[lang="km"] .ol-hero-title,
-  html[lang="km"] .ol-hl-title,
-  html[lang="km"] .pd-title {
+  html[lang="km"] .ol-hl-title {
     font-size: 64px !important;
   }
 }
@@ -4122,7 +4094,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .ol-px-media { position: absolute; left: 0; top: 0; width: 100%; height: 115%; transform: translate3d(0, calc(-15% * (1 - var(--p, 0))), 0); will-change: transform; }
 .ol-px-media img { width: 100%; height: 100%; object-fit: cover; }
 .ol-tm-label { margin-bottom: 24px; }
-.ol-tm-title { max-width: 30rem; font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
+.ol-tm-title { max-width: 30rem; font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 .ol-tm-copy { display: flex; flex-direction: column; gap: 1.2em; max-width: 26rem; margin-top: auto; padding-top: 48px; font-size: 1.1rem; line-height: 1.45; color: rgb(17 17 17 / .68); }
 .ol-tm-button { margin-top: 52px; }
 @media (max-width: 1023px) {
@@ -4185,7 +4157,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 /* Onboard slider */
 .ol-onboard { display: flex; flex-direction: column; row-gap: 140px; padding: 0 0 200px; scroll-margin-top: 0; }
 .ol-onboard-header { display: flex; flex-direction: column; align-items: center; row-gap: 24px; padding-inline: var(--olm); text-align: center; }
-.ol-onboard-heading { max-width: 60rem; font-size: clamp(2.75rem, 6.2vw, 6.5rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; }
+.ol-onboard-heading { max-width: 60rem; font-size: clamp(2.75rem, 6.2vw, 44px); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; }
 .ol-onboard-more { display: flex; justify-content: center; margin-top: -88px; }
 .ol-slider { display: flex; flex-direction: column; outline: none; }
 .ol-slider-track { --slide-ar: 666 / 435; position: relative; width: 100%; aspect-ratio: auto; touch-action: pan-y; cursor: grab; user-select: none; }
@@ -4725,7 +4697,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .ol-values-head { display: flex; flex-direction: column; gap: 24px; max-width: 44rem; }
 .ol-values-title,
 .ol-solutions-title,
-.ol-work-title { font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
+.ol-work-title { font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 .ol-values-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--olg); row-gap: 56px; margin-top: 72px; padding: 0; list-style: none; }
 .ol-value {
   padding-top: 18px;
@@ -4772,7 +4744,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .ol-capacity { margin-top: 230px; padding: 120px var(--olm) 130px; background: var(--ol-dark); color: var(--paper); }
 .ol-capacity-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg); align-items: start; }
 .ol-capacity-head .ol-label { grid-column: 1 / span 6; }
-.ol-capacity-title { grid-column: 7 / -1; max-width: 34rem; font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
+.ol-capacity-title { grid-column: 7 / -1; max-width: 34rem; font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 
 /* Our Businesses (hub) and every business detail page: the section headings sit at the Quality & HSE page's
    44px and stay in full caps at every width, instead of the 60px (3.75rem) they shared with the Capabilities
@@ -5419,7 +5391,7 @@ html[lang="km"] .fg-btn.is-outline-white {
 .cv-band { padding: clamp(5rem, 9vw, 9rem) var(--olm, var(--page-gutter)); border-top: 1px solid var(--line); }
 .cv-band--soft { background: var(--paper-soft); }
 .cv-head { display: flex; flex-direction: column; gap: 1.15rem; max-width: 58rem; }
-.cv-h2 { font-size: clamp(2.1rem, 3.4vw, 3.75rem); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
+.cv-h2 { font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 .cv-lead { max-width: 42rem; font-size: 1.05rem; line-height: 1.5; color: rgb(17 17 17 / .6); }
 
 /* The map: the same shapes and pins as the homepage story, on one still frame. */
@@ -5556,7 +5528,7 @@ html[lang="km"] .fg-btn.is-outline-white {
 .cv-ready-km { display: block; margin-top: .9rem; font-family: var(--font-ui-mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: rgb(17 17 17 / .4); font-variant-numeric: tabular-nums; }
 
 .cv-outro { display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; padding: clamp(4.5rem, 8vw, 7rem) var(--olm, var(--page-gutter)) clamp(5rem, 9vw, 8rem); border-top: 1px solid var(--line); }
-.cv-outro-title { max-width: 44rem; font-size: clamp(1.9rem, 3vw, 3rem); font-weight: 500; line-height: 1.06; letter-spacing: -.025em; }
+.cv-outro-title { max-width: 44rem; font-size: clamp(1.9rem, 3vw, 44px); font-weight: 500; line-height: 1.06; letter-spacing: -.025em; }
 .cv-outro-copy { max-width: 40rem; font-size: 1.05rem; line-height: 1.5; color: rgb(17 17 17 / .6); }
 .cv-outro-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .9rem; }
 

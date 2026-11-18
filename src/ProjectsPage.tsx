@@ -25,12 +25,6 @@ const initialCategory = () => {
   return CATEGORIES.find((c) => categorySlug(c) === wanted) ?? ALL;
 };
 
-const PlusIcon = () => (
-  <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" aria-hidden>
-    <path d="M7 1.2v11.6M1.2 7h11.6" />
-  </svg>
-);
-
 export default function ProjectsPage() {
   usePageSetup("Projects | BCE., Ltd.");
 
@@ -136,9 +130,6 @@ export default function ProjectsPage() {
                     loading="lazy"
                     style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
                   />
-                  <span className="kp-plus" aria-hidden>
-                    <PlusIcon />
-                  </span>
                 </div>
                 <div className="kp-info">
                   <div className="kp-body">

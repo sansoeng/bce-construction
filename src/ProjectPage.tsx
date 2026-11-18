@@ -310,7 +310,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
               <span data-split="content" className="text-black/45">{next.category}</span>
             </span>
             <span className="pd-next-body !flex-row md:!items-center">
-              <span data-split className="pd-next-name md:!w-[860px] md:!max-w-full md:!text-[64px]">{next.name}</span>
+              <span data-split className="pd-next-name md:!w-[860px] md:!max-w-full md:!text-[44px]">{next.name}</span>
               <span className="pd-next-media"><img src={next.gallery[0].image} alt="" loading="lazy" /></span>
             </span>
           </a>

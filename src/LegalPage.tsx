@@ -41,7 +41,7 @@ function LegalLayout({
       <main className="relative z-[1] overflow-x-clip bg-white text-[#111]">
         <article className="mx-auto w-full max-w-[860px] px-5 pb-24 pt-32 sm:px-8 md:pb-32 md:pt-44">
           <p className="font-mono text-[12px] uppercase tracking-[0.09em] text-[#FB290E]">{kind}</p>
-          <h1 className="mt-5 text-[34px] font-medium leading-[1.08] tracking-[-0.03em] sm:text-[48px] md:text-[58px]">
+          <h1 className="mt-5 text-[34px] font-medium leading-[1.08] tracking-[-0.03em] sm:text-[42px] md:text-[44px]">
             {title}
           </h1>
           <p className="mt-6 max-w-[44rem] text-[16px] leading-[1.65] text-[#111]/60">{intro}</p>

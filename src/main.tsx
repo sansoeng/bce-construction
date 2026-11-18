@@ -53,7 +53,7 @@ function NotFoundPage() {
   return (
     <main className="site-pad flex min-h-[70vh] max-w-[900px] flex-col justify-center">
       <p className="font-mono text-[13px] uppercase tracking-[0.06em] text-[#FB290E]">Error 404</p>
-      <h1 className="mt-5 text-[clamp(34px,6vw,64px)] font-medium leading-[1.05] tracking-[-.03em]">This page isn’t here.</h1>
+      <h1 className="mt-5 text-[clamp(34px,6vw,44px)] font-medium leading-[1.05] tracking-[-.03em]">This page isn’t here.</h1>
       <p className="mt-4 max-w-[46ch] text-[16px] leading-[1.6] text-[#111]/55">
         The address may be old or mistyped. Start from the home page, or call 012 932 700.
       </p>

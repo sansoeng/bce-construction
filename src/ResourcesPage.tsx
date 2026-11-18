@@ -90,7 +90,7 @@ export default function ResourcesPage() {
 
           {/* Centered Section Title */}
           <div className="text-center mb-10 sm:mb-14">
-            <h1 className="text-[34px] sm:text-[42px] md:text-[64px] font-semibold uppercase text-[#111] tracking-[-0.03em] leading-[1.12]">
+            <h1 className="text-[34px] sm:text-[42px] md:text-[44px] font-semibold uppercase text-[#111] tracking-[-0.03em] leading-[1.12]">
               Resources
             </h1>
             <p className="mx-auto mt-5 max-w-[38rem] text-[15px] leading-relaxed text-[#111]/55 sm:text-[16px]">
