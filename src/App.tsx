@@ -440,9 +440,9 @@ function App() {
       <div className="relative">
       <div data-hero-spacer data-nav-dark data-header-title="Home" className="hero h-[100svh] min-h-[600px]" aria-hidden />
 
-      <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white px-5 pb-24 pt-6">
-        <div className="relative">
-        <div data-about-track className="pointer-events-none absolute left-0 top-0 z-[1] w-full max-w-[15.5rem]">
+      <section id="about" data-header-title="About" className="about-panel relative z-10 rounded-t-[4px] bg-white pb-24 pt-6">
+        <div className="site-shell relative">
+        <div data-about-track className="pointer-events-none absolute left-[var(--page-gutter)] top-0 z-[1] w-full max-w-[15.5rem]">
           <div data-about-slot className="about-image sticky top-6 aspect-[5/6] w-full overflow-hidden rounded-[10px]" style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}><img className="h-full w-full object-cover opacity-0 rounded-[10px]" src={homepage.about.image} alt={homepage.about.imageAlt} style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any} /></div>
         </div>
         <div className="grid gap-10 md:grid-cols-2">
@@ -480,14 +480,14 @@ function App() {
       <section id="expertise" data-offers data-header-title="Core business" aria-labelledby="offers-title" className="relative h-[320vh] bg-white">
         <div data-offers-sticky className="sticky top-0 h-[100svh] overflow-hidden">
           <div data-offers-head className="pointer-events-none absolute inset-0 text-[#111]">
-            <div className="absolute inset-x-5 top-[44%] grid grid-cols-2 items-start gap-5 text-[.95rem] md:grid-cols-12">
+            <div className="absolute inset-x-0 top-[44%] grid grid-cols-2 items-start gap-5 px-[var(--page-gutter)] text-[.95rem] md:grid-cols-12">
               <p data-split="content" className="text-black/45 md:col-span-3">{homepage.expertise.kicker}</p>
               <p data-split="content" className="hidden max-w-[24rem] text-[1.05rem] leading-[1.4] md:col-span-4 md:col-start-5 md:block">{homepage.expertise.lead}</p>
               <span className="flex items-center gap-3 justify-self-end text-black/45 md:col-span-3 md:col-start-10">{homepage.expertise.scrollLabel}<span aria-hidden className="grid size-7 place-items-center rounded-[4px] border border-black/25 text-[#111]">→</span></span>
             </div>
             {/* The split reveal rewrites this heading's words in place, so the key makes React remount it (rather than patch
                 the rewritten DOM) whenever its line breaks change during live editing. */}
-            <h2 key={homepage.expertise.titleLines.join("/")} id="offers-title" data-split data-split-hold className="absolute bottom-5 left-5 max-w-[min(70rem,90vw)] font-medium text-[clamp(2.75rem,6.2vw,6.5rem)] leading-[1.02] tracking-[-.03em]">
+            <h2 key={homepage.expertise.titleLines.join("/")} id="offers-title" data-split data-split-hold className="absolute bottom-5 left-[var(--page-gutter)] max-w-[min(70rem,90vw)] font-medium text-[clamp(2.75rem,6.2vw,6.5rem)] leading-[1.02] tracking-[-.03em]">
               {homepage.expertise.titleLines.map((line, index) => (
                 <span className="block" key={index}>{line}</span>
               ))}
@@ -536,7 +536,7 @@ function App() {
           <div data-vision-shade className="absolute inset-0 bg-black opacity-0" />
 
           {/* The rule row rides on the opening frame's edges (--vs), so it sits inside the frame as it grows. */}
-          <div data-vision-rule className="absolute top-[43%] flex items-center gap-4 text-[.95rem] opacity-0" style={{ left: "calc(var(--vs, 0vw) + 1.25rem)", right: "calc(var(--vs, 0vw) + 1.25rem)" }}>
+          <div data-vision-rule className="absolute top-[43%] flex items-center gap-4 text-[.95rem] opacity-0" style={{ left: "calc(var(--vs, 0vw) + var(--page-gutter))", right: "calc(var(--vs, 0vw) + var(--page-gutter))" }}>
             <span data-vision-num className="w-6 text-white/60">01</span>
             <span className="h-px flex-1 bg-white/25" />
             <span>{homepage.commitments.label}</span>
@@ -544,7 +544,7 @@ function App() {
 
           <div data-vision-copy className="vision-copy absolute inset-0">
           <div className="absolute inset-x-0 top-[23%]">
-            <div data-vision-track className="vision-track relative flex w-max gap-[12.5vw] whitespace-nowrap pl-5 text-[clamp(2.2rem,3.5vw,3.85rem)] leading-[1.08] tracking-[-.025em] will-change-transform md:pl-[17.7vw]">
+            <div data-vision-track className="vision-track relative flex w-max gap-[12.5vw] whitespace-nowrap pl-[var(--page-gutter)] text-[clamp(2.2rem,3.5vw,3.85rem)] leading-[1.08] tracking-[-.025em] will-change-transform md:pl-[17.7vw]">
               {homepage.commitments.items.map(({ lines }, t) => (
                 <h2 data-vision-title className={`vision-title font-medium${t === 0 ? " is-active" : ""}`} style={{ "--t": t } as React.CSSProperties} key={`${lines.join(" ")}-${t}`}>
                   {lines.map((line, l) => (
@@ -557,7 +557,7 @@ function App() {
             </div>
           </div>
 
-          <div className="absolute left-5 right-5 top-[53%] md:left-[58.6%] md:right-auto md:w-[min(24vw,22rem)]">
+          <div className="absolute left-[var(--page-gutter)] right-[var(--page-gutter)] top-[53%] md:left-[58.6%] md:right-auto md:w-[min(24vw,22rem)]">
             <div className="relative min-h-[5.5rem]">
               {homepage.commitments.items.map(({ lines, text }, i) => (
                 <p data-vision-text data-split="content" data-split-toggle className={`vision-text text-[.95rem] leading-[1.35] ${i === 0 ? "relative" : "absolute inset-x-0 top-0"}`} key={`${lines.join(" ")}-${i}`}>{text}</p>

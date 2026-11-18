@@ -277,7 +277,8 @@ export default function Glance() {
   const { title, stats } = homepage.glance;
 
   return (
-    <section aria-labelledby="glance-title" data-header-title="At a glance" className="bg-white px-6 py-20 text-[#111] md:py-28 lg:py-32">
+    <section aria-labelledby="glance-title" data-header-title="At a glance" className="bg-white py-20 text-[#111] md:py-28 lg:py-32">
+      <div className="site-shell">
       <div className="glance-layout">
         <div className="glance-title-col">
           <div className="glance-title-sticky">
@@ -317,6 +318,7 @@ export default function Glance() {
         </div>
       </div>
       <Partners />
+      </div>
     </section>
   );
 }
