@@ -1,103 +1,125 @@
+import { useLayoutEffect, useRef } from "react";
 import ArrowButton from "./ArrowButton";
 import { quality } from "./quality";
 
-// Two homepage evidence bands, after "Why BCE" and before the closing quotation block:
-//   · the quality process the Recommendation asks to show on the homepage (it currently only lives on /quality)
-//   · the fleet, so capacity is visible without scrolling the Quality page.
-// Both read src/quality.ts, so the numbers cannot drift from the Quality page. Labels reuse existing translations.
+// Equipment & fleet on the homepage, after olympic.no's "FLEET FOCUS" (fullscreen-media) section: a centred mono label
+// and headline, then a sticky screen holding one photographic panel. As the panel enters, its frame opens from a
+// centred half-width window to the full page width (their clip-path inset 25% → 0) while the photo itself pulls back
+// from 1.16 to 1, so the shot zooms out rather than sliding. The fleet's four key figures follow underneath, so the
+// capacity numbers stay on the homepage.
+//
+// Olympic drives this with a CSS view timeline; scroll timelines are not in every browser yet, so the same curve is
+// written on one rAF per scroll, like AboutZoom and useScrollParallax. Type, colours and the CTA stay BCE's: the
+// homepage's heading scale, .ol-label and ArrowButton. Only the layout and the zoom-out come from Olympic.
 
-export function QualityBand() {
-  const laboratory = quality.laboratory;
-  const tests = laboratory.tests.slice(0, 4);
-  return (
-    <section
-      id="quality-evidence"
-      data-header-title="Quality assurance"
-      aria-labelledby="home-quality-title"
-      className="site-bleed site-pad border-t border-[#111]/10 py-20 md:py-28"
-    >
-      <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12 md:gap-6">
-        <div className="md:col-span-4">
-          <p className="ol-label">Quality assurance</p>
-          <h2
-            id="home-quality-title"
-            className="mt-4 max-w-[14ch] text-[clamp(30px,3.4vw,48px)] font-medium leading-[1.04] tracking-[-.03em]"
-          >
-            Tested at every stage
-          </h2>
-          <p className="mt-5 max-w-[36ch] text-[15px] leading-[1.65] text-[#111]/55">{laboratory.copy}</p>
-          <ArrowButton href="/quality#laboratory" label="Explore Quality & HSE" className="mt-7" />
-        </div>
-
-        <div className="md:col-span-7 md:col-start-6">
-          <div className="flex items-center justify-between border-b border-[#111]/12 pb-3">
-            <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-[#111]/40">{laboratory.listLabel}</span>
-          </div>
-          <dl className="divide-y divide-[#111]/10">
-            {tests.map((test) => (
-              <div key={test.label} className="flex flex-wrap items-baseline justify-between gap-2 py-4">
-                <dt className="text-[16px] font-medium leading-snug">{test.label}</dt>
-                <dd className="font-mono text-[13px] text-[#111]/55">{test.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-5 max-w-[46ch] text-[13px] leading-[1.6] text-[#111]/45">
-            Every pour is checked at the plant and on site, with cube results recorded against the approved mix design.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
 
 export function FleetBand() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
   const fleet = quality.fleet;
+
   // The four figures a procurement reader looks for; fall back to the first four when the labels change.
   const wanted = ["Batching plants", "Mixer trucks", "Pump trucks", "Piling rigs"];
   const picked = wanted.map((label) => fleet.rows.find((row) => row.label === label)).filter(Boolean) as typeof fleet.rows;
   const rows = picked.length === 4 ? picked : fleet.rows.slice(0, 4);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current, frame = frameRef.current;
+    if (!section || !frame) return;
+    const panel = frame.querySelector<HTMLElement>(".flb-panel");
+    const photo = frame.querySelector<HTMLImageElement>(".flb-media img");
+    const copy = frame.querySelector<HTMLElement>(".flb-copy");
+    if (!panel || !photo || !copy) return;
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      section.classList.add("is-static");
+      return;
+    }
+
+    let frameId = 0;
+    const update = () => {
+      frameId = 0;
+      const viewport = innerHeight || 1;
+      const rect = frame.getBoundingClientRect();
+      // 0 when the panel's frame touches the bottom of the screen, 1 once its top reaches the top of the screen.
+      const p = clamp01((viewport - rect.top) / viewport);
+      const e = easeInOut(p);
+      // Olympic's inset: a centred half-width window that opens to the full page width.
+      const inset = (24 * (1 - e)).toFixed(2);
+      panel.style.clipPath = `inset(0 ${inset}% 0 ${inset}% round var(--radius))`;
+      // The photo starts tighter in the frame and pulls back as it opens: the zoom-out.
+      photo.style.transform = `scale(${(1.16 - 0.16 * e).toFixed(4)})`;
+      // The copy arrives once the panel is mostly open, so it never reads through a narrow slice.
+      const copyIn = easeInOut(clamp01((p - 0.45) / 0.35));
+      copy.style.opacity = copyIn.toFixed(3);
+      copy.style.transform = `translate3d(0, ${(16 * (1 - copyIn)).toFixed(2)}px, 0)`;
+    };
+    const request = () => (frameId ||= requestAnimationFrame(update));
+    update();
+    addEventListener("scroll", request, { passive: true });
+    addEventListener("resize", request);
+    return () => {
+      cancelAnimationFrame(frameId);
+      removeEventListener("scroll", request);
+      removeEventListener("resize", request);
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="fleet-evidence"
       data-header-title="Equipment & fleet"
       aria-labelledby="home-fleet-title"
-      className="site-bleed site-pad border-t border-[#111]/10 bg-[#F8F8F9] py-20 md:py-28"
+      className="flb"
     >
-      <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-12 md:gap-6">
-        <div className="md:col-span-4">
+      <div className="site-pad">
+        <div className="flb-intro">
           <p className="ol-label">{fleet.kicker}</p>
-          <h2
-            id="home-fleet-title"
-            className="mt-4 max-w-[14ch] text-[clamp(30px,3.4vw,48px)] font-medium leading-[1.04] tracking-[-.03em]"
-          >
+          <h2 id="home-fleet-title" className="flb-title">
             {fleet.title}
           </h2>
-          <p className="mt-5 max-w-[36ch] text-[15px] leading-[1.65] text-[#111]/55">{fleet.copy[0]}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <ArrowButton href="/fleet" label="Equipment & fleet" theme="outline" />
-            <ArrowButton href={fleet.ctaHref} label={fleet.ctaLabel} />
+        </div>
+      </div>
+
+      <div className="flb-spacer">
+        <div ref={frameRef} className="flb-frame">
+          <div className="flb-panel">
+            <div className="flb-media">
+              <img data-no-parallax src={fleet.image} alt={fleet.imageAlt} loading="lazy" decoding="async" />
+              <span className="flb-scrim" aria-hidden />
+            </div>
+            <div className="flb-copy">
+              <p className="flb-text">{fleet.copy[0]}</p>
+              <div className="flb-actions">
+                <ArrowButton href="/fleet" label="Explore the fleet" theme="white" />
+                <ArrowButton href={fleet.ctaHref} label={fleet.ctaLabel} theme="outline-white" />
+              </div>
+            </div>
+            <span className="flb-corner flb-corner-tl" aria-hidden />
+            <span className="flb-corner flb-corner-tr" aria-hidden />
+            <span className="flb-corner flb-corner-bl" aria-hidden />
+            <span className="flb-corner flb-corner-br" aria-hidden />
           </div>
         </div>
+      </div>
 
-          <ul className="grid grid-cols-2 gap-x-8 gap-y-10 md:col-span-7 md:col-start-6 md:grid-cols-4">
+      <div className="site-pad">
+        <ul className="flb-figures">
           {rows.map((row) => {
             // "04  /  70 m³/hr each" reads badly as a headline number: the count leads, the capacity becomes a note.
             const [head, ...rest] = row.value.split("/").map((part) => part.trim());
             return (
               <li key={row.label}>
-                <span className="block text-[clamp(34px,4vw,56px)] font-medium leading-none tracking-[-.04em] tabular-nums">
-                  {head}
-                </span>
-                <span className="mt-2 block text-[13px] leading-[1.5] text-[#111]/55">{row.label}</span>
-                {rest.length > 0 && (
-                  <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.05em] text-[#111]/40">
-                    {rest.join(" / ")}
-                  </span>
-                )}
+                <span className="flb-figure">{head}</span>
+                <span className="flb-figure-label">{row.label}</span>
+                {rest.length > 0 && <span className="flb-figure-note">{rest.join(" / ")}</span>}
               </li>
             );
           })}
-          </ul>
+        </ul>
       </div>
     </section>
   );

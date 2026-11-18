@@ -426,6 +426,7 @@ const KM: Record<string, string> = {
   "Equipment & fleet": "គ្រឿងចក្រ និងកងយានយន្ត",
   "Work with us": "សហការជាមួយយើង",
   "Hire our equipment": "ជួលគ្រឿងចក្ររបស់យើង",
+  "Explore the fleet": "ស្វែងយល់ពីកងយានយន្ត",
   "All rights reserved": "រក្សាសិទ្ធិគ្រប់យ៉ាង",
   "© 2026 Battambang Construction and Engineering, Co., Ltd.": "© ២០២៦ ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី",
   "© 2026 Battambang Construction and Engineering Co., Ltd.": "© ២០២៦ ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី",

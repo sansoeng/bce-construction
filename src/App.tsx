@@ -10,7 +10,7 @@ import WhyBCE from "./WhyBCE";
 import { BLOG_POSTS } from "./blogData";
 import Footer from "./Footer";
 import QuoteCta from "./QuoteCta";
-import { FleetBand, QualityBand } from "./HomeEvidence";
+import { FleetBand } from "./HomeEvidence";
 import Glance, { GlanceIcon, type IconKind } from "./Glance";
 import { HeroBanner } from "./HeroSlides";
 import SiteHeader from "./SiteHeader";
@@ -603,7 +603,6 @@ function App() {
 
       <WhyBCE />
 
-      <QualityBand />
       <FleetBand />
 
       <QuoteCta href={homepage.quote.ctaHref} />
