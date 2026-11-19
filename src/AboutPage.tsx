@@ -274,8 +274,7 @@ function Strategy() {
   const slides: SlideItem[] = strategy.pillars.map((pillar) => ({
     title: pillar.title,
     text: pillar.text,
-    image: unsplash(pillar.image, 1400),
-    alt: pillar.imageAlt,
+    icon: pillar.icon,
   }))
 
   return (

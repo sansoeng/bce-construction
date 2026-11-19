@@ -4290,6 +4290,12 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
    tiles, .ol-label on the section heads): mono, uppercase, orange. Same values, so every tag reads as one family. */
 .ol-slide-title { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ol-slide-text { max-width: 24rem; font-size: clamp(1.25rem, 1.6vw, 1.6rem); font-weight: 500; line-height: 1.15; letter-spacing: -.02em; }
+/* A card with no photo: the paper ground, and the category's line mark set large in the brand orange above the copy —
+   the same hairline icon and colour the business values use (src/LineIcon.tsx). */
+.ol-slide--icon { background: #F8F8F9; color: var(--ink); }
+.ol-slide--icon .ol-slide-icon { position: absolute; inset: 52px 0 40% 0; z-index: 1; display: grid; place-items: center; color: var(--brand); pointer-events: none; }
+.ol-slide--icon .ol-slide-mark { width: clamp(68px, 7vw, 112px); height: auto; }
+.ol-slide--icon .ol-slide-text { color: rgb(17 17 17 / .72); }
 .ol-slider-pagination { position: relative; width: calc(100% - 2 * 186px); height: 1px; margin: 90px auto 0; background: rgb(17 17 17 / .15); overflow: hidden; }
 .ol-slider-pagination span { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transition: transform 900ms ease; }
 .ol-slider-nav { display: flex; justify-content: center; gap: 4px; margin-top: 22px; }

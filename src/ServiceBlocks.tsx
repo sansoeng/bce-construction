@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
 import ArrowButton from "./ArrowButton";
+import { LineIcon } from "./LineIcon";
 
 // Building blocks after olympic.no/what-we-do-services (design by KIND), shared by Our Businesses and Technical
 // Capabilities. Measurements follow their stylesheet (12 columns, 24px gutter, 48px margin; 20px under 1024px):
@@ -195,7 +196,15 @@ const Arrow = ({ dir }: { dir: 1 | -1 }) => (
   </svg>
 );
 
-export type SlideItem = { title: string; text: string; image: string; alt: string };
+export type SlideItem = {
+  title: string
+  text: string
+  /** The card is photographic when it carries an image. */
+  image?: string
+  alt?: string
+  /** Or it is a paper card carrying this line icon instead (the strategic pillars on About). */
+  icon?: string
+}
 
 // Slide metrics from their breakpoints: two cards between 162px bleeds on desktop, 312.5px cards on tablets, one
 // card less three margins on phones. Desktop and tablet offset the centre by one card so the previous card shows.
@@ -271,8 +280,12 @@ export function CardSlider({ items, label }: { items: SlideItem[]; label: string
             "--dur": dragging || jump ? "0ms" : "900ms",
           } as CSSProperties;
           return (
-            <article key={it.title} className="ol-slide" style={style} aria-roledescription="slide" aria-label={`${k + 1} of ${n}`} aria-hidden={Math.abs(rel) > 1}>
-              <div className="ol-slide-media"><img src={it.image} alt={it.alt} loading="lazy" draggable={false} /></div>
+            <article key={it.title} className={`ol-slide${it.icon ? " ol-slide--icon" : ""}`} style={style} aria-roledescription="slide" aria-label={`${k + 1} of ${n}`} aria-hidden={Math.abs(rel) > 1}>
+              {it.icon ? (
+                <span className="ol-slide-icon" aria-hidden><LineIcon name={it.icon} className="ol-slide-mark" /></span>
+              ) : (
+                <div className="ol-slide-media"><img src={it.image} alt={it.alt} loading="lazy" draggable={false} /></div>
+              )}
               <div className="ol-slide-content">
                 <h3 className="ol-slide-title">{it.title}</h3>
                 <p className="ol-slide-text">{it.text}</p>

@@ -88,6 +88,9 @@ const valueIcons = [
 // The Fleet by job card marks: production, placing, foundations and lifting/site support.
 const machineIcons = ["plant", "pump", "truck", "loader", "rig", "crane", "tower", "lab", "lift"];
 
+// The strategic pillars' marks on About: the same line set the business values use, plus the two cranes.
+const pillarIcons = [...valueIcons, "tower", "crane"];
+
 export const SCHEMAS: Record<string, ContentSchema> = {
   projects: {
     type: "projects",
@@ -657,11 +660,10 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "strategy", label: "", type: "group", fields: [
         { key: "label", label: "Section label", type: "text" },
         { key: "title", label: "Heading", type: "text", wide: true },
-        { key: "pillars", label: "Strategic pillars", type: "objectList", itemLabel: "Pillar", hint: "One card each, in the order they appear in the slider.", itemFields: [
+        { key: "pillars", label: "Strategic pillars", type: "objectList", itemLabel: "Pillar", hint: "One card each, in the order they appear in the slider. Each card is a paper card with its line icon; no photo.", itemFields: [
           { key: "title", label: "Title", type: "text" },
           { key: "text", label: "Text", type: "textarea", rows: 3 },
-          { key: "image", label: "Photo", type: "image", aspect: "666 / 435" },
-          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+          { key: "icon", label: "Icon", type: "select", options: pillarIcons, locale: false },
         ] },
       ] },
 

@@ -63,7 +63,7 @@ export type AboutContent = {
   strategy: {
     label: string;
     title: string;
-    pillars: { title: string; text: string; image: string; imageAlt: string }[];
+    pillars: { title: string; text: string; icon: string }[];
   };
   careers: {
     label: string;
@@ -258,32 +258,27 @@ export const DEFAULT_ABOUT: AboutContent = {
       {
         title: "Growth & expansion",
         text: "Expand our footprint across Cambodia and pursue selected regional opportunities through new facilities, partnerships and strategic investments.",
-        image: "/Image/bce/about-hero-banner.webp",
-        imageAlt: "Aerial view of the BCE batching plant, aggregate yard and mixer trucks",
+        icon: "tower",
       },
       {
         title: "Innovation & technology",
         text: "Invest in advanced technology, digital systems and data-driven operations to improve efficiency, product quality and customer experience.",
-        image: "/Image/bce/about-zoom-batching.webp",
-        imageAlt: "Aerial view of a computerised BCE batching plant",
+        icon: "blueprint",
       },
       {
         title: "Quality & reliability",
         text: "Strengthen our quality management, laboratory capability and process control to deliver products and services that exceed industry standards.",
-        image: "/Image/bce/about-hse-banner.webp",
-        imageAlt: "A concrete cylinder under compression testing in the BCE laboratory",
+        icon: "shield",
       },
       {
         title: "People & culture",
         text: "Develop our people, promote a strong safety culture and foster a performance-driven environment built on integrity and accountability.",
-        image: "/Image/bce/about-business-banner.webp",
-        imageAlt: "A BCE site team standing on a finished concrete slab",
+        icon: "helmet",
       },
       {
         title: "Sustainability & responsibility",
         text: "Operate responsibly with care for the environment, support communities and contribute to Cambodia’s sustainable development.",
-        image: "/Image/bce/photos/road-crew.webp",
-        imageAlt: "A BCE crew placing concrete for a new road",
+        icon: "rain",
       },
     ],
   },
