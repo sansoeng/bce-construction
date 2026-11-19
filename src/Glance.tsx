@@ -176,7 +176,9 @@ function Partners() {
       <div ref={ref} className={`glance ${inView ? "is-in" : ""}`}>
         {primary && (
           <div>
-            <div className="mb-4 flex items-center justify-between border-b border-black/10 pb-2">
+            {/* The label rule is the grid's top rule: the first row's own rule is suppressed in CSS so the two do not
+                draw a double hairline a few pixels apart. */}
+            <div className="flex items-center justify-between border-b border-black/10 pb-2">
               <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
                 {primary.label}
               </span>
@@ -193,11 +195,13 @@ function Partners() {
         )}
 
         {secondary.length > 0 && (
-          <div className="mt-12 md:mt-16 grid grid-cols-2 gap-x-8">
+          // No gutter between the two columns: the hairline grid runs on, so the group rules and logo rows read as one
+          // continuous ruled block instead of breaking at a 2rem gap. The right column's label keeps its own inset.
+          <div className="glance-split mt-12 md:mt-16 grid grid-cols-2">
             {secondary.map((group, gi) => (
               <div key={`${group.label}-${gi}`}>
                 <div className="border-b border-black/10 pb-2">
-                  <div className="flex items-center justify-between">
+                  <div className={`flex items-center justify-between ${gi > 0 ? "pl-6 md:pl-8" : ""}`}>
                     <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
                       {group.label}
                     </span>
@@ -218,7 +222,7 @@ function Partners() {
 
         {extra.map((group, gi) => (
           <div key={`${group.label}-${gi}`} className="mt-12 md:mt-16">
-            <div className="mb-4 flex items-center justify-between border-b border-black/10 pb-2">
+            <div className="flex items-center justify-between border-b border-black/10 pb-2">
               <span className="font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-black/50">
                 {group.label}
               </span>

@@ -1232,6 +1232,44 @@ html[lang="km"] .glance-num > span {
 
 /* Trusted partners & clients: the "at a glance" layout again, two logos per row. */
 .glance-partners { margin-top: 5rem; }
+/* Each partner group's label already carries its hairline, so the first logo row must not draw a second one: in the
+   2-up grids it sits a few pixels under the label rule, and in the stacked lists it lands on top of it. */
+.glance-partners .glance-grid > .glance-cell:nth-child(-n+2)::before { display: none; }
+.glance-partners .glance-logos.grid-cols-1 > .glance-cell:first-child::before { display: none; }
+/* The partner grid is one ruled block, so every rule is drawn the moment the block renders. The shared reveal animates
+   each cell's rule from the left with its own stagger (--d), which left whole rows looking unlined — and a column's
+   last entry looking cut off — for seconds after the block scrolled in. Only the logos animate here. */
+.glance-partners .glance-cell::before,
+.glance-partners .glance-cell::after,
+.glance-partners .glance-grid::before,
+.glance-partners .glance-grid::after,
+.glance-partners .glance-split::before,
+.glance-partners .glance-split::after {
+  transform: none;
+  opacity: 1;
+  transition: none;
+}
+/* The rule between the two grouped lists belongs to the block, not to the shorter column: it runs the full height of
+   the tallest list, so a column with an extra entry is still closed on its right instead of hanging open. */
+.glance-split { position: relative; }
+.glance-split::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 1px;
+  background: var(--line);
+}
+.glance-split > div:last-child .glance-cell::after { display: none; }
+/* Close the block's right and bottom edges like the 2-up grid above it, so the rule set is a frame and not a line
+   that stops where the shorter list ends. */
+.glance-split::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  pointer-events: none;
+}
 .glance-logo { align-items: center; justify-content: center; text-align: center; }
 /* Logos fade and rise into place row by row (the pair in each row a beat apart). No mask or blur: a clipped, blurred
    logo looked sliced mid-reveal, and the logos load up front so none pops in late. Hover is on the logo itself, so
@@ -5495,9 +5533,12 @@ html[lang="km"] .fg-btn.is-outline-white {
 .fg-btn.is-tile .fg-btn-arrow { width: 20px; height: 16px; margin: 0; }
 /* Phones keep the shape but a shorter card. */
 @media (max-width: 767px) { .fg-btn.is-tile { height: 104px !important; } }
-/* The homepage About tile is exactly as tall as the intro paragraph above it, so the copy and its action read as one
-   block. App.tsx writes the measured paragraph height to --tile-h and keeps it in step on re-wrap. */
-.about-panel .fg-btn.is-tile { height: var(--tile-h, 66px) !important; }
+/* The homepage About tile matches the intro paragraph's width (max-w-[440px]) and uses the same card height as the
+   "Explore Quality & HSE" tile (120px, 104px on phones), so both wide actions read as one family. */
+.about-panel .fg-btn.is-tile {
+  width: 100%;
+  max-width: 440px;
+}
 /* The HSE action sits on the dark commitments photo, so its card is the outline form of harkcap's button:
    hairline rule, no fill, white label; hover floods it white. */
 .fg-btn.is-tile.is-outline-white {

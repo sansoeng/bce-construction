@@ -323,17 +323,6 @@ function App() {
     // After landing, the image stays pinned (CSS sticky) until its bottom meets the heading's first line.
     const track = document.querySelector<HTMLElement>("[data-about-track]");
     const title = document.querySelector<HTMLElement>("[data-about-title]");
-    // The About CTA card is exactly as tall as the intro paragraph above it (66px on desktop, taller on phones and in
-    // Khmer), so the copy and its action read as one block instead of a 120px card. Measure the paragraph and pass the
-    // height to the tile through a custom property; the observer keeps it in step with re-wraps and font swaps.
-    const aboutCta = document.querySelector<HTMLElement>("[data-about-cta] .fg-btn");
-    const syncAboutCta = () => {
-      if (!aboutIntro || !aboutCta) return;
-      aboutCta.style.setProperty("--tile-h", `${aboutIntro.getBoundingClientRect().height}px`);
-    };
-    const aboutCtaObserver = aboutIntro ? new ResizeObserver(syncAboutCta) : null;
-    syncAboutCta();
-    if (aboutIntro) aboutCtaObserver?.observe(aboutIntro);
     const sizeTrack = () => {
       sizeOffers();
       if (vActive >= 0) placeVision(vActive);
@@ -425,7 +414,6 @@ function App() {
       kpObserver.disconnect();
       kpRevealObserver.disconnect();
       kpResize?.disconnect();
-      aboutCtaObserver?.disconnect();
       kpItems.forEach((el) => (el.style.transform = ""));
       if (vImgScroll) vImgScroll.style.transform = "";
       lenis?.destroy();
