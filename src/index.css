@@ -4294,12 +4294,20 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
    the same hairline icon and colour the business values use (src/LineIcon.tsx). The mark traces itself in, with a
    short stagger per card, the first time the slider reaches the screen. */
 .ol-slide--icon { background: #F8F8F9; color: var(--ink); }
-.ol-slide--icon .ol-slide-icon { position: absolute; inset: 52px 0 40% 0; z-index: 1; display: grid; place-items: center; color: var(--brand); pointer-events: none; }
 .ol-slide--icon .ol-slide-mark { width: clamp(88px, 9vw, 148px); height: auto; }
 .ol-slide--icon .ol-slide-mark .ld { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.5s cubic-bezier(.65, 0, .35, 1) calc(var(--i, 0) * .09s); }
 .ol-slide--icon.is-seen .ol-slide-mark .ld { stroke-dashoffset: 0; }
 @media (prefers-reduced-motion: reduce) { .ol-slide--icon .ol-slide-mark .ld { stroke-dashoffset: 0; transition: none; } }
-.ol-slide--icon .ol-slide-text { max-width: 620px; font-size: 20px; line-height: 1.35; color: rgb(17 17 17 / .72); }
+/* The mark is the middle row: it takes the space between the tag and the copy and centres itself in it, so it sits
+   halfway down the card whatever the copy runs to. */
+.ol-slide-content--icon { justify-content: flex-start; }
+.ol-slide-content--icon .ol-slide-icon { position: static; flex: 1; min-height: 0; display: grid; place-items: center; color: var(--brand); pointer-events: none; }
+.ol-slide--icon .ol-slide-text { max-width: 560px; font-size: 20px; line-height: 1.35; color: rgb(17 17 17 / .72); }
+/* Three lines is the card's measure on a wide screen, where the copy fits in three; narrower desktops let it run on
+   rather than cut a sentence, and phones keep the whole sentence since the card is one column there. */
+@media (min-width: 1500px) {
+  .ol-slide--icon .ol-slide-text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+}
 .ol-slider-pagination { position: relative; width: calc(100% - 2 * 186px); height: 1px; margin: 90px auto 0; background: rgb(17 17 17 / .15); overflow: hidden; }
 .ol-slider-pagination span { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transition: transform 900ms ease; }
 .ol-slider-nav { display: flex; justify-content: center; gap: 4px; margin-top: 22px; }

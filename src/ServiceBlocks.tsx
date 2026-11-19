@@ -298,13 +298,14 @@ export function CardSlider({ items, label }: { items: SlideItem[]; label: string
           } as CSSProperties;
           return (
             <article key={it.title} className={`ol-slide${it.icon ? " ol-slide--icon" : ""}${it.icon && seen ? " is-seen" : ""}`} style={style} aria-roledescription="slide" aria-label={`${k + 1} of ${n}`} aria-hidden={Math.abs(rel) > 1}>
-              {it.icon ? (
-                <span className="ol-slide-icon" aria-hidden><LineIcon name={it.icon} className="ol-slide-mark" draw /></span>
-              ) : (
+              {!it.icon && (
                 <div className="ol-slide-media"><img src={it.image} alt={it.alt} loading="lazy" draggable={false} /></div>
               )}
-              <div className="ol-slide-content">
+              <div className={`ol-slide-content${it.icon ? " ol-slide-content--icon" : ""}`}>
                 <h3 className="ol-slide-title">{it.title}</h3>
+                {it.icon && (
+                  <span className="ol-slide-icon" aria-hidden><LineIcon name={it.icon} className="ol-slide-mark" draw /></span>
+                )}
                 <p className="ol-slide-text">{it.text}</p>
               </div>
             </article>
