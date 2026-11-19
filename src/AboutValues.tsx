@@ -373,18 +373,8 @@ export default function AboutValues() {
             </ol>
           </div>
           <div className="abv-vision-images" aria-hidden>
-            {/* The first value's photo holds the column, as on the HSE commitment; the rest wipe up over it. */}
-            {values[0]?.id && (
-              <div className="abv-base">
-                <img
-                  className="no-radius"
-                  src={photo(values[0].id, 1600)}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            )}
+            {/* No base photo here, unlike the HSE commitment: this section opens on the vision/mission photo, which
+                clips into this column and holds it for the first value before the rest wipe up over it. */}
             {values.slice(1).map((v) => (
               <div key={v.id} className="abv-group">
                 <div className="abv-overlay" />
