@@ -194,24 +194,21 @@ export default function AboutValues() {
           cardTxt.forEach((els, i) => setOn(els, i === k))
         }
 
-        // Each later photo crossfades over the one before, centred on its card's start (scrubbed). A fade, rather
-        // than a slide, keeps exactly one photo inside the frame: nothing else peeks in at the edge mid-scroll.
+        // Each later photo wipes up over the one before, its mask travelling the other way, centred on its card's start
+        // (scrubbed) — the same wipe the HSE commitment uses (src/StickyValues.tsx), so both sequences read alike.
         groups.forEach((g, gi) => {
           const i = gi + 1
           const q = clamp01((smooth - (start + CARD * i - CARD / 2)) / CARD)
+          const overlay = g.firstElementChild as HTMLElement
           const image = g.children[1] as HTMLElement,
             mask = image.firstElementChild as HTMLElement,
             img = mask.firstElementChild as HTMLElement
-          g.style.opacity = q.toFixed(3)
-          image.style.transform = "none"
-          mask.style.transform = "none"
-          img.style.transform = `scale(${(1.08 - 0.08 * q).toFixed(4)})`
+          g.style.opacity = ""
+          overlay.style.opacity = (0.9 * q).toFixed(3)
+          image.style.transform = `translate3d(0, ${(100 * (1 - q)).toFixed(3)}%, 0)`
+          mask.style.transform = `translate3d(0, ${(-100 * (1 - q)).toFixed(3)}%, 0)`
+          img.style.transform = `scale(${(1.15 - 0.15 * q).toFixed(4)})`
         })
-        // The last photo drifts down as the section leaves.
-        const out = clamp01((vh - r.bottom) / vh)
-        const lastGroup = groups[groups.length - 1]
-        if (lastGroup) lastGroup.style.transform = `translate3d(0, ${(15 * out).toFixed(3)}%, 0)`
-
         if (smooth !== u) request()
       }
       const request = () => (raf ||= requestAnimationFrame(frame))
@@ -376,6 +373,18 @@ export default function AboutValues() {
             </ol>
           </div>
           <div className="abv-vision-images" aria-hidden>
+            {/* The first value's photo holds the column, as on the HSE commitment; the rest wipe up over it. */}
+            {values[0]?.id && (
+              <div className="abv-base">
+                <img
+                  className="no-radius"
+                  src={photo(values[0].id, 1600)}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
             {values.slice(1).map((v) => (
               <div key={v.id} className="abv-group">
                 <div className="abv-overlay" />
