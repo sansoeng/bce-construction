@@ -298,7 +298,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
             to the map on the homepage rather than repeating it here. */}
         <div className="ol-panels">
           <TextMedia id="engineering" kicker={engineering.kicker} title={engineering.title} image={unsplash(engineering.image, 1600)} alt={engineering.imageAlt}
-            copy={engineering.copy}>
+            reverse copy={engineering.copy}>
             <Rows rows={engineering.rows} />
             <OlButton label="Coverage" href="/coverage" className="ol-tm-button" />
           </TextMedia>

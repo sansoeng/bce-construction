@@ -862,26 +862,6 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       ] },
     ],
   },
-
-  pages: {
-    type: "pages",
-    label: "Custom pages",
-    singular: "Custom page",
-    description: "Optional JSON-backed pages for campaigns, notices and landing pages.",
-    icon: "◧",
-    titleKey: "title",
-    slugKey: "slug",
-    defaults: () => ({ slug: "", title: "", data: {} }),
-    skipKm: ["slug"],
-    sections: [
-      { id: "page", title: "Page", keys: ["title", "slug", "data"] },
-    ],
-    fields: [
-      { key: "title", label: "Title", type: "text", required: true, wide: true },
-      { key: "slug", label: "URL slug", type: "text", required: true },
-      { key: "data", label: "Page data", type: "json", rows: 16, wide: true },
-    ],
-  },
 };
 
 export const contentTypes = Object.keys(SCHEMAS);

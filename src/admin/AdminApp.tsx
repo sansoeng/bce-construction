@@ -4,7 +4,6 @@ import {
   Building2,
   Command as CommandIcon,
   ExternalLink,
-  FileJson,
   FileText,
   FlaskConical,
   FolderOpen,
@@ -77,7 +76,6 @@ const typeIcons = {
   resources: FileText,
   businesses: Building2,
   offerings: Layers,
-  pages: FileJson,
 } as const;
 
 const operationsNav = [

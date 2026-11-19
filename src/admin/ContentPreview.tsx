@@ -308,12 +308,6 @@ function GenericPreview({ type, data }: { type: string; data: Record<string, unk
         </section>
       )}
 
-      {type === "pages" && Object.keys(record(data.data)).length > 0 && (
-        <section className="adm-prev-section">
-          <h2>Page data</h2>
-          <p className="adm-prev-statement">Structured JSON content is rendered by the custom page template.</p>
-        </section>
-      )}
     </>
   );
 }
