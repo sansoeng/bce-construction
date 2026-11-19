@@ -63,13 +63,7 @@ export type AboutContent = {
   strategy: {
     label: string;
     title: string;
-    intro: string;
-    pillars: { title: string; text: string }[];
-    focusLabel: string;
-    focus: string[];
-    visionLabel: string;
-    vision: string;
-    stakeholders: { label: string; text: string }[];
+    pillars: { title: string; text: string; image: string; imageAlt: string }[];
   };
   careers: {
     label: string;
@@ -260,53 +254,36 @@ export const DEFAULT_ABOUT: AboutContent = {
   strategy: {
     label: "Future development strategy",
     title: "Building today. Leading tomorrow.",
-    intro:
-      "BCE is committed to sustainable growth, operational excellence and long-term value creation for our clients, investors, partners and the communities we serve. Our future strategy is built on innovation, people, quality and responsible growth, supporting Cambodia’s development and regional competitiveness.",
     pillars: [
       {
         title: "Growth & expansion",
         text: "Expand our footprint across Cambodia and pursue selected regional opportunities through new facilities, partnerships and strategic investments.",
+        image: "/Image/bce/about-hero-banner.webp",
+        imageAlt: "Aerial view of the BCE batching plant, aggregate yard and mixer trucks",
       },
       {
         title: "Innovation & technology",
         text: "Invest in advanced technology, digital systems and data-driven operations to improve efficiency, product quality and customer experience.",
+        image: "/Image/bce/about-zoom-batching.webp",
+        imageAlt: "Aerial view of a computerised BCE batching plant",
       },
       {
         title: "Quality & reliability",
         text: "Strengthen our quality management, laboratory capability and process control to deliver products and services that exceed industry standards.",
+        image: "/Image/bce/about-hse-banner.webp",
+        imageAlt: "A concrete cylinder under compression testing in the BCE laboratory",
       },
       {
         title: "People & culture",
         text: "Develop our people, promote a strong safety culture and foster a performance-driven environment built on integrity and accountability.",
+        image: "/Image/bce/about-business-banner.webp",
+        imageAlt: "A BCE site team standing on a finished concrete slab",
       },
       {
         title: "Sustainability & responsibility",
         text: "Operate responsibly with care for the environment, support communities and contribute to Cambodia’s sustainable development.",
-      },
-    ],
-    focusLabel: "Our focus for the future",
-    focus: [
-      "Increase production and service capacity to meet growing demand",
-      "Strengthen the supply chain and strategic partnerships",
-      "Enhance digital transformation and operational integration",
-      "Maintain strong financial discipline and governance",
-      "Deliver long-term value for stakeholders and communities",
-    ],
-    visionLabel: "Our vision",
-    vision:
-      "To be Cambodia’s most trusted civil construction and engineering company, delivering quality concrete works, reliable piling services and professional project execution.",
-    stakeholders: [
-      {
-        label: "For our clients",
-        text: "Reliable products, consistent quality and responsive service that build trust and long-term relationships.",
-      },
-      {
-        label: "For our partners",
-        text: "Transparent collaboration, shared growth and mutual success.",
-      },
-      {
-        label: "For government & society",
-        text: "Supporting national infrastructure, creating jobs, paying taxes and contributing to community development.",
+        image: "/Image/bce/photos/road-crew.webp",
+        imageAlt: "A BCE crew placing concrete for a new road",
       },
     ],
   },

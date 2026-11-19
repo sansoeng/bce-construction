@@ -8,7 +8,7 @@ import AboutZoom from "./AboutZoom"
 import AboutValues from "./AboutValues"
 import ArrowButton from "./ArrowButton"
 import { useMediaReveal, usePageSetup } from "./usePageSetup"
-import { LeadText, ParallaxHero, useScrollParallax } from "./ServiceBlocks"
+import { CardSlider, LeadText, ParallaxHero, useScrollParallax, type SlideItem } from "./ServiceBlocks"
 import { about } from "./about"
 import { FeatureBand } from "./FeatureBand"
 
@@ -265,62 +265,36 @@ function Milestones() {
   )
 }
 
-// Future development strategy, from the Corporate Profile 2026 (p. 36): five pillars, the focus list, the promise to
-// each audience and the vision they aim at. Read from `about.strategy` so the admin can edit it.
+// Future development strategy, from the Corporate Profile 2026 (p. 36): the five pillars, as the Technical capabilities
+// slider on Our Businesses (CardSlider in src/ServiceBlocks.tsx) so the two sections read as one family — the centred
+// label and uppercase heading, then one photographic card per pillar. Read from `about.strategy` so the admin can edit
+// it, including each card's photo.
 function Strategy() {
   const strategy = about.strategy
+  const slides: SlideItem[] = strategy.pillars.map((pillar) => ({
+    title: pillar.title,
+    text: pillar.text,
+    image: unsplash(pillar.image, 1400),
+    alt: pillar.imageAlt,
+  }))
+
   return (
     <section
       id="strategy"
       data-header-title="Future strategy"
       aria-labelledby="ab-strategy"
-      className="ab-strategy"
+      className="ol-onboard ab-strategy-band"
     >
-      <div className="ab-strategy-head">
+      <div className="ol-onboard-header">
         <p data-split="content" className="ol-label">
           {strategy.label}
         </p>
-        <h2 id="ab-strategy" data-split className="ab-strategy-title">
+        <h2 id="ab-strategy" data-split className="ol-onboard-heading">
           {strategy.title}
         </h2>
-        <p data-split="content" className="ab-strategy-intro">
-          {strategy.intro}
-        </p>
       </div>
 
-      <ol className="ab-strategy-grid">
-        {strategy.pillars.map((pillar, index) => (
-          <li key={pillar.title} data-reveal className="ab-strategy-pillar">
-            <span className="ab-strategy-n">{String(index + 1).padStart(2, "0")}</span>
-            <h3 className="ab-strategy-pillar-title">{pillar.title}</h3>
-            <p className="ab-strategy-pillar-text">{pillar.text}</p>
-          </li>
-        ))}
-      </ol>
-
-      <div className="ab-strategy-foot">
-        <div className="ab-strategy-focus">
-          <p className="ab-strategy-subhead">{strategy.focusLabel}</p>
-          <ul>
-            {strategy.focus.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="ab-strategy-vision">
-          <p className="ab-strategy-subhead">{strategy.visionLabel}</p>
-          <p className="ab-strategy-statement">{strategy.vision}</p>
-        </div>
-      </div>
-
-      <ul className="ab-strategy-promises">
-        {strategy.stakeholders.map((item) => (
-          <li key={item.label}>
-            <p className="ab-strategy-promise-label">{item.label}</p>
-            <p className="ab-strategy-promise-text">{item.text}</p>
-          </li>
-        ))}
-      </ul>
+      <CardSlider items={slides} label={strategy.label} />
     </section>
   )
 }

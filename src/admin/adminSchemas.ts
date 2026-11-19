@@ -580,7 +580,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "story", title: "Milestones", hint: "The horizontal milestones rail shown under Leadership: year, title, text and photo. The old history paragraph is no longer printed.", keys: ["story"] },
       { id: "vision", title: "Vision & mission", hint: "The two glass boxes over the photo.", keys: ["vision", "mission"] },
       { id: "values", title: "Core values", hint: "The four pillars, each with its photo.", keys: ["values"] },
-      { id: "strategy", title: "Future strategy", hint: "The five strategic pillars, the focus list, the promise to each audience and the vision.", keys: ["strategy"] },
+      { id: "strategy", title: "Future strategy", hint: "Five strategic pillars, each one a card in the slider: title, text, photo and alt text.", keys: ["strategy"] },
       { id: "careers", title: "Careers", hint: "The photo band promoting jobs at BCE, above the Explore tiles: kicker, headline, paragraph, photo and its two buttons.", keys: ["careers"] },
       { id: "zoom", title: "Who we are", hint: "The two statements revealed over the photo grid.", keys: ["zoom"] },
       { id: "explore", title: "Explore tiles", hint: "The two large tiles at the end of the page.", keys: ["explore"] },
@@ -657,18 +657,11 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "strategy", label: "", type: "group", fields: [
         { key: "label", label: "Section label", type: "text" },
         { key: "title", label: "Heading", type: "text", wide: true },
-        { key: "intro", label: "Introduction", type: "textarea", rows: 3, wide: true },
-        { key: "pillars", label: "Strategic pillars", type: "objectList", itemLabel: "Pillar", itemFields: [
+        { key: "pillars", label: "Strategic pillars", type: "objectList", itemLabel: "Pillar", hint: "One card each, in the order they appear in the slider.", itemFields: [
           { key: "title", label: "Title", type: "text" },
           { key: "text", label: "Text", type: "textarea", rows: 3 },
-        ] },
-        { key: "focusLabel", label: "Focus label", type: "text" },
-        { key: "focus", label: "Focus points", type: "list", hint: "One point per row." },
-        { key: "visionLabel", label: "Vision label", type: "text" },
-        { key: "vision", label: "Vision statement", type: "textarea", rows: 3, wide: true },
-        { key: "stakeholders", label: "Promises", type: "objectList", itemLabel: "Promise", itemFields: [
-          { key: "label", label: "Audience", type: "text" },
-          { key: "text", label: "Text", type: "textarea", rows: 2 },
+          { key: "image", label: "Photo", type: "image", aspect: "666 / 435" },
+          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
         ] },
       ] },
 
