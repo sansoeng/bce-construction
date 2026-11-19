@@ -224,6 +224,22 @@ export function CardSlider({ items, label }: { items: SlideItem[]; label: string
   const [dragging, setDragging] = useState(false);
   const prevRel = useRef<number[]>([]);
   const start = useRef<{ x: number; id: number } | null>(null);
+  // One-shot: card icons trace themselves in the first time the slider reaches the screen.
+  const [seen, setSeen] = useState(false);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || seen) return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setSeen(true);
+      io.disconnect();
+    }, { threshold: 0.2 });
+    io.observe(el);
+    // The marks start hidden (stroke-dashoffset 1); if the observer never delivers, show them rather than lose them.
+    const safety = setTimeout(() => setSeen(true), 2500);
+    return () => { io.disconnect(); clearTimeout(safety); };
+  }, [seen]);
 
   useLayoutEffect(() => {
     const el = rootRef.current;
@@ -278,11 +294,12 @@ export function CardSlider({ items, label }: { items: SlideItem[]; label: string
             transform: `translate3d(${x}px, 0, 0)`,
             "--sp": clamp(progress, -1.5, 1.5).toFixed(4),
             "--dur": dragging || jump ? "0ms" : "900ms",
+            "--i": k,
           } as CSSProperties;
           return (
-            <article key={it.title} className={`ol-slide${it.icon ? " ol-slide--icon" : ""}`} style={style} aria-roledescription="slide" aria-label={`${k + 1} of ${n}`} aria-hidden={Math.abs(rel) > 1}>
+            <article key={it.title} className={`ol-slide${it.icon ? " ol-slide--icon" : ""}${it.icon && seen ? " is-seen" : ""}`} style={style} aria-roledescription="slide" aria-label={`${k + 1} of ${n}`} aria-hidden={Math.abs(rel) > 1}>
               {it.icon ? (
-                <span className="ol-slide-icon" aria-hidden><LineIcon name={it.icon} className="ol-slide-mark" /></span>
+                <span className="ol-slide-icon" aria-hidden><LineIcon name={it.icon} className="ol-slide-mark" draw /></span>
               ) : (
                 <div className="ol-slide-media"><img src={it.image} alt={it.alt} loading="lazy" draggable={false} /></div>
               )}

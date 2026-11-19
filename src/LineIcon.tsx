@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { cloneElement, isValidElement, type ReactNode } from "react";
 
 /**
  * Line icons for the site's value columns, drawn in the manner of dalco.ch/meet-dalco's company values: a single
@@ -191,15 +191,38 @@ const fallback = (
   </>
 );
 
+// The elements that actually stroke; they are the ones a trace can run along.
+const STROKED = new Set(["path", "circle", "rect", "line", "polyline", "polygon", "ellipse"]);
+
+/** Give every stroked element `pathLength: 1` and the `ld` class, so one rule can trace the whole mark in. */
+function traceable(node: ReactNode): ReactNode {
+  if (Array.isArray(node)) return node.map(traceable);
+  if (!isValidElement<{ children?: ReactNode }>(node)) return node;
+  if (typeof node.type === "string" && STROKED.has(node.type)) {
+    return cloneElement(node as React.ReactElement<Record<string, unknown>>, { pathLength: 1, className: "ld" });
+  }
+  const kids = node.props?.children;
+  if (!kids) return node;
+  return cloneElement(
+    node as React.ReactElement<{ children?: ReactNode }>,
+    undefined,
+    ...(Array.isArray(kids) ? kids.map(traceable) : [traceable(kids)]),
+  );
+}
+
 export function LineIcon({
   name,
   className = "size-11",
   strokeWidth = 1.5,
+  draw = false,
 }: {
   name: string;
   className?: string;
   strokeWidth?: number;
+  /** Trace the mark in on the page's cue: every stroked element gets `pathLength: 1` and the `ld` class. */
+  draw?: boolean;
 }) {
+  const shape = shapes[name as LineIconName] ?? fallback;
   return (
     <svg
       viewBox="0 0 49 49"
@@ -211,7 +234,7 @@ export function LineIcon({
       aria-hidden
       className={className}
     >
-      {shapes[name as LineIconName] ?? fallback}
+      {draw ? traceable(shape) : shape}
     </svg>
   );
 }
