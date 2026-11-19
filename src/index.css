@@ -2914,11 +2914,12 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
   .ft-veil { opacity: 0; }
 }
 
-/* Equipment & fleet on the homepage (src/HomeEvidence.tsx), after olympic.no's "FLEET FOCUS" fullscreen-media block:
-   a centred mono label and headline, then a sticky screen holding one photographic panel. The component writes the
-   scroll: the frame opens from a centred half-width window to the full page width (their clip-path inset 25% → 0)
-   while the photo scales 1.16 → 1, so the shot zooms out. The copy and the two CTAs sit on the photo. Type, colours
-   and buttons are BCE's — only the layout and the motion are Olympic's. */
+/* The fullscreen-media band (src/FeatureBand.tsx), after olympic.no's "FLEET FOCUS" block: Equipment & fleet on the
+   homepage and Careers on About, both drawn by this one rule set. A centred mono label and headline, then a sticky
+   screen holding one photographic panel. The component writes the scroll: the frame opens from a centred half-width
+   window to the full page width (their clip-path inset 25% → 0) while the photo scales 1.16 → 1, so the shot zooms
+   out. The copy and the two CTAs sit on the photo. Type, colours and buttons are BCE's — only the layout and the
+   motion are Olympic's. */
 .flb { position: relative; padding-block: clamp(5rem, 9vw, 8.5rem) clamp(3.5rem, 6vw, 6rem); background: var(--paper); color: var(--ink); }
 .flb-intro { max-width: 920px; margin: 0 auto clamp(3rem, 6vw, 6rem); text-align: center; }
 .flb-title { max-width: 24ch; margin: 16px auto 0; font-size: clamp(34px, 6vw, 54px); font-weight: 500; line-height: 1.02; letter-spacing: -.02em; text-transform: uppercase; text-wrap: balance; }

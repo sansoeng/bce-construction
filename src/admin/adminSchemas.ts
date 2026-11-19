@@ -565,7 +565,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
     type: "about",
     label: "About BCE",
     singular: "About BCE",
-    description: "The heritage, Chairwoman’s message, vision, mission, core values, future strategy and Explore tiles on the About page.",
+    description: "The heritage, Chairwoman’s message, vision, mission, core values, future strategy, Careers band and Explore tiles on the About page.",
     icon: "◈",
     titleKey: "title",
     slugKey: "slug",
@@ -581,6 +581,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "vision", title: "Vision & mission", hint: "The two glass boxes over the photo.", keys: ["vision", "mission"] },
       { id: "values", title: "Core values", hint: "The four pillars, each with its photo.", keys: ["values"] },
       { id: "strategy", title: "Future strategy", hint: "The five strategic pillars, the focus list, the promise to each audience and the vision.", keys: ["strategy"] },
+      { id: "careers", title: "Careers", hint: "The photo band promoting jobs at BCE, above the Explore tiles: kicker, headline, paragraph, photo and its two buttons.", keys: ["careers"] },
       { id: "zoom", title: "Who we are", hint: "The two statements revealed over the photo grid.", keys: ["zoom"] },
       { id: "explore", title: "Explore tiles", hint: "The two large tiles at the end of the page.", keys: ["explore"] },
     ],
@@ -669,6 +670,18 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "label", label: "Audience", type: "text" },
           { key: "text", label: "Text", type: "textarea", rows: 2 },
         ] },
+      ] },
+
+      { key: "careers", label: "", type: "group", fields: [
+        { key: "label", label: "Section label", type: "text" },
+        { key: "title", label: "Headline", type: "text", wide: true },
+        { key: "copy", label: "Paragraph", type: "textarea", rows: 3, wide: true },
+        { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "primaryLabel", label: "Primary button label", type: "text" },
+        { key: "primaryHref", label: "Primary button link", type: "text", locale: false, hint: "A page path such as /careers." },
+        { key: "secondaryLabel", label: "Second button label", type: "text" },
+        { key: "secondaryHref", label: "Second button link", type: "text", locale: false },
       ] },
 
       { key: "zoom", label: "", type: "group", fields: [

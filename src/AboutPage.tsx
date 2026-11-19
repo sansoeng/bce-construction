@@ -10,11 +10,13 @@ import ArrowButton from "./ArrowButton"
 import { useMediaReveal, usePageSetup } from "./usePageSetup"
 import { LeadText, ParallaxHero, useScrollParallax } from "./ServiceBlocks"
 import { about } from "./about"
+import { FeatureBand } from "./FeatureBand"
 
 // About BCE, after the website brief ("10. About BCE"): the olympic.no-style header (title, banner, introduction), who
 // we are (a TopTier-style zoom-out), leadership and the milestones rail after dalco.ch/meet-dalco, vision, mission and
 // core values (Telha Clarke's studio values/vision scroll sequence, src/AboutValues.tsx), the future development
-// strategy from the Corporate Profile 2026, then two Explore tiles.
+// strategy from the Corporate Profile 2026, a Careers band promoting jobs at BCE (the fullscreen-media band the
+// homepage uses for Equipment & fleet), then two Explore tiles.
 // Facts are from the BCE Corporate Profile 2026 as already used across the site; blocks the profile does not yet supply
 // in full are tagged "Sample content" on the page until BCE provides the final copy.
 // It speaks the site's language: line-by-line title reveals, hairline rows drawing in, and photos wiping in from the
@@ -377,6 +379,22 @@ export default function AboutPage() {
 
         {/* 2b. Future development strategy, from the Corporate Profile 2026 (p. 36). */}
         <Strategy />
+
+        {/* 2c. Careers: the same fullscreen-media band as Equipment & fleet on the homepage (src/FeatureBand.tsx),
+            promoting a job at BCE directly above the Explore tiles. */}
+        <FeatureBand
+          id="careers"
+          headerTitle="Careers"
+          kicker={about.careers.label}
+          title={about.careers.title}
+          image={about.careers.image}
+          imageAlt={about.careers.imageAlt}
+          copy={about.careers.copy}
+          actions={[
+            { href: about.careers.primaryHref, label: about.careers.primaryLabel, theme: "white" },
+            { href: about.careers.secondaryHref, label: about.careers.secondaryLabel, theme: "outline-white" },
+          ]}
+        />
 
         {/* 4. Explore more: two media link tiles (olympic.no), the photos drifting in their frames as they cross the screen. */}
         <section

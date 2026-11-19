@@ -2,10 +2,10 @@
  * About BCE content.
  *
  * The heritage, Chairwoman's message, vision, mission, core values, future
- * development strategy and the two Explore tiles on `/about` live here. The
- * bundled defaults render first; Cloudflare D1 then replaces them at runtime
- * through `contentStore`, so the admin console edits the live page without a
- * deploy.
+ * development strategy, the Careers band and the two Explore tiles on `/about`
+ * live here. The bundled defaults render first; Cloudflare D1 then replaces
+ * them at runtime through `contentStore`, so the admin console edits the live
+ * page without a deploy.
  *
  * The "Who we are" photo grid in `AboutZoom` stays in code: its seven tiles are
  * tied to fixed grid positions, so only its two statements are editable.
@@ -70,6 +70,17 @@ export type AboutContent = {
     visionLabel: string;
     vision: string;
     stakeholders: { label: string; text: string }[];
+  };
+  careers: {
+    label: string;
+    title: string;
+    copy: string;
+    image: string;
+    imageAlt: string;
+    primaryLabel: string;
+    primaryHref: string;
+    secondaryLabel: string;
+    secondaryHref: string;
   };
   zoom: {
     statements: string[];
@@ -298,6 +309,17 @@ export const DEFAULT_ABOUT: AboutContent = {
         text: "Supporting national infrastructure, creating jobs, paying taxes and contributing to community development.",
       },
     ],
+  },
+  careers: {
+    label: "Careers",
+    title: "Build your career.",
+    copy: "Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience behind your career.",
+    image: "/Image/bce/about-zoom-rebar-crew.webp",
+    imageAlt: "BCE crews working safely across a reinforced slab",
+    primaryLabel: "View all positions",
+    primaryHref: "/careers",
+    secondaryLabel: "Apply",
+    secondaryHref: "mailto:bce.hr.1990@gmail.com?subject=Job%20Application%20-%20BCE",
   },
   zoom: {
     statements: [
