@@ -4286,7 +4286,9 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .ol-slide-media::after { content: ""; position: absolute; left: 0; bottom: 0; z-index: 2; width: 100%; height: 50%; background: linear-gradient(0deg, rgb(0 0 0 / .41), rgb(0 0 0 / 0)); }
 .ol-slide { isolation: isolate; }
 .ol-slide-content { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; justify-content: space-between; padding: 26px 26px 34px; }
-.ol-slide-title { font-size: 1.05rem; font-weight: 500; line-height: 1.3; letter-spacing: -.01em; }
+/* The card's top label is the same tag the site prints over photos elsewhere (.ab-tile-label on About's Explore
+   tiles, .ol-label on the section heads): mono, uppercase, orange. Same values, so every tag reads as one family. */
+.ol-slide-title { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ol-slide-text { max-width: 24rem; font-size: clamp(1.25rem, 1.6vw, 1.6rem); font-weight: 500; line-height: 1.15; letter-spacing: -.02em; }
 .ol-slider-pagination { position: relative; width: calc(100% - 2 * 186px); height: 1px; margin: 90px auto 0; background: rgb(17 17 17 / .15); overflow: hidden; }
 .ol-slider-pagination span { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transition: transform 900ms ease; }
