@@ -69,14 +69,15 @@ const detail: Record<string, { kicker: string; lead: string; body: string[]; typ
   },
 };
 
-// Technical capabilities, one card per topic of the Technical Capabilities page.
+// Technical capabilities, one card per topic of the Technical Capabilities page. Each is a paper card carrying the
+// topic's line mark, the same card the strategic pillars use on About (see .ol-slide--icon).
 const capabilities: SlideItem[] = [
-  { title: "Quality assurance", text: "Five checks on every project, from raw material to verified strength.", image: unsplash("/Image/bce/core_services.webp", 1400), alt: "Engineers measuring a concrete wall" },
-  { title: "Laboratory", text: "Slump, compressive strength and material testing in our own laboratory.", image: unsplash("/Image/bce/laboratory_qa.webp", 1400), alt: "Concrete test specimens" },
-  { title: "Mix designs", text: "Grades C15 to C40, trial-mixed and documented for consultant approval.", image: unsplash("/Image/bce/cert_mix_design.webp", 1400), alt: "An engineer measuring technical drawings" },
-  { title: "Materials & certificates", text: "Cement, aggregates and admixtures certified at source and checked again.", image: unsplash("/Image/bce/project_page_14.webp", 1400), alt: "A loader filling a truck with aggregate" },
-  { title: "Equipment & fleet", text: "4 batching plants, 41 mixer trucks, 8 pump trucks and our own piling rigs.", image: unsplash("/Image/bce/machinery_fleet.webp", 1400), alt: "Concrete mixer trucks" },
-  { title: "Engineering capability", text: "15 engineers in a team of 71, planning and supervising every project.", image: unsplash("/Image/bce/stats_fleet.webp", 1400), alt: "An engineer inspecting reinforcement on site" },
+  { title: "Quality assurance", text: "Five checks on every project, from raw material to verified strength.", icon: "shield" },
+  { title: "Laboratory", text: "Slump, compressive strength and material testing in our own laboratory.", icon: "lab" },
+  { title: "Mix designs", text: "Grades C15 to C40, trial-mixed and documented for consultant approval.", icon: "layers" },
+  { title: "Materials & certificates", text: "Cement, aggregates and admixtures certified at source and checked again.", icon: "record" },
+  { title: "Equipment & fleet", text: "4 batching plants, 41 mixer trucks, 8 pump trucks and our own piling rigs.", icon: "truck" },
+  { title: "Engineering capability", text: "15 engineers in a team of 71, planning and supervising every project.", icon: "blueprint" },
 ];
 
 export default function BusinessesPage() {
