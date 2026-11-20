@@ -7,6 +7,7 @@ import QuoteCta from "./QuoteCta";
 import { usePageSetup } from "./usePageSetup";
 import { projectHref, projects, type Project } from "./projects";
 import { FilterBar, FilterMeta, type FilterFacet, type FilterSelection } from "./FilterBar";
+import { useScrollParallax } from "./ServiceBlocks";
 import "./projects.css";
 
 // Project list (/projects), rebuilt on olympic.no's fleet archive: a full-bleed hero banner, then a hairline filter bar
@@ -123,6 +124,10 @@ export default function ProjectsPage() {
   const clearAll = () => setSelection(emptySelection());
 
   const listRef = useRef<HTMLElement>(null);
+  // The cover drifts on the same one-rAF scroll pass as every other inner-page banner: the frame starts 40vh low and
+  // rises as the hero leaves, so the statement travels at ~60% of the page and the photo at ~20%.
+  const rootRef = useRef<HTMLElement>(null);
+  useScrollParallax(rootRef);
 
   // Photos wipe in as the archive scrolls, once 15% up the viewport and loaded; re-armed whenever the filter changes,
   // since that remounts the tiles.
@@ -156,30 +161,23 @@ export default function ProjectsPage() {
   }, [selection]);
 
   return (
-    <main className="relative z-[1] overflow-x-clip bg-white text-[#111]">
+    <main ref={rootRef} className="relative z-[1] overflow-x-clip bg-white text-[#111]">
       <SiteHeader phones={phones} tel={tel} base="/" />
 
-      {/* Hero banner: the full-bleed photograph with the statement over it, as on the fleet archive. */}
-      <section className="pl-banner" data-header-title="Projects">
-        <div className="pl-banner__media">
-          <img src="/Image/bce/about-hero-banner.webp" alt="" fetchPriority="high" decoding="async" />
-        </div>
+      {/* Hero banner: the full-bleed photograph with the statement over it, drifting with the scroll exactly as the
+          other page covers do. */}
+      <section className="pl-banner" data-px="hero" data-header-title="Projects">
+        <div className="pl-banner__frame">
+          <div className="pl-banner__media">
+            <img src="/Image/bce/about-hero-banner.webp" alt="" fetchPriority="high" decoding="async" />
+          </div>
 
-        <div className="pl-banner__body">
-          <span className="pl-banner__label">Projects</span>
-          <h1 data-split data-split-type="words" className="pl-banner__title">
-            Building Cambodia from the ground up
-          </h1>
-        </div>
-
-        <div className="pl-banner__foot">
-          <span className="pl-banner__scroll" aria-hidden="true">
-            <svg width="9" height="11" viewBox="0 0 9 11" fill="none">
-              <path d="M4.5 10V1" stroke="currentColor" strokeMiterlimit="10" />
-              <path d="M1 5l3.5 4L8 5" stroke="currentColor" strokeMiterlimit="10" />
-            </svg>
-          </span>
-          <span className="pl-banner__scroll-label">Scroll to explore</span>
+          <div className="pl-banner__body">
+            <span className="pl-banner__label">Projects</span>
+            <h1 data-split data-split-type="words" className="pl-banner__title">
+              Building Cambodia from the ground up
+            </h1>
+          </div>
         </div>
       </section>
 
