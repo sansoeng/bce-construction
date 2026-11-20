@@ -1739,6 +1739,9 @@ const KM: Record<string, string> = {
   "Request this document": "ស្នើសុំឯកសារនេះ",
   "Monday – Sunday, 6:30 AM – 5:30 PM": "ថ្ងៃចន្ទ – ថ្ងៃអាទិត្យ ម៉ោង ៦:៣០ – ១៧:៣០",
   "served since 1995": "បម្រើតាំងពីឆ្នាំ ១៩៩៥",
+  "Our Businesses": "អាជីវកម្មរបស់យើង",
+  "Request a Quote": "ស្នើសុំសម្រង់តម្លៃ",
+  "Quality, Capability & HSE": "គុណភាព សមត្ថភាព និងសុវត្ថិភាព (HSE)",
   "The Journal is an editorial preview. Articles marked “Sample content” are illustrative drafts awaiting BCE technical review.":
     "ទស្សនាវដ្តីនេះជាការមើលជាមុនរបស់អ្នកកែសម្រួល។ អត្ថបទដែលសម្គាល់ថា “មាតិកាគំរូ” គឺជាសេចក្តីព្រាងឧទាហរណ៍ ដែលកំពុងរង់ចាំការត្រួតពិនិត្យបច្ចេកទេសពី BCE។",
   "Sample": "គំរូ",
