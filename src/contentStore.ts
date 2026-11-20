@@ -62,13 +62,35 @@ const overlayFor = (type: string, en: Record<string, unknown>, stored: Record<st
   const slug = String(en.slug ?? en.id ?? (singleton ? "home" : ""));
   const bundled = kmDefaults?.[type]?.[slug];
   if (!bundled && !stored) return en;
+
+  // Older D1 rows can predate fields that the bundled document already has (the homepage
+  // banner's slide deck, for example). Fill those gaps from the bundled English defaults
+  // before applying the Khmer overlay: the overlay is language-only, so it needs the
+  // English document to supply images, links and other non-translatable values.
+  const defaults = bundledContent.get(type);
+  const defaultDoc = singleton
+    ? Array.isArray(defaults)
+      ? defaults[0]
+      : defaults
+    : Array.isArray(defaults)
+      ? defaults.find((item) => {
+          if (!item || typeof item !== "object" || Array.isArray(item)) return false;
+          const doc = item as Record<string, unknown>;
+          return (en.slug && doc.slug === en.slug) || (en.id && doc.id === en.id);
+        })
+      : defaults;
+  const base =
+    defaultDoc && typeof defaultDoc === "object" && !Array.isArray(defaultDoc)
+      ? (mergeDefaults(defaultDoc as Record<string, unknown>, en) as Record<string, unknown>)
+      : en;
+
   const merged = bundled && stored ? mergeTranslation(bundled, stored) : stored ?? bundled!;
   // The overlay keeps slug/id only as its lookup key. Never let it override the live
   // document's identifier (renaming a slug must not resurrect the old one).
   const km = { ...(merged as Record<string, unknown>) };
   delete km.slug;
   delete km.id;
-  return mergeTranslation(en, km) as Record<string, unknown>;
+  return mergeTranslation(base, km) as Record<string, unknown>;
 };
 
 export const getRuntimeContentVersion = () => contentVersion;
