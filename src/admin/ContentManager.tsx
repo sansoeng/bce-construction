@@ -3,6 +3,8 @@ import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { api, ApiError, type ContentDoc, type ContentItem } from "./adminApi";
 import { mergeDefaults, mergeTranslation } from "../contentStore";
+import { kmFor } from "../km";
+import { sanitizeKm } from "./kmSanitize";
 import { SCHEMAS, slugifyTitle, type ContentSchema, type ContentSection, type Field } from "./adminSchemas";
 import { previewSiteUrl } from "./adminUrls";
 import { setLeaveGuard } from "./leaveGuard";
@@ -219,9 +221,11 @@ export default function ContentManager({ type }: { type: string }) {
 
   const openNew = () => {
     const data = schema.defaults();
+    // Singletons reuse the bundled Khmer copy; new records start blank for the translator.
+    const seededKm = schema.singleton ? kmFor(type, String(data.slug ?? "home")) ?? {} : {};
     const draft: EditorState = {
       data,
-      km: blankTranslation(data),
+      km: fillTranslation(blankTranslation(data), seededKm) as Record<string, unknown>,
       slug: schema?.singleton ? "home" : "",
       status: "staged",
       sort: items.length,
@@ -242,7 +246,13 @@ export default function ContentManager({ type }: { type: string }) {
       // The homepage is a singleton whose document can predate a field (the banner's slide deck, say). Filling the
       // bundled defaults into the gaps means the editor always shows — and can save — the shape the site renders.
       const data = schema?.singleton ? mergeDefaults(schema.defaults(), stored) : stored;
-      const km = fillTranslation(blankTranslation(data), doc.stageKm ?? doc.km ?? {}) as Record<string, unknown>;
+      // Prefill from the bundled Khmer copy, then let anything already saved in D1 win.
+      const bundled = kmFor(type, doc.slug) ?? {};
+      const savedKm = doc.stageKm ?? doc.km ?? {};
+      const km = fillTranslation(
+        blankTranslation(data),
+        mergeTranslation(bundled, savedKm) as Record<string, unknown>,
+      ) as Record<string, unknown>;
       const opened: EditorState = {
         data,
         km,
@@ -296,6 +306,9 @@ export default function ContentManager({ type }: { type: string }) {
       const slug = (editor.slug.trim() || fallback).toLowerCase().replace(/[^a-z0-9-]/g, "-");
       if (slug.length < 2) throw new Error("Add a slug (at least 2 characters) before saving.");
       const data = { ...editor.data, [slugKey]: slug };
+      // Only language-specific fields belong in the Khmer overlay; paths, hrefs, colours,
+      // categories and counts always come from the English document at render time.
+      const km = sanitizeKm(schema, editor.km);
 
       if (!editor.isNew && editor.originalSlug) {
         await api.patchContent(type, editor.originalSlug, {
@@ -303,10 +316,10 @@ export default function ContentManager({ type }: { type: string }) {
           status: editor.status,
           sort: editor.sort,
           data,
-          km: editor.km,
+          km,
         });
       } else {
-        await api.saveContent(type, { slug, status: editor.status, sort: editor.sort, data, km: editor.km });
+        await api.saveContent(type, { slug, status: editor.status, sort: editor.sort, data, km });
       }
 
       setEditor({ ...editor, slug, data, isNew: false, originalSlug: slug, hasStage: true, baseline: editorSnapshot({ ...editor, slug, data }) });
@@ -537,7 +550,7 @@ export default function ContentManager({ type }: { type: string }) {
     const activeIndex = Math.max(0, groups.findIndex((group) => group.id === activeGroup?.id));
     const previewData = lang === "en"
       ? editor.data
-      : (mergeTranslation(editor.data, editor.km) as Record<string, unknown>);
+      : (mergeTranslation(editor.data, sanitizeKm(schema, editor.km)) as Record<string, unknown>);
     const setActive = (key: string, value: unknown) => {
       if (lang === "en") {
         setEditor({ ...editor, data: { ...editor.data, [key]: value } });
@@ -728,7 +741,11 @@ export default function ContentManager({ type }: { type: string }) {
               </div>
             )}
 
-            {lang === "km" && <p className="adm-hint">Empty Khmer fields fall back to English.</p>}
+            {lang === "km" && (
+              <p className="adm-hint">
+                Khmer copy is prefilled from the bundled translation. Edit it here; empty fields fall back to English.
+              </p>
+            )}
 
             <div className="adm-editor-footer">
               <p className="adm-hint">
@@ -837,9 +854,9 @@ export default function ContentManager({ type }: { type: string }) {
                   <Checkbox checked={allSelected} onCheckedChange={(checked) => toggleAll(Boolean(checked))} aria-label="Select all" />
                 </TableHead>
                 <TableHead>Title</TableHead>
-                <TableHead>Slug</TableHead>
+                <TableHead className="hidden md:table-cell">Slug</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Updated</TableHead>
+                <TableHead className="hidden sm:table-cell">Updated</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -853,7 +870,7 @@ export default function ContentManager({ type }: { type: string }) {
                       aria-label={`Select ${item.title}`}
                     />
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="whitespace-normal">
                     <HoverCard>
                       <HoverCardTrigger asChild>
                         <button className="adm-row-title text-left hover:underline" onClick={() => void openEdit(item)}>
@@ -866,7 +883,7 @@ export default function ContentManager({ type }: { type: string }) {
                       </HoverCardContent>
                     </HoverCard>
                   </TableCell>
-                  <TableCell><span className="font-mono text-xs text-muted-foreground">{item.slug}</span></TableCell>
+                  <TableCell className="hidden md:table-cell"><span className="font-mono text-xs text-muted-foreground">{item.slug}</span></TableCell>
                   <TableCell>
                     <span className="flex flex-wrap gap-1">
                       {item.live && <Badge tone="green">Live</Badge>}
@@ -879,7 +896,7 @@ export default function ContentManager({ type }: { type: string }) {
                       {!item.live && !item.hasStage && <Badge tone="amber">Draft</Badge>}
                     </span>
                   </TableCell>
-                  <TableCell><span className="text-xs text-muted-foreground">{formatDate(item.updatedAt)}</span></TableCell>
+                  <TableCell className="hidden sm:table-cell"><span className="text-xs text-muted-foreground">{formatDate(item.updatedAt)}</span></TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-1">
                       <Button size="sm" variant="outline" onClick={() => void openEdit(item)}>Edit</Button>

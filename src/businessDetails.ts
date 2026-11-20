@@ -400,14 +400,21 @@ export const businessDetails: BusinessDetail[] = [
 export const findBusinessDetail = (slug: string) => businessDetails.find((b) => b.slug === slug);
 export const businessDetailHref = (slug: string) => `/business/${slug}`;
 
-registerContentType("businesses", (items) => {
-  // Merge each stored document over its bundled default so a field added in code (a new section, a new checklist)
-  // still renders for rows that predate it. The admin's staged overlay is applied before this point.
-  const defaults = new Map(businessDetails.map((business) => [business.slug, business]));
-  const incoming = (items as BusinessDetail[]).map((item) => {
-    const fallback = defaults.get(item.slug);
-    return fallback ? mergeDefaults(fallback, item) : item;
-  });
-  businessDetails.length = 0;
-  businessDetails.push(...incoming);
-});
+// The English defaults, kept aside so a Khmer render never becomes the fallback for a later English render.
+const DEFAULT_BUSINESS_DETAILS = JSON.parse(JSON.stringify(businessDetails)) as BusinessDetail[];
+
+registerContentType(
+  "businesses",
+  (items) => {
+    // Merge each stored document over its bundled default so a field added in code (a new section, a new checklist)
+    // still renders for rows that predate it. The admin's staged overlay is applied before this point.
+    const defaults = new Map(DEFAULT_BUSINESS_DETAILS.map((business) => [business.slug, business]));
+    const incoming = (items as BusinessDetail[]).map((item) => {
+      const fallback = defaults.get(item.slug);
+      return fallback ? mergeDefaults(fallback, item) : item;
+    });
+    businessDetails.length = 0;
+    businessDetails.push(...incoming);
+  },
+  DEFAULT_BUSINESS_DETAILS,
+);

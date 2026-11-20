@@ -425,15 +425,19 @@ export const DEFAULT_QUALITY: QualityContent = {
 /** Live content. Read these values during render; the object is replaced on bootstrap. */
 export const quality: QualityContent = JSON.parse(JSON.stringify(DEFAULT_QUALITY)) as QualityContent;
 
-registerContentType("quality", (items) => {
-  const first = items[0];
-  if (!first || typeof first !== "object" || Array.isArray(first)) return;
-  const merged = mergeDefaults(DEFAULT_QUALITY, first);
-  for (const item of merged.documents.items) {
-    if (item.file === "/assets/BCE_Corporate_Profile_2026.pdf") {
-      item.file = "/assets/BCE_Corporate_Profile_2026_web.pdf";
-      item.size = "8.4 MB";
+registerContentType(
+  "quality",
+  (items) => {
+    const first = items[0];
+    if (!first || typeof first !== "object" || Array.isArray(first)) return;
+    const merged = mergeDefaults(DEFAULT_QUALITY, first);
+    for (const item of merged.documents.items) {
+      if (item.file === "/assets/BCE_Corporate_Profile_2026.pdf") {
+        item.file = "/assets/BCE_Corporate_Profile_2026_web.pdf";
+        item.size = "8.4 MB";
+      }
     }
-  }
-  Object.assign(quality, merged);
-});
+    Object.assign(quality, merged);
+  },
+  DEFAULT_QUALITY,
+);

@@ -27,6 +27,7 @@ import {
   bootstrapContent,
   getRuntimeContentVersion,
   onContentChange,
+  syncContentLanguage,
 } from './contentStore'
 
 // Clean paths (src/routes.ts): /projects, /about, /quality, /coverage, /quote, /careers, /resources, /contact,
@@ -196,6 +197,8 @@ if (isAdminRoute) {
   normaliseAddress()
   initPageTransitions()
   applyStructuredData()
+  // Bundled content modules have registered by now: layer the Khmer copy when it is the saved language.
+  syncContentLanguage()
   root.render(
     <React.StrictMode>
       <Root />

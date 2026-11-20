@@ -57,7 +57,12 @@ BCE/
 │   ├── CoveragePage.tsx         # Coverage detail page (/?coverage): figures, explorable map, zones, register, fleet
 │   ├── cambodiaMap.ts           # Province paths and coordinates
 │   ├── QuotePage.tsx            # Concrete volume estimator with Telegram dispatch
-│   ├── i18n.ts                  # Bilingual translation dictionary (EN / KH)
+│   ├── i18n.ts                  # Bilingual UI dictionary (EN / KH)
+│   ├── legalKm.ts               # Khmer Privacy Policy and Terms of Use copy
+│   ├── km/                      # Bundled Khmer overlays: index.ts + one JSON per content type
+│   │   ├── index.ts             # kmFor(type, slug) lookup for the site and admin
+│   │   └── *.json               # Language-only fields for each seeded document
+│   ├── admin/kmSanitize.ts      # Strips paths/hrefs/categories/counts from Khmer saves
 │   └── index.css                # Tailwind CSS v4 entrypoint
 ├── public/
 │   ├── fonts/                   # Aeonik webfonts (Regular, Medium, Bold, Mono)
@@ -99,6 +104,9 @@ npm run deploy
 # Worker only
 npm run worker:deploy           # production: wrangler deploy --env production
 npm run worker:deploy:staging   # staging:    wrangler deploy
+
+# Khmer content overlays — keep only language-specific fields after schema changes
+npm run km:prune
 ```
 
 - **macOS menu bar usage tracker**: `tools/cloudflare-menubar` is a local, native Swift/AppKit menu bar app (no Xcode project) that shows Cloudflare usage (Workers, D1, Workers AI, R2 — daily and monthly) alongside OpenCode Go percentages (monthly, weekly, 5-hour) and local token usage in one menu. The default title is `CF <daily %> · OC <monthly %>`. `npm run menubar:install` builds, installs and launches it; `npm run menubar:probe` prints the same numbers in the terminal. It is a developer tool and is never part of the deployed site.
@@ -128,8 +136,10 @@ npm run worker:deploy:staging   # staging:    wrangler deploy
 - **Workers AI**: optional EN↔KM translation in the admin (`POST /api/admin/ai/translate`).
 - **Cron**: daily 03:17 UTC housekeeping.
 - **Content bridge**: `src/contentStore.ts` fetches `/api/content/bootstrap` after first paint, updates the bundled arrays in place and remounts the page. The static TypeScript content remains the offline fallback.
+- **Bundled Khmer copy**: `src/km/*.json` holds a Khmer overlay for every seeded document, indexed by `src/km/index.ts`. English visitors never download it; the site imports it lazily only in Khmer mode (`km-*.js`, ~29 KB gzip) and the admin chunk imports it directly. `mergeTranslation` layers saved D1 `km` over the bundled copy, and blanks fall back to English. Keep the overlays to language-specific fields only: `npm run km:prune` drops paths, hrefs, colours, categories and counts so a stale overlay can never override a newer English value. `slug`/`id` stay in the bundled JSON purely as a lookup key and are stripped before merging.
 - **Staging first**: admin saves write `stage_data`/`stage_km` and `staging_version`; `staging.bce-construction.com` reads staged content, production reads published content. Publish from the Dashboard or Promote on a document.
-- **Bilingual**: every content editor has English and ខ្មែរ tabs. Khmer lives in the same document as an overlay; empty Khmer fields fall back to English.
+- **Bilingual**: every content editor has English and ខ្មែរ tabs. The Khmer tab is prefilled from the bundled translation for existing documents, so a translator edits finished copy instead of a blank form. Khmer lives in the same document as an overlay; empty fields fall back to English. Saves are sanitised with `src/admin/kmSanitize.ts` so only language-specific fields are stored (`stage_km`); paths, hrefs, colours, categories and counts always come from the English document. `alt` text is editable in both languages.
+- **Responsive admin**: below 900 px the sidebar becomes an off-canvas drawer (menu button in the top bar, scrim, Escape closes). The content list hides Slug/Updated columns on phones and lets titles wrap, so Edit and status remain visible at 390 px.
 - **Seed snapshot**: `npm run content:export` regenerates `seed/content.json`, `seed/seed.sql`, `public/content-seed.json` and `public/sitemap.xml`. Never run `content:seed` on every deploy — it overwrites live rows.
 - **Full setup, free-tier limits, security model and troubleshooting**: `docs/CLOUDFLARE.md`.
 - **Architecture log**: `docs/ARCHITECTURE.md` — read before infra work; update its snapshot, ADRs and changelog whenever environments, bindings, deploy flow or content flow change.

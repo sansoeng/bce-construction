@@ -53,7 +53,11 @@ export const commitments: [[string, string], string][] = [
   [["Building", "trust"], "Stronger together. We grow alongside our clients, partners and suppliers through long-term relationships built on trust, respect and mutual success."],
 ];
 
-registerContentType("offerings", (items) => {
-  offerings.length = 0;
-  offerings.push(...(items as Business[]));
-});
+registerContentType(
+  "offerings",
+  (items) => {
+    offerings.length = 0;
+    offerings.push(...(items as Business[]));
+  },
+  offerings,
+);

@@ -10,6 +10,7 @@ import { BLOG_POSTS } from "../src/blogData";
 import { VACANCIES } from "../src/careersData";
 import { DOCUMENTS } from "../src/resourcesData";
 import { DEFAULT_SETTINGS } from "../worker/src/content";
+import { kmFor } from "../src/km";
 
 export function getContent() {
   const documents = [
@@ -24,6 +25,6 @@ export function getContent() {
     ...DOCUMENTS.map((item, sort) => ({ type: "resources", slug: item.id, sort, data: item })),
     ...businessDetails.map((item, sort) => ({ type: "businesses", slug: item.slug, sort, data: item })),
     ...offerings.map((item, sort) => ({ type: "offerings", slug: item.slug, sort, data: item })),
-  ];
+  ].map((doc) => ({ ...doc, km: kmFor(doc.type, doc.slug) }));
   return { documents, settings: DEFAULT_SETTINGS };
 }

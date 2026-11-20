@@ -4,6 +4,8 @@ import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import { usePageSetup } from "./usePageSetup";
+import { getLang } from "./i18n";
+import { legalLabelsKm, privacyKm, termsKm, type LegalSection } from "./legalKm";
 
 // Privacy Policy and Terms of Use. Kept in one module so the two legal pages share the same layout, header and
 // footer. The policy describes the site as it is built today: quote/contact forms, Cloudflare Turnstile, Telegram
@@ -14,7 +16,8 @@ const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
 const UPDATED = "17 November 2026";
 
-type Section = { title: string; id?: string; body?: string[]; items?: string[] };
+type Section = LegalSection;
+const UPDATED_KM = "១៧ វិច្ឆិកា ២០២៦";
 
 function LegalLayout({
   kind,
@@ -27,6 +30,7 @@ function LegalLayout({
   intro: string;
   sections: Section[];
 }) {
+  const km = getLang() === "km";
   // Deep links from the footer's legal bar (/privacy#cookies) land on the right section instead of the top.
   useEffect(() => {
     const id = location.hash.slice(1);
@@ -46,7 +50,7 @@ function LegalLayout({
           </h1>
           <p className="mt-6 max-w-[44rem] text-[16px] leading-[1.65] text-[#111]/60">{intro}</p>
           <p className="mt-4 font-mono text-[12px] uppercase tracking-[0.08em] text-[#111]/40">
-            Last updated: {UPDATED}
+            {km ? `${legalLabelsKm.updated}: ${UPDATED_KM}` : `Last updated: ${UPDATED}`}
           </p>
 
           <div className="mt-14 border-t border-[#111]/10">
@@ -75,17 +79,35 @@ function LegalLayout({
           </div>
 
           <p className="mt-10 text-[14px] leading-[1.7] text-[#111]/50">
-            This page is published in English. A Khmer translation is available on request from{" "}
-            <a href={`mailto:${siteSettings.contact.email}`} className="underline underline-offset-4 hover:text-[#111]">
-              {siteSettings.contact.email}
-            </a>
-            .
+            {km ? (
+              <>
+                ទំព័រនេះមានជាភាសាខ្មែរ។ សម្រាប់សំណួរ សូមទាក់ទង{" "}
+                <a href={`mailto:${siteSettings.contact.email}`} className="underline underline-offset-4 hover:text-[#111]">
+                  {siteSettings.contact.email}
+                </a>
+                ។
+              </>
+            ) : (
+              <>
+                This page is published in English. A Khmer translation is available on request from{" "}
+                <a href={`mailto:${siteSettings.contact.email}`} className="underline underline-offset-4 hover:text-[#111]">
+                  {siteSettings.contact.email}
+                </a>
+                .
+              </>
+            )}
           </p>
 
-          <nav aria-label="Legal" className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-[14px]">
-            <a href="/privacy" className="underline underline-offset-4 hover:text-[#FB290E]">Privacy policy</a>
-            <a href="/terms" className="underline underline-offset-4 hover:text-[#FB290E]">Terms of use</a>
-            <a href="/contact" className="underline underline-offset-4 hover:text-[#FB290E]">Contact BCE</a>
+          <nav aria-label={km ? "ច្បាប់" : "Legal"} className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-[14px]">
+            <a href="/privacy" className="underline underline-offset-4 hover:text-[#FB290E]">
+              {km ? legalLabelsKm.privacy : "Privacy policy"}
+            </a>
+            <a href="/terms" className="underline underline-offset-4 hover:text-[#FB290E]">
+              {km ? legalLabelsKm.terms : "Terms of use"}
+            </a>
+            <a href="/contact" className="underline underline-offset-4 hover:text-[#FB290E]">
+              {km ? legalLabelsKm.contact : "Contact BCE"}
+            </a>
           </nav>
         </article>
       </main>
@@ -264,25 +286,35 @@ const TERMS: Section[] = [
 ];
 
 export function PrivacyPage() {
-  usePageSetup("Privacy policy | BCE., Ltd.");
+  const km = getLang() === "km";
+  usePageSetup(km ? "គោលការណ៍ឯកជនភាព | BCE., Ltd." : "Privacy policy | BCE., Ltd.");
   return (
     <LegalLayout
-      kind="Legal"
-      title="Privacy policy"
-      intro="How BCE collects, uses and protects the information you send through this website, including quotation enquiries, document requests and job applications."
-      sections={PRIVACY}
+      kind={km ? legalLabelsKm.kind : "Legal"}
+      title={km ? privacyKm.title : "Privacy policy"}
+      intro={
+        km
+          ? privacyKm.intro
+          : "How BCE collects, uses and protects the information you send through this website, including quotation enquiries, document requests and job applications."
+      }
+      sections={km ? privacyKm.sections : PRIVACY}
     />
   );
 }
 
 export function TermsPage() {
-  usePageSetup("Terms of use | BCE., Ltd.");
+  const km = getLang() === "km";
+  usePageSetup(km ? "លក្ខខណ្ឌប្រើប្រាស់ | BCE., Ltd." : "Terms of use | BCE., Ltd.");
   return (
     <LegalLayout
-      kind="Legal"
-      title="Terms of use"
-      intro="The rules for using the BCE website, including how to read estimates, project information and quotations."
-      sections={TERMS}
+      kind={km ? legalLabelsKm.kind : "Legal"}
+      title={km ? termsKm.title : "Terms of use"}
+      intro={
+        km
+          ? termsKm.intro
+          : "The rules for using the BCE website, including how to read estimates, project information and quotations."
+      }
+      sections={km ? termsKm.sections : TERMS}
     />
   );
 }

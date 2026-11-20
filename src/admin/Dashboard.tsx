@@ -185,7 +185,7 @@ export default function Dashboard({ me, onNavigate }: { me: Me; onNavigate: (has
       </Card>
 
       <div className="grid gap-6 xl:grid-cols-2">
-        <Card>
+        <Card className="min-w-0">
           <div className="adm-card-head">
             <h2 className="adm-card-title">Recent activity</h2>
             <span className="adm-card-meta">Last 12</span>
@@ -207,7 +207,7 @@ export default function Dashboard({ me, onNavigate }: { me: Me; onNavigate: (has
           )}
         </Card>
 
-        <Card>
+        <Card className="min-w-0">
           <div className="adm-card-head">
             <h2 className="adm-card-title">Maintenance</h2>
             <span className="adm-card-meta">Settings · cache</span>

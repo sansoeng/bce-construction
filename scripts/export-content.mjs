@@ -29,9 +29,9 @@ const statements = [
   "PRAGMA foreign_keys = ON;",
   ...documents.map(
     (doc) =>
-      `INSERT INTO documents (id, type, slug, status, sort, data, created_at, updated_at, updated_by)\n` +
-      `VALUES ('${esc(`${doc.type}:${doc.slug}`)}', '${esc(doc.type)}', '${esc(doc.slug)}', 'published', ${Number(doc.sort) || 0}, '${esc(JSON.stringify(doc.data))}', '${now}', '${now}', 'seed')\n` +
-      `ON CONFLICT(id) DO UPDATE SET status = excluded.status, sort = excluded.sort, data = excluded.data, updated_at = excluded.updated_at, updated_by = excluded.updated_by;`,
+      `INSERT INTO documents (id, type, slug, status, sort, data, km, created_at, updated_at, updated_by)\n` +
+      `VALUES ('${esc(`${doc.type}:${doc.slug}`)}', '${esc(doc.type)}', '${esc(doc.slug)}', 'published', ${Number(doc.sort) || 0}, '${esc(JSON.stringify(doc.data))}', ${doc.km ? `'${esc(JSON.stringify(doc.km))}'` : "NULL"}, '${now}', '${now}', 'seed')\n` +
+      `ON CONFLICT(id) DO UPDATE SET status = excluded.status, sort = excluded.sort, data = excluded.data, km = excluded.km, updated_at = excluded.updated_at, updated_by = excluded.updated_by;`,
   ),
   ...Object.entries(settings).map(
     ([key, value]) =>

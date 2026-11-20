@@ -83,7 +83,9 @@ the site never blanks if the API is down.
 ## 4. Content lifecycle
 
 1. Editor saves in the admin → row gets `stage_data` / `stage_km`, `stage_status`, audit entry,
-   `staging_version` increments; bootstrap caches for staging are invalidated.
+   `staging_version` increments; bootstrap caches for staging are invalidated. The Khmer tab opens
+   prefilled from the bundled translation (`src/km`); only language-specific fields are written to
+   `stage_km` by `src/admin/kmSanitize.ts`.
 2. `staging.bce-construction.com` reads that pending overlay immediately (bootstrap cache ≤60 s,
    or use **Clear cache**).
 3. Production is untouched and keeps serving published rows.
@@ -98,8 +100,9 @@ the site never blanks if the API is down.
   database re-opens the risk of staging writes hitting live content.
 - D1 migrations run from `main` only. Never run `wrangler d1 migrations apply` without
   `--env production`.
-- `DEV_ADMIN_EMAIL` is local-only; the bypass is gated to `localhost` / `127.0.0.1` in
-  `worker/src/auth.ts`. Never set it in deployed vars.
+- `DEV_ADMIN_EMAIL` is local-only; the bypass is gated to `localhost` / `127.0.0.1` or
+  `ENVIRONMENT=development` (which only `.dev.vars` sets) in `worker/src/auth.ts`. Never set it
+  in deployed vars.
 - One host route belongs to exactly one Worker. Cutover order when moving a route:
   release it on the old Worker first, then claim it on the new one.
 - A Pages custom domain serves exactly one project's production deployment. Keep
@@ -108,7 +111,12 @@ the site never blanks if the API is down.
 - Bindings, vars, routes and triggers are not inherited by `[env.production]` — mirror any
   new binding in both blocks (and update the R2 docs if applicable).
 - Secrets are per environment: `wrangler secret put X` (staging) vs `--env production`.
-- Public content must keep rendering from the bundled fallback if the API fails.
+- Public content must keep rendering from the bundled fallback if the API fails, in both languages:
+  `src/km` is the bundled Khmer overlay and `src/contentStore.ts` merges it lazily only in Khmer mode.
+- Khmer overlays contain language-specific fields only. `slug`/`id` is a lookup key in the bundled
+  JSON and is stripped before merging; admin saves are sanitised so paths, hrefs, colours,
+  categories and counts always come from the English document. Run `npm run km:prune` after
+  changing a content schema.
 
 ## 6. Decisions
 
@@ -193,6 +201,7 @@ When architecture changes, in the same commit:
 
 | Date | Change | Files | Verified |
 | --- | --- | --- | --- |
+| 2026-11-20 | Full Khmer edition: every seeded document (homepage, About, Quality/HSE, projects, journal, careers, resources, business pages, services) now has a bundled Khmer overlay in `src/km`; the site merges saved D1 Khmer over it (lazily in Khmer mode, ~29 KB gzip) and falls back to it when the API is unavailable; the admin's ខ្មែរ tab is prefilled for existing documents and saves only language-specific fields (`src/admin/kmSanitize.ts`). Translated the Privacy/Terms pages, filled remaining UI strings, translated province `<title>`s, and fixed Khmer display bugs (coverage intro clipping, About statement size, "Why BCE" words collapsing to one glyph). The admin sidebar is now a drawer below 900 px, the dashboard/list/editor no longer overflow at 390 px, and the content table keeps Edit/status visible on phones. `DEV_ADMIN_EMAIL`'s local bypass now also accepts `ENVIRONMENT=development`, because `wrangler dev` rewrites the request host to the configured route | `src/km/*`, `src/km/index.ts`, `src/legalKm.ts`, `src/contentStore.ts`, `src/i18n.ts`, `src/LegalPage.tsx`, `src/admin/ContentManager.tsx`, `src/admin/AdminApp.tsx`, `src/admin/adminSchemas.ts`, `src/admin/kmSanitize.ts`, `src/admin/admin.css`, `src/admin/Dashboard.tsx`, `src/Coverage.tsx`, `src/CoveragePage.tsx`, `src/index.css`, `src/coverage-map.css`, `scripts/content-entry.ts`, `scripts/export-content.mjs`, `scripts/prune-km*`, `package.json`, `seed/*`, `public/content-seed.json`, `AGENTS.md`, `docs/ARCHITECTURE.md` | `npm run typecheck` + `npm run build` clean (km chunk 189 KB / 28.8 KB gzip); all 14 public routes 0 horizontal overflow at 390, 768, 1024 and 1440; English and Khmer both render with no cross-language leakage; admin Khmer prefill checked on all 9 content types; a staged save on a project stores only name/owner/location/period/summary/scope/gallery/highlights/equipment/technical/outcome, with no slug, category, image or count; admin dashboard, list and editor fit 390 px; legal pages render 13 privacy + 10 terms sections in Khmer with no overflow |
 | 2026-11-17 | Fixed the About page stalling at the Milestones rail: the rail carried `data-lenis-prevent`, and `lenis/dist/lenis.css` styles that attribute with `overscroll-behavior: contain`, so a wheel (or a touch swipe) over the full-width rail moved neither the rail nor the page and the section was a dead end. The rail now reads the wheel itself through a native `passive: false` listener and splits it by intent — vertical is left to Lenis and the page, horizontal (trackpad swipe, shift+wheel) moves the rail — so the page scrolls through the section on desktop and touch | `src/AboutPage.tsx`, `docs/ARCHITECTURE.md` | `npm run build` clean and no new `tsc` errors in `AboutPage.tsx`; Playwright at 1512 × 1100: staging (old build) stayed at y = 6800 inside `#milestones` and never reached the 15163 px end, while the fixed build moved 500 px over the rail, reached the end with no stall anywhere on the page, moved the rail 300 px on a horizontal wheel and 240 px on shift+wheel with the page stationary; a touch swipe at 390 × 844 moved the page 185 px (staging: 0); with reduced motion (no Lenis) the page still scrolls 400 px over the rail |
 | 2026-11-17 | Design-system correction on the new sections: all section labels use the site's own `.ol-label` (mono 14, uppercase, brand orange — never a grey line with a dot), so About's Leadership and Milestones, the Quality HSE block, the homepage evidence bands and the Fleet page match Contact/Quality/Business; the leadership portrait loads eagerly so the open row never shows an empty frame | `src/AboutPage.tsx`, `src/index.css`, `src/QualityPage.tsx`, `src/HomeEvidence.tsx`, `src/FleetPage.tsx`, `docs/ARCHITECTURE.md` | `npm run typecheck` + `npm run build` clean; grep finds no `ab-dot` / grey label rules left; About renders `LEADERSHIP` and `MILESTONES` as brand-orange `.ol-label` (dark section uses `var(--brand)`), the leader row is open with an orange name and a 418 px panel, and the portrait is in the same paint |
 | 2026-11-17 | About redesign after dalco.ch/meet-dalco: leadership is now the reference's ruled accordion — the statement on the left, one row per person (name, role, orange open state, +/− toggle) expanding to a 228 px portrait and their text; the milestones sit directly beneath it as the reference's axis rail (cards alternating above and below the axis, grayscale photos, orange dot and year), still draggable with prev/next, progress bar and snap. The old Chairwoman's-message / Our story block (quote, history paragraph and two photos) is removed. Layout follows DALCO; type, labels and colours use BCE's system (mono 12 labels, #FB290E accent, ink #111, dark #191919) | `src/AboutPage.tsx`, `src/index.css`, `src/admin/adminSchemas.ts`, `docs/ARCHITECTURE.md` | `npm run typecheck` + `npm run build` clean; page order is Who we are → Leadership → Milestones → Vision & mission → Explore; the quote and "Our story" text are gone; leader renders orange with an open 228 × 228 portrait and 418 px panel; 8 milestone cards alternate around the axis (first card's bottom sits on the axis, the second starts below it), images `grayscale(1)`, section `rgb(25,25,25)`; rail scroll and progress still work; no console errors beyond the local 502 |

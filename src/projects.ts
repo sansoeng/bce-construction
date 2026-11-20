@@ -195,7 +195,11 @@ export const projects: Project[] = [
 
 export const findProject = (slug: string) => projects.find((p) => p.slug === slug);
 
-registerContentType("projects", (items) => {
-  projects.length = 0;
-  projects.push(...(items as Project[]));
-});
+registerContentType(
+  "projects",
+  (items) => {
+    projects.length = 0;
+    projects.push(...(items as Project[]));
+  },
+  projects,
+);

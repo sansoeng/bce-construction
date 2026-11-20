@@ -399,7 +399,11 @@ export function journalKind(post: BlogPost): JournalKind {
   return post.kind ?? (NEWS_TOPICS.has(post.category) ? "News" : "Insight");
 }
 
-registerContentType("posts", (items) => {
-  BLOG_POSTS.length = 0;
-  BLOG_POSTS.push(...(items as BlogPost[]));
-});
+registerContentType(
+  "posts",
+  (items) => {
+    BLOG_POSTS.length = 0;
+    BLOG_POSTS.push(...(items as BlogPost[]));
+  },
+  BLOG_POSTS,
+);

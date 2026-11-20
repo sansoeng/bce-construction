@@ -409,4 +409,4 @@ registerContentType("homepage", (items) => {
     }
   }
   Object.assign(homepage, merged);
-});
+}, DEFAULT_HOMEPAGE);

@@ -69,6 +69,8 @@
   p { text-wrap: pretty; }
   /* The About statement keeps its deliberate indented first line rather than balanced lines. */
   .about-title { text-wrap: wrap; font-weight: 500; }
+  /* Khmer clusters run wider than Latin at the same size; scale the 74px statement down so no line clips. */
+  html[lang="km"] .about-title { font-size: clamp(2.2rem, 5.4vw, 74px); line-height: 1.35; }
   /* The hero title and its light twin (a <p>) must wrap identically, or the two-tone overlay misaligns. */
   .hero-title { text-wrap: balance; font-weight: 500; }
   a { transition: opacity .2s ease; }
@@ -2794,6 +2796,12 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 }
 .wb-mask { will-change: transform; }
 @media (min-width: 768px) { .wb-mask { font-size: 184px; } }
+/* The oversized belief words collapse to one glyph per line in Khmer under break-word; keep each word whole and
+   scale it to the viewport instead. */
+html[lang="km"] .wb-mask { white-space: nowrap; word-break: keep-all; }
+@media (min-width: 768px) {
+  html[lang="km"] .wb-mask { font-size: clamp(64px, 9vw, 150px); }
+}
 /* fluid.glass's tag, squared to the site's 4px corners and set in the header/button mono. */
 .wb-tag {
   flex-shrink: 0; white-space: nowrap; display: inline-flex; align-items: center;

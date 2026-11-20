@@ -10,6 +10,7 @@ import { LabelCopy, OlButton, ParallaxHero, TextMedia, useScrollParallax } from 
 import { homepage } from "./homepage";
 import { khmProvinces } from "./cambodiaMap";
 import { quoteHref } from "./company";
+import { translate } from "./i18n";
 import {
   FLEET,
   HQ,
@@ -115,7 +116,7 @@ function CoverageMap({ active, onSelect }: { active: number; onSelect: (index: n
                   }
                 }}
               >
-                <title>{p.name}</title>
+                <title>{translate(p.name)}</title>
               </path>
             );
           })}

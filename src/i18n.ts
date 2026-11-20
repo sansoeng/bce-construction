@@ -1724,6 +1724,25 @@ const KM: Record<string, string> = {
   "Please complete the security check before sending.": "សូមបំពេញការត្រួតពិនិត្យសុវត្ថិភាពមុននឹងផ្ញើ។",
   "Online requests are temporarily paused. Please call 012 932 700.":
     "ការស្នើសុំតាមអនឡាញត្រូវបានផ្អាកជាបណ្តោះអាសន្ន។ សូមទូរស័ព្ទមក 012 932 700។",
+
+  // Remaining UI copy found by the Khmer coverage pass.
+  "Kingdom of Cambodia": "ព្រះរាជាណាចក្រកម្ពុជា",
+  "Vision and mission": "ចក្ខុវិស័យ និងបេសកកម្ម",
+  "Explore the laboratory": "ស្វែងយល់ពីមន្ទីរពិសោធន៍",
+  "Protected by Cloudflare Turnstile. We only store the details you submit.":
+    "ការពារដោយ Cloudflare Turnstile។ យើងរក្សាទុកតែព័ត៌មានដែលអ្នកផ្ញើ។",
+  "Sales & Quotations": "ការលក់ និងសម្រង់តម្លៃ",
+  "Battambang Head Office": "ការិយាល័យកណ្តាលបាត់ដំបង",
+  "Corporate publications, technical documents and credentials. Documents not yet published can be requested from our team.":
+    "ឯកសារសាធារណៈរបស់ក្រុមហ៊ុន ឯកសារបច្ចេកទេស និងវិញ្ញាបនបត្រ។ ឯកសារដែលមិនទាន់ចេញផ្សាយ អាចស្នើសុំពីក្រុមការងាររបស់យើង។",
+  "Available on request": "មានតាមការស្នើសុំ",
+  "Request this document": "ស្នើសុំឯកសារនេះ",
+  "Monday – Sunday, 6:30 AM – 5:30 PM": "ថ្ងៃចន្ទ – ថ្ងៃអាទិត្យ ម៉ោង ៦:៣០ – ១៧:៣០",
+  "served since 1995": "បម្រើតាំងពីឆ្នាំ ១៩៩៥",
+  "The Journal is an editorial preview. Articles marked “Sample content” are illustrative drafts awaiting BCE technical review.":
+    "ទស្សនាវដ្តីនេះជាការមើលជាមុនរបស់អ្នកកែសម្រួល។ អត្ថបទដែលសម្គាល់ថា “មាតិកាគំរូ” គឺជាសេចក្តីព្រាងឧទាហរណ៍ ដែលកំពុងរង់ចាំការត្រួតពិនិត្យបច្ចេកទេសពី BCE។",
+  "Sample": "គំរូ",
+  "Illustrative draft — pending BCE review": "សេចក្តីព្រាងគំរូ — រង់ចាំការត្រួតពិនិត្យពី BCE",
 };
 
 // Templated strings
@@ -1738,6 +1757,7 @@ const PATTERNS: [RegExp, (...m: string[]) => string | null][] = [
   [/^(.+) logo$/, (s) => `ឡូហ្គោ ${s}`],
   [/^Call (.+)$/, (s) => `ហៅទូរសព្ទ ${s}`],
   [/^(\d+) projects$/, (n) => `គម្រោង ${n}`],
+  [/^(\d+) min read$/, (n) => `${n.replace(/\d/g, (d) => "០១២៣៤៥៦៧៨៩"[Number(d)])} នាទីអាន`],
   [/^(\d+)\+ projects completed$/, (n) => `គម្រោងបានបញ្ចប់ ${n}+`],
   [/^(\d+) projects completed$/, (n) => `គម្រោងបានបញ្ចប់ ${n}`],
   [/^~(\d+) km from Battambang$/, (n) => `~${n} គ.ម. ពីបាត់ដំបង`],
