@@ -47,6 +47,7 @@ const MONTHS: Record<string, string> = {
 const KM: Record<string, string> = {
   // Page Title & Meta
   "BCE — Battambang Construction & Engineering | Architectural Concrete & Civil Infrastructure": "BCE — ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង | បេតុងស្តង់ដារ & ហេដ្ឋារចនាសម្ព័ន្ធស៊ីវិល",
+  "BCE — Battambang Construction and Engineering Co., Ltd.": "BCE — ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី",
 
   // Navigation, header, menu, brand
   "Home": "ទំព័រដើម",
