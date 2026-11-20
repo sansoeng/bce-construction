@@ -1,0 +1,295 @@
+/* The filter bar shared by the project archive and the Resources library: a hairline row of accordion facets on an
+   olympic.no-style footing — mono pill triggers, a grey panel of chips, the chosen values pinned in the left band.
+
+   Every wipe button stacks two layers inside its clipped, rounded box: the base shrinks to 90% while the hover layer
+   rises from one pixel below, and the label changes colour a beat later. The panel sweeps open on max-height, and
+   holds visibility until the sweep has finished on the way out. */
+
+/* ── Bar and facets ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+.fx-bar {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(12px, 1.3vw, 24px);
+  align-items: start;
+  position: relative;
+  z-index: 30;
+  padding-block: clamp(36px, 3.8vw, 64px) clamp(16px, 1.6vw, 26px);
+  border-bottom: 1px solid var(--line);
+}
+
+.fx-facets {
+  grid-column: span 8 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.fx-facet { position: relative; }
+
+/* ── Wipe buttons ──────────────────────────────────────────────────────────────────────────────────────────── */
+
+.fx-trigger,
+.fx-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(33px, 2.35vw, 38px);
+  padding-inline: 16px;
+  border: 0;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, .78vw, 12.5px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.fx-trigger { gap: 22px; }
+.fx-trigger { --fx-bg: rgb(17 17 17 / .1); --fx-bg-hover: var(--ink); --fx-text: var(--ink); --fx-text-hover: var(--paper); }
+.fx-chip { --fx-bg: var(--paper); --fx-bg-hover: var(--ink); --fx-text: var(--ink); --fx-text-hover: var(--paper); }
+
+.fx-trigger__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding-inline: 4px;
+  border-radius: 3px;
+  background: rgb(17 17 17 / .12);
+  color: inherit;
+  font-size: 9.5px;
+  line-height: 1;
+  transition: background-color .4s ease;
+}
+.fx-trigger.is-open .fx-trigger__count,
+.fx-trigger:hover .fx-trigger__count { background: rgb(255 255 255 / .22); }
+
+.fx-trigger__chev { flex: none; width: 7px; height: 4px; transition: transform .4s ease; }
+.fx-trigger.is-open .fx-trigger__chev { transform: rotate(180deg); }
+
+.fx-clear {
+  align-self: center;
+  margin-left: auto;
+  padding-inline: 4px;
+  border: 0;
+  background: none;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, .78vw, 12.5px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .4s ease, opacity .4s ease;
+}
+.fx-clear:hover { color: var(--ink); }
+.fx-clear:disabled { color: var(--ink-muted); opacity: .45; cursor: default; }
+
+/* ── Column layout: the same facets stacked as a sidebar ──────────────────────────────────────────────────── */
+
+.fx-bar--column {
+  display: block;
+  padding-block: 0;
+  border-bottom: 0;
+}
+.fx-bar--column .fx-facets {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.fx-bar--column .fx-facet { width: 100%; }
+.fx-bar--column .fx-trigger {
+  width: 100%;
+  height: clamp(42px, 3.1vw, 50px);
+  justify-content: flex-start;
+  gap: 10px;
+  padding-inline: 18px;
+  font-size: clamp(11px, .8vw, 12.5px);
+}
+.fx-bar--column .fx-trigger__chev { margin-left: auto; }
+.fx-bar--column .fx-dropdown { width: 100%; }
+.fx-bar--column .fx-dropdown__chips { flex-wrap: wrap; }
+.fx-bar--column .fx-clear {
+  align-self: flex-start;
+  margin-left: 0;
+  padding-block: 4px;
+}
+
+/* ── Dropdown ──────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.fx-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 40;
+  width: clamp(280px, 22vw, 360px);
+  max-width: calc(100vw - var(--page-gutter) * 2);
+  border-radius: var(--radius);
+  background: var(--paper-page);
+}
+
+.fx-dropdown__title {
+  padding: 20px 16px 0;
+  margin-bottom: 28px;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 450;
+  line-height: 1.31;
+  letter-spacing: -.01em;
+}
+.fx-dropdown__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0 16px 16px;
+}
+
+/* ── Count and pinned filter tags ──────────────────────────────────────────────────────────────────────────── */
+
+.fx-meta-row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(12px, 1.3vw, 24px);
+  padding-block: clamp(16px, 1.5vw, 24px) 6px;
+}
+.fx-meta-row > .fx-meta { grid-column: 1 / span 4; }
+.fx-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, .75vw, 12px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.fx-count { color: var(--ink-muted); }
+
+.fx-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.fx-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding-inline: 10px 9px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, .7vw, 11px);
+  font-weight: 500;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+.fx-tag:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.fx-tag svg { flex: none; }
+
+/* ── Motion: the two-layer fill and the sweeping panel ─────────────────────────────────────────────────────── */
+
+.fx-wipe {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--fx-text, currentColor);
+  transition: color .4s ease .2s;
+}
+.fx-wipe::before,
+.fx-wipe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  will-change: transform;
+}
+.fx-wipe::before {
+  background: var(--fx-bg, transparent);
+  transition: transform .3s cubic-bezier(0, .25, 0, 1) calc(.3s / 1.8);
+}
+.fx-wipe::after {
+  background: var(--fx-bg-hover, currentColor);
+  transform: translateY(calc(100% + 1px));
+  transition: transform .3s cubic-bezier(.9, 0, 1, 1);
+}
+
+.fx-wipe:hover,
+.fx-wipe:focus-visible,
+.fx-wipe.is-open,
+.fx-wipe[aria-expanded="true"],
+.fx-wipe[aria-pressed="true"] {
+  color: var(--fx-text-hover, currentColor);
+}
+.fx-wipe:hover::before,
+.fx-wipe:focus-visible::before,
+.fx-wipe.is-open::before,
+.fx-wipe[aria-expanded="true"]::before,
+.fx-wipe[aria-pressed="true"]::before {
+  transform: scale(.9);
+  transition-delay: 0s;
+  transition-timing-function: cubic-bezier(.9, 0, 1, 1);
+}
+.fx-wipe:hover::after,
+.fx-wipe:focus-visible::after,
+.fx-wipe.is-open::after,
+.fx-wipe[aria-expanded="true"]::after,
+.fx-wipe[aria-pressed="true"]::after {
+  transform: translateY(0);
+  transition-delay: calc(.3s / 1.8);
+  transition-timing-function: cubic-bezier(0, .25, 0, 1);
+}
+
+/* The panel's max-height is written inline (the open content height); this carries the curve and the visibility. */
+.fx-panel {
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  transition: max-height .88s cubic-bezier(.77, 0, .18, 1), visibility 0ms .88s;
+}
+.fx-panel.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0ms;
+}
+
+/* ── Small screens ─────────────────────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1023.98px) {
+  .fx-facets { grid-column: 1 / -1; }
+  .fx-trigger { gap: 16px; }
+}
+
+@media (max-width: 767.98px) {
+  .fx-bar { padding-block: 32px 18px; }
+  .fx-trigger,
+  .fx-chip { height: 34px; padding-inline: 13px; font-size: 10.5px; }
+  .fx-dropdown { width: min(320px, calc(100vw - var(--page-gutter) * 2)); }
+  /* The last facet's panel opens leftwards so it never runs off the screen. */
+  .fx-facet:nth-last-child(2) .fx-dropdown { left: auto; right: 0; }
+  /* The pinned tags and the empty state both clear the selection on phones, so the bar keeps only the facets. */
+  .fx-clear { display: none; }
+  .fx-meta-row > .fx-meta { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-wipe { transition: none; }
+  .fx-wipe::before,
+  .fx-wipe::after { transition: none; }
+  .fx-panel { transition: none; }
+}
