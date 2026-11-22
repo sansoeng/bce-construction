@@ -201,7 +201,6 @@ export default function CoveragePage() {
                 <div className="glance-title-sticky">
                   <p data-split="content" className="ol-label">Key figures</p>
                   <h2 id="cv-figures" data-split className="ol-capacity-title">{copy.story[0].lead}</h2>
-                  <p data-split="content" className="ol-capacity-copy">13 provinces + Phnom Penh, all served from one base.</p>
                 </div>
               </div>
               <div ref={glanceRef} className={`glance ${glanceIn ? "is-in" : ""}`}>

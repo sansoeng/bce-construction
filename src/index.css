@@ -5574,6 +5574,9 @@ html[lang="km"] .fg-btn.is-outline-white {
 .cv-figures .glance-label-title { color: var(--paper); white-space: normal; }
 .cv-figures .glance-label-note { color: rgb(255 255 255 / .5); white-space: normal; }
 .cv-figures .glance-num { color: var(--paper); }
+/* With no caption line under it, the tag/title pair keeps the same 24px rhythm as the fleet's figures band, so the
+   heading never sits flush against the label on desktop. */
+.cv-figures .glance-title-sticky .ol-capacity-title { margin-top: 24px; }
 
 .cv-band { padding: clamp(5rem, 9vw, 9rem) var(--olm, var(--page-gutter)); border-top: 1px solid var(--line); }
 .cv-band--soft { background: var(--paper-soft); }
