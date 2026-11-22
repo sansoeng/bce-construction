@@ -107,7 +107,7 @@ npm run worker:deploy           # production: wrangler deploy --env production
 npm run worker:deploy:staging   # staging:    wrangler deploy
 
 # Public-site maintenance mode (admin and /api/* stay up)
-npm run maintenance:on          # 302 bce-construction.com + www → maintenance.bce-construction.com
+npm run maintenance:on          # 302 bce-construction.com + www → status.bce-construction.com
 npm run maintenance:off         # remove the redirect and serve the real site again
 npm run maintenance:status      # report the rule and check site, page and admin
 npm run maintenance:deploy      # publish maintenance/ after editing the page

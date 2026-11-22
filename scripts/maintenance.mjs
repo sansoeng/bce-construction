@@ -27,7 +27,7 @@ const env = Object.fromEntries(
 const API = "https://api.cloudflare.com/client/v4";
 const ZONE_NAME = "bce-construction.com";
 const PUBLIC_HOSTS = ["bce-construction.com", "www.bce-construction.com"];
-const TARGET = process.env.MAINTENANCE_URL || "https://maintenance.bce-construction.com";
+const TARGET = process.env.MAINTENANCE_URL || "https://status.bce-construction.com/";
 const PHASE = "http_request_dynamic_redirect";
 const MARKER = "BCE maintenance redirect";
 
