@@ -5579,14 +5579,11 @@ html[lang="km"] .fg-btn.is-outline-white {
 .cv-figures .glance-title-sticky .ol-capacity-title { margin-top: 24px; }
 
 .cv-band { padding: clamp(5rem, 9vw, 9rem) var(--olm, var(--page-gutter)); border-top: 1px solid var(--line); }
-.cv-band--soft { background: var(--paper-soft); }
 .cv-head { display: flex; flex-direction: column; gap: 1.15rem; max-width: 58rem; }
 .cv-h2 { font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
 .cv-lead { max-width: 42rem; font-size: 1.05rem; line-height: 1.5; color: rgb(17 17 17 / .6); }
 
 /* The map: the same shapes and pins as the homepage story, on one still frame. */
-.cv-map-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg, 24px); row-gap: 2.5rem; align-items: start; margin-top: clamp(2.5rem, 4vw, 4rem); }
-.cv-map-col { grid-column: 1 / span 7; }
 .cv-map-frame {
   position: relative;
   overflow: hidden;
@@ -5621,115 +5618,50 @@ html[lang="km"] .fg-btn.is-outline-white {
 .cv-key { display: inline-block; width: 9px; height: 9px; margin-right: 7px; border: 1px solid rgb(255 255 255 / .55); }
 .cv-key--covered { border-color: var(--brand); background: var(--brand); }
 
-.cv-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
-.cv-chip {
-  padding: 7px 12px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: .82rem;
-  line-height: 1;
-  color: rgb(17 17 17 / .6);
-  transition: color .25s ease, border-color .25s ease, background-color .25s ease;
-}
-.cv-chip:hover { color: var(--ink); border-color: var(--ink); }
-.cv-chip.is-ready { border-style: dashed; color: rgb(17 17 17 / .4); }
-.cv-chip.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .cv-credit { margin-top: 1rem; font-size: .75rem; line-height: 1.4; color: rgb(17 17 17 / .4); }
 
-.cv-card {
-  grid-column: 9 / -1;
-  position: sticky;
-  top: 104px;
-  padding: 2rem;
-  border-radius: var(--radius) !important;
-  -webkit-corner-smoothing: 60% !important;
-  corner-smoothing: 60% !important;
-  background: var(--paper-soft);
-}
-.cv-card-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.cv-card-name { margin-top: .8rem; font-size: clamp(1.8rem, 2.4vw, 2.3rem); font-weight: 500; line-height: 1.05; letter-spacing: -.025em; }
-.cv-badge {
-  display: inline-block;
-  flex: none;
-  padding: 5px 9px;
-  border-radius: 4px;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-ui-mono);
-  font-size: 9px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-.cv-badge--light { background: rgb(17 17 17 / .07); color: rgb(17 17 17 / .6); }
-.cv-figure { margin-top: 1.75rem; font-size: clamp(2.8rem, 4vw, 3.6rem); font-weight: 500; line-height: .9; letter-spacing: -.04em; color: var(--brand); font-variant-numeric: tabular-nums; }
-.cv-figure span { font-size: .55em; }
-.cv-figure--word { font-size: clamp(2rem, 2.8vw, 2.6rem); color: var(--ink); }
-.cv-figure-label { margin-top: .65rem; font-size: .85rem; line-height: 1.4; color: rgb(17 17 17 / .5); }
-.cv-card-highlight { margin-top: 1.5rem; font-size: 1.05rem; font-weight: 500; line-height: 1.3; letter-spacing: -.01em; }
-.cv-card-scope { margin-top: .35rem; font-size: .95rem; line-height: 1.45; color: rgb(17 17 17 / .6); }
-.cv-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
-.cv-facts dt { font-family: var(--font-ui-mono); font-size: 9px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: rgb(17 17 17 / .4); }
-.cv-facts dd { margin-top: .35rem; font-size: .92rem; line-height: 1.3; font-variant-numeric: tabular-nums; }
-.cv-card-equip { margin-top: 1.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
-.cv-card-equip ul { display: grid; gap: .45rem; margin-top: .75rem; padding: 0; list-style: none; font-size: .9rem; color: rgb(17 17 17 / .7); }
-.cv-card-equip li { display: flex; align-items: baseline; gap: .75rem; }
-.cv-card-equip li span { font-family: var(--font-ui-mono); font-size: .78rem; color: var(--brand); font-variant-numeric: tabular-nums; }
-
-/* Zones, after the concrete grades grid on Quality & HSE: two ruled columns, the count drawn as an orange mark with
-   the zone and its places set beside it, the divider between the columns. */
-.cv-zones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(2.5rem, 4vw, 4rem); padding: 0; list-style: none; border-top: 1px solid rgb(17 17 17 / .14); }
-.cv-zone {
+/* Coverage by zone: the map is the figure, the four zones are the index, and one readout under the map answers a tap
+   from a shape, a pin or a name. Two ways in, one place out — no chips, no separate card. */
+.cv-cov {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--olg, 24px);
+  row-gap: clamp(2.5rem, 4vw, 4rem);
   align-items: start;
-  gap: clamp(1.25rem, 2.5vw, 2.5rem);
-  padding: clamp(1.75rem, 3vw, 2.75rem);
-  border-bottom: 1px solid rgb(17 17 17 / .14);
+  margin-top: clamp(2.5rem, 4vw, 4rem);
 }
-.cv-zone:nth-child(even) { border-left: 1px solid rgb(17 17 17 / .14); }
-/* The zone's size as the graphic: the number is the mark. */
-.cv-zone-mark {
-  font-size: clamp(3rem, 5vw, 4.5rem);
-  font-weight: 500;
-  line-height: .9;
-  letter-spacing: -.045em;
-  color: var(--brand);
-  font-variant-numeric: tabular-nums;
-}
-.cv-zone-body { display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; height: 100%; }
-.cv-zone-name { font-size: 1.15rem; font-weight: 500; line-height: 1.2; letter-spacing: -.01em; color: var(--brand-ink); }
-.cv-zone-label { margin-top: .4rem; font-size: .8rem; line-height: 1.4; color: rgb(17 17 17 / .45); }
-.cv-zone-places { padding: 0; list-style: none; }
-.cv-zone-places li { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-top: 1px solid rgb(17 17 17 / .08); font-size: .95rem; }
-.cv-zone-places button { display: inline-flex; align-items: center; gap: .4rem; color: rgb(17 17 17 / .75); text-align: left; transition: color .25s ease; }
-.cv-zone-places button svg { width: 9px; height: 9px; opacity: 0; transition: opacity .25s ease; }
-.cv-zone-places button:hover { color: var(--brand); }
-.cv-zone-places button:hover svg { opacity: 1; }
+.cv-cov-map { grid-column: 1 / span 7; }
+.cv-cov-side { grid-column: 8 / -1; }
 
-/* Mobilisation-ready provinces. */
-.cv-ready-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; margin-top: clamp(2.5rem, 4vw, 4rem); padding: 0; list-style: none; }
-.cv-ready { padding: 1.5rem 0; border-top: 1px solid var(--line); }
-.cv-ready-top { display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
-.cv-ready-name { font-size: 1.2rem; font-weight: 500; line-height: 1.2; letter-spacing: -.015em; }
-.cv-ready-highlight { margin-top: .9rem; font-size: .98rem; font-weight: 500; line-height: 1.3; }
-.cv-ready-scope { margin-top: .3rem; font-size: .9rem; line-height: 1.45; color: rgb(17 17 17 / .6); }
-.cv-ready-km { display: block; margin-top: .9rem; font-family: var(--font-ui-mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: rgb(17 17 17 / .4); font-variant-numeric: tabular-nums; }
+/* The chosen place, sitting above the zone list: status and distance, the name, then the work delivered there. */
+.cv-selected { padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+.cv-selected-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; font-family: var(--font-ui-mono); font-size: 10px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+.cv-selected-status { color: var(--brand-ink); }
+.cv-selected-status.is-ready { color: rgb(17 17 17 / .42); }
+.cv-selected-km { color: rgb(17 17 17 / .42); font-variant-numeric: tabular-nums; }
+.cv-selected-name { margin-top: .6rem; font-size: clamp(1.55rem, 2.2vw, 1.9rem); font-weight: 500; line-height: 1.05; letter-spacing: -.025em; }
+.cv-selected-highlight { margin-top: .6rem; font-size: 1rem; font-weight: 500; line-height: 1.3; letter-spacing: -.01em; }
+.cv-selected-scope { margin-top: .3rem; max-width: 34rem; font-size: .93rem; line-height: 1.5; color: rgb(17 17 17 / .55); }
+
+/* The zones: four ruled rows, the count set as a quiet mono figure, every place a name you can tap. */
+.cv-zones { margin: 0; padding: 0; list-style: none; }
+.cv-zone { padding: 1.15rem 0 1.3rem; border-bottom: 1px solid var(--line); }
+.cv-zone-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.cv-zone-name { font-size: 1.05rem; font-weight: 500; line-height: 1.2; letter-spacing: -.01em; color: var(--ink); }
+.cv-zone-count { font-family: var(--font-ui-mono); font-size: 10px; letter-spacing: .06em; color: rgb(17 17 17 / .35); font-variant-numeric: tabular-nums; }
+.cv-zone-places { margin-top: .45rem; font-size: .95rem; line-height: 1.8; color: rgb(17 17 17 / .7); }
+.cv-zone-places--ready { margin-top: .25rem; font-size: .9rem; line-height: 1.75; color: rgb(17 17 17 / .45); }
+.cv-zone-tag { display: block; font-family: var(--font-ui-mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; color: rgb(17 17 17 / .35); }
+.cv-unit { display: inline-block; margin-right: 1.15em; }
+.cv-place { color: inherit; transition: color .2s ease; }
+.cv-place:hover { color: var(--brand); }
+.cv-place.is-active { color: var(--brand-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.cv-place:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+.cv-note { margin-top: 1.5rem; max-width: 36rem; font-size: .95rem; line-height: 1.55; color: rgb(17 17 17 / .55); }
 
 @media (max-width: 1023px) {
-  .cv-map-col, .cv-card { grid-column: 1 / -1; }
-  .cv-card { position: relative; top: auto; }
-  .cv-ready-list { grid-template-columns: 1fr; }
-  .cv-zones { grid-template-columns: 1fr; }
-  .cv-zone, .cv-zone:nth-child(even) { padding-inline: 0; border-left: 0; }
-}
-@media (max-width: 767px) {
-  .cv-zone { grid-template-columns: 1fr; gap: 1.5rem; }
-  .cv-zone-mark { font-size: 3rem; }
-}
-@media (max-width: 519px) {
-  .cv-facts { grid-template-columns: 1fr; }
+  .cv-cov { grid-template-columns: 1fr; }
+  .cv-cov-map, .cv-cov-side { grid-column: 1 / -1; }
 }
 
 /* Keyboard users get a jump past the header and hero, as the Comment's accessibility note asks. */

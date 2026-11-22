@@ -54,7 +54,7 @@ BCE/
 │   ├── ProjectsPage.tsx         # 30-project portfolio database with category filtering
 │   ├── ProjectPage.tsx          # Single project detail view & lightbox gallery
 │   ├── Coverage.tsx             # Homepage's pinned Cambodia map (also the shared coverage data)
-│   ├── CoveragePage.tsx         # Coverage detail page (/?coverage): figures, explorable map, zones, register, fleet
+│   ├── CoveragePage.tsx         # Coverage detail page (/?coverage): figures, map with the four zones, fleet
 │   ├── cambodiaMap.ts           # Province paths and coordinates
 │   ├── QuotePage.tsx            # Concrete volume estimator with Telegram dispatch
 │   ├── i18n.ts                  # Bilingual UI dictionary (EN / KH)

@@ -25,8 +25,9 @@ import {
 // Coverage (/coverage), the homepage map's information as a page of its own: the same fourteen locations, the years
 // behind them, the completed-project and equipment figures, and the same province highlights, set out so each one can
 // be read rather than watched scroll past. The homepage keeps its pinned story (src/Coverage.tsx); this page reuses its
-// data so the two can never disagree, and adds an explorable map, the four geographic zones and the fleet. Per-province
-// project counts and machine allocations are deliberately absent: the Corporate Profile gives national totals only.
+// data so the two can never disagree. The map and the four zones are one band: the map is the figure, the zone rows are
+// the index, and a single readout answers a tap from a shape, a pin or a name. Per-province project counts and machine
+// allocations are deliberately absent: the Corporate Profile gives national totals only.
 //
 // Design follows the Olympic-style blocks used by Quality, capability & HSE and Our Businesses: cover, labelled
 // introduction with an index, the figures on the ink ground, light bands separated by hairlines, the site's mono
@@ -39,19 +40,33 @@ const pad = (n: number) => String(n).padStart(2, "0");
 // Province names → their slot in the shared Coverage data (covered first, head office at the top).
 const itemIndex = Object.fromEntries(items.map((it, i) => [it.name, i]));
 
-// The four zones, each with the places BCE has served. The Corporate Profile gives a national 2025 total but no
+// Every province outside the covered set is still reachable, so the four zones carry all 25: the fourteen served
+// today, then the provinces BCE mobilises into on request. The Corporate Profile gives a national 2025 total but no
 // per-province breakdown, so no provincial project figures are published here.
-const zoneStats = regions.map((zone) => ({
+const READY_ZONE: Record<string, string> = {
+  "Kampong Cham": "Plains",
+  "Kampong Speu": "Plains",
+  "Prey Veng": "Plains",
+  "Svay Rieng": "Plains",
+  Takeo: "Plains",
+  "Tbong Khmum": "Plains",
+  Kampot: "Coastal",
+  Kep: "Coastal",
+  Kratie: "Plateau & Mountain",
+  Mondulkiri: "Plateau & Mountain",
+  Ratanakiri: "Plateau & Mountain",
+};
+
+const zoneRows = regions.map((zone) => ({
   name: zone.name,
-  places: zone.places.map((name) => ({ name })),
+  covered: zone.places,
+  ready: otherProvinces.filter((p) => READY_ZONE[p.name] === zone.name).map((p) => p.name),
 }));
 
-// The page's own index, under the introduction.
+// The page's own index, under the introduction: the map and the zones are one section now, so the page has three bands.
 const TOPICS = [
   ["figures", "Key figures"],
-  ["map", "Coverage map"],
-  ["zones", "Coverage by zone"],
-  ["ready", "Mobilization ready"],
+  ["coverage", "Coverage by zone"],
   ["fleet", "Equipment fleet"],
 ] as const;
 
@@ -87,12 +102,19 @@ function Rows({ rows }: { rows: [number, string][] }) {
   );
 }
 
-// The map, in the shared 1000 × 924 province space so it scales with its frame. Every province can be chosen; the
-// covered ones carry the brand fill, and a pin marks each place where BCE works (the head office larger, at the top).
+// The map, in the shared 1000 × 924 province space so it scales with its frame. Every province can be chosen with a
+// pointer; the covered ones carry the brand fill, and a pin marks each place where BCE works (the head office larger,
+// at the top). It is one image to assistive tech: the zone rows below are the keyboard path, so the map never adds 25
+// tab stops to the page.
 function CoverageMap({ active, onSelect }: { active: number; onSelect: (index: number) => void }) {
   return (
     <div className="cv-map-frame">
-      <svg viewBox="0 0 1000 924" className="cv-map" role="group" aria-label="Map of Cambodia showing where BCE works">
+      <svg
+        viewBox="0 0 1000 924"
+        className="cv-map"
+        role="img"
+        aria-label="Map of Cambodia showing where BCE works"
+      >
         <g>
           {khmProvinces.map((p) => {
             const index = itemIndex[p.name];
@@ -103,17 +125,7 @@ function CoverageMap({ active, onSelect }: { active: number; onSelect: (index: n
                 key={p.name}
                 d={p.d}
                 className={`cv-prov${covered ? " is-covered" : ""}${index === active ? " is-active" : ""}`}
-                role="button"
-                tabIndex={0}
-                aria-label={`Select province ${p.name}`}
-                aria-pressed={index === active}
                 onClick={() => index !== undefined && onSelect(index)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    if (index !== undefined) onSelect(index);
-                  }
-                }}
               >
                 <title>{translate(p.name)}</title>
               </path>
@@ -146,6 +158,18 @@ function CoverageMap({ active, onSelect }: { active: number; onSelect: (index: n
   );
 }
 
+// A place in a zone row. It selects the same province as the shapes and pins on the map, so the rows stay quiet text
+// instead of becoming another wall of chips. Each name is its own inline unit, so a long one never breaks mid-word.
+function Place({ name, active, onSelect }: { name: string; active: boolean; onSelect: () => void }) {
+  return (
+    <span className="cv-unit">
+      <button type="button" className={`cv-place${active ? " is-active" : ""}`} aria-pressed={active} onClick={onSelect}>
+        {name}
+      </button>
+    </span>
+  );
+}
+
 export default function CoveragePage() {
   usePageSetup("Coverage | BCE., Ltd.");
   const rootRef = useRef<HTMLElement>(null);
@@ -153,20 +177,25 @@ export default function CoveragePage() {
   useScrollParallax(rootRef);
   const [glanceRef, glanceIn] = useInView<HTMLDivElement>();
 
-  // The chosen province, starting with the head office; the map, the chips and the register all drive it.
+  // The chosen province, starting with the head office; the map shapes, the pins and the zone rows all drive it.
   const [active, setActive] = useState(0);
+  const readoutRef = useRef<HTMLDivElement>(null);
 
   const copy = homepage.coverage;
   const sel = items[active];
   const isHQ = sel.name === HQ;
 
-  const showOnMap = (index: number) => {
+  // A tap on a name or a shape brings the readout back into view when the scroll has carried it off-screen; when it
+  // is already visible, nothing moves.
+  const select = (index: number, reveal = false) => {
     setActive(index);
-    const target = document.getElementById("map");
-    if (!target) return;
+    const el = readoutRef.current;
+    if (!reveal || !el) return;
+    const { top, bottom } = el.getBoundingClientRect();
+    if (top >= 96 && bottom <= window.innerHeight) return;
     const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: object) => void } | null }).__lenis;
-    if (lenis) lenis.scrollTo(target, { offset: -90 });
-    else target.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (lenis) lenis.scrollTo(el, { offset: -110, force: true });
+    else el.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   return (
@@ -238,140 +267,64 @@ export default function CoveragePage() {
           </section>
         </div>
 
-        {/* 02 The map: the homepage's pinned story as one explorable still. Pick a province by its shape or its pin,
-            then read the work delivered there and its distance from the Battambang base. */}
-        <section id="map" data-header-title="Coverage map" aria-labelledby="cv-map" className="cv-band">
+        {/* 02 Coverage by zone: the whole question in one band. The map holds the left, the four zones carry every
+            place BCE reaches, and one readout under the map answers a tap from a shape, a pin or a name. */}
+        <section id="coverage" data-header-title="Coverage by zone" aria-labelledby="cv-coverage" className="cv-band cv-coverage">
           <div className="cv-head">
-            <p data-split="content" className="ol-label">Choose a location</p>
-            <h2 id="cv-map" data-split className="cv-h2">Where we work</h2>
+            <p data-split="content" className="ol-label">Coverage by zone</p>
+            <h2 id="cv-coverage" data-split className="cv-h2">Delivered province by province, from Pailin to Stung Treng.</h2>
             <p data-split="content" className="cv-lead">Select a province to see the work delivered there and its distance from Battambang.</p>
           </div>
 
-          <div className="cv-map-grid">
-            <div className="cv-map-col">
-              <CoverageMap active={active} onSelect={setActive} />
-
-              <div className="cv-chips" role="group" aria-label="Provinces">
-                {items.map((it, i) => (
-                  <button
-                    key={it.name}
-                    type="button"
-                    aria-pressed={i === active}
-                    className={`cv-chip${it.isCovered ? "" : " is-ready"}${i === active ? " is-active" : ""}`}
-                    onClick={() => setActive(i)}
-                  >
-                    {it.name}
-                  </button>
-                ))}
-              </div>
-
+          <div className="cv-cov">
+            <div className="cv-cov-map">
+              <CoverageMap active={active} onSelect={(i) => select(i, true)} />
               <p className="cv-credit">{copy.credit}</p>
             </div>
 
-            <aside className="cv-card" aria-live="polite" aria-labelledby="cv-card-name">
-              <div className="cv-card-top">
-                <span className="ol-label">{isHQ ? "Head office" : sel.region}</span>
-                {sel.badge && <span className="cv-badge">{sel.badge}</span>}
+            <div className="cv-cov-side">
+              <div ref={readoutRef} className="cv-selected" aria-live="polite">
+                <p className="cv-selected-meta">
+                  <span className={`cv-selected-status${sel.isCovered ? "" : " is-ready"}`}>
+                    {sel.isCovered ? (isHQ ? "Head office" : "Served") : "Mobilization ready"}
+                  </span>
+                  <span className="cv-selected-km">{`~${sel.km} km from Battambang`}</span>
+                </p>
+                <p className="cv-selected-name">{sel.name}</p>
+                <p className="cv-selected-highlight">{sel.highlight}</p>
+                <p className="cv-selected-scope">{sel.scope}</p>
               </div>
-              <h3 id="cv-card-name" className="cv-card-name">{sel.name}</h3>
 
-              {sel.isCovered ? (
-                <>
-                  <p className="cv-figure cv-figure--word">Served</p>
-                  <p className="cv-figure-label">Project experience since 1995</p>
-                </>
-              ) : (
-                <>
-                  <p className="cv-figure cv-figure--word">Ready</p>
-                  <p className="cv-figure-label">Available for deployment</p>
-                </>
-              )}
+              <ol className="cv-zones">
+                {zoneRows.map((zone, i) => (
+                  <li key={zone.name} data-reveal className="cv-zone" style={{ "--k": i } as CSSProperties}>
+                    <div className="cv-zone-head">
+                      <h3 className="cv-zone-name">{zone.name}</h3>
+                      <span className="cv-zone-count" aria-hidden>{pad(zone.covered.length)}</span>
+                    </div>
+                    <p className="cv-zone-places">
+                      {zone.covered.map((name) => (
+                        <Place key={name} name={name} active={sel.name === name} onSelect={() => select(itemIndex[name], true)} />
+                      ))}
+                    </p>
+                    {zone.ready.length > 0 && (
+                      <p className="cv-zone-places cv-zone-places--ready">
+                        <span className="cv-zone-tag">Mobilization ready</span>
+                        {zone.ready.map((name) => (
+                          <Place key={name} name={name} active={sel.name === name} onSelect={() => select(itemIndex[name], true)} />
+                        ))}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ol>
 
-              <p className="cv-card-highlight">{sel.highlight}</p>
-              <p className="cv-card-scope">{sel.scope}</p>
-
-              <dl className="cv-facts">
-                <div>
-                  <dt>From Battambang</dt>
-                  <dd>~{sel.km} km</dd>
-                </div>
-                <div>
-                  <dt>Region</dt>
-                  <dd>{sel.region}</dd>
-                </div>
-              </dl>
-
-              <div className="cv-card-equip">
-                <p className="ol-label">{sel.equipment.length ? "Equipment based here" : "Mobilised from Battambang on request"}</p>
-                {sel.equipment.length > 0 && (
-                  <ul>
-                    {sel.equipment.map(([count, label]) => (
-                      <li key={label}><span>{pad(count)}</span>{label}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </aside>
+              <p data-split="content" className="cv-note">Our plants, fleet and crews are based in Battambang and mobilise across Cambodia. Tell us your site and programme and we will confirm what we can bring.</p>
+            </div>
           </div>
         </section>
 
-        {/* 03 The four zones behind the province list, set as the concrete grades grid on Quality & HSE: the count
-            drawn as an orange mark, the zone and its places ruled beside it, each place one tap from the map. */}
-        <section id="zones" data-header-title="Coverage by zone" aria-labelledby="cv-zones" className="cv-band">
-          <div className="cv-head">
-            <p data-split="content" className="ol-label">Coverage by zone</p>
-            <h2 id="cv-zones" data-split className="cv-h2">Delivered province by province, from Pailin to Stung Treng.</h2>
-          </div>
-          <ul className="cv-zones">
-            {zoneStats.map((zone, i) => (
-              <li key={zone.name} data-reveal className="cv-zone" style={{ "--k": i } as CSSProperties}>
-                <span className="cv-zone-mark">{zone.places.length}</span>
-                <div className="cv-zone-body">
-                  <div>
-                    <h3 className="cv-zone-name">{zone.name}</h3>
-                    <p className="cv-zone-label">Locations covered</p>
-                  </div>
-                  <ul className="cv-zone-places">
-                    {zone.places.map((place) => (
-                      <li key={place.name}>
-                        <button type="button" onClick={() => showOnMap(itemIndex[place.name])}>
-                          {place.name}
-                          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                            <path d="M2.6 9.4 9.4 2.6M4.4 2.6h5v5" />
-                          </svg>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* 04 The rest of the country: provinces BCE can mobilise into, with the work it would take on. */}
-        <section id="ready" data-header-title="Mobilization ready" aria-labelledby="cv-ready" className="cv-band cv-band--soft">
-          <div className="cv-head">
-            <p data-split="content" className="ol-label">Mobilization ready</p>
-            <h2 id="cv-ready" data-split className="cv-h2">Available for deployment</h2>
-            <p data-split="content" className="cv-lead">Beyond the fourteen locations we serve today, BCE mobilises its fleet into additional provinces on request.</p>
-          </div>
-          <ul className="cv-ready-list">
-            {otherProvinces.map((it, i) => (
-              <li key={it.name} data-reveal className="cv-ready" style={{ "--k": i % 2 } as CSSProperties}>
-                <div className="cv-ready-top">
-                  <h3 className="cv-ready-name">{it.name}</h3>
-                  <span className="cv-badge cv-badge--light">{it.badge}</span>
-                </div>
-                <p className="cv-ready-highlight">{it.highlight}</p>
-                <p className="cv-ready-scope">{it.scope}</p>
-                <span className="cv-ready-km">~{it.km} km from Battambang</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* 05 Equipment & fleet, the same inventory block as Quality & HSE, so the fleet behind the coverage reads
+        {/* 03 Equipment & fleet, the same inventory block as Quality & HSE, so the fleet behind the coverage reads
             on this page too. */}
         <div className="ol-panels">
           <TextMedia
