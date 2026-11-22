@@ -72,6 +72,7 @@ BCE/
 │   ├── ARCHITECTURE.md          # Living system snapshot: envs, resources, invariants, changelog
 │   ├── CLOUDFLARE.md            # Deep Cloudflare setup, free-tier limits, troubleshooting
 │   └── BASE-DESIGN-SYSTEM.md    # Admin design-system reference
+├── maintenance/                 # Standalone maintenance page (bce-maintenance Pages project)
 ├── .figma/make/site.json        # SEO title, description, and OpenGraph metadata
 ├── .github/workflows/deploy.yml # Auto CI/CD deploy on push to main
 ├── vite.config.ts               # Vite configuration
@@ -104,6 +105,12 @@ npm run deploy
 # Worker only
 npm run worker:deploy           # production: wrangler deploy --env production
 npm run worker:deploy:staging   # staging:    wrangler deploy
+
+# Public-site maintenance mode (admin and /api/* stay up)
+npm run maintenance:on          # 302 bce-construction.com + www → maintenance.bce-construction.com
+npm run maintenance:off         # remove the redirect and serve the real site again
+npm run maintenance:status      # report the rule and check site, page and admin
+npm run maintenance:deploy      # publish maintenance/ after editing the page
 
 # Khmer content overlays — keep only language-specific fields after schema changes
 npm run km:prune

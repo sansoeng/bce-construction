@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scheduled maintenance | BCE., Ltd.</title>
+<meta name="description" content="The BCE website is undergoing scheduled maintenance. Our plants, fleet and crews are still working — call or message us directly." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#111111" />
+<meta http-equiv="refresh" content="120" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/fonts/TTCommonsPro-Normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/TTCommonsPro-Md.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;500;700&family=Kantumruy+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  @font-face {
+    font-family: "TT Commons";
+    src: url("/fonts/TTCommonsPro-Normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TT Commons";
+    src: url("/fonts/TTCommonsPro-Md.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "TT Commons Mono";
+    src: url("/fonts/TTCommonsProMono-Md.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --ink: #111111;
+    --paper: #ffffff;
+    --brand: #f80100;
+    --muted: rgb(255 255 255 / .62);
+    --faint: rgb(255 255 255 / .38);
+    --line: rgb(255 255 255 / .14);
+    --mono: "TT Commons Mono", ui-monospace, "SFMono-Regular", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; }
+
+  body {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.25rem, 5vw, 4.5rem);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "TT Commons", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+  .logo { display: block; width: clamp(124px, 17vw, 158px); height: auto; }
+  .top-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 62rem;
+    padding: clamp(2.5rem, 6vh, 5rem) 0 clamp(2rem, 4vh, 3.5rem);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--brand);
+    flex: none;
+  }
+
+  h1 {
+    margin: clamp(1rem, 2vw, 1.35rem) 0 0;
+    max-width: 20ch;
+    font-size: clamp(2.15rem, 6.2vw, 4.25rem);
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -.03em;
+  }
+
+  .lead {
+    margin: clamp(1.1rem, 2vw, 1.5rem) 0 0;
+    max-width: 44rem;
+    font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .contacts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem 2rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: clamp(1.4rem, 3vw, 2rem);
+    border-top: 1px solid var(--line);
+  }
+  .contact-wide { grid-column: 1 / -1; }
+  .contacts > .contact:not(.contact-wide) { grid-column: span 2; }
+  .label {
+    display: block;
+    margin-bottom: .55rem;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .contact a {
+    display: inline-block;
+    padding: .1rem 0;
+    color: var(--paper);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+  .phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem 1.6rem;
+  }
+  .phones a { white-space: nowrap; }
+  .contact a:hover, .contact a:focus-visible { color: var(--brand); }
+  .contact a:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+  .khmer {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--line);
+    font-family: "Kantumruy Pro", "Hanuman", "Khmer Sangam MN", sans-serif;
+  }
+  .khmer h2 {
+    margin: .9rem 0 0;
+    font-size: clamp(1.35rem, 3vw, 1.9rem);
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: 0;
+  }
+  .khmer p {
+    margin: .8rem 0 0;
+    max-width: 44rem;
+    font-size: clamp(.98rem, 1.4vw, 1.08rem);
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .khmer .eyebrow { font-family: "Kantumruy Pro", "Hanuman", sans-serif; letter-spacing: 0; }
+
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.5rem;
+    align-items: baseline;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  footer a { color: inherit; text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  @media (max-width: 900px) {
+    .contacts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contact-wide { grid-column: 1 / -1; }
+    .contacts > .contact:not(.contact-wide) { grid-column: span 1; }
+  }
+  @media (max-width: 560px) {
+    .top-note { display: none; }
+    .contacts { grid-template-columns: 1fr; gap: 1.1rem; }
+    .contact-wide { grid-column: auto; }
+    .phones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    main { padding: 2.4rem 0 2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+  <header class="top">
+    <img class="logo" src="/assets/bce-logo-lockup.svg" alt="BCE., Ltd." width="158" height="42" />
+    <span class="top-note">bce-construction.com</span>
+  </header>
+
+  <main>
+    <p class="eyebrow">Scheduled maintenance</p>
+    <h1>We&rsquo;ll be back shortly.</h1>
+    <p class="lead">
+      Our website is undergoing scheduled maintenance. The plants, fleet and crews are still working &mdash; for
+      quotations, deliveries or site support, call or message us directly.
+    </p>
+
+    <div class="contacts">
+      <div class="contact contact-wide">
+        <span class="label">Hotlines</span>
+        <div class="phones">
+          <a href="tel:+85512932700">012 932 700</a>
+          <a href="tel:+85517222205">017 222 205</a>
+          <a href="tel:+85512867475">012 867 475</a>
+          <a href="tel:+85570867475">070 867 475</a>
+        </div>
+      </div>
+      <div class="contact">
+        <span class="label">Email</span>
+        <a href="mailto:bcebtb999@gmail.com">bcebtb999@gmail.com</a>
+      </div>
+      <div class="contact">
+        <span class="label">Telegram</span>
+        <a href="https://t.me/thendLP" target="_blank" rel="noreferrer">@thendLP</a>
+      </div>
+    </div>
+
+    <div class="khmer" lang="km">
+      <p class="eyebrow">ការថែទាំគេហទំព័រ</p>
+      <h2>យើងនឹងត្រឡប់មកវិញឆាប់ៗ</h2>
+      <p>
+        គេហទំព័ររបស់យើងកំពុងធ្វើការថែទាំ។ រោងចក្រ កងយានយន្ត និងក្រុមការងារនៅដំណើរការធម្មតា។
+        សម្រាប់ការស្នើសម្រង់តម្លៃ ការដឹកជញ្ជូន ឬជំនួយនៅការដ្ឋាន សូមទាក់ទងមកយើងផ្ទាល់។
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <span>Ang Village, Sangkat O&rsquo;Char, Battambang</span>
+    <span>Monday &ndash; Sunday, 6:30 AM &ndash; 5:30 PM</span>
+    <a href="https://t.me/thendLP" target="_blank" rel="noreferrer">Telegram</a>
+  </footer>
+</body>
+</html>
