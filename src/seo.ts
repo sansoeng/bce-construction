@@ -121,10 +121,21 @@ const AREA_SERVED = [
   "Pailin", "Oddar Meanchey", "Preah Vihear", "Stung Treng", "Phnom Penh", "Kandal", "Koh Kong", "Preah Sihanouk",
 ];
 
-const structuredData = () => {
+// Google's result shows a site name above the title (the "bce-construction.com" line today). A WebSite node is the
+// signal it documents for that name, and `og:site_name` repeats it, so the SERP reads "BCE., Ltd." instead of the host.
+const websiteData = () => ({
+  "@type": "WebSite",
+  "@id": `${ORIGIN}/#website`,
+  url: `${ORIGIN}/`,
+  name: "BCE., Ltd.",
+  alternateName: ["BCE", "BCE Construction", "BCE Battambang"],
+  inLanguage: ["en", "km"],
+  publisher: { "@id": `${ORIGIN}/#organization` },
+});
+
+const organizationData = () => {
   const sameAs = ["https://t.me/thendLP"];
   return {
-    "@context": "https://schema.org",
     "@type": "GeneralContractor",
     "@id": `${ORIGIN}/#organization`,
     name: "BCE., Ltd.",
@@ -175,6 +186,12 @@ const structuredData = () => {
     sameAs,
   };
 };
+
+// One graph per page: the site (for the SERP site name) and the company (for the local/entity signals).
+const structuredData = () => ({
+  "@context": "https://schema.org",
+  "@graph": [websiteData(), organizationData()],
+});
 
 /** Inject the company structured data once per document. */
 export const applyStructuredData = () => {

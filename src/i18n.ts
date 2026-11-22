@@ -1751,7 +1751,6 @@ const KM: Record<string, string> = {
   "Sample": "គំរូ",
   "Illustrative draft — pending BCE review": "សេចក្តីព្រាងគំរូ — រង់ចាំការត្រួតពិនិត្យពី BCE",
   // Page titles carry the search phrase and the place, so the Khmer edition does too.
-  "Construction Company in Battambang, Cambodia | BCE": "ក្រុមហ៊ុនសំណង់នៅបាត់ដំបង កម្ពុជា | BCE",
   "About BCE — Building Across Cambodia Since 1995": "អំពី BCE — កសាងទូទាំងកម្ពុជាតាំងពីឆ្នាំ ១៩៩៥",
   "Concrete, Piling & Civil Construction | BCE Battambang": "បេតុង ការបោះសសរស្តម្ភ និងសំណង់ស៊ីវិល | BCE បាត់ដំបង",
   "Construction Projects Across Cambodia | BCE": "គម្រោងសំណង់ទូទាំងកម្ពុជា | BCE",
