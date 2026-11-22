@@ -27,7 +27,7 @@ const YEARS = [
 
 
 export default function ResourcesPage() {
-  usePageSetup("Resources & Downloads | BCE., Ltd.");
+  usePageSetup("Company Profile, Licences & Downloads | BCE");
   const rootRef = useRef<HTMLElement>(null);
 
   const [selection, setSelection] = useState<FilterSelection>({ year: [], category: [] });

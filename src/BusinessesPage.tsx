@@ -81,7 +81,7 @@ const capabilities: SlideItem[] = [
 ];
 
 export default function BusinessesPage() {
-  usePageSetup("Our Businesses | BCE., Ltd.");
+  usePageSetup("Concrete, Piling & Civil Construction | BCE Battambang");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);

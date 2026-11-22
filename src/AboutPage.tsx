@@ -299,7 +299,7 @@ function Strategy() {
 }
 
 export default function AboutPage() {
-  usePageSetup("About BCE | BCE., Ltd.")
+  usePageSetup("About BCE — Building Across Cambodia Since 1995")
   const rootRef = useRef<HTMLElement>(null)
   useMediaReveal(rootRef)
   useScrollParallax(rootRef)

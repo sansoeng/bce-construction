@@ -73,7 +73,7 @@ export default function QualityPage({ fromCapabilities = false }: { fromCapabili
     history.replaceState(history.state, "", `/quality${query ? `?${query}` : ""}${anchor ? `#${anchor}` : ""}`);
   }, [fromCapabilities]);
 
-  usePageSetup("Quality, Capability & HSE | BCE., Ltd.");
+  usePageSetup("Concrete Testing Lab & Quality Control | BCE");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);

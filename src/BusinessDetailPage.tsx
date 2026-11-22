@@ -198,7 +198,7 @@ function OtherBusinessesRail({ items }: { items: BusinessDetail[] }) {
 export default function BusinessDetailPage({ slug }: { slug: string }) {
   const business = findBusinessDetail(slug);
   const rootRef = useRef<HTMLElement>(null);
-  usePageSetup(business ? `${business.name} | BCE., Ltd.` : "Our businesses | BCE., Ltd.");
+  usePageSetup(business ? `${business.name} in Cambodia | BCE` : "Concrete, Piling & Civil Construction | BCE Battambang");
   useScrollParallax(rootRef);
 
   if (!business) return null;

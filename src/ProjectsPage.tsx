@@ -77,7 +77,7 @@ const selectionFromUrl = (facets: FilterFacet[]): FilterSelection => {
 };
 
 export default function ProjectsPage() {
-  usePageSetup("Projects | BCE., Ltd.");
+  usePageSetup("Construction Projects Across Cambodia | BCE");
 
   const facets = facetOptions();
   const [selection, setSelection] = useState<FilterSelection>(() => selectionFromUrl(facets));

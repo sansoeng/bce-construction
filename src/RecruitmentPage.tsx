@@ -153,7 +153,7 @@ const ShareIcon = ({ network }: { network: "facebook" | "linkedin" | "telegram" 
 };
 
 export default function RecruitmentPage() {
-  usePageSetup("Careers & Recruitment | BCE., Ltd.");
+  usePageSetup("Construction Jobs in Battambang | BCE Careers");
   const rootRef = useRef<HTMLElement>(null);
   useScrollParallax(rootRef);
 
@@ -178,7 +178,7 @@ export default function RecruitmentPage() {
   const currentJob = useMemo(() => openVacancies.find((v) => v.id === selectedJobId) ?? null, [selectedJobId, openVacancies]);
 
   useEffect(() => {
-    applyPageSeo(currentJob ? `${currentJob.title} | BCE Careers` : translate("Careers & Recruitment | BCE., Ltd."));
+    applyPageSeo(currentJob ? `${currentJob.title} | BCE Careers` : translate("Construction Jobs in Battambang | BCE Careers"));
   }, [currentJob]);
 
   const scrollTop = () => {

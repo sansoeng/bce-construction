@@ -102,7 +102,7 @@ function ShareIcon({ network }: { network: "linkedin" | "facebook" | "telegram" 
 }
 
 export default function BlogPage() {
-  usePageSetup("Blog & Engineering Insights | BCE., Ltd.");
+  usePageSetup("Engineering Insights: Concrete & Piling | BCE");
 
   // Read the post slug from the URL (e.g. /blog?post=...)
   const [selectedSlug, setSelectedSlug] = useState<string | null>(() => {

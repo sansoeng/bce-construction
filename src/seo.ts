@@ -7,35 +7,36 @@
 
 const ORIGIN = "https://bce-construction.com";
 
-// Keys are the routing flag (src/main.tsx); the value is the description a search result should show.
+// Keys are the routing flag (src/main.tsx); the value is the description a search result should show. Each one pairs
+// a place with proof (own plants, own fleet, dates) because that is what wins a local construction query.
 const DESCRIPTIONS: Record<string, string> = {
   projects:
-    "Selected BCE projects across Cambodia: bridge foundations, factory floors, logistics warehouses and mixed-use towers, delivered with our own concrete, piling rigs and engineers.",
+    "Selected BCE construction projects across Cambodia: bridge foundations, factory floors, logistics warehouses and mixed-use towers, built with our own concrete, piling rigs and engineers.",
   about:
-    "Battambang Construction and Engineering (BCE) has built across Cambodia since 1995: our story, our Chairwoman’s message, our vision, mission and core values.",
+    "BCE is a Battambang construction company building across Cambodia since 1995: our story, our Chairwoman’s message, our vision, mission and core values.",
   businesses:
-    "Five core businesses under one roof: ready-mix concrete, foundation piling, civil construction, concrete slab works and truck & equipment rental.",
+    "Five divisions under one roof: ready-mix concrete, foundation piling, civil construction, concrete slab works and equipment hire — run from our own plants in Battambang.",
   business:
-    "Scope, capacity and typical works for this BCE business, with the concrete grades, fleet and delivery coverage behind every project.",
+    "Scope, capacity and typical works for this BCE business, with the concrete grades, fleet and delivery coverage behind every project in Cambodia.",
   quality:
-    "Quality, capability and HSE at BCE: our own laboratory, approved mix designs, certified raw materials, calibrated equipment, our fleet and the engineers behind every pour.",
+    "Quality control at BCE: our own concrete laboratory, approved C15–C40 mix designs, certified raw materials, calibrated equipment and the engineers behind every pour.",
   coverage:
     "Where BCE builds: 13 provinces and Phnom Penh, our four batching plants, the fleet that reaches site and the projects completed in 2025.",
   fleet:
-    "BCE's own plant and fleet: four batching plants, 41 mixer trucks, eight pump trucks, seven piling rigs and the loaders, cranes and lifts behind every project — available to hire across Cambodia.",
+    "BCE’s own fleet for hire across Cambodia: four batching plants, 41 mixer trucks, eight pump trucks, seven piling rigs, plus loaders, cranes and lifts.",
   quote:
-    "Request a concrete, piling, construction, slab works or equipment hire quotation. Send your scope, location and schedule and our engineers will reply with a clear price.",
+    "Request a ready-mix concrete, piling, construction, slab works or equipment hire quotation in Cambodia. Send your scope, location and schedule — our engineers reply with a clear price.",
   recruitment:
-    "Careers at BCE: current vacancies in engineering, batching, piling, fleet maintenance and site supervision, with how to apply.",
+    "Construction jobs in Battambang with BCE: engineering, batching, piling, fleet maintenance and site supervision vacancies, with how to apply.",
   resources:
-    "BCE company profile, mix designs, licences and certificates: the documents procurement and tender teams ask for, available to download or on request.",
+    "The BCE company profile, mix designs, licences and certificates — the documents procurement and tender teams ask for, to download or request.",
   contact:
-    "Contact BCE in Battambang: sales and quotations hotlines, email, Telegram and our head office, open Monday to Sunday, 6:30 AM to 5:30 PM.",
+    "Contact BCE, a construction company in Battambang, Cambodia: sales and quotation hotlines, email, Telegram and our head office, open Monday to Sunday.",
   privacy:
     "How BCE collects, uses and protects the information you send through this website, including quotation requests, contact messages and job applications.",
   terms: "The terms that apply when you use the BCE website, its content, downloads and quotation tools.",
-  blog: "Engineering insight from BCE: concrete technology, piling practice, quality control and the projects behind them.",
-  news: "Engineering insight from BCE: concrete technology, piling practice, quality control and the projects behind them.",
+  blog: "Engineering insight from BCE in Battambang: concrete technology, piling practice, quality control and the projects behind them.",
+  news: "Engineering insight from BCE in Battambang: concrete technology, piling practice, quality control and the projects behind them.",
 };
 
 /** Clean-path pages described above; detail pages fall back to their section's description. */
@@ -85,12 +86,13 @@ const stringifyParams = (params: URLSearchParams) => {
   return parts.join("&");
 };
 
-/** The page URL without the language, admin or hash parts, so a canonical stays stable. */
+/** The page URL without the admin or hash parts. A Khmer page keeps `lang=km`, so its canonical is the Khmer page and
+ * never the English one — otherwise Google is free to show a Khmer title on the English URL. */
 const canonicalUrl = () => {
   if (typeof location === "undefined") return ORIGIN;
   const params = new URLSearchParams(location.search);
-  params.delete("lang");
   params.delete("admin");
+  if (params.get("lang") !== "km") params.delete("lang");
   const query = stringifyParams(params);
   return `${ORIGIN}${location.pathname}${query ? `?${query}` : ""}`;
 };
@@ -99,9 +101,25 @@ const localizedUrl = (lang: "en" | "km") => {
   if (typeof location === "undefined") return ORIGIN;
   const params = new URLSearchParams(location.search);
   params.delete("admin");
-  params.set("lang", lang);
-  return `${ORIGIN}${location.pathname}?${stringifyParams(params)}`;
+  if (lang === "km") params.set("lang", "km");
+  else params.delete("lang");
+  return `${ORIGIN}${location.pathname}${params.toString() ? `?${stringifyParams(params)}` : ""}`;
 };
+
+// The five divisions, as an offer catalogue for search engines; the copy is the same claim as /businesses.
+const SERVICES: [string, string][] = [
+  ["Ready-mix concrete", "C15–C40 concrete from four batching plants, delivered by our own 41 mixer trucks and 8 pumps."],
+  ["Foundation piling", "Bored piling and foundation works with our own hydraulic rigs, engineered per project."],
+  ["Civil construction", "Roads, bridges, warehouses, factories and commercial or residential structures."],
+  ["Concrete slab works", "Industrial floors, post-tensioned slabs and external hardstands."],
+  ["Equipment hire", "Mixer trucks, pump trucks, piling rigs, loaders and cranes, with operators on request."],
+];
+
+// The places named in the coverage story, so the structured data and the Coverage page cannot drift apart.
+const AREA_SERVED = [
+  "Battambang", "Banteay Meanchey", "Siem Reap", "Pursat", "Kampong Chhnang", "Kampong Thom",
+  "Pailin", "Oddar Meanchey", "Preah Vihear", "Stung Treng", "Phnom Penh", "Kandal", "Koh Kong", "Preah Sihanouk",
+];
 
 const structuredData = () => {
   const sameAs = ["https://t.me/thendLP"];
@@ -111,12 +129,14 @@ const structuredData = () => {
     "@id": `${ORIGIN}/#organization`,
     name: "BCE., Ltd.",
     legalName: "Battambang Construction and Engineering Co., Ltd.",
-    alternateName: "BCE",
+    alternateName: ["BCE", "BCE Battambang", "BCE Construction Cambodia"],
     url: ORIGIN,
     logo: `${ORIGIN}/favicon.svg`,
     image: `${ORIGIN}/Image/bce/hero_batching_plant.webp`,
     description:
-      "Concrete, piling, civil construction, concrete slab works and equipment hire across Cambodia, building from Battambang since 1995.",
+      "BCE is a Battambang construction company building across Cambodia since 1995: ready-mix concrete, foundation piling, civil works and equipment hire from our own plants and fleet.",
+    slogan: "Building from Battambang since 1995.",
+    knowsLanguage: ["en", "km"],
     foundingDate: "1995",
     telephone: "+855 12 932 700",
     email: "bcebtb999@gmail.com",
@@ -127,7 +147,25 @@ const structuredData = () => {
       addressRegion: "Battambang Province",
       addressCountry: "KH",
     },
-    areaServed: { "@type": "Country", name: "Cambodia" },
+    geo: { "@type": "GeoCoordinates", latitude: 13.0957, longitude: 103.2022 },
+    areaServed: [
+      { "@type": "Country", name: "Cambodia" },
+      ...AREA_SERVED.map((name) => ({ "@type": "AdministrativeArea", name })),
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Construction services in Cambodia",
+      itemListElement: SERVICES.map(([name, description]) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name,
+          description,
+          areaServed: { "@type": "Country", name: "Cambodia" },
+          provider: { "@id": `${ORIGIN}/#organization` },
+        },
+      })),
+    },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],

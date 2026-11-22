@@ -287,7 +287,7 @@ const TERMS: Section[] = [
 
 export function PrivacyPage() {
   const km = getLang() === "km";
-  usePageSetup(km ? "គោលការណ៍ឯកជនភាព | BCE., Ltd." : "Privacy policy | BCE., Ltd.");
+  usePageSetup(km ? "គោលការណ៍ឯកជនភាព | BCE., Ltd." : "Privacy Policy | BCE Construction Cambodia");
   return (
     <LegalLayout
       kind={km ? legalLabelsKm.kind : "Legal"}
@@ -304,7 +304,7 @@ export function PrivacyPage() {
 
 export function TermsPage() {
   const km = getLang() === "km";
-  usePageSetup(km ? "លក្ខខណ្ឌប្រើប្រាស់ | BCE., Ltd." : "Terms of use | BCE., Ltd.");
+  usePageSetup(km ? "លក្ខខណ្ឌប្រើប្រាស់ | BCE., Ltd." : "Terms of Use | BCE Construction Cambodia");
   return (
     <LegalLayout
       kind={km ? legalLabelsKm.kind : "Legal"}

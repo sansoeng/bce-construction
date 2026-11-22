@@ -171,7 +171,7 @@ function Place({ name, active, onSelect }: { name: string; active: boolean; onSe
 }
 
 export default function CoveragePage() {
-  usePageSetup("Coverage | BCE., Ltd.");
+  usePageSetup("Coverage: 13 Provinces + Phnom Penh | BCE");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);

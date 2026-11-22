@@ -63,7 +63,7 @@ function Step({ n, title, note, children, id }: { n: number; title: string; note
 }
 
 export default function QuotePage() {
-  usePageSetup("Request a Quote | BCE., Ltd.");
+  usePageSetup("Get a Quote: Concrete, Piling & Plant Hire | BCE");
   const initial = new URLSearchParams(location.search).get("service");
   const [service, setService] = useState(() => offerings.find((b) => b.slug === initial)?.slug ?? "");
   const [shape, setShape] = useState<Shape>("slab");

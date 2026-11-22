@@ -136,7 +136,7 @@ export default function ProjectPage({ slug }: { slug: string }) {
   const [viewing, setViewing] = useState<number | null>(null);
 
   useEffect(() => {
-    const title = translate(project ? `${project.name} | BCE., Ltd.` : "Project not found | BCE., Ltd.");
+    const title = translate(project ? `${project.name} | BCE Cambodia` : "Project not found | BCE Cambodia");
     applyPageSeo(
       title,
       project ? `${project.name}, ${project.location}. ${project.summary}` : undefined,

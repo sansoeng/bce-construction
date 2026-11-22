@@ -49,7 +49,7 @@ function normaliseAddress() {
 
 function NotFoundPage() {
   useEffect(() => {
-    applyPageSeo('Page not found | BCE., Ltd.')
+    applyPageSeo('Page Not Found | BCE Construction')
   }, [])
   return (
     <main className="site-pad flex min-h-[70vh] max-w-[900px] flex-col justify-center">
