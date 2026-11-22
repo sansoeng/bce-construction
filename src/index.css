@@ -5513,6 +5513,15 @@ html[lang="km"] .fg-btn.is-outline-white {
   font-size: 13px;
 }
 
+/* Contact page form: the shared button skin defaults to light grey, so the send action gets a true black fill
+   (#111, the site's ink) with white type, keeping the same two-layer sweep on hover. */
+.fg-btn.is-black.contact-send {
+  --btn-bg: #111;
+  --btn-bg-hover: #2b2b2b;
+  --btn-fg: #fff;
+  --btn-fg-hover: #fff;
+}
+
 /* Wide CTA card (harkcap.com's "Our Story" / "Explore Our Solutions" buttons), used only by the homepage's
    "See more about us" and "Explore Quality & HSE" actions: 120px tall, full column width, 16px padding, the label
    bottom-left and the arrow bottom-right. It keeps the site's button skin, so hover is the same sweep. */

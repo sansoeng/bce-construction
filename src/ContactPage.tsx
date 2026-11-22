@@ -88,7 +88,7 @@ function ChannelCard({
 }
 
 const fieldClass =
-  "w-full rounded-[16px] bg-[#F4F4F5] border border-transparent px-4 py-3 text-[15px] text-[#111] placeholder:text-[#111]/35 outline-none transition-colors focus:bg-white focus:border-[#111]/15";
+  "w-full rounded-[16px] bg-white border border-[#111]/10 px-4 py-3 text-[15px] text-[#111] placeholder:text-[#111]/35 shadow-[0_1px_2px_rgba(16,24,40,0.04)] outline-none transition-colors focus:border-[#111]/30";
 
 export default function ContactPage() {
   usePageSetup("Contact BCE — Construction Company in Battambang");
@@ -345,7 +345,7 @@ export default function ContactPage() {
                         type="submit"
                         theme="black"
                         label={sending ? "Sending…" : "Send message"}
-                        className="mt-2 self-start"
+                        className="mt-2 self-start contact-send"
                         disabled={sending}
                       />
                       <p className="max-w-[34rem] text-[13px] leading-[1.6] text-[#111]/45">
