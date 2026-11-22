@@ -4714,6 +4714,14 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   box-shadow: inset 0 0 0 1.5px rgb(17 17 17 / .4);
 }
 .qf-field--wide { grid-column: 1 / -1; }
+/* Oversized field height: every single-line text field is 84px tall, with its value at the foot of the card
+   beneath the top-left label. Multiline fields (message, notes, experience summary) keep their natural height. */
+.qf-field:has(.qf-input):not(:has(textarea)) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 84px;
+}
 .qf-label {
   position: absolute;
   top: .78rem;
