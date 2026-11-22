@@ -4695,21 +4695,20 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   corner-smoothing: 60% !important;
   background: var(--paper-soft);
 }
-.qf-shapes { margin-top: 0; font-size: clamp(1.1rem, 1.6vw, 1.6rem); }
+.qf-shapes { margin-top: 0; font-size: clamp(1.1rem, 1.6vw, 1.6rem); gap: .3em .55em; }
 .qf-shapes .pl-term { animation: none; }
-/* The selected shape reads as a tab: the active term keeps the ink and gains a 2px underline, while the other
-   shapes lift from 30% to 42% so the whole row stays legible. */
-.qf-shapes .pl-term { position: relative; color: rgb(17 17 17 / .42); }
+/* The selected shape reads as a tab: a white chip with a hairline edge and soft shadow on the grey panel, while
+   the other shapes lift from 30% to 42% so the whole row stays legible. */
+.qf-shapes .pl-term { position: relative; isolation: isolate; color: rgb(17 17 17 / .42); }
 .qf-shapes .pl-term.is-active { color: var(--ink); }
-.qf-shapes .pl-term.is-active::after {
+.qf-shapes .pl-term.is-active::before {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -.16em;
-  height: 2px;
-  border-radius: 2px;
-  background: currentColor;
+  inset: -.14em -.45em;
+  z-index: -1;
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: 0 1px 2px rgb(17 17 17 / .08), inset 0 0 0 1px rgb(17 17 17 / .08);
 }
 .qf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
 /* Public form fields, after aircenter.space/investment: one borderless 5%-ink card, its label set inside the
