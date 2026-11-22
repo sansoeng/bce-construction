@@ -141,7 +141,12 @@ async function off() {
     return;
   }
   if (kept.length === 0) {
-    await api(`/zones/${id}/rulesets/phases/${PHASE}/entrypoint`, { method: "DELETE" });
+    // An entrypoint ruleset cannot be deleted with every auth scheme (the global key gets 10405); an empty rule list
+    // is the portable "off" and the redirect stops immediately.
+    await api(`/zones/${id}/rulesets/phases/${PHASE}/entrypoint`, {
+      method: "PUT",
+      body: JSON.stringify({ rules: [] }),
+    });
   } else {
     await api(`/zones/${id}/rulesets/phases/${PHASE}/entrypoint`, {
       method: "PUT",
