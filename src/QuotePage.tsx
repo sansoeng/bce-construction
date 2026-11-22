@@ -253,7 +253,7 @@ export default function QuotePage() {
 
         {/* 03: project details, service-specific. */}
         <Step n={concrete ? 3 : 2} title="Project details" note={biz ? `${biz.name}: ${biz.tagline.toLowerCase()}.` : "Choose a service above for its specific questions."}>
-          <div ref={detailsRef} className="qf-grid">
+          <div ref={detailsRef} className="qf-panel qf-grid">
             <Field label="Project name"><input className="qf-input" value={form.project ?? ""} onChange={set("project")} /></Field>
             <Field label="Project location"><input className="qf-input" value={form.location ?? ""} onChange={set("location")} placeholder="Province or address" /></Field>
             {specific.map(([k, label, kind, options]) => (
@@ -305,7 +305,7 @@ export default function QuotePage() {
 
         {/* 04: contact and send. */}
         <Step n={concrete ? 4 : 3} title="Your details">
-          <div className="qf-grid">
+          <div className="qf-panel qf-grid">
             <Field label="Contact person" required><input className="qf-input" value={form.contact ?? ""} onChange={set("contact")} autoComplete="name" /></Field>
             <Field label="Phone / Telegram" required><input className="qf-input" type="tel" value={form.phone ?? ""} onChange={set("phone")} autoComplete="tel" /></Field>
             <Field label="Email (optional)"><input className="qf-input" type="email" value={form.email ?? ""} onChange={set("email")} autoComplete="email" placeholder="name@company.com" /></Field>

@@ -4687,7 +4687,8 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qf-tile-name { margin-top: auto; font-size: clamp(1.25rem, 1.6vw, 1.6rem); font-weight: 500; line-height: 1.1; letter-spacing: -.02em; }
 .qf-tile-tag { margin-top: .35rem; font-size: .9rem; opacity: .6; }
 .qf-tile:last-child { grid-column: 1 / -1; }
-.qf-calc {
+/* Project details and contact details reuse the calculator's grey panel, so each step's form reads as one card. */
+.qf-calc, .qf-panel {
   padding: clamp(1.25rem, 2.5vw, 2.25rem);
   border-radius: var(--radius) !important;
   -webkit-corner-smoothing: 60% !important;
@@ -4696,6 +4697,20 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 }
 .qf-shapes { margin-top: 0; font-size: clamp(1.1rem, 1.6vw, 1.6rem); }
 .qf-shapes .pl-term { animation: none; }
+/* The selected shape reads as a tab: the active term keeps the ink and gains a 2px underline, while the other
+   shapes lift from 30% to 42% so the whole row stays legible. */
+.qf-shapes .pl-term { position: relative; color: rgb(17 17 17 / .42); }
+.qf-shapes .pl-term.is-active { color: var(--ink); }
+.qf-shapes .pl-term.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -.16em;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
 .qf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
 /* Public form fields, after aircenter.space/investment: one borderless 5%-ink card, its label set inside the
    top-left in mono caps and the value below, so the quote calculator and steps, the careers application and the
