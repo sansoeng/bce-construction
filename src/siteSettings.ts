@@ -52,7 +52,7 @@ export const siteSettings: SiteSettings = {
     hours: "Monday – Sunday, 6:30 AM – 5:30 PM",
   },
   seo: {
-    title: "Construction Company in Battambang, Cambodia | BCE",
+    title: "BCE — Battambang Construction and Engineering Co., Ltd.",
     description:
       "BCE is a Battambang construction company building across Cambodia since 1995: ready-mix concrete, foundation piling, civil works and equipment hire from our own plants and fleet.",
     ogImage: "/Image/bce/hero_batching_plant.webp",
