@@ -264,7 +264,7 @@ const TERMS: Section[] = [
 ];
 
 export function PrivacyPage() {
-  usePageSetup("Privacy policy | BCE., Ltd.");
+  usePageSetup("Privacy Policy | BCE Construction Cambodia");
   return (
     <LegalLayout
       kind="Legal"
@@ -276,7 +276,7 @@ export function PrivacyPage() {
 }
 
 export function TermsPage() {
-  usePageSetup("Terms of use | BCE., Ltd.");
+  usePageSetup("Terms of Use | BCE Construction Cambodia");
   return (
     <LegalLayout
       kind="Legal"

@@ -91,7 +91,7 @@ const fieldClass =
   "w-full rounded-[16px] bg-[#F4F4F5] border border-transparent px-4 py-3 text-[15px] text-[#111] placeholder:text-[#111]/35 outline-none transition-colors focus:bg-white focus:border-[#111]/15";
 
 export default function ContactPage() {
-  usePageSetup("Contact us | BCE., Ltd.");
+  usePageSetup("Contact BCE — Construction Company in Battambang");
 
   const [form, setForm] = useState<Record<string, string>>({});
   const [error, setError] = useState("");

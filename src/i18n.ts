@@ -1724,6 +1724,22 @@ const KM: Record<string, string> = {
   "Please complete the security check before sending.": "សូមបំពេញការត្រួតពិនិត្យសុវត្ថិភាពមុននឹងផ្ញើ។",
   "Online requests are temporarily paused. Please call 012 932 700.":
     "ការស្នើសុំតាមអនឡាញត្រូវបានផ្អាកជាបណ្តោះអាសន្ន។ សូមទូរស័ព្ទមក 012 932 700។",
+  // Page titles carry the search phrase and the place, so the Khmer edition does too.
+  "About BCE — Building Across Cambodia Since 1995": "អំពី BCE — កសាងទូទាំងកម្ពុជាតាំងពីឆ្នាំ ១៩៩៥",
+  "Concrete, Piling & Civil Construction | BCE Battambang": "បេតុង ការបោះសសរស្តម្ភ និងសំណង់ស៊ីវិល | BCE បាត់ដំបង",
+  "Construction Projects Across Cambodia | BCE": "គម្រោងសំណង់ទូទាំងកម្ពុជា | BCE",
+  "Concrete Testing Lab & Quality Control | BCE": "មន្ទីរពិសោធន៍បេតុង និងការត្រួតពិនិត្យគុណភាព | BCE",
+  "Coverage: 13 Provinces + Phnom Penh | BCE": "ការគ្របដណ្តប់៖ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ | BCE",
+  "Fleet & Equipment Hire in Cambodia | BCE": "កងយានយន្ត និងការជួលគ្រឿងចក្រនៅកម្ពុជា | BCE",
+  "Get a Quote: Concrete, Piling & Plant Hire | BCE": "ស្នើសុំសម្រង់តម្លៃ៖ បេតុង ការបោះសសរស្តម្ភ និងជួលគ្រឿងចក្រ | BCE",
+  "Contact BCE — Construction Company in Battambang": "ទាក់ទង BCE — ក្រុមហ៊ុនសំណង់នៅបាត់ដំបង",
+  "Construction Jobs in Battambang | BCE Careers": "ការងារសំណង់នៅបាត់ដំបង | ឱកាសការងារ BCE",
+  "Company Profile, Licences & Downloads | BCE": "ប្រវត្តិក្រុមហ៊ុន អាជ្ញាបណ្ណ និងឯកសារទាញយក | BCE",
+  "Engineering Insights: Concrete & Piling | BCE": "ចំណេះដឹងវិស្វកម្ម៖ បេតុង និងការបោះសសរស្តម្ភ | BCE",
+  "Privacy Policy | BCE Construction Cambodia": "គោលការណ៍ឯកជនភាព | BCE សំណង់កម្ពុជា",
+  "Terms of Use | BCE Construction Cambodia": "លក្ខខណ្ឌប្រើប្រាស់ | BCE សំណង់កម្ពុជា",
+  "Page Not Found | BCE Construction": "រកមិនឃើញទំព័រ | BCE សំណង់",
+  "Project not found | BCE Cambodia": "រកមិនឃើញគម្រោង | BCE កម្ពុជា",
 };
 
 // Templated strings
@@ -1742,6 +1758,8 @@ const PATTERNS: [RegExp, (...m: string[]) => string | null][] = [
   [/^(\d+) projects completed$/, (n) => `គម្រោងបានបញ្ចប់ ${n}`],
   [/^~(\d+) km from Battambang$/, (n) => `~${n} គ.ម. ពីបាត់ដំបង`],
   [/^(.+) \| BCE\., Ltd\.$/, (s) => `${tr(s)} | BCE., Ltd.`],
+  [/^(.+) in Cambodia \| BCE$/, (s) => `${tr(s)} នៅកម្ពុជា | BCE`],
+  [/^(.+) \| BCE Cambodia$/, (s) => `${tr(s)} | BCE កម្ពុជា`],
   [/^(.+) \| BCE Construction$/, (s) => `${tr(s)} | BCE., Ltd.`],
   [/^Map of Cambodia showing completed projects across (\d+) provinces and Phnom Penh where BCE operates$/, (n) => `ផែនទីកម្ពុជាបង្ហាញគម្រោងដែលបានបញ្ចប់នៅទូទាំង ${n} ខេត្ត និងរាជធានីភ្នំពេញ ដែល BCE ប្រតិបត្តិការ`],
   [/^((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b.*)$/, (s) => s.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g, (m) => MONTHS[m])],

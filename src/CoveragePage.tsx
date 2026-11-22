@@ -147,7 +147,7 @@ function CoverageMap({ active, onSelect }: { active: number; onSelect: (index: n
 }
 
 export default function CoveragePage() {
-  usePageSetup("Coverage | BCE., Ltd.");
+  usePageSetup("Coverage: 13 Provinces + Phnom Penh | BCE");
   const rootRef = useRef<HTMLElement>(null);
   useMediaReveal(rootRef);
   useScrollParallax(rootRef);

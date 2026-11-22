@@ -26,7 +26,7 @@ const initialCategory = () => {
 };
 
 export default function ProjectsPage() {
-  usePageSetup("Projects | BCE., Ltd.");
+  usePageSetup("Construction Projects Across Cambodia | BCE");
 
   const [category, setCategory] = useState<string>(initialCategory);
   const visible = category === ALL ? projects : projects.filter((p) => p.category === category);

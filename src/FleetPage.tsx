@@ -31,7 +31,7 @@ const TOPICS = [
 
 export default function FleetPage() {
   usePageSetup(
-    "Equipment & fleet | BCE., Ltd.",
+    "Fleet & Equipment Hire in Cambodia | BCE",
     "BCE's own plant and fleet: batching plants, mixer trucks, pump trucks and piling rigs, maintained in-house and mobilised from Battambang for hire across Cambodia.",
   )
   const rootRef = useRef<HTMLElement>(null)
