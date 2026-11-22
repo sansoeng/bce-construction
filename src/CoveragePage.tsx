@@ -4,7 +4,6 @@ import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
-import ArrowButton from "./ArrowButton";
 import { usePageSetup, useMediaReveal } from "./usePageSetup";
 import { LabelCopy, OlButton, ParallaxHero, TextMedia, useScrollParallax } from "./ServiceBlocks";
 import { homepage } from "./homepage";
@@ -388,17 +387,6 @@ export default function CoveragePage() {
             <OlButton label="Equipment & fleet" href="/fleet" className="ol-tm-button" />
           </TextMedia>
         </div>
-
-        {/* Closing note: where the numbers come from and where to take the conversation. */}
-        <section className="cv-outro" aria-labelledby="cv-outro">
-          <p data-split="content" className="ol-label">Coverage</p>
-          <h2 id="cv-outro" data-split="content" className="cv-outro-title">Need us in a province not on this list?</h2>
-          <p data-split="content" className="cv-outro-copy">Our plants, fleet and crews are based in Battambang and mobilise across Cambodia. Tell us your site and programme and we will confirm what we can bring.</p>
-          <div className="cv-outro-actions">
-            <ArrowButton href={quoteHref()} label="Request a quotation" />
-            <ArrowButton href="/contact" label="Contact us" theme="outline" />
-          </div>
-        </section>
       </div>
 
       <QuoteCta href={quoteHref()} />

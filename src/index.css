@@ -5717,11 +5717,6 @@ html[lang="km"] .fg-btn.is-outline-white {
 .cv-ready-scope { margin-top: .3rem; font-size: .9rem; line-height: 1.45; color: rgb(17 17 17 / .6); }
 .cv-ready-km { display: block; margin-top: .9rem; font-family: var(--font-ui-mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: rgb(17 17 17 / .4); font-variant-numeric: tabular-nums; }
 
-.cv-outro { display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; padding: clamp(4.5rem, 8vw, 7rem) var(--olm, var(--page-gutter)) clamp(5rem, 9vw, 8rem); border-top: 1px solid var(--line); }
-.cv-outro-title { max-width: 44rem; font-size: clamp(1.9rem, 3vw, 44px); font-weight: 500; line-height: 1.06; letter-spacing: -.025em; }
-.cv-outro-copy { max-width: 40rem; font-size: 1.05rem; line-height: 1.5; color: rgb(17 17 17 / .6); }
-.cv-outro-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .9rem; }
-
 @media (max-width: 1023px) {
   .cv-map-col, .cv-card { grid-column: 1 / -1; }
   .cv-card { position: relative; top: auto; }
