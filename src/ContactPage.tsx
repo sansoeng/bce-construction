@@ -87,9 +87,6 @@ function ChannelCard({
   );
 }
 
-const fieldClass =
-  "w-full rounded-[16px] bg-white border border-[#111]/10 px-4 py-3 text-[15px] text-[#111] placeholder:text-[#111]/35 shadow-[0_1px_2px_rgba(16,24,40,0.04)] outline-none transition-colors focus:border-[#111]/30";
-
 export default function ContactPage() {
   usePageSetup("Contact BCE — Construction Company in Battambang");
 
@@ -277,51 +274,51 @@ export default function ContactPage() {
                     </p>
 
                     <div className="flex flex-col gap-4">
-                      <label className="flex flex-col gap-2">
-                        <span className="text-[12px] font-medium text-[#111]/60">Your name</span>
+                      <label className="qf-field">
+                        <span className="qf-label">Your name</span>
                         <input
                           type="text"
                           autoComplete="name"
                           value={form.name ?? ""}
                           onChange={set("name")}
                           placeholder="Somchai Meas"
-                          className={fieldClass}
+                          className="qf-input"
                         />
                       </label>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <label className="flex flex-col gap-2">
-                          <span className="text-[12px] font-medium text-[#111]/60">Phone</span>
+                        <label className="qf-field">
+                          <span className="qf-label">Phone</span>
                           <input
                             type="tel"
                             autoComplete="tel"
                             value={form.phone ?? ""}
                             onChange={set("phone")}
                             placeholder="012 932 700"
-                            className={fieldClass}
+                            className="qf-input"
                           />
                         </label>
-                        <label className="flex flex-col gap-2">
-                          <span className="text-[12px] font-medium text-[#111]/60">Email address</span>
+                        <label className="qf-field">
+                          <span className="qf-label">Email address</span>
                           <input
                             type="email"
                             autoComplete="email"
                             value={form.email ?? ""}
                             onChange={set("email")}
                             placeholder="you@company.com"
-                            className={fieldClass}
+                            className="qf-input"
                           />
                         </label>
                       </div>
 
-                      <label className="flex flex-col gap-2">
-                        <span className="text-[12px] font-medium text-[#111]/60">Message</span>
+                      <label className="qf-field">
+                        <span className="qf-label">Message</span>
                         <textarea
                           rows={5}
                           value={form.message ?? ""}
                           onChange={set("message")}
                           placeholder="How can we help?"
-                          className={`${fieldClass} resize-y`}
+                          className="qf-input qf-textarea"
                         />
                       </label>
 

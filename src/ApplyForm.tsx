@@ -75,23 +75,23 @@ export default function ApplyForm({ role }: { role: string }) {
       <h3 className="mt-3 text-[20px] font-medium leading-snug">{role}</h3>
 
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
-        <label className="flex flex-col gap-1.5">
+        <label className="qf-field">
           <span className="qf-label">Your name *</span>
           <input className={fieldClass} value={form.name ?? ""} onChange={set("name")} autoComplete="name" />
         </label>
-        <label className="flex flex-col gap-1.5">
+        <label className="qf-field">
           <span className="qf-label">Email *</span>
           <input className={fieldClass} type="email" value={form.email ?? ""} onChange={set("email")} autoComplete="email" />
         </label>
-        <label className="flex flex-col gap-1.5 sm:col-span-2">
+        <label className="qf-field sm:col-span-2">
           <span className="qf-label">Phone / Telegram</span>
           <input className={fieldClass} type="tel" value={form.phone ?? ""} onChange={set("phone")} autoComplete="tel" />
         </label>
-        <label className="flex flex-col gap-1.5 sm:col-span-2">
+        <label className="qf-field sm:col-span-2">
           <span className="qf-label">Experience summary</span>
           <textarea className={`${fieldClass} qf-textarea`} rows={3} value={form.message ?? ""} onChange={set("message")} placeholder="Years in the role, equipment or projects you have worked on" />
         </label>
-        <label className="flex flex-col gap-1.5 sm:col-span-2">
+        <label className="qf-field sm:col-span-2">
           <span className="qf-label">CV / résumé</span>
           <input
             type="file"

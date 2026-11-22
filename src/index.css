@@ -4697,18 +4697,66 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qf-shapes { margin-top: 0; font-size: clamp(1.1rem, 1.6vw, 1.6rem); }
 .qf-shapes .pl-term { animation: none; }
 .qf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
-.qf-field { display: flex; flex-direction: column; gap: .4rem; }
+/* Public form fields, after aircenter.space/investment: one borderless 5%-ink card, its label set inside the
+   top-left in mono caps and the value below, so the quote calculator and steps, the careers application and the
+   contact form all use the same field. Focus deepens the fill and draws a hairline ring around the whole card
+   (the input's own outline stays off), which keeps the design's quiet look while remaining visible to keyboards. */
+.qf-field {
+  position: relative;
+  display: block;
+  padding: 1.75rem 1.1rem .72rem;
+  border-radius: var(--radius);
+  background: rgb(17 17 17 / .05);
+  transition: background-color .3s ease, box-shadow .3s ease;
+}
+.qf-field:focus-within {
+  background: rgb(17 17 17 / .072);
+  box-shadow: inset 0 0 0 1.5px rgb(17 17 17 / .4);
+}
 .qf-field--wide { grid-column: 1 / -1; }
-.qf-label { font-size: .9rem; color: rgb(17 17 17 / .5); }
-.qf-input { width: 100%; padding: .45rem 0 .6rem; border: 0; border-bottom: 1px solid var(--line-strong); border-radius: 0; background: transparent; font-size: clamp(1.05rem, 1.2vw, 1.2rem); line-height: 1.3; color: var(--ink); outline: none; transition: border-color .3s ease; appearance: none; }
-select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23111' stroke-width='1.2'/%3E%3C/svg%3E") right .2rem center / 11px no-repeat; padding-right: 1.5rem; cursor: pointer; }
-.qf-input:focus { border-bottom-color: var(--ink); }
-.qf-input::placeholder { color: rgb(17 17 17 / .3); }
-.qf-textarea { resize: vertical; min-height: 5.5rem; }
-.qf-file { width: 100%; padding: .55rem 0 .6rem; border-bottom: 1px solid var(--line-strong); font-size: .95rem; color: var(--ink); cursor: pointer; }
-.qf-file::file-selector-button { margin-right: .75rem; padding: .4rem .8rem; border: 1px solid var(--line-strong); border-radius: 4px; background: transparent; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
-.qf-file-note { font-size: .8rem; line-height: 1.55; color: rgb(17 17 17 / .42); overflow-wrap: anywhere; }
-.qf-file-error { font-size: .85rem; color: #b3261e; }
+.qf-label {
+  position: absolute;
+  top: .78rem;
+  left: 1.1rem;
+  right: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgb(17 17 17 / .6);
+  pointer-events: none;
+}
+.qf-input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink);
+  outline: none;
+  appearance: none;
+}
+.qf-input:focus-visible { outline: none; }
+select.qf-input { padding-right: 1.15rem; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23111' stroke-width='1.2'/%3E%3C/svg%3E") right .05rem center / 11px no-repeat; cursor: pointer; }
+.qf-input::placeholder { color: rgb(17 17 17 / .38); }
+.qf-textarea { resize: vertical; min-height: 4.9rem; }
+.qf-file { width: 100%; max-width: 100%; padding: .1rem 0 .15rem; border: 0; font-family: var(--font-sans); font-size: .92rem; color: var(--ink); cursor: pointer; }
+.qf-file::file-selector-button { margin-right: .75rem; padding: .4rem .8rem; border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+.qf-file-note { display: block; margin-top: .45rem; font-size: .8rem; line-height: 1.55; color: rgb(17 17 17 / .42); overflow-wrap: anywhere; }
+.qf-file-error { display: block; font-size: .85rem; color: #b3261e; }
+/* Khmer labels have no caps and run wider than the mono Latin ones, so drop the tracking and use the body face. */
+html[lang="km"] .qf-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0; }
 .qf-result { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid rgb(17 17 17 / .14); }
 .qf-result-num { margin-top: .25rem; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 500; line-height: .95; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
 .qf-use:disabled { opacity: .35; cursor: not-allowed; }
