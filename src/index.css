@@ -4695,20 +4695,37 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
   corner-smoothing: 60% !important;
   background: var(--paper-soft);
 }
-.qf-shapes { margin-top: 0; font-size: clamp(1.1rem, 1.6vw, 1.6rem); gap: .3em .55em; }
-.qf-shapes .pl-term { animation: none; }
-/* The selected shape reads as a tab: a white chip with a hairline edge and soft shadow on the grey panel, while
-   the other shapes lift from 30% to 42% so the whole row stays legible. */
-.qf-shapes .pl-term { position: relative; isolation: isolate; color: rgb(17 17 17 / .42); }
-.qf-shapes .pl-term.is-active { color: var(--ink); }
-.qf-shapes .pl-term.is-active::before {
-  content: "";
-  position: absolute;
-  inset: -.14em -.45em;
-  z-index: -1;
-  border-radius: var(--radius);
+/* Shape picker, styled as the project archive's filter chips (src/filter.css): white mono pills on the panel with
+   the active shape in the ink pill. The decorative slashes are hidden so each option reads like a filter tab. */
+.qf-shapes { margin-top: 0; gap: 4px; font-size: 1em; font-weight: 500; line-height: 1; letter-spacing: normal; }
+.qf-shapes .pl-term {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(33px, 2.35vw, 38px);
+  padding-inline: 16px;
+  border-radius: 5px;
   background: var(--paper);
-  box-shadow: 0 1px 2px rgb(17 17 17 / .08), inset 0 0 0 1px rgb(17 17 17 / .08);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, .78vw, 12.5px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: none;
+  transition: background-color .3s ease, color .3s ease;
+}
+.qf-shapes .pl-term > span[aria-hidden] { display: none; }
+.qf-shapes .pl-term.is-active { background: var(--ink); color: var(--paper); }
+@media (hover: hover) {
+  .qf-shapes .pl-term:hover { background: rgb(17 17 17 / .08); color: var(--ink); }
+  .qf-shapes .pl-term.is-active:hover { background: #2b2b2b; color: var(--paper); }
+}
+.qf-shapes .pl-term:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+@media (max-width: 767.98px) {
+  .qf-shapes .pl-term { height: 34px; padding-inline: 13px; font-size: 10.5px; }
 }
 .qf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
 /* Public form fields, after aircenter.space/investment: one borderless 5%-ink card, its label set inside the
