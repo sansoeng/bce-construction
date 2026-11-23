@@ -5190,6 +5190,23 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
 .fl-figures-band .glance-num { color: var(--paper); }
 .fl-figures-band .pd-unit { color: rgb(255 255 255 / .5); }
 
+/* On the hire page the band closes the light solutions grid, so it takes the same section gap and inner top padding
+   as .ol-capacity on the other business pages (230px above, 120px inside). On /fleet it continues the dark intro, so
+   there the base flush spacing above still applies. */
+.ol-solutions + .fl-figures-band {
+  margin-top: 230px;
+  padding-top: 120px;
+}
+@media (max-width: 1023px) {
+  .ol-solutions + .fl-figures-band { margin-top: 150px; padding-top: 90px; }
+}
+@media (max-width: 767px) {
+  .ol-solutions + .fl-figures-band { padding-top: 64px; }
+}
+@media (max-width: 519px) {
+  .ol-solutions + .fl-figures-band { margin-top: 110px; }
+}
+
 /* Fleet by job runs as the HSE sticky sequence (src/StickyValues.tsx), so it only needs the break from the ink band
    above; its label, copy and photos come from the shared .abv-* styles. */
 #fleet-jobs { margin-top: clamp(4rem, 8vw, 8rem); }
@@ -5422,6 +5439,14 @@ a.post-tile:focus-visible .post-tile__image { transform: scale(1.06); }
   clip-path: inset(0);
 }
 
+/* Careers job view: the numbered step titles (The role, What you'll be doing, …) read in sentence case at 34px,
+   quieter than the all-caps 44px display size .pd-h2 keeps on the project and quality pages. */
+.career-page .job-step-title {
+  font-size: 34px;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+
 /* Primary button, after olympic.no: light-grey fill (#f3f3f3, as harkcap.com's cards), TT Commons Pro Mono caps, and
    the two-layer sweep hover (the current fill contracts while the hover fill rises from the bottom, then the label
    flips colour). The secondary outline themes take the same skin, so the site has one button style; raw and glass keep
@@ -5619,9 +5644,10 @@ html[lang="km"] .fg-btn.is-outline-white {
   font-size: 13px;
 }
 
-/* Contact page form: the shared button skin defaults to light grey, so the send action gets a true black fill
+/* Contact and careers forms: the shared button skin defaults to light grey, so the send actions get a true black fill
    (#111, the site's ink) with white type, keeping the same two-layer sweep on hover. */
-.fg-btn.is-black.contact-send {
+.fg-btn.is-black.contact-send,
+.fg-btn.is-black.apply-send {
   --btn-bg: #111;
   --btn-bg-hover: #2b2b2b;
   --btn-fg: #fff;

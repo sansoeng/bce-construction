@@ -17,8 +17,8 @@ import ApplyForm from "./ApplyForm";
 // Careers after olympic.no/career-crew: the shared ParallaxHero cover (a full-height photo whose title drifts on
 // scroll, as Our Businesses), a label-with-copy standfirst, a hairline-free board of open roles with an
 // offshore/onshore-style switch, a split "life on site / life in the plant" divider, and a full-bleed "one team" media
-// block. The job view keeps their job page's oversized title, share rail, metadata table, description and paired
-// Apply / Back-to-list footer, without the cover photo or company standfirst. Typography stays BCE's TT Commons family throughout; the palette, scale and
+// block. The job view keeps their job page's oversized title, share rail, metadata table and description, closing on
+// the application form alone, without the cover photo or company standfirst. Typography stays BCE's TT Commons family throughout; the palette, scale and
 // spacing follow the reference.
 
 const phones = siteSettings.contact.phones;
@@ -149,7 +149,7 @@ function JobStep({ n, title, children }: { n: number; title: string; children: R
     <section className="grid gap-y-8 pt-20 md:grid-cols-12 md:gap-x-5 md:pt-32">
       <div className="md:col-span-5">
         <p className="text-[.95rem] text-black/45">{pad(n)}</p>
-        <h2 data-split className="pd-h2 mt-4">{title}</h2>
+        <h2 data-split className="pd-h2 job-step-title mt-4">{title}</h2>
       </div>
       <div className="md:col-span-7 md:col-start-6 lg:col-span-6 lg:col-start-7">{children}</div>
     </section>
@@ -221,7 +221,7 @@ export default function RecruitmentPage() {
           /* =====================================================================
               JOB VIEW
              ===================================================================== */
-          <article className="pb-0">
+          <article className="pb-24 md:pb-36">
             <div className="site-shell pt-28 md:pt-36">
               <button
                 type="button"
@@ -240,10 +240,6 @@ export default function RecruitmentPage() {
               <h1 data-split className="pd-title mt-6 max-w-[72rem] uppercase">
                 {currentJob.title}
               </h1>
-              <p className="mt-8 max-w-[38rem] text-[1.05rem] leading-[1.45] text-black/55">
-                {currentJob.department} · {groupOf(currentJob) === "On site" ? "On site across Cambodia" : "Battambang"} ·{" "}
-                {currentJob.type}. Applications close {currentJob.deadline}.
-              </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <ArrowButton href={mailtoFor(currentJob.title)} label="Apply" />
@@ -265,13 +261,51 @@ export default function RecruitmentPage() {
               </div>
 
               <div>
-                <JobStep n={1} title="The role">
+                <JobStep n={1} title={translate("Job details")}>
+                  <div className="qf-panel">
+                    <ul className="space-y-3 text-[16px] leading-[1.7] text-black/70">
+                      <li className="flex gap-3">
+                        <span className="mt-[11px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
+                        <span>
+                          <span className="text-black/45">{translate("Department")}:</span>{" "}
+                          {translate(currentJob.department)}
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <span className="mt-[11px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
+                        <span>
+                          <span className="text-black/45">{translate("Location")}:</span>{" "}
+                          {translate(groupOf(currentJob) === "On site" ? "On site across Cambodia" : "Battambang")}
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <span className="mt-[11px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
+                        <span>
+                          <span className="text-black/45">{translate("Employment type")}:</span>{" "}
+                          {translate(currentJob.type)}
+                        </span>
+                      </li>
+                    </ul>
+
+                    <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-[#111]/10 pt-5">
+                      <span className="size-1.5 shrink-0 self-center rounded-full bg-[#FB290E]" aria-hidden />
+                      <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-[#FB290E]">
+                        {translate("Applications close")}
+                      </span>
+                      <span className="text-[20px] font-medium leading-tight text-[#111]">
+                        {translate(currentJob.deadline)}
+                      </span>
+                    </div>
+                  </div>
+                </JobStep>
+
+                <JobStep n={2} title={translate("The role")}>
                   <div className="qf-panel">
                     <p className="text-[16px] leading-[1.7] text-black/70">{currentJob.overview}</p>
                   </div>
                 </JobStep>
 
-                <JobStep n={2} title="What you&rsquo;ll be doing">
+                <JobStep n={3} title={translate("What you’ll be doing")}>
                   <div className="qf-panel">
                     <ul className="space-y-3 text-[16px] leading-[1.7] text-black/70">
                       {currentJob.duties.map((duty) => (
@@ -284,7 +318,7 @@ export default function RecruitmentPage() {
                   </div>
                 </JobStep>
 
-                <JobStep n={3} title="What you&rsquo;ll need">
+                <JobStep n={4} title={translate("What you’ll need")}>
                   <div className="qf-panel">
                     <ul className="space-y-3 text-[16px] leading-[1.7] text-black/70">
                       {currentJob.qualifications.map((qual) => (
@@ -297,7 +331,7 @@ export default function RecruitmentPage() {
                   </div>
                 </JobStep>
 
-                <JobStep n={4} title="Compensation &amp; benefits">
+                <JobStep n={5} title={translate("Compensation & benefits")}>
                   <div className="qf-panel">
                     <div className="grid gap-8 sm:grid-cols-2">
                       {[
@@ -327,7 +361,7 @@ export default function RecruitmentPage() {
                   </div>
                 </JobStep>
 
-                <JobStep n={5} title="Apply for this role">
+                <JobStep n={6} title={translate("Apply for this role")}>
                   <div className="qf-panel">
                     <div className="space-y-1 text-[16px] text-black/70">
                       <p>
@@ -346,23 +380,10 @@ export default function RecruitmentPage() {
                     <div className="mt-6 border-t border-[#111]/10 pt-6">
                       <ApplyForm role={currentJob.title} />
                     </div>
-
-                    <div className="mt-8 flex flex-wrap items-center gap-3">
-                      <ArrowButton label="Back to list" theme="white" onClick={backToList} />
-                    </div>
                   </div>
                 </JobStep>
               </div>
             </div>
-
-            <section className="site-pad mt-20 flex flex-col items-center bg-[#F8F8F9] py-20 text-center md:mt-32 md:py-28">
-              <Kicker style={{ color: ACCENT }}>Ready to build?</Kicker>
-              <p className="mt-5 max-w-[720px] text-[24px] font-medium leading-[1.25] tracking-[-0.02em] text-[#111]/55 md:text-[34px]">
-                Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience
-                behind your career.
-              </p>
-              <ArrowButton className="mt-8" label="View all positions" onClick={backToList} />
-            </section>
           </article>
         ) : (
           /* =====================================================================

@@ -43,6 +43,7 @@ const MONTHS: Record<string, string> = {
   Jan: "មករា", Feb: "កុម្ភៈ", Mar: "មីនា", Apr: "មេសា", May: "ឧសភា", Jun: "មិថុនា",
   Jul: "កក្កដា", Aug: "សីហា", Sep: "កញ្ញា", Oct: "តុលា", Nov: "វិច្ឆិកា", Dec: "ធ្នូ",
 };
+const kmNum = (s: string) => s.replace(/\d/g, (d) => "០១២៣៤៥៦៧៨៩"[Number(d)]);
 
 const KM: Record<string, string> = {
   // Page Title & Meta
@@ -199,6 +200,9 @@ const KM: Record<string, string> = {
   "Employment type": "ប្រភេទការងារ",
   "Workplace type": "ប្រភេទទីកន្លែងធ្វើការ",
   "Application deadline": "កាលកំណត់ដាក់ពាក្យ",
+  "Applications close": "ដាក់ពាក្យរហូតដល់",
+  "The role": "មុខតំណែង",
+  "Job details": "ព័ត៌មានការងារ",
   "What you’ll need": "អ្វីដែលអ្នកត្រូវការ",
   "Compensation & benefits": "ប្រាក់ខែ & អត្ថប្រយោជន៍",
   "Competitive compensation": "ប្រាក់ខែប្រកួតប្រជែង",
@@ -308,6 +312,9 @@ const KM: Record<string, string> = {
   "Piling & Foundation": "ការងារគ្រឹះ & សសរស្ដម្ភ",
   "Fleet Logistics": "ភស្តុភារកម្មគ្រឿងចក្រ",
   "Full-Time": "ពេញម៉ោង",
+  "Part-Time": "ក្រៅម៉ោង",
+  "Contract": "កិច្ចសន្យា",
+  "Internship": "កម្មសិក្សា",
   "There are currently no open positions.": "បច្ចុប្បន្នមិនមានមុខតំណែងទំនេរនោះទេ។",
   "We still welcome speculative applications. Send your CV and a short note to": "យើងនៅតែស្វាគមន៍ពាក្យសុំដោយស្ម័គ្រចិត្ត។ សូមផ្ញើ CV និងសារខ្លីមកកាន់",
   "View Details": "មើលព័ត៌មានលម្អិត",
@@ -1807,6 +1814,8 @@ const PATTERNS: [RegExp, (...m: string[]) => string | null][] = [
   [/^(.+) \| BCE Cambodia$/, (s) => `${tr(s)} | BCE កម្ពុជា`],
   [/^(.+) \| BCE Construction$/, (s) => `${tr(s)} | BCE., Ltd.`],
   [/^Map of Cambodia showing completed projects across (\d+) provinces and Phnom Penh where BCE operates$/, (n) => `ផែនទីកម្ពុជាបង្ហាញគម្រោងដែលបានបញ្ចប់នៅទូទាំង ${n} ខេត្ត និងរាជធានីភ្នំពេញ ដែល BCE ប្រតិបត្តិការ`],
+  [/^(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/, (d, m, y) => `${kmNum(d)} ${MONTHS[m.slice(0, 3)]} ${kmNum(y)}`],
+  [/^(January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/, (m, y) => `${MONTHS[m.slice(0, 3)]} ${kmNum(y)}`],
   [/^((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b.*)$/, (s) => s.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g, (m) => MONTHS[m])],
   [/^([^,]+), (.+)$/, (a, b) => {
     const ta = tr(a), tb = tr(b);

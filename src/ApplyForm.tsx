@@ -135,7 +135,7 @@ export default function ApplyForm({ role }: { role: string }) {
 
       <Turnstile onToken={setToken} resetKey={turnstileKey} action="careers" />
       {error && <p role="alert" className="mt-4 text-[13.5px] leading-[1.5] text-[#b3261e]">{error}</p>}
-      <ArrowButton type="submit" label={sending ? "Sending…" : "Send application"} disabled={sending} className="mt-5" />
+      <ArrowButton type="submit" label={sending ? "Sending…" : "Send application"} disabled={sending} className="mt-5 apply-send" />
       <p className="mt-3 max-w-[36rem] text-[12.5px] leading-[1.6] text-[#111]/45">
         Applications reach BCE HR only. See our{" "}
         <a href="/privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
