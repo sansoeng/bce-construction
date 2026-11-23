@@ -236,7 +236,7 @@ export default function Footer({ phones, tel, base = "" }: { phones: string[]; t
 
         <div className="ft-bar">
           <a href={href("#")} onClick={!base ? toTop : undefined} className="ft-bar-logo" aria-label={`${siteSettings.site.shortName}, Ltd. — home`}>
-            <img src="/assets/bce-logo-lockup.svg" alt="" className="ft-bar-logo-img" width={67} height={40} />
+            <img src="/assets/bce-logo-lockup-2026.svg" alt="" className="ft-bar-logo-img" width={67} height={40} />
           </a>
           <a href={href("/privacy#cookies")} className="ft-bar-cookies">{translate("Cookie policy")}</a>
           <a href={href("/terms")} className="ft-bar-privacy">{translate("Terms & Privacy Policy")}</a>

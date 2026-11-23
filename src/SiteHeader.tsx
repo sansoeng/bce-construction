@@ -442,7 +442,7 @@ export default function SiteHeader({ base = "" }: SiteHeaderProps) {
         <div className="ls-nav-bar">
           {/* Lockup at the left: the BCE mark and wordmark, at the reference's scale. */}
           <a href={base || "/"} className="ls-logo" aria-label="BCE., Ltd. — home">
-            <img src="/assets/bce-logo-lockup-ink.svg" alt="" className="ls-logo-img" width={67} height={40} />
+            <img src="/assets/bce-logo-lockup-ink-2026.svg" alt="" className="ls-logo-img" width={67} height={40} />
           </a>
 
           <div className="ls-nav-center">
