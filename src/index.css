@@ -69,6 +69,8 @@
   p { text-wrap: pretty; }
   /* The About statement keeps its deliberate indented first line rather than balanced lines. */
   .about-title { text-wrap: wrap; font-weight: 500; }
+  /* Khmer clusters run wider than Latin at the same size; scale the 74px statement down so no line clips. */
+  html[lang="km"] .about-title { font-size: clamp(2.2rem, 5.4vw, 74px); line-height: 1.35; }
   /* The hero title and its light twin (a <p>) must wrap identically, or the two-tone overlay misaligns. */
   .hero-title { text-wrap: balance; font-weight: 500; }
   a { transition: opacity .2s ease; }
@@ -1284,7 +1286,7 @@ html[lang="km"] .glance-num > span {
 .glance.is-in .glance-logo-inner { opacity: 1; transform: none; }
 .glance-wordmark { font-size: clamp(1.05rem, 1.6vw, 1.5rem); font-weight: 500; line-height: 1.2; letter-spacing: -.015em; color: rgb(17 17 17 / .42); transition: color .5s ease; }
 .glance-logo img {
-  width: auto; height: clamp(1.75rem, 2.4vw, 2.5rem); max-width: 70%; object-fit: contain;
+  width: auto; height: clamp(2.5rem, 3.6vw, 3.5rem); max-width: 70%; object-fit: contain;
   filter: grayscale(1); opacity: .5;
   transition: opacity .6s ease, filter .6s ease, transform .9s cubic-bezier(.16, 1, .3, 1);
 }
@@ -2794,6 +2796,12 @@ button:not(.apple-hamburger):not(.apple-hamburger *):not(.fg-burger):not(.fg-clo
 }
 .wb-mask { will-change: transform; }
 @media (min-width: 768px) { .wb-mask { font-size: 184px; } }
+/* The oversized belief words collapse to one glyph per line in Khmer under break-word; keep each word whole and
+   scale it to the viewport instead. */
+html[lang="km"] .wb-mask { white-space: nowrap; word-break: keep-all; }
+@media (min-width: 768px) {
+  html[lang="km"] .wb-mask { font-size: clamp(64px, 9vw, 150px); }
+}
 /* fluid.glass's tag, squared to the site's 4px corners and set in the header/button mono. */
 .wb-tag {
   flex-shrink: 0; white-space: nowrap; display: inline-flex; align-items: center;
@@ -4158,6 +4166,9 @@ html[lang="km"] .ol-hl-title, html[lang="km"] .ol-lead-copy { line-height: 1.4; 
 .ol-hero-label { grid-column: 1 / -1; margin-bottom: 22px; font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .02em; text-transform: uppercase; color: var(--brand); }
 .ol-hero-title { grid-column: 1 / span 9; max-width: 22ch; font-size: clamp(34px, 4.6vw, 64px) !important; font-weight: 500; line-height: 1.02; letter-spacing: -.03em; color: var(--paper); }
 .ol-hero-line { display: block; }
+/* The careers cover keeps its all-caps masthead at every width. The sitewide display rule only caps from 1174px up
+   (long titles would shrink mid-word below that); this cover is two short lines, so it can hold the caps on phones. */
+.career-page .ol-hero-title { text-transform: uppercase; }
 @media (max-width: 1023px) { .ol-hero-title { grid-column: 1 / span 10; } }
 @media (max-width: 519px) { .ol-hero-title { grid-column: 1 / -1; } }
 html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .ol-onboard-heading { line-height: 1.4; font-weight: 600 !important; }
@@ -4398,7 +4409,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
    grey copy and ruled lists in columns 8 to 11. */
 .qx-split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 20px; padding-inline: var(--olm, var(--page-gutter)); }
 /* Introduction as Our businesses' "What we do" (.ol-lwc), closed by a hairline. */
-.qx-intro { padding-bottom: clamp(4.5rem, 6vw, 5.5rem); border-bottom: 1px solid rgb(17 17 17 / .1); }
+.qx-intro { padding-bottom: clamp(4.5rem, 6vw, 5.5rem); }
 #laboratory { margin-top: clamp(6rem, 10vw, 10rem); }
 /* 01: content on the left, the photo on the right holding in place beside the process list. */
 .qx-lab-content { grid-column: 1 / span 5; grid-row: 1; }
@@ -4679,28 +4690,131 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
 .qf-tile-name { margin-top: auto; font-size: clamp(1.25rem, 1.6vw, 1.6rem); font-weight: 500; line-height: 1.1; letter-spacing: -.02em; }
 .qf-tile-tag { margin-top: .35rem; font-size: .9rem; opacity: .6; }
 .qf-tile:last-child { grid-column: 1 / -1; }
-.qf-calc {
+/* Project details and contact details reuse the calculator's grey panel, so each step's form reads as one card. */
+.qf-calc, .qf-panel {
   padding: clamp(1.25rem, 2.5vw, 2.25rem);
   border-radius: var(--radius) !important;
   -webkit-corner-smoothing: 60% !important;
   corner-smoothing: 60% !important;
   background: var(--paper-soft);
 }
-.qf-shapes { margin-top: 0; font-size: clamp(1.1rem, 1.6vw, 1.6rem); }
-.qf-shapes .pl-term { animation: none; }
+/* Shape picker, styled as the project archive's filter chips (src/filter.css): white mono pills on the panel with
+   the active shape in the ink pill. The decorative slashes are hidden so each option reads like a filter tab. */
+.qf-shapes { margin-top: 0; gap: 4px; font-size: 1em; font-weight: 500; line-height: 1; letter-spacing: normal; }
+.qf-shapes .pl-term {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(33px, 2.35vw, 38px);
+  padding-inline: 16px;
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, .78vw, 12.5px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: none;
+  transition: background-color .3s ease, color .3s ease;
+}
+.qf-shapes .pl-term > span[aria-hidden] { display: none; }
+.qf-shapes .pl-term.is-active { background: var(--ink); color: var(--paper); }
+@media (hover: hover) {
+  .qf-shapes .pl-term:hover { background: rgb(17 17 17 / .08); color: var(--ink); }
+  .qf-shapes .pl-term.is-active:hover { background: #2b2b2b; color: var(--paper); }
+}
+.qf-shapes .pl-term:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+@media (max-width: 767.98px) {
+  .qf-shapes .pl-term { height: 34px; padding-inline: 13px; font-size: 10.5px; }
+}
 .qf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.25rem; }
-.qf-field { display: flex; flex-direction: column; gap: .4rem; }
+/* Public form fields, after aircenter.space/investment: one borderless 5%-ink card, its label set inside the
+   top-left in mono caps and the value below, so the quote calculator and steps, the careers application and the
+   contact form all use the same field. Focus deepens the fill and draws a hairline ring around the whole card
+   (the input's own outline stays off), which keeps the design's quiet look while remaining visible to keyboards. */
+.qf-field {
+  position: relative;
+  display: block;
+  padding: 1.75rem 1.1rem .72rem;
+  border-radius: var(--radius);
+  background: rgb(17 17 17 / .05);
+  transition: background-color .3s ease, box-shadow .3s ease;
+}
+.qf-field:focus-within {
+  background: rgb(17 17 17 / .072);
+  box-shadow: inset 0 0 0 1.5px rgb(17 17 17 / .4);
+}
+/* Failed required fields: the card, label, value and ring all turn red, and the error text sits beside the section
+   the submit jumps back to. */
+.qf-field.is-invalid {
+  background: rgb(179 38 30 / .07);
+  box-shadow: inset 0 0 0 1.5px #b3261e;
+}
+.qf-field.is-invalid:focus-within {
+  background: rgb(179 38 30 / .09);
+  box-shadow: inset 0 0 0 2px #b3261e;
+}
+.qf-field.is-invalid .qf-label,
+.qf-field.is-invalid .qf-input { color: #b3261e; }
+.qf-field.is-invalid .qf-input::placeholder { color: rgb(179 38 30 / .55); }
+.qf-tiles.is-invalid .qf-tile { box-shadow: inset 0 0 0 1.5px #b3261e; }
+.qf-error { margin: 1rem 0; font-size: .95rem; line-height: 1.5; color: #b3261e; }
+.qf-field, .qf-tiles, .qf-panel { scroll-margin-top: 7rem; }
 .qf-field--wide { grid-column: 1 / -1; }
-.qf-label { font-size: .9rem; color: rgb(17 17 17 / .5); }
-.qf-input { width: 100%; padding: .45rem 0 .6rem; border: 0; border-bottom: 1px solid var(--line-strong); border-radius: 0; background: transparent; font-size: clamp(1.05rem, 1.2vw, 1.2rem); line-height: 1.3; color: var(--ink); outline: none; transition: border-color .3s ease; appearance: none; }
-select.qf-input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23111' stroke-width='1.2'/%3E%3C/svg%3E") right .2rem center / 11px no-repeat; padding-right: 1.5rem; cursor: pointer; }
-.qf-input:focus { border-bottom-color: var(--ink); }
-.qf-input::placeholder { color: rgb(17 17 17 / .3); }
-.qf-textarea { resize: vertical; min-height: 5.5rem; }
-.qf-file { width: 100%; padding: .55rem 0 .6rem; border-bottom: 1px solid var(--line-strong); font-size: .95rem; color: var(--ink); cursor: pointer; }
-.qf-file::file-selector-button { margin-right: .75rem; padding: .4rem .8rem; border: 1px solid var(--line-strong); border-radius: 4px; background: transparent; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
-.qf-file-note { font-size: .8rem; line-height: 1.55; color: rgb(17 17 17 / .42); overflow-wrap: anywhere; }
-.qf-file-error { font-size: .85rem; color: #b3261e; }
+/* Oversized field height: every single-line text field is 84px tall, with its value at the foot of the card
+   beneath the top-left label. Multiline fields (message, notes, experience summary) keep their natural height. */
+.qf-field:has(.qf-input):not(:has(textarea)) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 84px;
+}
+.qf-label {
+  position: absolute;
+  top: .78rem;
+  left: 1.1rem;
+  right: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgb(17 17 17 / .6);
+  pointer-events: none;
+}
+.qf-input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink);
+  outline: none;
+  appearance: none;
+}
+.qf-input:focus-visible { outline: none; }
+select.qf-input { padding-right: 1.15rem; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23111' stroke-width='1.2'/%3E%3C/svg%3E") right .05rem center / 11px no-repeat; cursor: pointer; }
+.qf-input::placeholder { color: rgb(17 17 17 / .38); }
+.qf-textarea { resize: vertical; min-height: 4.9rem; }
+.qf-file { width: 100%; max-width: 100%; padding: .1rem 0 .15rem; border: 0; font-family: var(--font-sans); font-size: .92rem; color: var(--ink); cursor: pointer; }
+.qf-file::file-selector-button { margin-right: .75rem; padding: .4rem .8rem; border: 1px solid var(--line-strong); border-radius: 6px; background: transparent; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+.qf-file-note { display: block; margin-top: .45rem; font-size: .8rem; line-height: 1.55; color: rgb(17 17 17 / .42); overflow-wrap: anywhere; }
+.qf-file-error { display: block; font-size: .85rem; color: #b3261e; }
+/* Khmer labels have no caps and run wider than the mono Latin ones, so drop the tracking and use the body face. */
+html[lang="km"] .qf-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0; }
 .qf-result { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid rgb(17 17 17 / .14); }
 .qf-result-num { margin-top: .25rem; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 500; line-height: .95; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
 .qf-use:disabled { opacity: .35; cursor: not-allowed; }
@@ -5044,7 +5158,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
    grid — a bordered cell per machine type, with the count set large at the cell's foot. Below it, the Plant & machines
    block follows the Corporate Profile's equipment page: one large plant photo beside nine numbered cards. */
 .fl-dark { background: #1D2226; color: var(--paper); }
-.fl-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); border-bottom: 0; }
+.fl-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); }
 .fl-dark .ol-lwc-copy { color: rgb(255 255 255 / .72); }
 .fl-dark .ol-lwc-label { color: var(--brand); }
 .fl-dark .ol-topics a { color: rgb(255 255 255 / .5); }
@@ -5505,6 +5619,15 @@ html[lang="km"] .fg-btn.is-outline-white {
   font-size: 13px;
 }
 
+/* Contact page form: the shared button skin defaults to light grey, so the send action gets a true black fill
+   (#111, the site's ink) with white type, keeping the same two-layer sweep on hover. */
+.fg-btn.is-black.contact-send {
+  --btn-bg: #111;
+  --btn-bg-hover: #2b2b2b;
+  --btn-fg: #fff;
+  --btn-fg-hover: #fff;
+}
+
 /* Wide CTA card (harkcap.com's "Our Story" / "Explore Our Solutions" buttons), used only by the homepage's
    "See more about us" and "Explore Quality & HSE" actions: 120px tall, full column width, 16px padding, the label
    bottom-left and the arrow bottom-right. It keeps the site's button skin, so hover is the same sweep. */
@@ -5549,7 +5672,7 @@ html[lang="km"] .fg-btn.is-outline-white {
 /* The Operational coverage introduction and the Key figures band share one #1D2226 ground, so the page runs from the
    cover into the figures without a white break. */
 .cv-dark { background: #1D2226; color: var(--paper); }
-.cv-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); border-bottom: 0; }
+.cv-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); }
 .cv-dark .ol-lwc-copy { color: rgb(255 255 255 / .72); }
 .cv-dark .ol-lwc-label { color: var(--brand); }
 .cv-dark .ol-topics a { color: rgb(255 255 255 / .5); }
@@ -5566,164 +5689,121 @@ html[lang="km"] .fg-btn.is-outline-white {
 .cv-figures .glance-label-title { color: var(--paper); white-space: normal; }
 .cv-figures .glance-label-note { color: rgb(255 255 255 / .5); white-space: normal; }
 .cv-figures .glance-num { color: var(--paper); }
+/* With no caption line under it, the tag/title pair keeps the same 24px rhythm as the fleet's figures band, so the
+   heading never sits flush against the label on desktop. */
+.cv-figures .glance-title-sticky .ol-capacity-title { margin-top: 24px; }
 
-.cv-band { padding: clamp(5rem, 9vw, 9rem) var(--olm, var(--page-gutter)); border-top: 1px solid var(--line); }
-.cv-band--soft { background: var(--paper-soft); }
-.cv-head { display: flex; flex-direction: column; gap: 1.15rem; max-width: 58rem; }
-.cv-h2 { font-size: clamp(2.1rem, 3.4vw, 44px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; }
-.cv-lead { max-width: 42rem; font-size: 1.05rem; line-height: 1.5; color: rgb(17 17 17 / .6); }
-
-/* The map: the same shapes and pins as the homepage story, on one still frame. */
-.cv-map-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--olg, 24px); row-gap: 2.5rem; align-items: start; margin-top: clamp(2.5rem, 4vw, 4rem); }
-.cv-map-col { grid-column: 1 / span 7; }
-.cv-map-frame {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius) !important;
-  -webkit-corner-smoothing: 60% !important;
-  corner-smoothing: 60% !important;
-  background: var(--ink);
+/* Coverage by zone: a full-screen map room. The band fills the viewport, the heading sits above, the map takes the
+   rest, and a province's details open in a panel only when the visitor picks one. */
+/* Coverage by zone: the title and the chosen province hold the left column, the map fills the right. The band is a
+   full-screen room, and the head office is chosen from the start so the left column always carries a place. */
+.cv-map-band {
+  scroll-margin-top: 84px;
+  height: 100vh;
+  height: 100svh;
+  background: #f6f3ec;
+  border-top: 1px solid var(--line);
 }
-.cv-map { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 924; }
+.cv-map-stage { display: flex; height: 100%; padding: 0 var(--olm, var(--page-gutter)); gap: clamp(1.5rem, 3vw, 3rem); }
+.cv-map-side { order: 2; display: flex; flex: 0 0 auto; flex-direction: column; width: clamp(320px, 26vw, 400px); min-height: 0; padding-block: clamp(2.5rem, 5vh, 4.5rem) clamp(1.5rem, 3vh, 2.5rem); }
+.cv-map-head { display: flex; flex-direction: column; gap: .6rem; }
+.cv-map-title { font-size: clamp(1.8rem, 2.4vw, 36px); font-weight: 500; line-height: 1.04; letter-spacing: -.025em; text-transform: uppercase; }
+
+/* The chosen province, always visible under the title: the head office until another shape is picked. */
+.cv-info {
+  margin-top: clamp(1.75rem, 4vh, 3rem);
+  overflow: auto;
+  border-radius: var(--radius) !important;
+  background: var(--paper);
+  box-shadow: 0 20px 50px rgb(17 17 17 / .1);
+}
+.cv-info-inner { padding: clamp(1.35rem, 2vw, 1.85rem); }
+.cv-info-meta { display: flex; align-items: center; padding-right: 1.5rem; font-family: var(--font-ui-mono); font-size: 10px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+.cv-selected-status { display: inline-flex; align-items: center; gap: 7px; color: var(--brand-ink); }
+.cv-selected-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.cv-selected-status.is-ready { color: rgb(17 17 17 / .42); }
+.cv-info-zone { margin-top: 1.4rem; font-family: var(--font-ui-mono); font-size: 10px; letter-spacing: .07em; text-transform: uppercase; color: rgb(17 17 17 / .4); }
+.cv-info-distance { margin-top: .3rem; font-family: var(--font-ui-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: rgb(17 17 17 / .38); font-variant-numeric: tabular-nums; }
+.cv-info-name { margin-top: .35rem; font-size: clamp(1.7rem, 2.1vw, 2.15rem); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; }
+.cv-info-highlight { margin-top: .8rem; font-size: 1.02rem; font-weight: 500; line-height: 1.3; letter-spacing: -.01em; }
+.cv-info-scope { margin-top: .3rem; font-size: .93rem; line-height: 1.5; color: rgb(17 17 17 / .55); }
+
+/* The map fills the right, as large as the viewport height allows. */
+.cv-map-main { order: 1; display: flex; flex: 0 1 auto; align-items: center; justify-content: flex-start; width: max-content; max-width: 100%; min-width: 0; min-height: 0; padding-block: clamp(1rem, 2vh, 1.5rem); }
+.cv-map-canvas { position: relative; height: 100%; max-width: 100%; min-height: 0; aspect-ratio: 1040 / 964; }
+
+/* The map: one still frame of the same 25 province shapes as the homepage story, drawn as a paper map. Every
+   province keeps a light fill so the country reads whole, the served ones take the ink, and the selected one takes a
+   brand outline. A white pin marks each location where BCE works, the head office larger, red and labelled. */
+.cv-map { display: block; width: 100%; height: 100%; }
+.cv-silhouette { fill: none; stroke: rgb(17 17 17 / .34); stroke-width: 1.5; stroke-linejoin: round; pointer-events: none; }
+.cv-silhouette path, .cv-prov { vector-effect: non-scaling-stroke; }
 .cv-prov {
-  fill: transparent;
-  stroke: rgb(255 255 255 / .22);
-  stroke-width: 1;
+  fill: #e7e2d6;
+  stroke: #f6f3ec;
+  stroke-width: 1.25;
   stroke-linejoin: round;
   cursor: pointer;
-  transition: fill .35s ease, stroke .35s ease;
+  transition: fill .28s ease, stroke .2s ease;
 }
-.cv-prov:hover { fill: rgb(255 255 255 / .12); stroke: rgb(255 255 255 / .6); }
-.cv-prov.is-covered { fill: rgb(255 255 255 / .14); }
-.cv-prov.is-covered:hover { fill: rgb(255 255 255 / .24); }
-.cv-prov.is-active { fill: rgb(255 255 255 / .3); stroke: var(--paper); stroke-width: 1.4; }
+.cv-prov:hover { fill: #dcd5c5; }
+.cv-prov.is-covered { fill: #1d2226; }
+.cv-prov.is-covered:hover { fill: #2c3238; }
+.cv-prov.is-active, .cv-prov.is-active:hover { stroke: var(--brand); stroke-width: 2.5; }
 .cv-prov:focus-visible { outline: none; stroke: var(--brand); stroke-width: 2; }
 .cv-pin { cursor: pointer; }
-.cv-pin circle { fill: var(--ink); stroke: var(--paper); stroke-width: 2; transition: fill .3s ease; }
-.cv-pin:hover circle, .cv-pin.is-active circle { fill: var(--brand); }
-.cv-pin.is-hq circle { fill: var(--paper); stroke: var(--brand); }
-.cv-pin.is-hq.is-active circle { fill: var(--brand); stroke: var(--paper); }
-.cv-pin text { fill: var(--ink); font-family: var(--font-ui-mono); font-size: 9px; font-weight: 600; letter-spacing: .02em; pointer-events: none; }
-.cv-pin.is-active text { fill: var(--paper); }
-.cv-legend { position: absolute; left: 18px; bottom: 15px; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-family: var(--font-ui-mono); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: rgb(255 255 255 / .65); }
-.cv-legend li { display: flex; align-items: center; }
-.cv-key { display: inline-block; width: 9px; height: 9px; margin-right: 7px; border: 1px solid rgb(255 255 255 / .55); }
-.cv-key--covered { border-color: var(--brand); background: var(--brand); }
-
-.cv-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
-.cv-chip {
-  padding: 7px 12px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: .82rem;
-  line-height: 1;
-  color: rgb(17 17 17 / .6);
-  transition: color .25s ease, border-color .25s ease, background-color .25s ease;
-}
-.cv-chip:hover { color: var(--ink); border-color: var(--ink); }
-.cv-chip.is-ready { border-style: dashed; color: rgb(17 17 17 / .4); }
-.cv-chip.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.cv-credit { margin-top: 1rem; font-size: .75rem; line-height: 1.4; color: rgb(17 17 17 / .4); }
-
-.cv-card {
-  grid-column: 9 / -1;
-  position: sticky;
-  top: 104px;
-  padding: 2rem;
-  border-radius: var(--radius) !important;
-  -webkit-corner-smoothing: 60% !important;
-  corner-smoothing: 60% !important;
-  background: var(--paper-soft);
-}
-.cv-card-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.cv-card-name { margin-top: .8rem; font-size: clamp(1.8rem, 2.4vw, 2.3rem); font-weight: 500; line-height: 1.05; letter-spacing: -.025em; }
-.cv-badge {
-  display: inline-block;
-  flex: none;
-  padding: 5px 9px;
-  border-radius: 4px;
-  background: var(--ink);
-  color: var(--paper);
+.cv-pin circle { fill: #fff; transition: fill .28s ease; }
+.cv-pin.is-active circle { fill: var(--brand); }
+.cv-pin.is-hq circle { fill: var(--brand); stroke: #fff; stroke-width: 3; vector-effect: non-scaling-stroke; }
+.cv-pin text {
+  fill: #fff;
   font-family: var(--font-ui-mono);
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgb(17 17 17 / .35);
+  stroke-width: 2.5px;
+}
+.cv-scale { fill: none; stroke: rgb(17 17 17 / .4); stroke-width: 1; }
+.cv-scale line { vector-effect: non-scaling-stroke; }
+.cv-scale text {
+  fill: rgb(17 17 17 / .45);
+  stroke: none;
+  font-family: var(--font-ui-mono);
+  font-size: 11px;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
-.cv-badge--light { background: rgb(17 17 17 / .07); color: rgb(17 17 17 / .6); }
-.cv-figure { margin-top: 1.75rem; font-size: clamp(2.8rem, 4vw, 3.6rem); font-weight: 500; line-height: .9; letter-spacing: -.04em; color: var(--brand); font-variant-numeric: tabular-nums; }
-.cv-figure span { font-size: .55em; }
-.cv-figure--word { font-size: clamp(2rem, 2.8vw, 2.6rem); color: var(--ink); }
-.cv-figure-label { margin-top: .65rem; font-size: .85rem; line-height: 1.4; color: rgb(17 17 17 / .5); }
-.cv-card-highlight { margin-top: 1.5rem; font-size: 1.05rem; font-weight: 500; line-height: 1.3; letter-spacing: -.01em; }
-.cv-card-scope { margin-top: .35rem; font-size: .95rem; line-height: 1.45; color: rgb(17 17 17 / .6); }
-.cv-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
-.cv-facts dt { font-family: var(--font-ui-mono); font-size: 9px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: rgb(17 17 17 / .4); }
-.cv-facts dd { margin-top: .35rem; font-size: .92rem; line-height: 1.3; font-variant-numeric: tabular-nums; }
-.cv-card-equip { margin-top: 1.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
-.cv-card-equip ul { display: grid; gap: .45rem; margin-top: .75rem; padding: 0; list-style: none; font-size: .9rem; color: rgb(17 17 17 / .7); }
-.cv-card-equip li { display: flex; align-items: baseline; gap: .75rem; }
-.cv-card-equip li span { font-family: var(--font-ui-mono); font-size: .78rem; color: var(--brand); font-variant-numeric: tabular-nums; }
 
-/* Zones, after the concrete grades grid on Quality & HSE: two ruled columns, the count drawn as an orange mark with
-   the zone and its places set beside it, the divider between the columns. */
-.cv-zones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(2.5rem, 4vw, 4rem); padding: 0; list-style: none; border-top: 1px solid rgb(17 17 17 / .14); }
-.cv-zone {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  gap: clamp(1.25rem, 2.5vw, 2.5rem);
-  padding: clamp(1.75rem, 3vw, 2.75rem);
-  border-bottom: 1px solid rgb(17 17 17 / .14);
-}
-.cv-zone:nth-child(even) { border-left: 1px solid rgb(17 17 17 / .14); }
-/* The zone's size as the graphic: the number is the mark. */
-.cv-zone-mark {
-  font-size: clamp(3rem, 5vw, 4.5rem);
-  font-weight: 500;
-  line-height: .9;
-  letter-spacing: -.045em;
-  color: var(--brand);
-  font-variant-numeric: tabular-nums;
-}
-.cv-zone-body { display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; height: 100%; }
-.cv-zone-name { font-size: 1.15rem; font-weight: 500; line-height: 1.2; letter-spacing: -.01em; color: var(--brand-ink); }
-.cv-zone-label { margin-top: .4rem; font-size: .8rem; line-height: 1.4; color: rgb(17 17 17 / .45); }
-.cv-zone-places { padding: 0; list-style: none; }
-.cv-zone-places li { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-top: 1px solid rgb(17 17 17 / .08); font-size: .95rem; }
-.cv-zone-places button { display: inline-flex; align-items: center; gap: .4rem; color: rgb(17 17 17 / .75); text-align: left; transition: color .25s ease; }
-.cv-zone-places button svg { width: 9px; height: 9px; opacity: 0; transition: opacity .25s ease; }
-.cv-zone-places button:hover { color: var(--brand); }
-.cv-zone-places button:hover svg { opacity: 1; }
+/* Legend and credit sit at the foot of the left column, clear of the map. */
+.cv-map-tools { display: flex; flex: 0 0 auto; flex-direction: column; align-items: flex-start; gap: .55rem; margin-top: auto; padding-top: clamp(1.5rem, 3vh, 2rem); }
+.cv-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-family: var(--font-ui-mono); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: rgb(17 17 17 / .55); }
+.cv-legend li { display: flex; align-items: center; }
+.cv-key { display: inline-block; width: 10px; height: 10px; margin-right: 7px; border: 1px solid var(--line-strong); background: #e7e2d6; }
+.cv-key--covered { border-color: var(--ink); background: var(--ink); }
+.cv-key--hq { width: 9px; height: 9px; border-radius: 50%; border-color: var(--brand); background: var(--brand); }
+.cv-key--ready { border-color: rgb(17 17 17 / .28); }
+.cv-credit { margin: 0; font-size: .72rem; line-height: 1.4; color: rgb(17 17 17 / .38); }
 
-/* Mobilisation-ready provinces. */
-.cv-ready-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; margin-top: clamp(2.5rem, 4vw, 4rem); padding: 0; list-style: none; }
-.cv-ready { padding: 1.5rem 0; border-top: 1px solid var(--line); }
-.cv-ready-top { display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
-.cv-ready-name { font-size: 1.2rem; font-weight: 500; line-height: 1.2; letter-spacing: -.015em; }
-.cv-ready-highlight { margin-top: .9rem; font-size: .98rem; font-weight: 500; line-height: 1.3; }
-.cv-ready-scope { margin-top: .3rem; font-size: .9rem; line-height: 1.45; color: rgb(17 17 17 / .6); }
-.cv-ready-km { display: block; margin-top: .9rem; font-family: var(--font-ui-mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: rgb(17 17 17 / .4); font-variant-numeric: tabular-nums; }
-
-.cv-outro { display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; padding: clamp(4.5rem, 8vw, 7rem) var(--olm, var(--page-gutter)) clamp(5rem, 9vw, 8rem); border-top: 1px solid var(--line); }
-.cv-outro-title { max-width: 44rem; font-size: clamp(1.9rem, 3vw, 44px); font-weight: 500; line-height: 1.06; letter-spacing: -.025em; }
-.cv-outro-copy { max-width: 40rem; font-size: 1.05rem; line-height: 1.5; color: rgb(17 17 17 / .6); }
-.cv-outro-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .9rem; }
-
-@media (max-width: 1023px) {
-  .cv-map-col, .cv-card { grid-column: 1 / -1; }
-  .cv-card { position: relative; top: auto; }
-  .cv-ready-list { grid-template-columns: 1fr; }
-  .cv-zones { grid-template-columns: 1fr; }
-  .cv-zone, .cv-zone:nth-child(even) { padding-inline: 0; border-left: 0; }
+/* Below a desktop the two columns stack: the title and the chosen place first, then the map, all in the flow. */
+@media (max-width: 1279px) {
+  .cv-map-band { height: auto; min-height: 100svh; }
+  .cv-map-stage { flex-direction: column; padding-top: clamp(3rem, 6vh, 5rem); padding-bottom: 1.5rem; gap: 2rem; }
+  .cv-map-side { order: 1; width: 100%; padding-block: 0; }
+  .cv-map-title { font-size: clamp(1.9rem, 5vw, 40px); }
+  .cv-info { margin-top: 1.5rem; box-shadow: none; }
+  .cv-map-tools { margin-top: 1.25rem; padding-top: 0; }
+  .cv-map-main { order: 2; flex: 0 0 auto; height: 62svh; min-height: 340px; padding: 0; }
+  /* The map lettering would fall under 9px here; the legend carries the head-office label instead. */
+  .cv-pin text, .cv-scale { display: none; }
 }
-@media (max-width: 767px) {
-  .cv-zone { grid-template-columns: 1fr; gap: 1.5rem; }
-  .cv-zone-mark { font-size: 3rem; }
-}
-@media (max-width: 519px) {
-  .cv-facts { grid-template-columns: 1fr; }
+@media (max-width: 639px) {
+  .cv-credit { font-size: .68rem; }
+  .cv-info-name { font-size: 1.6rem; }
+  .cv-map-main { height: 52svh; min-height: 300px; }
 }
 
 /* Keyboard users get a jump past the header and hero, as the Comment's accessibility note asks. */

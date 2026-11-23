@@ -30,6 +30,8 @@ const DESCRIPTIONS: Record<string, string> = {
     "Construction jobs in Battambang with BCE: engineering, batching, piling, fleet maintenance and site supervision vacancies, with how to apply.",
   resources:
     "The BCE company profile, mix designs, licences and certificates — the documents procurement and tender teams ask for, to download or request.",
+  partners:
+    "BCE’s clients, partners and key suppliers across Cambodia: government institutions, contractors, developers, corporate clients and materials suppliers, as published in our Corporate Profile 2026.",
   contact:
     "Contact BCE, a construction company in Battambang, Cambodia: sales and quotation hotlines, email, Telegram and our head office, open Monday to Sunday.",
   privacy:

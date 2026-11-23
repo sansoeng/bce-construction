@@ -17,8 +17,8 @@ import ApplyForm from "./ApplyForm";
 // Careers after olympic.no/career-crew: the shared ParallaxHero cover (a full-height photo whose title drifts on
 // scroll, as Our Businesses), a label-with-copy standfirst, a hairline-free board of open roles with an
 // offshore/onshore-style switch, a split "life on site / life in the plant" divider, and a full-bleed "one team" media
-// block. The job view follows their job page: oversized title, photo, share rail, metadata table, description and a
-// paired Apply / Back-to-list footer. Typography stays BCE's TT Commons family throughout; the palette, scale and
+// block. The job view keeps their job page's oversized title, share rail, metadata table, description and paired
+// Apply / Back-to-list footer, without the cover photo or company standfirst. Typography stays BCE's TT Commons family throughout; the palette, scale and
 // spacing follow the reference.
 
 const phones = siteSettings.contact.phones;
@@ -53,9 +53,9 @@ const cultureItems: StickyItem[] = [
 ];
 
 const INK = "#111";
-const MUTED = "#737373";
 const PAPER = "#F8F8F9";
 const ACCENT = "#FB290E";
+const pad = (n: number) => String(n).padStart(2, "0");
 
 const GROUPS = ["All roles", "Battambang", "On site"] as const;
 type Group = (typeof GROUPS)[number];
@@ -68,16 +68,6 @@ const isOpen = (v: Vacancy) => {
   const deadline = Date.parse(v.deadline);
   return Number.isNaN(deadline) || deadline + 86_400_000 > Date.now();
 };
-
-const DEPT_IMAGE: Record<string, string> = {
-  "Operations & Batching": "/Image/bce/about-zoom-batching.webp",
-  "Quality & Lab": "/Image/bce/about-hero-banner.webp",
-  "Civil Construction": "/Image/bce/about-zoom-rebar-crew.webp",
-  "Piling & Foundation": "/Image/bce/about-zoom-piling-rig.webp",
-  "Fleet Logistics": "/Image/bce/about-zoom-boom-pumps.webp",
-};
-
-const jobImage = (v: Vacancy) => DEPT_IMAGE[v.department] ?? "/Image/bce/about-zoom-rebar-crew.webp";
 
 const mailtoFor = (title: string) => {
   const subject = encodeURIComponent(`Job Application - ${title}`);
@@ -152,6 +142,20 @@ const ShareIcon = ({ network }: { network: "facebook" | "linkedin" | "telegram" 
   );
 };
 
+// One step of the job page, after the quote page's numbered steps: the title holds the left column, the content sits in
+// a grey panel on the right. It keeps the two pages on the same rhythm.
+function JobStep({ n, title, children }: { n: number; title: string; children: ReactNode }) {
+  return (
+    <section className="grid gap-y-8 pt-20 md:grid-cols-12 md:gap-x-5 md:pt-32">
+      <div className="md:col-span-5">
+        <p className="text-[.95rem] text-black/45">{pad(n)}</p>
+        <h2 data-split className="pd-h2 mt-4">{title}</h2>
+      </div>
+      <div className="md:col-span-7 md:col-start-6 lg:col-span-6 lg:col-start-7">{children}</div>
+    </section>
+  );
+}
+
 export default function RecruitmentPage() {
   usePageSetup("Construction Jobs in Battambang | BCE Careers");
   const rootRef = useRef<HTMLElement>(null);
@@ -212,13 +216,13 @@ export default function RecruitmentPage() {
   return (
     <>
       <SiteHeader phones={phones} tel={tel} base="/" />
-      <main ref={rootRef} className="bg-white text-[#111]">
+      <main ref={rootRef} className="career-page bg-white text-[#111]">
         {currentJob ? (
           /* =====================================================================
               JOB VIEW
              ===================================================================== */
-          <article className="site-pad w-full pb-0 pt-32 md:pt-44">
-            <div className="mx-auto w-full">
+          <article className="pb-0">
+            <div className="site-shell pt-28 md:pt-36">
               <button
                 type="button"
                 onClick={backToList}
@@ -230,139 +234,72 @@ export default function RecruitmentPage() {
                 All positions
               </button>
 
-              <div className="mt-10 grid grid-cols-1 gap-8 md:mt-14 md:grid-cols-12 md:gap-5">
-                <div className="md:col-span-7">
-                  <Kicker style={{ color: ACCENT }}>Become a builder</Kicker>
-                  <h1 className="mt-5 max-w-[16ch] text-[clamp(36px,4.8vw,44px)] font-medium uppercase leading-[0.98] tracking-[-0.03em]">
-                    {currentJob.title}
-                  </h1>
-                </div>
+              <p data-split="content" className="mt-16 font-mono text-[14px] uppercase leading-[1.6] tracking-[0.02em] text-[#FB290E] md:mt-24">
+                Become a builder
+              </p>
+              <h1 data-split className="pd-title mt-6 max-w-[72rem] uppercase">
+                {currentJob.title}
+              </h1>
+              <p className="mt-8 max-w-[38rem] text-[1.05rem] leading-[1.45] text-black/55">
+                {currentJob.department} · {groupOf(currentJob) === "On site" ? "On site across Cambodia" : "Battambang"} ·{" "}
+                {currentJob.type}. Applications close {currentJob.deadline}.
+              </p>
 
-                <div className="flex flex-col justify-end gap-6 md:col-span-5 md:items-end">
-                  <div className="md:text-right">
-                    <Kicker style={{ color: MUTED }}>{currentJob.department}</Kicker>
-                    <p className="mt-2 font-mono text-[14px] uppercase tracking-[0.02em] text-[#111]/45">
-                      {groupOf(currentJob) === "On site" ? "On site across Cambodia" : "Battambang"}
-                    </p>
-                  </div>
-                  <ArrowButton href={mailtoFor(currentJob.title)} label="Apply" />
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <ArrowButton href={mailtoFor(currentJob.title)} label="Apply" />
+                <div className="flex items-center gap-2">
+                  <span className="mr-1 font-mono text-[11px] uppercase tracking-[0.06em] text-[#111]/40">Share</span>
+                  {(["facebook", "linkedin", "telegram"] as const).map((network) => (
+                    <a
+                      key={network}
+                      href={shareUrl(network, shareHref, currentJob.title)}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Share on ${network}`}
+                      className="flex size-8 items-center justify-center rounded-[3px] border border-[#111]/15 text-[#111]/60 transition-colors hover:border-[#111] hover:text-[#111] hover:opacity-100"
+                    >
+                      <ShareIcon network={network} />
+                    </a>
+                  ))}
                 </div>
               </div>
 
-              <div className="mt-10 aspect-[4/3] overflow-hidden bg-[#EDEDED] md:mt-14 md:aspect-[16/7]">
-                <img
-                  src={jobImage(currentJob)}
-                  alt={`${currentJob.department} at BCE`}
-                  className="size-full object-cover"
-                />
-              </div>
-
-              <section aria-label="We are BCE" className="grid grid-cols-1 gap-6 border-b border-[#111]/10 py-14 md:grid-cols-12 md:gap-6 md:py-20">
-                <Kicker className="md:col-span-4" style={{ color: ACCENT }}>
-                  We are BCE
-                </Kicker>
-                <div className="max-w-[560px] space-y-4 text-[18px] leading-[1.5] tracking-[-0.01em] text-[#111]/70 md:col-span-5 md:col-start-8">
-                  <p>
-                    Battambang Construction and Engineering, Co., Ltd. (BCE) is one of Western Cambodia&rsquo;s leading
-                    construction, concrete and foundation engineering companies. Operating 4 computerized batching
-                    plants, 41 mixer trucks, 8 concrete pumps and an accredited in-house laboratory, our team of 71
-                    professionals builds major national infrastructure, industrial complexes and landmark civil projects
-                    across Cambodia.
-                  </p>
-                  <p>
-                    We aim to be a preferred employer: health, safety and environment come first, competence is built on
-                    real projects, and crews who stay with us grow with the company.
-                  </p>
-                </div>
-              </section>
-
-              <section className="grid grid-cols-1 gap-8 py-14 md:grid-cols-12 md:gap-6 md:py-20">
-                <div className="md:col-span-3">
-                  <Kicker style={{ color: ACCENT }}>Share</Kicker>
-                  <div className="mt-4 flex items-center gap-2">
-                    {(["facebook", "linkedin", "telegram"] as const).map((network) => (
-                      <a
-                        key={network}
-                        href={shareUrl(network, shareHref, currentJob.title)}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`Share on ${network}`}
-                        className="flex size-8 items-center justify-center rounded-[3px] border border-[#111]/15 text-[#111]/60 transition-colors hover:border-[#111] hover:text-[#111] hover:opacity-100"
-                      >
-                        <ShareIcon network={network} />
-                      </a>
-                    ))}
+              <div>
+                <JobStep n={1} title="The role">
+                  <div className="qf-panel">
+                    <p className="text-[16px] leading-[1.7] text-black/70">{currentJob.overview}</p>
                   </div>
-                </div>
+                </JobStep>
 
-                <div className="max-w-[560px] md:col-span-5 md:col-start-8">
-                  <h2 className="text-[28px] font-medium uppercase leading-[1.05] tracking-[-0.02em] md:text-[40px]">
-                    {currentJob.title}
-                  </h2>
-
-                  <dl className="mt-10 border-t border-[#111]/10">
-                    {([
-                      ["Department", currentJob.department, "department"],
-                      ["Employment type", currentJob.type, ""],
-                      ["Workplace type", groupOf(currentJob) === "On site" ? "On site" : "Battambang", ""],
-                      ["Application deadline", currentJob.deadline, "deadline"],
-                    ] as const).map(([label, value, variant]) => (
-                      <div key={label} className="border-b border-[#111]/10 py-4">
-                        <dt>
-                          <Kicker style={{ color: ACCENT }}>{label}</Kicker>
-                        </dt>
-                        <dd
-                          className={
-                            variant === "department"
-                              ? "mt-2 inline-block text-[16px] font-medium uppercase leading-snug tracking-[0.02em] text-[#FB290E]"
-                              : variant === "deadline"
-                                ? "mt-2 inline-block rounded-[4px] bg-[#F1F1EF] px-3 py-1.5 text-[16px] font-medium leading-snug text-[#111]"
-                                : "mt-2 text-[16px] leading-snug text-[#111]/80"
-                          }
-                        >
-                          {value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-
-                  <div className="mt-10 space-y-4 text-[15px] leading-[1.75] text-[#111]/70 md:text-[16px]">
-                    <p>{currentJob.overview}</p>
-                  </div>
-
-                  <div className="mt-12">
-                    <Kicker style={{ color: ACCENT }}>About the role</Kicker>
-                    <h3 className="mt-2 text-[20px] font-medium leading-tight tracking-[-0.01em]">
-                      What you&rsquo;ll be doing
-                    </h3>
-                    <ul className="mt-5 space-y-3 text-[14.5px] leading-[1.7] text-[#111]/70">
+                <JobStep n={2} title="What you&rsquo;ll be doing">
+                  <div className="qf-panel">
+                    <ul className="space-y-3 text-[16px] leading-[1.7] text-black/70">
                       {currentJob.duties.map((duty) => (
                         <li key={duty} className="flex gap-3">
-                          <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
+                          <span className="mt-[11px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
                           <span>{duty}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
+                </JobStep>
 
-                  <div className="mt-12">
-                    <Kicker style={{ color: ACCENT }}>Requirements</Kicker>
-                    <h3 className="mt-2 text-[20px] font-medium leading-tight tracking-[-0.01em]">
-                      What you&rsquo;ll need
-                    </h3>
-                    <ul className="mt-5 space-y-3 text-[14.5px] leading-[1.7] text-[#111]/70">
+                <JobStep n={3} title="What you&rsquo;ll need">
+                  <div className="qf-panel">
+                    <ul className="space-y-3 text-[16px] leading-[1.7] text-black/70">
                       {currentJob.qualifications.map((qual) => (
                         <li key={qual} className="flex gap-3">
-                          <span className="mt-[9px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
+                          <span className="mt-[11px] size-1 shrink-0 rounded-full bg-[#111]/60" aria-hidden />
                           <span>{qual}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
+                </JobStep>
 
-                  <div className="mt-12 bg-[#F8F8F9] p-6 md:p-8">
-                    <Kicker style={{ color: ACCENT }}>Compensation &amp; benefits</Kicker>
-                    <div className="mt-5 grid gap-6 sm:grid-cols-2">
+                <JobStep n={4} title="Compensation &amp; benefits">
+                  <div className="qf-panel">
+                    <div className="grid gap-8 sm:grid-cols-2">
                       {[
                         [
                           "Competitive compensation",
@@ -382,16 +319,17 @@ export default function RecruitmentPage() {
                         ],
                       ].map(([title, text]) => (
                         <div key={title}>
-                          <h4 className="text-[16px] font-medium leading-snug">{title}</h4>
+                          <h3 className="text-[16px] font-medium leading-snug">{title}</h3>
                           <p className="mt-1 text-[16px] leading-[1.6] text-[#111]/55">{text}</p>
                         </div>
                       ))}
                     </div>
                   </div>
+                </JobStep>
 
-                  <div className="mt-10 border-t border-[#111]/10 pt-6">
-                    <Kicker style={{ color: ACCENT }}>Contact details</Kicker>
-                    <div className="mt-3 space-y-1 text-[16px] text-[#111]/70">
+                <JobStep n={5} title="Apply for this role">
+                  <div className="qf-panel">
+                    <div className="space-y-1 text-[16px] text-black/70">
                       <p>
                         Email:{" "}
                         <a href={`mailto:${HR_EMAIL}`} className="underline underline-offset-4 hover:opacity-100">
@@ -405,33 +343,26 @@ export default function RecruitmentPage() {
                         </a>
                       </p>
                     </div>
-                    <p className="mt-4 max-w-[34rem] text-[13px] leading-[1.6] text-[#111]/45">
-                      Applications are handled by BCE HR only. See our{" "}
-                      <a href="/privacy" className="underline underline-offset-4 hover:text-[#111]">Privacy policy</a>{" "}
-                      for how we use candidate information.
-                    </p>
-                  </div>
+                    <div className="mt-6 border-t border-[#111]/10 pt-6">
+                      <ApplyForm role={currentJob.title} />
+                    </div>
 
-                  <div className="mt-8">
-                    <ApplyForm role={currentJob.title} />
+                    <div className="mt-8 flex flex-wrap items-center gap-3">
+                      <ArrowButton label="Back to list" theme="white" onClick={backToList} />
+                    </div>
                   </div>
-
-                  <div className="mt-8 flex flex-wrap items-center gap-3">
-                    <ArrowButton href={mailtoFor(currentJob.title)} label="Apply" />
-                    <ArrowButton label="Back to list" theme="white" onClick={backToList} />
-                  </div>
-                </div>
-              </section>
-
-              <section className="site-bleed site-pad flex flex-col items-center bg-[#F8F8F9] py-20 text-center md:py-28">
-                <Kicker style={{ color: ACCENT }}>Ready to build?</Kicker>
-                <p className="mt-5 max-w-[720px] text-[24px] font-medium leading-[1.25] tracking-[-0.02em] text-[#111]/55 md:text-[34px]">
-                  Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience
-                  behind your career.
-                </p>
-                <ArrowButton className="mt-8" label="View all positions" onClick={backToList} />
-              </section>
+                </JobStep>
+              </div>
             </div>
+
+            <section className="site-pad mt-20 flex flex-col items-center bg-[#F8F8F9] py-20 text-center md:mt-32 md:py-28">
+              <Kicker style={{ color: ACCENT }}>Ready to build?</Kicker>
+              <p className="mt-5 max-w-[720px] text-[24px] font-medium leading-[1.25] tracking-[-0.02em] text-[#111]/55 md:text-[34px]">
+                Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience
+                behind your career.
+              </p>
+              <ArrowButton className="mt-8" label="View all positions" onClick={backToList} />
+            </section>
           </article>
         ) : (
           /* =====================================================================

@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import FluidCursor from "./FluidCursor";
 import QuoteCta from "./QuoteCta";
 import { usePageSetup } from "./usePageSetup";
+import { FilterBar, FilterMeta, type FilterFacet, type FilterSelection } from "./FilterBar";
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
@@ -24,15 +25,12 @@ const YEARS = [
   { id: "2020", label: "2020" },
 ];
 
+
 export default function ResourcesPage() {
   usePageSetup("Company Profile, Licences & Downloads | BCE");
   const rootRef = useRef<HTMLElement>(null);
 
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [activeYear, setActiveYear] = useState("all");
-
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isYearOpen, setIsYearOpen] = useState(false);
+  const [selection, setSelection] = useState<FilterSelection>({ year: [], category: [] });
 
   // Copy-to-clipboard feedback on a document's icon action.
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -72,13 +70,44 @@ export default function ResourcesPage() {
     copyTimer.current = window.setTimeout(() => setCopiedId((id) => (id === doc.id ? null : id)), 1800);
   };
 
+  // Two facets, built from the document library itself: a year or category with no documents never appears.
+  const facets: FilterFacet[] = [
+    {
+      key: "year",
+      label: "Year",
+      options: YEARS.filter((year) => year.id !== "all").map((year) => ({
+        value: year.id,
+        label: year.label,
+        count: DOCUMENTS.filter((doc) => doc.year === year.id).length,
+      })),
+    },
+    {
+      key: "category",
+      label: "Category",
+      options: CATEGORIES.filter((category) => category.id !== "all").map((category) => ({
+        value: category.id,
+        label: category.label,
+        count: DOCUMENTS.filter((doc) => doc.category === category.id).length,
+      })),
+    },
+  ];
+
+  const toggleValue = (key: string, value: string) =>
+    setSelection((current) => ({
+      ...current,
+      [key]: current[key].includes(value) ? current[key].filter((item) => item !== value) : [...current[key], value],
+    }));
+
+  const clearFacet = (key: string) => setSelection((current) => ({ ...current, [key]: [] }));
+  const clearAll = () => setSelection({ year: [], category: [] });
+
   const filteredDocs = useMemo(() => {
     return DOCUMENTS.filter((doc) => {
-      const matchesCategory = activeCategory === "all" || doc.category === activeCategory;
-      const matchesYear = activeYear === "all" || doc.year === activeYear;
+      const matchesCategory = selection.category.length === 0 || selection.category.includes(doc.category);
+      const matchesYear = selection.year.length === 0 || selection.year.includes(doc.year);
       return matchesCategory && matchesYear;
     });
-  }, [activeCategory, activeYear]);
+  }, [selection]);
 
   return (
     <>
@@ -98,147 +127,30 @@ export default function ResourcesPage() {
             </p>
           </div>
 
-          {/* 2-Column Responsive Layout */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
 
-            {/* Left Column: Filter Controls (Stacked 24px Boxes) */}
-            <div className="md:col-span-4 lg:col-span-4 flex flex-col gap-3 sticky top-24 z-10">
+            {/* Left column: the facets stacked as a sticky sidebar, with the count and tags beneath */}
+            <div className="md:col-span-4 flex flex-col gap-6 md:sticky md:top-24 z-10">
+              <FilterBar
+                layout="column"
+                facets={facets}
+                selection={selection}
+                onToggle={toggleValue}
+                onClearFacet={clearFacet}
+                onClearAll={clearAll}
+                label="Filter documents"
+              />
 
-              {/* Year Filter Box / Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsYearOpen(!isYearOpen);
-                    setIsCategoryOpen(false);
-                  }}
-                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EDEDED] text-[#111] text-[16px] font-medium transition-colors border-0"
-                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                  aria-expanded={isYearOpen}
-                >
-                  <span>{YEARS.find((y) => y.id === activeYear)?.label || "All years"}</span>
-                  <svg
-                    viewBox="0 0 16 16"
-                    className={`size-4 text-[#111]/60 transition-transform ${isYearOpen ? "rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M4 6l4 4 4-4" />
-                  </svg>
-                </button>
-
-                {isYearOpen && (
-                  <div
-                    className="box-24 absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[24px] shadow-lg border-0 z-20 flex flex-col gap-1"
-                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                  >
-                    {YEARS.map((year) => (
-                      <button
-                        key={year.id}
-                        type="button"
-                        onClick={() => {
-                          setActiveYear(year.id);
-                          setIsYearOpen(false);
-                        }}
-                        className={`box-24 w-full text-left px-4 py-2.5 rounded-[20px] text-[13px] font-medium transition-colors flex items-center justify-between border-0 ${
-                          activeYear === year.id
-                            ? "bg-[#111] text-white"
-                            : "text-[#111]/80 hover:bg-[#F4F4F5]"
-                        }`}
-                      >
-                        <span>{year.label}</span>
-                        {activeYear === year.id && (
-                          <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2">
-                            <path d="M3 8l3.5 3.5L13 5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Category Filter Box / Dropdown */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsCategoryOpen(!isCategoryOpen);
-                    setIsYearOpen(false);
-                  }}
-                  className="box-24 w-full flex items-center justify-between px-5 py-3.5 rounded-[24px] bg-[#F4F4F5] hover:bg-[#EDEDED] text-[#111] text-[16px] font-medium transition-colors border-0"
-                  style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                  aria-expanded={isCategoryOpen}
-                >
-                  <span className="truncate">{CATEGORIES.find((c) => c.id === activeCategory)?.label || "All categories"}</span>
-                  <svg
-                    viewBox="0 0 16 16"
-                    className={`size-4 shrink-0 ml-2 text-[#111]/60 transition-transform ${isCategoryOpen ? "rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M4 6l4 4 4-4" />
-                  </svg>
-                </button>
-
-                {isCategoryOpen && (
-                  <div
-                    className="box-24 absolute top-full left-0 right-0 mt-2 p-2 bg-white rounded-[24px] shadow-lg border-0 z-20 flex flex-col gap-1"
-                    style={{ WebkitCornerSmoothing: "60%", cornerSmoothing: "60%" } as any}
-                  >
-                    {CATEGORIES.map((cat) => (
-                      <button
-                        key={cat.id}
-                        type="button"
-                        onClick={() => {
-                          setActiveCategory(cat.id);
-                          setIsCategoryOpen(false);
-                        }}
-                        className={`box-24 w-full text-left px-4 py-2.5 rounded-[20px] text-[13px] font-medium transition-colors flex items-center justify-between border-0 ${
-                          activeCategory === cat.id
-                            ? "bg-[#111] text-white"
-                            : "text-[#111]/80 hover:bg-[#F4F4F5]"
-                        }`}
-                      >
-                        <span className="truncate">{cat.label}</span>
-                        {activeCategory === cat.id && (
-                          <svg viewBox="0 0 16 16" className="size-3.5 shrink-0 ml-2 fill-none stroke-current" strokeWidth="2">
-                            <path d="M3 8l3.5 3.5L13 5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Active Filter Clear Tag */}
-              {(activeCategory !== "all" || activeYear !== "all") && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveCategory("all");
-                    setActiveYear("all");
-                  }}
-                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2 text-[13px] font-medium text-[#111]/60 hover:text-[#111] transition-colors border-0"
-                >
-                  <svg viewBox="0 0 16 16" className="size-3.5 fill-none stroke-current" strokeWidth="2">
-                    <path d="M12 4L4 12M4 4l8 8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <span>Reset filters</span>
-                </button>
-              )}
-
+              <FilterMeta
+                facets={facets}
+                selection={selection}
+                count={`${filteredDocs.length} ${filteredDocs.length === 1 ? "document" : "documents"}`}
+                onToggle={toggleValue}
+              />
             </div>
 
-            {/* Right Column: Stacked Document Cards */}
-            <div className="md:col-span-8 lg:col-span-8 flex flex-col gap-3.5 md:gap-4">
+            {/* Right column: the documents, in eight columns as on the project archive */}
+            <div className="md:col-span-8 flex flex-col gap-3.5 md:gap-4">
               {filteredDocs.length > 0 ? (
                 filteredDocs.map((doc) => (
                   <div
@@ -346,10 +258,7 @@ export default function ResourcesPage() {
                   </p>
                   <button
                     type="button"
-                    onClick={() => {
-                      setActiveCategory("all");
-                      setActiveYear("all");
-                    }}
+                    onClick={clearAll}
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#111] text-white text-xs font-medium hover:bg-black transition-colors"
                   >
                     Reset filters

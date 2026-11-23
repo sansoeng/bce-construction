@@ -14,6 +14,7 @@ import {
   Layers,
   LogOut,
   Mail,
+  Menu,
   Newspaper,
   Search,
   Settings,
@@ -91,6 +92,7 @@ export default function AdminApp() {
   const [authError, setAuthError] = useState<{ message: string; status?: number } | null>(null);
   const [hash, setHash] = useState(() => location.hash || "#/dashboard");
   const [commandOpen, setCommandOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const pendingHash = useRef<string | null>(null);
 
   useEffect(() => {
@@ -141,6 +143,7 @@ export default function AdminApp() {
         event.preventDefault();
         setCommandOpen((open) => !open);
       }
+      if (event.key === "Escape") setSidebarOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -161,6 +164,7 @@ export default function AdminApp() {
   const navigate = (next: string) => {
     const target = next.replace(/^#/, "");
     const current = location.hash.replace(/^#/, "") || "dashboard";
+    setSidebarOpen(false);
     if (target === current) {
       setCommandOpen(false);
       return;
@@ -205,13 +209,26 @@ export default function AdminApp() {
   return (
     <div className="bce-admin">
       <div className="adm-shell">
-          <aside className="adm-sidebar" aria-label="Admin navigation">
+          <aside id="adm-sidebar" className={cn("adm-sidebar", sidebarOpen && "is-open")} aria-label="Admin navigation">
             <SidebarInner {...navProps} />
           </aside>
+          {sidebarOpen && (
+            <button type="button" className="adm-scrim" aria-label="Close navigation" onClick={() => setSidebarOpen(false)} />
+          )}
 
           <div className="adm-body">
             <header className="adm-topbar">
               <div className="flex min-w-0 items-center gap-2">
+                <button
+                  type="button"
+                  className="adm-menu-btn"
+                  aria-label="Open navigation"
+                  aria-controls="adm-sidebar"
+                  aria-expanded={sidebarOpen}
+                  onClick={() => setSidebarOpen(true)}
+                >
+                  <Menu className="size-5" />
+                </button>
                 <Breadcrumb className="hidden md:block">
                   <BreadcrumbList>
                     <BreadcrumbItem>
@@ -240,7 +257,7 @@ export default function AdminApp() {
                   <span className="hidden sm:inline">Search</span>
                   <span className="ml-1 hidden rounded border px-1.5 py-0.5 font-mono text-[10px] sm:inline">⌘K</span>
                 </Button>
-                <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={() => window.open(publicSiteUrl("/"), "_blank")}>
+                <Button variant="ghost" size="sm" className="adm-live-link" onClick={() => window.open(publicSiteUrl("/"), "_blank")}>
                   Live site <ExternalLink className="size-3.5" />
                 </Button>
                 <DropdownMenu>

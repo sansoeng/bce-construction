@@ -1,6 +1,6 @@
 # BCE Architecture — living reference
 
-**Last verified:** 2026-11-17 · **Verified by:** agent (live endpoints, wrangler, Cloudflare dashboard API, browser pass)
+**Last verified:** 2026-11-23 · **Verified by:** agent (local typecheck/build and headless browser pass; live endpoints unchanged)
 **Audience:** humans and AI agents working in this repo.
 
 > This file is a snapshot of how the system is wired **today**, plus the decisions behind it.
@@ -83,7 +83,9 @@ the site never blanks if the API is down.
 ## 4. Content lifecycle
 
 1. Editor saves in the admin → row gets `stage_data` / `stage_km`, `stage_status`, audit entry,
-   `staging_version` increments; bootstrap caches for staging are invalidated.
+   `staging_version` increments; bootstrap caches for staging are invalidated. The Khmer tab opens
+   prefilled from the bundled translation (`src/km`); only language-specific fields are written to
+   `stage_km` by `src/admin/kmSanitize.ts`.
 2. `staging.bce-construction.com` reads that pending overlay immediately (bootstrap cache ≤60 s,
    or use **Clear cache**).
 3. Production is untouched and keeps serving published rows.
@@ -98,8 +100,9 @@ the site never blanks if the API is down.
   database re-opens the risk of staging writes hitting live content.
 - D1 migrations run from `main` only. Never run `wrangler d1 migrations apply` without
   `--env production`.
-- `DEV_ADMIN_EMAIL` is local-only; the bypass is gated to `localhost` / `127.0.0.1` in
-  `worker/src/auth.ts`. Never set it in deployed vars.
+- `DEV_ADMIN_EMAIL` is local-only; the bypass is gated to `localhost` / `127.0.0.1` or
+  `ENVIRONMENT=development` (which only `.dev.vars` sets) in `worker/src/auth.ts`. Never set it
+  in deployed vars.
 - One host route belongs to exactly one Worker. Cutover order when moving a route:
   release it on the old Worker first, then claim it on the new one.
 - A Pages custom domain serves exactly one project's production deployment. Keep
@@ -108,7 +111,12 @@ the site never blanks if the API is down.
 - Bindings, vars, routes and triggers are not inherited by `[env.production]` — mirror any
   new binding in both blocks (and update the R2 docs if applicable).
 - Secrets are per environment: `wrangler secret put X` (staging) vs `--env production`.
-- Public content must keep rendering from the bundled fallback if the API fails.
+- Public content must keep rendering from the bundled fallback if the API fails, in both languages:
+  `src/km` is the bundled Khmer overlay and `src/contentStore.ts` merges it lazily only in Khmer mode.
+- Khmer overlays contain language-specific fields only. `slug`/`id` is a lookup key in the bundled
+  JSON and is stripped before merging; admin saves are sanitised so paths, hrefs, colours,
+  categories and counts always come from the English document. Run `npm run km:prune` after
+  changing a content schema.
 
 ## 6. Decisions
 
@@ -142,7 +150,27 @@ npm run db:migrate               # production D1 only
 # Local
 npm run dev                      # vite site
 npm run worker:dev               # Worker on :8787, local D1, READ_ONLY=false
+
+# Maintenance mode (public site only; admin and /api/* stay up)
+npm run maintenance:status       # is the redirect live? check site, page and admin
+npm run maintenance:on           # 302 bce-construction.com + www → maintenance page
+npm run maintenance:off          # remove the redirect, serve the real site again
+npm run maintenance:deploy       # publish maintenance/ to the bce-maintenance Pages project
 ```
+
+### Maintenance mode
+
+The public site can be put behind a branded maintenance page without touching the site deployment. `npm run
+maintenance:on` writes one rule into the zone's dynamic-redirect ruleset (`http_request_dynamic_redirect`,
+`scripts/maintenance.mjs`): document requests on `bce-construction.com` and `www.bce-construction.com` answer **302**
+to `https://status.bce-construction.com`, while `admin.bce-construction.com` (Access), every `/api/*` route (the
+Worker) and every other host are untouched. `off` deletes that rule; the Pages deployment is never replaced, so
+turning it off restores the exact build that was live before.
+
+The maintenance page is its own static Pages project, `bce-maintenance` (repo folder `maintenance/`, self-contained
+fonts + logo, `noindex`, `no-store`, auto-refresh every 2 minutes). Edit `maintenance/index.html`, run
+`npm run maintenance:deploy`, and the redirect picks the new page up on the next request. The custom domain
+`status.bce-construction.com` is a CNAME to `bce-maintenance.pages.dev` (proxied) on the same zone (the temporary `maintenance.` hostname is kept as an alias).
 
 ## 8. Verification recipe
 
@@ -176,7 +204,7 @@ curl -s https://bce-construction.com/ | grep -o '/assets/index-[^"]*\.js' | head
 - Staging and production share one D1, so a staging deploy cannot safely test schema changes.
 - The staging host is public; only writes are blocked.
 - `.env` still holds a Global API Key; a scoped CI token is the recommended replacement.
-- D1 now mirrors the bundle: 41 published documents, one per slug, with `homepage`, `about` and `quality` stored under the admin's canonical slug `home` (the seed previously wrote `about:about` / `quality:quality`, which created a second document per singleton). `scripts/content-entry.ts` and the admin defaults must stay aligned on `home`. A later `npm run content:seed` overwrites live rows, so treat it as a deliberate reset; the retired `capabilities:home` row was deleted (backup taken before the change).
+- D1 now mirrors the bundle: 42 published documents, one per slug, with `homepage`, `about`, `quality` and `partners` stored under the admin's canonical slug `home` (the seed previously wrote `about:about` / `quality:quality`, which created a second document per singleton). `scripts/content-entry.ts` and the admin defaults must stay aligned on `home`. A later `npm run content:seed` overwrites live rows, so treat it as a deliberate reset; the retired `capabilities:home` row was deleted (backup taken before the change).
 
 ## 10. Updating this file
 
@@ -193,6 +221,11 @@ When architecture changes, in the same commit:
 
 | Date | Change | Files | Verified |
 | --- | --- | --- | --- |
+| 2026-11-23 | 404 pages: the React fallback (invalid detail slugs) and the static Pages `404.html` now use the maintenance page's layout — BCE lockup, spinning gear mark, orange Error 404 kicker, uppercase title — while keeping every escape route (Home, Projects, Our businesses, Quality & HSE, Resources, Contact us). Both are noindex; the React copy follows the active language | `src/NotFoundPage.tsx`, `src/notfound.css`, `src/main.tsx`, `public/404.html`, `src/i18n.ts`, `docs/ARCHITECTURE.md` | `npm run typecheck` + `npm run build` clean; `/nope` and `/404.html` at 1440 × 900 and 390 × 844 render the lockup, gear and all six CTAs with no horizontal overflow; robots = noindex on both; `/nope?lang=km` shows the Khmer kicker/title/CTAs |
+| 2026-11-23 | Clients & partners page: `/partners` carries the full register from the Corporate Profile 2026 — 67 entries (16 government, 36 contractors/clients, 15 suppliers; the profile itself skips number 17) — with the profile PDF download. The page uses the existing system only: `ParallaxHero` cover, `LabelCopy` introduction, the Projects/Resources `FilterBar` (one Group facet, multi-select, URL-synced), the homepage's `glance` layout — each group's orange all-caps section tag and sticky title on the left, its logo grid on the right — and the shared quote band and footer. The filter shows only its tags, not a total result count. `filter.css` now keeps a single-facet panel on screen on phones. The list is a new singleton `partners` content type so the homepage “Trusted partners & clients” grid now renders its 17 featured entries from the same document (fourteen have approved artwork under `public/assets/partners/`; the rest stay wordmarks), with a link and count to the register. Khmer copy and ministry names ship in `src/km/partners.json`. The profile's “Cemicals” typo is corrected to “Chemicals”. The intro hairline (`qx-intro`) is removed from the shared page pattern, so Partners, Quality, Coverage and Fleet no longer draw a separate line under the introduction. Production remains behind maintenance mode | `src/partners.ts`, `src/PartnersPage.tsx`, `src/Glance.tsx`, `src/homepage.ts`, `src/routes.ts`, `src/main.tsx`, `src/seo.ts`, `src/i18n.ts`, `src/index.css`, `src/filter.css`, `src/FilterBar.tsx`, `src/contentStore.ts`, `src/admin/adminSchemas.ts`, `src/admin/ContentPreview.tsx`, `src/km/partners.json`, `src/km/index.ts`, `scripts/content-entry.ts`, `scripts/export-content.mjs`, `worker/src/types.ts`, `public/assets/partners/*`, `public/_redirects`, `seed/*`, `public/content-seed.json`, `public/sitemap.xml` | `npm run typecheck` + `npm run build` clean; `/partners` renders the cover, introduction, Group filter and 3 group sections in the homepage's two-column layout (each section's sticky title left / logos right at ≥1024, stacked below), with 67 name cells and 14 logos and 0 broken images; at 1440 the sticky title changes Government → Contractors, partners & corporate clients → Key suppliers as each section scrolls, in EN and KM, each preceded by its orange all-caps section tag; the total “67 partners” line is removed while the per-section count stays; the facet filters to 16 government / 36 clients / 15 suppliers (multi-select gives 52), writes `?group=` to the URL and clears back to 67; the single-facet panel fits a 390 px screen; homepage shows 17 featured entries, the register link and “67 organisations & individuals”; EN and KM checked at 1000 px and 390 px; `seed/content.json` carries the `partners:home` document (67 entries, 14 logos, 17 featured) and `public/sitemap.xml` includes `/partners` |
+| 2026-11-22 | Production release of the search metadata pass, then maintenance lifted: homepage title kept (`BCE — Battambang Construction and Engineering Co., Ltd.`) and `BCE., Ltd.` declared as the site name through a `WebSite` schema node plus `og:site_name`; inner pages got unique place-led titles (≤60 chars), place/proof descriptions, self-referential `?lang=km` canonicals, and the `GeneralContractor` graph gained `geo`, `areaServed` (15), `hasOfferCatalog` (5 services), slogan and languages. `maintenance:off` now writes an empty ruleset instead of DELETE (the global key gets 10405). Deployed to Pages from a `main` worktree carrying only these commits; the coverage redesign stays on staging | `src/seo.ts`, `src/i18n.ts`, `src/siteSettings.ts`, `.figma/make/site.json`, `src/*Page.tsx`, `src/main.tsx`, `scripts/maintenance.mjs`, `docs/ARCHITECTURE.md` | Deployment `301365af` live; `/`, `/contact`, `/coverage` → 200 after the redirect rule was cleared; home title unchanged, `og:site_name` and `WebSite.name` = `BCE., Ltd.`; `/contact` → “Contact BCE — Construction Company in Battambang”, `/contact?lang=km` canonical stays `?lang=km` with the Khmer title; admin still 302 to Access; `/api/health` 200; staging 200 |
+| 2026-11-22 | Production maintenance mode: the public site is gated by one dynamic-redirect rule while `admin` and `/api/*` stay up. The page is a standalone Pages project (`bce-maintenance`) at `status.bce-construction.com`, self-contained (fonts, logo, `noindex`, `no-store`, 2-minute refresh), and the toggle is `scripts/maintenance.mjs` (`npm run maintenance:on/off/status`). The production Pages deployment is never replaced, so `off` restores the exact live build | `maintenance/index.html`, `maintenance/_headers`, `maintenance/robots.txt`, `maintenance/fonts/*`, `maintenance/assets/*`, `scripts/maintenance.mjs`, `package.json`, `docs/ARCHITECTURE.md`, `AGENTS.md` | `status.bce-construction.com` 200 with `x-robots-tag: noindex` and `cache-control: no-store`; rule live: `bce-construction.com/`, `/projects`, `/coverage` and www → 302 to the maintenance page; `/api/health` → 200; `admin.bce-construction.com/` → 302 to Cloudflare Access (unchanged); page checked at 1440 × 900 and 390 × 844 |
+| 2026-11-20 | Full Khmer edition: every seeded document (homepage, About, Quality/HSE, projects, journal, careers, resources, business pages, services) now has a bundled Khmer overlay in `src/km`; the site merges saved D1 Khmer over it (lazily in Khmer mode, ~29 KB gzip) and falls back to it when the API is unavailable; the admin's ខ្មែរ tab is prefilled for existing documents and saves only language-specific fields (`src/admin/kmSanitize.ts`). Translated the Privacy/Terms pages, filled remaining UI strings, translated province `<title>`s, and fixed Khmer display bugs (coverage intro clipping, About statement size, "Why BCE" words collapsing to one glyph). The admin sidebar is now a drawer below 900 px, the dashboard/list/editor no longer overflow at 390 px, and the content table keeps Edit/status visible on phones. `DEV_ADMIN_EMAIL`'s local bypass now also accepts `ENVIRONMENT=development`, because `wrangler dev` rewrites the request host to the configured route | `src/km/*`, `src/km/index.ts`, `src/legalKm.ts`, `src/contentStore.ts`, `src/i18n.ts`, `src/LegalPage.tsx`, `src/admin/ContentManager.tsx`, `src/admin/AdminApp.tsx`, `src/admin/adminSchemas.ts`, `src/admin/kmSanitize.ts`, `src/admin/admin.css`, `src/admin/Dashboard.tsx`, `src/Coverage.tsx`, `src/CoveragePage.tsx`, `src/index.css`, `src/coverage-map.css`, `scripts/content-entry.ts`, `scripts/export-content.mjs`, `scripts/prune-km*`, `package.json`, `seed/*`, `public/content-seed.json`, `AGENTS.md`, `docs/ARCHITECTURE.md` | `npm run typecheck` + `npm run build` clean (km chunk 189 KB / 28.8 KB gzip); all 14 public routes 0 horizontal overflow at 390, 768, 1024 and 1440; English and Khmer both render with no cross-language leakage; admin Khmer prefill checked on all 9 content types; a staged save on a project stores only name/owner/location/period/summary/scope/gallery/highlights/equipment/technical/outcome, with no slug, category, image or count; admin dashboard, list and editor fit 390 px; legal pages render 13 privacy + 10 terms sections in Khmer with no overflow |
 | 2026-11-17 | Fixed the About page stalling at the Milestones rail: the rail carried `data-lenis-prevent`, and `lenis/dist/lenis.css` styles that attribute with `overscroll-behavior: contain`, so a wheel (or a touch swipe) over the full-width rail moved neither the rail nor the page and the section was a dead end. The rail now reads the wheel itself through a native `passive: false` listener and splits it by intent — vertical is left to Lenis and the page, horizontal (trackpad swipe, shift+wheel) moves the rail — so the page scrolls through the section on desktop and touch | `src/AboutPage.tsx`, `docs/ARCHITECTURE.md` | `npm run build` clean and no new `tsc` errors in `AboutPage.tsx`; Playwright at 1512 × 1100: staging (old build) stayed at y = 6800 inside `#milestones` and never reached the 15163 px end, while the fixed build moved 500 px over the rail, reached the end with no stall anywhere on the page, moved the rail 300 px on a horizontal wheel and 240 px on shift+wheel with the page stationary; a touch swipe at 390 × 844 moved the page 185 px (staging: 0); with reduced motion (no Lenis) the page still scrolls 400 px over the rail |
 | 2026-11-17 | Design-system correction on the new sections: all section labels use the site's own `.ol-label` (mono 14, uppercase, brand orange — never a grey line with a dot), so About's Leadership and Milestones, the Quality HSE block, the homepage evidence bands and the Fleet page match Contact/Quality/Business; the leadership portrait loads eagerly so the open row never shows an empty frame | `src/AboutPage.tsx`, `src/index.css`, `src/QualityPage.tsx`, `src/HomeEvidence.tsx`, `src/FleetPage.tsx`, `docs/ARCHITECTURE.md` | `npm run typecheck` + `npm run build` clean; grep finds no `ab-dot` / grey label rules left; About renders `LEADERSHIP` and `MILESTONES` as brand-orange `.ol-label` (dark section uses `var(--brand)`), the leader row is open with an orange name and a 418 px panel, and the portrait is in the same paint |
 | 2026-11-17 | About redesign after dalco.ch/meet-dalco: leadership is now the reference's ruled accordion — the statement on the left, one row per person (name, role, orange open state, +/− toggle) expanding to a 228 px portrait and their text; the milestones sit directly beneath it as the reference's axis rail (cards alternating above and below the axis, grayscale photos, orange dot and year), still draggable with prev/next, progress bar and snap. The old Chairwoman's-message / Our story block (quote, history paragraph and two photos) is removed. Layout follows DALCO; type, labels and colours use BCE's system (mono 12 labels, #FB290E accent, ink #111, dark #191919) | `src/AboutPage.tsx`, `src/index.css`, `src/admin/adminSchemas.ts`, `docs/ARCHITECTURE.md` | `npm run typecheck` + `npm run build` clean; page order is Who we are → Leadership → Milestones → Vision & mission → Explore; the quote and "Our story" text are gone; leader renders orange with an open 228 × 228 portrait and 418 px panel; 8 milestone cards alternate around the axis (first card's bottom sits on the axis, the second starts below it), images `grayscale(1)`, section `rgb(25,25,25)`; rail scroll and progress still work; no console errors beyond the local 502 |

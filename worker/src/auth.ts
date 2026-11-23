@@ -167,7 +167,10 @@ export const getAdmin = async (request: Request, env: Env): Promise<AdminIdentit
   // The dev bypass is local-only. Requiring localhost means a leaked DEV_ADMIN_EMAIL
   // on a deployed staging Worker still cannot skip Cloudflare Access.
   const hostname = new URL(request.url).hostname;
-  const localHost = hostname === "localhost" || hostname === "127.0.0.1";
+  // `wrangler dev` rewrites the request URL to the Worker's configured route, so the hostname is
+  // not necessarily localhost even locally. ENVIRONMENT is "development" only in .dev.vars, which
+  // is never deployed, so treating it as local keeps the bypass safe on staging and production.
+  const localHost = hostname === "localhost" || hostname === "127.0.0.1" || env.ENVIRONMENT === "development";
   if (env.ENVIRONMENT !== "production" && localHost && env.DEV_ADMIN_EMAIL) {
     return { email: env.DEV_ADMIN_EMAIL.toLowerCase(), source: "dev" };
   }

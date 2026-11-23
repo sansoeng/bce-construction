@@ -1,6 +1,7 @@
 import { DEFAULT_HOMEPAGE, HOMEPAGE_ICONS } from "../homepage";
 import { DEFAULT_QUALITY } from "../quality";
 import { DEFAULT_ABOUT } from "../about";
+import { DEFAULT_PARTNERS } from "../partners";
 
 export type FieldType =
   | "text"
@@ -422,7 +423,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "label", label: "Section label", type: "text" },
         { key: "title", label: "Headline", type: "text", wide: true },
         { key: "image", label: "Banner photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true },
       ] },
 
       { key: "intro", label: "", type: "group", fields: [
@@ -443,7 +444,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "value", label: "How often / result", type: "text" },
         ] },
         { key: "image", label: "Photo", type: "image", wide: true, aspect: "4 / 3" },
-        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true },
       ] },
 
       { key: "materials", label: "", type: "group", fields: [
@@ -455,7 +456,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "certificate", label: "Certificate", type: "text" },
         ] },
         { key: "image", label: "Photo", type: "image", wide: true, aspect: "5 / 6" },
-        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true },
       ] },
 
       { key: "calibration", label: "", type: "group", fields: [
@@ -472,7 +473,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "kicker", label: "Kicker", type: "text" },
         { key: "title", label: "Heading", type: "text" },
         { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true },
         { key: "copy", label: "Copy", type: "list", hint: "One paragraph per row.", wide: true },
         { key: "rows", label: "Figures", type: "objectList", itemLabel: "Row", itemFields: [
           { key: "label", label: "Label", type: "text" },
@@ -484,7 +485,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "kicker", label: "Kicker", type: "text" },
         { key: "title", label: "Heading", type: "text" },
         { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true },
         { key: "copy", label: "Copy", type: "list", hint: "One paragraph per row.", wide: true },
         { key: "note", label: "Dispatch note", type: "textarea", rows: 3, wide: true, hint: "Where the fleet mobilises from and how hire is quoted." },
         { key: "rows", label: "Equipment & fleet", type: "objectList", itemLabel: "Machine", itemFields: [
@@ -503,7 +504,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "icon", label: "Icon", type: "select", options: machineIcons },
           { key: "bullets", label: "Key services", type: "list", hint: "One point per row." },
           { key: "image", label: "Photo", type: "image" },
-          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+          { key: "imageAlt", label: "Photo alt text", type: "text" },
         ] },
         { key: "maintenanceLabel", label: "Maintenance label", type: "text" },
         { key: "maintenanceTitle", label: "Maintenance heading", type: "text", wide: true },
@@ -523,7 +524,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "lines", label: "Title lines", type: "list", hint: "One line per row; they print on separate lines." },
           { key: "text", label: "Statement", type: "textarea", rows: 3 },
           { key: "image", label: "Photo", type: "image", aspect: "4 / 3" },
-          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+          { key: "imageAlt", label: "Photo alt text", type: "text" },
         ] },
       ] },
 
@@ -596,7 +597,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "label", label: "Section label", type: "text" },
         { key: "title", label: "Headline", type: "text", wide: true },
         { key: "image", label: "Banner photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Banner alt text", type: "text", wide: true },
       ] },
 
       { key: "intro", label: "", type: "group", fields: [
@@ -614,7 +615,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "name", label: "Name", type: "text" },
           { key: "role", label: "Role", type: "text" },
           { key: "image", label: "Portrait", type: "image", aspect: "4 / 5" },
-          { key: "imageAlt", label: "Portrait alt text", type: "text", locale: false },
+          { key: "imageAlt", label: "Portrait alt text", type: "text" },
           { key: "bio", label: "Statement (one paragraph per line)", type: "list" },
         ] },
       ] },
@@ -632,7 +633,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "title", label: "Title", type: "text" },
           { key: "text", label: "What happened", type: "textarea", rows: 3 },
           { key: "image", label: "Photo", type: "image", aspect: "16 / 10" },
-          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+          { key: "imageAlt", label: "Photo alt text", type: "text" },
         ] },
       ] },
 
@@ -653,7 +654,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "title", label: "Title", type: "text" },
           { key: "text", label: "Text", type: "textarea", rows: 3 },
           { key: "image", label: "Photo", type: "image", aspect: "4 / 3" },
-          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+          { key: "imageAlt", label: "Photo alt text", type: "text" },
         ] },
       ] },
 
@@ -672,7 +673,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "title", label: "Headline", type: "text", wide: true },
         { key: "copy", label: "Paragraph", type: "textarea", rows: 3, wide: true },
         { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true },
         { key: "primaryLabel", label: "Primary button label", type: "text" },
         { key: "primaryHref", label: "Primary button link", type: "text", locale: false, hint: "A page path such as /careers." },
         { key: "secondaryLabel", label: "Second button label", type: "text" },
@@ -690,7 +691,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "title", label: "Title", type: "text" },
           { key: "href", label: "Link", type: "text", locale: false },
           { key: "image", label: "Photo", type: "image", aspect: "16 / 9" },
-          { key: "imageAlt", label: "Photo alt text", type: "text", locale: false },
+          { key: "imageAlt", label: "Photo alt text", type: "text" },
         ] },
       ] },
     ],
@@ -713,7 +714,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "loader", title: "Loading screen", hint: "The intro shown while the home page loads.", keys: ["loader"] },
       { id: "about", title: "About introduction", hint: "The photo, opening paragraph and the core-business sentence.", keys: ["about"] },
       { id: "expertise", title: "Core business intro", hint: "The opening screen before the five service panels slide in.", keys: ["expertise"] },
-      { id: "glance", title: "BCE at a glance", hint: "The counted figures and the partner logo groups.", keys: ["glance"] },
+      { id: "glance", title: "BCE at a glance", hint: "The counted figures and the partners heading. The logo register lives on Clients & partners.", keys: ["glance"] },
       { id: "commitments", title: "HSE & operational commitments", hint: "The pinned photo and the five commitment statements.", keys: ["commitments"] },
       { id: "projects", title: "Selected projects", hint: "The portfolio heading and its call to action. Project cards come from Projects.", keys: ["projects"] },
       { id: "coverage", title: "Coverage", hint: "The map introduction and the story labels over the map.", keys: ["coverage"] },
@@ -732,19 +733,19 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "ctaLabel", label: "Button label", type: "text" },
           { key: "ctaHref", label: "Button link", type: "text", locale: false },
           { key: "image", label: "Photo", type: "image", wide: true, aspect: "16 / 9" },
-          { key: "alt", label: "Photo alt text", type: "text", wide: true, locale: false },
+          { key: "alt", label: "Photo alt text", type: "text", wide: true },
           { key: "video", label: "Film", type: "text", hint: "Optional MP4 path; it plays while the panel is on screen and sets how long the panel holds.", locale: false, wide: true },
           { key: "poster", label: "Film poster", type: "image", wide: true, aspect: "16 / 9" },
           { key: "position", label: "Photo focus", type: "text", hint: "object-position, e.g. 50% 45%.", locale: false },
         ] },
         { key: "image", label: "About reveal image", type: "image", wide: true, aspect: "5 / 6" },
-        { key: "imageAlt", label: "About reveal alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "About reveal alt text", type: "text", wide: true },
         { key: "newsKicker", label: "News kicker", type: "text" },
         { key: "newsTitle", label: "News card title", type: "text" },
         { key: "newsHref", label: "News card link", type: "text", locale: false },
         { key: "newsDownload", label: "Download filename", type: "text", hint: "Optional. Leave blank to open the link in the browser.", locale: false },
         { key: "newsImage", label: "News card image", type: "image", wide: true, aspect: "4 / 3" },
-        { key: "newsAlt", label: "News card alt text", type: "text", wide: true, locale: false },
+        { key: "newsAlt", label: "News card alt text", type: "text", wide: true },
       ] },
 
       { key: "loader", label: "", type: "group", fields: [
@@ -756,7 +757,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
 
       { key: "about", label: "", type: "group", fields: [
         { key: "image", label: "About image", type: "image", wide: true, aspect: "5 / 6" },
-        { key: "imageAlt", label: "Image alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Image alt text", type: "text", wide: true },
         { key: "intro", label: "Introduction", type: "textarea", rows: 3, wide: true },
         { key: "ctaLabel", label: "Button label", type: "text" },
         { key: "ctaHref", label: "Button link", type: "text", locale: false },
@@ -785,20 +786,13 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "note", label: "Note", type: "text" },
           { key: "icon", label: "Icon", type: "select", options: HOMEPAGE_ICONS, locale: false },
         ] },
-        { key: "partnersTitle", label: "Partners heading", type: "text", wide: true },
-        { key: "groups", label: "Partner groups", type: "objectList", itemLabel: "Group", itemFields: [
-          { key: "label", label: "Group label", type: "text" },
-          { key: "items", label: "Partners", type: "objectList", itemLabel: "Partner", itemFields: [
-            { key: "name", label: "Name", type: "text" },
-            { key: "logo", label: "Logo", type: "image", aspect: "16 / 9", locale: false, hint: "Optional; the name is shown as a wordmark when no logo is set." },
-          ] },
-        ] },
+        { key: "partnersTitle", label: "Partners heading", type: "text", wide: true, hint: "The logo groups, their names and artwork are edited on Clients & partners." },
       ] },
 
       { key: "commitments", label: "", type: "group", fields: [
         { key: "label", label: "Section label", type: "text" },
         { key: "image", label: "Background photo", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Photo alt text", type: "text", wide: true },
         { key: "ctaLabel", label: "Button label", type: "text" },
         { key: "ctaHref", label: "Button link", type: "text", locale: false },
         { key: "items", label: "Commitments", type: "objectList", itemLabel: "Commitment", itemFields: [
@@ -816,7 +810,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { key: "coverage", label: "", type: "group", fields: [
         { key: "titleLines", label: "Map headline", type: "list" },
         { key: "image", label: "Coverage page banner", type: "image", wide: true, aspect: "16 / 9" },
-        { key: "imageAlt", label: "Coverage page banner alt text", type: "text", wide: true, locale: false },
+        { key: "imageAlt", label: "Coverage page banner alt text", type: "text", wide: true },
         { key: "intro", label: "Coverage page introduction", type: "textarea", rows: 4, wide: true },
         { key: "hint", label: "Click hint", type: "text" },
         { key: "story", label: "Story steps", type: "objectList", itemLabel: "Step", itemFields: [
@@ -859,6 +853,59 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "hotlinesLabel", label: "Hotlines label", type: "text" },
         { key: "socialLabel", label: "Social label", type: "text" },
         { key: "creditLabel", label: "Legal bar credit", type: "text" },
+      ] },
+    ],
+  },
+
+  partners: {
+    type: "partners",
+    label: "Clients & partners",
+    singular: "Clients & partners",
+    description: "The client, partner and supplier register shown on /partners, and the featured logos on the home page.",
+    icon: "◎",
+    titleKey: "title",
+    slugKey: "slug",
+    singleton: true,
+    tabs: true,
+    defaults: () => ({
+      ...(JSON.parse(JSON.stringify(DEFAULT_PARTNERS)) as Record<string, unknown>),
+      title: "Clients & partners",
+      slug: "home",
+    }),
+    skipKm: ["title", "slug"],
+    sections: [
+      {
+        id: "cover",
+        title: "Cover and introduction",
+        hint: "The page heading, introduction and the note above the profile download.",
+        keys: ["title", "slug", "kicker", "titleLines", "intro", "registerNote", "footnote"],
+      },
+      {
+        id: "groups",
+        title: "Register",
+        hint: "Every organisation and individual, in the order they should appear. Featured entries also appear on the home page.",
+        keys: ["groups"],
+      },
+    ],
+    fields: [
+      { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
+      { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “home”.", locale: false },
+      { key: "kicker", label: "Kicker", type: "text" },
+      { key: "titleLines", label: "Heading", type: "list", hint: "One line per row." },
+      { key: "intro", label: "Introduction", type: "textarea", rows: 4, wide: true },
+      { key: "registerNote", label: "Register note", type: "textarea", rows: 2, wide: true, hint: "Sits beside the Corporate Profile download." },
+      { key: "footnote", label: "Footnote", type: "textarea", rows: 2, wide: true },
+      { key: "groups", label: "Groups", type: "objectList", itemLabel: "Group", hint: "The profile's three groups: government, contractors/clients and suppliers.", itemFields: [
+        { key: "id", label: "Group id", type: "text", locale: false, hint: "Short key used by the filter and home-page order, e.g. government." },
+        { key: "label", label: "Label", type: "text" },
+        { key: "shortLabel", label: "Short label", type: "text", hint: "Used by the filter chips and the home-page grid." },
+        { key: "tag", label: "Section tag", type: "text", hint: "Orange eyebrow above the /partners section title." },
+        { key: "note", label: "Group note", type: "text" },
+        { key: "items", label: "Names", type: "objectList", itemLabel: "Client / partner", itemFields: [
+          { key: "name", label: "Name", type: "text" },
+          { key: "logo", label: "Logo", type: "image", aspect: "16 / 9", locale: false, hint: "Optional; the name is shown as a wordmark when no logo is set." },
+          { key: "featured", label: "Show on home page", type: "boolean", locale: false },
+        ] },
       ] },
     ],
   },

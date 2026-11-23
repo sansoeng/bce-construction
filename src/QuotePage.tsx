@@ -38,9 +38,9 @@ const volumeOf = (shape: Shape, v: Record<string, string>) => {
 
 const STRENGTHS = ["C15", "C20", "C25", "C30", "C35", "C40", "Not sure"];
 
-function Field({ label, required, children, wide }: { label: string; required?: boolean; children: React.ReactNode; wide?: boolean }) {
+function Field({ label, required, children, wide, invalid }: { label: string; required?: boolean; children: React.ReactNode; wide?: boolean; invalid?: boolean }) {
   return (
-    <label className={`qf-field${wide ? " qf-field--wide" : ""}`}>
+    <label className={`qf-field${wide ? " qf-field--wide" : ""}${invalid ? " is-invalid" : ""}`}>
       <span className="qf-label">{label}{required && <span aria-hidden> *</span>}</span>
       {children}
     </label>
@@ -79,7 +79,10 @@ export default function QuotePage() {
   const [serverNote, setServerNote] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [fileError, setFileError] = useState("");
+  const [invalid, setInvalid] = useState<string[]>([]);
   const detailsRef = useRef<HTMLDivElement>(null);
+  const serviceRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
   const quoteEmail = siteSettings.contact.email;
   const quoteTelegram = siteSettings.contact.telegram.replace(/^@/, "");
 
@@ -88,12 +91,22 @@ export default function QuotePage() {
   const withWaste = service === "" || service === "ready-mix-concrete" || service === "concrete-slab-works";
   const base = volumeOf(shape, dims);
   const total = base * (1 + num(waste) / 100);
-  const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+    setInvalid((prev) => prev.filter((x) => x !== k));
+  };
+
+  // Bring a failed submit back to the section that needs attention, clear of the fixed header.
+  const scrollTo = (el: HTMLElement | null) => {
+    if (!el) return;
+    const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: object) => void } | null }).__lenis;
+    if (lenis) lenis.scrollTo(el, { offset: -140 });
+    else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 140, behavior: "smooth" });
+  };
 
   const useVolume = () => {
     setForm((f) => ({ ...f, volume: total.toFixed(1) }));
-    const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: object) => void } | null }).__lenis;
-    if (detailsRef.current) lenis ? lenis.scrollTo(detailsRef.current, { offset: -120 }) : detailsRef.current.scrollIntoView({ behavior: "smooth" });
+    scrollTo(detailsRef.current);
   };
 
   // Service-specific questions (brief section 9; the ready-mix list is the brief's own).
@@ -130,8 +143,19 @@ export default function QuotePage() {
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!siteSettings.features.leadsEnabled) return setError("Online requests are temporarily paused. Please call 012 932 700.");
-    if (!service) return setError("Please choose a service.");
-    if (!form.contact?.trim() || !form.phone?.trim()) return setError("Please add a contact person and a phone or Telegram number.");
+    const missing: string[] = [];
+    if (!service) missing.push("service");
+    if (!form.contact?.trim()) missing.push("contact");
+    if (!form.phone?.trim()) missing.push("phone");
+    setInvalid(missing);
+    if (missing.length) {
+      setError("");
+      if (missing.includes("service")) scrollTo(serviceRef.current);
+      else scrollTo(contactRef.current);
+      const focusId = missing.includes("service") ? null : missing.includes("contact") ? "qf-contact" : "qf-phone";
+      if (focusId) requestAnimationFrame(() => document.getElementById(focusId)?.focus({ preventScroll: true }));
+      return;
+    }
     if (!token) return setError("Please complete the security check before sending.");
     const problem = describeFileProblem(files);
     if (problem) return setError(problem);
@@ -198,17 +222,20 @@ export default function QuotePage() {
       <form onSubmit={send} noValidate className="site-shell pb-24 md:pb-40">
         {/* 01: service, as five tiles in the homepage panel colours. */}
         <Step n={1} title="Choose a service">
-          <fieldset className="qf-tiles">
-            <legend className="sr-only">Service</legend>
-            {offerings.map((b, i) => (
-              <label key={b.slug} className={`qf-tile${service === b.slug ? " is-on" : ""}`} style={{ "--bg": b.bg, "--fg": b.fg, "--i": i } as CSSProperties}>
-                <input type="radio" name="service" value={b.slug} checked={service === b.slug} onChange={() => setService(b.slug)} className="sr-only" />
-                <span className="qf-tile-num">{pad(i + 1)}</span>
-                <span className="qf-tile-name">{b.name}</span>
-                <span className="qf-tile-tag">{b.tagline}</span>
-              </label>
-            ))}
-          </fieldset>
+          <div ref={serviceRef}>
+            {invalid.includes("service") && <p className="qf-error" role="alert">Please choose a service.</p>}
+            <fieldset className={`qf-tiles${invalid.includes("service") ? " is-invalid" : ""}`}>
+              <legend className="sr-only">Service</legend>
+              {offerings.map((b, i) => (
+                <label key={b.slug} className={`qf-tile${service === b.slug ? " is-on" : ""}`} style={{ "--bg": b.bg, "--fg": b.fg, "--i": i } as CSSProperties}>
+                  <input type="radio" name="service" value={b.slug} checked={service === b.slug} onChange={() => { setService(b.slug); setInvalid((prev) => prev.filter((x) => x !== "service")); }} className="sr-only" />
+                  <span className="qf-tile-num">{pad(i + 1)}</span>
+                  <span className="qf-tile-name">{b.name}</span>
+                  <span className="qf-tile-tag">{b.tagline}</span>
+                </label>
+              ))}
+            </fieldset>
+          </div>
         </Step>
 
         {/* 02: concrete volume calculator (concrete services). */}
@@ -253,7 +280,7 @@ export default function QuotePage() {
 
         {/* 03: project details, service-specific. */}
         <Step n={concrete ? 3 : 2} title="Project details" note={biz ? `${biz.name}: ${biz.tagline.toLowerCase()}.` : "Choose a service above for its specific questions."}>
-          <div ref={detailsRef} className="qf-grid">
+          <div ref={detailsRef} className="qf-panel qf-grid">
             <Field label="Project name"><input className="qf-input" value={form.project ?? ""} onChange={set("project")} /></Field>
             <Field label="Project location"><input className="qf-input" value={form.location ?? ""} onChange={set("location")} placeholder="Province or address" /></Field>
             {specific.map(([k, label, kind, options]) => (
@@ -305,14 +332,17 @@ export default function QuotePage() {
 
         {/* 04: contact and send. */}
         <Step n={concrete ? 4 : 3} title="Your details">
-          <div className="qf-grid">
-            <Field label="Contact person" required><input className="qf-input" value={form.contact ?? ""} onChange={set("contact")} autoComplete="name" /></Field>
-            <Field label="Phone / Telegram" required><input className="qf-input" type="tel" value={form.phone ?? ""} onChange={set("phone")} autoComplete="tel" /></Field>
+          <div ref={contactRef} className="qf-panel qf-grid">
+            <Field label="Contact person" required invalid={invalid.includes("contact")}><input id="qf-contact" className="qf-input" value={form.contact ?? ""} onChange={set("contact")} autoComplete="name" aria-invalid={invalid.includes("contact") || undefined} /></Field>
+            <Field label="Phone / Telegram" required invalid={invalid.includes("phone")}><input id="qf-phone" className="qf-input" type="tel" value={form.phone ?? ""} onChange={set("phone")} autoComplete="tel" aria-invalid={invalid.includes("phone") || undefined} /></Field>
             <Field label="Email (optional)"><input className="qf-input" type="email" value={form.email ?? ""} onChange={set("email")} autoComplete="email" placeholder="name@company.com" /></Field>
             <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
               <label>Website<input type="text" tabIndex={-1} autoComplete="off" value={form.website ?? ""} onChange={set("website")} /></label>
             </div>
           </div>
+          {(invalid.includes("contact") || invalid.includes("phone")) && (
+            <p className="qf-error" role="alert">Please add a contact person and a phone or Telegram number.</p>
+          )}
           {error && <p role="alert" className="mt-6 text-[.95rem] text-[#b3261e]">{error}</p>}
           {!siteSettings.features.leadsEnabled && (
             <p className="mt-6 text-[.95rem] text-black/55">

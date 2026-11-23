@@ -19,15 +19,37 @@ export default function ApplyForm({ role }: { role: string }) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [sentTo, setSentTo] = useState("");
+  const [invalid, setInvalid] = useState<string[]>([]);
 
-  const set = (key: string) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const set = (key: string) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((current) => ({ ...current, [key]: event.target.value }));
+    setInvalid((prev) => prev.filter((x) => x !== key));
+  };
+
+  // Bring a failed submit back to the first unanswered field, clear of the fixed header.
+  const scrollToField = (el: HTMLElement | null) => {
+    if (!el) return;
+    const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: object) => void } | null }).__lenis;
+    if (lenis) lenis.scrollTo(el, { offset: -140 });
+    else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 140, behavior: "smooth" });
+  };
 
   const send = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!siteSettings.features.leadsEnabled) return setError("Online applications are paused. Please email HR directly.");
-    if (!form.name?.trim()) return setError("Please add your name.");
-    if (!form.email?.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) return setError("Please add a valid email address.");
+    const missing: string[] = [];
+    if (!form.name?.trim()) missing.push("name");
+    if (!form.email?.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) missing.push("email");
+    setInvalid(missing);
+    if (missing.length) {
+      setError("");
+      requestAnimationFrame(() => {
+        const input = document.getElementById(`apply-${missing[0]}`);
+        scrollToField(input?.closest<HTMLElement>(".qf-field") ?? null);
+        input?.focus({ preventScroll: true });
+      });
+      return;
+    }
     const problem = cv ? describeFileProblem([cv]) : "";
     if (problem) return setError(problem);
     if (!token) return setError("Please complete the security check before sending.");
@@ -70,28 +92,26 @@ export default function ApplyForm({ role }: { role: string }) {
   }
 
   return (
-    <form onSubmit={send} noValidate className="border border-[#111]/10 p-6">
-      <p className="font-mono text-[12px] uppercase tracking-[0.06em] text-[#FB290E]">Apply for this role</p>
-      <h3 className="mt-3 text-[20px] font-medium leading-snug">{role}</h3>
-
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
-        <label className="flex flex-col gap-1.5">
+    <form onSubmit={send} noValidate aria-label={`Apply for ${role}`}>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {invalid.length > 0 && <p className="qf-error sm:col-span-2" role="alert">Please check the highlighted fields.</p>}
+        <label className={`qf-field${invalid.includes("name") ? " is-invalid" : ""}`}>
           <span className="qf-label">Your name *</span>
-          <input className={fieldClass} value={form.name ?? ""} onChange={set("name")} autoComplete="name" />
+          <input id="apply-name" className={fieldClass} value={form.name ?? ""} onChange={set("name")} autoComplete="name" aria-invalid={invalid.includes("name") || undefined} />
         </label>
-        <label className="flex flex-col gap-1.5">
+        <label className={`qf-field${invalid.includes("email") ? " is-invalid" : ""}`}>
           <span className="qf-label">Email *</span>
-          <input className={fieldClass} type="email" value={form.email ?? ""} onChange={set("email")} autoComplete="email" />
+          <input id="apply-email" className={fieldClass} type="email" value={form.email ?? ""} onChange={set("email")} autoComplete="email" aria-invalid={invalid.includes("email") || undefined} />
         </label>
-        <label className="flex flex-col gap-1.5 sm:col-span-2">
+        <label className="qf-field sm:col-span-2">
           <span className="qf-label">Phone / Telegram</span>
           <input className={fieldClass} type="tel" value={form.phone ?? ""} onChange={set("phone")} autoComplete="tel" />
         </label>
-        <label className="flex flex-col gap-1.5 sm:col-span-2">
+        <label className="qf-field sm:col-span-2">
           <span className="qf-label">Experience summary</span>
           <textarea className={`${fieldClass} qf-textarea`} rows={3} value={form.message ?? ""} onChange={set("message")} placeholder="Years in the role, equipment or projects you have worked on" />
         </label>
-        <label className="flex flex-col gap-1.5 sm:col-span-2">
+        <label className="qf-field sm:col-span-2">
           <span className="qf-label">CV / résumé</span>
           <input
             type="file"

@@ -153,7 +153,9 @@ export const DOCUMENTS: ResourceDocument[] = [
 
 const LEGACY_PROFILE_URL = "/assets/BCE_Corporate_Profile_2026.pdf";
 
-registerContentType("resources", (items) => {
+registerContentType(
+  "resources",
+  (items) => {
   // D1 can still hold the original rows, where every card pointed at the company profile and carried invented
   // sizes/revisions. Upgrade those rows as they load so only the profile offers a file and the rest ask for a copy.
   const docs = (items as ResourceDocument[]).map((doc) => {
@@ -173,6 +175,8 @@ registerContentType("resources", (items) => {
     }
     return doc;
   });
-  DOCUMENTS.length = 0;
-  DOCUMENTS.push(...docs);
-});
+    DOCUMENTS.length = 0;
+    DOCUMENTS.push(...docs);
+  },
+  DOCUMENTS,
+);

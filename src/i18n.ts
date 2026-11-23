@@ -47,9 +47,14 @@ const MONTHS: Record<string, string> = {
 const KM: Record<string, string> = {
   // Page Title & Meta
   "BCE — Battambang Construction & Engineering | Architectural Concrete & Civil Infrastructure": "BCE — ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង | បេតុងស្តង់ដារ & ហេដ្ឋារចនាសម្ព័ន្ធស៊ីវិល",
+  "BCE — Battambang Construction and Engineering Co., Ltd.": "BCE — ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី",
 
   // Navigation, header, menu, brand
   "Home": "ទំព័រដើម",
+  "Error 404": "កំហុស 404",
+  "This page isn’t here.": "ទំព័រនេះមិនមានទេ។",
+  "The address may be old or mistyped. Start from the home page, or call":
+    "អាសយដ្ឋានអាចចាស់ ឬវាយខុស។ សូមចាប់ផ្តើមពីទំព័រដើម ឬទូរសព្ទទៅ",
   "About": "អំពីយើង",
   "About BCE": "អំពី BCE",
   "Businesses": "អាជីវកម្ម",
@@ -60,6 +65,10 @@ const KM: Record<string, string> = {
   "All projects": "គម្រោងទាំងអស់",
   "All Projects": "គម្រោងទាំងអស់",
   "Filter projects": "ត្រងគម្រោង",
+  "Filter clients & partners": "ត្រងអតិថិជន និងដៃគូ",
+  "Group": "ក្រុម",
+  "partner": "ដៃគូ",
+  "partners": "ដៃគូ",
   "Filter projects by category": "ត្រងគម្រោងតាមប្រភេទ",
   "Coverage": "តំបន់សេវាកម្ម",
   "Quality & Lab": "គុណភាព & មន្ទីរពិសោធន៍",
@@ -345,6 +354,7 @@ const KM: Record<string, string> = {
   "Three decades of certified concrete production, automated batching plants, and expanding civil infrastructure across 14 Cambodian provinces.": "បីទសវត្សរ៍នៃផលិតកម្មបេតុងស្តង់ដារ ស្ថានីយស្វ័យប្រវត្តិកុំព្យូទ័រ និងការពង្រីកហេដ្ឋារចនាសម្ព័ន្ធស៊ីវិលក្នុង ១៤ ខេត្ត-រាជធានី។",
   "Read the 2026 profile": "អានប្រវត្តិរូបក្រុមហ៊ុន ២០២៦",
   "All categories": "គ្រប់ប្រភេទឯកសារ",
+  "1 document": "ឯកសារ ១",
   "Search documents": "ស្វែងរកឯកសារ...",
   "Search documents...": "ស្វែងរកឯកសារ...",
   "Search from 8 official documents...": "ស្វែងរកពីឯកសារផ្លូវការទាំង ៨...",
@@ -559,6 +569,14 @@ const KM: Record<string, string> = {
   "Provinces served": "ខេត្តដែលបានបម្រើ",
   "13 provinces + Phnom Penh": "១៣ ខេត្ត និងរាជធានីភ្នំពេញ",
   "Trusted partners & clients": "ដៃគូ និងអតិថិជនដែលទុកចិត្ត",
+  "Clients & partners": "អតិថិជន និងដៃគូ",
+  "Introduction": "សេចក្ដីផ្ដើម",
+  "View all clients & partners": "មើលអតិថិជន និងដៃគូទាំងអស់",
+  "organisations & individuals": "អង្គភាព និងបុគ្គល",
+  "Download the Corporate Profile": "ទាញយកប្រវត្តិរូបក្រុមហ៊ុន",
+  "Clients, Partners & Key Suppliers | BCE": "អតិថិជន ដៃគូ និងអ្នកផ្គត់ផ្គង់ | BCE",
+  "The organisations BCE works with across Cambodia: government institutions, contractors, developers, corporate clients and key materials suppliers.":
+    "អង្គភាពដែល BCE សហការជាមួយទូទាំងប្រទេសកម្ពុជា៖ ស្ថាប័នរដ្ឋាភិបាល ក្រុមហ៊ុនម៉ៅការ អ្នកអភិវឌ្ឍន៍ អតិថិជនសាជីវកម្ម និងអ្នកផ្គត់ផ្គង់វត្ថុធាតុដើមសំខាន់ៗ។",
   "Clients": "អតិថិជន",
   "Suppliers": "អ្នកផ្គត់ផ្គង់",
   "Technical Partners": "ដៃគូបច្ចេកទេស",
@@ -1290,6 +1308,8 @@ const KM: Record<string, string> = {
   "Building Cambodia from the ground up": "សាងសង់កម្ពុជាចាប់ពីគ្រឹះឡើងទៅ",
   "Grid": "ក្រឡាចត្រង្គ",
   "List": "បញ្ជី",
+  "No projects match these filters.": "គ្មានគម្រោងត្រូវនឹងតម្រងទាំងនេះឡើយ។",
+  "1 project": "គម្រោង ១",
   "Layout": "ប្លង់",
   "Filters": "តម្រង",
   "Services": "សេវាកម្ម",
@@ -1724,6 +1744,28 @@ const KM: Record<string, string> = {
   "Please complete the security check before sending.": "សូមបំពេញការត្រួតពិនិត្យសុវត្ថិភាពមុននឹងផ្ញើ។",
   "Online requests are temporarily paused. Please call 012 932 700.":
     "ការស្នើសុំតាមអនឡាញត្រូវបានផ្អាកជាបណ្តោះអាសន្ន។ សូមទូរស័ព្ទមក 012 932 700។",
+
+  // Remaining UI copy found by the Khmer coverage pass.
+  "Kingdom of Cambodia": "ព្រះរាជាណាចក្រកម្ពុជា",
+  "Vision and mission": "ចក្ខុវិស័យ និងបេសកកម្ម",
+  "Explore the laboratory": "ស្វែងយល់ពីមន្ទីរពិសោធន៍",
+  "Protected by Cloudflare Turnstile. We only store the details you submit.":
+    "ការពារដោយ Cloudflare Turnstile។ យើងរក្សាទុកតែព័ត៌មានដែលអ្នកផ្ញើ។",
+  "Sales & Quotations": "ការលក់ និងសម្រង់តម្លៃ",
+  "Battambang Head Office": "ការិយាល័យកណ្តាលបាត់ដំបង",
+  "Corporate publications, technical documents and credentials. Documents not yet published can be requested from our team.":
+    "ឯកសារសាធារណៈរបស់ក្រុមហ៊ុន ឯកសារបច្ចេកទេស និងវិញ្ញាបនបត្រ។ ឯកសារដែលមិនទាន់ចេញផ្សាយ អាចស្នើសុំពីក្រុមការងាររបស់យើង។",
+  "Available on request": "មានតាមការស្នើសុំ",
+  "Request this document": "ស្នើសុំឯកសារនេះ",
+  "Monday – Sunday, 6:30 AM – 5:30 PM": "ថ្ងៃចន្ទ – ថ្ងៃអាទិត្យ ម៉ោង ៦:៣០ – ១៧:៣០",
+  "served since 1995": "បម្រើតាំងពីឆ្នាំ ១៩៩៥",
+  "Our Businesses": "អាជីវកម្មរបស់យើង",
+  "Request a Quote": "ស្នើសុំសម្រង់តម្លៃ",
+  "Quality, Capability & HSE": "គុណភាព សមត្ថភាព និងសុវត្ថិភាព (HSE)",
+  "The Journal is an editorial preview. Articles marked “Sample content” are illustrative drafts awaiting BCE technical review.":
+    "ទស្សនាវដ្តីនេះជាការមើលជាមុនរបស់អ្នកកែសម្រួល។ អត្ថបទដែលសម្គាល់ថា “មាតិកាគំរូ” គឺជាសេចក្តីព្រាងឧទាហរណ៍ ដែលកំពុងរង់ចាំការត្រួតពិនិត្យបច្ចេកទេសពី BCE។",
+  "Sample": "គំរូ",
+  "Illustrative draft — pending BCE review": "សេចក្តីព្រាងគំរូ — រង់ចាំការត្រួតពិនិត្យពី BCE",
   // Page titles carry the search phrase and the place, so the Khmer edition does too.
   "About BCE — Building Across Cambodia Since 1995": "អំពី BCE — កសាងទូទាំងកម្ពុជាតាំងពីឆ្នាំ ១៩៩៥",
   "Concrete, Piling & Civil Construction | BCE Battambang": "បេតុង ការបោះសសរស្តម្ភ និងសំណង់ស៊ីវិល | BCE បាត់ដំបង",
@@ -1754,6 +1796,9 @@ const PATTERNS: [RegExp, (...m: string[]) => string | null][] = [
   [/^(.+) logo$/, (s) => `ឡូហ្គោ ${s}`],
   [/^Call (.+)$/, (s) => `ហៅទូរសព្ទ ${s}`],
   [/^(\d+) projects$/, (n) => `គម្រោង ${n}`],
+  [/^(\d+) documents$/, (n) => `ឯកសារ ${n}`],
+  [/^Remove (.+) filter$/, (s) => `លុបតម្រង ${tr(s)}`],
+  [/^(\d+) min read$/, (n) => `${n.replace(/\d/g, (d) => "០១២៣៤៥៦៧៨៩"[Number(d)])} នាទីអាន`],
   [/^(\d+)\+ projects completed$/, (n) => `គម្រោងបានបញ្ចប់ ${n}+`],
   [/^(\d+) projects completed$/, (n) => `គម្រោងបានបញ្ចប់ ${n}`],
   [/^~(\d+) km from Battambang$/, (n) => `~${n} គ.ម. ពីបាត់ដំបង`],

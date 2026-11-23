@@ -197,75 +197,7 @@
               "icon": "piling"
             }
           ],
-          "partnersTitle": "Trusted partners & clients",
-          "groups": [
-            {
-              "label": "Clients",
-              "items": [
-                {
-                  "name": "Obayashi"
-                },
-                {
-                  "name": "Hanshin Engineering & Construction"
-                },
-                {
-                  "name": "Thang Long JSC"
-                },
-                {
-                  "name": "SUMEC International Technology"
-                },
-                {
-                  "name": "SchneiTec"
-                },
-                {
-                  "name": "Build Bright University"
-                }
-              ]
-            },
-            {
-              "label": "Government & public sector",
-              "items": [
-                {
-                  "name": "Ministry of Public Works and Transport"
-                },
-                {
-                  "name": "Ministry of Land Management, Urban Planning and Construction"
-                },
-                {
-                  "name": "Ministry of Water Resources and Meteorology"
-                },
-                {
-                  "name": "Ministry of Rural Development"
-                },
-                {
-                  "name": "Ministry of Commerce"
-                },
-                {
-                  "name": "Battambang Provincial Administration"
-                }
-              ]
-            },
-            {
-              "label": "Suppliers & technical partners",
-              "items": [
-                {
-                  "name": "Chip Mong Group"
-                },
-                {
-                  "name": "SCG Distribution and Retail"
-                },
-                {
-                  "name": "Sika Cambodia"
-                },
-                {
-                  "name": "Battambang Conch Cement"
-                },
-                {
-                  "name": "Hong Huot Ly Co., Ltd."
-                }
-              ]
-            }
-          ]
+          "partnersTitle": "Trusted partners & clients"
         },
         "commitments": {
           "label": "HSE & Operational Commitments",
@@ -484,6 +416,759 @@
         },
         "title": "Homepage",
         "slug": "home"
+      },
+      "km": {
+        "loader": {
+          "word": "BCE., LTD.",
+          "titleLines": [
+            "ក្រុមហ៊ុនសំណង់",
+            "ហេដ្ឋារចនាសម្ព័ន្ធ និងអគារ"
+          ],
+          "locationLines": [
+            "បាត់ដំបង",
+            "កម្ពុជា"
+          ],
+          "statusLines": [
+            "កំពុងដំណើរការ",
+            "0%"
+          ]
+        },
+        "hero": {
+          "slides": [
+            {
+              "label": "BCE ដោយសង្ខេប",
+              "titleLines": [
+                "កសាងលើភាពរឹងមាំ។",
+                "ផ្ដល់ជូនដោយទំនុកចិត្ត។"
+              ],
+              "ctaLabel": "ស្វែងយល់ពីអាជីវកម្មរបស់យើង",
+              "alt": "ទិដ្ឋភាពពីលើរោងចក្រលាយបេតុងរបស់ BCE នៅបាត់ដំបង"
+            },
+            {
+              "label": "បេតុងលាយស្រេច",
+              "titleLines": [
+                "បេតុងលាយតាម",
+                "លក្ខណៈបច្ចេកទេស។"
+              ],
+              "ctaLabel": "បេតុងលាយស្រេច",
+              "alt": "ស៊ីឡូរោងចក្រលាយបេតុងរបស់ BCE មើលពីលើ"
+            },
+            {
+              "label": "ការបោះសសរស្ដម្ភគ្រឹះ",
+              "titleLines": [
+                "គ្រឹះសាងសង់ឡើង",
+                "ដើម្បីទ្រទ្រង់។"
+              ],
+              "ctaLabel": "ការបោះសសរស្ដម្ភគ្រឹះ",
+              "alt": "ម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រកំពុងដំណើរការក្បែររថយន្តលាយបេតុង"
+            },
+            {
+              "label": "ការប្រគល់គម្រោង",
+              "titleLines": [
+                "ប្រគល់ជូនទូទាំង",
+                "ប្រទេសកម្ពុជា។"
+              ],
+              "ctaLabel": "មើលគម្រោងរបស់យើង",
+              "alt": "វិស្វកររបស់ BCE ឈរលើកម្រាលបេតុងអារម៉េ"
+            }
+          ],
+          "imageAlt": "",
+          "newsKicker": "ប្រវត្តិរូបក្រុមហ៊ុន",
+          "newsTitle": "ទាញយកប្រវត្តិរូបក្រុមហ៊ុន BCE ឆ្នាំ ២០២៦",
+          "newsAlt": "ប្រវត្តិរូបក្រុមហ៊ុន BCE"
+        },
+        "about": {
+          "imageAlt": "ព័ត៌មានលម្អិតស្ថាបត្យកម្ម BCE",
+          "intro": "BCE ជាក្រុមហ៊ុនវិស្វកម្ម និងសំណង់ មានមូលដ្ឋាននៅខេត្តបាត់ដំបង ដែលបានសាងសង់ទូទាំងកម្ពុជាចាប់តាំងពីឆ្នាំ ១៩៩៥ ជាមួយគ្រឿងចក្រទំនើប និងក្រុមការងារជំនាញ។",
+          "ctaLabel": "ស្វែងយល់បន្ថែមអំពីយើង",
+          "titleSegments": [
+            {
+              "text": "យើងផ្គត់ផ្គង់បេតុងលាយស្រេច",
+              "label": "បេតុងលាយស្រេច"
+            },
+            {
+              "text": "ការបោះសសរស្ដម្ភគ្រឹះ",
+              "label": "ការបោះសសរស្ដម្ភគ្រឹះ"
+            },
+            {
+              "text": "សំណង់ស៊ីវិល",
+              "label": "សំណង់ស៊ីវិល"
+            },
+            {
+              "text": "ការងារចាក់កម្រាល",
+              "label": "ការងារចាក់កម្រាលបេតុង"
+            },
+            {
+              "text": "និងការជួលគ្រឿងចក្រ",
+              "label": "ការជួលគ្រឿងចក្រ"
+            }
+          ],
+          "titleClosing": "ទូទាំងប្រទេសកម្ពុជា។"
+        },
+        "expertise": {
+          "kicker": "អាជីវកម្មស្នូល",
+          "lead": "ការផ្គត់ផ្គង់បេតុង ការបោះសសរស្ដម្ភ សំណង់ ការងារចាក់កម្រាលបេតុង និងការជួលគ្រឿងចក្រ នៅកន្លែងតែមួយ។",
+          "scrollLabel": "រំកិលដើម្បីស្វែងរក",
+          "titleLines": [
+            "អាជីវកម្ម",
+            "ស្នូលរបស់យើង"
+          ]
+        },
+        "glance": {
+          "title": "ទិដ្ឋភាពទូទៅរបស់ BCE ២០២៥–២០២៦",
+          "stats": [
+            {
+              "label": "ឆ្នាំនៃបទពិសោធន៍",
+              "note": "បង្កើតឡើងឆ្នាំ ១៩៩៥"
+            },
+            {
+              "label": "គម្រោងបានបញ្ចប់ក្នុងឆ្នាំ ២០២៥",
+              "note": "កំណត់ត្រាក្រុមហ៊ុនផ្លូវការ"
+            },
+            {
+              "label": "អតិថិជនដែលបានបម្រើ",
+              "note": "ក្នុងឆ្នាំ ២០២៥"
+            },
+            {
+              "label": "ខេត្តដែលបានបម្រើ",
+              "note": "១៣ ខេត្ត និងរាជធានីភ្នំពេញ"
+            },
+            {
+              "label": "រោងចក្រលាយបេតុង",
+              "note": "៧០ m³/ម៉ោង ក្នុងមួយរោងចក្រ · បាត់ដំបង"
+            },
+            {
+              "label": "រថយន្តលាយបេតុង",
+              "note": "កងគ្រឿងចក្រគិតត្រឹមឆ្នាំ ២០២៦"
+            },
+            {
+              "label": "រថយន្តបូមបេតុង",
+              "note": "ដៃបូមប្រវែងរហូតដល់ ៤៨ ម៉ែត្រ"
+            },
+            {
+              "label": "ម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រ",
+              "note": "ម៉ាស៊ីនខួង និងម៉ាស៊ីនបោក"
+            }
+          ],
+          "partnersTitle": "ដៃគូ និងអតិថិជនដែលទុកចិត្ត",
+          "groups": [
+            {
+              "label": "អតិថិជន",
+              "items": [
+                {
+                  "name": "Obayashi"
+                },
+                {
+                  "name": "Hanshin Engineering & Construction"
+                },
+                {
+                  "name": "Thang Long JSC"
+                },
+                {
+                  "name": "SUMEC International Technology"
+                },
+                {
+                  "name": "SchneiTec"
+                },
+                {
+                  "name": "Build Bright University"
+                }
+              ]
+            },
+            {
+              "label": "រដ្ឋាភិបាល និងវិស័យសាធារណៈ",
+              "items": [
+                {
+                  "name": "ក្រសួងសាធារណការ និងដឹកជញ្ជូន"
+                },
+                {
+                  "name": "ក្រសួងរៀបចំដែនដី នគរូបនីយកម្ម និងសំណង់"
+                },
+                {
+                  "name": "ក្រសួងធនធានទឹក និងឧតុនិយម"
+                },
+                {
+                  "name": "ក្រសួងអភិវឌ្ឍន៍ជនបទ"
+                },
+                {
+                  "name": "ក្រសួងពាណិជ្ជកម្ម"
+                },
+                {
+                  "name": "រដ្ឋបាលខេត្តបាត់ដំបង"
+                }
+              ]
+            },
+            {
+              "label": "អ្នកផ្គត់ផ្គង់ និងដៃគូបច្ចេកទេស",
+              "items": [
+                {
+                  "name": "Chip Mong Group"
+                },
+                {
+                  "name": "SCG Distribution and Retail"
+                },
+                {
+                  "name": "Sika Cambodia"
+                },
+                {
+                  "name": "Battambang Conch Cement"
+                },
+                {
+                  "name": "Hong Huot Ly Co., Ltd."
+                }
+              ]
+            }
+          ]
+        },
+        "commitments": {
+          "label": "ការប្តេជ្ញាចិត្តលើសុខភាព សុវត្ថិភាព បរិស្ថាន និងប្រតិបត្តិការ",
+          "imageAlt": "ការប្តេជ្ញាចិត្តរបស់ BCE លើសុខភាព សុវត្ថិភាព បរិស្ថាន និងប្រតិបត្តិការ",
+          "ctaLabel": "ស្វែងយល់ពីគុណភាព និងសុវត្ថិភាព (HSE)",
+          "items": [
+            {
+              "lines": [
+                "ការពារ",
+                "មនុស្ស"
+              ],
+              "text": "យើងការពារបុគ្គលិក ដៃគូ និងសហគមន៍នៅជុំវិញគ្រប់គម្រោងដែលយើងអនុវត្ត។"
+            },
+            {
+              "lines": [
+                "ធ្វើការ",
+                "ដោយសុវត្ថិភាព"
+              ],
+              "text": "ប្រតិបត្តិការប្រកបដោយសុវត្ថិភាព និងគ្រឿងចក្រដែលថែទាំល្អ ដំណើរការដោយក្រុមការងារជំនាញ និងមានបទពិសោធន៍។"
+            },
+            {
+              "lines": [
+                "គោរព",
+                "បរិស្ថាន"
+              ],
+              "text": "យើងសាងសង់សម្រាប់ថ្ងៃនេះ ខណៈពេលការពារធនធានសម្រាប់មនុស្សជំនាន់ក្រោយ តាមរយៈការទទួលខុសត្រូវចំពោះបរិស្ថាន និងការប្រើប្រាស់ធនធានប្រកបដោយប្រសិទ្ធភាព។"
+            },
+            {
+              "lines": [
+                "ធានា",
+                "គុណភាព"
+              ],
+              "text": "សាងសង់ឱ្យមានភាពយូរអង្វែង។ ចាប់ពីការលាយបេតុងដែលមានវិញ្ញាបនបត្រ រហូតដល់ការចាក់ប្រកបដោយភាពជាក់លាក់ ការត្រួតពិនិត្យគុណភាពក្នុងមន្ទីរពិសោធន៍ធានាថារាល់សំណង់មានភាពរឹងមាំ និងប្រើប្រាស់បានយូរ។"
+            },
+            {
+              "lines": [
+                "កសាង",
+                "ទំនុកចិត្ត"
+              ],
+              "text": "រួមគ្នាកាន់តែរឹងមាំ។ យើងរីកចម្រើនជាមួយអតិថិជន ដៃគូ និងអ្នកផ្គត់ផ្គង់ តាមរយៈទំនាក់ទំនងរយៈពេលវែង ដែលផ្អែកលើទំនុកចិត្ត ការគោរព និងភាពជោគជ័យរួមគ្នា។"
+            }
+          ]
+        },
+        "projects": {
+          "titleLines": [
+            "គម្រោង",
+            "ជ្រើសរើស"
+          ],
+          "ctaLabel": "មើលគម្រោងទាំងអស់"
+        },
+        "coverage": {
+          "titleLines": [
+            "គ្រប់ទីកន្លែងដែលអ្នកសាងសង់,",
+            "យើងនៅទីនោះជាមួយអ្នក។"
+          ],
+          "imageAlt": "វិស្វករ និងក្រុមការងាររបស់ BCE នៅលើកម្រាលបេតុងក្នុងប្រទេសកម្ពុជា",
+          "intro": "យើងទៅដល់គ្រប់ទីកន្លែងដែលអ្នកសាងសង់។ ជាមួយសមត្ថភាពគ្រឿងចក្រខ្លាំង ក្រុមការងារមានបទពិសោធន៍ និងការសម្របសម្រួលដែលអាចទុកចិត្តបាន យើងគាំទ្រគម្រោងនៅទូទាំង ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។",
+          "hint": "ចុចលើខេត្តមួយ ដើម្បីមើលព័ត៌មានលម្អិត",
+          "story": [
+            {
+              "label": "តំបន់ប្រតិបត្តិការ",
+              "lead": "ទីតាំងដែលយើងគ្របដណ្តប់ទូទាំងកម្ពុជា"
+            },
+            {
+              "label": "ឆ្នាំនៃបទពិសោធន៍",
+              "lead": "កសាងពីបាត់ដំបងតាំងពីឆ្នាំ ១៩៩៥"
+            },
+            {
+              "label": "គម្រោងបានបញ្ចប់",
+              "lead": "គម្រោងបានបញ្ចប់ក្នុងឆ្នាំ ២០២៥ នៅទូទាំងប្រទេសកម្ពុជា"
+            },
+            {
+              "label": "កងយានយន្ត និងគ្រឿងចក្រ",
+              "lead": "គ្រឿងចក្ររបស់យើងផ្ទាល់"
+            }
+          ],
+          "fleetNote": "បូករួមទាំងម៉ាស៊ីនបោះសសរស្ដម្ភផ្ទាល់ខ្លួន។",
+          "credit": "ព្រំដែន © អ្នករួមចំណែក OpenStreetMap · គម្រោងដែលបានបញ្ចប់ទូទាំងកម្ពុជា"
+        },
+        "why": {
+          "eyebrow": "ហេតុអ្វីជ្រើសរើស BCE",
+          "beliefs": [
+            {
+              "word": "គុណភាព",
+              "tag": "ត្រួតពិនិត្យគ្រប់ដំណាក់កាល"
+            },
+            {
+              "word": "សមត្ថភាព",
+              "tag": "រោងចក្រ និងគ្រឿងចក្រផ្ទាល់ខ្លួន"
+            },
+            {
+              "word": "ទំនុកចិត្ត",
+              "tag": "ដៃគូរយៈពេលវែង"
+            }
+          ]
+        },
+        "quote": {
+          "image": "/Image/bce/hero_batching_plant.webp",
+          "title": "កំពុងរៀបចំគម្រោង? ស្នើសុំសម្រង់តម្លៃ",
+          "text": "ប្រាប់យើងអំពីទីតាំង វិសាលភាពការងារ និងកាលវិភាគរបស់អ្នក សម្រាប់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភ សំណង់ ការងារចាក់កម្រាល ឬការជួលគ្រឿងចក្រ។ វិស្វកររបស់យើងនឹងផ្ញើសម្រង់តម្លៃច្បាស់លាស់ពីរោងចក្រ និងគ្រឿងចក្រផ្ទាល់ខ្លួនរបស់យើង។",
+          "ctaLabel": "ស្នើសុំសម្រង់តម្លៃ"
+        },
+        "footer": {
+          "columns": [
+            {
+              "title": "ក្រុមហ៊ុន",
+              "links": [
+                {
+                  "label": "ទំព័រដើម"
+                },
+                {
+                  "label": "អំពី BCE"
+                },
+                {
+                  "label": "គម្រោង"
+                },
+                {
+                  "label": "ប្លុក & ចំណេះដឹងបច្ចេកទេស"
+                },
+                {
+                  "label": "តំបន់សេវាកម្ម"
+                },
+                {
+                  "label": "ឯកសារ & ទាញយក"
+                }
+              ]
+            },
+            {
+              "title": "អាជីវកម្មរបស់យើង",
+              "links": [
+                {
+                  "label": "បេតុងលាយស្រេច"
+                },
+                {
+                  "label": "ការបោះសសរស្ដម្ភ"
+                },
+                {
+                  "label": "សំណង់ស៊ីវិល"
+                },
+                {
+                  "label": "ការងារចាក់កម្រាលបេតុង"
+                },
+                {
+                  "label": "ការជួលរថយន្ត និងគ្រឿងចក្រ"
+                }
+              ]
+            },
+            {
+              "title": "សមត្ថភាពបច្ចេកទេស",
+              "links": [
+                {
+                  "label": "គុណភាព និងសមត្ថភាព"
+                },
+                {
+                  "label": "មន្ទីរពិសោធន៍"
+                },
+                {
+                  "label": "គ្រឿងចក្រ និងកងយានយន្ត"
+                },
+                {
+                  "label": "តំបន់សេវាកម្ម"
+                }
+              ]
+            },
+            {
+              "title": "សហការជាមួយយើង",
+              "links": [
+                {
+                  "label": "ស្នើសុំសម្រង់តម្លៃ"
+                },
+                {
+                  "label": "ឱកាសការងារ & ជ្រើសរើសបុគ្គលិក"
+                },
+                {
+                  "label": "ទំនាក់ទំនងយើង"
+                },
+                {
+                  "label": "ជួលគ្រឿងចក្ររបស់យើង"
+                }
+              ]
+            }
+          ],
+          "enquiryTitle": "ពិភាក្សាជាមួយយើងអំពីគម្រោងរបស់អ្នក",
+          "enquiryText": "ប្រាប់យើងអំពីទីតាំង វិសាលភាពការងារ និងកាលវិភាគរបស់អ្នក។ វិស្វកររបស់យើងនឹងពិនិត្យ និងផ្ដល់សម្រង់តម្លៃលម្អិត និងច្បាស់លាស់ ដែលផ្គត់ផ្គង់ពីរោងចក្រ និងកងគ្រឿងចក្រផ្ទាល់ខ្លួនរបស់យើង។",
+          "primaryLabel": "ស្នើសុំសម្រង់តម្លៃ",
+          "callLabel": "ទូរស័ព្ទស្នើសុំការដេញថ្លៃ",
+          "officeTitle": "បាត់ដំបង · ការិយាល័យកណ្តាល",
+          "hotlinesLabel": "លេខទូរស័ព្ទទាន់ហេតុការណ៍ផ្នែកលក់ និងសម្រង់តម្លៃ",
+          "socialLabel": "បណ្ដាញសង្គម និងទំនាក់ទំនងផ្ទាល់",
+          "creditLabel": "រចនាប័ទ្ម & គំនិតដោយ BCE"
+        }
+      }
+    },
+    {
+      "type": "partners",
+      "slug": "home",
+      "sort": 0,
+      "data": {
+        "title": "Clients & partners",
+        "slug": "home",
+        "kicker": "Clients & partners",
+        "titleLines": [
+          "Strong relationships.",
+          "Shared success."
+        ],
+        "intro": "BCE has built long-term working relationships across Cambodia’s public and private sectors. Our network includes government and public institutions, contractors, development and strategic partners, corporate clients, and key suppliers who contribute to the successful delivery of our projects and services.",
+        "registerNote": "The full register, as published in BCE’s Corporate Profile 2026.",
+        "footnote": "Organisations and individuals listed as published in the BCE Corporate Profile 2026. Names and marks belong to their respective owners.",
+        "groups": [
+          {
+            "id": "government",
+            "label": "Government & public sector",
+            "shortLabel": "Government & public sector",
+            "tag": "Government",
+            "note": "Public institutions · Authorities · Government projects",
+            "items": [
+              {
+                "name": "Ministry of Water Resources and Meteorology",
+                "logo": "/assets/partners/mowram.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Land Management, Urban Planning and Construction",
+                "logo": "/assets/partners/mlmupc.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Commerce",
+                "logo": "/assets/partners/moc.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Mines and Energy"
+              },
+              {
+                "name": "Ministry of Public Works and Transport",
+                "logo": "/assets/partners/mpwt.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Labour and Vocational Training"
+              },
+              {
+                "name": "Ministry of Industry, Science, Technology & Innovation"
+              },
+              {
+                "name": "Ministry of Rural Development",
+                "logo": "/assets/partners/mrd.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Economy and Finance"
+              },
+              {
+                "name": "Ministry of Interior"
+              },
+              {
+                "name": "General Department of Tax"
+              },
+              {
+                "name": "National Social Security Fund (NSSF)"
+              },
+              {
+                "name": "Building and Public Works Laboratory"
+              },
+              {
+                "name": "Ministry of National Defence"
+              },
+              {
+                "name": "Provincial Halls in Provinces Where BCE Operates",
+                "featured": true
+              },
+              {
+                "name": "Provincial Administrations in BCE’s Operational Areas"
+              }
+            ]
+          },
+          {
+            "id": "clients",
+            "label": "Contractors, partners & corporate clients",
+            "shortLabel": "Clients",
+            "tag": "Clients",
+            "note": "Contractors · Development & strategic partners · Corporate clients",
+            "items": [
+              {
+                "name": "EM Construction Import Export Co., Ltd."
+              },
+              {
+                "name": "Branch of Thang Long Joint Stock Corporation – JSC",
+                "featured": true
+              },
+              {
+                "name": "Ilsung & Cienco"
+              },
+              {
+                "name": "Hanshin Engineering & Construction Co., Ltd.",
+                "logo": "/assets/partners/hanshin.jpg",
+                "featured": true
+              },
+              {
+                "name": "Obayashi",
+                "logo": "/assets/partners/obayashi.svg",
+                "featured": true
+              },
+              {
+                "name": "EDCCF"
+              },
+              {
+                "name": "Bahai"
+              },
+              {
+                "name": "Build Bright University (BBU)",
+                "logo": "/assets/partners/build-bright-university.png",
+                "featured": true
+              },
+              {
+                "name": "Taing Chheng Oing Construction & Import Export Co., Ltd. (TCO)"
+              },
+              {
+                "name": "SUMEC International Technology Co., Ltd.",
+                "logo": "/assets/partners/sumec.webp",
+                "featured": true
+              },
+              {
+                "name": "The Seaboard Cambodian Development Construction"
+              },
+              {
+                "name": "Borey Ratanak"
+              },
+              {
+                "name": "UOFN Battambang (YWAM)"
+              },
+              {
+                "name": "Schneitec Co., Ltd.",
+                "logo": "/assets/partners/schneitec.png",
+                "featured": true
+              },
+              {
+                "name": "T.S.K Construction Co., Ltd."
+              },
+              {
+                "name": "ZOA"
+              },
+              {
+                "name": "S.N.K.R.P Co., Ltd."
+              },
+              {
+                "name": "Punloeu Banyeay Srey Construction Co., Ltd."
+              },
+              {
+                "name": "Samdech Pichey Sena Tea Banh"
+              },
+              {
+                "name": "H.E. Pronh Ritha"
+              },
+              {
+                "name": "H.E. In Viracheat"
+              },
+              {
+                "name": "H.E. Tum Helhangry"
+              },
+              {
+                "name": "H.E. Sok Sokhon"
+              },
+              {
+                "name": "H.E. Khiev Satya"
+              },
+              {
+                "name": "Lok Oknha Vong Duong"
+              },
+              {
+                "name": "Dr. Yi Kuok"
+              },
+              {
+                "name": "Dr. Sok Vannara"
+              },
+              {
+                "name": "Mr. Sy Rattanak"
+              },
+              {
+                "name": "Mr. So Reaksmey"
+              },
+              {
+                "name": "Mr. Songfu"
+              },
+              {
+                "name": "Mrs. Soun Thouk"
+              },
+              {
+                "name": "Mr. Song Chamnan"
+              },
+              {
+                "name": "Mrs. Thouen Sophea"
+              },
+              {
+                "name": "Mr. Phum Sopheak"
+              },
+              {
+                "name": "Mr. Luo Jianbo"
+              },
+              {
+                "name": "Mr. Kim Tieng"
+              }
+            ]
+          },
+          {
+            "id": "suppliers",
+            "label": "Key suppliers",
+            "shortLabel": "Suppliers & technical partners",
+            "tag": "Suppliers",
+            "note": "Materials · Equipment · Operational support",
+            "items": [
+              {
+                "name": "Ly Kea"
+              },
+              {
+                "name": "Chip Mong Group Co., Ltd.",
+                "logo": "/assets/partners/chip-mong-group.png",
+                "featured": true
+              },
+              {
+                "name": "Dynamic Engineering Steel"
+              },
+              {
+                "name": "Hour Huy Leng"
+              },
+              {
+                "name": "Almond Company"
+              },
+              {
+                "name": "Veng Srun"
+              },
+              {
+                "name": "Ye Yaqing"
+              },
+              {
+                "name": "Cambodia Cement Chakrey Ting Factory Co., Ltd."
+              },
+              {
+                "name": "Hong Huot Ly Co., Ltd.",
+                "featured": true
+              },
+              {
+                "name": "Battambang Conch Cement Co. Ltd.",
+                "logo": "/assets/partners/conch.jpg",
+                "featured": true
+              },
+              {
+                "name": "SCG Distribution and Retail Co., Ltd.",
+                "logo": "/assets/partners/scg.png",
+                "featured": true
+              },
+              {
+                "name": "Rong Sheng Jilong Chemicals Co., Ltd."
+              },
+              {
+                "name": "Sika Cambodia",
+                "logo": "/assets/partners/sika.png",
+                "featured": true
+              },
+              {
+                "name": "Leng Seng Na"
+              },
+              {
+                "name": "Mitapheap"
+              }
+            ]
+          }
+        ]
+      },
+      "km": {
+        "kicker": "អតិថិជន និងដៃគូ",
+        "titleLines": [
+          "ទំនាក់ទំនងរឹងមាំ។",
+          "ជោគជ័យរួមគ្នា។"
+        ],
+        "intro": "BCE បានកសាងទំនាក់ទំនងការងាររយៈពេលវែងជាមួយវិស័យសាធារណៈ និងឯកជនទូទាំងប្រទេសកម្ពុជា។ បណ្តាញរបស់យើងរួមមាន ស្ថាប័នរដ្ឋាភិបាល និងសាធារណៈ ក្រុមហ៊ុនម៉ៅការ ដៃគូអភិវឌ្ឍន៍ និងយុទ្ធសាស្ត្រ អតិថិជនសាជីវកម្ម និងអ្នកផ្គត់ផ្គង់សំខាន់ៗ ដែលរួមចំណែកដល់ការអនុវត្តគម្រោង និងសេវាកម្មរបស់យើងដោយជោគជ័យ។",
+        "registerNote": "បញ្ជីពេញលេញ ដូចដែលបានចេញផ្សាយក្នុងប្រវត្តិរូបក្រុមហ៊ុន BCE ២០២៦។",
+        "footnote": "អង្គភាព និងបុគ្គលដែលបានចុះក្នុងប្រវត្តិរូបក្រុមហ៊ុន BCE ២០២៦។ ឈ្មោះ និងសញ្ញាសម្គាល់ជាកម្មសិទ្ធិរបស់ម្ចាស់រៀងៗខ្លួន។",
+        "groups": [
+          {
+            "label": "រដ្ឋាភិបាល និងវិស័យសាធារណៈ",
+            "shortLabel": "រដ្ឋាភិបាល",
+            "tag": "រដ្ឋាភិបាល",
+            "note": "ស្ថាប័នសាធារណៈ · អាជ្ញាធរ · គម្រោងរដ្ឋាភិបាល",
+            "items": [
+              {
+                "name": "ក្រសួងធនធានទឹក និងឧតុនិយម"
+              },
+              {
+                "name": "ក្រសួងរៀបចំដែនដី នគរូបនីយកម្ម និងសំណង់"
+              },
+              {
+                "name": "ក្រសួងពាណិជ្ជកម្ម"
+              },
+              {
+                "name": "ក្រសួងរ៉ែ និងថាមពល"
+              },
+              {
+                "name": "ក្រសួងសាធារណការ និងដឹកជញ្ជូន"
+              },
+              {
+                "name": "ក្រសួងការងារ និងបណ្តុះបណ្តាលវិជ្ជាជីវៈ"
+              },
+              {
+                "name": "ក្រសួងឧស្សាហកម្ម វិទ្យាសាស្ត្រ បច្ចេកវិទ្យា និងនវានុវត្តន៍"
+              },
+              {
+                "name": "ក្រសួងអភិវឌ្ឍន៍ជនបទ"
+              },
+              {
+                "name": "ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ"
+              },
+              {
+                "name": "ក្រសួងមហាផ្ទៃ"
+              },
+              {
+                "name": "អគ្គនាយកដ្ឋានពន្ធដារ"
+              },
+              {
+                "name": "មូលនិធិសន្តិសុខសង្គមជាតិ (NSSF)"
+              },
+              {
+                "name": "មន្ទីរពិសោធន៍សំណង់ និងការងារសាធារណៈ"
+              },
+              {
+                "name": "ក្រសួងការពារជាតិ"
+              },
+              {
+                "name": "សាលាខេត្ត នៅតាមខេត្តដែល BCE ដំណើរការ"
+              },
+              {
+                "name": "រដ្ឋបាលខេត្ត នៅតាមតំបន់ប្រតិបត្តិការរបស់ BCE"
+              }
+            ]
+          },
+          {
+            "label": "ក្រុមហ៊ុនម៉ៅការ ដៃគូ និងអតិថិជនសាជីវកម្ម",
+            "shortLabel": "អតិថិជន",
+            "tag": "អតិថិជន",
+            "note": "ក្រុមហ៊ុនម៉ៅការ · ដៃគូអភិវឌ្ឍន៍ និងយុទ្ធសាស្ត្រ · អតិថិជនសាជីវកម្ម"
+          },
+          {
+            "label": "អ្នកផ្គត់ផ្គង់សំខាន់",
+            "shortLabel": "អ្នកផ្គត់ផ្គង់",
+            "tag": "អ្នកផ្គត់ផ្គង់",
+            "note": "វត្ថុធាតុដើម · ឧបករណ៍ · ការគាំទ្រប្រតិបត្តិការ"
+          }
+        ],
+        "slug": "home"
       }
     },
     {
@@ -666,46 +1351,38 @@
         "hsePractice": {
           "label": "HSE in practice",
           "title": "Standards, PPE and inspections",
-          "copy": "Safety and quality on a BCE site are routines, not posters: the methods our laboratory tests to, the equipment every crew wears, and the checks that run before and during every shift.",
+          "copy": "Safety and quality here are routines, not posters: what we test to, what every crew wears, what we check each shift.",
           "standards": [
             {
               "method": "ASTM C143",
-              "use": "Slump of hydraulic-cement concrete, tested on delivery"
+              "use": "Slump on every delivery"
             },
             {
               "method": "ASTM C31 / C39",
-              "use": "Making, curing and compressive testing of specimens"
-            },
-            {
-              "method": "ACI 211.1",
-              "use": "Proportioning normal, heavyweight and mass concrete"
+              "use": "Specimens made, cured, crushed"
             },
             {
               "method": "BS EN 206",
-              "use": "Specification, performance, production and conformity"
+              "use": "Specification and conformity"
             },
             {
-              "method": "BS EN 12390",
-              "use": "Testing hardened concrete"
-            },
-            {
-              "method": "ISO 9001 principles",
-              "use": "Documented procedures, records and corrective action"
+              "method": "ISO 9001",
+              "use": "Procedures and records"
             }
           ],
           "ppe": [
-            "Hard hat and high-visibility vest on every site, without exception",
-            "Safety boots, eye protection and gloves for handling and placing",
-            "Fall protection and harnesses for work at height and on rigs",
-            "Hearing and dust protection around batching, cutting and coring",
-            "Life jackets and edge control for works over water"
+            "Hard hat and high-vis, every site",
+            "Boots, eye protection and gloves",
+            "Harness for work at height",
+            "Dust and hearing protection",
+            "Life jackets over water"
           ],
           "inspections": [
-            "Daily pre-start checks on plant, mixers, pumps and rigs, recorded before work begins",
-            "Lifting gear, rigging and scaffolding inspected and tagged on schedule",
-            "Pump lines, booms and outriggers checked at every setup",
-            "Toolbox talks before each pour and each shift change",
-            "Incidents and near misses reported, investigated and closed out"
+            "Pre-start checks, recorded daily",
+            "Lifting gear and rigging, tagged",
+            "Pump lines and outriggers, every setup",
+            "Toolbox talks before each pour",
+            "Incidents and near misses, closed out"
           ]
         },
         "engineering": {
@@ -746,7 +1423,6 @@
           "note": "Equipment is dispatched from Battambang and mobilised to projects across 13 provinces and Phnom Penh. Hire is quoted per project: machine, duration, site access and whether an operator is included.",
           "figuresLabel": "What we own, in numbers.",
           "figuresTitle": "Capacity you can plan around.",
-          "figuresCopy": "Plants, trucks and rigs are ours, serviced by our own workshop and dispatched from one base. These are machines in service, not a broker's availability list.",
           "jobsLabel": "Fleet by job",
           "jobsTitle": "One fleet, four ways to build.",
           "jobsCopy": "The same owned fleet carries BCE's concrete, piling, lifting and site-support work. Counts are above; here is what each group is for.",
@@ -806,7 +1482,6 @@
           ],
           "maintenanceLabel": "Maintenance & operators",
           "maintenanceTitle": "Ready when it reaches site.",
-          "maintenanceCopy": "Owning the fleet means owning the workshop, the operators and the inspection records too. A machine leaves Battambang serviced and arrives with the crew that knows it.",
           "maintenance": [
             {
               "icon": "wrench",
@@ -828,16 +1503,6 @@
               "title": "Mobilised from Battambang",
               "text": "Equipment is dispatched from our base to 13 provinces and Phnom Penh, with mobilisation quoted per project."
             }
-          ],
-          "mobilisationLabel": "Mobilisation & hire",
-          "mobilisationTitle": "From Battambang to your site.",
-          "mobilisationCopy": "Equipment hire is quoted per project. Tell us the machine, the duration and the site, and we confirm availability and mobilisation from Battambang.",
-          "mobilisationNote": "Operator, fuel and maintenance are agreed up front, in writing.",
-          "mobilisationSteps": [
-            "Tell us the machine, the duration and the site location.",
-            "We confirm availability, mobilisation from Battambang and the delivery date.",
-            "Operator, fuel and maintenance are agreed up front, in writing.",
-            "The machine arrives with our own crew and is supported by our workshop."
           ],
           "rows": [
             {
@@ -969,6 +1634,409 @@
         },
         "title": "Quality & HSE",
         "slug": "home"
+      },
+      "km": {
+        "cover": {
+          "label": "គុណភាព សមត្ថភាព និង HSE",
+          "title": "តេស្តគ្រប់ដំណាក់កាល សាងសង់ដោយសុវត្ថិភាព",
+          "imageAlt": "ក្រុមការងារការដ្ឋាន BCE ក្នុងឧបករណ៍ការពារខ្លួន កំពុងចាក់ និងបញ្ចប់បេតុង"
+        },
+        "intro": {
+          "label": "វិធីសាស្ត្ររបស់យើង",
+          "text": "នៅពីក្រោយគម្រោងនីមួយៗរបស់ BCE គឺសមត្ថភាពក្នុងការតេស្ត រចនា និងផ្គត់ផ្គង់បេតុងដោយខ្លួនឯង៖ ដំណើរការត្រួតពិនិត្យគុណភាពលើរាល់ការចាក់បេតុង មន្ទីរពិសោធន៍ផ្ទាល់ខ្លួន រូបមន្តលាយបេតុងដែលបានអនុម័ត វត្ថុធាតុដើមដែលមានការបញ្ជាក់គុណភាព កងរថយន្តដែលយើងកាន់កាប់ និងថែទាំដោយខ្លួនឯង ព្រមទាំងវិស្វករដែលភ្ជាប់អ្វីៗទាំងអស់នេះចូលគ្នា។"
+        },
+        "laboratory": {
+          "title": "មន្ទីរពិសោធន៍ និងការធានាគុណភាព",
+          "copy": "ការត្រួតពិនិត្យគុណភាពយ៉ាងតឹងរ៉ឹងគ្រប់ដំណាក់កាល ជាមួយការតេស្តកម្រិតស្រុត កម្លាំង និងវត្ថុធាតុដើម ទាំងនៅរោងចក្រ និងនៅការដ្ឋាន។ មន្ទីរពិសោធន៍ផ្ទាល់ខ្លួនរបស់យើងត្រួតពិនិត្យវត្ថុធាតុដើមដែលចូលទៅក្នុងបេតុងរបស់យើង បេតុងនៅពេលចេញពីរោងចក្រ និងកម្លាំងដែលវាឈានដល់បន្ទាប់ពីការថែរក្សាបេតុង។",
+          "listLabel": "ដំណើរការគុណភាពរបស់យើង",
+          "steps": [
+            {
+              "title": "ត្រួតពិនិត្យវត្ថុធាតុដើម",
+              "text": "វត្ថុធាតុដើមទាំងអស់ត្រូវបានត្រួតពិនិត្យមុនការផលិត។"
+            },
+            {
+              "title": "ការលាយបេតុង",
+              "text": "ថ្លឹង និងលាយតាមរូបមន្តដែលបានអនុម័ត។"
+            },
+            {
+              "title": "តេស្តកម្រិតស្រុត",
+              "text": "តេស្តនៅពេលដឹកជញ្ជូនមកដល់ មុនការចាក់។"
+            },
+            {
+              "title": "តេស្តកម្លាំង",
+              "text": "គំរូត្រូវបានថែរក្សា និងតេស្តនៅក្នុងមន្ទីរពិសោធន៍របស់យើង។"
+            },
+            {
+              "title": "ការផ្ទៀងផ្ទាត់",
+              "text": "លទ្ធផលត្រូវបានត្រួតពិនិត្យ និងកត់ត្រា។"
+            }
+          ],
+          "tests": [
+            {
+              "label": "ការតេស្តកម្រិតស្រុត",
+              "value": "រាល់ការដឹកជញ្ជូន"
+            },
+            {
+              "label": "កម្លាំងសង្កត់",
+              "value": "គូបតេស្តអាយុ 7 និង 28 ថ្ងៃ"
+            },
+            {
+              "label": "ការវិភាគថ្នាក់គ្រាប់វត្ថុធាតុរួម",
+              "value": "ការវិភាគតាមសំណាញ់"
+            },
+            {
+              "label": "មាតិកាភក់ និងសំណើម",
+              "value": "វត្ថុធាតុរួមល្អិត និងគ្រាប់ធំ"
+            },
+            {
+              "label": "ការលាយសាកល្បង",
+              "value": "សម្រាប់រូបមន្តថ្មីនីមួយៗ"
+            }
+          ],
+          "imageAlt": "គំរូតេស្តបេតុងតម្រៀងគ្នា"
+        },
+        "materials": {
+          "title": "វិញ្ញាបនបត្រវត្ថុធាតុដើម",
+          "copy": "វត្ថុធាតុដើមទាំងអស់មានការបញ្ជាក់គុណភាពពីប្រភព ហើយត្រូវបានត្រួតពិនិត្យម្តងទៀតមុនការផលិត ដោយមានវិញ្ញាបនបត្ររក្សាទុកសម្រាប់ដុំនីមួយៗ។",
+          "listLabel": "វត្ថុធាតុដើមដែលមានការបញ្ជាក់គុណភាព",
+          "items": [
+            {
+              "name": "ស៊ីម៉ងត៍",
+              "certificate": "វិញ្ញាបនបត្រតេស្តពីរោងចក្រ"
+            },
+            {
+              "name": "ខ្សាច់",
+              "certificate": "ការតេស្តថ្នាក់គ្រាប់ និងភក់"
+            },
+            {
+              "name": "វត្ថុធាតុរួមគ្រាប់ធំ",
+              "certificate": "ថ្នាក់គ្រាប់ និងតម្លៃកំទេច"
+            },
+            {
+              "name": "សារធាតុបន្ថែម",
+              "certificate": "វិញ្ញាបនបត្រអនុលោមភាព"
+            },
+            {
+              "name": "ទឹក",
+              "certificate": "ការតេស្តគុណភាពទឹក"
+            },
+            {
+              "name": "ដែក",
+              "certificate": "វិញ្ញាបនបត្រពីរោងចក្រ"
+            }
+          ],
+          "imageAlt": "គំរូបេតុង និងវត្ថុធាតុដើម"
+        },
+        "calibration": {
+          "title": "វិញ្ញាបនបត្រក្រិតតម្រូវ",
+          "copy": "ជញ្ជីង ឧបករណ៍វាស់ និងម៉ាស៊ីនតេស្តដែលនៅពីក្រោយលទ្ធផលនីមួយៗ ត្រូវបានក្រិតតម្រូវតាមកាលវិភាគ ដោយមានវិញ្ញាបនបត្ររក្សាទុក។",
+          "listLabel": "ឧបករណ៍ដែលបានក្រិតតម្រូវ",
+          "items": [
+            {
+              "equipment": "ជញ្ជីងនៅរោងចក្រលាយបេតុង",
+              "scope": "ជញ្ជីងស៊ីម៉ងត៍ វត្ថុធាតុរួម ទឹក និងសារធាតុបន្ថែម"
+            },
+            {
+              "equipment": "ម៉ាស៊ីនតេស្តកម្លាំងសង្កត់",
+              "scope": "ការក្រិតតម្រូវបន្ទុកសម្រាប់ការតេស្តគូប និងស៊ីឡាំង"
+            },
+            {
+              "equipment": "ឧបករណ៍ចាក់សារធាតុបន្ថែម",
+              "scope": "ភាពត្រឹមត្រូវនៃបរិមាណចាក់"
+            },
+            {
+              "equipment": "ម៉ែត្រទឹក",
+              "scope": "ភាពត្រឹមត្រូវនៃលំហូរទឹកនៅរោងចក្រលាយបេតុង"
+            },
+            {
+              "equipment": "ឧបករណ៍មន្ទីរពិសោធន៍",
+              "scope": "ជញ្ជីង កោណស្រុត និងពុម្ពគូប"
+            }
+          ]
+        },
+        "hse": {
+          "label": "ការប្តេជ្ញាចិត្តផ្នែក HSE",
+          "heading": "ការប្តេជ្ញាចិត្តផ្នែក HSE៖ ការពារមនុស្ស ធ្វើការដោយសុវត្ថិភាព និងគោរពបរិស្ថាន",
+          "items": [
+            {
+              "lines": [
+                "ការពារ",
+                "មនុស្ស"
+              ],
+              "text": "យើងការពារមនុស្សរបស់យើង ដៃគូរបស់យើង និងសហគមន៍ជុំវិញគម្រោងនីមួយៗដែលយើងអនុវត្ត។",
+              "imageAlt": "ស្តង់ដារសុវត្ថិភាព និងឧបករណ៍ការពារខ្លួនរបស់ BCE នៅការដ្ឋាន"
+            },
+            {
+              "lines": [
+                "ធ្វើការ",
+                "ដោយសុវត្ថិភាព"
+              ],
+              "text": "ប្រតិបត្តិការប្រកបដោយសុវត្ថិភាព និងកងរថយន្តដែលថែទាំបានល្អ ដំណើរការដោយក្រុមការងារដែលមានជំនាញ និងបទពិសោធន៍។",
+              "imageAlt": "កម្មករការដ្ឋានពាក់មួកសុវត្ថិភាពពណ៌ទឹកក្រូច កំពុងត្រួតពិនិត្យការចាក់បេតុង"
+            },
+            {
+              "lines": [
+                "គោរព",
+                "បរិស្ថាន"
+              ],
+              "text": "យើងសាងសង់នៅថ្ងៃនេះ ខណៈពេលការពារធនធានសម្រាប់មនុស្សជំនាន់ក្រោយ តាមរយៈការទទួលខុសត្រូវផ្នែកបរិស្ថាន និងការប្រើប្រាស់ធនធានប្រកបដោយប្រសិទ្ធភាព។",
+              "imageAlt": "ការការពារបរិស្ថាន និងការអនុវត្តស្អាតនៅការដ្ឋាន"
+            },
+            {
+              "lines": [
+                "ផ្តល់",
+                "គុណភាព"
+              ],
+              "text": "សាងសង់ឲ្យបានគង់វង្ស។ ចាប់ពីការលាយបេតុងដែលមានការបញ្ជាក់គុណភាព រហូតដល់ការចាក់ដោយភាពត្រឹមត្រូវ ការត្រួតពិនិត្យគុណភាពនៅមន្ទីរពិសោធន៍ធានាថារចនាសម្ព័ន្ធនីមួយៗរឹងមាំ គង់វង្ស និងប្រើប្រាស់បានយូរ។",
+              "imageAlt": "រង្វាស់សម្ពាធដែលបានក្រិតតម្រូវ និងការតេស្តគុណភាព"
+            },
+            {
+              "lines": [
+                "កសាង",
+                "ទំនុកចិត្ត"
+              ],
+              "text": "រឹងមាំជាងមុន ពេលរួមគ្នា។ យើងរីកចម្រើនជាមួយអតិថិជន ដៃគូ និងអ្នកផ្គត់ផ្គង់ តាមរយៈទំនាក់ទំនងរយៈពេលវែងដែលកសាងលើទំនុកចិត្ត ការគោរព និងភាពជោគជ័យរួមគ្នា។",
+              "imageAlt": "ក្រុមវិស្វករសំណង់សហការគ្នានៅការដ្ឋាន"
+            }
+          ]
+        },
+        "hsePractice": {
+          "label": "HSE ក្នុងការអនុវត្តជាក់ស្តែង",
+          "title": "ស្តង់ដារ ឧបករណ៍ការពារខ្លួន និងការត្រួតពិនិត្យ",
+          "copy": "សុវត្ថិភាព និងគុណភាពនៅទីនេះ គឺជាទម្លាប់ប្រចាំថ្ងៃ មិនមែនជាផ្ទាំងផ្សព្វផ្សាយទេ៖ អ្វីដែលយើងតេស្ត អ្វីដែលក្រុមការងារនីមួយៗស្លៀកពាក់ និងអ្វីដែលយើងត្រួតពិនិត្យរាល់វេន។",
+          "standards": [
+            {
+              "use": "តេស្តកម្រិតស្រុតលើរាល់ការដឹកជញ្ជូន"
+            },
+            {
+              "use": "គំរូត្រូវបានធ្វើ ថែរក្សា និងសង្កត់បំបែក"
+            },
+            {
+              "use": "លក្ខណៈបច្ចេកទេស និងការអនុលោមភាព"
+            },
+            {
+              "use": "នីតិវិធី និងកំណត់ត្រា"
+            }
+          ],
+          "ppe": [
+            "មួកសុវត្ថិភាព និងអាវឆ្លុះពន្លឺ គ្រប់ការដ្ឋាន",
+            "ស្បែកជើងសុវត្ថិភាព ឧបករណ៍ការពារភ្នែក និងស្រោមដៃ",
+            "ខ្សែសុវត្ថិភាពសម្រាប់ការងារនៅកម្ពស់",
+            "ឧបករណ៍ការពារធូលី និងសំឡេង",
+            "អាវពោងជីវិតនៅលើផ្ទៃទឹក"
+          ],
+          "inspections": [
+            "ការត្រួតពិនិត្យមុនចាប់ផ្តើម កត់ត្រាជារៀងរាល់ថ្ងៃ",
+            "ឧបករណ៍លើក និងខ្សែចង មានស្លាកសម្គាល់",
+            "បន្ទាត់បូម និងជើងទ្រ រាល់ការដំឡើង",
+            "ការជជែកអំពីសុវត្ថិភាពជាមួយក្រុមការងារ មុនរាល់ការចាក់បេតុង",
+            "ឧបទ្ទវហេតុ និងហេតុការណ៍ជិតកើតហេតុ ត្រូវបានដោះស្រាយ និងបិទបញ្ចប់"
+          ]
+        },
+        "engineering": {
+          "kicker": "មនុស្សនៅពីក្រោយគម្រោងនីមួយៗ",
+          "title": "សមត្ថភាពវិស្វកម្ម",
+          "imageAlt": "វិស្វករកំពុងត្រួតពិនិត្យដែកគោលនៅការដ្ឋាន",
+          "copy": [
+            "វិស្វកររបស់យើងរៀបចំផែនការ រចនា និងត្រួតពិនិត្យគម្រោងនីមួយៗ ចាប់ពីរូបមន្តលាយបេតុង និងកម្មវិធីបោះសសរស្ដម្ភ រហូតដល់ការត្រួតពិនិត្យការដ្ឋាន និងកំណត់ត្រាប្រគល់ការងារ។"
+          ],
+          "rows": [
+            {
+              "label": "វិស្វករ",
+              "value": "15"
+            },
+            {
+              "label": "ក្រុមការងារ",
+              "value": "71"
+            },
+            {
+              "label": "សាងសង់តាំងពី",
+              "value": "1995"
+            },
+            {
+              "label": "តំបន់គ្របដណ្តប់",
+              "value": "13 ខេត្ត + រាជធានីភ្នំពេញ"
+            }
+          ]
+        },
+        "fleet": {
+          "kicker": "កងរថយន្តផ្ទាល់ខ្លួនរបស់យើង",
+          "title": "គ្រឿងចក្រ និងកងរថយន្ត",
+          "imageAlt": "រថយន្តបូមបេតុង និងរថយន្តលាយបេតុងរបស់ BCE កំពុងចាក់បេតុងនៅការដ្ឋាន",
+          "copy": [
+            "រោងចក្រ និងកងរថយន្តរបស់យើង ត្រូវបានកាន់កាប់ ដំណើរការ និងថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួន ដូច្នេះសមត្ថភាពត្រូវបានរៀបចំផែនការតាមកាលវិភាគរបស់អ្នក មិនមែនតាមអ្នកផ្គត់ផ្គង់ទេ។"
+          ],
+          "note": "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីបាត់ដំបង និងដឹកជញ្ជូនទៅគម្រោងនានានៅ 13 ខេត្ត និងរាជធានីភ្នំពេញ។ ការជួលត្រូវបានវាយតម្លៃតាមគម្រោង៖ ម៉ាស៊ីន រយៈពេល ការចូលទៅការដ្ឋាន និងថាតើរួមបញ្ចូលអ្នកបើកបរឬអត់។",
+          "figuresLabel": "អ្វីដែលយើងកាន់កាប់ ជាតួលេខ។",
+          "figuresTitle": "សមត្ថភាពដែលអ្នកអាចរៀបចំផែនការបាន។",
+          "jobsLabel": "កងរថយន្តតាមប្រភេទការងារ",
+          "jobsTitle": "កងរថយន្តតែមួយ សម្រាប់ការងារសាងសង់បួនបែប។",
+          "jobsCopy": "កងរថយន្តផ្ទាល់ខ្លួនតែមួយ គាំទ្រការងារបេតុង ការបោះសសរស្ដម្ភ ការលើក និងការគាំទ្រការដ្ឋានរបស់ BCE។ ចំនួនមាននៅខាងលើ។ ខាងក្រោមនេះជាគោលបំណងរបស់ក្រុមនីមួយៗ។",
+          "jobs": [
+            {
+              "title": "ផលិតកម្ម និងការដឹកជញ្ជូនបេតុង",
+              "text": "បេតុងលាយស្រេចពីរោងចក្រលាយបេតុងផ្ទាល់ខ្លួន តេស្តរួចមុនពេលចេញ និងដឹកជញ្ជូនដោយកងរថយន្តលាយបេតុងរបស់យើង។",
+              "bullets": [
+                "បេតុងលាយស្រេចពីរោងចក្រលាយបេតុងផ្ទាល់ខ្លួន",
+                "រថយន្តលាយបេតុងតាមកាលវិភាគបញ្ជូនដែលបានគ្រោងទុក",
+                "តេស្តនៅមន្ទីរពិសោធន៍លើរាល់ការចាក់បេតុង",
+                "ការដឹកជញ្ជូនគ្រប់ 13 ខេត្ត + រាជធានីភ្នំពេញ"
+              ],
+              "imageAlt": "រថយន្តលាយបេតុងរបស់ BCE នៅរោងចក្រ"
+            },
+            {
+              "title": "ការចាក់បេតុង",
+              "text": "រថយន្តបូមបេតុង និងអ្នកបើកបរ ចាក់បេតុងទៅកន្លែងដែលរថយន្តលាយបេតុងមិនអាចឈានដល់ ដោយអនុវត្តតាមលំដាប់នៃការចាក់បេតុង។",
+              "bullets": [
+                "រថយន្តបូមបេតុងសម្រាប់ការចាក់នៅកម្ពស់ខ្ពស់",
+                "ការចាក់នៅកន្លែងដែលរថយន្តលាយបេតុងមិនអាចឈានដល់",
+                "អ្នកបើកបរអនុវត្តតាមលំដាប់នៃការចាក់បេតុង",
+                "បន្ទាត់បូមត្រូវបានត្រួតពិនិត្យរាល់ការដំឡើង"
+              ],
+              "imageAlt": "រថយន្តបូមបេតុងរបស់ BCE ដោយបត់ដងបូមចូល"
+            },
+            {
+              "title": "គ្រឹះ",
+              "text": "សសរស្ដម្ភបេតុងពង្រឹងកម្លាំង ត្រូវបានដំឡើង និងតេស្តដោយម៉ាស៊ីន និងក្រុមការងារផ្ទាល់ខ្លួន ចាប់ពីវេទិការហូតដល់ក្បាលសសរ។",
+              "bullets": [
+                "សសរស្ដម្ភបេតុងពង្រឹងកម្លាំង",
+                "គ្រឹះស្ពាន ផ្លូវ និងអគារ",
+                "ម៉ាស៊ីន និងក្រុមការងារដំឡើងផ្ទាល់ខ្លួន",
+                "កំណត់ត្រាសសរស្ដម្ភប្រគល់ជូន"
+              ],
+              "imageAlt": "ម៉ាស៊ីនបោះសសរស្ដម្ភរបស់ BCE កំពុងធ្វើការនៅការដ្ឋានគ្រឹះ"
+            },
+            {
+              "title": "ការលើក និងការគាំទ្រការដ្ឋាន",
+              "text": "រថយន្តស្ទូច ស្ទូចប៉ម ជណ្តើរយន្ត និងរថយន្តផ្ទុក ធ្វើឲ្យការដ្ឋានដំណើរការទៅមុខ ជាមួយអ្នកបើកបរ និងកំណត់ត្រាត្រួតពិនិត្យ។",
+              "bullets": [
+                "រថយន្តស្ទូច និងស្ទូចប៉ម",
+                "រថយន្តផ្ទុកសម្រាប់ការគ្រប់គ្រងវត្ថុធាតុ",
+                "ជណ្តើរយន្តសម្រាប់ការងារនៅកម្ពស់",
+                "អ្នកបើកបរ និងកំណត់ត្រាត្រួតពិនិត្យ"
+              ],
+              "imageAlt": "រថយន្តស្ទូចកំពុងលើកនៅការដ្ឋាន BCE"
+            }
+          ],
+          "maintenanceLabel": "ការថែទាំ និងអ្នកបើកបរ",
+          "maintenanceTitle": "ត្រៀមរួចរាល់ ពេលដល់ការដ្ឋាន។",
+          "maintenance": [
+            {
+              "title": "ថែទាំនៅសិក្ខាសាលារបស់យើង",
+              "text": "រថយន្ត ម៉ាស៊ីនបូម និងម៉ាស៊ីនបោះសសរស្ដម្ភ ត្រូវបានថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួនរវាងគម្រោងនីមួយៗ មិនមែនបញ្ជូនទៅអាងខាងក្រៅទេ។"
+            },
+            {
+              "title": "រួមបញ្ចូលអ្នកបើកបរ",
+              "text": "អ្នកបើកបរដែលមានបទពិសោធន៍មកជាមួយម៉ាស៊ីន ហើយអនុវត្តតាមលំដាប់នៃការចាក់បេតុង ឬការបោះសសរស្ដម្ភរបស់អ្នក។"
+            },
+            {
+              "title": "ត្រួតពិនិត្យមុនការបញ្ជូន",
+              "text": "ការត្រួតពិនិត្យមុនចាប់ផ្តើម ឧបករណ៍លើក និងបន្ទាត់បូម ត្រូវបានត្រួតពិនិត្យ និងកត់ត្រាមុនពេលម៉ាស៊ីនចេញ។"
+            },
+            {
+              "title": "ដឹកជញ្ជូនចេញពីបាត់ដំបង",
+              "text": "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីមូលដ្ឋានរបស់យើងទៅ 13 ខេត្ត និងរាជធានីភ្នំពេញ ដោយការដឹកជញ្ជូនត្រូវបានវាយតម្លៃតាមគម្រោង។"
+            }
+          ],
+          "rows": [
+            {
+              "label": "រោងចក្រលាយបេតុង",
+              "value": "04  /  70 m³/hr ក្នុងមួយរោងចក្រ",
+              "note": "70 m³/hr ក្នុងមួយរោងចក្រ"
+            },
+            {
+              "label": "រថយន្តលាយបេតុង",
+              "value": "41",
+              "note": "13 ខេត្ត + រាជធានីភ្នំពេញ"
+            },
+            {
+              "label": "រថយន្តបូមបេតុង",
+              "value": "08",
+              "note": "រថយន្តបូមសម្រាប់ចាក់ និងបូមដងវែង"
+            },
+            {
+              "label": "រថយន្តផ្ទុក",
+              "value": "07",
+              "note": "ការផ្ទុក និងការគ្រប់គ្រងវត្ថុធាតុ"
+            },
+            {
+              "label": "ម៉ាស៊ីនបោះសសរស្ដម្ភ",
+              "value": "07",
+              "note": "ម៉ាស៊ីនខួង និងម៉ាស៊ីនញញួរ"
+            },
+            {
+              "label": "រថយន្តស្ទូច",
+              "value": "06",
+              "note": "ការលើកនៅការដ្ឋាន"
+            },
+            {
+              "label": "ស្ទូចប៉ម",
+              "value": "08",
+              "note": "សំណង់អគារខ្ពស់"
+            },
+            {
+              "label": "ជណ្តើរយន្ត",
+              "value": "05",
+              "note": "ការងារនៅកម្ពស់"
+            }
+          ],
+          "ctaLabel": "ជួលគ្រឿងចក្ររបស់យើង"
+        },
+        "documents": {
+          "label": "ឯកសារគុណភាព",
+          "title": "រូបមន្តលាយបេតុង និងការបញ្ជាក់គុណភាព",
+          "text": "រូបមន្តលាយបេតុងនៅពីក្រោយរាល់កម្រិត ព្រមទាំងអាជ្ញាបណ្ណ វិញ្ញាបនបត្រ និងប្រវត្តិក្រុមហ៊ុន ដែលក្រុមលទ្ធកម្ម និងក្រុមដេញថ្លៃត្រូវការ។",
+          "items": [
+            {
+              "title": "ប្រវត្តិក្រុមហ៊ុន",
+              "subtitle": "ប្រវត្តិក្រុមហ៊ុន BCE 2026",
+              "status": ""
+            },
+            {
+              "title": "ឯកសាររូបមន្តលាយបេតុង",
+              "subtitle": "ផ្តល់ជូនជាមួយរូបមន្តលាយបេតុងនីមួយៗ",
+              "status": "តាមការស្នើសុំ"
+            },
+            {
+              "title": "អាជ្ញាបណ្ណអាជីវកម្ម និងការចុះបញ្ជី",
+              "subtitle": "ក្រសួងពាណិជ្ជកម្ម",
+              "status": "តាមការស្នើសុំ"
+            },
+            {
+              "title": "អាជ្ញាបណ្ណសំណង់",
+              "subtitle": "ក្រសួងរៀបចំដែនដី នគរូបនីយកម្ម និងសំណង់",
+              "status": "តាមការស្នើសុំ"
+            },
+            {
+              "title": "វិញ្ញាបនបត្រចុះបញ្ជីពន្ធ (VAT)",
+              "subtitle": "អគ្គនាយកដ្ឋានពន្ធដារ",
+              "status": "តាមការស្នើសុំ"
+            }
+          ],
+          "gradesText": "ចាប់ពីបេតុងស្តើងលើដី និងការបំពេញដីបរិមាណច្រើន រហូតដល់ស្ពាន និងរចនាសម្ព័ន្ធធ្ងន់ រាល់កម្រិតត្រូវបានរចនា លាយសាកល្បង និងតេស្តនៅមន្ទីរពិសោធន៍ផ្ទាល់ខ្លួន មុនពេលដឹកជញ្ជូនទៅការដ្ឋាន។",
+          "grades": [
+            {
+              "use": "បេតុងស្តើងលើដី និងការបំពេញដីបរិមាណច្រើន"
+            },
+            {
+              "use": "កម្រាលបេតុងលើដី និងផ្លូវដើរ"
+            },
+            {
+              "use": "កម្រាលបេតុងជាន់ និងគ្រឹះជើងសសរ"
+            },
+            {
+              "use": "សសរ ធ្នឹម និងកម្រាលបេតុងព្យួរ"
+            },
+            {
+              "use": "គ្រឹះ និងសសរស្ដម្ភ"
+            },
+            {
+              "use": "ស្ពាន និងរចនាសម្ព័ន្ធធ្ងន់"
+            }
+          ],
+          "note": "កម្លាំងសង្កត់លក្ខណៈរបស់គូបនៅអាយុ 28 ថ្ងៃ។ កម្រិតផ្សេងទៀត និងល្បាយពិសេស ត្រូវបានរចនាតាមការស្នើសុំ។",
+          "ctaLabel": "ស្នើសុំឯកសារ"
+        }
       }
     },
     {
@@ -1058,14 +2126,48 @@
         "leadership": {
           "label": "Leadership",
           "title": "Meet the people behind every pour.",
-          "name": "Ms. Loeung Chan",
-          "role": "Chairwoman",
-          "image": "/Image/bce/chairwoman.webp",
-          "imageAlt": "Ms. Loeung Chan, Chairwoman of BCE",
-          "bio": [
-            "Ms. Loeung Chan is Chairwoman of Battambang Construction and Engineering Co., Ltd. She has guided the company through its restructuring in 2015 and its incorporation as BCE in 2020, and still sets the standard the business is run to.",
-            "Her direction is simple and does not change with the size of the project: quality controlled at every stage, safety on every site, and long-term partnerships with the clients, suppliers and crews who build Cambodia with us.",
-            "Thirty years on, the company she chairs runs four batching plants, its own piling rigs and a fleet of 41 mixer trucks — and still answers the phone from Battambang."
+          "people": [
+            {
+              "name": "Ms. Loeung Chan",
+              "role": "Chairwoman",
+              "image": "/Image/bce/chairwoman.webp",
+              "imageAlt": "Ms. Loeung Chan, Chairwoman of BCE",
+              "bio": [
+                "Ms. Loeung Chan is Chairwoman of Battambang Construction and Engineering Co., Ltd. She has guided the company through its restructuring in 2015 and its incorporation as BCE in 2020, and still sets the standard the business is run to.",
+                "Her direction is simple and does not change with the size of the project: quality controlled at every stage, safety on every site, and long-term partnerships with the clients, suppliers and crews who build Cambodia with us.",
+                "Thirty years on, the company she chairs runs four batching plants, its own piling rigs and a fleet of 41 mixer trucks — and still answers the phone from Battambang."
+              ]
+            },
+            {
+              "name": "Mr. Sokha Vann",
+              "role": "Managing Director",
+              "image": "",
+              "imageAlt": "",
+              "bio": [
+                "Mr. Sokha Vann runs BCE's day-to-day business, coordinating the batching plants, piling crews and civil works teams so every project is delivered on schedule and to specification.",
+                "He works alongside the Chairwoman on company strategy, fleet investment and the long-term partnerships that keep BCE building across Cambodia."
+              ]
+            },
+            {
+              "name": "Ms. Sreyleak Chhun",
+              "role": "Finance & Administration Director",
+              "image": "",
+              "imageAlt": "",
+              "bio": [
+                "Ms. Sreyleak Chhun leads finance, procurement and administration, keeping plant, fleet and project spending under one budget and one set of controls.",
+                "Her team looks after payroll, supplier accounts and the paperwork behind every tender, so the site teams can concentrate on the work."
+              ]
+            },
+            {
+              "name": "Mr. Dara Pich",
+              "role": "Operations Director",
+              "image": "",
+              "imageAlt": "",
+              "bio": [
+                "Mr. Dara Pich oversees production and site operations, from aggregate intake and batching to the mixers, pumps and piling rigs on the road.",
+                "He sets the daily dispatch plan with the plant and keeps quality, safety and delivery on the same schedule."
+              ]
+            }
           ]
         },
         "vision": {
@@ -1106,6 +2208,48 @@
             }
           ]
         },
+        "strategy": {
+          "label": "Future development strategy",
+          "title": "Building today. Leading tomorrow.",
+          "pillars": [
+            {
+              "title": "Growth & expansion",
+              "text": "Expand our footprint across Cambodia and pursue selected regional opportunities through new facilities, partnerships and strategic investments.",
+              "icon": "tower"
+            },
+            {
+              "title": "Innovation & technology",
+              "text": "Invest in advanced technology, digital systems and data-driven operations to improve efficiency, product quality and customer experience.",
+              "icon": "blueprint"
+            },
+            {
+              "title": "Quality & reliability",
+              "text": "Strengthen our quality management, laboratory capability and process control to deliver products and services that exceed industry standards.",
+              "icon": "shield"
+            },
+            {
+              "title": "People & culture",
+              "text": "Develop our people, promote a strong safety culture and foster a performance-driven environment built on integrity and accountability.",
+              "icon": "helmet"
+            },
+            {
+              "title": "Sustainability & responsibility",
+              "text": "Operate responsibly with care for the environment, support communities and contribute to Cambodia’s sustainable development.",
+              "icon": "rain"
+            }
+          ]
+        },
+        "careers": {
+          "label": "Careers",
+          "title": "Build your career.",
+          "copy": "Great crews build great projects. Join BCE and put thirty years of equipment, engineers and experience behind your career.",
+          "image": "/Image/bce/about-zoom-rebar-crew.webp",
+          "imageAlt": "BCE crews working safely across a reinforced slab",
+          "primaryLabel": "View all positions",
+          "primaryHref": "/careers",
+          "secondaryLabel": "Apply",
+          "secondaryHref": "mailto:bce.hr.1990@gmail.com?subject=Job%20Application%20-%20BCE"
+        },
         "zoom": {
           "statements": [
             "Engineering and construction, from Battambang across Cambodia since 1995",
@@ -1133,6 +2277,200 @@
         },
         "title": "About BCE",
         "slug": "home"
+      },
+      "km": {
+        "cover": {
+          "label": "យើងជានរណា",
+          "title": "អំពី BCE",
+          "imageAlt": "ទិដ្ឋភាពពីលើនៃរោងចក្រលាយបេតុង និងលានគរថ្ម និងខ្សាច់របស់ BCE"
+        },
+        "intro": {
+          "text": "ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE) ជាក្រុមហ៊ុនសំណង់ បេតុង ការបោះសសរស្ដម្ភ និងវិស្វកម្ម ដែលមានមូលដ្ឋាននៅខេត្តបាត់ដំបង ដោយផ្គត់ផ្គង់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភបេតុងអារម៉េ និងសំណង់ស៊ីវិល ដល់គម្រោងនានាទូទាំងកម្ពុជា ជាមួយរោងចក្រ កងគ្រឿងចក្រ និងក្រុមការងារ ៧១ នាក់ផ្ទាល់ខ្លួន។",
+          "primaryLabel": "ទាញយកប្រវត្តិរូបក្រុមហ៊ុន (PDF)",
+          "secondaryLabel": "មើលឯកសារ និងធនធានទាំងអស់"
+        },
+        "message": {
+          "quote": "អស់រយៈពេលជាង ៣០ ឆ្នាំមកនេះ យើងបានកសាងឡើងលើសសរស្តម្ភ ៤ យ៉ាង៖ គុណភាព សុវត្ថិភាព ភាពជឿជាក់ និងភាពជាដៃគូ។ គុណតម្លៃទាំងនេះជាការណែនាំរាល់ការចាក់បេតុង រាល់ការបោះសសរ និងគ្រប់គម្រោងទាំងអស់។",
+          "attribution": "ប្រធានក្រុមប្រឹក្សាភិបាល ក្រុមហ៊ុន BCE., Ltd."
+        },
+        "story": {
+          "title": "ប្រវត្តិដំណើររបស់យើង",
+          "text": "បង្កើតឡើងនៅខេត្តបាត់ដំបងក្នុងឆ្នាំ ១៩៩៥ ក្រុមហ៊ុន BCE បានរីកចម្រើនទៅជាប្រតិបត្តិការរួមបញ្ចូលគ្នាយ៉ាងពេញលេញ ដោយផ្តល់នូវការផ្គត់ផ្គង់បេតុង ការបោះសសរស្ដម្ភ សំណង់ ការងារចាក់កម្រាលបេតុង និងការជួលរថយន្ត និងគ្រឿងចក្រ ជាមួយរោងចក្រ និងកងយានយន្តផ្ទាល់ខ្លួន។",
+          "milestones": [
+            {
+              "title": "ការបង្កើតក្រុមហ៊ុន",
+              "text": "BCE ចាប់ផ្ដើមនៅបាត់ដំបង ក្រោមឈ្មោះ Hong Huot Ly Co., Ltd. ដោយផ្គត់ផ្គង់បេតុង និងសេវាកម្មសំណង់ ដល់គម្រោងនានាទូទាំងខេត្ត។",
+              "imageAlt": "ទិដ្ឋភាពពីលើនៃរោងចក្រលាយបេតុង និងលានគរថ្ម និងខ្សាច់ ដែលជាចំណុចចាប់ផ្ដើមរបស់ BCE"
+            },
+            {
+              "title": "រៀបចំរចនាសម្ព័ន្ធឡើងវិញដើម្បីកំណើន",
+              "text": "ក្រុមហ៊ុនត្រូវបានរៀបចំរចនាសម្ព័ន្ធឡើងវិញ ជាទម្រង់ស្ថាប័នបច្ចុប្បន្ន ដោយបញ្ចូលការងារលាយបេតុង ការបោះសសរស្ដម្ភ និងសំណង់ស៊ីវិល ក្រោមក្រុមគ្រប់គ្រងតែមួយ។",
+              "imageAlt": "រោងចក្រលាយបេតុង និងគំនរថ្ម និងខ្សាច់"
+            },
+            {
+              "title": "រោងចក្រ និងកងគ្រឿងចក្រទំនើប",
+              "text": "ការលាយបេតុងដោយប្រព័ន្ធកុំព្យូទ័រ និងកងរថយន្តលាយបេតុង និងរថយន្តបូមបេតុងកាន់តែធំឡើង បានពង្រីកសមត្ថភាពហួសពីបាត់ដំបង។",
+              "imageAlt": "រថយន្តលាយបេតុង និងរថយន្តបូមបេតុងរបស់ BCE តម្រៀបជាជួរនៅរោងចក្រ"
+            },
+            {
+              "title": "ចុះបញ្ជីជាក្រុមហ៊ុន BCE",
+              "text": "អាជីវកម្មត្រូវបានចុះបញ្ជីជាផ្លូវការ ក្រោមឈ្មោះ ក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE)។",
+              "imageAlt": "វិស្វករ និងក្រុមការងាររបស់ BCE នៅការដ្ឋានក្នុងខេត្តបាត់ដំបង"
+            },
+            {
+              "title": "មន្ទីរពិសោធន៍ និងប្រព័ន្ធគុណភាព",
+              "text": "មន្ទីរពិសោធន៍វត្ថុធាតុសំណង់ផ្ទាល់ខ្លួន និងកំណត់ត្រារូបមន្តលាយបេតុងជាផ្លូវការ បាននាំការធ្វើតេស្ត និងការត្រួតពិនិត្យគុណភាព មកនៅកន្លែងតែមួយ។",
+              "imageAlt": "គំរូបេតុងសម្រាប់ធ្វើតេស្ត នៅក្នុងមន្ទីរពិសោធន៍របស់ BCE"
+            },
+            {
+              "title": "ភាពជាដៃគូ និងតំបន់គ្របដណ្តប់",
+              "text": "ភាពជាដៃគូផ្គត់ផ្គង់រយៈពេលវែង និងភាពជាដៃគូបច្ចេកទេស បានពង្រីកការដឹកជញ្ជូនទៅដល់ ១៣ ខេត្ត និងរាជធានីភ្នំពេញ។",
+              "imageAlt": "ការចាក់បេតុងនៅការដ្ឋានគម្រោងរបស់ BCE"
+            },
+            {
+              "title": "១២៨ គម្រោងក្នុងមួយឆ្នាំ",
+              "text": "បញ្ចប់គម្រោងបាន ១២៨ និងបម្រើអតិថិជនបាន ១,៥៦៤ នាក់ក្នុងមួយឆ្នាំតែមួយ។",
+              "imageAlt": "កងគ្រឿងចក្រ និងសម្ភារៈរបស់ BCE នៅការដ្ឋាន"
+            },
+            {
+              "title": "ថ្ងៃនេះ",
+              "text": "រោងចក្រលាយបេតុង ៤ កន្លែង រថយន្តលាយបេតុង ៤១ គ្រឿង រថយន្តបូមបេតុង ៨ គ្រឿង ម៉ាស៊ីនបោះសសរស្ដម្ភ ៧ គ្រឿង និងក្រុមការងារ ៧១ នាក់ — នៅតែបន្តកសាងចេញពីបាត់ដំបង។",
+              "imageAlt": "រោងចក្រលាយបេតុងរបស់ BCE នៅពេលល្ងាច"
+            }
+          ]
+        },
+        "leadership": {
+          "label": "ថ្នាក់ដឹកនាំ",
+          "title": "ស្គាល់អ្នកដែលនៅពីក្រោយរាល់ការចាក់បេតុង។",
+          "people": [
+            {
+              "name": "លោកស្រី លឿង ចាន់",
+              "role": "ប្រធានក្រុមប្រឹក្សាភិបាល",
+              "imageAlt": "លោកស្រី លឿង ចាន់ ប្រធានក្រុមប្រឹក្សាភិបាលក្រុមហ៊ុន BCE",
+              "bio": [
+                "លោកស្រី លឿង ចាន់ គឺជាប្រធានក្រុមប្រឹក្សាភិបាលនៃក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី។ លោកស្រីបានដឹកនាំក្រុមហ៊ុនឆ្លងកាត់ការរៀបចំរចនាសម្ព័ន្ធឡើងវិញក្នុងឆ្នាំ ២០១៥ និងការចុះបញ្ជីជាក្រុមហ៊ុន BCE ក្នុងឆ្នាំ ២០២០ ហើយនៅតែកំណត់ស្តង់ដារដែលអាជីវកម្មនេះដំណើរការតាម។",
+                "ទិសដៅរបស់លោកស្រីគឺសាមញ្ញ ហើយមិនប្រែប្រួលតាមទំហំគម្រោង៖ គុណភាពត្រូវត្រួតពិនិត្យគ្រប់ដំណាក់កាល សុវត្ថិភាពនៅគ្រប់ការដ្ឋាន និងភាពជាដៃគូរយៈពេលវែង ជាមួយអតិថិជន អ្នកផ្គត់ផ្គង់ និងក្រុមការងារ ដែលកសាងកម្ពុជាជាមួយយើង។",
+                "រយៈពេល ៣០ ឆ្នាំក្រោយមក ក្រុមហ៊ុនដែលលោកស្រីដឹកនាំ មានរោងចក្រលាយបេតុង ៤ កន្លែង ម៉ាស៊ីនបោះសសរស្ដម្ភផ្ទាល់ខ្លួន និងកងរថយន្តលាយបេតុង ៤១ គ្រឿង — ហើយនៅតែទទួលទូរស័ព្ទពីបាត់ដំបង។"
+              ]
+            },
+            {
+              "name": "លោក សុខា វ៉ាន់",
+              "role": "នាយកគ្រប់គ្រង",
+              "imageAlt": "",
+              "bio": [
+                "លោក សុខា វ៉ាន់ គ្រប់គ្រងប្រតិបត្តិការប្រចាំថ្ងៃរបស់ BCE ដោយសម្របសម្រួលរោងចក្រលាយបេតុង ក្រុមការងារបោះសសរស្ដម្ភ និងក្រុមការងារសំណង់ស៊ីវិល ដើម្បីធានាថាគ្រប់គម្រោងត្រូវបានប្រគល់ជូនទាន់ពេលវេលា និងត្រឹមត្រូវតាមលក្ខណៈបច្ចេកទេស។",
+                "លោកធ្វើការជាមួយប្រធានក្រុមប្រឹក្សាភិបាល លើយុទ្ធសាស្ត្រក្រុមហ៊ុន ការវិនិយោគលើកងគ្រឿងចក្រ និងភាពជាដៃគូរយៈពេលវែង ដែលធ្វើឱ្យ BCE បន្តកសាងទូទាំងកម្ពុជា។"
+              ]
+            },
+            {
+              "name": "លោកស្រី ស្រីល័ក្ខ ឈុន",
+              "role": "នាយិកាហិរញ្ញវត្ថុ និងរដ្ឋបាល",
+              "imageAlt": "",
+              "bio": [
+                "លោកស្រី ស្រីល័ក្ខ ឈុន ដឹកនាំផ្នែកហិរញ្ញវត្ថុ ការទិញសម្ភារៈ និងរដ្ឋបាល ដោយរក្សាការចំណាយលើរោងចក្រ កងគ្រឿងចក្រ និងគម្រោង ឱ្យស្ថិតក្រោមថវិកាតែមួយ និងប្រព័ន្ធត្រួតពិនិត្យតែមួយ។",
+                "ក្រុមការងាររបស់លោកស្រីថែទាំបញ្ជីបៀវត្សរ៍ គណនីអ្នកផ្គត់ផ្គង់ និងឯកសារពាក់ព័ន្ធនឹងរាល់ការដេញថ្លៃ ដើម្បីឱ្យក្រុមការងារការដ្ឋានអាចផ្តោតលើការងារបានពេញលេញ។"
+              ]
+            },
+            {
+              "name": "លោក ដារា ពេជ្រ",
+              "role": "នាយកប្រតិបត្តិការ",
+              "imageAlt": "",
+              "bio": [
+                "លោក ដារា ពេជ្រ ត្រួតពិនិត្យការផលិត និងប្រតិបត្តិការនៅការដ្ឋាន ចាប់ពីការទទួលថ្ម និងខ្សាច់ និងការលាយបេតុង រហូតដល់រថយន្តលាយបេតុង រថយន្តបូមបេតុង និងម៉ាស៊ីនបោះសសរស្ដម្ភ នៅលើផ្លូវ។",
+                "លោកកំណត់ផែនការបញ្ជូនប្រចាំថ្ងៃជាមួយរោងចក្រ និងរក្សាគុណភាព សុវត្ថិភាព និងការដឹកជញ្ជូន ឱ្យដំណើរការតាមកាលវិភាគតែមួយ។"
+              ]
+            }
+          ]
+        },
+        "vision": {
+          "sectionLabel": "ចក្ខុវិស័យ និងបេសកកម្ម",
+          "label": "ចក្ខុវិស័យរបស់យើង",
+          "statement": "ក្លាយជាដៃគូដែលគួរឱ្យទុកចិត្តបំផុតនៅកម្ពុជា សម្រាប់ការផ្គត់ផ្គង់បេតុង ការបោះសសរគ្រឹះ និងការងារសំណង់។"
+        },
+        "mission": {
+          "label": "បេសកកម្មរបស់យើង",
+          "statement": "ផ្ដល់ជូននូវបេតុងដែលគ្រប់គ្រងគុណភាព គ្រឹះរឹងមាំ និងសំណង់ប្រកបដោយស្តង់ដារ ទាន់ពេលវេលា និងត្រូវតាមបច្ចេកទេស ដោយរោងចក្រ កងគ្រឿងចក្រ និងក្រុមការងារផ្ទាល់ខ្លួន។"
+        },
+        "values": {
+          "sectionLabel": "គុណតម្លៃស្នូល",
+          "items": [
+            {
+              "title": "គុណភាព",
+              "text": "កសាងឡើងដើម្បីជាប់គង់វង្ស។ ចាប់ពីការជ្រើសរើសវត្ថុធាតុ និងការផលិត រហូតដល់ការសាងសង់ និងការដឹកជញ្ជូន ការត្រួតពិនិត្យគុណភាពនៅមន្ទីរពិសោធន៍ ធានាថាគ្រប់សំណង់មានភាពរឹងមាំ ធន់ និងគង់វង្ស។",
+              "imageAlt": "គ្រោងឆ្អឹងបេតុង និងទម្រង់ពូកកំពុងឡើងកម្ពស់ក្បែររថយន្តស្ទូចប៉ម"
+            },
+            {
+              "title": "សុវត្ថិភាព",
+              "text": "ជាអាទិភាពចម្បងរបស់យើង។ យើងការពារបុគ្គលិក ដៃគូ និងសហគមន៍ដែលយើងបម្រើ ចាប់ពីរោងចក្រលាយបេតុង រហូតដល់ការដ្ឋានគម្រោង។",
+              "imageAlt": "ក្រុមការងារធ្វើការនៅខ្ពស់លើរនាស់ ដោយស្លៀកអាវឆ្លុះពន្លឺ"
+            },
+            {
+              "title": "ភាពជឿជាក់",
+              "text": "ទាន់ពេលវេលាគ្រប់វេលា។ រោងចក្រលាយបេតុង រថយន្តលាយបេតុង និងរថយន្តបូមបេតុងផ្ទាល់ខ្លួនរបស់យើង ផ្ដល់សមត្ថភាពពេញលេញក្នុងការរក្សាគម្រោងឱ្យដំណើរការតាមកាលវិភាគ និងបច្ចេកទេស។",
+              "imageAlt": "រថយន្តស្ទូចប៉ម និងទម្រង់ពូក ដែលជួយឱ្យការសាងសង់ដំណើរការតាមកាលវិភាគ"
+            },
+            {
+              "title": "ភាពជាដៃគូ",
+              "text": "រឹងមាំជាងមុន នៅពេលយើងរួមគ្នា។ យើងរីកចម្រើនរួមជាមួយអតិថិជន ដៃគូ និងអ្នកផ្គត់ផ្គង់ តាមរយៈទំនាក់ទំនងរយៈពេលវែង ដែលកសាងលើការទុកចិត្ត ការគោរព និងភាពជោគជ័យរួមគ្នា។",
+              "imageAlt": "ជាងដែកគោលពីរនាក់ធ្វើការជាមួយគ្នាលើដែកគោល"
+            }
+          ]
+        },
+        "strategy": {
+          "label": "យុទ្ធសាស្ត្រអភិវឌ្ឍន៍អនាគត",
+          "title": "កសាងថ្ងៃនេះ។ ឈានមុខថ្ងៃស្អែក។",
+          "pillars": [
+            {
+              "title": "កំណើន និងការពង្រីក",
+              "text": "ពង្រីកវត្តមានរបស់យើងទូទាំងកម្ពុជា និងស្វែងរកឱកាសក្នុងតំបន់ជាក់លាក់ តាមរយៈកន្លែងផលិតថ្មីៗ ភាពជាដៃគូ និងការវិនិយោគយុទ្ធសាស្ត្រ។"
+            },
+            {
+              "title": "នវានុវត្តន៍ និងបច្ចេកវិទ្យា",
+              "text": "វិនិយោគលើបច្ចេកវិទ្យាទំនើប ប្រព័ន្ធឌីជីថល និងប្រតិបត្តិការដែលផ្អែកលើទិន្នន័យ ដើម្បីបង្កើនប្រសិទ្ធភាព គុណភាពផលិតផល និងបទពិសោធន៍របស់អតិថិជន។"
+            },
+            {
+              "title": "គុណភាព និងភាពជឿជាក់",
+              "text": "ពង្រឹងការគ្រប់គ្រងគុណភាព សមត្ថភាពមន្ទីរពិសោធន៍ និងការត្រួតពិនិត្យដំណើរការ ដើម្បីផ្គត់ផ្គង់ផលិតផល និងសេវាកម្ម លើសពីស្តង់ដារឧស្សាហកម្ម។"
+            },
+            {
+              "title": "មនុស្ស និងវប្បធម៌",
+              "text": "អភិវឌ្ឍន៍ធនធានមនុស្សរបស់យើង ជំរុញវប្បធម៌សុវត្ថិភាពដ៏រឹងមាំ និងបង្កើតបរិយាកាសការងារដែលជំរុញដោយលទ្ធផល ដោយផ្អែកលើភាពស្មោះត្រង់ និងការទទួលខុសត្រូវ។"
+            },
+            {
+              "title": "ចីរភាព និងការទទួលខុសត្រូវ",
+              "text": "ប្រតិបត្តិការដោយការទទួលខុសត្រូវ និងការយកចិត្តទុកដាក់លើបរិស្ថាន គាំទ្រសហគមន៍ និងរួមចំណែកដល់ការអភិវឌ្ឍន៍ប្រកបដោយចីរភាពរបស់កម្ពុជា។"
+            }
+          ]
+        },
+        "careers": {
+          "label": "ឱកាសការងារ",
+          "title": "កសាងអាជីពរបស់អ្នក។",
+          "copy": "ក្រុមការងារដ៏ប៉ិនប្រសប់ កសាងគម្រោងដ៏អស្ចារ្យ។ ចូលរួមជាមួយ BCE ហើយដាក់គ្រឿងចក្រ វិស្វករ និងបទពិសោធន៍ ៣០ ឆ្នាំ នៅពីក្រោយអាជីពរបស់អ្នក។",
+          "imageAlt": "ក្រុមការងារ BCE ធ្វើការដោយសុវត្ថិភាពលើកម្រាលបេតុងដែលមានដែកគោល",
+          "primaryLabel": "មើលមុខតំណែងទាំងអស់",
+          "secondaryLabel": "ដាក់ពាក្យ"
+        },
+        "zoom": {
+          "statements": [
+            "វិស្វកម្ម និងសំណង់ ពីបាត់ដំបង ទូទាំងកម្ពុជា តាំងពីឆ្នាំ ១៩៩៥",
+            "បេតុង ការបោះសសរស្ដម្ភ សំណង់ និងយានយន្ត ទាំងអស់នៅកន្លែងតែមួយ"
+          ]
+        },
+        "explore": {
+          "label": "ស្វែងរកបន្ថែម",
+          "tiles": [
+            {
+              "label": "អ្វីដែលយើងធ្វើ",
+              "title": "អាជីវកម្មរបស់យើង",
+              "imageAlt": "ក្រុមការងារការដ្ឋានរបស់ BCE កំពុងពិនិត្យកម្រាលបេតុងដែលមានដែកគោល"
+            },
+            {
+              "label": "ធ្វើតេស្តគ្រប់ដំណាក់កាល",
+              "title": "គុណភាព និងសុវត្ថិភាព (HSE)",
+              "imageAlt": "គំរូស៊ីឡាំងបេតុងកំពុងធ្វើតេស្តកម្លាំងសង្កត់ នៅក្នុងមន្ទីរពិសោធន៍របស់ BCE"
+            }
+          ]
+        }
       }
     },
     {
@@ -1230,6 +2568,88 @@
           }
         ],
         "outcome": "Foundations were handed over ahead of the rainy season, so deck works could begin without delay."
+      },
+      "km": {
+        "name": "ការបោះសសរស្ដម្ភគ្រឹះស្ពាន",
+        "owner": "មន្ទីរសាធារណការខេត្ត",
+        "location": "ស្ទឹងសែន កំពង់ធំ",
+        "period": "កុម្ភៈ ២០២៤ – កញ្ញា ២០២៤",
+        "summary": "សសរស្ដម្ភបេតុងអារម៉េសម្រាប់ស្ពានឆ្លងទន្លេពីរល្វែងលើផ្លូវខេត្ត ដែលយើងបានបោះ និងតេស្តដោយម៉ាស៊ីន និងក្រុមការងារផ្ទាល់ខ្លួន។",
+        "scope": [
+          "ការផ្គត់ផ្គង់សសរស្ដម្ភបេតុងអារម៉េ",
+          "ការបោះសសរស្ដម្ភនៅជើងស្ពាន និងសសរកណ្តាល",
+          "បេតុងក្បាលសសរស្ដម្ភពីរោងចក្ររបស់យើង",
+          "ការតេស្តបន្ទុក និងកំណត់ត្រាសំណង់ជាក់ស្ដែង"
+        ],
+        "gallery": [
+          {
+            "caption": "ម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រឈរប្រចាំនៅការដ្ឋានគ្រឹះ"
+          },
+          {
+            "caption": "ការងារដែកគោល និងការខួងគ្រឹះជម្រៅ"
+          },
+          {
+            "caption": "ការដំឡើងសសរស្ដម្ភបេតុងអារម៉េតាមបណ្តាញគ្រឹះ"
+          },
+          {
+            "caption": "ក្បាលសសរស្ដម្ភគ្រឹះដែលបានបញ្ចប់រួចរាល់"
+          }
+        ],
+        "highlights": [
+          {
+            "value": "64",
+            "label": "សសរស្ដម្ភដែលបានបោះ",
+            "note": "ជើងស្ពាន និងសសរកណ្តាល"
+          },
+          {
+            "value": "18",
+            "unit": "m",
+            "label": "ប្រវែងសសរស្ដម្ភ",
+            "note": "មធ្យមក្នុងមួយសសរ"
+          },
+          {
+            "value": "420",
+            "unit": "m³",
+            "label": "បេតុងដែលបានផ្គត់ផ្គង់",
+            "note": "ក្បាលសសរ និងផ្ទៃស្ពាន"
+          },
+          {
+            "value": "7",
+            "unit": "mo",
+            "label": "រយៈពេលគម្រោង",
+            "note": "កុម្ភៈ – កញ្ញា ២០២៤"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "ម៉ាស៊ីនបោះសសរស្ដម្ភ"
+          },
+          {
+            "name": "រថយន្តលាយបេតុង"
+          },
+          {
+            "name": "ស្ទូចចល័ត"
+          },
+          {
+            "name": "រថយន្តបូមបេតុង"
+          }
+        ],
+        "technical": [
+          {
+            "label": "ប្រភេទសសរស្ដម្ភ",
+            "value": "សសរស្ដម្ភបេតុងអារម៉េចាក់ស្រេចរាងការ៉េ 350 × 350 mm"
+          },
+          {
+            "label": "កម្រិតបេតុង",
+            "value": "សសរស្ដម្ភ C35 ក្បាលសសរ C30"
+          },
+          {
+            "label": "ការតេស្ត",
+            "value": "តេស្តបន្ទុកស្ថិត; កម្លាំងគំរូគូបនៅថ្ងៃទី ៧ និង ២៨"
+          }
+        ],
+        "outcome": "គ្រឹះត្រូវបានប្រគល់ជូនមុនរដូវវស្សា ដូច្នេះការងារផ្ទៃស្ពានអាចចាប់ផ្ដើមបានដោយគ្មានការពន្យារពេល។",
+        "slug": "kampong-thom-bridge-foundations"
       }
     },
     {
@@ -1327,6 +2747,88 @@
           }
         ],
         "outcome": "The floor was ready for racking installation two weeks ahead of the tenant's fit-out."
+      },
+      "km": {
+        "name": "កម្រាលបេតុងឃ្លាំងភស្តុភារ",
+        "owner": "អ្នកអភិវឌ្ឍន៍ភស្តុភារឯកជន",
+        "location": "ប៉ោយប៉ែត បន្ទាយមានជ័យ",
+        "period": "មិថុនា ២០២៤ – ធ្នូ ២០២៤",
+        "summary": "កម្រាលបេតុងធន់នឹងបន្ទុកធ្ងន់ដាក់លើដីដោយផ្ទាល់ សម្រាប់ឃ្លាំងភស្តុភារឆ្លងព្រំដែន ចាក់ជាផ្ទាំងៗតាមការគ្រោងទុក និងបញ្ចប់ផ្ទៃឱ្យស័ក្តិសមសម្រាប់ការដំឡើងធ្នើរ និងការប្រើប្រាស់រថយន្តលើកទំនិញ។",
+        "scope": [
+          "ការរៀបចំ និងបង្ហាប់ស្រទាប់គ្រឹះ",
+          "ការផ្គត់ផ្គង់បេតុងលាយស្រេចពីរោងចក្រនៅបាត់ដំបង",
+          "ការចាក់កម្រាលតាមផ្ទាំងដែលបានគ្រោងទុក",
+          "ការរលោងផ្ទៃដោយម៉ាស៊ីន និងការកាត់សន្លាក់"
+        ],
+        "gallery": [
+          {
+            "caption": "គ្រោងរចនាសម្ព័ន្ធកំពុងកើនឡើងលើគ្រឹះដែលបានរៀបចំ"
+          },
+          {
+            "caption": "ការចាក់បេតុងលាយស្រេច និងការរាបស្មើជាបន្តបន្ទាប់"
+          },
+          {
+            "caption": "ការងារបញ្ចប់ផ្ទៃ និងការរលោងដោយម៉ាស៊ីន"
+          },
+          {
+            "caption": "ការចាក់កម្រាលដោយប្រើរថយន្តបូមបេតុងដៃវែង"
+          }
+        ],
+        "highlights": [
+          {
+            "value": "12,400",
+            "unit": "m²",
+            "label": "ផ្ទៃក្រឡាកម្រាល",
+            "note": "កម្រាលឃ្លាំងតែមួយ"
+          },
+          {
+            "value": "2,600",
+            "unit": "m³",
+            "label": "បេតុងដែលបានចាក់",
+            "note": "បេតុងលាយស្រេច C30"
+          },
+          {
+            "value": "22",
+            "label": "ផ្ទាំងចាក់",
+            "note": "ចាក់ពេលថ្ងៃ"
+          },
+          {
+            "value": "200",
+            "unit": "mm",
+            "label": "កម្រាស់កម្រាល",
+            "note": "ពង្រឹងដោយសំណាញ់ដែក"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "រថយន្តបូមបេតុង"
+          },
+          {
+            "name": "រថយន្តលាយបេតុង"
+          },
+          {
+            "name": "ម៉ាស៊ីនរលោងផ្ទៃ"
+          },
+          {
+            "name": "ម៉ាស៊ីនបង្ហាប់ញ័រ"
+          }
+        ],
+        "technical": [
+          {
+            "label": "បេតុង",
+            "value": "C30 ស្រុត 100 ± 25 mm"
+          },
+          {
+            "label": "ការបញ្ចប់ផ្ទៃ",
+            "value": "រលោងដោយម៉ាស៊ីន ជាមួយសារធាតុរឹងផ្ទៃប្រភេទស្ងួត"
+          },
+          {
+            "label": "សន្លាក់",
+            "value": "កាត់ដោយរណាររៀងរាល់ 6 m និងបិទជិត"
+          }
+        ],
+        "outcome": "កម្រាលបានរួចរាល់សម្រាប់ការដំឡើងធ្នើរ លឿនជាងការតុបតែងខាងក្នុងរបស់អ្នកជួលពីរសប្ដាហ៍។",
+        "slug": "poipet-logistics-warehouse"
       }
     },
     {
@@ -1410,6 +2912,76 @@
             "value": "Slump at discharge; 6 cubes per 50 m³"
           }
         ]
+      },
+      "km": {
+        "name": "ការផ្គត់ផ្គង់បេតុងលាយស្រេចសម្រាប់អគារពាណិជ្ជកម្ម",
+        "owner": "អ្នកអភិវឌ្ឍន៍ពាណិជ្ជកម្មឯកជន",
+        "location": "ក្រុងសៀមរាប",
+        "period": "មករា ២០២៣ – មីនា ២០២៤",
+        "summary": "ការផ្គត់ផ្គង់បេតុងលាយស្រេចជាបន្តបន្ទាប់សម្រាប់អគារពាណិជ្ជកម្មបួនជាន់ តាមកាលវិភាគចាក់បេតុងរបស់អ្នកម៉ៅការ។",
+        "scope": [
+          "រូបមន្តលាយបេតុងសម្រាប់គ្រឹះ សសរ និងកម្រាល",
+          "ការដឹកជញ្ជូនតាមកាលវិភាគពីរោងចក្រទៅការដ្ឋាន",
+          "ការបូមបេតុងសម្រាប់កម្រាលជាន់លើ",
+          "ការតេស្តកម្រិតស្រុត និងគំរូគូបលើរាល់ការចាក់បេតុង"
+        ],
+        "gallery": [
+          {
+            "caption": "រោងចក្រលាយបេតុងស្វ័យប្រវត្តិកំពុងផលិតបេតុងលាយស្រេច"
+          },
+          {
+            "caption": "រថយន្តលាយបេតុងឈរតម្រង់ជួរ និងកំពុងចាក់បេតុងនៅការដ្ឋាន"
+          },
+          {
+            "caption": "ការចាក់បេតុងកម្រាលរចនាសម្ព័ន្ធជាន់លើ"
+          },
+          {
+            "caption": "ការតេស្តកម្រិតស្រុត និងការផ្ទៀងផ្ទាត់គុណភាពគំរូគូបសង្កត់"
+          }
+        ],
+        "highlights": [
+          {
+            "value": "6,800",
+            "unit": "m³",
+            "label": "បេតុងដែលបានផ្គត់ផ្គង់",
+            "note": "ជាង ១៥ ខែ"
+          },
+          {
+            "value": "4",
+            "label": "រូបមន្តលាយបេតុង",
+            "note": "C25 ដល់ C35"
+          },
+          {
+            "value": "1,100",
+            "label": "ការដឹកជញ្ជូនដោយរថយន្ត",
+            "note": "ការហៅតាមកាលវិភាគ"
+          },
+          {
+            "value": "100",
+            "unit": "%",
+            "label": "ការចាក់ដែលបានតេស្ត",
+            "note": "កម្រិតស្រុត និងគំរូគូប"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "រថយន្តលាយបេតុង"
+          },
+          {
+            "name": "រថយន្តបូមបេតុង"
+          }
+        ],
+        "technical": [
+          {
+            "label": "កម្រិតបេតុង",
+            "value": "កម្រាល C25 សសរ C30 គ្រឹះ C35"
+          },
+          {
+            "label": "ការត្រួតពិនិត្យគុណភាព",
+            "value": "តេស្តកម្រិតស្រុតពេលចាក់; គំរូគូប ៦ ក្នុង 50 m³"
+          }
+        ],
+        "slug": "siem-reap-commercial-ready-mix"
       }
     },
     {
@@ -1465,6 +3037,51 @@
           }
         ],
         "outcome": "The upgraded link shortened the journey to the district market and keeps traffic moving through the wet season."
+      },
+      "km": {
+        "name": "ការស្ដារផ្លូវខេត្តឡើងវិញ",
+        "owner": "រដ្ឋបាលខេត្ត",
+        "location": "ខេត្តបាត់ដំបង",
+        "period": "វិច្ឆិកា ២០២៣ – ឧសភា ២០២៤",
+        "summary": "ការស្ដារផ្លូវតភ្ជាប់ខេត្តឡើងវិញ រួមមានការងារស្រទាប់គ្រឹះ ប្រព័ន្ធលូបង្ហូរទឹក និងស្រទាប់កៅស៊ូថ្មី។",
+        "scope": [
+          "ការងារដី និងស្រទាប់គ្រឹះ",
+          "លូ និងប្រព័ន្ធបង្ហូរទឹកតាមផ្លូវ",
+          "ការក្រាលកៅស៊ូ និងការបង្ហាប់",
+          "ការគូសសញ្ញាផ្លូវ និងការប្រគល់ការងារ"
+        ],
+        "gallery": [
+          {
+            "caption": "ការងារដីធុនធ្ងន់ និងការបង្ហាប់ស្រទាប់គ្រឹះផ្លូវ"
+          },
+          {
+            "caption": "ការដំឡើងលូបេតុង និងប្រព័ន្ធបង្ហូរទឹកតាមផ្លូវ"
+          },
+          {
+            "caption": "ប្រតិបត្តិការក្រាលកៅស៊ូ និងបេតុងជាបន្តបន្ទាប់"
+          }
+        ],
+        "highlights": [
+          {
+            "value": "8.5",
+            "unit": "km",
+            "label": "ប្រវែងផ្លូវ",
+            "note": "ផ្លូវមួយគន្លង"
+          },
+          {
+            "value": "7",
+            "unit": "m",
+            "label": "ទទឹងផ្លូវ",
+            "note": "បូកចិញ្ចើមផ្លូវ"
+          },
+          {
+            "value": "14",
+            "label": "លូដែលបានដំឡើង",
+            "note": "លូប្រអប់ និងលូមូល"
+          }
+        ],
+        "outcome": "ផ្លូវដែលបានកែលម្អបានកាត់បន្ថយរយៈពេលធ្វើដំណើរទៅផ្សារស្រុក និងរក្សាចរាចរណ៍ឱ្យដំណើរការពេញរដូវវស្សា។",
+        "slug": "battambang-provincial-road"
       }
     },
     {
@@ -1562,6 +3179,88 @@
           }
         ],
         "outcome": "The raft was completed in a single pour with no cold joints, keeping the superstructure programme on track."
+      },
+      "km": {
+        "name": "គ្រឹះអគារពហុមុខងារ",
+        "owner": "អ្នកអភិវឌ្ឍន៍ឯកជន",
+        "location": "ចំការមន រាជធានីភ្នំពេញ",
+        "period": "សីហា ២០២៤ – មេសា ២០២៥",
+        "summary": "សសរស្ដម្ភខួង និងគ្រឹះកម្រាលសម្រាប់អគារពហុមុខងារ ដោយការងារដែក បេតុង និងការតេស្ត ត្រូវបានអនុវត្តដោយក្រុមតែមួយ។",
+        "scope": [
+          "សសរស្ដម្ភខួងចាក់នៅនឹងកន្លែង",
+          "ទ្រុងដែកដែលផលិតនៅការដ្ឋាន",
+          "ការចាក់គ្រឹះកម្រាលជាបន្តបន្ទាប់",
+          "ការតេស្តភាពរឹងមាំ និងបន្ទុក"
+        ],
+        "gallery": [
+          {
+            "caption": "ការផលិតទ្រុងដែកធុនធ្ងន់សម្រាប់គ្រឹះជម្រៅ"
+          },
+          {
+            "caption": "ការចងដែកសសររចនាសម្ព័ន្ធ និងការត្រួតពិនិត្យដោយវិស្វករ"
+          },
+          {
+            "caption": "ការចាក់បេតុងគ្រឹះកម្រាលជាដុំតែមួយជាបន្តបន្ទាប់"
+          },
+          {
+            "caption": "គ្រឹះកម្រាលបានថែរក្សាបេតុង និងបញ្ចប់រួចរាល់"
+          }
+        ],
+        "highlights": [
+          {
+            "value": "120",
+            "label": "សសរស្ដម្ភខួង",
+            "note": "800 និង 1,000 mm"
+          },
+          {
+            "value": "32",
+            "unit": "m",
+            "label": "ជម្រៅសសរស្ដម្ភ",
+            "note": "ក្រោមកម្រិតកាត់"
+          },
+          {
+            "value": "1,850",
+            "unit": "m³",
+            "label": "ការចាក់គ្រឹះកម្រាល",
+            "note": "ចាក់តែម្ដងជាបន្តបន្ទាប់"
+          },
+          {
+            "value": "9",
+            "unit": "mo",
+            "label": "រយៈពេលគម្រោង",
+            "note": "សីហា ២០២៤ – មេសា ២០២៥"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "ម៉ាស៊ីនបោះសសរស្ដម្ភ"
+          },
+          {
+            "name": "ស្ទូចច្រវាក់"
+          },
+          {
+            "name": "រថយន្តលាយបេតុង"
+          },
+          {
+            "name": "រថយន្តបូមបេតុង"
+          }
+        ],
+        "technical": [
+          {
+            "label": "សសរស្ដម្ភ",
+            "value": "សសរខួងចាក់នៅនឹងកន្លែង Ø 800 និង 1,000 mm"
+          },
+          {
+            "label": "កម្រិតបេតុង",
+            "value": "គ្រឹះកម្រាល C40 សសរស្ដម្ភ C35"
+          },
+          {
+            "label": "គ្រឹះកម្រាល",
+            "value": "កម្រាស់ 2.2 m ចាក់ជាបន្តបន្ទាប់រយៈពេល ២៦ ម៉ោង"
+          }
+        ],
+        "outcome": "គ្រឹះកម្រាលបានបញ្ចប់ក្នុងការចាក់តែម្ដង ដោយគ្មានសន្លាក់ត្រជាក់ ធានាឱ្យការងាររចនាសម្ព័ន្ធផ្នែកខាងលើបន្តតាមកាលវិភាគ។",
+        "slug": "phnom-penh-tower-foundations"
       }
     },
     {
@@ -1607,6 +3306,39 @@
             "count": 6
           }
         ]
+      },
+      "km": {
+        "name": "ការជួលកងរថយន្តបូម និងរថយន្តលាយបេតុង",
+        "owner": "អ្នកម៉ៅការធំ គម្រោងអភិវឌ្ឍន៍សណ្ឋាគារ",
+        "location": "ព្រះសីហនុ",
+        "period": "មីនា ២០២៥ – តុលា ២០២៥",
+        "summary": "ការជួលរថយន្តបូមបេតុង និងរថយន្តលាយបេតុង រួមទាំងអ្នកបើកបរដែលមានបទពិសោធន៍ ជូនអ្នកម៉ៅការធំ សម្រាប់ការចាក់បេតុងរចនាសម្ព័ន្ធសណ្ឋាគារតាមឆ្នេរសមុទ្រ។",
+        "scope": [
+          "រថយន្តបូមបេតុងជាមួយអ្នកបើកបរមានបទពិសោធន៍",
+          "រថយន្តលាយបេតុងតាមការហៅប្រចាំថ្ងៃ",
+          "ការថែទាំ និងបំពេញប្រេងនៅការដ្ឋាន",
+          "របាយការណ៍គ្រឿងចក្រប្រចាំថ្ងៃ"
+        ],
+        "gallery": [
+          {
+            "caption": "កងរថយន្តលាយបេតុង ៤១ គ្រឿងរបស់ BCE ជាមួយប្រព័ន្ធបញ្ជូនតាម GPS"
+          },
+          {
+            "caption": "រថយន្តបូមបេតុងដៃវែងដាក់ពង្រាយសម្រាប់ការចាក់នៅទីខ្ពស់"
+          },
+          {
+            "caption": "ក្រុមការងារ HSE និងអ្នកបើកបរដែលមានវិញ្ញាបនបត្ររបស់ BCE"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "រថយន្តបូមបេតុង"
+          },
+          {
+            "name": "រថយន្តលាយបេតុង"
+          }
+        ],
+        "slug": "sihanoukville-fleet-hire"
       }
     },
     {
@@ -1654,6 +3386,42 @@
           "name": "Eng. Sokhom Seng",
           "role": "Lead Materials & Batching Engineer, BCE"
         }
+      },
+      "km": {
+        "title": "រូបមន្តលាយបេតុងកម្លាំងខ្ពស់សម្រាប់ការចាក់បេតុងឧស្សាហកម្មធ្ងន់នៅបាត់ដំបង",
+        "kind": "Insight",
+        "alt": "អ្នកបច្ចេកទេសមន្ទីរពិសោធន៍ BCE កំពុងពិនិត្យគំរូបេតុង",
+        "excerpt": "ការវិភាគស៊ីជម្រៅអំពីរបៀបដែលវិស្វករ BCE បង្កើតរូបមន្តកម្លាំងសង្កត់ពី C20 ដល់ C40 ដោយធ្វើឱ្យមានតុល្យភាពរវាងសមាមាត្រទឹក-ស៊ីម៉ងត៍ និងសារធាតុបន្ថែមរ៉ែ សម្រាប់កម្រាលបេតុងឧស្សាហកម្មដែលផ្ទុកបន្ទុកខ្ពស់។",
+        "content": {
+          "intro": "រោងចក្រឧស្សាហកម្មទំនើប និងឃ្លាំងដឹកជញ្ជូនធ្ងន់ តម្រូវឱ្យមានកម្រាលបេតុងដែលអាចទប់ទល់នឹងបន្ទុកចំណុចពីកង់យានយន្តយ៉ាងធ្ងន់ ការប៉ះពាល់សារធាតុគីមី និងស្នាមប្រេះដោយសារកម្តៅ។ នៅក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង (BCE) ការបង្កើតរូបមន្តលាយបេតុងរបស់យើង អនុវត្តតាមវិធីសាស្ត្រកំណត់សមាមាត្រដែលមានឯកសារច្បាស់លាស់ ដោយកែសម្រួលឱ្យសមនឹងខ្សាច់ក្នុងតំបន់ ថ្មសំណង់ និងលក្ខខណ្ឌថែរក្សាបេតុងក្នុងអាកាសធាតុក្តៅស្តុកស្តម្ភ។",
+          "sections": [
+            {
+              "heading": "សមាមាត្រទឹក-ស៊ីម៉ងត៍យ៉ាងជាក់លាក់ និងការបញ្ចូលសារធាតុបន្ថែមបន្ទន់បេតុងកម្រិតខ្ពស់",
+              "body": [
+                "ការសម្រេចបានកម្លាំងសង្កត់លើសពី 40 MPa ដោយមិនបង្កឱ្យកើតស្នាមប្រេះផុយដោយសារការរួមតូច តម្រូវឱ្យមានការគ្រប់គ្រងយ៉ាងម៉ត់ចត់លើសមាមាត្រទឹក-សារធាតុចង (w/c ≤ 0.38)។ នៅក្នុងរោងចក្រលាយបេតុងដែលប្រើប្រាស់ប្រព័ន្ធកុំព្យូទ័ររបស់យើង ឧបករណ៍វាស់សំណើមវាស់ទឹកលើផ្ទៃថ្ម និងខ្សាច់ជាបន្តបន្ទាប់ក្នុងពេលជាក់ស្តែង ហើយកែតម្រូវបរិមាណទឹកសម្រាប់លាយភ្លាមៗ។",
+                "សារធាតុបន្ថែមបន្ទន់បេតុងប្រភេទ Polycarboxylate ether (PCE) ត្រូវបានបញ្ចូលដោយស្វ័យប្រវត្តិ ដើម្បីរក្សាកម្រិតស្រុតឱ្យរលូន 160–180 mm សម្រាប់ការបូម ដោយមិនបាត់បង់រចនាសម្ព័ន្ធគ្រីស្តាល់តូចល្អិតដិតណែន ដែលចាំបាច់សម្រាប់កម្លាំងដំបូងខ្ពស់។"
+              ],
+              "callout": "ឧបករណ៍វាស់សំណើមនៅក្នុងរោងចក្រលាយបេតុងទាំង 4 របស់ BCE ធ្វើការក្រិតតម្រូវសំណើមថ្មរៀងរាល់ 30 វិនាទី ដើម្បីរក្សាសមាមាត្រទឹក-ស៊ីម៉ងត៍តាមការរចនាឱ្យបានច្បាស់លាស់។"
+            },
+            {
+              "heading": "ការចាត់ថ្នាក់ទំហំថ្ម និងការផ្ទៀងផ្ទាត់កម្លាំង",
+              "body": [
+                "យើងប្រើប្រាស់ថ្មបាសាល់បំបែក ដែលមានទំហំចាត់ថ្នាក់យ៉ាងតឹងរ៉ឹងចន្លោះ 10mm ដល់ 20mm និងមានសារធាតុដីឥដ្ឋលាយខ្សាច់តិចជាង 1%។ នៅពេលផ្សំជាមួយខ្សាច់ទន្លេ ដែលមានម៉ូឌុលភាពល្អិតពី 2.6 ដល់ 2.8 ម៉ាទ្រីសបេតុងដែលទទួលបាន មានចន្លោះប្រហោងតិចបំផុត និងការរៀបចំភាគល្អិតបានល្អប្រសើរ។",
+                "គំរូស៊ីឡាំងសាកល្បងស្តង់ដារ 150mm ដែលចាក់ចេញពីរាល់ការបញ្ជូនម្តងៗ ត្រូវបានដាក់លិចក្នុងធុងថែរក្សាបេតុងដែលមានទឹកកំបោរឆ្អែត ហើយបំបែកនៅថ្ងៃទី 7 និងថ្ងៃទី 28 ដោយប្រើម៉ាស៊ីនសាកល្បងកម្លាំងសង្កត់ឌីជីថលរបស់យើង ដើម្បីធានាការអនុលោមតាមការរចនា។"
+              ]
+            }
+          ],
+          "takeaways": [
+            "រូបមន្តដែលបានអនុម័ត ត្រូវបានពិនិត្យលើភាពងាយស្រួលក្នុងការប្រើប្រាស់ និងកម្លាំង មុនពេលនាំយកទៅប្រើនៅការដ្ឋាន។",
+            "ការលាយបេតុងដោយប្រព័ន្ធកុំព្យូទ័រ លុបបំបាត់ភាពប្រែប្រួលនៃការវាស់វែងដោយដៃ ក្នុងការចាក់បេតុងធំៗជាបន្តបន្ទាប់។",
+            "វិញ្ញាបនបត្រលទ្ធផលពិសោធន៍ពេញលេញ ទាំងពីភាគីទីបី និងពីមន្ទីរពិសោធន៍ផ្ទៃក្នុង ភ្ជាប់មកជាមួយរាល់ការបញ្ជូនបេតុងពាណិជ្ជកម្ម។"
+          ]
+        },
+        "author": {
+          "name": "វិស្វករ សុខុម សេង",
+          "role": "ប្រធានវិស្វករវត្ថុធាតុ និងការលាយបេតុង, BCE"
+        },
+        "slug": "aci-211-high-strength-mix-designs"
       }
     },
     {
@@ -1700,6 +3468,41 @@
           "name": "Eng. Chanthy Rath",
           "role": "Chief Geotechnical & Piling Engineer, BCE"
         }
+      },
+      "km": {
+        "title": "ការបោះសសរស្ដម្ភយ៉ាងជាក់លាក់ក្នុងស្រទាប់ដីល្បាប់ទន់",
+        "kind": "Insight",
+        "alt": "ម៉ាស៊ីនបោះសសរស្ដម្ភរបស់ BCE កំពុងធ្វើការនៅការដ្ឋានគ្រឹះ",
+        "excerpt": "របៀបដែលវិធីបោះសសរស្ដម្ភដែលមានរំញ័រទាប កាត់បន្ថយហានិភ័យដល់សំណង់ជិតខាងនៅលើដីល្បាប់ទន់។",
+        "content": {
+          "intro": "គ្រឹះដែលសាងសង់នៅតាមអាងទន្លេសាំងគែ ជួបប្រទះស្រទាប់ដីល្បាប់ជ្រៅ ដែលមានភាពធន់ទ្រាំនឹងការកាត់ទាប។ ការបោះសសរដោយប្រើញញួរម៉ាស៊ូតតាមបែបប្រពៃណី បង្កើតរលកញ័រទង្គិចដី ដែលគំរាមកំហែងដល់ផ្ទះជួរបុរាណ និងអគារលំនៅដ្ឋាននៅជិតខាង។ ម៉ាស៊ីនបោះសសរស្ដម្ភរបស់ BCE ផ្តល់នូវដំណោះស្រាយដែលអាចគ្រប់គ្រងបាន និងមានរំញ័រទាប ដែលសមស្របសម្រាប់ការដ្ឋានដែលចាំបាច់ត្រូវកំណត់ចលនាដី។",
+          "sections": [
+            {
+              "heading": "យន្តការចុចសសរដោយគ្មានរំញ័រ",
+              "body": [
+                "ម៉ាស៊ីនចុចសសរធារាសាស្ត្របែបស្ថិតិ កាន់សសរស្ដម្ភបេតុងអារម៉េរាងបួនជ្រុង (ពី 250x250mm ដល់ 400x400mm) ដោយប្រើថ្គាមចាប់សម្ពាធខ្ពស់។ ស៊ីឡាំងធារាសាស្ត្រមេពីរ បង្កលំនាំរុញចុះក្រោមជាបន្ត ដោយរុញសសរចូលទៅក្នុងដីបានយ៉ាងរលូន ដោយគ្មានការប៉ះទង្គិចថាមពល។",
+                "ដោយសារវិធីនេះបង្កើតសមត្ថភាពទ្រទ្រង់របស់សសរ ដោយគ្មានការប៉ះទង្គិចធ្ងន់ វាអាចប្រើប្រាស់បាននៅកន្លែងដែលចាំបាច់ត្រូវគ្រប់គ្រងរំញ័រ និងសំឡេងរំខាននៅជិតសំណង់ដែលមានស្រាប់។"
+              ],
+              "callout": "ការចុចសសរបែបស្ថិតិ កាត់បន្ថយកម្រិតសំឡេងឱ្យទាបជាង 65 dB និងលុបបំបាត់រំញ័រដី ដែលអនុញ្ញាតឱ្យធ្វើការក្នុងទីក្រុងបាន 24/7 ដោយមិនបង្កការរំខានដល់សាធារណៈ។"
+            },
+            {
+              "heading": "ការវាស់បន្ទុក-ការស្រុតដីឌីជីថលក្នុងពេលជាក់ស្តែង",
+              "body": [
+                "រាល់សង្កាត់នៃការចុចដោយម៉ាស៊ីនធារាសាស្ត្រ ត្រូវបានតាមដានតាមរយៈឧបករណ៍ប្តូរសញ្ញាសម្ពាធឌីជីថល ដែលក្រិតតម្រូវដោយផ្ទាល់ទៅនឹងកម្រិតតោននៃការចុចអតិបរមា។ វិស្វករកត់ត្រាបន្ទុកចុងក្រោយពិតប្រាកដ ដែលសសរឈប់ចុះបន្ថែម សម្រាប់សសរនីមួយៗ ដែលផ្តល់ការផ្ទៀងផ្ទាត់ភ្លាមៗអំពីសមត្ថភាពទ្រទ្រង់បន្ទុករបស់គ្រឹះ មុនពេលចាក់ក្បាលសសរ។"
+              ]
+            }
+          ],
+          "takeaways": [
+            "គ្មានរលកញ័រទង្គិច ដែលជួយការពារគ្រឹះជិតខាង និងខ្សែសាធារណប្រយោជន៍ក្រោមដី។",
+            "ការតាមដានបន្ទុកឌីជីថលជាបន្ត ជំនួសការប៉ាន់ស្មានចំនួនដងវាយញញួរ ដែលមិនច្បាស់លាស់។",
+            "អនុញ្ញាតឱ្យដំឡើងសសរស្ដម្ភចាក់ ដែលផ្សារភ្ជាប់ពីច្រើនកំណាត់ បានលឿនជាងមុន រហូតដល់ជម្រៅ 28 ម៉ែត្រ។"
+          ]
+        },
+        "author": {
+          "name": "វិស្វករ ចាន់ធី រ៉ាត់",
+          "role": "ប្រធានវិស្វករភូគព្ភសាស្ត្រ និងការបោះសសរស្ដម្ភ, BCE"
+        },
+        "slug": "hydraulic-static-piling-soft-alluvial-soil"
       }
     },
     {
@@ -1746,6 +3549,41 @@
           "name": "Vannak Meas",
           "role": "Senior Laboratory Quality Inspector, BCE"
         }
+      },
+      "km": {
+        "title": "ការសាកល្បងកម្លាំងសង្កត់៖ របៀបដែល BCE ផ្ទៀងផ្ទាត់កម្លាំងរយៈពេល 28 ថ្ងៃ នៅរោងចក្រលាយបេតុងទាំង 4",
+        "kind": "Insight",
+        "alt": "គំរូស៊ីឡាំងបេតុងកំពុងសាកល្បងកម្លាំងសង្កត់ក្នុងមន្ទីរពិសោធន៍ BCE",
+        "excerpt": "ចូលទៅខាងក្នុងមន្ទីរពិសោធន៍ផ្ទៃក្នុងរបស់ BCE៖ នីតិវិធីជាប្រព័ន្ធរបស់យើងសម្រាប់ការចាក់គំរូស៊ីឡាំងសាកល្បងស្តង់ដារ ការថែរក្សាក្នុងធុងទឹក និងការបំបែកដោយឌីជីថល ស្របតាមនីតិវិធីសាកល្បងដែលមានឯកសារ។",
+        "content": {
+          "intro": "គុណភាពបេតុងដែលស្ថិតស្ថេរ មិនអាចពឹងផ្អែកតែលើការត្រួតពិនិត្យដោយភ្នែកនោះទេ។ BCE មានមន្ទីរពិសោធន៍ផ្ទៃក្នុងដោយឡែកនៅបាត់ដំបង ដែលបំពាក់ដោយម៉ាស៊ីនសាកល្បងកម្លាំងសង្កត់ឌីជីថល។ មន្ទីរនេះធានាថា គ្រប់ម៉ែត្រគូបដែលបានចាក់នៅការដ្ឋានរបស់អតិថិជន ស្របតាមលក្ខណៈបច្ចេកទេសវិស្វកម្មសំណង់។",
+          "sections": [
+            {
+              "heading": "ការយកគំរូ និងការរៀបចំស៊ីឡាំងសាកល្បង",
+              "body": [
+                "ការយកគំរូធ្វើឡើងដោយផ្ទាល់នៅរន្ធបញ្ចេញបេតុងរបស់រថយន្តលាយបេតុងនៅការដ្ឋាន ឬនៅរោងចក្រលាយបេតុង។ អ្នកបច្ចេកទេសចាក់គំរូស៊ីឡាំងស្តង់ដារ 150mm x 300mm ជាបីស្រទាប់ស្មើគ្នា ដោយបុកស្រទាប់នីមួយៗដោយដំបងបុកស្តង់ដារ។",
+                "គំរូត្រូវបានរក្សាទុកក្នុងខ្យល់មានសំណើមធម្មតារយៈពេល 24 ម៉ោង មុនពេលដកចេញពីទម្រង់ បន្ទាប់មកដាក់លិចទាំងស្រុងក្នុងធុងថែរក្សាបេតុង ដែលគ្រប់គ្រងសីតុណ្ហភាព 23°C ± 2°C រហូតដល់អាយុសាកល្បង។"
+              ]
+            },
+            {
+              "heading": "ការវិភាគការប្រេះដោយឌីជីថលស្វ័យប្រវត្តិ",
+              "body": [
+                "ម៉ាស៊ីនសាកល្បងអនុវត្តបន្ទុកសង្កត់ដែលគ្រប់គ្រងបាន រហូតដល់ស៊ីឡាំងប្រេះខូច។ ឧបករណ៍ចាប់សញ្ញាមីក្រូប្រូសេស័រ កត់ត្រាបន្ទុកបំបែកខ្ពស់បំផុត ដោយគណនាកម្លាំងជា MPa ដោយស្វ័យប្រវត្តិ និងគូសក្រាហ្វខ្សែកោងបំបែក ដើម្បីផ្ទៀងផ្ទាត់លំនាំប្រេះរាងកោណ និងបំបែកតាមស្តង់ដារ។"
+              ],
+              "callout": "របាយការណ៍សាកល្បងផ្លូវការ ដែលចេញដោយមន្ទីរពិសោធន៍របស់យើង ផ្តល់ឱ្យអតិថិជន វិស្វករប្រឹក្សា និងសវនករហិរញ្ញវត្ថុ នូវវិញ្ញាបនបត្រអនុលោមភាព ដែលអាចផ្ទៀងផ្ទាត់បាន។"
+            }
+          ],
+          "takeaways": [
+            "ការសាកល្បងផ្ទៃក្នុង ផ្តល់លទ្ធផលកម្លាំងបឋមរយៈពេល 7 ថ្ងៃ ក្នុងរយៈពេលប៉ុន្មានម៉ោងបន្ទាប់ពីដកចេញពីទម្រង់។",
+            "ឧបករណ៍ឌីជីថលដែលបានក្រិតតម្រូវ លុបបំបាត់កំហុសនៃការអានដោយដៃ។",
+            "ការយកគំរូ ការថែរក្សាបេតុង និងការសាកល្បងកម្លាំង សុទ្ធតែមានឯកសារកត់ត្រាច្បាស់លាស់។"
+          ]
+        },
+        "author": {
+          "name": "វណ្ណៈ មាស",
+          "role": "អ្នកត្រួតពិនិត្យគុណភាពជាន់ខ្ពស់ប្រចាំមន្ទីរពិសោធន៍, BCE"
+        },
+        "slug": "dye-2000-compressive-strength-testing"
       }
     },
     {
@@ -1798,6 +3636,47 @@
           "name": "BCE Fleet & Dispatch Team",
           "role": "Fleet operations, BCE"
         }
+      },
+      "km": {
+        "title": "សមត្ថភាពកងយានយន្ត៖ រថយន្តបូមបេតុង 8 គ្រឿង និងរថយន្តលាយបេតុង 41 គ្រឿង ទូទាំងប្រទេសកម្ពុជា",
+        "kind": "Insight",
+        "alt": "រថយន្តលាយបេតុង និងរថយន្តបូមបេតុងរបស់ BCE នៅរោងចក្រលាយបេតុង",
+        "excerpt": "របៀបដែល BCE រៀបចំផែនការផលិតកម្ម ការបញ្ជូន និងការថែទាំ ជុំវិញកងយានយន្តដែលជាកម្មសិទ្ធិផ្ទាល់ខ្លួន ដែលរួមមានរោងចក្រលាយបេតុង រថយន្តលាយបេតុង និងរថយន្តបូមបេតុង។",
+        "content": {
+          "intro": "ការចាក់បេតុងជាបន្តបន្ទាប់ ពឹងផ្អែកលើការរៀបចំផែនការផលិតកម្ម និងការដឹកជញ្ជូនរួមគ្នា។ BCE ដំណើរការរោងចក្រលាយបេតុង រថយន្តលាយបេតុង 41 គ្រឿង និងរថយន្តបូមបេតុង 8 គ្រឿង ជាកម្មសិទ្ធិផ្ទាល់ខ្លួន ដូច្នេះទិន្នផលរោងចក្រ វដ្តរថយន្ត និងកម្មវិធីចាក់បេតុង ត្រូវបានគ្រប់គ្រងដោយក្រុមតែមួយ ជាជាងការផ្គុំពីអ្នកម៉ៅការបន្តរង។",
+          "sections": [
+            {
+              "heading": "ការរៀបចំផែនការលំដាប់នៃការចាក់បេតុង",
+              "body": [
+                "ការដឹកជញ្ជូនត្រូវបានរៀបចំតាមលំដាប់ ស្របតាមកម្មវិធីចាក់បេតុងរបស់អ្នកម៉ៅការ និងទីតាំងរបស់ក្រុមការងារចាក់បេតុងនៅការដ្ឋាន។ គោលដៅគឺការផ្គត់ផ្គង់ប្រកបដោយស្ថិរភាព ដែលរក្សាការចាក់បេតុងឱ្យដំណើរការបន្ត ដោយមិនឱ្យរថយន្តរង់ចាំ ឬកើតមានសន្លាក់ត្រជាក់។",
+                "សម្រាប់ការចាក់បេតុងធំៗ ការផលិតត្រូវបានរៀបចំផែនការឆ្លងកាត់រោងចក្រ និងរថយន្តជាមុន ដោយក្រុមការងារនៅការដ្ឋានផ្ទៀងផ្ទាត់ផ្លូវចូល ចំណុចបញ្ចេញបេតុង និងលំដាប់នៃការចាក់បេតុងក្នុងផ្នែកនីមួយៗ។"
+              ]
+            },
+            {
+              "heading": "ចម្ងាយបូម និងផ្លូវចូលការដ្ឋាន",
+              "body": [
+                "រថយន្តបូមបេតុងប្រភេទដងដៃ និងប្រភេទបូមតាមបំពង់ ត្រូវបានជ្រើសរើសតាមចំណុចចាក់បេតុង ផ្លូវចូលការដ្ឋាន និងទីធ្លាសម្រាប់ជើងទម្របូម។ តម្រូវការបូមត្រូវបានបញ្ជាក់ក្នុងអំឡុងពេលធ្វើសម្រង់តម្លៃ ដើម្បីឱ្យគ្រឿងចក្រត្រឹមត្រូវត្រូវបានដាក់ពង្រាយ ជាជាងការប្តូរជំនួសនៅថ្ងៃចាក់បេតុង។",
+                "កន្លែងណាដែលរថយន្តលាយបេតុងមិនអាចទៅដល់ចំណុចចាក់បេតុង បេតុងត្រូវបានបូមតាមផ្លូវបំពង់ដែលបានរៀបចំផែនការ និងព្រមព្រៀងជាមួយក្រុមការងារការដ្ឋាន មុនពេលចាប់ផ្តើមដឹកជញ្ជូន។"
+              ]
+            },
+            {
+              "heading": "ការថែទាំរវាងការចាក់បេតុង",
+              "body": [
+                "រថយន្តលាយបេតុង និងរថយន្តបូមបេតុង ត្រូវបានថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួនរបស់ BCE។ ការត្រួតពិនិត្យត្រូវបានធ្វើឡើងរវាងការចាក់បេតុងនីមួយៗ ដោយការថែទាំតាមផែនការ ត្រូវបានកំណត់ពេលជុំវិញកម្មវិធីដឹកជញ្ជូន ដើម្បីកុំឱ្យការថែទាំរំខានដល់ការចាក់បេតុងដែលបានសន្យា។"
+              ]
+            }
+          ],
+          "takeaways": [
+            "រថយន្តលាយបេតុង 41 គ្រឿង និងរថយន្តបូមបេតុង 8 គ្រឿង ក្នុងកងយានយន្តផ្ទាល់ខ្លួនរបស់ BCE។",
+            "ការផលិត និងការដឹកជញ្ជូន ត្រូវបានរៀបចំផែនការរួមគ្នាពីរោងចក្រលាយបេតុងចំនួន 4។",
+            "ប្រភេទរថយន្តបូម និងផ្លូវចូលការដ្ឋាន ត្រូវបានបញ្ជាក់នៅពេលធ្វើសម្រង់តម្លៃ។"
+          ]
+        },
+        "author": {
+          "name": "ក្រុមកងយានយន្ត និងការបញ្ជូន BCE",
+          "role": "ប្រតិបត្តិការកងយានយន្ត, BCE"
+        },
+        "slug": "bce-fleet-expansion-41-mixers-8-pumps"
       }
     },
     {
@@ -1843,6 +3722,40 @@
           "name": "Eng. Sokhom Seng",
           "role": "Lead Materials & Batching Engineer, BCE"
         }
+      },
+      "km": {
+        "title": "ការចាក់បេតុងក្នុងអាកាសធាតុក្តៅនៅកម្ពុជា៖ ការលាយបេតុង សារធាតុពន្យារការរឹងខ្លួន និងការថែរក្សាបេតុង",
+        "kind": "Insight",
+        "alt": "រោងចក្រលាយបេតុង និងទីធ្លាថ្មរបស់ BCE",
+        "excerpt": "នៅពេលសីតុណ្ហភាពលើស 36°C ដំណើរការរីករាលនៃស៊ីម៉ងត៍កើនលឿនយ៉ាងខ្លាំង។ ស្វែងយល់ពីរបៀបដែល BCE រក្សាសីតុណ្ហភាពបេតុងស្រស់ឱ្យទាបជាង 32°C ដោយប្រើការលាយបេតុងជាមួយទឹកកកស្នាប់ និងសារធាតុពន្យារការរឹងខ្លួនបន្ថែម។",
+        "content": {
+          "intro": "ក្នុងរដូវប្រាំងនៅកម្ពុជា សីតុណ្ហភាពព័ទ្ធជុំវិញពេលថ្ងៃ ជាទូទៅកើនឡើងលើសពី 35°C ដល់ 38°C។ បើគ្មានការគ្រប់គ្រងកម្តៅជាពិសេសទេ សីតុណ្ហភាពខ្ពស់ធ្វើឱ្យដំណើរការរីករាលនៃស៊ីម៉ងត៍កើនលឿន បង្កើនតម្រូវការទឹក បន្ថយកម្លាំងអតិបរមារយៈពេល 28 ថ្ងៃ និងបង្កឱ្យកើតស្នាមប្រេះដោយសារការរួមតូចប្លាស្ទិកយ៉ាងរហ័ស។",
+          "sections": [
+            {
+              "heading": "ការប្រើទឹកត្រជាក់ និងការជំនួសដោយទឹកកកស្នាប់",
+              "body": [
+                "នៅរោងចក្រលាយបេតុងកណ្តាលរបស់យើង ទឹកសម្រាប់លាយត្រូវបានធ្វើឱ្យត្រជាក់ជាមុន តាមរយៈឧបករណ៍ធ្វើទឹកត្រជាក់បែបឧស្សាហកម្ម។ សម្រាប់ការចាក់បេតុងរចនាសម្ព័ន្ធធ្ងន់ដែលសំខាន់ៗ ទឹកសម្រាប់លាយរហូតដល់ 60% ត្រូវបានជំនួសដោយទឹកកកស្នាប់ ដោយផ្ទាល់នៅក្នុងម៉ាស៊ីនលាយបេតុងពីរអ័ក្ស។",
+                "ដោយសារកម្តៅអាថ៌កំបាំងនៃការរលាយរបស់ទឹកកក ស្រូបយកកម្តៅ 334 J/g សីតុណ្ហភាពបេតុងស្រស់នៅពេលបញ្ចេញ ត្រូវបានរក្សាក្នុងកម្រិតកំណត់ នៅពេលទៅដល់ការដ្ឋាន។"
+              ]
+            },
+            {
+              "heading": "សារធាតុពន្យារការរឹងខ្លួនបន្ថែម",
+              "body": [
+                "សារធាតុបន្ថែមបន្ថយទឹក និងពន្យារការរឹងខ្លួន ត្រូវបានបញ្ចូលក្នុងបរិមាណសមស្រប ដើម្បីពន្យារពេលរឹងខ្លួន នៅពេលត្រូវការដឹកជញ្ជូនចម្ងាយឆ្ងាយ ឬថ្ងៃក្តៅខ្លាំង។ នេះការពារការរឹងខ្លួនភ្លាមៗក្នុងអំឡុងពេលធ្វើដំណើរតាមចរាចរណ៍ និងធានាការបង្រួមបេតុងពេញលេញជុំវិញសំណាញ់ដែកគោលក្រាស់។"
+              ]
+            }
+          ],
+          "takeaways": [
+            "ការលាយបេតុងជាមួយទឹកកក រក្សាបេតុងស្រស់ឱ្យក្រោម 32°C ដើម្បីការពារស្នាមប្រេះតូចៗដោយសារកម្តៅ។",
+            "សារធាតុពន្យារការរឹងខ្លួន ផ្តល់ពេលវេលាធ្វើការគ្រប់គ្រាន់ សម្រាប់ការតុបតែងកម្រាលបេតុងធំៗ និងការកោរកម្រាលបេតុងដោយឡាស៊ែរ។",
+            "កាលវិភាគចាក់បេតុងពេលយប់ ត្រូវបានអនុវត្តសម្រាប់កម្រាលបេតុងឧស្សាហកម្មធំៗ ដែលចាក់ជាបន្តបន្ទាប់។"
+          ]
+        },
+        "author": {
+          "name": "វិស្វករ សុខុម សេង",
+          "role": "ប្រធានវិស្វករវត្ថុធាតុ និងការលាយបេតុង, BCE"
+        },
+        "slug": "hot-weather-concreting-ice-batching"
       }
     },
     {
@@ -1893,6 +3806,45 @@
           "name": "BCE HSE Team",
           "role": "Health, Safety & Environment"
         }
+      },
+      "km": {
+        "title": "ហេដ្ឋារចនាសម្ព័ន្ធដែលផ្តល់អាទិភាពដល់សុវត្ថិភាព៖ របៀបដែល BCE គ្រប់គ្រងម៉ោងធ្វើការនៅការដ្ឋានស្មុគស្មាញ",
+        "kind": "Insight",
+        "alt": "ក្រុមការងារការដ្ឋាន BCE ក្នុងឧបករណ៍ការពារខ្លួន",
+        "excerpt": "របៀបដែលប្រព័ន្ធគ្រប់គ្រងសុខភាព សុវត្ថិភាព និងបរិស្ថាន (HSE) របស់ BCE ដំណើរការនៅការដ្ឋាន៖ ការប្រជុំផ្តល់ព័ត៌មានប្រចាំវេន ការត្រួតពិនិត្យឧបករណ៍ និងការកំណត់តួនាទីច្បាស់លាស់ជុំវិញរាល់ការចាក់បេតុង។",
+        "content": {
+          "intro": "ការសាងសង់ធ្ងន់ ដាក់ក្រុមការងារនៅជុំវិញបំពង់បូមបេតុង ស្គរលាយបេតុងដែលកំពុងបង្វិល ម៉ាស៊ីនបោះសសរស្ដម្ភ និងរណ្តៅជីកជ្រៅ។ ប្រព័ន្ធគ្រប់គ្រង HSE របស់ BCE ត្រូវបានបង្កើតឡើងជុំវិញការរៀបចំផែនការការងារ ការផ្តល់ព័ត៌មានដល់ក្រុមការងារ និងការត្រួតពិនិត្យឧបករណ៍ មុនពេលធ្វើសកម្មភាពសំខាន់នីមួយៗ។",
+          "sections": [
+            {
+              "heading": "ផ្តល់ព័ត៌មានដល់វេនការងារ មិនត្រឹមតែការងារនោះទេ",
+              "body": [
+                "រាល់វេនការងារចាប់ផ្តើមដោយការប្រជុំផ្តល់ព័ត៌មានអំពីហានិភ័យជាក់លាក់នៃការដ្ឋាន និងការចាក់បេតុងនោះ៖ ខ្សែភ្លើងលើអាកាស តំបន់ហាមឃាត់ជុំវិញម៉ាស៊ីន និងរថយន្តបូម ផ្លូវចូល និងលំដាប់ការងារប្រចាំថ្ងៃ។ តួនាទីទទួលខុសត្រូវត្រូវបានកំណត់ជាក់លាក់ មិនមែនសន្មតយកទេ។"
+              ]
+            },
+            {
+              "heading": "ត្រួតពិនិត្យមុនការចាក់បេតុង",
+              "body": [
+                "បំពង់បូម កន្លាស់ចាប់ ខ្ទាស់សុវត្ថិភាព ខ្សែចង និងខ្សែពួររបស់ម៉ាស៊ីនបោះសសរ ត្រូវបានត្រួតពិនិត្យមុនពេលចាប់ផ្តើមការងារ។ ឧបករណ៍ដែលមានបញ្ហាខូចខាត ត្រូវបានដកចេញពីការប្រើប្រាស់ ជាជាងការរកវិធីវាងវៃដើម្បីបន្តប្រើប្រាស់។"
+              ]
+            },
+            {
+              "heading": "ឧបករណ៍ការពារខ្លួន និងវិន័យការដ្ឋាន",
+              "body": [
+                "មួកសុវត្ថិភាព ស្បែកជើងការពារកែងជើងធ្វើពីដែក សម្លៀកបំពាក់ឆ្លុះពន្លឺ និងឧបករណ៍ការពារភ្នែក គឺជាតម្រូវការចាំបាច់នៅការដ្ឋាន BCE។ ភ្ញៀវ និងអ្នកម៉ៅការបន្តរង អនុវត្តតាមវិន័យដូចគ្នានឹងក្រុមការងារ BCE។"
+              ]
+            }
+          ],
+          "takeaways": [
+            "ការប្រជុំផ្តល់ព័ត៌មានប្រចាំវេន គ្របដណ្តប់លើការដ្ឋាន ការចាក់បេតុង និងហានិភ័យប្រចាំថ្ងៃ។",
+            "រថយន្តបូម ខ្សែចង និងឧបករណ៍លើក ត្រូវបានត្រួតពិនិត្យមុនការងារសំខាន់ៗ។",
+            "ឧបករណ៍ការពារខ្លួន និងវិន័យការដ្ឋាន អនុវត្តចំពោះក្រុមការងារ BCE អ្នកម៉ៅការបន្តរង និងភ្ញៀវ។"
+          ]
+        },
+        "author": {
+          "name": "ក្រុម HSE របស់ BCE",
+          "role": "សុខភាព សុវត្ថិភាព និងបរិស្ថាន"
+        },
+        "slug": "one-million-safe-man-hours-milestone"
       }
     },
     {
@@ -1938,6 +3890,40 @@
           "name": "BCE Corporate Heritage Team",
           "role": "Corporate Communications, BCE"
         }
+      },
+      "km": {
+        "title": "ប្រវត្តិរបស់ BCE៖ 30 ឆ្នាំ ចាប់ពីក្រុមហ៊ុន ហុង ហួត លី ក្នុងឆ្នាំ 1995",
+        "kind": "News",
+        "alt": "ទិដ្ឋភាពពីលើអាកាសនៃរោងចក្រលាយបេតុង និងទីធ្លាថ្មរបស់ BCE",
+        "excerpt": "របៀបដែលអាជីវកម្មពាណិជ្ជកម្មថ្មសំណង់ក្នុងតំបន់ដ៏តូចមួយ ដែលបានបង្កើតឡើងក្នុងឆ្នាំ 1995 បានវិវត្តទៅជាក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE)។",
+        "content": {
+          "intro": "បីទសវត្សរ៍មុន ក្នុងឆ្នាំ 1995 ក្រុមហ៊ុន ហុង ហួត លី ខូអិលធីឌី បានចាប់ផ្តើមប្រតិបត្តិការ ដោយផ្គត់ផ្គង់សម្ភារសំណង់ និងសេវាកម្មសំណង់មូលដ្ឋាន ដល់សហគមន៍ដែលកំពុងរីកចម្រើនឡើងវិញនៅភាគពាយព្យកម្ពុជា។ តាមរយៈការវិនិយោគឡើងវិញជាប្រចាំ លើគ្រឿងចក្ររោងចក្រទំនើប និងធនធានមនុស្សផ្នែកវិស្វកម្ម សហគ្រាសនោះបានវិវត្តទៅជាក្រុមហ៊ុន បាត់ដំបង ខនស្ត្រាក់សិន អេន អេនជីនារីង ខូអិលធីឌី (BCE)។",
+          "sections": [
+            {
+              "heading": "ការកសាងគ្រឹះដ៏រឹងមាំឱ្យកម្ពុជា",
+              "body": [
+                "ក្រោមការដឹកនាំរបស់លោកស្រី លឿង ចាន់ ប្រធានក្រុមប្រឹក្សាភិបាល BCE បានធ្វើទំនើបកម្មប្រតិបត្តិការនៅឆ្នាំ 2015 ដោយនាំយកបច្ចេកវិទ្យាលាយបេតុងដោយប្រព័ន្ធកុំព្យូទ័រ មកជំនួសម៉ាស៊ីនលាយបេតុងដោយដៃ។",
+                "បច្ចុប្បន្ន BCE ដំណើរការរោងចក្រលាយបេតុងកណ្តាល 4 រោង រថយន្តលាយបេតុង 41 គ្រឿង រថយន្តបូមបេតុង 8 គ្រឿង ម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រ 7 គ្រឿង និងមន្ទីរពិសោធន៍សាកល្បងវត្ថុធាតុផ្ទៃក្នុង ដែលផ្តល់សេវានៅ 13 ខេត្ត និងរាជធានីភ្នំពេញ។"
+              ]
+            },
+            {
+              "heading": "កេរ្តិ៍ដំណែលនៃទំនុកចិត្ត និងសុចរិតភាព",
+              "body": [
+                "រយៈពេលជាងបីទសវត្សរ៍ BCE បានផ្គត់ផ្គង់បេតុង និងសេវាកម្មសំណង់ សម្រាប់គម្រោងលំនៅដ្ឋាន ពាណិជ្ជកម្ម ឧស្សាហកម្ម និងសាធារណៈ ទូទាំងប្រទេសកម្ពុជា។"
+              ]
+            }
+          ],
+          "takeaways": [
+            "បង្កើតឡើងក្នុងឆ្នាំ 1995 ជាមួយបទពិសោធន៍ប្រតិបត្តិការល្អឥតខ្ចោះជាង 30 ឆ្នាំ ដោយគ្មានការរអាក់រអួល។",
+            "បានចុះបញ្ជី និងគ្រប់គ្រងក្នុងស្រុកនៅកម្ពុជា។",
+            "ប្តេជ្ញាគាំទ្រហេដ្ឋារចនាសម្ព័ន្ធវិស្វកម្មស៊ីវិលជំនាន់ថ្មីរបស់កម្ពុជា។"
+          ]
+        },
+        "author": {
+          "name": "ក្រុមកេរ្តិ៍ដំណែលសាជីវកម្ម BCE",
+          "role": "ទំនាក់ទំនងសាជីវកម្ម, BCE"
+        },
+        "slug": "30-years-of-bce-heritage-from-1995"
       }
     },
     {
@@ -1983,6 +3969,40 @@
           "name": "Eng. Sokhom Seng",
           "role": "Lead Materials & Batching Engineer, BCE"
         }
+      },
+      "km": {
+        "title": "ការកោរកម្រាលបេតុងដោយឡាស៊ែរ៖ ការផ្តល់កម្រាលរាបស្មើពិសេស (Superflat) សម្រាប់ឃ្លាំងទំនើប",
+        "kind": "Insight",
+        "alt": "ក្រុមការងារ BCE កំពុងចាក់ និងតុបតែងកម្រាលបេតុង",
+        "excerpt": "បច្ចេកវិទ្យាកោរកម្រាលដោយឡាស៊ែរស្វ័យប្រវត្តិ សម្រេចបាននូវតម្លៃភាពរាបស្មើនៃកម្រាល (FF) និងភាពនឹងរាបនៃកម្រាល (FL) យ៉ាងជាក់លាក់ ដែលចាំបាច់សម្រាប់ធ្នើរខ្ពស់ក្នុងឃ្លាំងភស្តុភារ និងរថយន្តលើកទំនិញស្វ័យប្រវត្តិ។",
+        "content": {
+          "intro": "មជ្ឈមណ្ឌលវេចខ្ចប់កសិផលទំនើប ឃ្លាំងកែច្នៃអង្ករ និងមជ្ឈមណ្ឌលភស្តុភារ តម្រូវឱ្យមានកម្រាលបេតុងរាបស្មើពិសេស (FF > 45, FL > 35) ដើម្បីឱ្យរថយន្តលើកទំនិញប្រភេទច្រកចង្អៀតខ្ពស់ អាចធ្វើការបានដោយមិនឱ្យបង្គោលលើកផ្អៀង។ BCE រួមបញ្ចូលរូបមន្តបេតុងលាយស្រេចដែលបានកែសម្រួលឱ្យមានការរួមតូចទាប ជាមួយសេវាកម្មតុបតែងកម្រាលដោយឡាស៊ែរស្វ័យប្រវត្តិ។",
+          "sections": [
+            {
+              "heading": "ភាពជាក់លាក់នៃកម្រិតខ្ពស់ដី ដឹកនាំដោយឡាស៊ែរ",
+              "body": [
+                "ការកោរកម្រាលដោយឡាស៊ែរ ប្រើសញ្ញាកម្រិតខ្ពស់ជាបន្តបន្ទាប់ ពីឧបករណ៍បញ្ចេញឡាស៊ែរបង្វិល ដែលដំឡើងនៅការដ្ឋាន ជាមួយការកែតម្រូវធារាសាស្ត្រដោយស្វ័យប្រវត្តិនៃឧបករណ៍កោរ ដើម្បីកោរបេតុងឱ្យមានកម្រិតស្មើគ្នាពេញការចាក់។",
+                "នៅពេលផ្សំជាមួយដែកគោលជាតិសរសៃដែក ឬសរសៃម៉ាក្រូសំយោគ កម្រាលបេតុងឧស្សាហកម្មដែលទទួលបាន លុបបំបាត់ការរមួលប្រេះតាមស្នាមកាត់ និងផ្តល់ភាពធន់ក្នុងប្រតិបត្តិការដោយគ្មានធូលី អស់ជាច្រើនទសវត្សរ៍។"
+              ]
+            },
+            {
+              "heading": "ការខាត់រលោងដោយម៉ាស៊ីនតុបតែងកម្រាលបេតុងបើកបរ",
+              "body": [
+                "បន្ទាប់ពីការកោរកម្រាលដោយឡាស៊ែរ ម៉ាស៊ីនតុបតែងកម្រាលបេតុងបើកបរប្រភេទរ៉ូទ័រពីរ ធ្វើការហាលផ្ទៃដោយបន្ទះសំប៉ែត និងបញ្ចប់ដោយការខាត់រលោង ដើម្បីបង្រួមស្រទាប់ពាក់ខាងលើកម្រាស់ 5mm បង្កើតជាផ្ទៃបេតុងរលោងដូចកញ្ចក់ និងមិនជ្រាបទឹក ដែលសមស្របសម្រាប់ចរាចរណ៍ឧស្សាហកម្មកម្រិតខ្ពស់។"
+              ]
+            }
+          ],
+          "takeaways": [
+            "ផ្តល់តម្លៃ FF/FL ខ្ពស់ ដែលចាំបាច់សម្រាប់ឃ្លាំងស្វ័យប្រវត្តិ។",
+            "បង្កើនល្បឿនការចាក់បេតុងលើផ្ទៃធំទូលាយ នៅពេលវិធីនេះត្រូវបានកំណត់ក្នុងលក្ខណៈបច្ចេកទេស។",
+            "កាត់បន្ថយសន្លាក់សំណង់ និងថ្លៃថែទាំកម្រាលរយៈពេលវែង។"
+          ]
+        },
+        "author": {
+          "name": "វិស្វករ សុខុម សេង",
+          "role": "ប្រធានវិស្វករវត្ថុធាតុ និងការលាយបេតុង, BCE"
+        },
+        "slug": "concrete-slab-laser-screeding-superflat"
       }
     },
     {
@@ -2011,6 +4031,25 @@
           "Fluent Khmer and good English, with confident written and spoken communication.",
           "A valid driving licence and willingness to travel to project sites."
         ]
+      },
+      "km": {
+        "title": "វិស្វករផ្នែកលក់ និងសម្រង់តម្លៃ",
+        "overview": "រៀបចំសម្រង់តម្លៃឱ្យបានច្បាស់លាស់ និងត្រឹមត្រូវសម្រាប់បេតុងលាយស្រេច ការបោះសសរស្ដម្ភ ការងារសំណង់ ការងារចាក់កម្រាលបេតុង និងការជួលគ្រឿងចក្រ។ សហការជាមួយក្រុមរោងចក្រលាយបេតុង ក្រុមបោះសសរស្ដម្ភ និងក្រុមបញ្ជូន ដើម្បីកំណត់តម្លៃតាមសំណើ ដោយផ្អែកលើគំនូរ បញ្ជីបរិមាណការងារ (BOQ) និងតម្រូវការនៅការដ្ឋាន បន្ទាប់មកតាមដានសំណើនីមួយៗរហូតដល់ការបញ្ជាទិញ។",
+        "duties": [
+          "ពិនិត្យសំណើ គំនូរ និងបញ្ជីបរិមាណការងារ (BOQ) រួចរៀបចំសម្រង់តម្លៃសម្រាប់សេវាកម្មទាំងប្រាំរបស់ BCE។",
+          "សម្របសម្រួលជាមួយក្រុមរោងចក្រលាយបេតុង ក្រុមបោះសសរស្ដម្ភ និងក្រុមបញ្ជូន ដើម្បីបញ្ជាក់សមត្ថភាព កាលវេលាដឹកជញ្ជូន និងតម្រូវការរថយន្តបូមបេតុង ឬម៉ាស៊ីនបោះសសរស្ដម្ភ។",
+          "ចុះពិនិត្យការដ្ឋាននៅបាត់ដំបង និងខេត្តជិតខាង ដើម្បីបញ្ជាក់ផ្លូវចូល វិសាលភាពការងារ និងតម្រូវការចាក់បេតុង។",
+          "តាមដានសម្រង់តម្លៃ ឆ្លើយសំណួរបច្ចេកទេស និងបញ្ជូនការបញ្ជាទិញដែលបានបញ្ជាក់រួច ទៅក្រុមប្រតិបត្តិការ។",
+          "រក្សាកំណត់ត្រាសំណើ និងសម្រង់តម្លៃឱ្យបានពេញលេញ ដើម្បីកុំឱ្យមានការបាត់បង់ព័ត៌មានរវាងផ្នែកលក់ និងការដឹកជញ្ជូន។"
+        ],
+        "qualifications": [
+          "បរិញ្ញាបត្រផ្នែកវិស្វកម្មសំណង់ស៊ីវិល ការគ្រប់គ្រងសំណង់ ឬជំនាញពាក់ព័ន្ធ ឬបទពិសោធន៍លក់ក្នុងវិស័យសំណង់ស្មើនឹងកម្រិតនេះ។",
+          "បទពិសោធន៍ 1–3 ឆ្នាំ ក្នុងការលក់ផ្នែកសំណង់ ការប៉ាន់តម្លៃ ឬសម្រង់តម្លៃ ល្អបំផុតប្រសិនបើធ្លាប់ធ្វើការលើបេតុងលាយស្រេច ឬការបោះសសរស្ដម្ភ។",
+          "អាចអានគំនូរសំណង់ និងរៀបចំបញ្ជីបរិមាណការងារបានច្បាស់លាស់; ចេះប្រើ AutoCAD គឺជាការបន្ថែមពិន្ទុ។",
+          "ខ្មែរស្ទាត់ជំនាញ និងអង់គ្លេសកម្រិតល្អ មានទំនុកចិត្តក្នុងការប្រាស្រ័យទាក់ទងទាំងការសរសេរ និងការនិយាយ។",
+          "មានប័ណ្ណបើកបរត្រឹមត្រូវ និងមានឆន្ទៈធ្វើដំណើរទៅការដ្ឋានគម្រោងនានា។"
+        ],
+        "id": "sales-quotations-engineer"
       }
     },
     {
@@ -2038,6 +4077,24 @@
           "Familiarity with concrete raw materials, chemical admixtures, and moisture adjustment calculations.",
           "Strong attention to detail, punctuality, and commitment to workplace safety."
         ]
+      },
+      "km": {
+        "title": "ប្រតិបត្តិកររោងចក្រលាយបេតុង",
+        "overview": "ប្រតិបត្តិការរោងចក្រលាយបេតុងប្រព័ន្ធកុំព្យូទ័រ ត្រួតពិនិត្យការថ្លឹងវត្ថុធាតុដើមដោយស្វ័យប្រវត្តិតាមរូបមន្តលាយបេតុងដែលបានបញ្ជាក់ និងសម្របសម្រួលជាមួយការដឹកជញ្ជូនរថយន្តលាយបេតុង សម្រាប់ការចាក់បេតុងទ្រង់ទ្រាយធំជាបន្តបន្ទាប់។",
+        "duties": [
+          "ប្រតិបត្តិការផ្ទាំងបញ្ជារោងចក្រលាយបេតុងប្រព័ន្ធ PLC ដើម្បីផលិតបេតុងលាយស្រេចតាមរូបមន្តលាយបេតុង ACI 211.1 ដែលបានអនុម័ត។",
+          "ត្រួតពិនិត្យធុងថ្ម ស៊ីឡូស៊ីម៉ងត៍ ការវាស់ទឹក និងប្រព័ន្ធចាក់សារធាតុបន្ថែម ដើម្បីធានាភាពត្រឹមត្រូវនៃប្រតិបត្តិការ។",
+          "សហការជាមួយអ្នកបច្ចេកទេសមន្ទីរពិសោធន៍ត្រួតពិនិត្យគុណភាព ដើម្បីផ្ទៀងផ្ទាត់កម្រិតស្រុត សំណើម និងសីតុណ្ហភាព មុនពេលរថយន្តចេញពីរោងចក្រ។",
+          "អនុវត្តការក្រិតតម្រូវមុនប្រតិបត្តិការជារៀងរាល់ថ្ងៃ ការសម្អាតរោងចក្រ និងការកត់ត្រាការថែទាំបង្ការ។",
+          "រក្សាប្រតិបត្តិការលាយបេតុងដោយសុវត្ថិភាព ស្របតាមស្តង់ដារសុខភាព សុវត្ថិភាព និងបរិស្ថាន (HSE) របស់ BCE។"
+        ],
+        "qualifications": [
+          "សញ្ញាបត្រវិជ្ជាជីវៈ ឬបរិញ្ញាបត្រ ផ្នែកវិស្វកម្មអគ្គិសនី វិស្វកម្មមេកានិច ឬវិស្វកម្មសំណង់ស៊ីវិល។",
+          "បទពិសោធន៍ 1 ឆ្នាំឡើងទៅ ក្នុងការប្រតិបត្តិការរោងចក្រលាយបេតុងប្រព័ន្ធកុំព្យូទ័រ (Sicoma, Simem ឬម៉ាកស្រដៀងគ្នា)។",
+          "ស្គាល់វត្ថុធាតុដើមបេតុង សារធាតុបន្ថែមគីមី និងការគណនាកែតម្រូវសំណើម។",
+          "យកចិត្តទុកដាក់ខ្ពស់លើព័ត៌មានលម្អិត មកធ្វើការទាន់ពេលវេលា និងប្តេជ្ញាចិត្តខ្ពស់ចំពោះសុវត្ថិភាពកន្លែងធ្វើការ។"
+        ],
+        "id": "batching-plant-operator"
       }
     },
     {
@@ -2065,6 +4122,24 @@
           "Experience working in a construction materials testing laboratory or ready-mix QA department.",
           "Proficiency in technical reporting, data logging, and quality compliance documentation."
         ]
+      },
+      "km": {
+        "title": "វិស្វករធានាគុណភាព / ពិសោធន៍វត្ថុធាតុ",
+        "overview": "ធ្វើការពិសោធន៍រូបវន្តលើថ្មបេតុង ការត្រួតពិនិត្យកម្រិតស្រុតបេតុងស្រស់ ការចាក់គំរូស៊ីឡាំងសាកល្បង និងការវាយតម្លៃកម្លាំងសង្កត់ដោយម៉ាស៊ីន DYE-2000 នៅក្នុងមន្ទីរពិសោធន៍ផ្ទាល់ខ្លួនរបស់ BCE ដែលបានទទួលការទទួលស្គាល់។",
+        "duties": [
+          "ធ្វើការយកគំរូ និងពិសោធន៍ត្រួតពិនិត្យគុណភាពប្រចាំថ្ងៃលើថ្ម ស៊ីម៉ងត៍ និងទឹក តាមស្តង់ដារ ASTM និង ACI។",
+          "ធ្វើតេស្តកម្រិតស្រុតនៅការដ្ឋាន ការវាស់សីតុណ្ហភាព និងការចាក់គំរូស៊ីឡាំងសាកល្បងបេតុងស្តង់ដារ 150mm។",
+          "ប្រតិបត្តិការម៉ាស៊ីនវាយតម្លៃកម្លាំងសង្កត់ឌីជីថល DYE-2000 ដើម្បីវាយតម្លៃកម្លាំងបែកនៅអាយុ 7 ថ្ងៃ និង 28 ថ្ងៃ។",
+          "រក្សាកំណត់ត្រាពិសោធន៍ផ្លូវការរបស់មន្ទីរពិសោធន៍ វិញ្ញាបនបត្រក្រិតតម្រូវ និងរៀបចំរបាយការណ៍អនុលោមភាពគុណភាពជូនអតិថិជន។",
+          "ពិនិត្យវិញ្ញាបនបត្រពិសោធន៍របស់រោងចក្រអ្នកផ្គត់ផ្គង់ សម្រាប់ស៊ីម៉ងត៍ ដែកគោល និងសារធាតុបន្ថែមគីមី។"
+        ],
+        "qualifications": [
+          "បរិញ្ញាបត្រផ្នែកវិស្វកម្មសំណង់ស៊ីវិល វិទ្យាសាស្ត្រវត្ថុធាតុ ឬវិស្វកម្មគុណភាព។",
+          "មានចំណេះដឹងលើ ACI 211.1, ASTM C39 និងស្តង់ដារវត្ថុធាតុសំណង់របស់កម្ពុជា។",
+          "មានបទពិសោធន៍ធ្វើការក្នុងមន្ទីរពិសោធន៍វត្ថុធាតុសំណង់ ឬផ្នែកធានាគុណភាពនៃរោងចក្របេតុងលាយស្រេច។",
+          "មានជំនាញក្នុងការរៀបចំរបាយការណ៍បច្ចេកទេស ការកត់ត្រាទិន្នន័យ និងឯកសារអនុលោមភាពគុណភាព។"
+        ],
+        "id": "qa-materials-engineer"
       }
     },
     {
@@ -2092,6 +4167,24 @@
           "Strong understanding of soil resistance, pile driving safety, and site hazard prevention.",
           "Willingness to deploy to provincial project sites with full company accommodation and per diem."
         ]
+      },
+      "km": {
+        "title": "ប្រតិបត្តិករម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រ និងអ្នកបច្ចេកទេសការដ្ឋាន",
+        "overview": "ប្រតិបត្តិការម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្របែបស្ថិតស្ថេរ និងគ្រឿងចក្រខួរដី នៅក្នុងគម្រោងគ្រឹះសំណង់ស៊ីវិល និងឧស្សាហកម្មទូទាំងប្រទេសកម្ពុជា ដោយប្រកាន់ខ្ជាប់យ៉ាងតឹងរ៉ឹងនូវផែនការសុវត្ថិភាពនៅការដ្ឋាន។",
+        "duties": [
+          "ប្រតិបត្តិការម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រ សម្រាប់សសរស្ដម្ភបេតុងពង្រឹងដែកដែលផលិតរួច និងការខួរបោះសសរស្ដម្ភគ្រឹះជ្រៅ។",
+          "ធានាភាពត្រឹមត្រូវនៃការតម្រឹមសសរស្ដម្ភ ការត្រួតពិនិត្យភាពឈរត្រង់ និងការត្រួតពិនិត្យកម្លាំងទប់ទល់នៃការចុះជ្រៅ។",
+          "ពិនិត្យឧបករណ៍ប្រចាំថ្ងៃ ត្រួតពិនិត្យសម្ពាធធារាសាស្ត្រ ការចាក់ប្រេងរំអិល និងការថែទាំផ្នែកសុវត្ថិភាព។",
+          "សម្របសម្រួលជាមួយវិស្វករការដ្ឋាន និងក្រុមវាស់ស្ទង់ ដើម្បីអនុវត្តប្លង់គ្រឹះតាមគំនូរវិស្វកម្ម។",
+          "គោរពតាមនីតិវិធីសុវត្ថិភាពនៅការដ្ឋាន រួមទាំងការពាក់ឧបករណ៍ការពារខ្លួន (PPE) ពេញលេញ និងការគ្រប់គ្រងតំបន់ហាមឃាត់ អំឡុងពេលប្រតិបត្តិការម៉ាស៊ីន។"
+        ],
+        "qualifications": [
+          "មានអាជ្ញាបណ្ណបើកបរគ្រឿងចក្រធុនធ្ងន់ / ម៉ាស៊ីនធារាសាស្ត្រ ដែលមានការបញ្ជាក់ត្រឹមត្រូវ។",
+          "បទពិសោធន៍ 3 ឆ្នាំឡើងទៅ ក្នុងការប្រតិបត្តិការឧបករណ៍បោះសសរស្ដម្ភធារាសាស្ត្រ ឬម៉ាស៊ីនខួរបោះសសរស្ដម្ភ នៅកម្ពុជា។",
+          "យល់ដឹងច្បាស់ពីកម្លាំងទប់ទល់របស់ដី សុវត្ថិភាពក្នុងការបោះសសរស្ដម្ភ និងការការពារគ្រោះថ្នាក់នៅការដ្ឋាន។",
+          "មានឆន្ទៈចុះទៅការដ្ឋានគម្រោងនៅតាមខេត្ត ដោយក្រុមហ៊ុនផ្តល់កន្លែងស្នាក់នៅ និងប្រាក់ឧបត្ថម្ភប្រចាំថ្ងៃពេញលេញ។"
+        ],
+        "id": "piling-rig-operator"
       }
     },
     {
@@ -2119,6 +4212,24 @@
           "Hands-on expertise with hydraulic pump systems, high-pressure hoses, and power take-off (PTO) units.",
           "Hardworking, disciplined, and capable of working in shifts during major pour schedules."
         ]
+      },
+      "km": {
+        "title": "អ្នកបច្ចេកទេសថែទាំក្រុមរថយន្តធុនធ្ងន់",
+        "overview": "ថែទាំ និងជួសជុលក្រុមរថយន្តរបស់ BCE ដែលមានរថយន្តលាយបេតុង 41 គ្រឿង និងរថយន្តបូមបេតុងប្រភេទដងយោង (boom) និងប្រភេទបំពង់ (line) 8 គ្រឿង ដើម្បីធានាភាពជឿជាក់ខ្ពស់បំផុតក្នុងប្រតិបត្តិការ ការត្រៀមរថយន្តបានរហ័ស និងការមិនមានការខូចម៉ាស៊ីន អំឡុងពេលចាក់បេតុង។",
+        "duties": [
+          "អនុវត្តការថែទាំបង្ការ ការប្តូរប្រេងម៉ាស៊ីន ការត្រួតពិនិត្យហ្វ្រាំង និងការថែទាំសំបកកង់ លើរថយន្តធុនធ្ងន់ទាំងអស់។",
+          "ធ្វើរោគវិនិច្ឆ័យ និងជួសជុលម៉ូទ័រធារាសាស្ត្រ ប្រអប់លេខរថយន្តបូម ប្រព័ន្ធធុងលាយវិល និងសន្ទះខ្យល់។",
+          "គាំទ្រការជួសជុលបន្ទាន់នៅការដ្ឋាន អំឡុងពេលចាក់បេតុង នៅពេលចាំបាច់។",
+          "រក្សាកំណត់ត្រាស្តុកគ្រឿងបន្លាស់ ការគោរពសុវត្ថិភាពក្នុងសិក្ខាសាលា និងកំណត់ត្រាថែទាំយានយន្ត។",
+          "ធានាថារថយន្ត និងឧបករណ៍បូមទាំងអស់ បំពេញតាមស្តង់ដារសុវត្ថិភាពចរាចរណ៍យ៉ាងតឹងរ៉ឹង មុនពេលបញ្ជូនចេញទៅការដ្ឋាន។"
+        ],
+        "qualifications": [
+          "សញ្ញាបត្របច្ចេកទេស ឬសញ្ញាបត្រវិជ្ជាជីវៈ ផ្នែកមេកានិចយានយន្តធុនធ្ងន់ បច្ចេកវិទ្យាម៉ាស៊ីនម៉ាស៊ូត ឬប្រព័ន្ធធារាសាស្ត្រ។",
+          "បទពិសោធន៍ 2 ឆ្នាំឡើងទៅ ក្នុងការថែទាំរថយន្តម៉ាស៊ូតពាណិជ្ជកម្ម (Hino, Isuzu, Howo ឬតួរថយន្តធុនធ្ងន់ស្រដៀងគ្នា)។",
+          "មានជំនាញជាក់ស្តែងលើប្រព័ន្ធបូមធារាសាស្ត្រ ទុយោសម្ពាធខ្ពស់ និងគ្រឿងបញ្ជូនកម្លាំង (PTO)។",
+          "ឧស្សាហ៍ព្យាយាម មានវិន័យ និងអាចធ្វើការជាវេន អំឡុងពេលមានការចាក់បេតុងធំៗ។"
+        ],
+        "id": "heavy-fleet-mechanic"
       }
     },
     {
@@ -2146,6 +4257,24 @@
           "Proficiency in AutoCAD, construction blueprint reading, and structural bar bending schedules.",
           "Strong leadership, problem-solving, and bilingual communication skills (Khmer / English)."
         ]
+      },
+      "km": {
+        "title": "វិស្វករសំណង់ស៊ីវិលការដ្ឋាន — បេតុងលាយស្រេច និងការងារគ្រឹះ",
+        "overview": "ត្រួតពិនិត្យការអនុវត្តការចាក់បេតុងជាបន្តបន្ទាប់ ការងារបោះសសរស្ដម្ភគ្រឹះ និងគម្រោងសំណង់ស៊ីវិលផ្នែករចនាសម្ព័ន្ធ។ ធានាការអនុលោមតាមគំនូរវិស្វកម្ម លក្ខណៈបច្ចេកទេសរបស់អតិថិជន និងនីតិវិធី HSE។",
+        "duties": [
+          "ត្រួតពិនិត្យការចាក់បេតុងនៅការដ្ឋាន ការញ័របេតុង ការតម្រឹមកម្រិតផ្ទៃ និងការថែរក្សាបេតុងដំបូង សម្រាប់គ្រឹះរចនាសម្ព័ន្ធ និងកម្រាលបេតុងឧស្សាហកម្ម។",
+          "ពិនិត្យការដំឡើងដែកគោល ស្ថិរភាពទម្រង់ពូក និងការរៀបចំក្បាលសសរស្ដម្ភ មុនពេលអនុម័តការចាក់បេតុង។",
+          "សម្របសម្រួលជាមួយការបញ្ជូនរបស់រោងចក្រលាយបេតុង ដើម្បីរក្សាចន្លោះពេលដឹកជញ្ជូនរថយន្តឱ្យរលូន និងជៀសវាងការកើតសន្លាក់ត្រជាក់។",
+          "រៀបចំការប្រជុំសុវត្ថិភាពខ្លីៗប្រចាំថ្ងៃនៅការដ្ឋាន និងអនុវត្តស្តង់ដារសុវត្ថិភាពការងារ ចំពោះអ្នកម៉ៅការបន្ត និងក្រុមការងារវាលទាំងអស់។",
+          "រៀបចំរបាយការណ៍វឌ្ឍនភាពការដ្ឋានប្រចាំថ្ងៃ ការផ្ទៀងផ្ទាត់បរិមាណបេតុង និងឯកសារគុណភាព។"
+        ],
+        "qualifications": [
+          "បរិញ្ញាបត្រផ្នែកវិស្វកម្មសំណង់ស៊ីវិល វិស្វកម្មរចនាសម្ព័ន្ធ ឬបច្ចេកវិទ្យាអគារ។",
+          "បទពិសោធន៍ 2 ឆ្នាំឡើងទៅ ក្នុងការសាងសង់រចនាសម្ព័ន្ធ ការចាក់បេតុងលាយស្រេច ឬការបោះសសរស្ដម្ភគ្រឹះ នៅកម្ពុជា។",
+          "មានជំនាញ AutoCAD ការអានគំនូរសំណង់ និងបញ្ជីកាត់ពត់ដែករចនាសម្ព័ន្ធ។",
+          "មានជំនាញដឹកនាំខ្លាំង ការដោះស្រាយបញ្ហា និងការប្រាស្រ័យទាក់ទងពីរភាសា (ខ្មែរ / អង់គ្លេស)។"
+        ],
+        "id": "site-civil-engineer"
       }
     },
     {
@@ -2164,6 +4293,12 @@
         "revisionDate": "2026 edition",
         "year": "2026",
         "downloadUrl": "/assets/BCE_Corporate_Profile_2026_web.pdf"
+      },
+      "km": {
+        "title": "ប្រវត្តិរូបក្រុមហ៊ុន BCE ឆ្នាំ ២០២៦",
+        "categoryLabel": "ប្រវត្តិរូបក្រុមហ៊ុន",
+        "description": "ប្រវត្តិរូបក្រុមហ៊ុនផ្លូវការរបស់ BCE ចំនួន ៥៥ ទំព័រ៖ សាររបស់ប្រធានក្រុមហ៊ុន ស្ថិតិក្រុមហ៊ុន ចំណុចសំខាន់ៗ អាជីវកម្មស្នូល កងគ្រឿងចក្រ តំបន់ប្រតិបត្តិការ មន្ទីរពិសោធន៍ និងការត្រួតពិនិត្យគុណភាព សុខភាព សុវត្ថិភាព និងបរិស្ថាន (HSE) បទពិសោធន៍គម្រោង អតិថិជន និងដៃគូ ព្រមទាំងឧបសម្ព័ន្ធអាជ្ញាប័ណ្ណ និងវិញ្ញាបនបត្រ។",
+        "id": "bce-corporate-profile"
       }
     },
     {
@@ -2183,6 +4318,13 @@
         "year": "2026",
         "downloadUrl": "",
         "onRequest": true
+      },
+      "km": {
+        "title": "រូបមន្តលាយបេតុងដែលបានអនុម័ត",
+        "categoryLabel": "កម្រងព័ត៌មាន & ឯកសារបច្ចេកទេស",
+        "description": "រូបមន្តលាយដែលបានអនុម័តសម្រាប់កម្រិតបេតុងដែល BCE ផ្គត់ផ្គង់ ចាប់ពី C15 ដល់ C40 រួមទាំងរូបមន្តសម្រាប់គម្រោងជាក់លាក់មួយ។ ច្បាប់ចម្លងត្រូវបានផ្ដល់ជូនជាមួយសម្រង់តម្លៃ ឬតាមការស្នើសុំ។",
+        "onRequest": true,
+        "id": "concrete-mix-specs"
       }
     },
     {
@@ -2202,6 +4344,13 @@
         "year": "2026",
         "downloadUrl": "",
         "onRequest": true
+      },
+      "km": {
+        "title": "ឯកសារសមត្ថភាពម៉ាស៊ីនបោះសសរស្ដម្ភ",
+        "categoryLabel": "កម្រងព័ត៌មាន & ឯកសារបច្ចេកទេស",
+        "description": "ទំហំសសរស្ដម្ភ វិធីសាស្ត្រដំឡើង និងតម្រូវការការដ្ឋានសម្រាប់ម៉ាស៊ីនបោះសសរស្ដម្ភផ្ទាល់ខ្លួនរបស់ BCE។ ចេញជូនតាមការស្នើសុំ សម្រាប់ការពិនិត្យការដេញថ្លៃ និងឯកសារវិធីសាស្ត្រការងារ។",
+        "onRequest": true,
+        "id": "piling-rigs-catalog"
       }
     },
     {
@@ -2221,6 +4370,13 @@
         "year": "2026",
         "downloadUrl": "",
         "onRequest": true
+      },
+      "km": {
+        "title": "ព័ត៌មានការដាក់ពង្រាយរថយន្តបូមបេតុង",
+        "categoryLabel": "កម្រងព័ត៌មាន & ឯកសារបច្ចេកទេស",
+        "description": "ចម្ងាយ និងកម្ពស់ដែលដៃបូម និងបូមតាមបំពង់អាចទៅដល់ ផ្ទៃក្រឡាការដ្ឋាន និងតម្រូវការបំពង់សម្រាប់រថយន្តបូមបេតុងក្នុងកងរថយន្តរបស់ BCE។ ចេញជូនតាមការស្នើសុំ ដើម្បីជួយរៀបចំផែនការចាក់បេតុង។",
+        "onRequest": true,
+        "id": "concrete-pump-reach"
       }
     },
     {
@@ -2240,6 +4396,13 @@
         "year": "2026",
         "downloadUrl": "",
         "onRequest": true
+      },
+      "km": {
+        "title": "របាយការណ៍តេស្តថ្ម ខ្សាច់ និងវត្ថុធាតុដើម",
+        "categoryLabel": "កម្រងព័ត៌មាន & ឯកសារបច្ចេកទេស",
+        "description": "របាយការណ៍រែងវិភាគទំហំគ្រាប់ និងតេស្តវត្ថុធាតុសម្រាប់ខ្សាច់ម៉ត់ និងថ្មគ្រួសដែលប្រើក្នុងបេតុងរបស់ BCE រៀបចំដោយមន្ទីរពិសោធន៍ផ្ទាល់ខ្លួន។ មានជូនតាមការស្នើសុំ។",
+        "onRequest": true,
+        "id": "aggregate-sieve-analysis"
       }
     },
     {
@@ -2259,6 +4422,13 @@
         "year": "2020",
         "downloadUrl": "",
         "onRequest": true
+      },
+      "km": {
+        "title": "ការចុះបញ្ជីអាជីវកម្ម & ការចាត់ថ្នាក់អ្នកម៉ៅការ",
+        "categoryLabel": "អាជ្ញាប័ណ្ណ & វិញ្ញាបនបត្រ",
+        "description": "ឯកសារចុះបញ្ជីអាជីវកម្ម ចុះបញ្ជីពន្ធដារ និងការចាត់ថ្នាក់អ្នកម៉ៅការសំណង់។ ច្បាប់ចម្លងត្រូវបានផ្ដល់ជូនក្រុមដេញថ្លៃ និងក្រុមលទ្ធកម្ម តាមការស្នើសុំ។",
+        "onRequest": true,
+        "id": "ministry-registration"
       }
     },
     {
@@ -2278,6 +4448,13 @@
         "year": "2026",
         "downloadUrl": "",
         "onRequest": true
+      },
+      "km": {
+        "title": "វិញ្ញាបនបត្រក្រិតខ្នាតមន្ទីរពិសោធន៍ & ឧបករណ៍",
+        "categoryLabel": "អាជ្ញាប័ណ្ណ & វិញ្ញាបនបត្រ",
+        "description": "វិញ្ញាបនបត្រក្រិតខ្នាតសម្រាប់ជញ្ជីងថ្លឹងវត្ថុធាតុ ម៉ាស៊ីនតេស្តកម្លាំងសង្កត់ និងឧបករណ៍មន្ទីរពិសោធន៍ដែលប្រើក្នុងផលិតកម្ម និងការត្រួតពិនិត្យគុណភាព។ ច្បាប់ចម្លងមានជូនតាមការស្នើសុំ។",
+        "onRequest": true,
+        "id": "laboratory-calibration"
       }
     },
     {
@@ -2297,6 +4474,13 @@
         "year": "2026",
         "downloadUrl": "",
         "onRequest": true
+      },
+      "km": {
+        "title": "គោលការណ៍សុខភាព សុវត្ថិភាព និងបរិស្ថាន (HSE)",
+        "categoryLabel": "អាជ្ញាប័ណ្ណ & វិញ្ញាបនបត្រ",
+        "description": "គោលការណ៍សុខភាព សុវត្ថិភាព និងបរិស្ថានរបស់ BCE ដែលគ្របដណ្តប់លើឧបករណ៍ការពារខ្លួន (PPE) ការត្រួតពិនិត្យការដ្ឋាន នីតិវិធីបូមបេតុងប្រកបដោយសុវត្ថិភាព និងការទទួលខុសត្រូវផ្នែកបរិស្ថាន។ ច្បាប់ចម្លងមានជូនតាមការស្នើសុំ។",
+        "onRequest": true,
+        "id": "hse-policy"
       }
     },
     {
@@ -2387,6 +4571,80 @@
         "projects": [
           "siem-reap-commercial-ready-mix"
         ]
+      },
+      "km": {
+        "name": "បេតុងលាយស្រេច",
+        "tagline": "ការផ្គត់ផ្គង់ និងភស្តុភារ",
+        "heroAlt": "រថយន្តលាយបេតុងរបស់ BCE កំពុងបញ្ចេញបេតុងលាយស្រេចនៅការដ្ឋាន",
+        "intro": "បេតុងដែលគ្រប់គ្រងគុណភាពយ៉ាងតឹងរ៉ឹង ចេញពីរោងចក្រលាយបេតុងទាំងបួនរបស់យើង ដែលម្នាក់ៗផលិតបាន 70 m³ ក្នុងមួយម៉ោង ហើយដឹកជញ្ជូនទៅការដ្ឋានដោយក្រុមរថយន្តលាយបេតុងចំនួន 41 គ្រឿងរបស់យើងផ្ទាល់ ឆ្លងកាត់ 13 ខេត្ត និងរាជធានីភ្នំពេញ។",
+        "valuesKicker": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់បេតុងលាយស្រេច",
+        "valuesTitle": "ខ្សែសង្វាក់ផ្គត់ផ្គង់ដែលអ្នកអាចរៀបចំផែនការបានយ៉ាងទុកចិត្ត",
+        "values": [
+          {
+            "title": "រោងចក្រ និងរថយន្តរបស់យើងផ្ទាល់",
+            "text": "រោងចក្រលាយបេតុងចំនួនបួន និងរថយន្តលាយបេតុងចំនួន 41 គ្រឿង សុទ្ធតែជាកម្មសិទ្ធិរបស់យើង ដូច្នេះការផលិត និងការដឹកជញ្ជូនត្រូវបានរៀបចំផែនការតាមកាលវិភាគរបស់អ្នក មិនមែនតាមអ្នកផ្គត់ផ្គង់ទេ។"
+          },
+          {
+            "title": "រចនា និងធ្វើតេស្តដោយខ្លួនឯង",
+            "text": "រាល់ថ្នាក់បេតុងត្រូវបានលាយសាកល្បង និងអនុម័តមុនការផ្គត់ផ្គង់ បន្ទាប់មកធ្វើតេស្តកម្រិតស្រុតពេលដឹកជញ្ជូន និងយកគំរូធ្វើតេស្តកម្លាំងសង្កត់នៅមន្ទីរពិសោធន៍របស់យើងផ្ទាល់។"
+          },
+          {
+            "title": "កត់ត្រារាល់បាច់លាយ",
+            "text": "ទម្ងន់បាច់លាយ វិក័យប័ត្រដឹកជញ្ជូន និងលទ្ធផលតេស្ត ត្រូវបានកត់ត្រាសម្រាប់ការចាក់បេតុងនីមួយៗ និងប្រគល់ជូនជាមួយការងារ។"
+          },
+          {
+            "title": "ការបញ្ជូនដែលទាន់កាលវិភាគ",
+            "text": "ការចាក់បេតុងនៅការដ្ឋានដំណើរការ 24/7 តាមកាលវិភាគ ដោយការដឹកជញ្ជូនត្រូវបានរៀបចំតាមកាលវិភាគរបស់ក្រុមចាក់បេតុង និងលំដាប់នៃការចាក់។"
+          }
+        ],
+        "solutionsKicker": "ដំណោះស្រាយរបស់យើង",
+        "solutionsTitle": "បេតុងសម្រាប់រាល់ការចាក់",
+        "solutionsLead": "ចាប់ពីគ្រឹះ និងគ្រោងរចនាសម្ព័ន្ធ រហូតដល់កម្រាល និងផ្ទៃខាងក្រៅ បេតុងត្រូវបានលាយតាមរូបមន្តដែលបានអនុម័ត និងដឹកជញ្ជូននៅពេលការដ្ឋានរួចរាល់។",
+        "solutions": [
+          {
+            "title": "បេតុងរចនាសម្ព័ន្ធ C15–C40",
+            "text": "គ្រឹះ សសរ ធ្នឹម និងកម្រាល លាយតាមរូបមន្តដែលបានអនុម័ត និងដឹកជញ្ជូនតាមលំដាប់នៃការចាក់។",
+            "alt": "ដងដៃបូមរបស់ BCE កំពុងចាក់បេតុងរចនាសម្ព័ន្ធចូលទៅក្នុងទម្រង់ពូក"
+          },
+          {
+            "title": "ការចាក់បេតុងបន្ត និងការចាក់បរិមាណច្រើន",
+            "text": "គ្រឹះរាបស្មើ កម្រាលឃ្លាំង និងកម្រាលបេតុងធំៗ ត្រូវបានរៀបចំផែនការឆ្លងកាត់រោងចក្រ និងរថយន្ត ដើម្បីឱ្យការចាក់ដំណើរការដោយមិនដាច់។",
+            "alt": "ការចាក់បេតុងបន្តលើកម្រាលធំ ជាមួយរថយន្តលាយបេតុង និងរថយន្តបូមនៅការដ្ឋាន"
+          },
+          {
+            "title": "ការដឹកជញ្ជូនដោយបូម",
+            "text": "រថយន្តបូមបេតុងចំនួនប្រាំបីគ្រឿងរបស់យើង ដាក់បេតុងទៅកន្លែងដែលរន្ធបញ្ចេញរបស់រថយន្តលាយបេតុងមិនអាចទៅដល់ រួមទាំងជាន់ខាងលើ និងការដ្ឋានចង្អៀត។",
+            "alt": "រថយន្តបូមបេតុងដងដៃរបស់ BCE កំពុងចាក់បេតុងនៅការដ្ឋាន"
+          }
+        ],
+        "capacityKicker": "សមត្ថភាព និងក្រុមយានយន្ត",
+        "capacityTitle": "ការផលិត និងការដឹកជញ្ជូនក្នុងក្រុមយានយន្តតែមួយ",
+        "capacityCopy": "បេតុងត្រូវបានផលិតនៅរោងចក្រលាយបេតុងចំនួនបួន និងដឹកជញ្ជូនដោយរថយន្តលាយបេតុងរបស់យើងផ្ទាល់ ដូច្នេះសមត្ថភាព គុណភាព និងពេលវេលា ស្ថិតនៅក្រោមការគ្រប់គ្រងតែមួយ និងកាលវិភាគតែមួយ។",
+        "figures": [
+          {
+            "value": "04",
+            "label": "រោងចក្រលាយបេតុង"
+          },
+          {
+            "value": "70 m³",
+            "label": "ក្នុងមួយម៉ោង ក្នុងមួយរោងចក្រ"
+          },
+          {
+            "value": "41",
+            "label": "រថយន្តលាយបេតុង"
+          },
+          {
+            "value": "13+",
+            "label": "ខេត្ត និងរាជធានីភ្នំពេញ"
+          }
+        ],
+        "prepare": [
+          "ទីតាំងការដ្ឋាន និងផ្លូវចូល — កន្លែងដែលរថយន្តនឹងបញ្ចេញបេតុង និងដែនកំណត់កម្ពស់ ច្រកចូល ឬផ្លូវ។",
+          "បរិមាណក្នុងមួយការចាក់ និងថ្នាក់បេតុង (C15–C40) ឬគំនូរ និង BOQ ប្រសិនបើអ្នកមាន។",
+          "កាលបរិច្ឆេទ និងលំដាប់នៃការចាក់ រួមទាំងការចាក់ពេលយប់ ឬថ្ងៃចុងសប្តាហ៍។",
+          "តើអ្នកត្រូវការរថយន្តបូមបេតុងឬអត់ និងចម្ងាយពីទីតាំងរថយន្តបូមទៅកន្លែងចាក់។"
+        ],
+        "slug": "ready-mix-concrete"
       }
     },
     {
@@ -2478,6 +4736,80 @@
           "kampong-thom-bridge-foundations",
           "phnom-penh-tower-foundations"
         ]
+      },
+      "km": {
+        "name": "ការបោះសសរស្ដម្ភ",
+        "tagline": "គ្រឹះ",
+        "heroAlt": "ការដាក់ដែកគោល និងចាក់បេតុងសម្រាប់គ្រឹះរបស់ BCE",
+        "intro": "សសរស្ដម្ភបេតុងពង្រឹងដែកសម្រាប់ស្ពាន ផ្លូវ និងអគារ ដំឡើងដោយម៉ាស៊ីន និងក្រុមកម្មកររបស់យើងផ្ទាល់ ព្រមទាំងមានការត្រួតពិនិត្យគុណភាពបេតុង និងមន្ទីរពិសោធន៍ពីក្រុមតែមួយ។",
+        "valuesKicker": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការបោះសសរស្ដម្ភ",
+        "valuesTitle": "គ្រឹះដែលកសាងលើការគ្រប់គ្រង",
+        "values": [
+          {
+            "title": "ម៉ាស៊ីន និងក្រុមកម្មកររបស់យើងផ្ទាល់",
+            "text": "យើងដាក់ពង្រាយម៉ាស៊ីនបោះសសរស្ដម្ភ និងក្រុមដំឡើងរបស់យើងផ្ទាល់ ដូច្នេះកាលវិភាគត្រូវបានកំណត់ដោយសមត្ថភាពរបស់យើង មិនមែនដោយអ្នកម៉ៅការបន្តរងទេ។"
+          },
+          {
+            "title": "រចនាវិស្វកម្មតាមគំនូរ",
+            "text": "វិស្វកររបស់យើងរៀបចំផែនការលំដាប់នៃការបោះសសរស្ដម្ភ ដែកគោល និងការផ្គត់ផ្គង់បេតុង ស្របតាមការរចនារចនាសម្ព័ន្ធ បន្ទាប់មកត្រួតពិនិត្យការដំឡើងនៅការដ្ឋាន។"
+          },
+          {
+            "title": "បេតុងពីរោងចក្ររបស់យើង",
+            "text": "សសរស្ដម្ភត្រូវបានចាក់ដោយបេតុងពីរោងចក្រលាយបេតុងរបស់យើងផ្ទាល់ ដែលបានធ្វើតេស្តកម្រិតស្រុត និងកម្លាំងសង្កត់ មុនពេលដល់ម៉ាស៊ីន។"
+          },
+          {
+            "title": "កំណត់ត្រាជាមួយរាល់សសរស្ដម្ភ",
+            "text": "កំណត់ត្រាការដំឡើង លទ្ធផលបេតុង និងរបាយការណ៍តេស្ត ត្រូវបានចងក្រង និងប្រគល់ជូនជាមួយគ្រឹះ។"
+          }
+        ],
+        "solutionsKicker": "ដំណោះស្រាយរបស់យើង",
+        "solutionsTitle": "ដំណោះស្រាយការបោះសសរស្ដម្ភ",
+        "solutionsLead": "យើងដំឡើងគ្រឹះសម្រាប់សំណង់ស្ទើរតែគ្រប់ប្រភេទ ដោយរួមបញ្ចូលវិធីសាស្ត្រដែលបានបញ្ជាក់ ជាមួយបេតុង ម៉ាស៊ីន និងការធ្វើតេស្តពីធនធានរបស់យើងផ្ទាល់។",
+        "solutions": [
+          {
+            "title": "សសរស្ដម្ភខួងចាក់នៅនឹងកន្លែង",
+            "text": "សសរស្ដម្ភដែលខួង និងចាក់នៅការដ្ឋានដោយបេតុងរបស់យើងផ្ទាល់ សមស្របសម្រាប់គ្រឹះជ្រៅ និងផ្ទុកបន្ទុកខ្ពស់។",
+            "alt": "ម៉ាស៊ីនបោះសសរស្ដម្ភខួង និងបំពង់ស្រោមរបស់ BCE នៅការដ្ឋានគ្រឹះ"
+          },
+          {
+            "title": "សសរស្ដម្ភ RC ចុចដោយធារាសាស្ត្រ និងវាយចុះ",
+            "text": "ការចុចដោយធារាសាស្ត្រស្តាទិច និងការវាយសសរស្ដម្ភបេតុងពង្រឹងដែក សម្រាប់គ្រឹះដែលត្រូវគ្រប់គ្រងការញ័រ និងការបាត់បង់ដី។",
+            "alt": "ទ្រុងដែកគោល និងការចាក់បេតុងសម្រាប់សសរស្ដម្ភ RC"
+          },
+          {
+            "title": "គ្រឹះស្ពាន និងហេដ្ឋារចនាសម្ព័ន្ធ",
+            "text": "ក្បាលសសរស្ដម្ភ ជើងទម្រស្ពាន និងលូសម្រាប់ផ្លូវ និងស្ពាន ចាប់ពីការដាក់ពង្រាយ រហូតដល់ការធ្វើតេស្តបន្ទុក និងកំណត់ត្រាស្ថានភាពជាក់ស្តែង។",
+            "alt": "ការបូមបេតុងសម្រាប់សសរស្ពាន និងគ្រឹះរបស់វា"
+          }
+        ],
+        "capacityKicker": "ម៉ាស៊ីន និងសមត្ថភាព",
+        "capacityTitle": "ម៉ាស៊ីន ក្រុមកម្មករ និងកំណត់ត្រា",
+        "capacityCopy": "ក្រុមបោះសសរស្ដម្ភធ្វើការជាមួយម៉ាស៊ីន បេតុង និងមន្ទីរពិសោធន៍របស់យើងផ្ទាល់ ដូច្នេះគ្រឹះត្រូវបានរៀបចំផែនការ ដំឡើង និងផ្ទៀងផ្ទាត់ដោយក្រុមតែមួយ។",
+        "figures": [
+          {
+            "value": "07",
+            "label": "ម៉ាស៊ីនបោះសសរស្ដម្ភធារាសាស្ត្រ"
+          },
+          {
+            "value": "15",
+            "label": "វិស្វករក្នុងក្រុមរបស់យើង"
+          },
+          {
+            "value": "C35–C40",
+            "label": "បេតុងសសរស្ដម្ភពីរោងចក្ររបស់យើង"
+          },
+          {
+            "value": "13+",
+            "label": "ខេត្ត និងរាជធានីភ្នំពេញ"
+          }
+        ],
+        "prepare": [
+          "ប្រភេទសសរស្ដម្ភ អង្កត់ផ្ចិត និងជម្រៅ ព្រមទាំងចំនួនសសរស្ដម្ភ។",
+          "ព័ត៌មានដី ឬរបាយការណ៍ស្ថានភាពដី ប្រសិនបើមាន។",
+          "ផ្លូវចូលការដ្ឋាន និងវេទិកាធ្វើការដែលម៉ាស៊ីននឹងឈរ។",
+          "កាលវិភាគ៖ កាលបរិច្ឆេទចាប់ផ្តើម និងលំដាប់នៃក្រុមសសរស្ដម្ភ។"
+        ],
+        "slug": "piling"
       }
     },
     {
@@ -2568,6 +4900,80 @@
         "projects": [
           "battambang-provincial-road"
         ]
+      },
+      "km": {
+        "name": "សំណង់ស៊ីវិល",
+        "tagline": "ការសាងសង់ស៊ីវិល",
+        "heroAlt": "ក្រុមកម្មករសំណង់របស់ BCE កំពុងចាក់បេតុងលើគម្រោងផ្លូវ",
+        "intro": "សំណង់ស៊ីវិលសម្រាប់គម្រោងហេដ្ឋារចនាសម្ព័ន្ធ ឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន កសាងដោយបេតុង គ្រឿងចក្រ និងវិស្វកររបស់យើងផ្ទាល់ ចាប់ពីការងារដីដំបូងរហូតដល់ការប្រគល់ជូន។",
+        "valuesKicker": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការសាងសង់",
+        "valuesTitle": "ក្រុមតែមួយពីការងារដីដល់ការប្រគល់ជូន",
+        "values": [
+          {
+            "title": "ចំណុចទទួលខុសត្រូវតែមួយ",
+            "text": "បេតុង គ្រឹះ និងការសាងសង់ មកពីក្រុមតែមួយ ដូច្នេះចំណុចប្រសព្វរវាងការងារនីមួយៗ មិនក្លាយជាការយឺតយ៉ាវទេ។"
+          },
+          {
+            "title": "វត្ថុធាតុ និងក្រុមយានយន្តរបស់យើងផ្ទាល់",
+            "text": "រោងចក្រ រថយន្តលាយបេតុង រថយន្តបូមបេតុង និងម៉ាស៊ីនបោះសសរស្ដម្ភរបស់យើង ត្រូវបានកំណត់ពីក្រុមយានយន្តរបស់យើងផ្ទាល់ ដែលរក្សាកាលវិភាគ និងថ្លៃដើមឱ្យស្ថិតក្រោមការគ្រប់គ្រង។"
+          },
+          {
+            "title": "វិស្វករនៅការដ្ឋាន",
+            "text": "ក្រុមវិស្វករចំនួន 15 នាក់ រៀបចំផែនការ ត្រួតពិនិត្យ និងកត់ត្រាការងារ ចាប់ពីការកំណត់ទីតាំងរហូតដល់ការប្រគល់ជូន។"
+          },
+          {
+            "title": "កសាងសម្រាប់រដូវវស្សា",
+            "text": "កាលវិភាគត្រូវបានរៀបចំតាមរដូវវស្សារបស់កម្ពុជា ដោយការងារបង្ហូរទឹក និងការងារដី ត្រូវបានរៀបចំផែនការមុនពេលភ្លៀងដំបូង។"
+          }
+        ],
+        "solutionsKicker": "ដំណោះស្រាយរបស់យើង",
+        "solutionsTitle": "សេវាកម្មសំណង់",
+        "solutionsLead": "យើងអនុវត្តការងារដែលនាំគម្រោងពីដីដែលបានរៀបចំ ទៅជាសំណង់ដែលបានបញ្ចប់ ដោយប្រើធនធានដែលយើងជាម្ចាស់ និងថែទាំ។",
+        "solutions": [
+          {
+            "title": "ផ្លូវ និងហេដ្ឋារចនាសម្ព័ន្ធ",
+            "text": "ផ្លូវជាតិ និងផ្លូវខេត្ត ស្ពាន លូ និងប្រព័ន្ធបង្ហូរទឹក អនុវត្តដោយក្រុមការងារដី ក្រុមចាក់បេតុង និងក្រុមចាក់ផ្ទៃផ្លូវរបស់យើងផ្ទាល់។",
+            "alt": "ក្រុមកម្មកររបស់ BCE កំពុងចាក់បេតុងសម្រាប់ស្រទាប់មូលដ្ឋានផ្លូវខេត្ត"
+          },
+          {
+            "title": "ឧស្សាហកម្ម និងភស្តុភារ",
+            "text": "រោងចក្រ ឃ្លាំង និងស្ថានីយដឹកជញ្ជូន ចាប់ពីការរៀបចំទីតាំង និងគ្រឹះ រហូតដល់គ្រោងរចនាសម្ព័ន្ធ និងកម្រាល។",
+            "alt": "ការបូមបេតុងនៅរោងចក្រឧស្សាហកម្ម និងឃ្លាំងស្តុកទំនិញ"
+          },
+          {
+            "title": "ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន",
+            "text": "អគារពាណិជ្ជកម្ម និងគម្រោងលំនៅដ្ឋាន កសាងដោយបេតុង គ្រឿងចក្រ និងវិស្វកររបស់យើងផ្ទាល់។",
+            "alt": "អគារពហុជាន់ដែលបានបញ្ចប់ និងប្រគល់ជូនដោយ BCE"
+          }
+        ],
+        "capacityKicker": "ក្រុមការងារ និងសមត្ថភាព",
+        "capacityTitle": "កសាងដោយធនធានរបស់យើងផ្ទាល់",
+        "capacityCopy": "ចាប់ពីការងារដីដំបូងរហូតដល់ការប្រគល់ជូនចុងក្រោយ ក្រុមសំណង់របស់យើងប្រើប្រាស់រោងចក្រ ក្រុមយានយន្ត និងវិស្វករដូចគ្នា ដែលផ្គត់ផ្គង់បេតុង និងគ្រឹះរបស់យើង។",
+        "figures": [
+          {
+            "value": "1995",
+            "label": "កសាងសង់នៅកម្ពុជាតាំងពី"
+          },
+          {
+            "value": "71",
+            "label": "សមាជិកក្រុមរបស់យើង"
+          },
+          {
+            "value": "15",
+            "label": "វិស្វករប្រចាំការ"
+          },
+          {
+            "value": "13+",
+            "label": "ខេត្ត និងរាជធានីភ្នំពេញ"
+          }
+        ],
+        "prepare": [
+          "វិសាលភាពការងារ ជាមួយគំនូរ និង BOQ ដែលអ្នកមាន។",
+          "ទីតាំងការដ្ឋាន ផ្លូវចូល និងដែនកំណត់ដំណាក់កាល ឬតំបន់ដែលកំពុងប្រើប្រាស់។",
+          "កាលវិភាគ និងកាលបរិច្ឆេទបញ្ចប់ដែលបានកំណត់។",
+          "ការអនុញ្ញាតដែលមានរួចហើយ និងអ្នកប្រឹក្សា ឬវិស្វករទទួលបន្ទុក។"
+        ],
+        "slug": "construction"
       }
     },
     {
@@ -2658,6 +5064,80 @@
         "projects": [
           "poipet-logistics-warehouse"
         ]
+      },
+      "km": {
+        "name": "ការងារចាក់កម្រាលបេតុង",
+        "tagline": "ការចាក់ និងការបញ្ចប់ផ្ទៃ",
+        "heroAlt": "ការចាក់ និងការបញ្ចប់ផ្ទៃបេតុងដោយក្រុមកម្រាលបេតុងរបស់ BCE",
+        "intro": "ការចាក់ និងការបញ្ចប់ផ្ទៃកម្រាលបេតុង ដោយបូមពីរថយន្តបូមបេតុងចំនួនប្រាំបីគ្រឿងរបស់យើង ជាមួយបេតុងលាយស្រេចពីរោងចក្ររបស់យើងផ្ទាល់ និងធ្វើតេស្តកម្រិតស្រុត និងកម្លាំងសង្កត់លើរាល់ការចាក់។",
+        "valuesKicker": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការងារកម្រាលបេតុង",
+        "valuesTitle": "ចាក់ បញ្ចប់ផ្ទៃ និងត្រួតពិនិត្យ",
+        "values": [
+          {
+            "title": "បូមដោយក្រុមយានយន្តរបស់យើងផ្ទាល់",
+            "text": "រថយន្តបូមបេតុងចំនួនប្រាំបីគ្រឿង ចាក់បេតុងពាសពេញកម្រាល ដោយរក្សាការចាក់ឱ្យមានស្ថិរភាព និងកាត់បន្ថយការលើកដោយដៃនៅការដ្ឋាន។"
+          },
+          {
+            "title": "ការបញ្ចប់ផ្ទៃដែលឋិតថេរ",
+            "text": "ការបញ្ចប់ផ្ទៃដោយម៉ាស៊ីន Power-float សារធាតុរឹងបន្ថែមប្រភេទ dry-shake និងសន្លាក់កាត់ដោយម៉ាស៊ីន saw-cut ត្រូវបានជ្រើសរើសស្របតាមការប្រើប្រាស់ជាក់ស្តែងរបស់កម្រាល។"
+          },
+          {
+            "title": "បេតុងធ្វើតេស្ត រាល់ការដឹកជញ្ជូន",
+            "text": "កម្រិតស្រុតត្រូវបានពិនិត្យនៅពេលមកដល់ ហើយគូបបេតុងត្រូវបានចុចសាកល្បងនៅថ្ងៃទី 7 និងថ្ងៃទី 28 ដោយកត់ត្រាលទ្ធផលសម្រាប់ការចាក់នីមួយៗ។"
+          },
+          {
+            "title": "ការចាក់រៀបចំជាតំបន់",
+            "text": "កម្រាលធំៗត្រូវបានបែងចែកជាតំបន់ចាក់ និងរៀបចំលំដាប់ជាមួយរោងចក្រលាយបេតុងរបស់យើង ដើម្បីឱ្យការងារប្រចាំថ្ងៃបញ្ចប់យ៉ាងស្អាត។"
+          }
+        ],
+        "solutionsKicker": "ដំណោះស្រាយរបស់យើង",
+        "solutionsTitle": "ដំណោះស្រាយកម្រាលបេតុង",
+        "solutionsLead": "ក្រុមកម្រាលបេតុងធ្វើការជាមួយបេតុងលាយស្រេចពីរោងចក្ររបស់យើង និងរថយន្តបូមពីក្រុមយានយន្តរបស់យើង ដូច្នេះការចាក់ ការបញ្ចប់ផ្ទៃ និងការធ្វើតេស្ត ត្រូវបានសម្របសម្រួលលើកាលវិភាគតែមួយ។",
+        "solutions": [
+          {
+            "title": "កម្រាលដែលផ្ទុកលើដី",
+            "text": "កម្រាលឃ្លាំង រោងចក្រ និងស្ថានីយដឹកជញ្ជូន ចាក់ជាតំបន់ដែលបានរៀបចំ និងបញ្ចប់ផ្ទៃដោយម៉ាស៊ីន Power-float សម្រាប់ធ្នើរ និងរថយន្តលើកទំនិញ។",
+            "alt": "កម្រាលបេតុងផ្ទុកលើដី ដែលចាក់ដោយរថយន្តលាយបេតុង និងរថយន្តបូម"
+          },
+          {
+            "title": "កម្រាលបេតុងព្យួរ",
+            "text": "កម្រាលបេតុងរចនាសម្ព័ន្ធសម្រាប់ជាន់ខាងលើ បូមដោយក្រុមយានយន្តរបស់យើងផ្ទាល់ និងបញ្ចប់ផ្ទៃតាមលក្ខណៈបច្ចេកទេសរបស់វិស្វករ។",
+            "alt": "បេតុងពង្រឹងដែកដែលចាក់ចូលទម្រង់ពូកកម្រាលព្យួរ"
+          },
+          {
+            "title": "ផ្ទៃខាងក្រៅ និងទីលានរឹង",
+            "text": "កម្រាលខាងក្រៅ ទីលាន និងផ្ទៃរឹង រៀបចំលម្អិតសម្រាប់ការបង្ហូរទឹក សន្លាក់ និងបន្ទុកដែលត្រូវទ្រាំ។",
+            "alt": "កម្រាលបេតុងខាងក្រៅ ដែលចាក់ និងបញ្ចប់ផ្ទៃដោយម៉ាស៊ីន Power-float"
+          }
+        ],
+        "capacityKicker": "រថយន្តបូម និងរោងចក្រ",
+        "capacityTitle": "រថយន្តបូម រោងចក្រ និងក្រុមកម្មករ",
+        "capacityCopy": "ក្រុមកម្រាលបេតុងរបស់យើងចាក់ និងបញ្ចប់ផ្ទៃដោយបេតុងលាយស្រេចពីរោងចក្រលាយបេតុងរបស់យើង និងរថយន្តបូមពីក្រុមយានយន្តរបស់យើងផ្ទាល់ ដោយធ្វើតេស្តនៅពេលមកដល់។",
+        "figures": [
+          {
+            "value": "08",
+            "label": "រថយន្តបូមបេតុង"
+          },
+          {
+            "value": "41",
+            "label": "រថយន្តលាយបេតុង"
+          },
+          {
+            "value": "70 m³",
+            "label": "ក្នុងមួយម៉ោង ក្នុងមួយរោងចក្រ"
+          },
+          {
+            "value": "C25–C35",
+            "label": "បេតុងកម្រាលពីរោងចក្ររបស់យើង"
+          }
+        ],
+        "prepare": [
+          "ផ្ទៃក្រឡាកម្រាល កម្រាស់ និងការបញ្ចប់ផ្ទៃដែលបានកំណត់ (Power-float ម៉ាស៊ីនក្រិតឡាស៊ែរ ឬការដុសផ្ទៃ)។",
+          "ប្លង់សន្លាក់ ឬគំនូរ និងលំដាប់នៃការចាក់។",
+          "ផ្លូវចូលសម្រាប់រថយន្តបូម និងរថយន្តលាយបេតុង ព្រមទាំងទឹក និងអគ្គិសនីនៅការដ្ឋាន។",
+          "កម្រិតរាបស្មើ ឬការអនុគ្រោះដែលត្រូវការ និងកាលបរិច្ឆេទប្រគល់ជូន។"
+        ],
+        "slug": "concrete-slab-works"
       }
     },
     {
@@ -2748,6 +5228,80 @@
         "projects": [
           "sihanoukville-fleet-hire"
         ]
+      },
+      "km": {
+        "name": "ការជួលរថយន្ត និងគ្រឿងចក្រ",
+        "tagline": "ការជួលក្រុមយានយន្ត",
+        "heroAlt": "រថយន្តលាយបេតុង និងរថយន្តបូមបេតុងរបស់ BCE កំពុងចាក់បេតុងនៅការដ្ឋាន",
+        "intro": "រថយន្តលាយបេតុង រថយន្តបូមបេតុង និងម៉ាស៊ីនបោះសសរស្ដម្ភ សម្រាប់ជួល ថែទាំដោយក្រុមការងាររបស់យើងផ្ទាល់ និងរួចរាល់ដាក់ពង្រាយពាសពេញកម្ពុជា ជាមួយអ្នកបើកបរ និងអ្នកប្រតិបត្តិការដែលស្គាល់ឧបករណ៍ទាំងនោះច្បាស់ជាងគេ។",
+        "valuesKicker": "ហេតុអ្វីជ្រើសរើស BCE សម្រាប់ការជួល",
+        "valuesTitle": "គ្រឿងចក្រដែលមកដល់រួចរាល់",
+        "values": [
+          {
+            "title": "ថែទាំដោយខ្លួនឯង",
+            "text": "រាល់រថយន្ត និងម៉ាស៊ីន ត្រូវបានថែទាំដោយក្រុមជាងថែទាំរបស់យើងផ្ទាល់ ដូច្នេះគ្រឿងចក្រមកដល់ការដ្ឋានរួចរាល់សម្រាប់ការងារ។"
+          },
+          {
+            "title": "រួមបញ្ចូលអ្នកប្រតិបត្តិការ",
+            "text": "អ្នកប្រតិបត្តិការ និងអ្នកបើកបរដែលមានបទពិសោធន៍ មកជាមួយគ្រឿងចក្រ ដោយស្គាល់ម៉ាស៊ីន និងការដ្ឋានច្បាស់លាស់។"
+          },
+          {
+            "title": "ដាក់ពង្រាយពាសពេញកម្ពុជា",
+            "text": "គ្រឿងចក្រត្រូវបានបញ្ជូនចេញពីបាត់ដំបង និងដាក់ពង្រាយទៅគម្រោងក្នុង 13 ខេត្ត និងរាជធានីភ្នំពេញ។"
+          },
+          {
+            "title": "គាំទ្រដោយរោងចក្ររបស់យើង",
+            "text": "ការជួលអាចរួមបញ្ចូលជាមួយការផ្គត់ផ្គង់បេតុងលាយស្រេច និងការបូម ពីក្រុមតែមួយ ក្រោមកាលវិភាគតែមួយ។"
+          }
+        ],
+        "solutionsKicker": "ដំណោះស្រាយរបស់យើង",
+        "solutionsTitle": "ដំណោះស្រាយការជួល",
+        "solutionsLead": "ក្រុមយានយន្តសម្រាប់ជួលរបស់យើង គឺជាគ្រឿងចក្រដូចគ្នាដែលយើងប្រើលើការងាររបស់យើងផ្ទាល់ ថែទាំតាមស្តង់ដារដូចគ្នា និងអាចជួលជាមួយអ្នកប្រតិបត្តិការ។",
+        "solutions": [
+          {
+            "title": "ការជួលរថយន្តលាយបេតុង",
+            "text": "រថយន្តលាយបេតុងចំនួន 41 គ្រឿង សម្រាប់ការហៅប្រើប្រចាំថ្ងៃ ឬតាមកិច្ចសន្យាគម្រោង ជាមួយអ្នកបើកបរ និងការបញ្ជូនតាម GPS ពីរោងចក្ររបស់យើង។",
+            "alt": "រថយន្តលាយបេតុងរបស់ BCE កំពុងបញ្ចេញបេតុងនៅការដ្ឋាន"
+          },
+          {
+            "title": "ការជួលរថយន្តបូមបេតុង",
+            "text": "រថយន្តបូមបេតុងចំនួនប្រាំបីគ្រឿង ជាមួយអ្នកប្រតិបត្តិការដែលមានបទពិសោធន៍ សម្រាប់ការចាក់កម្ពស់ខ្ពស់ និងកន្លែងចង្អៀត។",
+            "alt": "រថយន្តបូមបេតុងដងដៃរបស់ BCE ដាក់ពង្រាយសម្រាប់ការចាក់បេតុង"
+          },
+          {
+            "title": "ការជួលម៉ាស៊ីនបោះសសរស្ដម្ភ",
+            "text": "ម៉ាស៊ីនបោះសសរស្ដម្ភ និងក្រុមកម្មករ អាចជួលបានសម្រាប់ការងារគ្រឹះ ដោយមានការគាំទ្រពីក្រុមថែទាំរបស់យើងផ្ទាល់។",
+            "alt": "ម៉ាស៊ីនបោះសសរស្ដម្ភ និងក្រុមកម្មកររបស់ BCE នៅការដ្ឋានគ្រឹះ"
+          }
+        ],
+        "capacityKicker": "ក្រុមយានយន្ត និងតំបន់គ្របដណ្តប់",
+        "capacityTitle": "ក្រុមយានយន្តរបស់យើង រួចរាល់ដាក់ពង្រាយ",
+        "capacityCopy": "រថយន្តលាយបេតុង រថយន្តបូម ម៉ាស៊ីនបោះសសរស្ដម្ភ និងគ្រឿងចក្រលើក សុទ្ធតែជាកម្មសិទ្ធិរបស់យើង ថែទាំដោយក្រុមការងាររបស់យើងផ្ទាល់ និងបញ្ជូនចេញពីបាត់ដំបង ជាមួយអ្នកប្រតិបត្តិការសម្រាប់រាល់ម៉ាស៊ីន។ ចំនួននេះត្រូវគ្នានឹងក្រុមយានយន្តនៅទំព័រ គ្រឿងចក្រ និងក្រុមយានយន្ត របស់យើង មិនមែនបញ្ជីអ្នកកណ្តាលទេ។",
+        "figures": [
+          {
+            "value": "41",
+            "label": "រថយន្តលាយបេតុងសម្រាប់ជួល"
+          },
+          {
+            "value": "08",
+            "label": "រថយន្តបូមសម្រាប់ជួល"
+          },
+          {
+            "value": "07",
+            "label": "ម៉ាស៊ីនបោះសសរស្ដម្ភសម្រាប់ជួល"
+          },
+          {
+            "value": "13+",
+            "label": "ខេត្ត និងរាជធានីភ្នំពេញ"
+          }
+        ],
+        "prepare": [
+          "គ្រឿងចក្រ និងរយៈពេលជួល ជាមួយកាលបរិច្ឆេទ។",
+          "ទីតាំងការដ្ឋាន និងផ្លូវចូលសម្រាប់ការដាក់ពង្រាយ។",
+          "តើអ្នកត្រូវការអ្នកប្រតិបត្តិការ ប្រេងឥន្ធនៈ និងការថែទាំរួមបញ្ចូលឬអត់។",
+          "តម្រូវការលើក ឬសមត្ថភាព និងការងារដែលម៉ាស៊ីននឹងធ្វើ។"
+        ],
+        "slug": "equipment-rental"
       }
     },
     {
@@ -2768,6 +5322,18 @@
           "41 mixer trucks",
           "Slump and strength testing"
         ]
+      },
+      "km": {
+        "name": "បេតុងលាយស្រេច",
+        "tagline": "ការផ្គត់ផ្គង់ និងភស្តុភារ",
+        "intro": "បេតុងដែលគ្រប់គ្រងគុណភាពពីរោងចក្រលាយបេតុងទាំង ៤ របស់យើង ដែលមួយរោងចក្រផលិតបាន ៧០ m³/ម៉ោង ដឹកជញ្ជូនដល់ការដ្ឋានដោយកងរថយន្តលាយបេតុង ៤១ គ្រឿងផ្ទាល់ខ្លួន។",
+        "details": [
+          "រោងចក្រលាយបេតុង ៤",
+          "៧០ m³/ម៉ោង ក្នុងមួយរោងចក្រ",
+          "រថយន្តលាយបេតុង ៤១ គ្រឿង",
+          "ការតេស្តកម្រិតស្រុត និងកម្លាំងបេតុង"
+        ],
+        "slug": "ready-mix-concrete"
       }
     },
     {
@@ -2788,6 +5354,18 @@
           "Infrastructure and buildings",
           "Laboratory quality control"
         ]
+      },
+      "km": {
+        "name": "ការបោះសសរស្ដម្ភ",
+        "tagline": "គ្រឹះសំណង់",
+        "intro": "សសរស្ដម្ភបេតុងអារម៉េសម្រាប់ហេដ្ឋារចនាសម្ព័ន្ធ និងអគារ បោះដោយម៉ាស៊ីនបោះសសរផ្ទាល់ខ្លួន និងធានាគុណភាពដោយមន្ទីរពិសោធន៍។",
+        "details": [
+          "សសរស្ដម្ភបេតុងអារម៉េ",
+          "ម៉ាស៊ីនបោះសសរស្ដម្ភផ្ទាល់ខ្លួន",
+          "ហេដ្ឋារចនាសម្ព័ន្ធ និងអគារ",
+          "ការត្រួតពិនិត្យគុណភាពក្នុងមន្ទីរពិសោធន៍"
+        ],
+        "slug": "piling"
       }
     },
     {
@@ -2808,6 +5386,18 @@
           "Commercial",
           "Residential"
         ]
+      },
+      "km": {
+        "name": "សំណង់ស៊ីវិល",
+        "tagline": "សំណង់ស៊ីវិល",
+        "intro": "សំណង់ស៊ីវិលសម្រាប់ហេដ្ឋារចនាសម្ព័ន្ធ ឧស្សាហកម្ម ពាណិជ្ជកម្ម និងលំនៅដ្ឋាន សាងសង់ដោយបេតុង គ្រឿងចក្រ និងវិស្វករផ្ទាល់ខ្លួនរបស់យើង។",
+        "details": [
+          "ហេដ្ឋារចនាសម្ព័ន្ធ",
+          "ឧស្សាហកម្ម",
+          "ពាណិជ្ជកម្ម",
+          "លំនៅដ្ឋាន"
+        ],
+        "slug": "construction"
       }
     },
     {
@@ -2828,6 +5418,18 @@
           "Slump and strength testing",
           "Delivered on spec"
         ]
+      },
+      "km": {
+        "name": "ការងារចាក់កម្រាលបេតុង",
+        "tagline": "ការចាក់ និងការរលោងផ្ទៃ",
+        "intro": "ការចាក់ និងរលោងផ្ទៃកម្រាលបេតុង បូមដោយរថយន្តបូមបេតុង ៨ គ្រឿង ជាមួយបេតុងលាយស្រេចពីរោងចក្រផ្ទាល់ខ្លួន ដែលតេស្តកម្រិតស្រុត និងកម្លាំងច្បាស់លាស់។",
+        "details": [
+          "រថយន្តបូមបេតុង ៨ គ្រឿង",
+          "បេតុងលាយស្រេចពីរោងចក្ររបស់យើង",
+          "ការតេស្តកម្រិតស្រុត និងកម្លាំងបេតុង",
+          "ដឹកជញ្ជូនតាមលក្ខណៈបច្ចេកទេស"
+        ],
+        "slug": "concrete-slab-works"
       }
     },
     {
@@ -2848,6 +5450,18 @@
           "Piling rigs",
           "Maintained and ready"
         ]
+      },
+      "km": {
+        "name": "ការជួលរថយន្ត និងគ្រឿងចក្រ",
+        "tagline": "ការជួលកងគ្រឿងចក្រ",
+        "intro": "រថយន្តលាយបេតុង រថយន្តបូមបេតុង និងម៉ាស៊ីនបោះសសរស្ដម្ភសម្រាប់ជួល ថែទាំដោយក្រុមការងារផ្ទាល់ខ្លួន និងត្រៀមដាក់ពង្រាយទូទាំងកម្ពុជា។",
+        "details": [
+          "រថយន្តលាយបេតុង",
+          "រថយន្តបូមបេតុង",
+          "ម៉ាស៊ីនបោះសសរស្ដម្ភ",
+          "ថែទាំល្អ និងត្រៀមរួចជាស្រេច"
+        ],
+        "slug": "equipment-rental"
       }
     }
   ],

@@ -13,7 +13,9 @@ import FleetPage from './FleetPage'
 import QuotePage from './QuotePage'
 import RecruitmentPage from './RecruitmentPage'
 import ResourcesPage from './ResourcesPage'
+import PartnersPage from './PartnersPage'
 import ContactPage from './ContactPage'
+import NotFoundPage from './NotFoundPage'
 import BlogPage from './BlogPage'
 import { PrivacyPage, TermsPage } from './LegalPage'
 import './index.css'
@@ -22,15 +24,15 @@ import { initImageParallax } from './imageParallax'
 import { applyLanguage, getLang, onLangChange, translate } from './i18n'
 import { applyPageSeo, applyStructuredData } from './seo'
 import { isLegacyAddress, legacyPath } from './routes'
-import ArrowButton from './ArrowButton'
 import {
   bootstrapContent,
   getRuntimeContentVersion,
   onContentChange,
+  syncContentLanguage,
 } from './contentStore'
 
-// Clean paths (src/routes.ts): /projects, /about, /quality, /coverage, /quote, /careers, /resources, /contact,
-// /privacy, /terms, /blog, /project/<slug>, /business/<slug>. Old query addresses are rewritten to these on load.
+// Clean paths (src/routes.ts): /projects, /about, /quality, /coverage, /quote, /careers, /resources, /partners,
+// /contact, /privacy, /terms, /blog, /project/<slug>, /business/<slug>. Old query addresses are rewritten on load.
 // Links between pages navigate in-app with the page transition (src/pageTransition.ts), so the shell re-renders on
 // route changes. Switching language remounts the page; in Khmer the translator runs after render and before the text
 // reveals split it.
@@ -44,26 +46,6 @@ function normaliseAddress() {
   if (!isLegacyAddress(location.search)) return
   const next = legacyPath(location.search)
   if (next) history.replaceState(null, '', next + location.hash)
-}
-
-function NotFoundPage() {
-  useEffect(() => {
-    applyPageSeo('Page Not Found | BCE Construction')
-  }, [])
-  return (
-    <main className="site-pad flex min-h-[70vh] max-w-[900px] flex-col justify-center">
-      <p className="font-mono text-[13px] uppercase tracking-[0.06em] text-[#FB290E]">Error 404</p>
-      <h1 className="mt-5 text-[clamp(34px,6vw,44px)] font-medium leading-[1.05] tracking-[-.03em]">This page isn’t here.</h1>
-      <p className="mt-4 max-w-[46ch] text-[16px] leading-[1.6] text-[#111]/55">
-        The address may be old or mistyped. Start from the home page, or call 012 932 700.
-      </p>
-      <div className="mt-8 flex flex-wrap gap-3">
-        <ArrowButton href="/" label="Home" />
-        <ArrowButton href="/projects" label="Projects" theme="outline" />
-        <ArrowButton href="/contact" label="Contact us" theme="outline" />
-      </div>
-    </main>
-  )
 }
 
 function Page() {
@@ -107,6 +89,8 @@ function Page() {
       return <RecruitmentPage />
     case 'resources':
       return <ResourcesPage />
+    case 'partners':
+      return <PartnersPage />
     case 'contact':
       return <ContactPage />
     case 'privacy':
@@ -196,6 +180,8 @@ if (isAdminRoute) {
   normaliseAddress()
   initPageTransitions()
   applyStructuredData()
+  // Bundled content modules have registered by now: layer the Khmer copy when it is the saved language.
+  syncContentLanguage()
   root.render(
     <React.StrictMode>
       <Root />

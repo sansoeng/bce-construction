@@ -156,7 +156,11 @@ export const VACANCIES: Vacancy[] = [
   },
 ];
 
-registerContentType("vacancies", (items) => {
-  VACANCIES.length = 0;
-  VACANCIES.push(...(items as Vacancy[]));
-});
+registerContentType(
+  "vacancies",
+  (items) => {
+    VACANCIES.length = 0;
+    VACANCIES.push(...(items as Vacancy[]));
+  },
+  VACANCIES,
+);

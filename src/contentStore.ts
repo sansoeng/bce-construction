@@ -11,6 +11,7 @@ import { applySiteSettings, type SiteSettings } from "./siteSettings";
 
 type Applier = (items: unknown[]) => void;
 type Item = { en: Record<string, unknown>; km: Record<string, unknown> | null };
+type KmContentMap = Record<string, Record<string, Record<string, unknown>>>;
 
 const appliers = new Map<string, Applier>();
 const listeners = new Set<() => void>();
@@ -20,8 +21,76 @@ let hasContent = false;
 let rawContent: Record<string, Item[]> = {};
 let activeLang: Lang = getLang();
 
-export const registerContentType = (type: string, apply: Applier) => {
+/**
+ * A deep copy of each content type's bundled English defaults, captured when
+ * the module registers. When the API is unavailable the site renders from the
+ * bundled data exactly as it did before D1 existed, and the Khmer overlay is
+ * applied to that copy as well.
+ */
+const bundledContent = new Map<string, unknown[]>();
+
+export const registerContentType = (type: string, apply: Applier, bundled?: unknown[] | Record<string, unknown>) => {
   appliers.set(type, apply);
+  if (bundled) {
+    const copy = JSON.parse(JSON.stringify(bundled)) as unknown;
+    bundledContent.set(type, Array.isArray(copy) ? copy : [copy]);
+  }
+};
+
+/** The bundled Khmer overlays, loaded only when someone reads the site in Khmer. */
+let kmDefaults: KmContentMap | null = null;
+let kmLoading: Promise<void> | null = null;
+
+const ensureKmDefaults = (): Promise<void> => {
+  if (kmDefaults) return Promise.resolve();
+  if (kmLoading) return kmLoading;
+  kmLoading = import("./km")
+    .then((mod) => {
+      kmDefaults = mod.kmContent;
+      if (activeLang === "km") renderContent("km");
+    })
+    .catch(() => {
+      // A missing chunk must never keep the English fallback from rendering.
+      kmLoading = null;
+    });
+  return kmLoading;
+};
+
+const overlayFor = (type: string, en: Record<string, unknown>, stored: Record<string, unknown> | null) => {
+  // The three singleton defaults carry no slug of their own; their canonical row is "home".
+  const singleton = type === "homepage" || type === "about" || type === "quality" || type === "partners";
+  const slug = String(en.slug ?? en.id ?? (singleton ? "home" : ""));
+  const bundled = kmDefaults?.[type]?.[slug];
+  if (!bundled && !stored) return en;
+
+  // Older D1 rows can predate fields that the bundled document already has (the homepage
+  // banner's slide deck, for example). Fill those gaps from the bundled English defaults
+  // before applying the Khmer overlay: the overlay is language-only, so it needs the
+  // English document to supply images, links and other non-translatable values.
+  const defaults = bundledContent.get(type);
+  const defaultDoc = singleton
+    ? Array.isArray(defaults)
+      ? defaults[0]
+      : defaults
+    : Array.isArray(defaults)
+      ? defaults.find((item) => {
+          if (!item || typeof item !== "object" || Array.isArray(item)) return false;
+          const doc = item as Record<string, unknown>;
+          return (en.slug && doc.slug === en.slug) || (en.id && doc.id === en.id);
+        })
+      : defaults;
+  const base =
+    defaultDoc && typeof defaultDoc === "object" && !Array.isArray(defaultDoc)
+      ? (mergeDefaults(defaultDoc as Record<string, unknown>, en) as Record<string, unknown>)
+      : en;
+
+  const merged = bundled && stored ? mergeTranslation(bundled, stored) : stored ?? bundled!;
+  // The overlay keeps slug/id only as its lookup key. Never let it override the live
+  // document's identifier (renaming a slug must not resurrect the old one).
+  const km = { ...(merged as Record<string, unknown>) };
+  delete km.slug;
+  delete km.id;
+  return mergeTranslation(base, km) as Record<string, unknown>;
 };
 
 export const getRuntimeContentVersion = () => contentVersion;
@@ -80,15 +149,29 @@ export const mergeDefaults = <T>(base: T, incoming: unknown): T => {
   return walk(base, incoming) as T;
 };
 
+/** Render the bundled defaults (used when the API is unavailable). */
+const renderBundled = (lang: Lang) => {
+  for (const [type, apply] of appliers) {
+    const source = bundledContent.get(type);
+    if (!source) continue;
+    apply(source.map((item) => (lang === "km" ? overlayFor(type, item as Record<string, unknown>, null) : item)));
+  }
+  contentVersion += 1;
+  listeners.forEach((listener) => listener());
+};
+
 const renderContent = (lang: Lang) => {
-  if (!hasContent) return;
+  if (lang === "km" && !kmDefaults) {
+    void ensureKmDefaults();
+    if (!hasContent) return;
+  }
+  if (!hasContent) {
+    renderBundled(lang);
+    return;
+  }
   for (const [type, apply] of appliers) {
     const items = rawContent[type] ?? [];
-    apply(
-      items.map(({ en, km }) =>
-        lang === "km" && km ? (mergeTranslation(en, km) as Record<string, unknown>) : en,
-      ),
-    );
+    apply(items.map(({ en, km }) => (lang === "km" ? overlayFor(type, en, km) : en)));
   }
   contentVersion += 1;
   listeners.forEach((listener) => listener());
@@ -147,6 +230,16 @@ onLangChange(() => {
   activeLang = getLang();
   renderContent(activeLang);
 });
+
+/**
+ * Apply the bundled content for the active language, then load the Khmer
+ * overlays. Call once after every content module has registered.
+ */
+export const syncContentLanguage = () => {
+  activeLang = getLang();
+  if (activeLang === "km") void ensureKmDefaults();
+  if (!hasContent) renderBundled(activeLang);
+};
 
 export const bootstrapContent = async (): Promise<boolean> => {
   if (bootstrapped) return true;

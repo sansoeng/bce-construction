@@ -323,8 +323,12 @@ export const DEFAULT_ABOUT: AboutContent = {
 /** Live content. Read these values during render; the object is replaced on bootstrap. */
 export const about: AboutContent = JSON.parse(JSON.stringify(DEFAULT_ABOUT)) as AboutContent;
 
-registerContentType("about", (items) => {
-  const first = items[0];
-  if (!first || typeof first !== "object" || Array.isArray(first)) return;
-  Object.assign(about, mergeDefaults(DEFAULT_ABOUT, first));
-});
+registerContentType(
+  "about",
+  (items) => {
+    const first = items[0];
+    if (!first || typeof first !== "object" || Array.isArray(first)) return;
+    Object.assign(about, mergeDefaults(DEFAULT_ABOUT, first));
+  },
+  DEFAULT_ABOUT,
+);

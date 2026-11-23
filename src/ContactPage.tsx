@@ -87,9 +87,6 @@ function ChannelCard({
   );
 }
 
-const fieldClass =
-  "w-full rounded-[16px] bg-[#F4F4F5] border border-transparent px-4 py-3 text-[15px] text-[#111] placeholder:text-[#111]/35 outline-none transition-colors focus:bg-white focus:border-[#111]/15";
-
 export default function ContactPage() {
   usePageSetup("Contact BCE — Construction Company in Battambang");
 
@@ -99,11 +96,22 @@ export default function ContactPage() {
   const [sending, setSending] = useState(false);
   const [token, setToken] = useState("");
   const [turnstileKey, setTurnstileKey] = useState(0);
+  const [invalid, setInvalid] = useState<string[]>([]);
 
   const set =
     (key: string) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setForm((value) => ({ ...value, [key]: event.target.value }));
+      setInvalid((prev) => prev.filter((x) => x !== key));
+    };
+
+  // Bring a failed submit to the first unanswered field, clear of the fixed header.
+  const scrollToField = (el: HTMLElement | null) => {
+    if (!el) return;
+    const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: object) => void } | null }).__lenis;
+    if (lenis) lenis.scrollTo(el, { offset: -140 });
+    else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 140, behavior: "smooth" });
+  };
 
   const reset = () => {
     setForm({});
@@ -111,15 +119,27 @@ export default function ContactPage() {
     setSent(false);
     setToken("");
     setTurnstileKey((key) => key + 1);
+    setInvalid([]);
   };
 
   const send = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!siteSettings.features.leadsEnabled)
       return setError("Online requests are temporarily paused. Please call 012 932 700.");
-    if (!form.name?.trim() || !form.phone?.trim())
-      return setError("Please add your name and a phone number.");
-    if (!form.message?.trim()) return setError("Please tell us how we can help.");
+    const missing: string[] = [];
+    if (!form.name?.trim()) missing.push("name");
+    if (!form.phone?.trim()) missing.push("phone");
+    if (!form.message?.trim()) missing.push("message");
+    setInvalid(missing);
+    if (missing.length) {
+      setError("");
+      requestAnimationFrame(() => {
+        const input = document.getElementById(`contact-${missing[0]}`);
+        scrollToField(input?.closest<HTMLElement>(".qf-field") ?? null);
+        input?.focus({ preventScroll: true });
+      });
+      return;
+    }
     if (!token) return setError("Please complete the security check before sending.");
 
     setError("");
@@ -277,51 +297,60 @@ export default function ContactPage() {
                     </p>
 
                     <div className="flex flex-col gap-4">
-                      <label className="flex flex-col gap-2">
-                        <span className="text-[12px] font-medium text-[#111]/60">Your name</span>
+                      {invalid.length > 0 && (
+                        <p className="qf-error" role="alert">Please complete the highlighted fields.</p>
+                      )}
+                      <label className={`qf-field${invalid.includes("name") ? " is-invalid" : ""}`}>
+                        <span className="qf-label">Your name *</span>
                         <input
+                          id="contact-name"
                           type="text"
                           autoComplete="name"
                           value={form.name ?? ""}
                           onChange={set("name")}
                           placeholder="Somchai Meas"
-                          className={fieldClass}
+                          className="qf-input"
+                          aria-invalid={invalid.includes("name") || undefined}
                         />
                       </label>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <label className="flex flex-col gap-2">
-                          <span className="text-[12px] font-medium text-[#111]/60">Phone</span>
+                        <label className={`qf-field${invalid.includes("phone") ? " is-invalid" : ""}`}>
+                          <span className="qf-label">Phone *</span>
                           <input
+                            id="contact-phone"
                             type="tel"
                             autoComplete="tel"
                             value={form.phone ?? ""}
                             onChange={set("phone")}
                             placeholder="012 932 700"
-                            className={fieldClass}
+                            className="qf-input"
+                            aria-invalid={invalid.includes("phone") || undefined}
                           />
                         </label>
-                        <label className="flex flex-col gap-2">
-                          <span className="text-[12px] font-medium text-[#111]/60">Email address</span>
+                        <label className="qf-field">
+                          <span className="qf-label">Email address</span>
                           <input
                             type="email"
                             autoComplete="email"
                             value={form.email ?? ""}
                             onChange={set("email")}
                             placeholder="you@company.com"
-                            className={fieldClass}
+                            className="qf-input"
                           />
                         </label>
                       </div>
 
-                      <label className="flex flex-col gap-2">
-                        <span className="text-[12px] font-medium text-[#111]/60">Message</span>
+                      <label className={`qf-field${invalid.includes("message") ? " is-invalid" : ""}`}>
+                        <span className="qf-label">Message *</span>
                         <textarea
+                          id="contact-message"
                           rows={5}
                           value={form.message ?? ""}
                           onChange={set("message")}
                           placeholder="How can we help?"
-                          className={`${fieldClass} resize-y`}
+                          className="qf-input qf-textarea"
+                          aria-invalid={invalid.includes("message") || undefined}
                         />
                       </label>
 
@@ -345,7 +374,7 @@ export default function ContactPage() {
                         type="submit"
                         theme="black"
                         label={sending ? "Sending…" : "Send message"}
-                        className="mt-2 self-start"
+                        className="mt-2 self-start contact-send"
                         disabled={sending}
                       />
                       <p className="max-w-[34rem] text-[13px] leading-[1.6] text-[#111]/45">

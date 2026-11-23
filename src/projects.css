@@ -1,33 +1,290 @@
-/* Project list (/?projects): the category filter sits directly above the grid, under the standfirst.
-   Page-scoped so the shared stylesheet keeps only site-wide rules. */
+/* Project list (/projects), after olympic.no's fleet archive: a full-bleed hero banner, a hairline filter bar whose
+   accordion facets drop a grey panel of chips, the chosen values pinned in the left band, then the portfolio grouped
+   by year with the year set flush left in the accent colour and the tiles in the right-hand eight columns. Page-scoped
+   so the shared stylesheet keeps only site-wide rules. Type and palette are BCE's own: sans for names, the mono face
+   for every control, label and figure. */
 
-.pl-filterbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding-bottom: calc(64 * var(--u));
+/* ── Hero banner ─────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.pl-banner {
+  position: relative;
+  height: 100svh;
+  min-height: 620px;
+  overflow: clip;
+  color: #fff;
+  background: var(--ink);
 }
-.pl-chip {
+
+/* The cover drifts exactly as the other inner-page heroes do (see .ol-hero): the frame sits 40vh low and rises as the
+   banner leaves, and the photo rises inside it by the same amount again, so the statement travels at ~60% of the page
+   and the photo at ~20%. --p is written by useScrollParallax on the scroll pass Lenis drives. */
+.pl-banner__frame {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40vh;
+  height: calc(100% + 40vh);
+  transform: translate3d(0, calc(-40vh * (1 - var(--p, 0))), 0);
+  will-change: transform;
+}
+
+.pl-banner__media {
+  position: absolute;
+  left: 0;
+  top: 40vh;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  transform: translate3d(0, calc(-40vh * (1 - var(--p, 0))), 0);
+  will-change: transform;
+}
+.pl-banner__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+}
+/* The scrim: light at the top so the floating header reads, deep at the foot for the statement. */
+.pl-banner__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(0 0 0 / .34) 0%, rgb(0 0 0 / .06) 38%, rgb(0 0 0 / .28) 72%, rgb(0 0 0 / .62) 100%);
+}
+
+.pl-banner__body {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: end;
+  height: 100vh;
+  height: 100svh;
+  padding: 0 var(--page-gutter) clamp(40px, 7vh, 72px);
+}
+.pl-banner__label {
+  display: block;
+  margin-bottom: 18px;
+  color: rgb(255 255 255 / .78);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, .72vw, 12px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.pl-banner__title {
+  max-width: 21ch;
+  color: #fff;
+  font-size: clamp(2.4rem, 3.9vw, 4rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -.025em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* ── Archive: year in the left band, tiles in the right eight columns ───────────────────────────────────────── */
+
+.pl-list { padding-bottom: calc(130 * var(--u)); }
+
+.pl-group {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: calc(24 * var(--u));
+  padding-block: calc(34 * var(--u));
+  position: relative;
+}
+.pl-group + .pl-group { border-top: 1px solid var(--line); }
+
+.pl-group__year {
+  grid-column: 1 / span 4;
+  align-self: start;
+  position: sticky;
+  top: 108px;
+  color: var(--brand-ink);
+  font-family: var(--font-mono);
+  font-size: clamp(12px, .78vw, 14px);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.pl-group__grid {
+  grid-column: span 8 / -1;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  column-gap: calc(24 * var(--u));
+  row-gap: calc(48 * var(--u));
+}
+
+.pl-tile {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pl-tile__media {
+  position: relative;
+  aspect-ratio: 528 / 489;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--paper-media);
+  -webkit-corner-smoothing: 60%;
+  corner-smoothing: 60%;
+  transition: border-radius .8s cubic-bezier(.77, 0, .18, 1);
+}
+.pl-tile__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.109s cubic-bezier(.17, .84, .44, 1);
+}
+.pl-tile:hover .pl-tile__media,
+.pl-tile:focus-visible .pl-tile__media { border-radius: 16px; }
+.pl-tile:hover .pl-tile__media img,
+.pl-tile:focus-visible .pl-tile__media img { transform: scale(1.06); }
+
+.pl-tile__cat {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  height: 34px;
-  padding: 0 14px;
-  border: 1px solid rgb(17 17 17 / .14);
+  max-width: calc(100% - 36px);
+  height: 28px;
+  padding-inline: 12px;
+  border: 1px solid rgb(255 255 255 / .42);
   border-radius: 4px;
+  background: rgb(17 17 17 / .18);
+  backdrop-filter: blur(8px);
+  color: #fff;
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: .06em;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .02em;
   text-transform: uppercase;
-  color: rgb(17 17 17 / .55);
-  cursor: pointer;
-  transition: color .3s ease, border-color .3s ease, background-color .3s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.pl-chip:hover { color: var(--ink); border-color: rgb(17 17 17 / .32); }
-.pl-chip.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.pl-chip-count { font-size: 10.5px; opacity: .55; }
+
+.pl-tile__body {
+  padding-top: 20px;
+  max-width: 380px;
+}
+.pl-tile__name {
+  color: var(--ink);
+  font-size: clamp(19px, 1.5vw, 24px);
+  font-weight: 500;
+  line-height: 1.19;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+  transition: color .5s ease;
+}
+.pl-tile:hover .pl-tile__name,
+.pl-tile:focus-visible .pl-tile__name { color: var(--brand-ink); }
+
+.pl-tile__meta {
+  margin-top: 10px;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: clamp(10.5px, .75vw, 12.5px);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+/* Photo wipe, once the tile is 15% up the viewport and its image has loaded. */
+.pl-list[data-reveal-ready] .pl-tile__media:not(.is-revealed) img { opacity: 0; }
+.pl-tile__media.is-revealed img {
+  /* `backwards` so the hover zoom regains control of transform after the reveal ends */
+  animation: pl-reveal 1.2s cubic-bezier(.41, .35, .2, 1) calc(var(--i, 0) * .16s) backwards;
+}
+@keyframes pl-reveal {
+  from { clip-path: inset(0 0 100% 0); transform: scale(1.1) translateY(-5%); }
+  to { clip-path: inset(0); transform: scale(1); }
+}
+
+/* ── Empty state ──────────────────────────────────────────────────────────────────────────────────────────── */
+
+.pl-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding-block: calc(110 * var(--u));
+}
+.pl-empty p {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.pl-empty__clear {
+  height: 33px;
+  padding-inline: 16px;
+  border: 1px solid var(--ink);
+  border-radius: 5px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* ── Motion preferences ───────────────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Without the drift the cover simply fills the banner, rather than sitting 40vh low. */
+  .pl-banner__frame { top: 0; height: 100%; transform: none; }
+  .pl-banner__media { top: 0; transform: none; }
+  .pl-tile__media,
+  .pl-tile__media img { transition: none; }
+  .pl-tile:hover .pl-tile__media img,
+  .pl-tile:focus-visible .pl-tile__media img { transform: none; }
+  .pl-tile__media.is-revealed img { animation: none; }
+}
+
+/* ── Tablet ───────────────────────────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1023.98px) {
+  .pl-group__year { grid-column: 1 / span 4; }
+}
 
 @media (max-width: 767.98px) {
-  .pl-filterbar { padding-bottom: calc(40 * var(--u)); }
-  .pl-chip { height: 32px; padding: 0 12px; font-size: 11px; }
+  .pl-banner { height: 92svh; min-height: 540px; }
+  .pl-banner__body { padding-bottom: clamp(28px, 6vh, 48px); }
+  .pl-banner__title { max-width: 100%; font-size: clamp(2.1rem, 8.6vw, 3rem); }
+
+  .pl-group {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+    padding-block: calc(26 * var(--u));
+  }
+  .pl-group__year { grid-column: 1 / -1; position: static; }
+  .pl-group__grid {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: calc(34 * var(--u));
+  }
+  .pl-tile { grid-column: 1 / -1; }
+  .pl-tile__media { aspect-ratio: 343 / 317; }
+  .pl-tile__body { padding-top: 14px; max-width: none; }
+
+  .pl-empty { padding-block: calc(70 * var(--u)); }
+  .pl-list { padding-bottom: calc(90 * var(--u)); }
 }

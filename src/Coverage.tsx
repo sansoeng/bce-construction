@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { khmProvinces } from "./cambodiaMap";
+import { translate } from "./i18n";
 import { homepage } from "./homepage";
 import "./coverage-map.css";
 
@@ -872,7 +873,10 @@ export default function Coverage() {
                     }}
                     className={`ac-prov${isCovered && idx !== undefined && lit(idx) ? " is-covered" : ""}${isActive ? " is-active" : ""}`}
                   >
-                    <title>{p.name}{isCovered ? " (served since 1995)" : " (Mobilization ready)"}</title>
+                    <title>
+                      {translate(p.name)}
+                      {isCovered ? ` (${translate("served since 1995")})` : ` (${translate("Mobilization ready")})`}
+                    </title>
                   </path>
                 );
               })}

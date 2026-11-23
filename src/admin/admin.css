@@ -299,6 +299,37 @@
   gap: 8px;
 }
 
+/* Mobile navigation: the sidebar becomes a drawer below 900px. */
+.adm-menu-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--adm-ink);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.adm-menu-btn:hover {
+  background: rgb(17 17 17 / 0.06);
+}
+
+.adm-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  border: 0;
+  padding: 0;
+  background: rgb(17 17 17 / 0.42);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+}
+
 .adm-live {
   display: inline-flex;
   align-items: center;
@@ -1388,9 +1419,14 @@
 
 .adm-login-main {
   display: flex;
+  min-width: 0;
   align-items: center;
   justify-content: center;
   padding: 32px;
+}
+
+.adm-login-aside {
+  min-width: 0;
 }
 
 .adm-login-card {
@@ -1483,9 +1519,46 @@
   }
 }
 
+@media (max-width: 900px) {
+  .adm-sidebar {
+    width: 272px;
+    transform: translateX(-100%);
+  }
+
+  .adm-sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: 0 24px 70px rgb(0 0 0 / 0.38);
+  }
+
+  .adm-body {
+    margin-left: 0;
+  }
+
+  .adm-menu-btn {
+    display: inline-flex;
+  }
+
+  .adm-topbar {
+    gap: 10px;
+    padding: 0 14px;
+  }
+
+  .adm-main {
+    padding: 22px 14px 70px;
+  }
+}
+
 @media (max-width: 640px) {
   .adm-page-head {
     align-items: flex-start;
+  }
+
+  .adm-topbar .adm-live-link {
+    display: none;
+  }
+
+  .adm-login-main {
+    padding: 22px 18px;
   }
 
   .adm-crumbs > span {

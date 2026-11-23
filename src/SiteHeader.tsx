@@ -8,9 +8,9 @@ import { pathFor } from "./routes";
  * centred (About, Business, Projects, Quality & Lab, Equipment & fleet, More) and the language switch plus the quote
  * button close the right. Tabs with children open the reference's own dropdown: a 78% white glass sheet, 32px blur, a
  * half-pixel hairline, a 10px corner, fading in as it drops 10px over 350ms. Panels come in the three shapes DALCO
- * uses — the narrow list (About, Projects, More), the media panel (Business: a 309×279 photo that cross-fades as you
- * move down the titles) and the two-column group panel (Quality & Lab) — with titles only, no descriptions and no
- * arrows. Equipment & fleet has no panel: it links straight to /fleet.
+ * uses — the narrow list (About, More), the media panel (Business: a 309×279 photo that cross-fades as you move down
+ * the titles) and the two-column group panel (Quality & Lab) — with titles only, no descriptions and no arrows.
+ * Projects and Equipment & fleet have no panel: they link straight to their archives.
  *
  * On phones the tabs collapse into a burger that opens a full-height sheet with the same items as accordions, so the
  * expand navigation survives without hover. Over the first 800px of scroll the surface narrows and slides up, as the
@@ -106,6 +106,7 @@ const NAV: NavItem[] = [
         { label: "About BCE", href: "/about" },
         { label: "Our story", href: "/about#ab-story" },
         { label: "Coverage", href: "/coverage" },
+        { label: "Clients & partners", href: "/partners" },
       ],
     },
   },
@@ -129,17 +130,6 @@ const NAV: NavItem[] = [
     id: "projects",
     label: "Projects",
     href: "/projects",
-    panel: {
-      kind: "default",
-      items: [
-        { label: "All projects", href: "/projects" },
-        { label: "Bridge Foundation Piling", href: "/project/kampong-thom-bridge-foundations" },
-        { label: "Logistics Warehouse Floor Slab", href: "/project/poipet-logistics-warehouse" },
-        { label: "Commercial Complex Ready-Mix Supply", href: "/project/siem-reap-commercial-ready-mix" },
-        { label: "Provincial Road Rehabilitation", href: "/project/battambang-provincial-road" },
-        { label: "Mixed-Use Tower Foundations", href: "/project/phnom-penh-tower-foundations" },
-      ],
-    },
   },
   {
     id: "quality",
