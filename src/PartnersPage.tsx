@@ -117,52 +117,65 @@ export default function PartnersPage() {
             />
           </div>
 
-          <div className="glance glance-partners is-in">
-            {visibleGroups.map((group, groupIndex) => (
-              <section
-                key={group.id}
-                className={groupIndex ? "mt-20 md:mt-28" : ""}
-                aria-labelledby={`pt-group-${group.id}`}
-              >
-                <div className="flex items-end justify-between gap-6 border-b border-[#111]/10 pb-3">
-                  <div>
-                    <h2 id={`pt-group-${group.id}`} className="ol-label">
-                      {translate(group.label)}
-                    </h2>
-                    <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] text-[#111]/45">
-                      {translate(group.note)}
-                    </p>
-                  </div>
-                  <span className="font-mono text-[11px] text-[#111]/40">({pad(group.items.length)})</span>
-                </div>
+          <div className="glance-layout glance-partners">
+            <div className="glance-title-col">
+              <div className="glance-title-sticky">
+                <h2 data-split className="glance-title text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
+                  {translate("Trusted partners & clients")}
+                </h2>
+                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.06em] text-[#111]/35">
+                  {visibleCount} {translate("organisations & individuals")}
+                </p>
+              </div>
+            </div>
 
-                <ul className="glance-grid glance-logos">
-                  {group.items.map((item, index) => (
-                    <li
-                      key={item.name}
-                      className="glance-cell glance-logo"
-                      style={
-                        {
-                          "--i": index,
-                          "--r": Math.floor(index / 2),
-                          "--c": index % 2,
-                        } as CSSProperties
-                      }
-                    >
-                      <span className="glance-logo-mask">
-                        <span className="glance-logo-inner">
-                          {item.logo ? (
-                            <img src={item.logo} alt={`${item.name} logo`} loading="lazy" decoding="async" />
-                          ) : (
-                            <span className="glance-wordmark">{item.name}</span>
-                          )}
+            <div className="glance is-in">
+              {visibleGroups.map((group, groupIndex) => (
+                <section
+                  key={group.id}
+                  className={groupIndex ? "mt-12 md:mt-16" : ""}
+                  aria-labelledby={`pt-group-${group.id}`}
+                >
+                  <div className="flex items-end justify-between gap-6 border-b border-[#111]/10 pb-3">
+                    <div>
+                      <h2 id={`pt-group-${group.id}`} className="ol-label">
+                        {translate(group.label)}
+                      </h2>
+                      <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] text-[#111]/45">
+                        {translate(group.note)}
+                      </p>
+                    </div>
+                    <span className="font-mono text-[11px] text-[#111]/40">({pad(group.items.length)})</span>
+                  </div>
+
+                  <ul className="glance-grid glance-logos">
+                    {group.items.map((item, index) => (
+                      <li
+                        key={item.name}
+                        className="glance-cell glance-logo"
+                        style={
+                          {
+                            "--i": index,
+                            "--r": Math.floor(index / 2),
+                            "--c": index % 2,
+                          } as CSSProperties
+                        }
+                      >
+                        <span className="glance-logo-mask">
+                          <span className="glance-logo-inner">
+                            {item.logo ? (
+                              <img src={item.logo} alt={`${item.name} logo`} loading="lazy" decoding="async" />
+                            ) : (
+                              <span className="glance-wordmark">{item.name}</span>
+                            )}
+                          </span>
                         </span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
           </div>
 
           <div className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-[#111]/10 pt-8">
