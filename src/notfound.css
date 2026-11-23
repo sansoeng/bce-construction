@@ -11,7 +11,7 @@
 }
 
 .nf-header { display: flex; flex: none; justify-content: center; }
-.nf-logo { display: block; width: clamp(112px, 13vw, 138px); height: auto; }
+.nf-logo { display: block; height: 44px; width: auto; }
 
 .nf-main {
   flex: 1;

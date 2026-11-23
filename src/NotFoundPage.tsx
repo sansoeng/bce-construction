@@ -24,7 +24,7 @@ export default function NotFoundPage() {
     <div className="nf">
       <header className="nf-header">
         <a href="/" aria-label="BCE., Ltd. — home">
-          <img className="nf-logo" src="/assets/bce-logo-lockup-ink.svg" alt="BCE., Ltd." width={138} height={37} />
+          <img className="nf-logo" src="/assets/bce-logo-lockup-ink.svg" alt="BCE., Ltd." width={74} height={44} />
         </a>
       </header>
 
