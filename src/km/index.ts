@@ -11,6 +11,7 @@
  */
 
 import homepage from "./homepage.json";
+import partners from "./partners.json";
 import about from "./about.json";
 import quality from "./quality.json";
 import projects from "./projects.json";
@@ -36,6 +37,7 @@ const bySlug = (items: unknown[]): Record<string, KmDocument> => {
 
 export const kmContent: KmContent = {
   homepage: { home: homepage as KmDocument },
+  partners: { home: partners as KmDocument },
   about: { home: about as KmDocument },
   quality: { home: quality as KmDocument },
   projects: bySlug(projects),

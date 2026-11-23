@@ -1,6 +1,7 @@
 import { DEFAULT_HOMEPAGE, HOMEPAGE_ICONS } from "../homepage";
 import { DEFAULT_QUALITY } from "../quality";
 import { DEFAULT_ABOUT } from "../about";
+import { DEFAULT_PARTNERS } from "../partners";
 
 export type FieldType =
   | "text"
@@ -713,7 +714,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
       { id: "loader", title: "Loading screen", hint: "The intro shown while the home page loads.", keys: ["loader"] },
       { id: "about", title: "About introduction", hint: "The photo, opening paragraph and the core-business sentence.", keys: ["about"] },
       { id: "expertise", title: "Core business intro", hint: "The opening screen before the five service panels slide in.", keys: ["expertise"] },
-      { id: "glance", title: "BCE at a glance", hint: "The counted figures and the partner logo groups.", keys: ["glance"] },
+      { id: "glance", title: "BCE at a glance", hint: "The counted figures and the partners heading. The logo register lives on Clients & partners.", keys: ["glance"] },
       { id: "commitments", title: "HSE & operational commitments", hint: "The pinned photo and the five commitment statements.", keys: ["commitments"] },
       { id: "projects", title: "Selected projects", hint: "The portfolio heading and its call to action. Project cards come from Projects.", keys: ["projects"] },
       { id: "coverage", title: "Coverage", hint: "The map introduction and the story labels over the map.", keys: ["coverage"] },
@@ -785,14 +786,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
           { key: "note", label: "Note", type: "text" },
           { key: "icon", label: "Icon", type: "select", options: HOMEPAGE_ICONS, locale: false },
         ] },
-        { key: "partnersTitle", label: "Partners heading", type: "text", wide: true },
-        { key: "groups", label: "Partner groups", type: "objectList", itemLabel: "Group", itemFields: [
-          { key: "label", label: "Group label", type: "text" },
-          { key: "items", label: "Partners", type: "objectList", itemLabel: "Partner", itemFields: [
-            { key: "name", label: "Name", type: "text" },
-            { key: "logo", label: "Logo", type: "image", aspect: "16 / 9", locale: false, hint: "Optional; the name is shown as a wordmark when no logo is set." },
-          ] },
-        ] },
+        { key: "partnersTitle", label: "Partners heading", type: "text", wide: true, hint: "The logo groups, their names and artwork are edited on Clients & partners." },
       ] },
 
       { key: "commitments", label: "", type: "group", fields: [
@@ -859,6 +853,58 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "hotlinesLabel", label: "Hotlines label", type: "text" },
         { key: "socialLabel", label: "Social label", type: "text" },
         { key: "creditLabel", label: "Legal bar credit", type: "text" },
+      ] },
+    ],
+  },
+
+  partners: {
+    type: "partners",
+    label: "Clients & partners",
+    singular: "Clients & partners",
+    description: "The client, partner and supplier register shown on /partners, and the featured logos on the home page.",
+    icon: "◎",
+    titleKey: "title",
+    slugKey: "slug",
+    singleton: true,
+    tabs: true,
+    defaults: () => ({
+      ...(JSON.parse(JSON.stringify(DEFAULT_PARTNERS)) as Record<string, unknown>),
+      title: "Clients & partners",
+      slug: "home",
+    }),
+    skipKm: ["title", "slug"],
+    sections: [
+      {
+        id: "cover",
+        title: "Cover and introduction",
+        hint: "The page heading, introduction and the note above the profile download.",
+        keys: ["title", "slug", "kicker", "titleLines", "intro", "registerNote", "footnote"],
+      },
+      {
+        id: "groups",
+        title: "Register",
+        hint: "Every organisation and individual, in the order they should appear. Featured entries also appear on the home page.",
+        keys: ["groups"],
+      },
+    ],
+    fields: [
+      { key: "title", label: "Document title", type: "text", hint: "Shown in the admin list only; the page reads the fields below.", locale: false },
+      { key: "slug", label: "URL slug", type: "text", hint: "Keep this as “home”.", locale: false },
+      { key: "kicker", label: "Kicker", type: "text" },
+      { key: "titleLines", label: "Heading", type: "list", hint: "One line per row." },
+      { key: "intro", label: "Introduction", type: "textarea", rows: 4, wide: true },
+      { key: "registerNote", label: "Register note", type: "textarea", rows: 2, wide: true, hint: "Sits beside the Corporate Profile download." },
+      { key: "footnote", label: "Footnote", type: "textarea", rows: 2, wide: true },
+      { key: "groups", label: "Groups", type: "objectList", itemLabel: "Group", hint: "The profile's three groups: government, contractors/clients and suppliers.", itemFields: [
+        { key: "id", label: "Group id", type: "text", locale: false, hint: "Short key used by the filter and home-page order, e.g. government." },
+        { key: "label", label: "Label", type: "text" },
+        { key: "shortLabel", label: "Short label", type: "text", hint: "Used by the filter chips and the home-page grid." },
+        { key: "note", label: "Group note", type: "text" },
+        { key: "items", label: "Names", type: "objectList", itemLabel: "Client / partner", itemFields: [
+          { key: "name", label: "Name", type: "text" },
+          { key: "logo", label: "Logo", type: "image", aspect: "16 / 9", locale: false, hint: "Optional; the name is shown as a wordmark when no logo is set." },
+          { key: "featured", label: "Show on home page", type: "boolean", locale: false },
+        ] },
       ] },
     ],
   },

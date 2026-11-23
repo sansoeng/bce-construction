@@ -282,6 +282,8 @@
   .fx-dropdown { width: min(320px, calc(100vw - var(--page-gutter) * 2)); }
   /* The last facet's panel opens leftwards so it never runs off the screen. */
   .fx-facet:nth-last-child(2) .fx-dropdown { left: auto; right: 0; }
+  /* With a single facet that rule would push the panel off the left edge; open it normally instead. */
+  .fx-facet:only-of-type .fx-dropdown { left: 0; right: auto; }
   /* The pinned tags and the empty state both clear the selection on phones, so the bar keeps only the facets. */
   .fx-clear { display: none; }
   .fx-meta-row > .fx-meta { grid-column: 1 / -1; }

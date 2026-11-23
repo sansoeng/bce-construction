@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { homepage } from "./homepage";
+import { featuredGroups, partnerCount } from "./partners";
+import { translate } from "./i18n";
+import ArrowButton from "./ArrowButton";
 
 // Figures for the "BCE at a glance" grid. The defaults live in src/homepage.ts and the admin console can edit
 // every value, suffix, label, note and icon.
@@ -159,7 +162,11 @@ function PartnerLogo({ partner }: { partner: { name: string; logo?: string } }) 
 
 function Partners() {
   const [ref, inView] = useInView<HTMLDivElement>(0.15);
-  const { partnersTitle, groups } = homepage.glance;
+  const { partnersTitle } = homepage.glance;
+  // The logo groups live in the Clients & partners document (src/partners.ts), so the homepage and /partners can
+  // never disagree. Only the featured entries are shown here; the full register is one click away.
+  const groups = featuredGroups();
+  const total = partnerCount();
   const primary = groups[0];
   const secondary = groups.slice(1, 3);
   const extra = groups.slice(3);
@@ -171,6 +178,10 @@ function Partners() {
           <h2 data-split className="glance-title text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
             {partnersTitle}
           </h2>
+          <ArrowButton href="/partners" label={translate("View all clients & partners")} theme="outline" className="mt-6" />
+          <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.06em] text-[#111]/35">
+            {total} {translate("organisations & individuals")}
+          </p>
         </div>
       </div>
       <div ref={ref} className={`glance ${inView ? "is-in" : ""}`}>

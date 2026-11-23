@@ -68,6 +68,7 @@ export const CONTENT_TYPES = [
   "posts",
   "vacancies",
   "resources",
+  "partners",
   "businesses",
   "offerings",
   "pages",

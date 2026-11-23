@@ -350,7 +350,6 @@ function HomepagePreview({ data, section }: HomepagePreviewProps) {
 
   const segments = list(about.titleSegments).map(record);
   const stats = list(glance.stats).map(record);
-  const partnerGroups = list(glance.groups).map(record);
   const commitmentsList = list(commitments.items).map(record);
   const story = list(coverage.story).map(record);
   const beliefs = list(why.beliefs).map(record);
@@ -474,19 +473,11 @@ function HomepagePreview({ data, section }: HomepagePreviewProps) {
               ))}
             </div>
           </PreviewSection>
-          <PreviewSection title={text(glance.partnersTitle) || "Partner groups"}>
-            {partnerGroups.map((group, index) => (
-              <div key={index} className="mt-5 first:mt-0">
-                <p className="mb-2 font-mono text-[10px] uppercase tracking-[.12em] text-[rgb(17_17_17_/_0.45)]">
-                  {text(group.label)} · {list(group.items).length}
-                </p>
-                <ul className="adm-prev-list">
-                  {list(group.items).map(record).map((partner, partnerIndex) => (
-                    <li key={partnerIndex}><span>{text(partner.name)}</span></li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <PreviewSection title={text(glance.partnersTitle) || "Partners"}>
+            <p className="adm-prev-statement">
+              The partner and client logos are managed on the Clients &amp; partners page and appear here as the
+              featured grid.
+            </p>
           </PreviewSection>
         </>
       ) : null}

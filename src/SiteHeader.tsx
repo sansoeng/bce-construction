@@ -106,6 +106,7 @@ const NAV: NavItem[] = [
         { label: "About BCE", href: "/about" },
         { label: "Our story", href: "/about#ab-story" },
         { label: "Coverage", href: "/coverage" },
+        { label: "Clients & partners", href: "/partners" },
       ],
     },
   },

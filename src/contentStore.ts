@@ -58,7 +58,7 @@ const ensureKmDefaults = (): Promise<void> => {
 
 const overlayFor = (type: string, en: Record<string, unknown>, stored: Record<string, unknown> | null) => {
   // The three singleton defaults carry no slug of their own; their canonical row is "home".
-  const singleton = type === "homepage" || type === "about" || type === "quality";
+  const singleton = type === "homepage" || type === "about" || type === "quality" || type === "partners";
   const slug = String(en.slug ?? en.id ?? (singleton ? "home" : ""));
   const bundled = kmDefaults?.[type]?.[slug];
   if (!bundled && !stored) return en;

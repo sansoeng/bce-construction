@@ -62,6 +62,7 @@ const staticPages = [
   ["/quote", "0.8"],
   ["/careers", "0.6"],
   ["/resources", "0.6"],
+  ["/partners", "0.6"],
   ["/contact", "0.7"],
   ["/blog", "0.7"],
   ["/privacy", "0.3"],

@@ -197,75 +197,7 @@
               "icon": "piling"
             }
           ],
-          "partnersTitle": "Trusted partners & clients",
-          "groups": [
-            {
-              "label": "Clients",
-              "items": [
-                {
-                  "name": "Obayashi"
-                },
-                {
-                  "name": "Hanshin Engineering & Construction"
-                },
-                {
-                  "name": "Thang Long JSC"
-                },
-                {
-                  "name": "SUMEC International Technology"
-                },
-                {
-                  "name": "SchneiTec"
-                },
-                {
-                  "name": "Build Bright University"
-                }
-              ]
-            },
-            {
-              "label": "Government & public sector",
-              "items": [
-                {
-                  "name": "Ministry of Public Works and Transport"
-                },
-                {
-                  "name": "Ministry of Land Management, Urban Planning and Construction"
-                },
-                {
-                  "name": "Ministry of Water Resources and Meteorology"
-                },
-                {
-                  "name": "Ministry of Rural Development"
-                },
-                {
-                  "name": "Ministry of Commerce"
-                },
-                {
-                  "name": "Battambang Provincial Administration"
-                }
-              ]
-            },
-            {
-              "label": "Suppliers & technical partners",
-              "items": [
-                {
-                  "name": "Chip Mong Group"
-                },
-                {
-                  "name": "SCG Distribution and Retail"
-                },
-                {
-                  "name": "Sika Cambodia"
-                },
-                {
-                  "name": "Battambang Conch Cement"
-                },
-                {
-                  "name": "Hong Huot Ly Co., Ltd."
-                }
-              ]
-            }
-          ]
+          "partnersTitle": "Trusted partners & clients"
         },
         "commitments": {
           "label": "HSE & Operational Commitments",
@@ -878,6 +810,359 @@
           "socialLabel": "បណ្ដាញសង្គម និងទំនាក់ទំនងផ្ទាល់",
           "creditLabel": "រចនាប័ទ្ម & គំនិតដោយ BCE"
         }
+      }
+    },
+    {
+      "type": "partners",
+      "slug": "home",
+      "sort": 0,
+      "data": {
+        "title": "Clients & partners",
+        "slug": "home",
+        "kicker": "Clients & partners",
+        "titleLines": [
+          "Strong relationships.",
+          "Shared success."
+        ],
+        "intro": "BCE has built long-term working relationships across Cambodia’s public and private sectors. Our network includes government and public institutions, contractors, development and strategic partners, corporate clients, and key suppliers who contribute to the successful delivery of our projects and services.",
+        "registerNote": "The full register, as published in BCE’s Corporate Profile 2026.",
+        "footnote": "Organisations and individuals listed as published in the BCE Corporate Profile 2026. Names and marks belong to their respective owners.",
+        "groups": [
+          {
+            "id": "government",
+            "label": "Government & public sector",
+            "shortLabel": "Government & public sector",
+            "note": "Public institutions · Authorities · Government projects",
+            "items": [
+              {
+                "name": "Ministry of Water Resources and Meteorology",
+                "logo": "/assets/partners/mowram.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Land Management, Urban Planning and Construction",
+                "logo": "/assets/partners/mlmupc.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Commerce",
+                "logo": "/assets/partners/moc.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Mines and Energy"
+              },
+              {
+                "name": "Ministry of Public Works and Transport",
+                "logo": "/assets/partners/mpwt.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Labour and Vocational Training"
+              },
+              {
+                "name": "Ministry of Industry, Science, Technology & Innovation"
+              },
+              {
+                "name": "Ministry of Rural Development",
+                "logo": "/assets/partners/mrd.png",
+                "featured": true
+              },
+              {
+                "name": "Ministry of Economy and Finance"
+              },
+              {
+                "name": "Ministry of Interior"
+              },
+              {
+                "name": "General Department of Tax"
+              },
+              {
+                "name": "National Social Security Fund (NSSF)"
+              },
+              {
+                "name": "Building and Public Works Laboratory"
+              },
+              {
+                "name": "Ministry of National Defence"
+              },
+              {
+                "name": "Provincial Halls in Provinces Where BCE Operates",
+                "featured": true
+              },
+              {
+                "name": "Provincial Administrations in BCE’s Operational Areas"
+              }
+            ]
+          },
+          {
+            "id": "clients",
+            "label": "Contractors, partners & corporate clients",
+            "shortLabel": "Clients",
+            "note": "Contractors · Development & strategic partners · Corporate clients",
+            "items": [
+              {
+                "name": "EM Construction Import Export Co., Ltd."
+              },
+              {
+                "name": "Branch of Thang Long Joint Stock Corporation – JSC",
+                "featured": true
+              },
+              {
+                "name": "Ilsung & Cienco"
+              },
+              {
+                "name": "Hanshin Engineering & Construction Co., Ltd.",
+                "logo": "/assets/partners/hanshin.jpg",
+                "featured": true
+              },
+              {
+                "name": "Obayashi",
+                "logo": "/assets/partners/obayashi.svg",
+                "featured": true
+              },
+              {
+                "name": "EDCCF"
+              },
+              {
+                "name": "Bahai"
+              },
+              {
+                "name": "Build Bright University (BBU)",
+                "logo": "/assets/partners/build-bright-university.png",
+                "featured": true
+              },
+              {
+                "name": "Taing Chheng Oing Construction & Import Export Co., Ltd. (TCO)"
+              },
+              {
+                "name": "SUMEC International Technology Co., Ltd.",
+                "logo": "/assets/partners/sumec.webp",
+                "featured": true
+              },
+              {
+                "name": "The Seaboard Cambodian Development Construction"
+              },
+              {
+                "name": "Borey Ratanak"
+              },
+              {
+                "name": "UOFN Battambang (YWAM)"
+              },
+              {
+                "name": "Schneitec Co., Ltd.",
+                "logo": "/assets/partners/schneitec.png",
+                "featured": true
+              },
+              {
+                "name": "T.S.K Construction Co., Ltd."
+              },
+              {
+                "name": "ZOA"
+              },
+              {
+                "name": "S.N.K.R.P Co., Ltd."
+              },
+              {
+                "name": "Punloeu Banyeay Srey Construction Co., Ltd."
+              },
+              {
+                "name": "Samdech Pichey Sena Tea Banh"
+              },
+              {
+                "name": "H.E. Pronh Ritha"
+              },
+              {
+                "name": "H.E. In Viracheat"
+              },
+              {
+                "name": "H.E. Tum Helhangry"
+              },
+              {
+                "name": "H.E. Sok Sokhon"
+              },
+              {
+                "name": "H.E. Khiev Satya"
+              },
+              {
+                "name": "Lok Oknha Vong Duong"
+              },
+              {
+                "name": "Dr. Yi Kuok"
+              },
+              {
+                "name": "Dr. Sok Vannara"
+              },
+              {
+                "name": "Mr. Sy Rattanak"
+              },
+              {
+                "name": "Mr. So Reaksmey"
+              },
+              {
+                "name": "Mr. Songfu"
+              },
+              {
+                "name": "Mrs. Soun Thouk"
+              },
+              {
+                "name": "Mr. Song Chamnan"
+              },
+              {
+                "name": "Mrs. Thouen Sophea"
+              },
+              {
+                "name": "Mr. Phum Sopheak"
+              },
+              {
+                "name": "Mr. Luo Jianbo"
+              },
+              {
+                "name": "Mr. Kim Tieng"
+              }
+            ]
+          },
+          {
+            "id": "suppliers",
+            "label": "Key suppliers",
+            "shortLabel": "Suppliers & technical partners",
+            "note": "Materials · Equipment · Operational support",
+            "items": [
+              {
+                "name": "Ly Kea"
+              },
+              {
+                "name": "Chip Mong Group Co., Ltd.",
+                "logo": "/assets/partners/chip-mong-group.png",
+                "featured": true
+              },
+              {
+                "name": "Dynamic Engineering Steel"
+              },
+              {
+                "name": "Hour Huy Leng"
+              },
+              {
+                "name": "Almond Company"
+              },
+              {
+                "name": "Veng Srun"
+              },
+              {
+                "name": "Ye Yaqing"
+              },
+              {
+                "name": "Cambodia Cement Chakrey Ting Factory Co., Ltd."
+              },
+              {
+                "name": "Hong Huot Ly Co., Ltd.",
+                "featured": true
+              },
+              {
+                "name": "Battambang Conch Cement Co. Ltd.",
+                "logo": "/assets/partners/conch.jpg",
+                "featured": true
+              },
+              {
+                "name": "SCG Distribution and Retail Co., Ltd.",
+                "logo": "/assets/partners/scg.png",
+                "featured": true
+              },
+              {
+                "name": "Rong Sheng Jilong Chemicals Co., Ltd."
+              },
+              {
+                "name": "Sika Cambodia",
+                "logo": "/assets/partners/sika.png",
+                "featured": true
+              },
+              {
+                "name": "Leng Seng Na"
+              },
+              {
+                "name": "Mitapheap"
+              }
+            ]
+          }
+        ]
+      },
+      "km": {
+        "kicker": "អតិថិជន និងដៃគូ",
+        "titleLines": [
+          "ទំនាក់ទំនងរឹងមាំ។",
+          "ជោគជ័យរួមគ្នា។"
+        ],
+        "intro": "BCE បានកសាងទំនាក់ទំនងការងាររយៈពេលវែងជាមួយវិស័យសាធារណៈ និងឯកជនទូទាំងប្រទេសកម្ពុជា។ បណ្តាញរបស់យើងរួមមាន ស្ថាប័នរដ្ឋាភិបាល និងសាធារណៈ ក្រុមហ៊ុនម៉ៅការ ដៃគូអភិវឌ្ឍន៍ និងយុទ្ធសាស្ត្រ អតិថិជនសាជីវកម្ម និងអ្នកផ្គត់ផ្គង់សំខាន់ៗ ដែលរួមចំណែកដល់ការអនុវត្តគម្រោង និងសេវាកម្មរបស់យើងដោយជោគជ័យ។",
+        "registerNote": "បញ្ជីពេញលេញ ដូចដែលបានចេញផ្សាយក្នុងប្រវត្តិរូបក្រុមហ៊ុន BCE ២០២៦។",
+        "footnote": "អង្គភាព និងបុគ្គលដែលបានចុះក្នុងប្រវត្តិរូបក្រុមហ៊ុន BCE ២០២៦។ ឈ្មោះ និងសញ្ញាសម្គាល់ជាកម្មសិទ្ធិរបស់ម្ចាស់រៀងៗខ្លួន។",
+        "groups": [
+          {
+            "label": "រដ្ឋាភិបាល និងវិស័យសាធារណៈ",
+            "shortLabel": "រដ្ឋាភិបាល",
+            "note": "ស្ថាប័នសាធារណៈ · អាជ្ញាធរ · គម្រោងរដ្ឋាភិបាល",
+            "items": [
+              {
+                "name": "ក្រសួងធនធានទឹក និងឧតុនិយម"
+              },
+              {
+                "name": "ក្រសួងរៀបចំដែនដី នគរូបនីយកម្ម និងសំណង់"
+              },
+              {
+                "name": "ក្រសួងពាណិជ្ជកម្ម"
+              },
+              {
+                "name": "ក្រសួងរ៉ែ និងថាមពល"
+              },
+              {
+                "name": "ក្រសួងសាធារណការ និងដឹកជញ្ជូន"
+              },
+              {
+                "name": "ក្រសួងការងារ និងបណ្តុះបណ្តាលវិជ្ជាជីវៈ"
+              },
+              {
+                "name": "ក្រសួងឧស្សាហកម្ម វិទ្យាសាស្ត្រ បច្ចេកវិទ្យា និងនវានុវត្តន៍"
+              },
+              {
+                "name": "ក្រសួងអភិវឌ្ឍន៍ជនបទ"
+              },
+              {
+                "name": "ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ"
+              },
+              {
+                "name": "ក្រសួងមហាផ្ទៃ"
+              },
+              {
+                "name": "អគ្គនាយកដ្ឋានពន្ធដារ"
+              },
+              {
+                "name": "មូលនិធិសន្តិសុខសង្គមជាតិ (NSSF)"
+              },
+              {
+                "name": "មន្ទីរពិសោធន៍សំណង់ និងការងារសាធារណៈ"
+              },
+              {
+                "name": "ក្រសួងការពារជាតិ"
+              },
+              {
+                "name": "សាលាខេត្ត នៅតាមខេត្តដែល BCE ដំណើរការ"
+              },
+              {
+                "name": "រដ្ឋបាលខេត្ត នៅតាមតំបន់ប្រតិបត្តិការរបស់ BCE"
+              }
+            ]
+          },
+          {
+            "label": "ក្រុមហ៊ុនម៉ៅការ ដៃគូ និងអតិថិជនសាជីវកម្ម",
+            "shortLabel": "អតិថិជន",
+            "note": "ក្រុមហ៊ុនម៉ៅការ · ដៃគូអភិវឌ្ឍន៍ និងយុទ្ធសាស្ត្រ · អតិថិជនសាជីវកម្ម"
+          },
+          {
+            "label": "អ្នកផ្គត់ផ្គង់សំខាន់",
+            "shortLabel": "អ្នកផ្គត់ផ្គង់",
+            "note": "វត្ថុធាតុដើម · ឧបករណ៍ · ការគាំទ្រប្រតិបត្តិការ"
+          }
+        ],
+        "slug": "home"
       }
     },
     {

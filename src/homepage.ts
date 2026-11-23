@@ -89,7 +89,6 @@ export type HomepageContent = {
     title: string;
     stats: { value: number; suffix: string; label: string; note: string; icon: HomepageIcon }[];
     partnersTitle: string;
-    groups: { label: string; items: { name: string; logo?: string }[] }[];
   };
   commitments: {
     label: string;
@@ -239,40 +238,6 @@ export const DEFAULT_HOMEPAGE: HomepageContent = {
       { value: 7, suffix: "", label: "Hydraulic piling rigs", note: "Bore & hammer rigs", icon: "piling" },
     ],
     partnersTitle: "Trusted partners & clients",
-    groups: [
-      {
-        label: "Clients",
-        items: [
-          { name: "Obayashi" },
-          { name: "Hanshin Engineering & Construction" },
-          { name: "Thang Long JSC" },
-          { name: "SUMEC International Technology" },
-          { name: "SchneiTec" },
-          { name: "Build Bright University" },
-        ],
-      },
-      {
-        label: "Government & public sector",
-        items: [
-          { name: "Ministry of Public Works and Transport" },
-          { name: "Ministry of Land Management, Urban Planning and Construction" },
-          { name: "Ministry of Water Resources and Meteorology" },
-          { name: "Ministry of Rural Development" },
-          { name: "Ministry of Commerce" },
-          { name: "Battambang Provincial Administration" },
-        ],
-      },
-      {
-        label: "Suppliers & technical partners",
-        items: [
-          { name: "Chip Mong Group" },
-          { name: "SCG Distribution and Retail" },
-          { name: "Sika Cambodia" },
-          { name: "Battambang Conch Cement" },
-          { name: "Hong Huot Ly Co., Ltd." },
-        ],
-      },
-    ],
   },
   commitments: {
     label: "HSE & Operational Commitments",
@@ -402,11 +367,5 @@ registerContentType("homepage", (items) => {
   const merged = mergeDefaults(DEFAULT_HOMEPAGE, first);
   // D1 still carries the original long quote paragraph; replace the exact legacy sentence with the shorter one.
   if (merged.quote.text === LEGACY_QUOTE_TEXT) merged.quote.text = SUMMARY_QUOTE_TEXT;
-  // Older D1 rows still carry the stand-in partner logos; show the approved names as wordmarks instead.
-  for (const group of merged.glance.groups) {
-    for (const item of group.items) {
-      if (item.logo?.includes("/assets/partners/placeholder-")) delete item.logo;
-    }
-  }
   Object.assign(homepage, merged);
 }, DEFAULT_HOMEPAGE);

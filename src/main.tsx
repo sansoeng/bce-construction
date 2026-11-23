@@ -13,6 +13,7 @@ import FleetPage from './FleetPage'
 import QuotePage from './QuotePage'
 import RecruitmentPage from './RecruitmentPage'
 import ResourcesPage from './ResourcesPage'
+import PartnersPage from './PartnersPage'
 import ContactPage from './ContactPage'
 import BlogPage from './BlogPage'
 import { PrivacyPage, TermsPage } from './LegalPage'
@@ -30,8 +31,8 @@ import {
   syncContentLanguage,
 } from './contentStore'
 
-// Clean paths (src/routes.ts): /projects, /about, /quality, /coverage, /quote, /careers, /resources, /contact,
-// /privacy, /terms, /blog, /project/<slug>, /business/<slug>. Old query addresses are rewritten to these on load.
+// Clean paths (src/routes.ts): /projects, /about, /quality, /coverage, /quote, /careers, /resources, /partners,
+// /contact, /privacy, /terms, /blog, /project/<slug>, /business/<slug>. Old query addresses are rewritten on load.
 // Links between pages navigate in-app with the page transition (src/pageTransition.ts), so the shell re-renders on
 // route changes. Switching language remounts the page; in Khmer the translator runs after render and before the text
 // reveals split it.
@@ -108,6 +109,8 @@ function Page() {
       return <RecruitmentPage />
     case 'resources':
       return <ResourcesPage />
+    case 'partners':
+      return <PartnersPage />
     case 'contact':
       return <ContactPage />
     case 'privacy':

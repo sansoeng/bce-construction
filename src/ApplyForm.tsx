@@ -92,11 +92,8 @@ export default function ApplyForm({ role }: { role: string }) {
   }
 
   return (
-    <form onSubmit={send} noValidate className="border border-[#111]/10 p-6">
-      <p className="font-mono text-[12px] uppercase tracking-[0.06em] text-[#FB290E]">Apply for this role</p>
-      <h3 className="mt-3 text-[20px] font-medium leading-snug">{role}</h3>
-
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+    <form onSubmit={send} noValidate aria-label={`Apply for ${role}`}>
+      <div className="grid gap-5 sm:grid-cols-2">
         {invalid.length > 0 && <p className="qf-error sm:col-span-2" role="alert">Please check the highlighted fields.</p>}
         <label className={`qf-field${invalid.includes("name") ? " is-invalid" : ""}`}>
           <span className="qf-label">Your name *</span>
