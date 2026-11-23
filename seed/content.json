@@ -862,7 +862,8 @@
                 "name": "Ministry of Labour and Vocational Training"
               },
               {
-                "name": "Ministry of Industry, Science, Technology & Innovation"
+                "name": "Ministry of Industry, Science, Technology & Innovation",
+                "logo": "/assets/partners/misti.jpg"
               },
               {
                 "name": "Ministry of Rural Development",
