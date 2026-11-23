@@ -899,6 +899,7 @@ export const SCHEMAS: Record<string, ContentSchema> = {
         { key: "id", label: "Group id", type: "text", locale: false, hint: "Short key used by the filter and home-page order, e.g. government." },
         { key: "label", label: "Label", type: "text" },
         { key: "shortLabel", label: "Short label", type: "text", hint: "Used by the filter chips and the home-page grid." },
+        { key: "tag", label: "Section tag", type: "text", hint: "Orange eyebrow above the /partners section title." },
         { key: "note", label: "Group note", type: "text" },
         { key: "items", label: "Names", type: "objectList", itemLabel: "Client / partner", itemFields: [
           { key: "name", label: "Name", type: "text" },

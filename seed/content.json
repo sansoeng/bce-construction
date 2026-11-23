@@ -832,6 +832,7 @@
             "id": "government",
             "label": "Government & public sector",
             "shortLabel": "Government & public sector",
+            "tag": "Government",
             "note": "Public institutions · Authorities · Government projects",
             "items": [
               {
@@ -899,6 +900,7 @@
             "id": "clients",
             "label": "Contractors, partners & corporate clients",
             "shortLabel": "Clients",
+            "tag": "Clients",
             "note": "Contractors · Development & strategic partners · Corporate clients",
             "items": [
               {
@@ -1026,6 +1028,7 @@
             "id": "suppliers",
             "label": "Key suppliers",
             "shortLabel": "Suppliers & technical partners",
+            "tag": "Suppliers",
             "note": "Materials · Equipment · Operational support",
             "items": [
               {
@@ -1099,6 +1102,7 @@
           {
             "label": "រដ្ឋាភិបាល និងវិស័យសាធារណៈ",
             "shortLabel": "រដ្ឋាភិបាល",
+            "tag": "រដ្ឋាភិបាល",
             "note": "ស្ថាប័នសាធារណៈ · អាជ្ញាធរ · គម្រោងរដ្ឋាភិបាល",
             "items": [
               {
@@ -1154,11 +1158,13 @@
           {
             "label": "ក្រុមហ៊ុនម៉ៅការ ដៃគូ និងអតិថិជនសាជីវកម្ម",
             "shortLabel": "អតិថិជន",
+            "tag": "អតិថិជន",
             "note": "ក្រុមហ៊ុនម៉ៅការ · ដៃគូអភិវឌ្ឍន៍ និងយុទ្ធសាស្ត្រ · អតិថិជនសាជីវកម្ម"
           },
           {
             "label": "អ្នកផ្គត់ផ្គង់សំខាន់",
             "shortLabel": "អ្នកផ្គត់ផ្គង់",
+            "tag": "អ្នកផ្គត់ផ្គង់",
             "note": "វត្ថុធាតុដើម · ឧបករណ៍ · ការគាំទ្រប្រតិបត្តិការ"
           }
         ],

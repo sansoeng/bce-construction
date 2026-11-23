@@ -20,8 +20,10 @@ export type Partner = {
 export type PartnerGroup = {
   id: string;
   label: string;
-  /** The compact label used by the two-column homepage grid. */
+  /** The compact label used by the two-column homepage grid and the filter chips. */
   shortLabel: string;
+  /** Orange eyebrow above the section title on /partners. */
+  tag: string;
   note: string;
   items: Partner[];
 };
@@ -70,6 +72,7 @@ export const DEFAULT_PARTNERS: PartnersContent = {
       id: "government",
       label: "Government & public sector",
       shortLabel: "Government & public sector",
+      tag: "Government",
       note: "Public institutions · Authorities · Government projects",
       items: [
         { name: "Ministry of Water Resources and Meteorology", logo: LOGO.mowram, featured: true },
@@ -94,6 +97,7 @@ export const DEFAULT_PARTNERS: PartnersContent = {
       id: "clients",
       label: "Contractors, partners & corporate clients",
       shortLabel: "Clients",
+      tag: "Clients",
       note: "Contractors · Development & strategic partners · Corporate clients",
       items: [
         { name: "EM Construction Import Export Co., Ltd." },
@@ -138,6 +142,7 @@ export const DEFAULT_PARTNERS: PartnersContent = {
       id: "suppliers",
       label: "Key suppliers",
       shortLabel: "Suppliers & technical partners",
+      tag: "Suppliers",
       note: "Materials · Equipment · Operational support",
       items: [
         { name: "Ly Kea" },

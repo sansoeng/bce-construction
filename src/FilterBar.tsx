@@ -156,7 +156,8 @@ export function FilterBar({
 type MetaProps = {
   facets: FilterFacet[];
   selection: FilterSelection;
-  count: string;
+  /** Omit on pages that show their own per-section count. */
+  count?: string;
   onToggle: (key: string, value: string) => void;
 };
 
@@ -172,7 +173,7 @@ export function FilterMeta({ facets, selection, count, onToggle }: MetaProps) {
 
   return (
     <div className="fx-meta">
-      <span className="fx-count">{count}</span>
+      {count ? <span className="fx-count">{count}</span> : null}
 
       {active.length > 0 && (
         <div className="fx-tags">

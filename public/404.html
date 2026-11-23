@@ -8,6 +8,7 @@
     <meta name="description" content="This page is not on the BCE website. Use the links below to reach our home page, projects, resources or contact details." />
     <link rel="icon" href="/favicon.svg" />
     <link rel="preload" href="/fonts/TTCommonsPro-Normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/TTCommonsPro-Md.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/TTCommonsProMono-Md.woff2" as="font" type="font/woff2" crossorigin />
     <style>
       @font-face {
@@ -28,118 +29,160 @@
         font-weight: 500;
         font-display: swap;
       }
-      :root { color-scheme: light; }
+
+      :root {
+        --ink: #111111;
+        --paper: #ffffff;
+        --brand: #f80100;
+        --muted: rgb(17 17 17 / .6);
+        color-scheme: light;
+      }
+
       * { box-sizing: border-box; }
+      html, body { margin: 0; }
+
       body {
-        margin: 0;
-        min-height: 100vh;
+        min-height: 100svh;
         display: flex;
         flex-direction: column;
-        background: #fff;
-        color: #111;
-        font-family: "TT Commons", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 5vw, 3rem);
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "TT Commons", "Helvetica Neue", Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
-      a { color: inherit; }
-      .bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 18px 20px;
-        border-bottom: 1px solid rgba(17, 17, 17, 0.1);
-      }
-      .brand {
-        font-family: "TT Commons Mono", ui-monospace, monospace;
-        font-size: 14px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        text-decoration: none;
-      }
-      .bar a.plain { font-size: 13px; text-decoration: none; opacity: 0.6; }
-      .bar a.plain:hover { opacity: 1; }
+
+      header { display: flex; flex: none; justify-content: center; }
+      .logo { display: block; width: clamp(112px, 13vw, 138px); height: auto; }
+
       main {
         flex: 1;
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 72px 20px 96px;
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: center;
+        padding: clamp(3rem, 8vh, 6rem) 0 clamp(3.5rem, 10vh, 7rem);
+        text-align: center;
       }
+
+      .mark { width: clamp(160px, 21vw, 240px); height: auto; margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem); }
+      .mark svg { display: block; width: 100%; height: auto; overflow: visible; }
+      .gear { fill: none; stroke-width: 1.4; stroke-linejoin: round; }
+      .gear--big { stroke: var(--brand); }
+      .gear--small { stroke: rgb(17 17 17 / .32); }
+      .spin { transform-origin: 12px 12px; animation: spin 26s linear infinite; }
+      .spin--small { animation-duration: 14s; animation-direction: reverse; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
       .kicker {
+        margin: 0;
+        color: var(--brand);
         font-family: "TT Commons Mono", ui-monospace, monospace;
         font-size: 13px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #fb290e;
-        margin: 0 0 20px;
-      }
-      h1 {
-        margin: 0 0 20px;
-        font-size: clamp(2.4rem, 7vw, 4.6rem);
         font-weight: 500;
-        line-height: 1.04;
-        letter-spacing: -0.03em;
-        max-width: 16ch;
+        letter-spacing: .08em;
+        line-height: 1.4;
+        text-transform: uppercase;
       }
+
+      h1 {
+        margin: .9rem 0 0;
+        font-size: clamp(2rem, 6.4vw, 54px);
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -.02em;
+        text-transform: uppercase;
+        text-wrap: balance;
+      }
+
       p.lead {
-        margin: 0 0 8px;
-        max-width: 44ch;
-        font-size: 17px;
-        line-height: 1.55;
-        color: rgba(17, 17, 17, 0.6);
+        margin: clamp(1rem, 2vw, 1.35rem) 0 0;
+        max-width: 34rem;
+        font-size: clamp(1.02rem, 1.6vw, 1.28rem);
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--muted);
       }
-      p.km { margin: 0 0 36px; max-width: 44ch; font-size: 15px; line-height: 1.9; color: rgba(17, 17, 17, 0.45); }
-      nav { display: flex; flex-wrap: wrap; gap: 10px; }
+      p.lead a { color: var(--ink); text-decoration: none; border-bottom: 1px solid rgb(17 17 17 / .3); }
+      p.lead a:hover { border-color: var(--ink); }
+      p.km { margin: 1rem 0 0; max-width: 34rem; font-size: 14px; line-height: 1.9; color: rgb(17 17 17 / .45); }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: .75rem;
+        margin-top: clamp(1.75rem, 3vw, 2.5rem);
+      }
       nav a {
         display: inline-flex;
         align-items: center;
         height: 44px;
         padding: 0 20px;
+        border: 1px solid rgb(17 17 17 / .14);
         border-radius: 4px;
-        border: 1px solid rgba(17, 17, 17, 0.14);
-        font-size: 14px;
+        color: var(--ink);
+        font-family: "TT Commons Mono", ui-monospace, monospace;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: .06em;
         text-decoration: none;
-        transition: background-color 0.2s ease, color 0.2s ease;
+        text-transform: uppercase;
+        transition: background-color .2s ease, color .2s ease, border-color .2s ease;
       }
-      nav a:hover { background: rgba(17, 17, 17, 0.04); }
-      nav a.primary { background: #111; border-color: #111; color: #fff; }
+      nav a:hover { background: rgb(17 17 17 / .04); }
+      nav a.primary { background: var(--ink); border-color: var(--ink); color: var(--paper); }
       nav a.primary:hover { background: #000; }
-      footer {
-        border-top: 1px solid rgba(17, 17, 17, 0.1);
-        padding: 20px;
-        font-size: 12.5px;
-        color: rgba(17, 17, 17, 0.45);
+
+      @media (max-width: 560px) {
+        main { padding-block: 2.5rem 3rem; }
       }
-      footer div { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .spin { animation: none; }
+      }
     </style>
   </head>
   <body>
-    <header class="bar">
-      <a class="brand" href="/">BCE., Ltd.</a>
-      <a class="plain" href="/?contact">Contact</a>
+    <header>
+      <a href="/" aria-label="BCE., Ltd. — home">
+        <img class="logo" src="/assets/bce-logo-lockup-ink.svg" alt="BCE., Ltd." width="138" height="37" />
+      </a>
     </header>
+
     <main>
+      <div class="mark" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(28 28) scale(6)">
+            <g class="spin">
+              <path class="gear gear--big" vector-effect="non-scaling-stroke" d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.03-.24-.24-.42-.49-.42h-3.84c-.24 0-.45.18-.49.42l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.42.49.42h3.84c.24 0 .45-.18.49-.42l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+            </g>
+          </g>
+          <g transform="translate(128.2 128.2) scale(2.4)">
+            <g class="spin spin--small">
+              <path class="gear gear--small" vector-effect="non-scaling-stroke" d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.03-.24-.24-.42-.49-.42h-3.84c-.24 0-.45.18-.49.42l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.42.49.42h3.84c.24 0 .45-.18.49-.42l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+            </g>
+          </g>
+        </svg>
+      </div>
+
       <p class="kicker">Error 404</p>
       <h1>This page isn’t here.</h1>
-      <p class="lead">The link may be old, or the address may have a typo. Everything BCE publishes is reachable from the pages below.</p>
+      <p class="lead">
+        The link may be old, or the address may have a typo. Everything BCE publishes is reachable from the pages below,
+        or call <a href="tel:+85512932700">012 932 700</a>.
+      </p>
       <p class="km" lang="km">ទំព័រនេះមិនមានទេ។ តំណភ្ជាប់អាចចាស់ ឬអាសយដ្ឋានអាចខុស។ សូមប្រើតំណខាងក្រោមដើម្បីបន្ត។</p>
+
       <nav aria-label="Useful links">
         <a class="primary" href="/">Home</a>
-        <a href="/?projects">Projects</a>
-        <a href="/?businesses">Our businesses</a>
-        <a href="/?quality">Quality &amp; HSE</a>
-        <a href="/?resources">Resources</a>
-        <a href="/?contact">Contact us</a>
+        <a href="/projects">Projects</a>
+        <a href="/businesses">Our businesses</a>
+        <a href="/quality">Quality &amp; HSE</a>
+        <a href="/resources">Resources</a>
+        <a href="/contact">Contact us</a>
       </nav>
     </main>
-    <footer>
-      <div>
-        <span>Battambang Construction and Engineering Co., Ltd.</span>
-        <span>Ang Village, Sangkat O’Char, Battambang · 012 932 700</span>
-      </div>
-    </footer>
   </body>
 </html>

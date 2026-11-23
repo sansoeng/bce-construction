@@ -4409,7 +4409,7 @@ html[lang="km"] .ol-hero-title, html[lang="km"] .ol-tm-title, html[lang="km"] .o
    grey copy and ruled lists in columns 8 to 11. */
 .qx-split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 20px; padding-inline: var(--olm, var(--page-gutter)); }
 /* Introduction as Our businesses' "What we do" (.ol-lwc), closed by a hairline. */
-.qx-intro { padding-bottom: clamp(4.5rem, 6vw, 5.5rem); border-bottom: 1px solid rgb(17 17 17 / .1); }
+.qx-intro { padding-bottom: clamp(4.5rem, 6vw, 5.5rem); }
 #laboratory { margin-top: clamp(6rem, 10vw, 10rem); }
 /* 01: content on the left, the photo on the right holding in place beside the process list. */
 .qx-lab-content { grid-column: 1 / span 5; grid-row: 1; }
@@ -5158,7 +5158,7 @@ html[lang="km"] .abz-title { line-height: 1.45; font-weight: 600 !important; }
    grid — a bordered cell per machine type, with the count set large at the cell's foot. Below it, the Plant & machines
    block follows the Corporate Profile's equipment page: one large plant photo beside nine numbered cards. */
 .fl-dark { background: #1D2226; color: var(--paper); }
-.fl-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); border-bottom: 0; }
+.fl-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); }
 .fl-dark .ol-lwc-copy { color: rgb(255 255 255 / .72); }
 .fl-dark .ol-lwc-label { color: var(--brand); }
 .fl-dark .ol-topics a { color: rgb(255 255 255 / .5); }
@@ -5672,7 +5672,7 @@ html[lang="km"] .fg-btn.is-outline-white {
 /* The Operational coverage introduction and the Key figures band share one #1D2226 ground, so the page runs from the
    cover into the figures without a white break. */
 .cv-dark { background: #1D2226; color: var(--paper); }
-.cv-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); border-bottom: 0; }
+.cv-dark .qx-intro { padding-bottom: clamp(3rem, 5vw, 5rem); }
 .cv-dark .ol-lwc-copy { color: rgb(255 255 255 / .72); }
 .cv-dark .ol-lwc-label { color: var(--brand); }
 .cv-dark .ol-topics a { color: rgb(255 255 255 / .5); }

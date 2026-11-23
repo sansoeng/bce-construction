@@ -18,12 +18,13 @@ import "./projects.css";
 //
 // The register comes from src/partners.ts, transcribed from the BCE Corporate Profile 2026 (pages 34–35). The
 // homepage section shows only the featured logos from the same document; this page carries every name. No new
-// layout: the cover is ParallaxHero, the introduction is LabelCopy, the filter is FilterBar/FilterMeta, and the wall
-// is the homepage's glance grid.
+// layout: the cover is ParallaxHero, the introduction is LabelCopy, the filter is FilterBar/FilterMeta, and the
+// register reuses the homepage's two-column glance layout — each group's sticky title on the left, its logos on the
+// right — so the title always names the section in view. The orange eyebrow (`tag`) and the per-section count sit with
+// the title; the total count is deliberately absent.
 
 const phones = siteSettings.contact.phones;
 const tel = (n: string) => `tel:+855${n.replace(/\s/g, "").slice(1)}`;
-const pad = (n: number) => String(n).padStart(2, "0");
 
 const emptySelection = (): FilterSelection => ({ group: [] });
 
@@ -61,8 +62,6 @@ export default function PartnersPage() {
       .filter((group) => chosen.length === 0 || chosen.includes(group.id))
       .map((group) => ({ ...group, items: group.items }));
   }, [selection]);
-
-  const visibleCount = visibleGroups.reduce((total, group) => total + group.items.length, 0);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -109,74 +108,59 @@ export default function PartnersPage() {
           />
 
           <div className="fx-meta-row">
-            <FilterMeta
-              facets={facets}
-              selection={selection}
-              count={`${visibleCount} ${translate(visibleCount === 1 ? "partner" : "partners")}`}
-              onToggle={toggleValue}
-            />
+            <FilterMeta facets={facets} selection={selection} onToggle={toggleValue} />
           </div>
 
-          <div className="glance-layout glance-partners">
-            <div className="glance-title-col">
-              <div className="glance-title-sticky">
-                <h2 data-split className="glance-title text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]">
-                  {translate("Trusted partners & clients")}
-                </h2>
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.06em] text-[#111]/35">
-                  {visibleCount} {translate("organisations & individuals")}
-                </p>
+          {visibleGroups.map((group, groupIndex) => (
+            <section
+              key={group.id}
+              className={`glance-layout${groupIndex ? " mt-20 md:mt-28" : ""}`}
+              aria-labelledby={`pt-group-${group.id}`}
+            >
+              <div className="glance-title-col">
+                <div className="glance-title-sticky">
+                  <p className="ol-label mb-3">{translate(group.tag)}</p>
+                  <h2
+                    id={`pt-group-${group.id}`}
+                    className="glance-title text-[clamp(2.4rem,3.6vw,4.2rem)] font-medium leading-[1.08] tracking-[-.025em]"
+                  >
+                    {translate(group.label)}
+                  </h2>
+                  <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.06em] text-[#111]/35">
+                    {group.items.length} {translate(group.items.length === 1 ? "partner" : "partners")}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="glance is-in">
-              {visibleGroups.map((group, groupIndex) => (
-                <section
-                  key={group.id}
-                  className={groupIndex ? "mt-12 md:mt-16" : ""}
-                  aria-labelledby={`pt-group-${group.id}`}
-                >
-                  <div className="flex items-end justify-between gap-6 border-b border-[#111]/10 pb-3">
-                    <div>
-                      <h2 id={`pt-group-${group.id}`} className="ol-label">
-                        {translate(group.label)}
-                      </h2>
-                      <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] text-[#111]/45">
-                        {translate(group.note)}
-                      </p>
-                    </div>
-                    <span className="font-mono text-[11px] text-[#111]/40">({pad(group.items.length)})</span>
-                  </div>
-
-                  <ul className="glance-grid glance-logos">
-                    {group.items.map((item, index) => (
-                      <li
-                        key={item.name}
-                        className="glance-cell glance-logo"
-                        style={
-                          {
-                            "--i": index,
-                            "--r": Math.floor(index / 2),
-                            "--c": index % 2,
-                          } as CSSProperties
-                        }
-                      >
-                        <span className="glance-logo-mask">
-                          <span className="glance-logo-inner">
-                            {item.logo ? (
-                              <img src={item.logo} alt={`${item.name} logo`} loading="lazy" decoding="async" />
-                            ) : (
-                              <span className="glance-wordmark">{item.name}</span>
-                            )}
-                          </span>
+              <div className="glance is-in">
+                <ul className="glance-grid glance-logos">
+                  {group.items.map((item, index) => (
+                    <li
+                      key={item.name}
+                      className="glance-cell glance-logo"
+                      style={
+                        {
+                          "--i": index,
+                          "--r": Math.floor(index / 2),
+                          "--c": index % 2,
+                        } as CSSProperties
+                      }
+                    >
+                      <span className="glance-logo-mask">
+                        <span className="glance-logo-inner">
+                          {item.logo ? (
+                            <img src={item.logo} alt={`${item.name} logo`} loading="lazy" decoding="async" />
+                          ) : (
+                            <span className="glance-wordmark">{item.name}</span>
+                          )}
                         </span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ))}
-            </div>
-          </div>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ))}
 
           <div className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-[#111]/10 pt-8">
             <p className="max-w-[52ch] text-[15px] leading-relaxed text-[#111]/55">{translate(partners.registerNote)}</p>

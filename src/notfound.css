@@ -1,0 +1,81 @@
+/* 404 / missing file. The maintenance page's layout (lockup, spinning gear mark, centred title) with the site's
+   escape routes underneath. Scoped to .nf so nothing leaks into the public pages. */
+
+.nf {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 5vw, 3rem);
+  background: #fff;
+  color: #111;
+}
+
+.nf-header { display: flex; flex: none; justify-content: center; }
+.nf-logo { display: block; width: clamp(112px, 13vw, 138px); height: auto; }
+
+.nf-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3rem, 8vh, 6rem) 0 clamp(3.5rem, 10vh, 7rem);
+  text-align: center;
+}
+
+.nf-mark { width: clamp(160px, 21vw, 240px); height: auto; margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem); }
+.nf-mark svg { display: block; width: 100%; height: auto; overflow: visible; }
+.nf-gear { fill: none; stroke-width: 1.4; stroke-linejoin: round; }
+.nf-gear--big { stroke: #f80100; }
+.nf-gear--small { stroke: rgb(17 17 17 / .32); }
+.nf-spin { transform-origin: 12px 12px; animation: nf-spin 26s linear infinite; }
+.nf-spin--small { animation-duration: 14s; animation-direction: reverse; }
+@keyframes nf-spin { to { transform: rotate(360deg); } }
+
+.nf-kicker {
+  margin: 0;
+  color: var(--brand-ink);
+  font-family: var(--font-ui-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.nf-title {
+  margin: .9rem 0 0;
+  font-size: clamp(2rem, 6.4vw, 54px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.nf-copy {
+  margin: clamp(1rem, 2vw, 1.35rem) 0 0;
+  max-width: 34rem;
+  font-size: clamp(1.02rem, 1.6vw, 1.28rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgb(17 17 17 / .6);
+}
+.nf-copy a { color: var(--ink); border-bottom: 1px solid rgb(17 17 17 / .3); transition: border-color .3s ease; }
+.nf-copy a:hover { border-color: var(--ink); }
+
+.nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .75rem;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+@media (max-width: 560px) {
+  .nf-main { padding-block: 2.5rem 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-spin { animation: none; }
+}

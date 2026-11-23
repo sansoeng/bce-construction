@@ -51,6 +51,10 @@ const KM: Record<string, string> = {
 
   // Navigation, header, menu, brand
   "Home": "ទំព័រដើម",
+  "Error 404": "កំហុស 404",
+  "This page isn’t here.": "ទំព័រនេះមិនមានទេ។",
+  "The address may be old or mistyped. Start from the home page, or call":
+    "អាសយដ្ឋានអាចចាស់ ឬវាយខុស។ សូមចាប់ផ្តើមពីទំព័រដើម ឬទូរសព្ទទៅ",
   "About": "អំពីយើង",
   "About BCE": "អំពី BCE",
   "Businesses": "អាជីវកម្ម",
